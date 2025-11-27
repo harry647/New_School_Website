@@ -1,0 +1,171 @@
+{
+  "overviewCards": [
+    {
+      "icon": "fas fa-trophy",
+      "title": "Achievements & Excellence",
+      "description": "Over the years, our students have proudly represented the school at zonal and county levels.",
+      "list": ["Music Festivals", "Drama", "Athletics", "STEM Competitions"]
+    },
+    {
+      "icon": "fas fa-users",
+      "title": "Vibrant Clubs & Societies",
+      "description": "Students participate actively in a diverse range of clubs designed to nurture talent, creativity, leadership, and personal growth.",
+      "list": ["Drama Club", "Music Team", "Scouting Movement", "Debate & Public Speaking", "Science & Engineering Club", "Christian Union"]
+    },
+    {
+      "icon": "fas fa-chart-line",
+      "title": "Growth & Competitiveness",
+      "description": "The school is steadily expanding its participation in inter-school tournaments and regional competitions.",
+      "list": ["Football", "Handball", "Netball", "Volleyball", "Basketball", "Hockey", "Rugby", "Indoor Games"]
+    }
+  ],
+  "orgCards": [
+    {
+      "icon": "fas fa-user-tie",
+      "title": "Leadership & Support Structure",
+      "description": "The Co-Curricular Department is led by a committed Head of Department (H.O.D) working closely with trainers, coaches, patrons, and student leaders to ensure accountability and effective organization."
+    },
+    {
+      "icon": "fas fa-heart",
+      "title": "Our Co-Curricular Philosophy",
+      "description": "We believe that every student deserves an opportunity to discover and develop their talents. Our programs are rooted in values of integrity, discipline, respect, professionalism, and spiritual formation, guided by the ethos of the African Inland Church (AIC)."
+    }
+  ],
+  "clubs": [
+    {
+      "name": "Scouts & Guides Movement",
+      "description": "Leadership • Survival Skills • Community Service",
+      "highlight": "Registered with Kenya Scouts Association",
+      "badge": "Active Since 1987",
+      "icon": "fas fa-campground",
+      "color": "#006400",
+      "link": "../clubs/scouts.html"
+    },
+    {
+      "name": "Christian Union (CU)",
+      "description": "Spiritual Growth • Fellowship • Evangelism",
+      "highlight": "Inter-School Bible Study & Keshas",
+      "badge": "Over 500 Members",
+      "icon": "fas fa-praying-hands",
+      "color": "#1e3a8a",
+      "link": "../clubs/christian-union.html"
+    },
+    {
+      "name": "Wildlife & Environment Club",
+      "description": "Conservation • Tree Planting • Anti-Poaching Advocacy",
+      "highlight": "National Award Winner 2024",
+      "badge": "Award-Winning",
+      "icon": "fas fa-paw",
+      "color": "#27ae60",
+      "link": "../clubs/wildlife.html"
+    },
+    {
+      "name": "Journalism & Media Club",
+      "description": "School Magazine • Radio • Photography",
+      "highlight": "Publish 'The Eagle Eye' Quarterly",
+      "badge": "Student-Led",
+      "icon": "fas fa-newspaper",
+      "color": "#8b5cf6",
+      "link": "../clubs/journalism.html"
+    },
+    {
+      "name": "Robotics & AI Club",
+      "description": "Innovation • Coding • STEM Projects",
+      "highlight": "Inter-School Robotics Competitions",
+      "badge": "Tech Enthusiasts",
+      "icon": "fas fa-robot",
+      "color": "#f59e0b",
+      "link": "../clubs/robotics.html"
+    },
+    {
+      "name": "Drama & Theatre Club",
+      "description": "Performing Arts • Stagecraft • Public Speaking",
+      "highlight": "Annual Drama Night & Theatre Festivals",
+      "badge": "Creative Minds",
+      "icon": "fas fa-theater-masks",
+      "color": "#e11d48",
+      "link": "../clubs/drama.html"
+    },
+    {
+      "name": "Music & Dance Club",
+      "description": "Instrumental & Vocal Training • Dance • Cultural Performances",
+      "highlight": "School Concerts & Cultural Shows",
+      "badge": "Talented Artists",
+      "icon": "fas fa-music",
+      "color": "#10b981",
+      "link": "../clubs/music.html"
+    },
+    {
+      "name": "Art & Craft Club",
+      "description": "Painting • Sculpting • Creative Design",
+      "highlight": "School Exhibitions & Competitions",
+      "badge": "Creative Expression",
+      "icon": "fas fa-palette",
+      "color": "#f97316",
+      "link": "../clubs/art.html"
+    },
+    {
+      "name": "Debate & MUN Club",
+      "description": "Critical Thinking • Public Speaking • Leadership",
+      "highlight": "Model United Nations Participation",
+      "badge": "Future Leaders",
+      "icon": "fas fa-microphone",
+      "color": "#3b82f6",
+      "link": "../clubs/debate.html"
+    },
+    {
+      "name": "Eco & Nature Club",
+      "description": "Sustainability • Environmental Awareness • Tree Planting",
+      "highlight": "Community Eco Projects",
+      "badge": "Green Warriors",
+      "icon": "fas fa-seedling",
+      "color": "#16a34a",
+      "link": "../clubs/eco.html"
+    },
+    {
+      "name": "Literary Society",
+      "description": "Book Discussions • Creative Writing • Poetry",
+      "highlight": "Publishing Student Work",
+      "badge": "Wordsmiths",
+      "icon": "fas fa-book-open",
+      "color": "#8b5cf6",
+      "link": "../clubs/literary.html"
+    },
+    {
+      "name": "Culinary Club",
+      "description": "Cooking • Baking • Nutrition",
+      "highlight": "Inter-House Culinary Competitions",
+      "badge": "Food Enthusiasts",
+      "icon": "fas fa-utensils",
+      "color": "#f59e0b",
+      "link": "../clubs/culinary.html"
+    },
+    {
+      "name": "Science Club",
+      "description": "Experiments • STEM Projects • Scientific Research",
+      "highlight": "Participates in National Science Fairs",
+      "badge": "Innovators",
+      "icon": "fas fa-flask",
+      "color": "#0ea5e9",
+      "link": "../clubs/science.html"
+    },
+    {
+      "name": "Mathematics Club",
+      "description": "Problem Solving • Olympiads • Logical Thinking",
+      "highlight": "Inter-School Math Competitions",
+      "badge": "Number Wizards",
+      "icon": "fas fa-square-root-alt",
+      "color": "#f59e0b",
+      "link": "../clubs/mathematics.html"
+    },
+    {
+      "name": "Humanities Club",
+      "description": "History • Culture • Social Sciences",
+      "highlight": "Organizes Heritage & Culture Events",
+      "badge": "Critical Thinkers",
+      "icon": "fas fa-landmark",
+      "color": "#e11d48",
+      "link": "../clubs/humanities.html"
+    }
+  ]
+}

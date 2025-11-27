@@ -1,0 +1,1410 @@
+/* ==============================
+   NEWS & EVENTS PAGE – Stunning & Professional CSS (2026+)
+   Fully dynamic, cinematic, and future-proof
+============================== */
+
+/* ==================================
+   1. Page Hero – Cinematic Masterpiece
+================================== */
+.news-hero {
+    position: relative;
+    min-height: 90vh;
+    background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.9)),
+                url('/assets/images/hero-bg.jpg') center/cover no-repeat fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+    animation: heroFadeIn 1.5s ease forwards;
+}
+
+.news-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    background-attachment: fixed;
+    z-index: -1;
+    filter: brightness(0.7) contrast(1.1) saturate(1.2);
+    transition: filter 0.6s ease;
+}
+
+.news-hero:hover::before {
+    filter: brightness(0.85) contrast(1.15) saturate(1.3) blur(1px);
+}
+
+.news-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    font-weight: 800;
+    margin-bottom: 1.8rem;
+    text-shadow: 0 15px 35px rgba(0,0,0,0.85);
+    letter-spacing: -1px;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: textPopUp 1s ease forwards 0.3s;
+}
+
+.news-hero p {
+    font-size: clamp(1.2rem, 3vw, 1.75rem);
+    max-width: 950px;
+    margin: 1.8rem auto;
+    line-height: 1.9;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: textPopUp 1s ease forwards 0.6s;
+}
+
+.news-hero .btn {
+    display: inline-block;
+    margin-top: 3rem;
+    padding: 1.4rem 4rem;
+    font-size: 1.35rem;
+    border-radius: 60px;
+    background: #fff;
+    color: #1e3a8a;
+    font-weight: 700;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 25px rgba(30,58,138,0.2);
+    transform: translateY(0);
+}
+
+.news-hero .btn:hover {
+    background: #1e3a8a;
+    color: #fff;
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 25px 55px rgba(30,58,138,0.5);
+}
+
+/* ==================================
+   1a. Hero Animations
+================================== */
+@keyframes heroFadeIn {
+    0% { opacity: 0; transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes textPopUp {
+    0% { opacity: 0; transform: translateY(40px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Optional: smooth scroll for "Explore News" button */
+.news-hero .btn:focus {
+    outline: 2px solid #00d4ff;
+    outline-offset: 4px;
+}
+
+
+/* ==================================
+   2. Search Bar – Elegant & Interactive (Glassmorphism)
+================================== */
+.search-bar {
+    max-width: 700px;
+    margin: 4rem auto 2rem;
+    position: relative;
+    z-index: 10;
+    backdrop-filter: blur(12px);
+    border-radius: 80px;
+}
+.search-bar input {
+    width: 100%;
+    padding: 1.4rem 5rem 1.4rem 2rem;
+    border: none;
+    border-radius: 80px;
+    font-size: 1.25rem;
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    transition: all 0.5s ease;
+}
+.search-bar input:focus {
+    outline: none;
+    background: #fff;
+    box-shadow: 0 25px 70px rgba(30, 58, 138, 0.25);
+    transform: translateY(-5px);
+}
+#searchBtn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 65px;
+    height: 65px;
+    background: #1e3a8a;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.6rem;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 12px 28px rgba(30, 58, 138, 0.4);
+}
+#searchBtn:hover {
+    background: #163074;
+    transform: translateY(-50%) scale(1.12);
+}
+
+/* ==================================
+   3. Filter Pills – Shimmer & Depth
+================================== */
+.news-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 3rem 0;
+    padding: 0 1rem;
+}
+.filter-btn {
+    padding: 15px 40px;
+    border: 2px solid #1e3a8a;
+    background: rgba(255,255,255,0.05);
+    color: #1e3a8a;
+    border-radius: 60px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+.filter-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transition: left 0.6s;
+}
+.filter-btn:hover::before {
+    left: 100%;
+}
+.filter-btn.active,
+.filter-btn:hover {
+    background: #1e3a8a;
+    color: #fff;
+    transform: translateY(-5px);
+    box-shadow: 0 25px 60px rgba(30, 58, 138, 0.35);
+}
+
+/* ============================================= */
+/* MAIN NEWS & EVENTS SECTION                    */
+/* ============================================= */
+
+#latest-news {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+#latest-news .container {
+    max-width: 1200px;
+}
+
+/* Search Bar */
+.search-bar {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 14px 50px 14px 20px;
+    font-size: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 50px;
+    outline: none;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.search-bar input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+}
+
+.search-bar button {
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: #007bff;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-bar button:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Filter Buttons */
+.news-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 30px;
+    font-weight: 600;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.filter-btn:hover {
+    background: #f0f0f0;
+    border-color: #007bff;
+    color: #007bff;
+}
+
+.filter-btn.active {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+/* News Grid */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 28px;
+    margin-top: 20px;
+}
+
+.news-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: all 0.4s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+}
+
+.news-thumb {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+}
+
+.news-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.news-card:hover .news-thumb img {
+    transform: scale(1.1);
+}
+
+.news-tag {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    backdrop-filter: blur(4px);
+}
+
+.news-body {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-date {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.news-card h3 {
+    font-size: 1.25rem;
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+    color: #222;
+    flex-grow: 1;
+}
+
+.news-card p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    flex-grow: 1;
+}
+
+.read-more {
+    color: #007bff;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: auto;
+}
+
+.read-more:hover {
+    color: #0056b3;
+}
+
+.read-more::after {
+    content: "→";
+    font-weight: bold;
+}
+
+/* Share Buttons */
+.share-buttons {
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.news-card:hover .share-buttons {
+    opacity: 1;
+}
+
+.share-buttons a {
+    width: 36px;
+    height: 36px;
+    background: #f0f0f0;
+    color: #555;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.share-buttons a:hover {
+    background: #007bff;
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Loader */
+.loader {
+    padding: 60px 20px;
+    color: #666;
+}
+
+.loader i {
+    color: #007bff;
+    margin-bottom: 16px;
+}
+
+/* No Results */
+#noResults {
+    grid-column: 1 / -1;
+    padding: 60px 20px;
+}
+
+#noResults i {
+    color: #ccc;
+}
+
+/* Load More Button */
+#loadMoreBtn {
+    padding: 12px 32px;
+    font-size: 1rem;
+    border-radius: 50px;
+    margin-top: 20px;
+}
+
+
+
+/* ==================================
+   QUICK STATS / HIGHLIGHTS — MODERN
+================================== */
+
+.stats-banner {
+    background: linear-gradient(135deg, #eef2ff, #f8faff);
+    padding: 70px 0;
+    border-top: 1px solid #dfe3f7;
+    border-bottom: 1px solid #dfe3f7;
+}
+
+.stats-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.stats-grid div {
+    background: #fff;
+    padding: 2.2rem 2.8rem;
+    border-radius: 22px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+    border: 1px solid rgba(30, 58, 138, 0.15);
+    transition: all 0.35s ease;
+    min-width: 220px;
+}
+
+.stats-grid div:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 28px 70px rgba(30,58,138,0.20);
+    border-color: rgba(30,58,138,0.35);
+}
+
+/* The numbers */
+.stats-grid strong {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #1e3a8a;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* The labels */
+.stats-grid p {
+    font-size: 1.15rem;
+    color: #4b5563;
+    margin: 0;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stats-grid {
+        gap: 2rem;
+    }
+    .stats-grid div {
+        padding: 1.8rem 2rem;
+        min-width: 180px;
+    }
+    .stats-grid strong {
+        font-size: 2.3rem;
+    }
+    .stats-grid p {
+        font-size: 1rem;
+    }
+}
+
+
+
+/* ==================================
+   SECTION BASE STYLING – Modern Layout
+================================== */
+.section {
+    padding: 5rem 0;
+    position: relative;
+}
+.section.bg-light {
+    background: #f9f9f9;
+}
+.section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+.section-title h2 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+.section-title h2::after {
+    content: '';
+    width: 60px;
+    height: 4px;
+    background: #00d4ff;
+    display: block;
+    margin: 0.5rem auto 0;
+    border-radius: 2px;
+}
+.section-title p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 650px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+/* ============================
+   Upcoming Events Calendar
+============================= */
+
+/* Container (centers and limits width) */
+#eventsCalendar {
+    max-width: 900px;
+    margin: 0 auto;                 /* Center on page */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+/* Auto-generated event item (card style) */
+#eventsCalendar .event-item,
+#eventsCalendar div {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    /* Ensure only real event objects get styled */
+    border-left: 5px solid #3498db;
+}
+
+/* Hover animation */
+#eventsCalendar .event-item:hover,
+#eventsCalendar div:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* Title styling */
+#eventsCalendar h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+/* Details */
+#eventsCalendar p {
+    margin: 5px 0;
+    color: #555;
+}
+
+/* Event Type Badge */
+#eventsCalendar .event-type {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+/* Event Type Colors */
+#eventsCalendar .Academic { background: #007bff; }
+#eventsCalendar .Cultural { background: #d63384; }
+#eventsCalendar .Holiday  { background: #28a745; }
+
+
+/* ==================================
+   FEATURED NEWS CAROUSEL — MODERN UI
+================================== */
+
+.featured-news-carousel {
+    position: relative;
+    padding: 3rem 0;
+    max-width: 1100px;
+    margin: 0 auto; /* Centers the carousel container */
+}
+
+/* Swiper Slide Card */
+.swiper-slide {
+    background: #ffffff;
+    border-radius: 22px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.10);
+    overflow: hidden;
+    transition: transform 0.45s ease, box-shadow 0.45s ease;
+    text-align: center;
+}
+
+/* Hover animation */
+.swiper-slide:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 28px 75px rgba(30, 58, 138, 0.20);
+}
+
+/* Featured Image */
+.swiper-slide img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.swiper-slide:hover img {
+    transform: scale(1.12);
+}
+
+/* Content inside JSON-generated slide */
+.swiper-slide .news-content {
+    padding: 1.5rem;
+}
+
+.swiper-slide .news-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+.swiper-slide .news-meta {
+    color: #777;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+
+.swiper-slide .news-desc {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-top: 5px;
+}
+
+/* Navigation Buttons */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #1e3a8a;
+    background: rgba(30,58,138,0.08);
+    padding: 0.9rem;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    transition: all 0.3s ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background: #1e3a8a;
+    color: #fff;
+}
+
+/* Pagination Dots */
+.swiper-pagination-bullet {
+    background: #c7d2fe; /* Light indigo */
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background: #1e3a8a; /* Deep indigo */
+}
+
+/* Responsive — smaller screens */
+@media (max-width: 768px) {
+    .swiper-slide {
+        border-radius: 18px;
+    }
+    .swiper-slide img {
+        height: 200px;
+    }
+    .featured-news-carousel {
+        padding: 2rem 0;
+    }
+}
+
+
+/* ==================================
+   ANNOUNCEMENTS BANNER – Scrolling Highlight
+================================== */
+.announcement-banner {
+    background: linear-gradient(90deg, #1e3a8a, #00d4ff);
+    color: #fff;
+    padding: 1rem 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+    overflow: hidden;
+    border-radius: 12px;
+}
+.announcement-banner marquee {
+    display: block;
+    white-space: nowrap;
+}
+
+/* ==================================
+   PHOTO HIGHLIGHTS GRID
+================================== */
+.photo-highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+.photo-highlights-grid img {
+    width: 100%;
+    border-radius: 20px;
+    object-fit: cover;
+    transition: transform 0.6s ease, box-shadow 0.5s ease;
+}
+.photo-highlights-grid img:hover {
+    transform: scale(1.12) rotate(0.5deg);
+    box-shadow: 0 20px 60px rgba(30,58,138,0.2);
+}
+
+/* ==================================
+   SPOTLIGHT CARDS – Student / Teacher
+================================== */
+.spotlight-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2.5rem;
+}
+.spotlight-card {
+    background: #fff;
+    border-radius: 28px;
+    box-shadow: 0 18px 60px rgba(0,0,0,0.1);
+    text-align: center;
+    padding: 2rem 1rem;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+.spotlight-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 35px 90px rgba(30,58,138,0.22);
+}
+.spotlight-card img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+    transition: transform 0.4s ease;
+}
+.spotlight-card:hover img {
+    transform: scale(1.1);
+}
+
+/* ===================================================== */
+/* STUDENT BLOGS SECTION – BEAUTIFUL & MODERN DESIGN     */
+/* ===================================================== */
+
+#studentBlogs {
+    padding: 90px 0;
+    background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+}
+
+#studentBlogs .section-title h2 {
+    font-size: 2.8rem;
+    color: #2c3e50;
+    margin-bottom: 12px;
+}
+
+#studentBlogs .section-title p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Blog Info + Submit Button */
+.blog-info {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    margin-bottom: 50px;
+    border: 1px solid #e9ecef;
+}
+
+.blog-info p {
+    font-size: 1.1rem;
+    color: #444;
+    margin-bottom: 20px;
+}
+
+.blog-info .btn-primary {
+    padding: 14px 32px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    transition: all 0.4s ease;
+}
+
+.blog-info .btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(102, 126, 234, 0.5);
+}
+
+/* Blog Search & Filter Controls */
+.blog-controls {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.blog-controls::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 5px;
+    background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1, #5f27cd);
+    border-radius: 18px 18px 0 0;
+}
+
+#blogSearch {
+    width: 100%;
+    padding: 14px 20px;
+    border: 2px solid #e0e0e0;
+    border-radius: 50px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+    background: #f8f9fa;
+}
+
+#blogSearch:focus {
+    border-color: #667eea;
+    background: white;
+    box-shadow: 0 0 0 5px rgba(102, 126, 234, 0.15);
+}
+
+.filter-btns {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.blog-controls .filter-btn {
+    padding: 10px 22px;
+    background: #f1f3f5;
+    border: 2px solid transparent;
+    border-radius: 30px;
+    font-weight: 600;
+    color: #555;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.blog-controls .filter-btn:hover {
+    background: #e0e7ff;
+    border-color: #667eea;
+    color: #5f27cd;
+}
+
+.blog-controls .filter-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Blog Grid */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.blog-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.4s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.18);
+}
+
+.blog-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.blog-card:hover img {
+    transform: scale(1.08);
+}
+
+.blog-body {
+    padding: 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-card h4 {
+    font-size: 1.35rem;
+    color: #2c3e50;
+    margin: 0 0 12px 0;
+    line-height: 1.4;
+}
+
+.blog-card p {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 16px;
+    flex-grow: 1;
+}
+
+.blog-meta {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.blog-meta span:first-child {
+    font-weight: 600;
+    color: #5f27cd;
+}
+
+.read-more {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+    transition: 0.3s;
+}
+
+.read-more:hover {
+    color: #5f27cd;
+    gap: 12px;
+}
+
+/* No Results */
+#noBlogResults {
+    grid-column: 1 / -1;
+    padding: 80px 20px;
+    color: #999;
+}
+
+#noBlogResults i {
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+/* Load More */
+#loadMoreBlogs {
+    padding: 14px 36px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff6b6b, #feca57);
+    border: none;
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+}
+
+#loadMoreBlogs:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(255, 107, 107, 0.5);
+}
+
+/* Blog Stats */
+.blog-stats {
+    margin-top: 70px;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 24px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+}
+
+.blog-stats .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 30px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.blog-stats strong {
+    display: block;
+    font-size: 3.2rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: white;
+}
+
+.blog-stats p {
+    margin: 0;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.blog-stats div {
+    padding: 20px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+}
+
+
+
+/* ===================================================== */
+/* BLOG SUBMISSION FORM – CLEAN & PROFESSIONAL           */
+/* ===================================================== */
+
+#submitBlog {
+    padding: 100px 0;
+    background: #f8f9fa;
+}
+
+#submitBlog .section-title h2 {
+    font-size: 2.8rem;
+    color: #2c3e50;
+}
+
+#submitBlog .section-title p {
+    font-size: 1.2rem;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto 40px;
+}
+
+.form-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 50px;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    border: 1px solid #e9ecef;
+}
+
+.form-instructions {
+    background: #f0f7ff;
+    padding: 20px;
+    border-radius: 16px;
+    border-left: 5px solid #667eea;
+    margin-bottom: 30px;
+    font-size: 1rem;
+    color: #444;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 14px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: 0.3s;
+    background: #fafafa;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 160px;
+    font-family: inherit;
+}
+
+.form-group small {
+    margin-top: 8px;
+    font-size: 0.9rem;
+}
+
+.note {
+    background: #f0f7ff;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px dashed #667eea;
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+/* Submit Button */
+.blog-form button[type="submit"] {
+    padding: 16px 40px;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #1dd1a1, #10ac84);
+    border: none;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 10px 25px rgba(29, 209, 161, 0.4);
+    transition: all 0.4s ease;
+}
+
+.blog-form button[type="submit"]:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(29, 209, 161, 0.5);
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+    #studentBlogs, #submitBlog {
+        padding: 70px 0;
+    }
+    
+    .form-wrapper {
+        padding: 30px 20px;
+    }
+    
+    .blog-stats .stats-grid,
+    .blog-grid,
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .blog-info .btn-primary,
+    .blog-form button[type="submit"] {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ==================================
+   MEDIA GRID
+================================== */
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 2rem;
+}
+.media-grid img {
+    width: 100%;
+    border-radius: 20px;
+    transition: transform 0.5s ease, box-shadow 0.4s ease;
+}
+.media-grid img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 15px 45px rgba(30,58,138,0.2);
+}
+
+/* ============================================= */
+/* DOWNLOADS & RESOURCES GRID – 2025 UPGRADE     */
+/* ============================================= */
+
+.downloads-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 2rem;
+    padding: 20px 0;
+}
+
+.download-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1.5rem;
+    background: linear-gradient(135deg, #ffffff 0%, #f8faff 100%);
+    border-radius: 24px;
+    text-decoration: none;
+    color: #1e3a8a;
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-align: center;
+    overflow: hidden;
+    box-shadow: 
+        0 10px 30px rgba(30, 58, 138, 0.08),
+        0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 1px solid #e0e7ff;
+    min-height: 160px;
+}
+
+/* Shiny Top Border Accent */
+.download-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, 
+        #667eea 0%, 
+        #764ba2 25%, 
+        #f093fb 50%, 
+        #f5576c 75%, 
+        #4facfe 100%
+    );
+    border-radius: 24px 24px 0 0;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+/* Icon Styling */
+.download-card i {
+    font-size: 3.2rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: all 0.4s ease;
+}
+
+/* Title */
+.download-card p {
+    margin: 0;
+    color: #2d3748;
+    font-weight: 600;
+    transition: color 0.4s ease;
+}
+
+/* Hover Effects – Absolutely Stunning */
+.download-card:hover {
+    transform: translateY(-14px) scale(1.03);
+    box-shadow: 
+        0 30px 60px rgba(30, 58, 138, 0.18),
+        0 15px 35px rgba(102, 126, 234, 0.15);
+    border-color: #c3dafe;
+}
+
+.download-card:hover::before {
+    opacity: 1;
+}
+
+.download-card:hover i {
+    transform: scale(1.15) rotate(8deg);
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.download-card:hover p {
+    color: #5f27cd;
+}
+
+/* Active / Click Feedback */
+.download-card:active {
+    transform: translateY(-10px) scale(1.01);
+}
+
+/* Special Hover for PDF Icon (optional fun) */
+.download-card:hover i.fas.fa-file-pdf {
+    color: #e74c3c;
+    background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+
+/* ==================================
+   RESPONSIVE SECTIONS
+================================== */
+@media (max-width: 992px) {
+    .section-title h2 { font-size: 2.4rem; }
+}
+@media (max-width: 768px) {
+    .photo-highlights-grid, .spotlight-cards, .media-grid, .downloads-grid, .blog-grid {
+        grid-template-columns: 1fr;
+    }
+    .stats-banner .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+@media (max-width: 576px) {
+    .section-title h2 { font-size: 2rem; }
+    .section-title p { font-size: 1rem; }
+    .blog-controls input { font-size: 0.95rem; padding: 1rem 1.5rem; }
+}
+
+/* ---------- Responsive Enhancements ---------- */
+@media (max-width: 768px) {
+    .blog-grid, .blog-form .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .filter-btns .filter-btn {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .downloads-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 1.6rem;
+    }
+    
+    .download-card {
+        padding: 2rem 1rem;
+        min-height: 140px;
+    }
+    
+    .download-card i {
+        font-size: 2.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .downloads-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.4rem;
+    }
+    
+    .download-card p {
+        font-size: 0.95rem;
+    }
+}
+

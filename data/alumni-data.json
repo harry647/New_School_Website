@@ -1,0 +1,55 @@
+{
+  "stats": {
+    "alumni": "25,000",
+    "years": "70",
+    "countries": "50"
+  },
+  "welcome": {
+    "text1": "You are the living legacy of Your School/College. Your achievements inspire our current students and your continued connection strengthens our community.",
+    "text2": "Whether you graduated last year or decades ago, this is your space to reconnect, share memories, mentor the next generation, and celebrate the journey that began here.",
+    "image": "assets/images/alumni/reunion.jpg"
+  },
+  "notable": [
+    {
+      "name": "Dr. Priya Sharma",
+      "batch": "2005",
+      "photo": "assets/images/alumni/alum1.jpg",
+      "achievement": "Cardiologist • Apollo Hospitals<br>Gold Medalist, AIIMS Delhi"
+    },
+    {
+      "name": "Arjun Mehta",
+      "batch": "2010",
+      "photo": "assets/images/alumni/alum2.jpg",
+      "achievement": "CEO & Founder • TechVision Pvt Ltd<br>Forbes 30 Under 30"
+    },
+    {
+      "name": "Capt. Neha Singh",
+      "batch": "2008",
+      "photo": "assets/images/alumni/alum3.jpg",
+      "achievement": "Indian Army Officer • Kirti Chakra Awardee"
+    },
+    {
+      "name": "Rohan Kapoor",
+      "batch": "2015",
+      "photo": "assets/images/alumni/alum4.jpg",
+      "achievement": "Bollywood Actor • National Film Award Winner"
+    }
+  ],
+  "events": [
+    {
+      "date": "15 Feb 2026",
+      "title": "Silver Jubilee Reunion – Batch of 2001",
+      "description": "Grand celebration with cultural night & awards"
+    },
+    {
+      "date": "12 Apr 2026",
+      "title": "Alumni Mentorship Meet",
+      "description": "Current students interact with successful alumni"
+    },
+    {
+      "date": "18 Dec 2026",
+      "title": "Annual Alumni Dinner",
+      "description": "Formal gathering at school campus"
+    }
+  ]
+}

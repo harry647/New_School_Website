@@ -1,0 +1,76 @@
+{
+  "faq": [
+    {
+      "question": "How can I schedule a school visit?",
+      "answer": "<p>You can schedule a visit by filling out the <a href=\"#contactForm\">contact form</a> or calling our admissions office directly. Visits are guided and provide insight into classrooms, labs, and co-curricular facilities.</p>"
+    },
+    {
+      "question": "What are the admission deadlines?",
+      "answer": "<p>Deadlines vary by grade. For Academic Year 2026–2027, registration opens November 1, 2025, and closes March 31, 2026. Entrance tests for higher grades are in early April. Please check the <a href=\"../admissions.html#fees\">Admissions page</a> for detailed timelines.</p>"
+    },
+    {
+      "question": "What documents are required for admission?",
+      "answer": "<ul><li>Birth Certificate / Age Proof</li><li>Previous School Report Card / Transcript</li><li>Passport-size Photo(s)</li><li>Identity documents of parent/guardian</li><li>Application form (online or printed)</li></ul>"
+    },
+    {
+      "question": "Can I submit documents online?",
+      "answer": "<p>Yes. Our <a href=\"../admissions.html#apply\">online application form</a> allows uploading scanned copies of required documents in PDF, DOC, JPG, or PNG formats.</p>"
+    },
+    {
+      "question": "Is there a dress code for students?",
+      "answer": "<p>Yes. Students are expected to wear the prescribed uniform. Specific guidelines for formal, PE, and sports uniforms are provided upon admission.</p>"
+    },
+    {
+      "question": "Are there scholarships or fee concessions?",
+      "answer": "<p>Yes. Scholarships are offered for academic excellence, sports, and co-curricular achievements. Sibling discounts and need-based concessions are also available. Details can be obtained from the admissions office.</p>"
+    },
+    {
+      "question": "How long does it take to get a reply after submitting the application?",
+      "answer": "<p>Applications are reviewed promptly. We typically respond within 24–48 hours during working days with further instructions or interview schedules.</p>"
+    },
+    {
+      "question": "What curriculum does the school follow?",
+      "answer": "<p>Bar Union Mixed Secondary School follows the national curriculum under the CBSE/State Board guidelines (adjust depending on school), emphasizing holistic development and examination readiness for national and international standards.</p>"
+    },
+    {
+      "question": "Are extra coaching or competitive exam preparations offered?",
+      "answer": "<p>Yes. Our Career Guidance Cell provides preparation for competitive exams such as JEE, NEET, CLAT, CUET, and SAT, along with psychometric assessments and career counseling.</p>"
+    },
+    {
+      "question": "What co-curricular and extracurricular activities are available?",
+      "answer": "<p>Students can participate in Robotics & AI, Drama & Theatre, Music & Dance, Art & Craft, sports teams, and club activities. We encourage participation for holistic development.</p>"
+    },
+    {
+      "question": "How does the school handle student counseling and career guidance?",
+      "answer": "<p>Our dedicated Career Guidance & Counseling Cell helps students make informed decisions regarding streams, college applications, scholarships, internships, and career pathways. Sessions are personalized and free for students.</p>"
+    },
+    {
+      "question": "Is transportation provided?",
+      "answer": "<p>Yes. School buses cover key routes in the city. Safety protocols, GPS tracking, and trained staff are ensured. Registration is required each academic year.</p>"
+    },
+    {
+      "question": "What safety measures are in place?",
+      "answer": "<p>We prioritize student safety through security staff, CCTV surveillance, emergency drills, first aid facilities, and a well-defined discipline policy monitored by the BOM and staff.</p>"
+    },
+    {
+      "question": "Can alumni stay connected with the school?",
+      "answer": "<p>Yes. Alumni can register through our <a href=\"../alumni.html#register\">Alumni Network</a> form, participate in reunions, mentorship programs, and engage with current students.</p>"
+    },
+    {
+      "question": "Are parents involved in school decisions?",
+      "answer": "<p>Parents participate through the Parents’ Association (PA), which collaborates with the BOM and SMC on policy implementation, events, and school programs.</p>"
+    },
+    {
+      "question": "How can I contact the school directly?",
+      "answer": "<p>You can reach us via the <a href=\"#contactForm\">contact form</a>, email, phone, or visit during office hours. See our <a href=\"#contact\">Contact Info & Map</a> for full details.</p>"
+    },
+    {
+      "question": "What are the office hours?",
+      "answer": "<p>Monday – Friday: 8:00 AM – 4:00 PM<br>Saturday: 9:00 AM – 1:00 PM<br>Sunday & Public Holidays: Closed</p>"
+    },
+    {
+      "question": "Where can I find fee details and important academic dates?",
+      "answer": "<p>Fee structures and timelines are available in the <a href=\"../admissions.html#fees\">Fees & Key Dates</a> section and downloadable fee brochure.</p>"
+    }
+  ]
+}

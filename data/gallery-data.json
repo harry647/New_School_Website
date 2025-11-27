@@ -1,0 +1,74 @@
+[
+  {
+    "title": "Main Entrance",
+    "category": "campus",
+    "thumb": "assets/images/gallery/campus1-thumb.jpg",
+    "full": "assets/images/gallery/campus1.jpg"
+  },
+  {
+    "title": "Science Lab",
+    "category": "campus",
+    "thumb": "assets/images/gallery/campus2-thumb.jpg",
+    "full": "assets/images/gallery/campus2.jpg"
+  },
+  {
+    "title": "Library",
+    "category": "campus",
+    "thumb": "assets/images/gallery/campus3-thumb.jpg",
+    "full": "assets/images/gallery/campus3.jpg"
+  },
+  {
+    "title": "Annual Day 2025",
+    "category": "events",
+    "thumb": "assets/images/gallery/event1-thumb.jpg",
+    "full": "assets/images/gallery/event1.jpg"
+  },
+  {
+    "title": "Science Exhibition",
+    "category": "events",
+    "thumb": "assets/images/gallery/event2-thumb.jpg",
+    "full": "assets/images/gallery/event2.jpg"
+  },
+  {
+    "title": "Smart Classroom",
+    "category": "academics",
+    "thumb": "assets/images/gallery/classroom1-thumb.jpg",
+    "full": "assets/images/gallery/classroom1.jpg"
+  },
+  {
+    "title": "Group Project",
+    "category": "academics",
+    "thumb": "assets/images/gallery/classroom2-thumb.jpg",
+    "full": "assets/images/gallery/classroom2.jpg"
+  },
+  {
+    "title": "Football Match",
+    "category": "sports",
+    "thumb": "assets/images/gallery/sports1-thumb.jpg",
+    "full": "assets/images/gallery/sports1.jpg"
+  },
+  {
+    "title": "Athletics Day",
+    "category": "sports",
+    "thumb": "assets/images/gallery/sports2-thumb.jpg",
+    "full": "assets/images/gallery/sports2.jpg"
+  },
+  {
+    "title": "Diwali Celebration",
+    "category": "celebrations",
+    "thumb": "assets/images/gallery/festival1-thumb.jpg",
+    "full": "assets/images/gallery/festival1.jpg"
+  },
+  {
+    "title": "Children's Day",
+    "category": "celebrations",
+    "thumb": "assets/images/gallery/festival2-thumb.jpg",
+    "full": "assets/images/gallery/festival2.jpg"
+  },
+  {
+    "title": "Independence Day",
+    "category": "celebrations",
+    "thumb": "assets/images/gallery/festival3-thumb.jpg",
+    "full": "assets/images/gallery/festival3.jpg"
+  }
+]

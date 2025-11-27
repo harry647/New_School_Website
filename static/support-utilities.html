@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Support & Utilities | Bar Union Mixed Seconary School</title>
+    <meta name="description" content="Parent portal, fee payment, transport, uniforms, medical forms, policies, circulars and all essential services." />
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/support.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="page-support">
+
+    <!-- Header -->
+    <div w3-include-html="/includes/header.html"></div>
+
+    <!-- Page Hero -->
+    <section class="page-hero support-hero">
+        <div class="container">
+            <h1>Support & Utilities</h1>
+            <p>
+                Access all essential tools, student services, digital resources, and administrative support in one 
+                convenient hub. Designed to make your school experience smooth, efficient, and fully connected.
+            </p>
+            <p>
+                Whether you are a student, parent, staff member, or visitor, this section provides quick access to 
+                important utilities such as school forms, downloads, ICT assistance, e-learning platforms, 
+                communication updates, and campus support services.
+            </p>
+        </div>
+    </section>
+    
+    <!-- Quick Access Tiles -->
+    <section class="section">
+        <div class="container">
+            <div class="utilities-grid">
+
+                <!-- Uniform & Books -->
+                <a href="#" class="utility-card">
+                    <i class="fas fa-tshirt fa-3x"></i>
+                    <h4>Uniform & Books</h4>
+                    <p>
+                        Easily access information on approved school uniforms, order new sets,
+                        and purchase recommended textbooks, revision materials, and essential stationery.
+                    </p>
+                </a>
+
+                <!-- Forms & Circulars -->
+                <a href="#" class="utility-card">
+                    <i class="fas fa-file-download fa-3x"></i>
+                    <h4>Forms & Circulars</h4>
+                    <p>
+                        Download Transfer Certificate (TC) forms, bonafide certificates,
+                        examination application forms, student request letters,
+                        and all official circulars issued by the school administration.
+                    </p>
+                </a>
+
+                <!-- School Policies -->
+                <a href="#" class="utility-card">
+                    <i class="fas fa-shield-alt fa-3x"></i>
+                    <h4>School Policies</h4>
+                    <p>
+                        Explore important guidelines including the school code of conduct, 
+                        attendance rules, discipline procedures, anti-bullying policy,
+                        child protection measures, and campus safety regulations.
+                    </p>
+                </a>
+
+                <!-- Academic Calendar -->
+                <a href="#" class="utility-card">
+                    <i class="fas fa-calendar-alt fa-3x"></i>
+                    <h4>Academic Calendar 2025–26</h4>
+                    <p>
+                        Stay up to date with the official school calendar, including opening days,
+                        term schedules, examination timelines, holidays, and major academic events.
+                    </p>
+                </a>
+
+                <!-- Helpdesk & Support -->
+                <a href="#" class="utility-card">
+                    <i class="fas fa-headset fa-3x"></i>
+                    <h4>Helpdesk & Support</h4>
+                    <p>
+                        Access our dedicated support channels for technical issues,
+                        student portal login help, fee-related inquiries,
+                        and administrative assistance — available round the clock.
+                    </p>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Donations Section -->
+    <section class="section bg-donate">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Support Our School</h2>
+                <p>
+                    Your generosity helps us improve learning environments, empower students, and create lasting impact 
+                    within the school and the community.
+                </p>
+            </div>
+
+            <!-- Intro Paragraph -->
+            <p class="section-intro text-center mb-4">
+                Bar Union Mixed Secondary School is committed to offering quality education and holistic development 
+                for every student. Donations received go directly towards strengthening academic programs, upgrading 
+                school facilities, and supporting students from disadvantaged backgrounds. Whether big or small, 
+                every contribution makes a meaningful difference.
+            </p>
+
+            <!-- Donation Form -->
+            <form id="donationForm" class="donation-form">
+
+                <!-- Donor Name -->
+                <div class="form-group">
+                    <label for="donorName">Full Name</label>
+                    <input type="text" id="donorName" name="donorName" placeholder="Your Full Name" required>
+                    <small class="help-text">Please enter your official name for acknowledgement and receipts.</small>
+                </div>
+
+                <!-- Donor Email -->
+                <div class="form-group">
+                    <label for="donorEmail">Email Address</label>
+                    <input type="email" id="donorEmail" name="donorEmail" placeholder="yourname@example.com" required>
+                    <small class="help-text">We will use this email to send a confirmation and donation receipt.</small>
+                </div>
+
+                <!-- Amount -->
+                <div class="form-group">
+                    <label for="donationAmount">Donation Amount (Ksh)</label>
+                    <input type="number" id="donationAmount" name="donationAmount" placeholder="Enter amount" min="50" required>
+                    <small class="help-text">Minimum donation: Ksh 50</small>
+                </div>
+
+                <!-- Purpose -->
+                <div class="form-group">
+                    <label for="donationPurpose">Donation Purpose</label>
+                    <select id="donationPurpose" name="donationPurpose" required>
+                        <option value="">Select a Purpose</option>
+                        <option value="library">Library Development</option>
+                        <option value="sports">Sports & Co-curricular Facilities</option>
+                        <option value="scholarship">Student Scholarship & Welfare Fund</option>
+                        <option value="building">Infrastructure Support (Classrooms & Labs)</option>
+                        <option value="general">General Support (Where Needed Most)</option>
+                    </select>
+                    <small class="help-text">Choose how you would like your contribution to be used.</small>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn btn-primary">Donate Now</button>
+
+                <!-- Message -->
+                <div id="donationMessage" class="donation-message"></div>
+            </form>
+
+            <!-- Transparency & Impact -->
+            <div class="donation-info mt-5">
+                <h3 class="text-center">How Your Donation Helps</h3>
+                <div class="donation-impact-grid">
+
+                    <div class="impact-card">
+                        <i class="fas fa-book-reader fa-2x"></i>
+                        <h4>Library Expansion</h4>
+                        <p>Your contribution supports the purchase of textbooks, revision materials, digital resources, and furniture for a better reading environment.</p>
+                    </div>
+
+                    <div class="impact-card">
+                        <i class="fas fa-futbol fa-2x"></i>
+                        <h4>Sports Development</h4>
+                        <p>Funds help improve playgrounds, purchase sports equipment, and support student teams during competitions.</p>
+                    </div>
+
+                    <div class="impact-card">
+                        <i class="fas fa-user-graduate fa-2x"></i>
+                        <h4>Scholarships</h4>
+                        <p>Help bright but needy students access quality education through bursaries and fee support programs.</p>
+                    </div>
+
+                    <div class="impact-card">
+                        <i class="fas fa-school fa-2x"></i>
+                        <h4>Infrastructure Growth</h4>
+                        <p>Donations contribute to the construction and renovation of classrooms, laboratories, sanitation facilities, and dormitories.</p>
+                    </div>
+
+                </div>
+
+                <p class="text-center mt-4">
+                    <strong>All donations are recorded and managed transparently.</strong><br>
+                    Annual financial reports are available for donors upon request.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <!-- Important Downloads — Added ID -->
+    <section class="section bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Important Downloads</h2>
+                <p>Access essential school documents, policies, academic resources, and administrative forms.</p>
+            </div>
+            <div class="downloads-grid" id="downloadsGrid">
+
+                <!-- Academic Documents -->
+                <a href="/downloads/academic-calendar-2026.pdf" class="download-item">
+                    <i class="fas fa-file-pdf"></i>
+                    <div>
+                        <strong>Academic Calendar 2026–2027</strong>
+                        <span>PDF • 1.2 MB</span>
+                        <small>Complete schedule of academic terms, exams, holidays, and events.</small>
+                    </div>
+                </a>
+
+                <a href="/downloads/school-prospectus.pdf" class="download-item">
+                    <i class="fas fa-file-pdf"></i>
+                    <div>
+                        <strong>School Prospectus 2026</strong>
+                        <span>PDF • 4.8 MB</span>
+                        <small>Overview of school vision, programs, facilities & co-curricular activities.</small>
+                    </div>
+                </a>
+
+                <a href="/downloads/fee-structure.pdf" class="download-item">
+                    <i class="fas fa-file-pdf"></i>
+                    <div>
+                        <strong>Fee Structure 2026–2027</strong>
+                        <span>PDF • 890 KB</span>
+                        <small>Updated tuition fees, payment deadlines & financial guidelines.</small>
+                    </div>
+                </a>
+
+                <!-- Administrative Forms -->
+                <a href="/downloads/transfer-application-form.pdf" class="download-item">
+                    <i class="fas fa-file-word"></i>
+                    <div>
+                        <strong>Transfer Application Form</strong>
+                        <span>DOC • 120 KB</span>
+                        <small>Required when requesting a school transfer or leaving certificate.</small>
+                    </div>
+                </a>
+
+                <a href="/downloads/admission-form.pdf" class="download-item">
+                    <i class="fas fa-file-word"></i>
+                    <div>
+                        <strong>Admission Form – New Students</strong>
+                        <span>DOC • 300 KB</span>
+                        <small>Form for new learners applying for admission in any class.</small>
+                    </div>
+                </a>
+
+                <a href="/downloads/leave-request-form.pdf(student).pdf" class="download-item">
+                    <i class="fas fa-file-word"></i>
+                    <div>
+                        <strong>Leave Request Form (Student)</strong>
+                        <span>DOC • 90 KB</span>
+                        <small>Short/long-term leave application for parents and students.</small>
+                    </div>
+                </a>
+
+                <!-- School Policies -->
+                <a href="/downloads/anti-bullying.pdf" class="download-item">
+                    <i class="fas fa-file-pdf"></i>
+                    <div>
+                        <strong>Anti-Bullying Policy</strong>
+                        <span>PDF • 1.1 MB</span>
+                        <small>Guidelines on bullying prevention, reporting, and disciplinary action.</small>
+                    </div>
+                </a>
+
+                <a href="/downloads/child-protection-policy.pdf" class="download-item">
+                    <i class="fas fa-file-pdf"></i>
+                    <div>
+                        <strong>Child Protection & Safeguarding Policy</strong>
+                        <span>PDF • 1.4 MB</span>
+                        <small>Standards ensuring student safety, wellbeing & reporting procedures.</small>
+                    </div>
+                </a>
+
+                <a href="/downloads/code-of-conduct.pdf" class="download-item">
+                    <i class="fas fa-file-pdf"></i>
+                    <div>
+                        <strong>Code of Conduct – Students & Parents</strong>
+                        <span>PDF • 960 KB</span>
+                        <small>Behaviour expectations and responsibilities for parents & learners.</small>
+                    </div>
+                </a>
+
+                <!-- Academic Resources -->
+                <a href="/downloads/exam-timetable.pdf" class="download-item">
+                    <i class="fas fa-file-pdf"></i>
+                    <div>
+                        <strong>Exam Timetable – Term 1 (2026)</strong>
+                        <span>PDF • 700 KB</span>
+                        <small>Detailed timetable for all classes and subjects.</small>
+                    </div>
+                </a>
+
+                <a href="/downloads/revision-materials.pdf" class="download-item">
+                    <i class="fas fa-file-archive"></i>
+                    <div>
+                        <strong>Revision Materials – Forms 1–4</strong>
+                        <span>ZIP • 12.5 MB</span>
+                        <small>Past papers, revision notes, assignments & study guides.</small>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Support -->
+    <section class="section bg-light">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Need Help?</h2>
+                <p>Our support team is available 24×7 to assist parents, students, and staff members.</p>
+            </div>
+
+            <div class="support-contact">
+
+                <!-- Emergency Hotline -->
+                <div class="support-item">
+                    <i class="fas fa-phone-volume"></i>
+                    <div>
+                        <strong>Emergency Hotline (24/7)</strong><br>
+                        <a href="tel:+919876543210">+91 98765 43210</a>
+                        <p class="support-desc">
+                            Call immediately for urgent student matters, safety concerns, or emergency assistance.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- General Queries -->
+                <div class="support-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <strong>Email Support – General Queries</strong><br>
+                        <a href="mailto:support@yourschool.edu.in">support@yourschool.edu.in</a>
+                        <p class="support-desc">
+                            For admissions, documentation, academics, events, or administrative inquiries.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- WhatsApp Chat -->
+                <div class="support-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <div>
+                        <strong>WhatsApp Support (Fast Response)</strong><br>
+                        <a href="https://wa.me/919876543210">+91 98765 43210</a>
+                        <p class="support-desc">
+                            Message us for quick help with school updates, fee queries, or student support.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Office Landline -->
+                <div class="support-item">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <strong>School Office Landline</strong><br>
+                        <a href="tel:+911234567890">+91 12345 67890</a>
+                        <p class="support-desc">
+                            Available during school working hours for administrative coordination.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Technical Support -->
+                <div class="support-item">
+                    <i class="fas fa-headset"></i>
+                    <div>
+                        <strong>Technical & Portal Support</strong><br>
+                        <a href="mailto:techsupport@yourschool.edu.in">techsupport@yourschool.edu.in</a>
+                        <p class="support-desc">
+                            Assistance with the parent portal, login issues, online fee payment, and digital tools.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Physical Helpdesk -->
+                <div class="support-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <strong>On-School Helpdesk</strong><br>
+                        <span>Main Administration Block, Ground Floor</span>
+                        <p class="support-desc">
+                            Walk-in support available Monday–Friday • 8:30 AM to 4:00 PM.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Additional Information -->
+            <div class="support-extra">
+                <h4>Office Hours</h4>
+                <p>Monday to Friday: <strong>8:30 AM – 4:00 PM</strong> <br> 
+                   Saturday: <strong>9:00 AM – 1:00 PM</strong> <br>
+                   Sunday: <strong>Closed (Emergency hotline only)</strong>
+                </p>
+
+                <h4>Response Time</h4>
+                <p>Email replies within <strong>12–24 hours</strong>. <br>
+                   WhatsApp & hotline responses are usually <strong>instant</strong>.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Quick Access Section — Added ID -->
+    <section class="section bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Quick Access</h2>
+                <p>Get instant access to essential school services and resources</p>
+            </div>
+            <div class="quick-access-grid" id="quickStats">
+
+                <a href="#" class="quick-card">
+                    <i class="fas fa-tshirt fa-2x"></i>
+                    <h4>Uniform & Stationery</h4>
+                    <p>Order school uniforms, textbooks, and stationery items.</p>
+                </a>
+
+                <a href="#" class="quick-card">
+                    <i class="fas fa-file-download fa-2x"></i>
+                    <h4>Forms & Circulars</h4>
+                    <p>Access transfer certificates, bonafide letters, exam forms, and school circulars.</p>
+                </a>
+
+                <a href="#" class="quick-card">
+                    <i class="fas fa-shield-alt fa-2x"></i>
+                    <h4>School Policies</h4>
+                    <p>View code of conduct, anti-bullying rules, and safety guidelines.</p>
+                </a>
+
+                <a href="#" class="quick-card">
+                    <i class="fas fa-calendar-alt fa-2x"></i>
+                    <h4>Academic Calendar</h4>
+                    <p>Check holidays, exam schedules, and upcoming school events.</p>
+                </a>
+
+                <a href="#" class="quick-card">
+                    <i class="fas fa-headset fa-2x"></i>
+                    <h4>Helpdesk & Support</h4>
+                    <p>Reach technical and administrative support instantly.</p>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <div w3-include-html="/includes/footer.html"></div>
+
+    <!-- Scripts — Fixed path -->
+    <script src="/js/main.js"></script>
+    <script src="/js/support.js" defer></script>
+</body>
+</html>

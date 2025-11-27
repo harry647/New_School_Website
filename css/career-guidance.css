@@ -1,0 +1,764 @@
+/* ==============================
+   CAREER & GUIDANCE PAGE – Complete CSS (2026+)
+   Fully dynamic, stunning, and future-proof
+============================== */
+
+/* ==================================
+   1. Page Hero – Elegant & Impactful
+================================== */
+.career-hero {
+    position: relative;
+    min-height: 80vh;
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)),
+                url('../assets/images/hero-bg.jpg') center/cover no-repeat fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+    padding: 0 2rem;
+    transition: background 0.5s ease-in-out;
+}
+
+.career-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    background-attachment: fixed;
+    filter: blur(3px) brightness(0.7);
+    z-index: -1;
+    transform: scale(1.05);
+    transition: transform 0.8s ease, filter 0.5s ease;
+}
+
+.career-hero:hover::before {
+    transform: scale(1.1);
+    filter: blur(2px) brightness(0.75);
+}
+
+.career-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    text-shadow: 0 8px 25px rgba(0,0,0,0.75);
+    animation: fadeUp 1s ease forwards;
+}
+
+.career-hero p {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    max-width: 900px;
+    margin: 0 auto 2rem;
+    line-height: 1.8;
+    font-weight: 500;
+    text-shadow: 0 3px 12px rgba(0,0,0,0.5);
+    animation: fadeUp 1.2s ease forwards;
+    opacity: 0;
+}
+
+.career-hero .btn {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 1.2rem 3rem;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff7e5f, #feb47b);
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+    animation: fadeUp 1.4s ease forwards;
+    opacity: 0;
+}
+
+.career-hero .btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.5);
+    background: linear-gradient(135deg, #feb47b, #ff7e5f);
+}
+
+/* Animations */
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive tweak for smaller screens */
+@media (max-width: 768px) {
+    .career-hero h1 {
+        font-size: clamp(2.2rem, 10vw, 4rem);
+    }
+    .career-hero p {
+        font-size: clamp(1rem, 3vw, 1.2rem);
+    }
+    .career-hero .btn {
+        padding: 1rem 2.5rem;
+        font-size: 1rem;
+    }
+}
+
+
+/* ==================================
+   2. Section Titles & Layout – Modern & Stylish
+================================== */
+.section-title {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+}
+
+.section-title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    color: #222;
+    position: relative;
+    display: inline-block;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding-bottom: 0.5rem;
+}
+
+.section-title h2::after {
+    content: '';
+    width: 80px;
+    height: 5px;
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.section-title:hover h2::after {
+    width: 120px;
+}
+
+.section-title p {
+    color: #666;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    max-width: 750px;
+    margin: 1rem auto 0;
+    line-height: 1.8;
+}
+
+/* ==================================
+   3. Mission Section – Modern Grid with Equal Height & Animations
+================================== */
+.mission-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* two columns */
+    gap: 3rem;
+    align-items: stretch; /* make both columns equal height */
+    padding: 2rem 0;
+}
+
+/* Text Column */
+.mission-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 1s ease forwards;
+    animation-delay: 0.3s;
+}
+
+.mission-text h2 {
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    margin-bottom: 1.5rem;
+    color: #222;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: 0.5px;
+}
+
+.mission-text p {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 1.8rem;
+}
+
+/* Guidance List */
+.guidance-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 2rem 0;
+}
+
+.guidance-list li {
+    position: relative;
+    padding-left: 2.5rem;
+    margin-bottom: 1.2rem;
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+    line-height: 1.7;
+    color: #444;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.guidance-list li::before {
+    content: "\f00c"; /* FontAwesome check icon */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: #007bff;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.guidance-list li:hover {
+    color: #007bff;
+}
+
+/* Image Column */
+.mission-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 1s ease forwards;
+    animation-delay: 0.6s;
+}
+
+.mission-image img {
+    width: 100%;
+    height: 100%; /* stretch image to match text height */
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.18);
+    transition: transform 0.6s ease, box-shadow 0.4s ease;
+}
+
+.mission-image img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 35px 70px rgba(0,0,0,0.25);
+}
+
+/* Fade-in Animation */
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .mission-grid {
+        grid-template-columns: 1fr; /* single column layout */
+        gap: 2rem;
+    }
+
+    .mission-image img {
+        height: auto; /* allow natural height on small screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .mission-text h2 {
+        font-size: clamp(1.8rem, 5vw, 2.4rem);
+    }
+    .mission-text p {
+        font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+    }
+    .mission-image img {
+        max-height: 400px;
+    }
+}
+
+
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    padding: 2rem 0;
+}
+
+/* Individual Service Card */
+.service-card {
+    background-color: #fff;
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.8s forwards;
+}
+
+/* Stagger animation delay for cards */
+.service-card:nth-child(1) { animation-delay: 0.1s; }
+.service-card:nth-child(2) { animation-delay: 0.2s; }
+.service-card:nth-child(3) { animation-delay: 0.3s; }
+.service-card:nth-child(4) { animation-delay: 0.4s; }
+.service-card:nth-child(5) { animation-delay: 0.5s; }
+.service-card:nth-child(6) { animation-delay: 0.6s; }
+.service-card:nth-child(7) { animation-delay: 0.7s; }
+.service-card:nth-child(8) { animation-delay: 0.8s; }
+.service-card:nth-child(9) { animation-delay: 0.9s; }
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+}
+
+/* Service Icon */
+.service-card i {
+    color: #007bff;
+    margin-bottom: 1.5rem;
+    transition: transform 0.4s ease, color 0.4s ease;
+}
+
+.service-card:hover i {
+    transform: rotate(10deg) scale(1.2);
+    color: #00c6ff;
+}
+
+/* Service Title */
+.service-card h4 {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    color: #222;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* Service Description */
+.service-card p {
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Fade Up Animation */
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+    .section-title h2 {
+        font-size: clamp(2rem, 6vw, 2.8rem);
+    }
+
+    .section-title p {
+        font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+    }
+
+    .service-card {
+        padding: 1.8rem 1.2rem;
+    }
+}
+
+/* ==================================
+   5. Success Stories Carousel (Swiper)
+================================== */
+#successStoriesSwiper {
+    padding: 2rem 0;
+    border-radius: 20px;
+    overflow: hidden;
+}
+.success-card {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    transition: all 0.4s ease;
+}
+.success-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.2);
+}
+.success-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+.success-info {
+    padding: 2rem;
+    text-align: center;
+}
+.success-info h4 {
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem;
+    color: #222;
+}
+.success-info .batch {
+    color: #007bff;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+.success-info .achievement {
+    font-weight: 700;
+    color: #222;
+    margin: 1rem 0;
+}
+.success-info .story {
+    color: #555;
+    line-height: 1.8;
+    font-size: 0.98rem;
+}
+
+/* Swiper Custom Styling */
+#successStoriesSwiper .swiper-pagination-bullet {
+    width: 12px;
+    height: 12px;
+    background: #ddd;
+    opacity: 1;
+}
+#successStoriesSwiper .swiper-pagination-bullet-active {
+    background: #007bff;
+}
+#successStoriesSwiper .swiper-button-next,
+#successStoriesSwiper .swiper-button-prev {
+    background: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    color: #007bff;
+}
+#successStoriesSwiper .swiper-button-next:hover,
+#successStoriesSwiper .swiper-button-prev:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+/* ==================================
+   Book a Counseling Session – ULTRA PREMIUM PREMIUM 2025 DESIGN
+================================== */
+#book-session {
+    position: relative;
+    padding: 8rem 0;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f7ff 0%, #e6f0ff 50%, #f0f8ff 100%);
+}
+
+/* Floating Background Orbs */
+#book-session::before,
+#book-session::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.4;
+    z-index: 0;
+    animation: float 20s infinite alternate ease-in-out;
+}
+#book-session::before {
+    width: 600px;
+    height: 600px;
+    background: linear-gradient(45deg, #007bff, #00c6ff);
+    top: -10%;
+    left: -10%;
+}
+#book-session::after {
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(45deg, #00d4ff, #7b68ee);
+    bottom: -15%;
+    right: -10%;
+    animation-delay: 8s;
+}
+@keyframes float {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(100px, -80px) rotate(10deg); }
+}
+
+/* Section Title – Elegant & Animated */
+#book-session .section-title {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+    z-index: 2;
+}
+#book-session .section-title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 6vw, 4.2rem);
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, #007bff, #00c6ff, #7b68ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    display: inline-block;
+}
+#book-session .section-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 6px;
+    background: linear-gradient(90deg, #007bff, #00c6ff);
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,123,255,0.4);
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+#book-session .section-title:hover h2::after {
+    width: 180px;
+    box-shadow: 0 15px 30px rgba(0,123,255,0.6);
+}
+#book-session .section-title p {
+    font-size: 1.2rem;
+    color: #444;
+    max-width: 800px;
+    margin: 2rem auto 0;
+    line-height: 1.8;
+    font-weight: 400;
+}
+
+/* Glassmorphic Form Card */
+.form-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 28px;
+    padding: 4rem 3.5rem;
+    box-shadow: 
+        0 20px 60px rgba(0,0,0,0.1),
+        0 0 0 1px rgba(255,255,255,0.5),
+        inset 0 0 40px rgba(255,255,255,0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    transition: all 0.6s ease;
+}
+.form-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,123,255,0.08), rgba(0,198,255,0.12));
+    border-radius: 28px;
+    z-index: -1;
+}
+.form-wrapper:hover {
+    transform: translateY(-15px) scale(1.01);
+    box-shadow: 
+        0 40px 100px rgba(0,0,0,0.18),
+        0 0 0 1px rgba(0,123,255,0.3),
+        inset 0 0 60px rgba(255,255,255,0.4);
+}
+
+/* Form Grid */
+.career-form .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+.career-form .form-group.full {
+    grid-column: 1 / -1;
+}
+
+/* Labels with floating animation */
+.career-form label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.7rem;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.career-form label::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #007bff;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Inputs – Premium Glow */
+.career-form input,
+.career-form select,
+.career-form textarea {
+    padding: 1rem 1.3rem;
+    border: none;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    font-size: 1rem;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    font-family: 'Inter', sans-serif;
+}
+.career-form input:focus,
+.career-form select:focus,
+.career-form textarea:focus {
+    outline: none;
+    background: #fff;
+    box-shadow: 
+        0 0 0 3px rgba(0,123,255,0.25),
+        0 10px 30px rgba(0,123,255,0.15);
+    transform: translateY(-3px);
+}
+
+/* Submit Button – Glowing Masterpiece */
+.career-form button.btn {
+    background: linear-gradient(135deg, #007bff, #00c6ff, #7b68ee);
+    background-size: 200% 200%;
+    color: white;
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding: 1.2rem 3.5rem;
+    border: none;
+    border-radius: 60px;
+    cursor: pointer;
+    box-shadow: 0 15px 35px rgba(0,123,255,0.4);
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.career-form button.btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: 0.7s;
+}
+.career-form button.btn:hover {
+    transform: translateY(-6px) scale(1.05);
+    box-shadow: 0 25px 50px rgba(0,123,255,0.5);
+    background-position: 100% 0;
+}
+.career-form button.btn:hover::before {
+    left: 100%;
+}
+.career-form button.btn:active {
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .form-wrapper {
+        padding: 3rem 2rem;
+        margin: 0 1rem;
+    }
+}
+@media (max-width: 768px) {
+    .career-form .form-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .career-form button.btn {
+        width: 100%;
+        padding: 1.3rem;
+    }
+}
+
+/* ==================================
+   7. Career Stats Banner
+================================== */
+.career-stats {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    padding: 4rem 0;
+}
+#careerStatsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+.career-stats .stat {
+    text-align: center;
+    color: #fff;
+}
+.career-stats .stat i {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+.career-stats .stat h3 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0.5rem 0;
+}
+.career-stats .stat p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* ==================================
+   8. Loader & Animations
+================================== */
+.loader {
+    text-align: center;
+    padding: 80px 20px;
+}
+.loader i {
+    font-size: 3.5rem;
+    color: #007bff;
+    animation: spin 1.5s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Fade-in */
+.fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==================================
+   9. Responsive
+================================== */
+@media (max-width: 992px) {
+    .mission-grid { grid-template-columns: 1fr; text-align: center; }
+    .mission-image img { height: 400px; }
+}
+@media (max-width: 768px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .form-wrapper { padding: 2rem; }
+}
+@media (max-width: 576px) {
+    .career-hero { min-height: 70vh; }
+    .mission-image img { height: 300px; }
+    .success-card img { height: 200px; }
+}

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>News & Events | Bar Union Mixed Secondary School</title>
+    <meta name="description" content="Stay updated with the latest school news, events, academic achievements, and official announcements." />
+    <!-- Open Graph / Social Sharing -->
+    <meta property="og:title" content="News & Events | Bar Union Mixed Secondary School">
+    <meta property="og:description" content="Latest updates, achievements, and upcoming events from our campus.">
+    <meta property="og:image" content="/assets/images/og-news.jpg">
+    <meta property="og:url" content="https://yourschool.ac.ke/news-events.html">
+    
+    <!-- Preconnect for Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/news-events.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="page-news">
+    <!-- Header -->
+    <div w3-include-html="/includes/header.html"></div>
+
+    <!-- Hero -->
+    <section class="page-hero news-hero" aria-label="News & Events Hero">
+        <div class="container text-center">
+            <h1>News & Events</h1>
+            <p>Stay informed and inspired — from school achievements and academic milestones to cultural celebrations, sports events, and community initiatives.</p>
+            <p>Follow the latest stories that showcase the spirit, diversity, and excellence of our students, teachers, and alumni.</p>
+            <a href="#latest-news" class="btn btn-primary large mt-3">Explore News</a>
+        </div>
+    </section>
+
+
+    <!-- Main News & Events Section -->
+    <section class="section" id="latest-news">
+        <div class="container">
+            <!-- Search Bar -->
+            <div class="search-bar mb-3">
+                <input type="text" id="newsSearch" placeholder="Search news, events, achievements, or announcements..." aria-label="Search news">
+                <button id="searchBtn" aria-label="Search News"><i class="fas fa-search"></i></button>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="news-controls mb-4" role="tablist" aria-label="Filter news by category">
+                <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All Updates</button>
+                <button class="filter-btn" data-filter="achievements" role="tab">Achievements</button>
+                <button class="filter-btn" data-filter="events" role="tab">Events</button>
+                <button class="filter-btn" data-filter="announcements" role="tab">Announcements</button>
+                <button class="filter-btn" data-filter="holidays" role="tab">Holidays</button>
+            </div>
+
+            <!-- Dynamic News Grid -->
+            <div class="news-grid" id="newsGrid" role="feed" aria-live="polite">
+                <!-- Loader will be replaced by JS -->
+                <div class="loader text-center">
+                    <i class="fas fa-spinner fa-spin fa-3x"></i>
+                    <p>Loading latest news & events...</p>
+                </div>
+            </div>
+
+            <!-- No Results -->
+            <div id="noResults" class="text-center py-5" style="display:none;">
+                <i class="fas fa-search fa-3x mb-3 text-muted"></i>
+                <p>No news or events found matching your search.</p>
+            </div>
+
+            <!-- Load More -->
+            <div class="text-center mt-4">
+                <button id="loadMoreBtn" class="btn btn-primary">Load More</button>
+            </div>
+
+            <!-- Quick Stats — Dynamic Ready -->
+            <div class="quick-stats-banner mt-5 bg-light p-4 rounded" id="newsStats">
+                <div class="stats-grid text-center">
+                    <div><strong id="totalNews">0</strong><br>News Articles</div>
+                    <div><strong id="totalEvents">0</strong><br>Events</div>
+                    <div><strong id="totalAchievements">0</strong><br>Achievements</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured News Carousel — Dynamic Ready -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured News</h2>
+                <p>Don’t miss the latest and most important updates from our school</p>
+            </div>
+            <div class="featured-news-carousel swiper" id="featuredCarousel">
+                <div class="swiper-wrapper" id="featuredNews">
+                    <!-- Will be populated by JS -->
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Events Calendar -->
+    <section class="section bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Upcoming Events Calendar</h2>
+                <p>Plan ahead and join our school events</p>
+            </div>
+            <div id="eventsCalendar">
+                <!-- Integration with calendar JS or LMS events feed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Announcements Banner -->
+    <section class="section announcement-banner">
+        <div class="container">
+            <marquee behavior="scroll" direction="left" aria-label="Important Announcements">
+                📢 School closed on Dec 25 for Christmas | 🏆 Form 4 results announced today | 🎉 Annual Sports Day on Jan 15
+            </marquee>
+        </div>
+    </section>
+
+    <!-- Photo of the Week / Event Highlights -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Event Highlights</h2>
+                <p>Memorable moments from our recent events</p>
+            </div>
+            <div class="photo-highlights-grid" id="eventPhotos">
+                <div class="loader text-center">
+                    <i class="fas fa-spinner fa-spin fa-3x"></i>
+                    <p>Loading photos...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student / Teacher Spotlight -->
+    <section class="section bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Spotlight</h2>
+                <p>Celebrating exceptional students and teachers</p>
+            </div>
+            <div class="spotlight-cards" id="spotlightProfiles">
+                <div class="loader text-center">
+                    <i class="fas fa-spinner fa-spin fa-3x"></i>
+                    <p>Loading spotlight profiles...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Press & Media Coverage -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Media & Coverage</h2>
+                <p>See where our school has been featured in news & media</p>
+            </div>
+            <div class="media-grid" id="mediaCoverage">
+                <div class="loader text-center">
+                    <i class="fas fa-spinner fa-spin fa-3x"></i>
+                    <p>Loading media coverage...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Downloads / Resources -->
+    <section class="section bg-light">
+        <div class="container">
+            <div class="section-title">
+                <h2>Downloads & Resources</h2>
+                <p>Access circulars, newsletters, and event programs</p>
+            </div>
+            <div class="downloads-grid" id="downloadsResources">
+                <a href="#" class="download-card">
+                    <i class="fas fa-file-pdf"></i>
+                    <p>Newsletter Jan 2026</p>
+                </a>
+                <a href="#" class="download-card">
+                    <i class="fas fa-file-pdf"></i>
+                    <p>Sports Day Program 2025</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats / Highlights -->
+    <section class="section stats-banner">
+        <div class="container text-center">
+            <div class="stats-grid">
+                <div>
+                    <strong id="totalEvents">120+</strong>
+                    <p>Events Conducted</p>
+                </div>
+                <div>
+                    <strong id="totalAchievements">85+</strong>
+                    <p>Achievements & Awards</p>
+                </div>
+                <div>
+                    <strong id="mediaMentions">50+</strong>
+                    <p>Media Mentions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Blog Posts -->
+    <section class="section bg-light" id="studentBlogs">
+        <div class="container">
+            <div class="section-title">
+                <h2>Student Blogs</h2>
+                <p>Insights, stories, and creative thoughts from our students</p>
+            </div>
+
+            <!-- Submission Info -->
+            <div class="blog-info text-center mb-4">
+                <p>Students can submit up to <strong>2 blogs per month</strong>. All submissions are moderated before publishing.</p>
+                <a href="#submitBlog" class="btn btn-primary">Submit Your Blog →</a>
+            </div>
+
+            <!-- Search & Filters -->
+            <div class="blog-controls mb-4">
+                <input type="text" id="blogSearch" placeholder="Search blogs by title, topic, or author..." aria-label="Search blogs">
+                <div class="filter-btns mt-2 text-center">
+                    <button class="filter-btn active" data-filter="all">All Topics</button>
+                    <button class="filter-btn" data-filter="academics">Academics</button>
+                    <button class="filter-btn" data-filter="events">Events</button>
+                    <button class="filter-btn" data-filter="creative">Creative Writing</button>
+                    <button class="filter-btn" data-filter="sports">Sports & Activities</button>
+                </div>
+            </div>
+
+            <!-- Blog Grid -->
+            <div class="blog-grid" id="blogGrid">
+                <div class="loader text-center">
+                    <i class="fas fa-spinner fa-spin fa-3x"></i>
+                    <p>Loading student blogs...</p>
+                </div>
+            </div>
+
+            <!-- No Results -->
+            <div id="noBlogResults" class="text-center py-5" style="display:none; color:#666;">
+                <i class="fas fa-search fa-3x mb-3"></i>
+                <p>No blogs found matching your search or filter.</p>
+            </div>
+
+            <!-- Load More Blogs -->
+            <div class="text-center mt-4">
+                <button id="loadMoreBlogs" class="btn btn-primary">Load More Blogs</button>
+            </div>
+
+            <!-- Quick Stats -->
+            <!-- Quick Stats -->
+            <div class="blog-stats text-center mt-5" id="blogStatsBanner">
+                <div class="stats-grid">
+                    <div>
+                        <strong id="totalBlogs">45</strong>
+                        <p>Total Blogs Published</p>
+                    </div>
+                    <div>
+                        <strong id="activeBloggers">18</strong>
+                        <p>Active Student Contributors</p>
+                    </div>
+                    <div>
+                        <strong id="mostPopularTopic">Academics</strong>
+                        <p>Most Popular Topic</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Submission Modal / Form -->
+    <section class="section" id="submitBlog">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Submit Your Blog</h2>
+                <p>Share your ideas, stories, achievements, or reflections with the entire Bar Union school community. 
+                   Inspire, inform, and connect through your writing.</p>
+            </div>
+
+            <div class="form-wrapper">
+
+                <form 
+                    action="https://formspree.io/f/student-blog-form" 
+                    method="POST" 
+                    class="blog-form" 
+                    enctype="multipart/form-data">
+
+                    <div class="form-instructions mb-4">
+                        <p>
+                            <strong>Guidelines:</strong><br>
+                            • Ensure your writing is original and respectful.<br>
+                            • You may write about academics, school life, events, creativity, inspiration, or personal experiences.<br>
+                            • Avoid sharing personal phone numbers or sensitive information.<br>
+                            • Blogs are reviewed for quality, clarity, and safety before publication.
+                        </p>
+                    </div>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label>Student Name *</label>
+                            <input type="text" name="student_name" required placeholder="Enter your full name" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Grade / Class *</label>
+                            <select name="grade" required>
+                                <option value="">Select Grade or Form</option>
+                                <option>Form 1</option>
+                                <option>Form 2</option>
+                                <option>Form 3</option>
+                                <option>Form 4</option>
+                                <option>Grade 10</option>
+                                <option>Grade 11</option>
+                                <option>Grade 12</option>
+                                <option>Alumni / Passed Out</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Blog Title *</label>
+                            <input type="text" name="blog_title" required placeholder="Enter a clear, descriptive title" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Blog Category *</label>
+                            <select name="topic" required>
+                                <option value="">Choose a Category</option>
+                                <option>Academics & Study Tips</option>
+                                <option>School Events & Activities</option>
+                                <option>Creative Writing (Poems, Stories)</option>
+                                <option>Sports & Co-curricular Life</option>
+                                <option>Leadership & Student Life</option>
+                                <option>Inspirational & Personal Growth</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full">
+                            <label>Blog Content *</label>
+                            <textarea 
+                                name="blog_content" 
+                                rows="7" 
+                                required 
+                                placeholder="Write your blog here... Share your experience, thoughts, creativity, or message.">
+                            </textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Featured Image (Optional)</label>
+                            <input type="file" name="featured_image" accept="image/*" />
+                            <small class="text-muted">Recommended: Clear photos relevant to your story.</small>
+                        </div>
+
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <button type="submit" class="btn btn-primary large">
+                            Submit Blog <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+
+                    <p class="note mt-3 text-muted text-center">
+                        <strong>Note:</strong> All submissions undergo moderation for quality and safety.<br>
+                        <strong>Limit:</strong> Maximum of <strong>2 blogs per student per month</strong> to ensure fairness and space for everyone.<br>
+                        Once approved, your blog will appear in the **Student Blog Section** and may be featured on our homepage.
+                    </p>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div w3-include-html="/includes/footer.html"></div>
+
+    <!-- Scripts -->
+    <script src="/js/main.js"></script>
+    <script src="/js/news-events.js" defer></script>
+</body>
+</html>

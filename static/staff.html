@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Our Staff | Bar Union Mixed Secondary School</title>
+    <meta name="description" content="Meet our highly qualified and dedicated teaching, leadership, and support staff committed to student excellence." />
+    <!-- Open Graph -->
+    <meta property="og:title" content="Our Dedicated Staff | Bar Union Mixed Secondary School">
+    <meta property="og:description" content="Experienced educators and administrators shaping tomorrow's leaders.">
+    <meta property="og:image" content="/assets/images/og-staff.jpg">
+    
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/staff.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="page-staff">
+    <!-- Header -->
+    <div w3-include-html="/includes/header.html"></div>
+
+    <!-- Hero -->
+    <section class="page-hero staff-hero">
+        <div class="container">
+            <h1>Our Dedicated Staff</h1>
+            <p>Experienced • Passionate • Committed to Excellence</p>
+            <p>Our team of qualified educators, administrators, and support staff work together to provide a holistic, student-first learning environment. From visionary leadership to classroom teaching, counseling, and extracurricular guidance, each staff member plays a vital role in nurturing academic growth, character development, and global readiness. With years of experience and continuous professional development, our staff ensures every student thrives both academically and personally.</p>
+        </div>
+    </section>
+
+    <!-- Staff Section — Dynamic Ready -->
+    <section class="section staff-section">
+        <div class="container">
+            <!-- Section Intro -->
+            <div class="section-intro">
+                <h2>Meet Our Dedicated Staff</h2>
+                <p>
+                    Our school is powered by a diverse team of professionals committed to academic excellence, student wellbeing,
+                    administrative efficiency, and strong leadership. This section provides a complete, transparent overview of
+                    our staff—including teaching faculty, leadership team, administrative personnel, and support staff.
+                </p>
+                <p>
+                    All staff information displayed here is dynamically loaded from our central database to ensure accuracy,
+                    easy updating, and consistency across all systems. You can search by name, department, role, or category to
+                    quickly find any staff member.
+                </p>
+            </div>
+
+            <!-- Search -->
+            <div class="staff-search">
+                <input type="text" id="staffSearch" placeholder="Search by name, subject, or department..." aria-label="Search staff">
+                <button aria-label="Search"><i class="fas fa-search"></i></button>
+            </div>
+
+            <!-- Filters Explanation -->
+            <div class="filter-explainer">
+                <h3>How to Use Filters</h3>
+                <p>
+                    You can refine the staff listing using the filters below. Filter by category to view leadership,
+                    teachers, administrative staff, or support personnel. You can also filter by department to explore
+                    subject-based or service-based team members. These filters can be combined with search for even
+                    more precise results.
+                </p>
+            </div>
+
+            <!-- Filters: Categories — Added ID for dynamic use -->
+            <h3 class="filter-title">Filter By Category</h3>
+            <div class="staff-controls" id="staffCategories">
+                <button class="filter-btn active" data-filter="all">All Staff</button>
+                <button class="filter-btn" data-filter="leadership">Leadership</button>
+                <button class="filter-btn" data-filter="teaching">Teaching Faculty</button>
+                <button class="filter-btn" data-filter="admin">Administration</button>
+                <button class="filter-btn" data-filter="support">Support Staff</button>
+            </div>
+
+            <!-- Category Description -->
+            <div class="category-descriptions">
+                <p><strong>Leadership:</strong> Includes the principal, deputy principals, heads of departments, and senior management responsible for vision, governance, and strategic direction.</p>
+                <p><strong>Teaching Faculty:</strong> All classroom teachers across subjects—responsible for academic delivery, assessments, mentorship, and student performance.</p>
+                <p><strong>Administration:</strong> Officers who handle admissions, records, accounts, communication, exams management, and daily operations.</p>
+                <p><strong>Support Staff:</strong> Includes boarding staff, librarians, technicians, ICT officers, cooks, cleaners, security, and others who ensure smooth daily operations.</p>
+            </div>
+
+            <!-- Departments — Already has correct ID -->
+            <h3 class="filter-title">Filter By Department</h3>
+            <p class="dept-info">
+                Departments help organize staff by their primary area of responsibility.
+                This allows students, parents, and visitors to quickly identify specialists in specific subjects or services.
+                These are also populated dynamically from the staff JSON file.
+            </p>
+            <div class="department-controls" id="departmentControls">
+                <!-- Will be populated dynamically from JSON -->
+                <div class="text-center py-3">
+                    <p><em>Loading departments...</em></p>
+                </div>
+            </div>
+
+            <!-- Departments Description -->
+            <div class="dept-descriptions">
+                <p><strong>Mathematics:</strong> Covers teachers handling algebra, geometry, calculus, and related subjects.</p>
+                <p><strong>Languages:</strong> English, Kiswahili, and other language instructors.</p>
+                <p><strong>Sciences:</strong> Chemistry, Biology, Physics teachers and laboratory technicians.</p>
+                <p><strong>Humanities:</strong> History, Geography, CRE, Social Studies specialists.</p>
+                <p><strong>Technicals:</strong> Business, Agriculture, Home Science, Music, and Art teachers.</p>
+                <p><strong>ICT:</strong> ICT instructors and system maintenance personnel.</p>
+                <p><strong>Games & Sports:</strong> Coaches and sports coordinators.</p>
+                <p><strong>Boarding:</strong> Matrons, patrons, and boarding operations.</p>
+                <p><strong>Library:</strong> Library teachers and assistants.</p>
+                <p><strong>Guidance & Counselling:</strong> Counselors supporting student wellbeing.</p>
+                <p><strong>Exams Office:</strong> Officers responsible for internal exams and assessments.</p>
+            </div>
+
+            <!-- Staff Grid — Already perfect with correct ID -->
+            <div class="staff-grid" id="staffGrid" role="list" aria-live="polite">
+                <div class="loader text-center">
+                    <i class="fas fa-spinner fa-spin fa-4x mb-4"></i>
+                </div>
+                <p>Loading our dedicated team...</p>
+            </div>
+
+            <!-- No Results — Already perfect -->
+            <div id="noResults" class="text-center py-5" style="display:none;">
+                <i class="fas fa-users-slash fa-3x mb-3 text-muted"></i>
+                <p>No staff members found matching your search.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Staff Modal Popup — Already perfect -->
+    <div id="staffModal" class="staff-modal">
+        <div class="staff-modal-content">
+            <span class="close-modal">×</span>
+            <div id="modalDetails"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div w3-include-html="/includes/footer.html"></div>
+
+    <!-- Scripts — Fixed path -->
+    <script src="/js/main.js"></script>
+    <script src="/js/staff.js" defer></script>
+</body>
+</html>

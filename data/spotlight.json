@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Sarah Wambui",
+    "role": "Head Girl 2025–26",
+    "achievement": "KCSE 2024: A (87 points)",
+    "image": "/assets/images/spotlight/sarah.jpg"
+  },
+  {
+    "name": "Mr. James Otieno",
+    "role": "Best Mathematics Teacher 2025",
+    "achievement": "Produced 12 A’s in KCSE Math",
+    "image": "/assets/images/spotlight/mr-james.jpg"
+  },
+  {
+    "name": "Kelvin Mwangi",
+    "role": "National Chess Champion",
+    "achievement": "Under-18 National Champion 2025",
+    "image": "/assets/images/spotlight/kelvin-chess.jpg"
+  },
+  {
+    "name": "Mary Achieng",
+    "role": "Top Scorer – English",
+    "achievement": "A plain in KCSE English",
+    "image": "/assets/images/spotlight/mary-english.jpg"
+  }
+]

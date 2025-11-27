@@ -1,0 +1,24 @@
+{
+  "dates": [
+    { "label": "Registration Opens", "value": "November 1, 2025" },
+    { "label": "Deadline for Submission of Applications", "value": "March 31, 2026" },
+    { "label": "School Tours & Parent Interaction", "value": "February – March 2026 (by appointment)" },
+    { "label": "Entrance Assessments", "value": "April 10–12, 2026" },
+    { "label": "Results Announcement", "value": "April 20, 2026" },
+    { "label": "Admission Confirmation & Fee Payment", "value": "April 25 – May 10, 2026" },
+    { "label": "Orientation / Induction Day", "value": "July 2, 2026" },
+    { "label": "Academic Session Begins", "value": "July 6, 2026" }
+  ],
+  "fees": [
+    { "level": "Form 3–4 (Junior Secondary)", "tuition": 13500, "other": 2000, "total": 15500 },
+    { "level": "Grade 10–12 (Senior Secondary: STEM / Humanities / Technical)", "tuition": 21000, "other": 1500, "total": 22500 }
+  ],
+  "pathways": [
+    "Grade 10 - STEM", "Grade 10 - Humanities", "Grade 10 - Technical / Arts",
+    "Grade 11 - STEM", "Grade 11 - Humanities", "Grade 11 - Technical / Arts",
+    "Grade 12 - STEM", "Grade 12 - Humanities", "Grade 12 - Technical / Arts"
+  ],
+  "documents": {
+    "feeBrochure": "../assets/docs/fee-brochure-2026.pdf"
+  }
+}

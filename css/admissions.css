@@ -1,0 +1,553 @@
+/* ==============================
+   ADMISSIONS PAGE – Complete CSS (2025–2026+)
+   Perfectly matched with dynamic JS + corrected HTML
+============================== */
+
+/* ==================================
+   1. Page Hero (Parallax + Pop Animation)
+================================== */
+.page-hero {
+    min-height: 70vh;
+    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.75)),
+                url('../assets/images/hero-bg.jpg') center/cover no-repeat fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+}
+.page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    background-attachment: fixed;
+    z-index: -1;
+}
+.page-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 8vw, 4.5rem);
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+.page-hero p {
+    font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+    max-width: 900px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.7;
+    font-weight: 500;
+}
+.page-hero .btn {
+    margin-top: 2rem;
+    animation-delay: 0.6s;
+}
+
+/* Hero Title Pop Animation */
+.animate-pop {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.animate-pop.popped {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ==================================
+   2. Section & Title Styling
+================================== */
+.section {
+    padding: 80px 0;
+}
+.bg-light {
+    background: #f8fdfc;
+}
+.section-title {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+.section-title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.3rem, 5vw, 3rem);
+    color: #222;
+    position: relative;
+    display: inline-block;
+}
+.section-title h2::after {
+    content: '';
+    width: 90px;
+    height: 4px;
+    background: #007bff;
+    position: absolute;
+    bottom: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+.section-title p {
+    color: #666;
+    font-size: 1.1rem;
+    max-width: 750px;
+    margin: 1rem auto 0;
+}
+
+/* ==================================
+   3. Timeline (Interactive + Beautiful)
+================================== */
+.timeline {
+    position: relative;
+    max-width: 900px;
+    margin: 50px auto;
+    padding-left: 40px;
+}
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: linear-gradient(to bottom, #007bff, #0056b3);
+    border-radius: 3px;
+}
+.timeline-item {
+    position: relative;
+    margin-bottom: 50px;
+    padding-left: 50px;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.8s ease;
+    cursor: pointer;
+}
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+.timeline-icon {
+    position: absolute;
+    left: -10px;
+    top: 0;
+    background: #007bff;
+    color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 6px 20px rgba(0,123,255,0.4);
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+.timeline-item:hover .timeline-icon {
+    transform: scale(1.2);
+    background: #0056b3;
+}
+.timeline-content h3 {
+    font-size: 1.35rem;
+    margin: 0 0 12px;
+    color: #222;
+}
+.timeline-content p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* ==================================
+   Centered 2-Column Grid – Modern Layout
+================================== */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;                 /* Space between items */
+    max-width: 1000px;           /* Limit the grid width */
+    margin: 0 auto;              /* Center the grid horizontally */
+    padding: 0 1.5rem;           /* Horizontal padding for small screens */
+    justify-items: center;       /* Center items inside each column */
+    align-items: start;          /* Align items to top of the row */
+}
+
+/* Individual grid items */
+.grid-2 .grid-item {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.grid-2 .grid-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+}
+
+/* Titles inside items */
+.grid-2 .grid-item h4 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: #1e3a8a;
+}
+
+/* Text inside items */
+.grid-2 .grid-item p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .grid-2 {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 1.8rem;
+    }
+}
+
+
+/* ==================================
+   Centered 3-Column Grid – Modern Layout
+================================== */
+.grid-3.requirements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2.5rem;                 /* Space between items */
+    max-width: 1200px;           /* Limit the grid width */
+    margin: 0 auto;              /* Center the grid horizontally */
+    padding: 0 1.5rem;           /* Horizontal padding for small screens */
+    justify-items: center;        /* Center items inside each column */
+    align-items: start;           /* Align items to top of the row */
+}
+
+/* Individual grid items */
+.grid-3.requirements-grid .grid-item {
+    background: #fff;
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.grid-3.requirements-grid .grid-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+}
+
+/* Titles inside items */
+.grid-3.requirements-grid .grid-item h4 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: #1e3a8a;
+}
+
+/* Text inside items */
+.grid-3.requirements-grid .grid-item p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .grid-3.requirements-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .grid-3.requirements-grid {
+        grid-template-columns: 1fr;
+        gap: 1.8rem;
+    }
+}
+
+
+/* ==================================
+   4. Cards (Dates, Fees, Requirements)
+================================== */
+.card,
+.requirement-card {
+    background: #fff;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateY(30px);
+}
+.card.visible,
+.requirement-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.card:hover,
+.requirement-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.16);
+}
+.card h3,
+.requirement-card h4 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #007bff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.requirement-card i {
+    font-size: 2.8rem;
+    opacity: 0.9;
+}
+.requirement-card h4 {
+    font-size: 1.3rem;
+    color: #222;
+    margin: 15px 0 10px;
+}
+.requirement-card p {
+    font-size: 0.98rem;
+    color: #555;
+    line-height: 1.7;
+}
+.dates-list {
+    list-style: none;
+    padding: 0;
+}
+.dates-list li {
+    padding: 8px 0;
+    font-size: 1rem;
+    border-bottom: 1px dashed #eee;
+}
+.dates-list li:last-child {
+    border-bottom: none;
+}
+.note {
+    font-size: 0.92rem;
+    color: #666;
+    font-style: italic;
+    margin-top: 18px;
+    padding-top: 12px;
+    border-top: 1px solid #eee;
+}
+
+/* ==================================
+   5. Responsive Fee Table
+================================== */
+.table-wrapper {
+    overflow-x: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    margin: 20px 0;
+}
+.fee-table {
+    width: 100%;
+    min-width: 500px;
+    border-collapse: collapse;
+    background: #fff;
+}
+.fee-table th {
+    background: #007bff;
+    color: #fff;
+    padding: 14px 12px;
+    text-align: center;
+    font-weight: 600;
+}
+.fee-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+.fee-table tr:hover {
+    background: #f8f9ff;
+}
+
+/* ==================================
+   6. Form Styling
+================================== */
+.form-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+}
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 20px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 14px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #fdfdff;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0,123,255,0.15);
+}
+.form-group.full {
+    grid-column: 1 / -1;
+}
+.form-note {
+    font-size: 0.95rem;
+    color: #666;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* ==================================
+   7. Buttons
+================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 1rem;
+}
+.btn-primary {
+    background: #007bff;
+    color: #fff;
+}
+.btn-primary:hover {
+    background: #0056b3;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,123,255,0.3);
+}
+.btn.large {
+    padding: 18px 40px;
+    font-size: 1.15rem;
+}
+.btn.small {
+    padding: 10px 24px;
+    font-size: 0.95rem;
+}
+
+/* ==================================
+   8. Modal (Timeline Details)
+================================== */
+#timelineModal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(8px);
+}
+#timelineModal.active {
+    opacity: 1;
+    visibility: visible;
+}
+#timelineModal .modal-content {
+    background: #fff;
+    max-width: 600px;
+    width: 100%;
+    border-radius: 20px;
+    padding: 40px;
+    position: relative;
+    box-shadow: 0 25px 80px rgba(0,0,0,0.3);
+    transform: scale(0.9);
+    transition: transform 0.4s ease;
+}
+#timelineModal.active .modal-content {
+    transform: scale(1);
+}
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2.2rem;
+    color: #aaa;
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+.close-modal:hover {
+    background: #f0f0f0;
+    color: #000;
+}
+
+/* ==================================
+   9. Fade-in Animation on Scroll
+================================== */
+.fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==================================
+   10. Responsive Adjustments
+================================== */
+@media (max-width: 992px) {
+    .section { padding: 60px 0; }
+    .page-hero { min-height: 60vh; }
+    .timeline { padding-left: 20px; }
+    .timeline-item { padding-left: 30px; }
+}
+@media (max-width: 576px) {
+    .page-hero { min-height: 55vh; }
+    .section { padding: 50px 0; }
+    .form-wrapper { padding: 25px; }
+    .timeline-icon { width: 40px; height: 40px; font-size: 1.2rem; }
+    .timeline::before { left: 15px; }
+}

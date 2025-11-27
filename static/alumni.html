@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Alumni Network | Bar Union Mixed Secondary School</title>
+    <meta name="description" content="Connect with our proud alumni network. Register, share your success story, and stay connected with your alma mater." />
+    <!-- Styles -->
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/alumni.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body class="page-alumni">
+    <!-- Header -->
+    <div w3-include-html="/includes/header.html"></div>
+
+    <!-- Hero -->
+    <section class="page-hero alumni-hero fade-in">
+        <div class="container text-center">
+            <h1>Alumni Network</h1>
+            <p>
+                Once a Student, Always Family — Connecting Generations, Celebrating Achievements,
+                and Strengthening the Legacy of Bar Union Mixed Secondary School.
+            </p>
+
+            <!-- Dynamic Hero Stats — Loaded from JSON -->
+            <div id="heroStats" class="hero-stats grid-3">
+                <div class="stat">
+                    <h3>2,500+</h3>
+                    <p>Alumni Worldwide</p>
+                </div>
+                <div class="stat">
+                    <h3>50+</h3>
+                    <p>Years of Legacy</p>
+                </div>
+                <div class="stat">
+                    <h3>10+</h3>
+                    <p>Countries Represented</p>
+                </div>
+            </div>
+
+            <p class="hero-text mt-3">
+                Bar Union Mixed Secondary School alumni continue to embody the values, knowledge, and life skills nurtured
+                during their time at the school. Our graduates excel in diverse sectors, including academia, business,
+                science, technology, arts, sports, and public service.
+                <br><br>
+                Through the structured alumni network, former students remain actively engaged by mentoring current learners,
+                providing career guidance, supporting school initiatives, and contributing to infrastructure and community
+                development projects. Membership in the alumni network also offers access to professional networking,
+                collaborative opportunities, and exclusive events, reinforcing lifelong connections and a sense of belonging.
+            </p>
+            <a href="#register" class="btn btn-primary mt-3">Join the Alumni Network</a>
+        </div>
+    </section>
+
+    <!-- Welcome Message -->
+    <section class="section fade-in">
+        <div class="container">
+            <div class="alumni-welcome grid-2 align-center">
+                <div class="welcome-text">
+                    <h2>Welcome Home, Alumni!</h2>
+                    <p id="welcomeText1">
+                        Bar Union Mixed Secondary School warmly welcomes all its alumni. Whether you graduated recently or decades ago,
+                        you remain an integral part of our vibrant school family. Your achievements, values, and contributions continue
+                        to inspire current students and uphold our legacy of excellence.
+                    </p>
+                    <p id="welcomeText2">
+                        Join us in reconnecting with classmates, mentoring students, and participating in alumni events.
+                        Together, we celebrate our shared history, achievements, and the enduring spirit of Bar Union Mixed.
+                    </p>
+                    <a href="#register" class="btn btn-primary large mt-2">Join the Alumni Network</a>
+                </div>
+                <div class="welcome-image">
+                    <img
+                        id="reunionImage"
+                        src="/assets/images/student-life/alumni-reunion.jpg"
+                        alt="Alumni Reunion at Bar Union Mixed"
+                        loading="lazy"
+                    >
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notable Alumni — Dynamic from JSON -->
+    <section class="section bg-light fade-in">
+        <div class="container">
+            <div class="section-title">
+                <h2>Notable Alumni</h2>
+                <p>Honoring the exceptional achievements and global impact of our former students</p>
+            </div>
+
+            <!-- Loader -->
+            <div class="loader text-center"><i class="fas fa-spinner fa-spin fa-3x"></i></div>
+
+            <!-- Dynamic Grid -->
+            <div id="notableAlumni" class="notable-grid grid-3">
+                <!-- Static fallback cards (will be replaced by JS) -->
+                <div class="alumni-card hover-zoom">
+                    <img src="/assets/images/alumni/alumni1.jpg" alt="Jane Wanjiku" loading="lazy">
+                    <h4>Jane Wanjiku</h4>
+                    <p>CEO, Tech Innovations Ltd. • Advocate for STEM Education in Kenya • Mentor to young tech entrepreneurs</p>
+                </div>
+                <div class="alumni-card hover-zoom">
+                    <img src="/assets/images/alumni/alumni2.jpg" alt="Joshua Agengo" loading="lazy">
+                    <h4>Joshua Agengo</h4>
+                    <p>International Diplomat • Former UN Youth Ambassador • Promotes peace, diplomacy, and global youth engagement</p>
+                </div>
+                <div class="alumni-card hover-zoom">
+                    <img src="/assets/images/alumni/alumni3.jpg" alt="Sam Onyango" loading="lazy">
+                    <h4>Sam Onyango</h4>
+                    <p>Renowned Medical Researcher • Advocate for Community Health Programs • Pioneer in public health initiatives in Africa</p>
+                </div>
+                <div class="alumni-card hover-zoom">
+                    <img src="/assets/images/alumni/alumni4.jpg" alt="David Njoroge" loading="lazy">
+                    <h4>David Njoroge</h4>
+                    <p>Entrepreneur & Philanthropist • Supporting Education and Sports Development • Invests in youth empowerment projects</p>
+                </div>
+                <div class="alumni-card hover-zoom">
+                    <img src="/assets/images/alumni/alumni5.jpg" alt="Mary Achieng" loading="lazy">
+                    <h4>Mary Achieng</h4>
+                    <p>Author & Social Activist • Promotes Literacy and Girls’ Education in Kenya • Founder of community-based reading programs</p>
+                </div>
+            </div>
+
+            <p class="note text-center mt-4">
+                These are just a few examples of the inspiring alumni from Bar Union Mixed Secondary School.
+                Our graduates excel across multiple spheres including leadership, entrepreneurship, academics, sciences, arts, sports, and social impact.
+                They continue to contribute positively to society, both locally and globally, and remain active participants in our alumni network.
+            </p>
+        </div>
+    </section>
+
+    <!-- Upcoming Alumni Events — New Section (Required by JS) -->
+    <section class="section fade-in">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Upcoming Alumni Events</h2>
+                <p>Reunions, mentorship sessions, career talks, and networking opportunities</p>
+            </div>
+
+            <!-- Loader -->
+            <div class="loader text-center"><i class="fas fa-spinner fa-spin fa-3x"></i></div>
+
+            <!-- Dynamic Events Grid -->
+            <div id="alumniEvents" class="grid-3 engagement-grid">
+                <!-- Will be populated by alumni.js -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Alumni Registration Form -->
+    <section class="section fade-in" id="register">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Register / Update Your Alumni Profile</h2>
+                <p>Reconnect, share your journey, and contribute to our global alumni network</p>
+            </div>
+            <p class="section-intro text-center">
+                By registering, you join a vibrant community of former students who support each other and guide current students.
+                Your profile helps us celebrate achievements, foster mentorship, and keep everyone informed about reunions, events, and opportunities.
+            </p>
+            <div class="form-wrapper">
+                <form action="https://formspree.io/f/your-form-id-here" method="POST" class="alumni-form" enctype="multipart/form-data">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" name="name" placeholder="Your full name as a student" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Batch Year *</label>
+                            <input type="text" name="batch" placeholder="e.g., 2010" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address *</label>
+                            <input type="email" name="_replyto" placeholder="you@example.com" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" name="phone" placeholder="+254 7XX XXX XXX" />
+                        </div>
+                        <div class="form-group">
+                            <label>Current Profession</label>
+                            <input type="text" name="profession" placeholder="Your current occupation or field" />
+                        </div>
+                        <div class="form-group">
+                            <label>Organization / Company</label>
+                            <input type="text" name="organization" placeholder="Current employer or organization" />
+                        </div>
+                        <div class="form-group">
+                            <label>City / Country</label>
+                            <input type="text" name="location" placeholder="Where you are based now" />
+                        </div>
+                        <div class="form-group">
+                            <label>Profile Photo (Optional)</label>
+                            <input type="file" name="profile_photo" accept="image/*" />
+                        </div>
+                        <div class="form-group">
+                            <label>Passport-size Photo (Optional)</label>
+                            <input type="file" name="passport_photo" accept="image/*" />
+                        </div>
+                        <div class="form-group full">
+                            <label>Favorite Memory or Story from School</label>
+                            <textarea name="message" rows="4" placeholder="Share a memory, achievement, or moment that made your school days special..."></textarea>
+                        </div>
+                        <div class="form-group full">
+                            <label>Skills & Interests</label>
+                            <textarea name="skills" rows="3" placeholder="Mentorship areas, volunteering, networking opportunities, or hobbies you can share"></textarea>
+                        </div>
+                        <div class="form-group full">
+                            <label>Connect Me With</label>
+                            <textarea name="connect" rows="2" placeholder="Specify if you want to connect with specific departments, clubs, or students"></textarea>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button type="submit" class="btn btn-primary large">
+                            Submit & Join the Alumni Network <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    <p class="form-note text-center mt-2">
+                        We respect your privacy. Your information will be used to strengthen alumni engagement, mentorship, and events.
+                        Expect a welcome email and guidance within 48 hours.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Engagement Opportunities (Static) -->
+    <section class="section fade-in" id="engagement">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Alumni Mentorship & Engagement Opportunities</h2>
+                <p>Share Knowledge • Guide Students • Strengthen Our Network</p>
+            </div>
+            <p class="section-intro text-center">
+                Bar Union Mixed Secondary School alumni play a vital role in shaping the next generation of leaders.
+                Through mentorship, professional guidance, volunteering, and networking, you can help current students explore career paths, develop skills, and achieve their full potential.
+            </p>
+            <div class="grid-3 engagement-grid">
+                <div class="engagement-card hover-zoom">
+                    <i class="fas fa-chalkboard-teacher fa-3x" style="color: #3498db;"></i>
+                    <h4>Mentorship Programs</h4>
+                    <p>Provide one-on-one or group guidance for students in academics, career choices, and personal development.</p>
+                </div>
+                <div class="engagement-card hover-zoom">
+                    <i class="fas fa-network-wired fa-3x" style="color: #e74c3c;"></i>
+                    <h4>Professional Networking</h4>
+                    <p>Connect students with industries, colleges, and global opportunities to broaden their horizons.</p>
+                </div>
+                <div class="engagement-card hover-zoom">
+                    <i class="fas fa-hands-helping fa-3x" style="color: #16a34a;"></i>
+                    <h4>Volunteer & Support</h4>
+                    <p>Contribute your skills, knowledge, or resources to school projects, events, and community initiatives.</p>
+                </div>
+                <div class="engagement-card hover-zoom">
+                    <i class="fas fa-lightbulb fa-3x" style="color: #f39c12;"></i>
+                    <h4>Workshops & Career Talks</h4>
+                    <p>Lead sessions, workshops, or seminars to inspire students and share industry insights.</p>
+                </div>
+                <div class="engagement-card hover-zoom">
+                    <i class="fas fa-hand-holding-usd fa-3x" style="color: #dc2626;"></i>
+                    <h4>Scholarships & Grants</h4>
+                    <p>Support deserving students through funding, scholarships, and sponsorship of special programs.</p>
+                </div>
+                <div class="engagement-card hover-zoom">
+                    <i class="fas fa-globe fa-3x" style="color: #2563eb;"></i>
+                    <h4>Global Alumni Network</h4>
+                    <p>Join a worldwide community of alumni to collaborate, share experiences, and create lasting impact.</p>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="#register" class="btn btn-primary large">
+                    Sign Up to Engage <i class="fas fa-arrow-right"></i>
+                </a>
+                <p class="mt-2">Your participation helps us build a stronger, connected, and supportive alumni community.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alumni Mentorship Stats (Static) -->
+    <section class="section bg-light" aria-label="Alumni Engagement & Mentorship Stats">
+        <div class="container">
+            <div class="section-title text-center">
+                <h2>Alumni Engagement & Mentorship</h2>
+                <p>Highlighting the meaningful contributions our alumni make to student growth and school development</p>
+            </div>
+            <div class="grid-3 stats text-center">
+                <div class="stat fade-in">
+                    <h3>120+</h3>
+                    <p>Active Mentors providing guidance across academics, careers, and life skills</p>
+                </div>
+                <div class="stat fade-in">
+                    <h3>350+</h3>
+                    <p>Students directly mentored through one-on-one sessions, group workshops, and online guidance</p>
+                </div>
+                <div class="stat fade-in">
+                    <h3>25+</h3>
+                    <p>Workshops, seminars, and career talks conducted to inspire and equip students for future success</p>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p>
+                    Our alumni network not only provides mentorship but also opens doors for internships, scholarships, and career opportunities.
+                    Join our network to share your expertise, inspire the next generation, and stay connected with the Bar Union Mixed Secondary School community.
+                </p>
+                <a href="#register" class="btn btn-primary mt-2">Become a Mentor</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div w3-include-html="/includes/footer.html"></div>
+
+    <!-- Scripts -->
+    <script src="/js/main.js"></script>
+    <script src="/js/alumni.js" defer></script>
+</body>
+</html>

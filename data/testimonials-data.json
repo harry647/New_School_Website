@@ -1,0 +1,56 @@
+{
+  "testimonials": [
+    {
+      "name": "Aarav Gupta",
+      "grade": "Grade 11",
+      "role": "Top Scorer, Science Stream",
+      "photo": "../assets/images/testimonials/aarav.jpg",
+      "quote": "The e-learning portal transformed my learning experience. I can access live classes, watch recordings, and track my performance with detailed analytics. My grades improved drastically!"
+    },
+    {
+      "name": "Ms. Isha Verma",
+      "role": "Mathematics Teacher",
+      "photo": "../assets/images/testimonials/isha.jpg",
+      "quote": "Using the portal, I can easily assign homework, monitor students’ progress, and provide personalized feedback. It has made teaching more efficient and impactful."
+    },
+    {
+      "name": "Mr. Rohan Malhotra",
+      "role": "Parent of Grade 10 Student",
+      "photo": "../assets/images/testimonials/rohan.jpg",
+      "quote": "I can track my child’s attendance, assignment submissions, and exam scores in real time. It allows me to support my child’s learning effectively from home."
+    },
+    {
+      "name": "Ananya Singh",
+      "grade": "Grade 12",
+      "role": "Top Performer, Humanities Stream",
+      "photo": "../assets/images/testimonials/ananya.jpg",
+      "quote": "The interactive quizzes and instant feedback helped me identify weak areas and improve. I feel more confident during exams now."
+    },
+    {
+      "name": "Mr. Praveen Kumar",
+      "role": "Head of Academic Affairs",
+      "photo": "../assets/images/testimonials/praveen.jpg",
+      "quote": "The analytics dashboard is excellent for tracking school-wide performance trends. It helps in planning remedial classes and enhancing student outcomes."
+    },
+    {
+      "name": "Fatuma Hassan",
+      "grade": "Grade 12",
+      "role": "Student Leader",
+      "photo": "../assets/images/testimonials/fatuma.jpg",
+      "quote": "The portal’s discussion forums let me collaborate with classmates on group projects even after school hours. It’s like having a second classroom online!"
+    },
+    {
+      "name": "Mrs. Grace Omondi",
+      "role": "Parent & PTA Member",
+      "photo": "../assets/images/testimonials/grace.jpg",
+      "quote": "As a working parent, I love receiving instant notifications about assignments and events. It keeps me involved in my daughter’s education like never before."
+    },
+    {
+      "name": "David Njoroge",
+      "grade": "Grade 10",
+      "role": "Robotics Club President",
+      "photo": "../assets/images/testimonials/david.jpg",
+      "quote": "The digital resources and video tutorials helped our robotics team win the national championship. The portal is our secret weapon!"
+    }
+  ]
+}

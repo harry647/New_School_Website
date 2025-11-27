@@ -1,0 +1,88 @@
+{  
+  "bom": [
+    { "name": "Mr. James Kamau", "role": "BOM Chairman", "representing": "Sponsor Representative", "photo": "../assets/images/bom/chairman.jpg" },
+    { "name": "Mrs. Grace Wanjiku", "role": "Secretary", "representing": "Principal (Ex-Officio)", "photo": "../assets/images/principal.jpg" },
+    { "name": "Eng. Peter Omondi", "role": "Member", "representing": "PA Representative", "photo": "../assets/images/bom/omondi.jpg" }
+  ],
+  
+  "leadership": [
+    {
+      "name": "Dr. Sarah Johnson",
+      "role": "Principal & Director",
+      "photo": "assets/images/admin/principal.jpg",
+      "quote": "Education is the most powerful tool to change the world.",
+      "bio": "With over 22 years of experience in educational leadership, Dr. Johnson has transformed institutions with innovative pedagogy and inclusive policies.",
+      "contact": {
+        "email": "principal@yourschool.edu.in",
+        "phone": "+91 755 432 1001"
+      },
+      "social": {
+        "linkedin": "https://linkedin.com/in/sarahjohnson",
+        "twitter": "https://twitter.com/sarahjohnson"
+      }
+    },
+    {
+      "name": "Mr. Rajesh Kumar",
+      "role": "Vice Principal (Academics)",
+      "photo": "assets/images/admin/vice-principal.jpg",
+      "bio": "M.Sc, B.Ed | 18 years experience<br>Oversees curriculum, assessments & faculty development",
+      "contact": {
+        "email": "vp.academics@yourschool.edu.in"
+      }
+    },
+    {
+      "name": "Mrs. Priya Malhotra",
+      "role": "Vice Principal (Administration)",
+      "photo": "assets/images/admin/vp-admin.jpg",
+      "bio": "MBA, M.Ed | 16 years experience<br>Manages operations, infrastructure & parent relations",
+      "contact": {
+        "email": "vp.admin@yourschool.edu.in"
+      }
+    }
+  ],
+  "departments": [
+    {
+      "name": "Admissions Office",
+      "icon": "fas fa-user-graduate",
+      "head": "Ms. Neeta Desai",
+      "headTitle": "Admissions Head",
+      "phone": "+91 98765 43210",
+      "email": "admissions@yourschool.edu.in"
+    },
+    {
+      "name": "Accounts & Finance",
+      "icon": "fas fa-calculator",
+      "head": "Mr. Sanjay Gupta",
+      "headTitle": "Chief Accountant",
+      "email": "accounts@yourschool.edu.in"
+    },
+    {
+      "name": "Transport & Safety",
+      "icon": "fas fa-heartbeat",
+      "head": "Mr. Arvind Singh",
+      "headTitle": "Transport Manager",
+      "phone": "+91 98765 43211"
+    },
+    {
+      "name": "Security & Maintenance",
+      "icon": "fas fa-shield-alt",
+      "head": "Col. R. K. Sharma (Retd.)",
+      "headTitle": "Estate Officer",
+      "note": "24×7 emergency support available"
+    },
+    {
+      "name": "Examination Cell",
+      "icon": "fas fa-book-reader",
+      "head": "Mrs. Ritu Sharma",
+      "headTitle": "Controller of Examinations",
+      "email": "examcell@yourschool.edu.in"
+    },
+    {
+      "name": "Medical Room",
+      "icon": "fas fa-laptop-medical",
+      "head": "Dr. Meena Verma<br>Nurse: Ms. Kavita Rani",
+      "headTitle": "Resident Doctor",
+      "phone": "Ext. 222 (Emergency)"
+    }
+  ]
+}

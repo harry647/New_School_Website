@@ -1,0 +1,46 @@
+{
+  "successStories": [
+    {
+      "name": "Joseph Ageng'o",
+      "batch": "2024",
+      "photo": "../assets/images/career/student1.jpg",
+      "achievement": "Electrical Engineering • Technical University of Kenya",
+      "story": "With consistent mentoring from the Career Guidance Cell, Joseph focused on core STEM subjects, participated in county Olympiads, and developed analytical skills that secured him a top rank."
+    },
+    {
+      "name": "Isha Verma",
+      "batch": "2025",
+      "photo": "../assets/images/career/student2.jpg",
+      "achievement": "AIIMS Delhi • NEET Rank 42",
+      "story": "Through tailored guidance in biology and chemistry, Isha received structured support for competitive exams and gained confidence via mock tests, workshops, and mentorship programs."
+    },
+    {
+      "name": "Rohan Malhotra",
+      "batch": "2023",
+      "photo": "../assets/images/career/student3.jpg",
+      "achievement": "NLSIU Bangalore • CLAT Rank 12",
+      "story": "Rohan honed his legal aptitude, critical thinking, and interview skills under the mentorship of alumni lawyers, ultimately excelling in the national law entrance examination."
+    },
+    {
+      "name": "Ananya Singh",
+      "batch": "2024",
+      "photo": "../assets/images/career/student4.jpg",
+      "achievement": "University of Oxford • Rhodes Scholar",
+      "story": "Ananya’s academic excellence and global exposure were nurtured through leadership programs, essay-writing workshops, and college application guidance, leading to a prestigious international scholarship."
+    },
+    {
+      "name": "Michael Omondi",
+      "batch": "2022",
+      "photo": "../assets/images/career/student5.jpg",
+      "achievement": "Harvard University • Full Scholarship",
+      "story": "Michael's passion for computer science was identified early. With SAT prep, essay coaching, and scholarship guidance, he earned a full ride to one of the world’s top universities."
+    },
+    {
+      "name": "Fatuma Hassan",
+      "batch": "2021",
+      "photo": "../assets/images/career/student6.jpg",
+      "achievement": "Strathmore University • CPA(K) Top Student",
+      "story": "Fatuma received intensive support in commerce subjects and professional exam prep, emerging as the top-performing accounting student in the country."
+    }
+  ]
+}

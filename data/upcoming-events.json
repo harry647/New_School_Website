@@ -1,0 +1,35 @@
+[
+  {
+    "title": "Form 1 Parents Orientation",
+    "date": "2026-01-10",
+    "time": "9:00 AM - 12:00 PM",
+    "location": "School Hall",
+    "type": "Academic"
+  },
+  {
+    "title": "Inter-House Music Competition",
+    "date": "2026-01-24",
+    "time": "2:00 PM onwards",
+    "location": "Main Grounds",
+    "type": "Cultural"
+  },
+  {
+    "title": "Mid-Term Break Begins",
+    "date": "2026-02-14",
+    "type": "Holiday"
+  },
+  {
+    "title": "Science & Arts Exhibition",
+    "date": "2026-03-08",
+    "time": "10:00 AM - 4:00 PM",
+    "location": "Science Block",
+    "type": "Academic"
+  },
+  {
+    "title": "Annual Sports Day 2026",
+    "date": "2026-03-28",
+    "time": "8:00 AM onwards",
+    "location": "School Grounds",
+    "type": "Sports"
+  }
+]

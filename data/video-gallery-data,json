@@ -1,0 +1,39 @@
+[
+  {
+    "title": "A Day in the Life of a Student",
+    "id": "dQw4w9WgXcQ",
+    "type": "youtube",
+    "category": "school-life",
+    "date": "March 2025",
+    "duration": "5:42"
+  },
+  {
+    "title": "Prize Giving Ceremony 2024",
+    "id": "abc123xyz",
+    "type": "youtube",
+    "category": "events",
+    "date": "December 2024"
+  },
+  {
+    "title": "KCSE Results Announcement & Celebration",
+    "id": "kcs2024results",
+    "type": "youtube",
+    "category": "academics",
+    "date": "January 2025"
+  },
+  {
+    "title": "National Drama Festival Champions Performance",
+    "src": "../assets/videos/drama-festival-2025.mp4",
+    "poster": "../assets/images/thumbs/drama-thumb.jpg",
+    "type": "local",
+    "category": "events",
+    "date": "April 2025"
+  },
+  {
+    "title": "Message from the Principal – Term 1 2025",
+    "id": "principal2025",
+    "type": "youtube",
+    "category": "messages",
+    "date": "January 2025"
+  }
+]

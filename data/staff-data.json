@@ -1,0 +1,383 @@
+[
+  {
+    "name": "Dr. Sarah Johnson",
+    "designation": "Principal",
+    "qualification": "Ph.D. in Education, M.Ed, B.Ed",
+    "experience": "22 years",
+    "category": "leadership",
+    "department": "Administration",
+    "photo": "../assets/images/staff/principal.jpg",
+    "social": {
+      "email": "principal@yourschool.edu",
+      "linkedin": "https://linkedin.com/in/sarahjohnson"
+    }
+  },
+  {
+    "name": "Mr. Rajesh Kumar",
+    "designation": "Deputy Principal Academics",
+    "qualification": "M.Sc Mathematics, B.Ed",
+    "experience": "18 years",
+    "category": "leadership",
+    "department": "Administration",
+    "photo": "../assets/images/staff/vice-principal.jpg"
+  },
+  {
+    "name": "Mrs. Juliet Muthoni",
+    "designation": "Deputy Principal Administration",
+    "qualification": "M.A Public Administration",
+    "experience": "20 years",
+    "category": "leadership",
+    "department": "Administration",
+    "photo": "../assets/images/staff/deputy-admin.jpg"
+  },
+
+  {
+    "name": "Mrs. Anjali Sharma",
+    "designation": "Head of Languages Department",
+    "qualification": "M.A English, B.Ed",
+    "experience": "15 years",
+    "category": "teaching",
+    "department": "Languages",
+    "photo": "../assets/images/staff/languages/hod-english.jpg"
+  },
+  {
+    "name": "Mr. Emmanuel Ochieng",
+    "designation": "English Teacher",
+    "qualification": "B.A English, PGDE",
+    "experience": "8 years",
+    "category": "teaching",
+    "department": "Languages",
+    "photo": "../assets/images/staff/languages/english1.jpg"
+  },
+  {
+    "name": "Ms. Lydia Wanjiku",
+    "designation": "Kiswahili Teacher",
+    "qualification": "B.Ed Kiswahili",
+    "experience": "7 years",
+    "category": "teaching",
+    "department": "Languages",
+    "photo": "../assets/images/staff/languages/kiswahili1.jpg"
+  },
+  {
+    "name": "Mr. Samuel Kibet",
+    "designation": "English & Literature Teacher",
+    "qualification": "B.Ed Arts",
+    "experience": "10 years",
+    "category": "teaching",
+    "department": "Languages",
+    "photo": "../assets/images/staff/languages/english2.jpg"
+  },
+  {
+    "name": "Ms. Beatrice Achieng",
+    "designation": "Kiswahili Teacher",
+    "qualification": "M.A Kiswahili",
+    "experience": "12 years",
+    "category": "teaching",
+    "department": "Languages",
+    "photo": "../assets/images/staff/languages/kiswahili2.jpg"
+  },
+  {
+    "name": "Mr. Daniel Mutua",
+    "designation": "French Teacher",
+    "qualification": "B.A French",
+    "experience": "6 years",
+    "category": "teaching",
+    "department": "Languages",
+    "photo": "../assets/images/staff/languages/french.jpg"
+  },
+
+  {
+    "name": "Mr. Joseph Mwangi",
+    "designation": "Head of Mathematics",
+    "qualification": "M.Sc Mathematics",
+    "experience": "14 years",
+    "category": "teaching",
+    "department": "Mathematics",
+    "photo": "../assets/images/staff/math/hod-math.jpg"
+  },
+  {
+    "name": "Ms. Priya Mehta",
+    "designation": "Math & Robotics Coordinator",
+    "qualification": "M.Sc Mathematics, B.Ed",
+    "experience": "10 years",
+    "category": "teaching",
+    "department": "Mathematics",
+    "photo": "../assets/images/staff/math/math1.jpg"
+  },
+  {
+    "name": "Mr. Kevin Oduor",
+    "designation": "Mathematics Teacher",
+    "qualification": "B.Ed Mathematics",
+    "experience": "7 years",
+    "category": "teaching",
+    "department": "Mathematics",
+    "photo": "../assets/images/staff/math/math2.jpg"
+  },
+  {
+    "name": "Mrs. Mercy Cherop",
+    "designation": "Mathematics Teacher",
+    "qualification": "B.Sc Statistics, PGDE",
+    "experience": "5 years",
+    "category": "teaching",
+    "department": "Mathematics",
+    "photo": "../assets/images/staff/math/math3.jpg"
+  },
+  {
+    "name": "Mr. Tom Maloba",
+    "designation": "Mathematics Teacher",
+    "qualification": "B.Ed Science",
+    "experience": "9 years",
+    "category": "teaching",
+    "department": "Mathematics",
+    "photo": "../assets/images/staff/math/math4.jpg"
+  },
+  {
+    "name": "Ms. Sharon Wekesa",
+    "designation": "Mathematics Teacher",
+    "qualification": "B.Ed Mathematics",
+    "experience": "4 years",
+    "category": "teaching",
+    "department": "Mathematics",
+    "photo": "../assets/images/staff/math/math5.jpg"
+  },
+
+  {
+    "name": "Mr. Vikram Singh",
+    "designation": "Senior Physics Teacher",
+    "qualification": "M.Sc Physics, B.Ed",
+    "experience": "12 years",
+    "category": "teaching",
+    "department": "Sciences",
+    "photo": "../assets/images/staff/science/physics1.jpg"
+  },
+  {
+    "name": "Mrs. Christine Naliaka",
+    "designation": "Chemistry Teacher",
+    "qualification": "B.Sc Chemistry, PGDE",
+    "experience": "9 years",
+    "category": "teaching",
+    "department": "Sciences",
+    "photo": "../assets/images/staff/science/chem1.jpg"
+  },
+  {
+    "name": "Mr. Patrick Mutinda",
+    "designation": "Biology Teacher",
+    "qualification": "B.Ed Science",
+    "experience": "11 years",
+    "category": "teaching",
+    "department": "Sciences",
+    "photo": "../assets/images/staff/science/bio1.jpg"
+  },
+  {
+    "name": "Ms. Leah Chepkirui",
+    "designation": "Biology Teacher",
+    "qualification": "M.Sc Biology",
+    "experience": "10 years",
+    "category": "teaching",
+    "department": "Sciences",
+    "photo": "../assets/images/staff/science/bio2.jpg"
+  },
+  {
+    "name": "Mr. Dennis Abuga",
+    "designation": "Chemistry Teacher",
+    "qualification": "B.Ed Science",
+    "experience": "6 years",
+    "category": "teaching",
+    "department": "Sciences",
+    "photo": "../assets/images/staff/science/chem2.jpg"
+  },
+  {
+    "name": "Ms. Rebecca Kirui",
+    "designation": "Physics & Math Teacher",
+    "qualification": "B.Sc Physics",
+    "experience": "4 years",
+    "category": "teaching",
+    "department": "Sciences",
+    "photo": "../assets/images/staff/science/physics2.jpg"
+  },
+
+
+  {
+    "name": "Mr. Peter Thiong’o",
+    "designation": "Head of Humanities",
+    "qualification": "M.A History",
+    "experience": "16 years",
+    "category": "teaching",
+    "department": "Humanities",
+    "photo": "../assets/images/staff/humanities/hod.jpg"
+  },
+  {
+    "name": "Mrs. Faith Kilonzo",
+    "designation": "CRE Teacher",
+    "qualification": "B.Ed Arts",
+    "experience": "6 years",
+    "category": "teaching",
+    "department": "Humanities",
+    "photo": "../assets/images/staff/humanities/cre1.jpg"
+  },
+  {
+    "name": "Mr. John Ouma",
+    "designation": "Geography Teacher",
+    "qualification": "B.A Geography",
+    "experience": "8 years",
+    "category": "teaching",
+    "department": "Humanities",
+    "photo": "../assets/images/staff/humanities/geo1.jpg"
+  },
+  {
+    "name": "Ms. Stella Namisi",
+    "designation": "History Teacher",
+    "qualification": "B.Ed Arts",
+    "experience": "5 years",
+    "category": "teaching",
+    "department": "Humanities",
+    "photo": "../assets/images/staff/humanities/hist1.jpg"
+  },
+  {
+    "name": "Mr. Martin Lutta",
+    "designation": "Sociology Teacher",
+    "qualification": "B.A Sociology",
+    "experience": "4 years",
+    "category": "teaching",
+    "department": "Humanities",
+    "photo": "../assets/images/staff/humanities/soc1.jpg"
+  },
+
+
+  {
+    "name": "Mrs. Naomi Ndunge",
+    "designation": "Head of Technicals",
+    "qualification": "B.Ed Home Science",
+    "experience": "14 years",
+    "category": "teaching",
+    "department": "Technicals",
+    "photo": "../assets/images/staff/technicals/hod.jpg"
+  },
+  {
+    "name": "Mr. Brian Amimo",
+    "designation": "Agriculture Teacher",
+    "qualification": "B.Sc Agriculture",
+    "experience": "7 years",
+    "category": "teaching",
+    "department": "Technicals",
+    "photo": "../assets/images/staff/technicals/agri1.jpg"
+  },
+  {
+    "name": "Ms. Alice Wambui",
+    "designation": "Business Studies Teacher",
+    "qualification": "B.Com, PGDE",
+    "experience": "6 years",
+    "category": "teaching",
+    "department": "Technicals",
+    "photo": "../assets/images/staff/technicals/business1.jpg"
+  },
+  {
+    "name": "Mr. Allan Koech",
+    "designation": "Computer Studies Teacher",
+    "qualification": "B.Sc Computer Science",
+    "experience": "5 years",
+    "category": "teaching",
+    "department": "Technicals",
+    "photo": "../assets/images/staff/technicals/ict1.jpg"
+  },
+  {
+    "name": "Ms. Ruth Chepkoech",
+    "designation": "Home Science Teacher",
+    "qualification": "B.Ed Home Science",
+    "experience": "9 years",
+    "category": "teaching",
+    "department": "Technicals",
+    "photo": "../assets/images/staff/technicals/homesci1.jpg"
+  },
+
+  {
+    "name": "Mrs. Neeta Desai",
+    "designation": "Administrative Officer",
+    "qualification": "MBA",
+    "experience": "14 years",
+    "category": "admin",
+    "department": "Administration",
+    "photo": "../assets/images/staff/admin/admin1.jpg"
+  },
+  {
+    "name": "Mr. Amos Kiprono",
+    "designation": "Finance Officer",
+    "qualification": "CPA, B.Com",
+    "experience": "12 years",
+    "category": "admin",
+    "department": "Finance",
+    "photo": "../assets/images/staff/admin/finance1.jpg"
+  },
+  {
+    "name": "Ms. Caren Mwikali",
+    "designation": "Secretary",
+    "qualification": "Diploma in Office Admin",
+    "experience": "8 years",
+    "category": "admin",
+    "department": "Administration",
+    "photo": "../assets/images/staff/admin/secretary1.jpg"
+  },
+  {
+    "name": "Mr. Brian Limo",
+    "designation": "ICT Technician",
+    "qualification": "Diploma in ICT",
+    "experience": "6 years",
+    "category": "support",
+    "department": "ICT",
+    "photo": "../assets/images/staff/support/ict1.jpg"
+  },
+  {
+    "name": "Ms. Ritu Kapoor",
+    "designation": "School Counselor",
+    "qualification": "M.A Psychology",
+    "experience": "9 years",
+    "category": "support",
+    "department": "Guidance & Counseling",
+    "photo": "../assets/images/staff/support/counselor1.jpg"
+  },
+  {
+    "name": "Mr. Amit Trivedi",
+    "designation": "Chief Librarian",
+    "qualification": "M.Lib.Sc",
+    "experience": "11 years",
+    "category": "support",
+    "department": "Library",
+    "photo": "../assets/images/staff/support/librarian1.jpg"
+  },
+  {
+    "name": "Mr. David Otieno",
+    "designation": "Lab Technician",
+    "qualification": "Diploma in Lab Science",
+    "experience": "7 years",
+    "category": "support",
+    "department": "Sciences",
+    "photo": "../assets/images/staff/support/lab1.jpg"
+  },
+  {
+    "name": "Mrs. Mary Atieno",
+    "designation": "School Nurse",
+    "qualification": "KRCHN",
+    "experience": "12 years",
+    "category": "support",
+    "department": "Health",
+    "photo": "../assets/images/staff/support/nurse1.jpg"
+  },
+  {
+    "name": "Mr. Patrick Bett",
+    "designation": "Boarding Master",
+    "qualification": "Certificate in Youth Leadership",
+    "experience": "10 years",
+    "category": "support",
+    "department": "Boarding",
+    "photo": "../assets/images/staff/support/boarding1.jpg"
+  },
+  {
+    "name": "Ms. Susan Njeri",
+    "designation": "Catering Manager",
+    "qualification": "Diploma in Food & Beverage",
+    "experience": "8 years",
+    "category": "support",
+    "department": "Kitchen",
+    "photo": "../assets/images/staff/support/catering1.jpg"
+  }
+]

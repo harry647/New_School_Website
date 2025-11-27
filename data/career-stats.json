@@ -1,0 +1,34 @@
+{
+  "stats": [
+    {
+      "icon": "fas fa-user-graduate",
+      "value": "1,250+",
+      "label": "Students Counseled"
+    },
+    {
+      "icon": "fas fa-award",
+      "value": "320+",
+      "label": "Scholarships Secured"
+    },
+    {
+      "icon": "fas fa-university",
+      "value": "150+",
+      "label": "Top College Placements"
+    },
+    {
+      "icon": "fas fa-globe",
+      "value": "20+",
+      "label": "Countries Represented"
+    },
+    {
+      "icon": "fas fa-briefcase",
+      "value": "85%",
+      "label": "Students in Dream Careers"
+    },
+    {
+      "icon": "fas fa-trophy",
+      "value": "47",
+      "label": "National Exam Toppers"
+    }
+  ]
+}

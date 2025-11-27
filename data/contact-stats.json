@@ -1,0 +1,34 @@
+{
+  "stats": [
+    {
+      "icon": "fas fa-envelope-open-text",
+      "value": "1,250+",
+      "label": "Inquiries Received"
+    },
+    {
+      "icon": "fas fa-file-check",
+      "value": "850+",
+      "label": "Applications Processed"
+    },
+    {
+      "icon": "fas fa-user-graduate",
+      "value": "500+",
+      "label": "Students Admitted"
+    },
+    {
+      "icon": "fas fa-comments",
+      "value": "200+",
+      "label": "Career Counseling Sessions"
+    },
+    {
+      "icon": "fas fa-users",
+      "value": "1,000+",
+      "label": "Active Alumni"
+    },
+    {
+      "icon": "fas fa-clock",
+      "value": "24 hrs",
+      "label": "Average Response Time"
+    }
+  ]
+}

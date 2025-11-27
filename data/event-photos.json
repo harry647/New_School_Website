@@ -1,0 +1,26 @@
+[
+  {
+    "image": "/assets/images/gallery/sports-day-1.jpg",
+    "title": "100m Sprint Finals"
+  },
+  {
+    "image": "/assets/images/gallery/science-fair.jpg",
+    "title": "National Science Exhibition"
+  },
+  {
+    "image": "/assets/images/gallery/annual-day-dance.jpg",
+    "title": "Cultural Dance Performance"
+  },
+  {
+    "image": "/assets/images/gallery/tree-plantation.jpg",
+    "title": "Environment Day – Tree Plantation Drive"
+  },
+  {
+    "image": "/assets/images/gallery/debate-competition.jpg",
+    "title": "Inter-House Debate Championship"
+  },
+  {
+    "image": "/assets/images/gallery/independence-day.jpg",
+    "title": "Independence Day Celebrations"
+  }
+]
