@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Function to include external HTML
     function includeHTML() {
         const includes = document.querySelectorAll('[w3-include-html]');
         const promises = [];
@@ -16,40 +15,41 @@ document.addEventListener('DOMContentLoaded', () => {
                     .then(data => {
                         el.innerHTML = data;
                         el.removeAttribute('w3-include-html');
+
+                        // Immediately initialize nav for this included header
+                        if (el.querySelector('.header')) initNav(el.querySelector('.header'));
                     })
                     .catch(err => console.error(err));
                 promises.push(p);
             }
         });
 
-        // After all includes are loaded, initialize nav
+        // Optional: init other navs if header already exists
         Promise.all(promises).then(() => {
-            initNav();
+            const existingHeaders = document.querySelectorAll('.header');
+            existingHeaders.forEach(h => initNav(h));
         });
     }
 
-    function initNav() {
-        const header = document.querySelector('.header');
-        const hamburger = header ? header.querySelector('.hamburger') : null;
-        const navMenu = header ? header.querySelector('.nav-menu') : null;
-        const navLinks = navMenu ? navMenu.querySelectorAll('.nav-link') : [];
-        const dropdowns = header ? header.querySelectorAll('.dropdown') : [];
+    function initNav(header) {
+        if (!header) return;
 
-        // -------------------------------
-        // Mobile Menu Toggle
-        // -------------------------------
-        if (hamburger && navMenu && header) {
+        const hamburger = header.querySelector('.hamburger');
+        const navMenu = header.querySelector('.nav-menu');
+        const navLinks = navMenu ? navMenu.querySelectorAll('.nav-link') : [];
+        const dropdowns = header.querySelectorAll('.dropdown');
+
+        // Mobile menu toggle
+        if (hamburger && navMenu) {
             hamburger.addEventListener('click', () => {
-                const expanded = hamburger.classList.toggle('active'); // animates hamburger
-                navMenu.classList.toggle('active'); // slides menu
-                header.classList.toggle('nav-open'); // overlay
+                const expanded = hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                header.classList.toggle('nav-open');
                 hamburger.setAttribute('aria-expanded', expanded);
             });
         }
 
-        // -------------------------------
-        // Highlight Current Page
-        // -------------------------------
+        // Highlight current page
         const currentPage = window.location.pathname.split("/").pop();
         navLinks.forEach(link => {
             const linkPage = link.getAttribute('href').split("/").pop();
@@ -63,9 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // -------------------------------
-        // Dropdowns
-        // -------------------------------
+        // Dropdown toggle
         dropdowns.forEach(drop => {
             const toggle = drop.querySelector('a.nav-link');
             const menu = drop.querySelector('.dropdown-menu');
@@ -98,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // Close dropdowns if clicking outside
+        // Close menus on outside click
         document.addEventListener('click', (e) => {
             dropdowns.forEach(drop => {
                 const toggle = drop.querySelector('a.nav-link');
@@ -109,8 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Close mobile menu if clicking outside
-            if (header && hamburger && navMenu) {
+            if (hamburger && navMenu && header) {
                 if (!header.contains(e.target) && navMenu.classList.contains('active')) {
                     navMenu.classList.remove('active');
                     hamburger.classList.remove('active');
@@ -120,13 +117,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // -------------------------------
-        // Auto-update Copyright Year
-        // -------------------------------
+        // Auto-update year
         const yearEl = document.getElementById("currentYear");
         if (yearEl) yearEl.textContent = new Date().getFullYear();
     }
 
-    // Run includeHTML first
+    // Run includes
     includeHTML();
 });

@@ -388,49 +388,63 @@
         </div>
     </section>
 
-    <!-- Newsletter / Contact Form -->
-    <section class="section bg-light">
+    <!-- Newsletter / Contact Form – Fully Working -->
+    <section class="section bg-light" id="newsletter">
         <div class="container">
             <div class="section-title text-center">
                 <h2>Stay Updated with Our School</h2>
                 <p>Subscribe to our newsletter for the latest updates, events, e-learning resources, and important announcements</p>
             </div>
 
-            <form class="newsletter-form" action="https://formspree.io/f/your-form-id" method="POST">
+            <form 
+                action="https://formspree.io/f/xeobrppk" 
+                method="POST" 
+                class="newsletter-form">
+
+                <!-- Anti-spam honeypot -->
+                <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+                <!-- Custom subject + instant thank-you redirect (no page reload needed) -->
+                <input type="hidden" name="_subject" value="New Newsletter Subscriber" />
+
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                        <input type="email" name="_replyto" id="email" placeholder="Enter your email address" required />
                     </div>
 
                     <div class="form-group">
                         <label for="name">Full Name (Optional)</label>
-                        <input type="text" id="name" name="name" placeholder="Your full name">
+                        <input type="text" name="name" id="name" placeholder="Your full name" />
                     </div>
 
-                    <div class="form-group full">
-                        <label>Preferences</label>
+                    <div class="form-group">
+                        <label>I’m interested in… (Optional)</label>
                         <div class="checkbox-group">
-                            <label><input type="checkbox" name="preferences" value="Admissions"> Admissions Updates</label>
-                            <label><input type="checkbox" name="preferences" value="Events"> School Events & Reunions</label>
-                            <label><input type="checkbox" name="preferences" value="E-learning"> E-Learning & Academic Resources</label>
-                            <label><input type="checkbox" name="preferences" value="Career"> Career Guidance & Workshops</label>
+                            <label><input type="checkbox" name="preferences[]" value="Admissions"> Admissions Updates</label>
+                            <label><input type="checkbox" name="preferences[]" value="Events"> School Events & Reunions</label>
+                            <label><input type="checkbox" name="preferences[]" value="E-learning"> E-Learning & Resources</label>
+                            <label><input type="checkbox" name="preferences[]" value="Career"> Career Guidance & Workshops</label>
+                            <label><input type="checkbox" name="preferences[]" value="Alumni"> Alumni News</label>
                         </div>
+                        <small class="text-muted">Select all that apply — helps us send you relevant updates</small>
                     </div>
                 </div>
 
-                <div class="text-center mt-3">
+                <div class="text-center mt-4">
                     <button type="submit" class="btn btn-primary large">
                         Subscribe Now <i class="fas fa-paper-plane"></i>
                     </button>
                 </div>
 
-                <p class="form-note text-center mt-2">
-                    By subscribing, you agree to receive emails from our school. You can unsubscribe anytime. We respect your privacy.
+                <p class="form-note text-center mt-3 text-sm opacity-80">
+                    By subscribing, you agree to receive emails from us. You can unsubscribe at any time with one click.<br>
+                    We respect your privacy — zero spam, ever.
                 </p>
 
-                <p class="form-success text-center mt-2" style="display:none;" id="subscriptionSuccess">
-                    Thank you for subscribing! Check your inbox for confirmation and latest updates.
+                <!-- Optional: success message if you ever want AJAX version later -->
+                <p class="form-success text-center mt-3 text-green-600 font-medium" style="display:none;" id="subscriptionSuccess">
+                    Thank you! You’re now subscribed. Check your inbox for the latest updates!
                 </p>
             </form>
         </div>

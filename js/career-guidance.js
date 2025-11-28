@@ -5,6 +5,8 @@
 
 document.addEventListener("DOMContentLoaded", async () => {
     const DEFAULT_PHOTO = "/assets/images/default-user.png";
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('sessionDate').setAttribute('min', today);
 
     // ========================================
     // 1. Load Success Stories from JSON

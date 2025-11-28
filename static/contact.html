@@ -114,22 +114,36 @@
                 <h2>Send Us a Message</h2>
                 <p>We typically reply within a few hours during working days. Please provide complete information for faster assistance.</p>
             </div>
+
             <div class="form-wrapper">
-                <form action="https://formspree.io/f/your-form-id" method="POST" class="contact-form" enctype="multipart/form-data">
+                <form 
+                    action="https://formspree.io/f/xqavygbp" 
+                    method="POST" 
+                    class="contact-form" 
+                    enctype="multipart/form-data">
+
+                    <!-- Spam protection (invisible honeypot) -->
+                    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+                    <!-- Custom email subject + thank-you redirect -->
+                    <input type="hidden" name="_subject" value="New Contact Form Submission" />
+                    <input type="hidden" name="_next" value="https://yourschool.com/thanks.html" />
+
                     <div class="form-grid">
                         <!-- Personal Information -->
                         <div class="form-group">
                             <label>Your Full Name *</label>
-                            <input type="text" name="name" required placeholder="Alice Akinyi" />
+                            <input type="text" name="name" placeholder="Alice Akinyi" required />
                         </div>
                         <div class="form-group">
                             <label>Email Address *</label>
-                            <input type="email" name="_replyto" required placeholder="alice@example.com" />
+                            <input type="email" name="_replyto" placeholder="alice@example.com" required />
                         </div>
                         <div class="form-group">
                             <label>Phone Number *</label>
-                            <input type="tel" name="phone" required placeholder="+254798654326" />
+                            <input type="tel" name="phone" placeholder="+254798654326" required />
                         </div>
+
                         <!-- Inquiry Details -->
                         <div class="form-group">
                             <label>Subject of Inquiry *</label>
@@ -146,6 +160,7 @@
                                 <option>Other</option>
                             </select>
                         </div>
+
                         <div class="form-group">
                             <label>Preferred Department (Optional)</label>
                             <select name="department">
@@ -158,37 +173,43 @@
                                 <option>Extracurricular Activities</option>
                             </select>
                         </div>
-                        <!-- Message & Attachments -->
+
+                        <!-- Message -->
                         <div class="form-group full">
-                            <label>Message *</label>
-                            <textarea name="message" rows="6" required placeholder="Please provide detailed information about your query or request..."></textarea>
+                            <label>Your Message *</label>
+                            <textarea name="message" rows="6" required 
+                                      placeholder="Please provide detailed information about your query or request..."></textarea>
                         </div>
+
+                        <!-- File Upload (fully supported by Formspree) -->
                         <div class="form-group full">
                             <label>Upload Supporting Document (Optional)</label>
-                            <input type="file" name="attachment" accept=".pdf,.doc,.docx,.jpg,.png" />
-                            <small class="form-note">You can attach ID proofs, transcripts, or any related document. Max size: 5MB</small>
-                            <div id="filePreview" class="file-preview"></div>
+                            <input type="file" name="attachment" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" />
+                            <small class="form-note">PDF, Word, or images only • Max 10MB (Formspree allows up to 10MB)</small>
+                            <div id="filePreview" class="file-preview mt-2"></div>
                         </div>
-                        <!-- Optional Follow-up -->
+
+                        <!-- Preferred Response Method -->
                         <div class="form-group full">
                             <label>Preferred Response Method</label>
                             <select name="followup">
-                                <option value="">No preference</option>
+                                <option value="No preference">No preference</option>
                                 <option>Email</option>
                                 <option>Phone Call</option>
                                 <option>WhatsApp</option>
                             </select>
-                            <small class="form-note">Choose how you want us to respond.</small>
                         </div>
                     </div>
+
                     <!-- Submit Button -->
-                    <div class="text-center mt-3">
+                    <div class="text-center mt-4">
                         <button type="submit" class="btn btn-primary large">
                             Send Message <i class="fas fa-paper-plane"></i>
                         </button>
                     </div>
-                    <p class="form-note text-center mt-2">
-                        Please double-check your contact information. Our team strives to respond within 24 hours during business days.
+
+                    <p class="form-note text-center mt-3">
+                        We’ll get back to you within 24 hours. Thank you for reaching out!
                     </p>
                 </form>
             </div>

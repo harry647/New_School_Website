@@ -279,26 +279,30 @@
         </div>
     </section>
 
-    <!-- Blog Submission Modal / Form -->
+    <!-- Blog Submission Form -->
     <section class="section" id="submitBlog">
         <div class="container">
-
-            <div class="section-title">
+            <div class="section-title text-center">
                 <h2>Submit Your Blog</h2>
-                <p>Share your ideas, stories, achievements, or reflections with the entire Bar Union school community. 
+                <p>Share your ideas, stories, achievements, or reflections with the entire Bar Union school community.<br>
                    Inspire, inform, and connect through your writing.</p>
             </div>
 
             <div class="form-wrapper">
-
                 <form 
-                    action="https://formspree.io/f/student-blog-form" 
+                    action="https://formspree.io/f/mangpldq" 
                     method="POST" 
                     class="blog-form" 
                     enctype="multipart/form-data">
 
-                    <div class="form-instructions mb-4">
-                        <p>
+                    <!-- Anti-spam honeypot (invisible) -->
+                    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+                    <!-- Custom subject line in your inbox -->
+                    <input type="hidden" name="_subject" value="New Student Blog Submission" />
+
+                    <div class="form-instructions mb-4 p-4 bg-light rounded">
+                        <p class="mb-0">
                             <strong>Guidelines:</strong><br>
                             • Ensure your writing is original and respectful.<br>
                             • You may write about academics, school life, events, creativity, inspiration, or personal experiences.<br>
@@ -308,10 +312,9 @@
                     </div>
 
                     <div class="form-grid">
-
                         <div class="form-group">
                             <label>Student Name *</label>
-                            <input type="text" name="student_name" required placeholder="Enter your full name" />
+                            <input type="text" name="student_name" placeholder="Enter your full name" required />
                         </div>
 
                         <div class="form-group">
@@ -331,7 +334,7 @@
 
                         <div class="form-group">
                             <label>Blog Title *</label>
-                            <input type="text" name="blog_title" required placeholder="Enter a clear, descriptive title" />
+                            <input type="text" name="blog_title" placeholder="Enter a clear, descriptive title" required />
                         </div>
 
                         <div class="form-group">
@@ -350,34 +353,28 @@
 
                         <div class="form-group full">
                             <label>Blog Content *</label>
-                            <textarea 
-                                name="blog_content" 
-                                rows="7" 
-                                required 
-                                placeholder="Write your blog here... Share your experience, thoughts, creativity, or message.">
-                            </textarea>
+                            <textarea name="blog_content" rows="10" required
+                                      placeholder="Write your blog here... Share your experience, thoughts, creativity, or message."></textarea>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group full">
                             <label>Featured Image (Optional)</label>
-                            <input type="file" name="featured_image" accept="image/*" />
-                            <small class="text-muted">Recommended: Clear photos relevant to your story.</small>
+                            <input type="file" name="featured_image" accept="image/jpeg,image/png,image/gif,image/webp" />
+                            <small class="text-muted">JPG, PNG, GIF, WebP • Max 10 MB • Will be used as the blog thumbnail</small>
                         </div>
-
                     </div>
 
-                    <div class="text-center mt-3">
+                    <div class="text-center mt-4">
                         <button type="submit" class="btn btn-primary large">
                             Submit Blog <i class="fas fa-paper-plane"></i>
                         </button>
                     </div>
 
-                    <p class="note mt-3 text-muted text-center">
+                    <p class="note mt-4 text-center text-muted">
                         <strong>Note:</strong> All submissions undergo moderation for quality and safety.<br>
-                        <strong>Limit:</strong> Maximum of <strong>2 blogs per student per month</strong> to ensure fairness and space for everyone.<br>
-                        Once approved, your blog will appear in the **Student Blog Section** and may be featured on our homepage.
+                        <strong>Limit:</strong> Maximum of <strong>2 blogs per student per month</strong> to ensure fairness.<br>
+                        Once approved, your blog will appear in the <strong>Student Blog Section</strong> and may be featured on the homepage.
                     </p>
-
                 </form>
             </div>
         </div>

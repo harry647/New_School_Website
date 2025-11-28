@@ -280,21 +280,25 @@
                 <p>Fill in your details to receive the 2026 Prospectus via WhatsApp or Email</p>
             </div>
 
-            <form id="quickForm" class="enquiry-form">
+
+            <form action="https://formspree.io/f/xjkqapkg" method="POST" class="enquiry-form admission-form">
+                <input type="hidden" name="_subject" value="New Prospectus Request">
+                <input type="text" name="_gotcha" style="display:none">
+
                 <div class="form-group">
                     <label for="studentName">Student Full Name</label>
-                    <input type="text" id="studentName" name="studentName" placeholder="Enter full name" required>
+                    <input type="text" name="studentName" placeholder="Enter full name" required>
                 </div>
 
                 <div class="form-group">
                     <label for="parentPhone">Parent Phone Number</label>
-                    <input type="tel" id="parentPhone" name="parentPhone" placeholder="07XX XXX XXX" 
+                    <input type="tel" name="parentPhone" placeholder="07XX XXX XXX" 
                            pattern="^0[0-9]{9}$" maxlength="10" required>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Email (Optional)</label>
-                    <input type="email" id="email" name="email" placeholder="example@gmail.com">
+                    <input type="email" name="_replyto" placeholder="example@gmail.com">
                 </div>
 
                 <button type="submit" class="btn btn-primary enquiry-btn">

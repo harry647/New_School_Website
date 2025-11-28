@@ -221,7 +221,9 @@
                 <p>Start your child’s journey toward academic excellence and holistic development</p>
             </div>
             <div class="form-wrapper">
-                <form action="https://formspree.io/f/your-form-id" method="POST" class="admission-form">
+                <form action="https://formspree.io/f/xjkqaprv" method="POST" class="admission-form">
+                    <input type="text" name="_gotcha" style="display:none" />
+                    <input type="hidden" name="_subject" value="New Admission Application Submitted" />
                     <div class="form-grid">
                         <!-- Student Details -->
                         <div class="form-group">
@@ -236,14 +238,14 @@
                             <label>Gender *</label>
                             <select name="gender" required>
                                 <option value="">Select</option>
-                                <option>Male</option>
-                                <option>Female</option>
-                                <option>Other</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Applying for Grade / Pathway *</label>
-                            <select name="grade" id="gradeSelect" required>
+                            <select name="grade" required>
                                 <option value="">Select Grade / Pathway</option>
                                 <option>Grade 10 - STEM</option>
                                 <option>Grade 10 - Humanities</option>
@@ -256,6 +258,7 @@
                                 <option>Grade 12 - Technical / Arts</option>
                             </select>
                         </div>
+
                         <!-- Parent / Guardian Details -->
                         <div class="form-group">
                             <label>Parent / Guardian Name *</label>
@@ -269,6 +272,7 @@
                             <label>Phone Number *</label>
                             <input type="tel" name="phone" placeholder="e.g., 0712345678" required />
                         </div>
+
                         <!-- Additional Information -->
                         <div class="form-group full">
                             <label>Previous School & Academic Records</label>
@@ -279,11 +283,13 @@
                             <textarea name="message" rows="3" placeholder="Any special requirements, talents, or extracurricular interests"></textarea>
                         </div>
                     </div>
+
                     <div class="text-center mt-4">
                         <button type="submit" class="btn btn-primary large">
                             Submit Application <i class="fas fa-paper-plane"></i>
                         </button>
                     </div>
+
                     <p class="form-note text-center mt-3">
                         Our admissions team will contact you within 24 hours to guide you through the next steps, including school visits, assessments, and confirmation.
                     </p>

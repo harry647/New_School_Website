@@ -194,19 +194,31 @@
     <section class="section bg-light" id="book-session">
         <div class="container">
             <!-- Elegant Title -->
-            <div class="section-title">
+            <div class="section-title text-center">
                 <h2>Book a Free Counseling Session</h2>
                 <p>One-on-one guidance from our expert Career Guidance & Counseling Cell</p>
             </div>
 
             <p class="text-center mb-5 max-w-3xl mx-auto text-gray-600 leading-relaxed">
-                Fill out this form to schedule a personalized session. Our counselors will guide you on stream selection, 
+                Fill out this form to schedule a personalized session. Our counselors will guide you on stream selection,
                 competitive exams (JEE, NEET, CLAT, SAT), international admissions, scholarships, internships, and long-term career planning.
             </p>
 
             <!-- Glassmorphic Form Card -->
             <div class="form-wrapper reveal">
-                <form action="https://formspree.io/f/your-career-form-id" method="POST" class="career-form" enctype="multipart/form-data" id="counselingForm">
+                <form 
+                    action="https://formspree.io/f/xyzqnbbe" 
+                    method="POST" 
+                    class="career-form" 
+                    enctype="multipart/form-data" 
+                    id="counselingForm">
+
+                    <!-- Anti-spam honeypot (invisible) -->
+                    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+                    <!-- Custom subject + thank-you redirect -->
+                    <input type="hidden" name="_subject" value="New Counseling Session Booking" />
+
                     <div class="form-grid">
                         <!-- Student Name -->
                         <div class="form-group">
@@ -249,25 +261,26 @@
                             <small class="form-note">Confirmation & Zoom link will be sent here</small>
                         </div>
 
-                        <!-- Preferred Date -->
+                        <!-- Preferred Date (auto-sets today as minimum) -->
                         <div class="form-group">
-                            <label>Preferred Session Date</label>
+                            <label>Preferred Session Date *</label>
                             <input type="date" name="date" id="sessionDate" min="" required />
                             <small class="form-note">We’ll confirm availability within 24 hours</small>
                         </div>
 
-                        <!-- Resume Upload -->
+                        <!-- Resume / SOP Upload -->
                         <div class="form-group">
                             <label>Upload Resume / SOP (Optional)</label>
-                            <input type="file" name="resume" id="resumeUpload" accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
-                            <small class="form-note">PDF or Word • Max 5MB • Helps us give personalized advice</small>
+                            <input type="file" name="resume" accept=".pdf,.doc,.docx" />
+                            <small class="form-note">PDF or Word only • Max 10 MB • Helps us give personalized advice</small>
                             <div class="file-preview" id="resumePreview"></div>
                         </div>
 
                         <!-- Query / Interest Area -->
                         <div class="form-group full">
                             <label>Area of Interest / Query *</label>
-                            <textarea name="query" rows="5" placeholder="E.g., I’m confused between Medical and Engineering • Want to study Computer Science abroad • Need help with scholarship applications • CLAT preparation strategy, etc." required></textarea>
+                            <textarea name="query" rows="5" required
+                                      placeholder="E.g., I’m confused between Medical and Engineering • Want to study Computer Science abroad • Need help with scholarship applications • CLAT preparation strategy, etc."></textarea>
                             <small class="form-note">The more details you share, the better we can prepare for you!</small>
                         </div>
                     </div>
@@ -280,7 +293,7 @@
                         </button>
                     </div>
 
-                    <!-- Success / Note -->
+                    <!-- Note -->
                     <p class="form-note text-center mt-4 opacity-80">
                         Our counselors typically respond within <strong>24–48 hours</strong> with confirmed date, time & Zoom link.
                     </p>
@@ -288,7 +301,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Quick Stats Banner — Dynamic from JSON -->
     <section class="section career-stats bg-primary text-white">
         <div class="container">
