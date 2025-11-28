@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         hamburger.addEventListener('click', () => {
             const expanded = hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
+            document.querySelector('.header').classList.toggle('nav-open');  // ← add this
             hamburger.setAttribute('aria-expanded', expanded);
         });
     }

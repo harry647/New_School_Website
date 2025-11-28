@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", () => {
             btn.disabled = true;
 
             setTimeout(() => {
-                window.open(`https://wa.me/254700000000?text=${message}`, "_blank");
+                window.open(`https://wa.me/254700735472?text=${message}`, "_blank");
                 btn.innerHTML = '<i class="fas fa-check"></i> Sent!';
                 btn.style.backgroundColor = "#28a745";
                 setTimeout(() => {
