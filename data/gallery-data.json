@@ -1,24 +1,24 @@
 [
   {
     "title": "Main Entrance",
-    "category": "campus",
-    "thumb": "assets/images/gallery/campus1-thumb.jpg",
-    "full": "assets/images/gallery/campus1.jpg"
+    "category": "school",
+    "thumb": "assets/images/gallery/school1-thumb.jpg",
+    "full": "assets/images/gallery/school1.jpg"
   },
   {
     "title": "Science Lab",
-    "category": "campus",
-    "thumb": "assets/images/gallery/campus2-thumb.jpg",
-    "full": "assets/images/gallery/campus2.jpg"
+    "category": "school",
+    "thumb": "assets/images/gallery/school2-thumb.jpg",
+    "full": "assets/images/gallery/school2.jpg"
   },
   {
     "title": "Library",
-    "category": "campus",
-    "thumb": "assets/images/gallery/campus3-thumb.jpg",
-    "full": "assets/images/gallery/campus3.jpg"
+    "category": "school",
+    "thumb": "assets/images/gallery/school3-thumb.jpg",
+    "full": "assets/images/gallery/school3.jpg"
   },
   {
-    "title": "Annual Day 2025",
+    "title": "Closing Day 2025",
     "category": "events",
     "thumb": "assets/images/gallery/event1-thumb.jpg",
     "full": "assets/images/gallery/event1.jpg"

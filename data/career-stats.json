@@ -17,18 +17,18 @@
     },
     {
       "icon": "fas fa-globe",
-      "value": "20+",
+      "value": "15+",
       "label": "Countries Represented"
     },
     {
       "icon": "fas fa-briefcase",
-      "value": "85%",
+      "value": "65%",
       "label": "Students in Dream Careers"
     },
     {
       "icon": "fas fa-trophy",
-      "value": "47",
-      "label": "National Exam Toppers"
+      "value": "3*",
+      "label": "National Music Rounds"
     }
   ]
 }

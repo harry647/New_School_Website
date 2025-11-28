@@ -39,7 +39,7 @@
       "badge": "Active Since 1987",
       "icon": "fas fa-campground",
       "color": "#006400",
-      "link": "../clubs/scouts.html"
+      "link": "/clubs/scouts.html"
     },
     {
       "name": "Christian Union (CU)",
@@ -48,16 +48,16 @@
       "badge": "Over 500 Members",
       "icon": "fas fa-praying-hands",
       "color": "#1e3a8a",
-      "link": "../clubs/christian-union.html"
+      "link": "/clubs/christian-union.html"
     },
     {
       "name": "Wildlife & Environment Club",
       "description": "Conservation • Tree Planting • Anti-Poaching Advocacy",
-      "highlight": "National Award Winner 2024",
+      "highlight": "County Award Winner 2024",
       "badge": "Award-Winning",
       "icon": "fas fa-paw",
       "color": "#27ae60",
-      "link": "../clubs/wildlife.html"
+      "link": "/clubs/wildlife.html"
     },
     {
       "name": "Journalism & Media Club",
@@ -66,7 +66,7 @@
       "badge": "Student-Led",
       "icon": "fas fa-newspaper",
       "color": "#8b5cf6",
-      "link": "../clubs/journalism.html"
+      "link": "/clubs/journalism.html"
     },
     {
       "name": "Robotics & AI Club",
@@ -75,7 +75,7 @@
       "badge": "Tech Enthusiasts",
       "icon": "fas fa-robot",
       "color": "#f59e0b",
-      "link": "../clubs/robotics.html"
+      "link": "/clubs/robotics.html"
     },
     {
       "name": "Drama & Theatre Club",
@@ -84,7 +84,7 @@
       "badge": "Creative Minds",
       "icon": "fas fa-theater-masks",
       "color": "#e11d48",
-      "link": "../clubs/drama.html"
+      "link": "/clubs/drama.html"
     },
     {
       "name": "Music & Dance Club",
@@ -93,7 +93,7 @@
       "badge": "Talented Artists",
       "icon": "fas fa-music",
       "color": "#10b981",
-      "link": "../clubs/music.html"
+      "link": "/clubs/music.html"
     },
     {
       "name": "Art & Craft Club",
@@ -102,43 +102,16 @@
       "badge": "Creative Expression",
       "icon": "fas fa-palette",
       "color": "#f97316",
-      "link": "../clubs/art.html"
+      "link": "/clubs/art.html"
     },
     {
-      "name": "Debate & MUN Club",
+      "name": "Debate Club",
       "description": "Critical Thinking • Public Speaking • Leadership",
       "highlight": "Model United Nations Participation",
       "badge": "Future Leaders",
       "icon": "fas fa-microphone",
       "color": "#3b82f6",
-      "link": "../clubs/debate.html"
-    },
-    {
-      "name": "Eco & Nature Club",
-      "description": "Sustainability • Environmental Awareness • Tree Planting",
-      "highlight": "Community Eco Projects",
-      "badge": "Green Warriors",
-      "icon": "fas fa-seedling",
-      "color": "#16a34a",
-      "link": "../clubs/eco.html"
-    },
-    {
-      "name": "Literary Society",
-      "description": "Book Discussions • Creative Writing • Poetry",
-      "highlight": "Publishing Student Work",
-      "badge": "Wordsmiths",
-      "icon": "fas fa-book-open",
-      "color": "#8b5cf6",
-      "link": "../clubs/literary.html"
-    },
-    {
-      "name": "Culinary Club",
-      "description": "Cooking • Baking • Nutrition",
-      "highlight": "Inter-House Culinary Competitions",
-      "badge": "Food Enthusiasts",
-      "icon": "fas fa-utensils",
-      "color": "#f59e0b",
-      "link": "../clubs/culinary.html"
+      "link": "/clubs/debate.html"
     },
     {
       "name": "Science Club",
@@ -147,7 +120,7 @@
       "badge": "Innovators",
       "icon": "fas fa-flask",
       "color": "#0ea5e9",
-      "link": "../clubs/science.html"
+      "link": "/clubs/science.html"
     },
     {
       "name": "Mathematics Club",
@@ -156,7 +129,7 @@
       "badge": "Number Wizards",
       "icon": "fas fa-square-root-alt",
       "color": "#f59e0b",
-      "link": "../clubs/mathematics.html"
+      "link": "/clubs/mathematics.html"
     },
     {
       "name": "Humanities Club",
@@ -165,7 +138,7 @@
       "badge": "Critical Thinkers",
       "icon": "fas fa-landmark",
       "color": "#e11d48",
-      "link": "../clubs/humanities.html"
+      "link": "/clubs/humanities.html"
     }
   ]
 }

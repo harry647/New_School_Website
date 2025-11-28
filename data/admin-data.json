@@ -1,42 +1,42 @@
 {  
   "bom": [
-    { "name": "Mr. James Kamau", "role": "BOM Chairman", "representing": "Sponsor Representative", "photo": "../assets/images/bom/chairman.jpg" },
-    { "name": "Mrs. Grace Wanjiku", "role": "Secretary", "representing": "Principal (Ex-Officio)", "photo": "../assets/images/principal.jpg" },
-    { "name": "Eng. Peter Omondi", "role": "Member", "representing": "PA Representative", "photo": "../assets/images/bom/omondi.jpg" }
+    { "name": "Mr. James Kamau", "role": "BOM Chairman", "representing": "Sponsor Representative", "photo": "/assets/images/bom/chairman.jpg" },
+    { "name": "Mr. George Achilla", "role": "Secretary", "representing": "Principal (Ex-Officio)", "photo": "/assets/images/admin/principal.jpg" },
+    { "name": "Eng. Peter Omondi", "role": "Member", "representing": "PA Representative", "photo": "/assets/images/bom/member1.jpg" }
   ],
   
   "leadership": [
     {
-      "name": "Dr. Sarah Johnson",
+      "name": "Mr. George Achilla",
       "role": "Principal & Director",
       "photo": "assets/images/admin/principal.jpg",
       "quote": "Education is the most powerful tool to change the world.",
-      "bio": "With over 22 years of experience in educational leadership, Dr. Johnson has transformed institutions with innovative pedagogy and inclusive policies.",
+      "bio": "With over 26 years of experience in educational leadership, Mr. George has transformed institutions with innovative pedagogy and inclusive policies.",
       "contact": {
-        "email": "principal@yourschool.edu.in",
-        "phone": "+91 755 432 1001"
+        "email": "barunionsecondary@gmail.com",
+        "phone": "+254 700735472"
       },
       "social": {
-        "linkedin": "https://linkedin.com/in/sarahjohnson",
-        "twitter": "https://twitter.com/sarahjohnson"
+        "linkedin": "https://linkedin.com/in/georgeachilla",
+        "twitter": "https://twitter.com/georgeachilla"
       }
     },
     {
-      "name": "Mr. Rajesh Kumar",
-      "role": "Vice Principal (Academics)",
-      "photo": "assets/images/admin/vice-principal.jpg",
-      "bio": "M.Sc, B.Ed | 18 years experience<br>Oversees curriculum, assessments & faculty development",
+      "name": "Mr. Paul Were",
+      "role": "Deputy Principal (Admininistration)",
+      "photo": "assets/images/admin/dp-principal1.jpg",
+      "bio": "23 years experience<br>Oversees curriculum, assessments & faculty development",
       "contact": {
-        "email": "vp.academics@yourschool.edu.in"
+        "email": "barunionsecondary@gmail.com"
       }
     },
     {
-      "name": "Mrs. Priya Malhotra",
-      "role": "Vice Principal (Administration)",
-      "photo": "assets/images/admin/vp-admin.jpg",
-      "bio": "MBA, M.Ed | 16 years experience<br>Manages operations, infrastructure & parent relations",
+      "name": "Ms. Ouma Ceciline",
+      "role": "Deputy Principal (Academics)",
+      "photo": "assets/images/admin/dp-principal2.jpg",
+      "bio": "25 years experience<br>Manages operations, infrastructure & parent relations",
       "contact": {
-        "email": "vp.admin@yourschool.edu.in"
+        "email": "barunionsecondary@gmail.com"
       }
     }
   ],
@@ -44,45 +44,38 @@
     {
       "name": "Admissions Office",
       "icon": "fas fa-user-graduate",
-      "head": "Ms. Neeta Desai",
-      "headTitle": "Admissions Head",
-      "phone": "+91 98765 43210",
-      "email": "admissions@yourschool.edu.in"
+      "head": "Ms. Judith Ominde",
+      "headTitle": "Secretary(principal)",
+      "phone": "+254 700735472",
+      "email": "barunionsecondary@gmail.com"
     },
     {
       "name": "Accounts & Finance",
       "icon": "fas fa-calculator",
-      "head": "Mr. Sanjay Gupta",
-      "headTitle": "Chief Accountant",
-      "email": "accounts@yourschool.edu.in"
+      "head": "Ms. Opiyo Jackline",
+      "headTitle": "School Bursar",
+      "email": "barunionsecondary@gmail.com"
     },
     {
       "name": "Transport & Safety",
       "icon": "fas fa-heartbeat",
-      "head": "Mr. Arvind Singh",
+      "head": "Mr. Andiego Horace",
       "headTitle": "Transport Manager",
-      "phone": "+91 98765 43211"
+      "phone": "+254 700735472"
     },
     {
       "name": "Security & Maintenance",
       "icon": "fas fa-shield-alt",
-      "head": "Col. R. K. Sharma (Retd.)",
-      "headTitle": "Estate Officer",
+      "head": "Security Agencies",
+      "headTitle": "Estate Officers",
       "note": "24×7 emergency support available"
     },
     {
-      "name": "Examination Cell",
+      "name": "Examination Centre",
       "icon": "fas fa-book-reader",
-      "head": "Mrs. Ritu Sharma",
-      "headTitle": "Controller of Examinations",
-      "email": "examcell@yourschool.edu.in"
-    },
-    {
-      "name": "Medical Room",
-      "icon": "fas fa-laptop-medical",
-      "head": "Dr. Meena Verma<br>Nurse: Ms. Kavita Rani",
-      "headTitle": "Resident Doctor",
-      "phone": "Ext. 222 (Emergency)"
-    }
+      "head": "Mrs. Sally Ouma",
+      "headTitle": "Secretary Exams",
+      "email": "barunionsecondary@gmail.com"
+    } 
   ]
 }
