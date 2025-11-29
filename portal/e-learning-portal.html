@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>University E-Learning Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --secondary: #3b82f6;
+            --accent: #60a5fa;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        body { font-family: 'Inter', sans-serif; background: var(--light); color: #334155; }
+        .navbar { background: var(--primary) !important; box-shadow: 0 4px 20px rgba(30,64,175,0.2); }
+        .hero {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white; padding: 120px 0; text-align: center;
+        }
+        .card-course:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(30,64,175,0.15) !important;
+            transition: all 0.4s ease;
+        }
+        .login-box {
+            background: white; border-radius: 16px; padding: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            max-width: 420px;
+        }
+        .dashboard-card {
+            background: white; border-radius: 16px; padding: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+        .progress { height: 12px; border-radius: 10px; }
+        .badge-status { font-size: 0.8rem; padding: 6px 14px; border-radius: 20px; }
+        .search-bar input {
+            border-radius: 50px; padding-left: 45px; border: 2px solid #e2e8f0;
+        }
+        .search-bar i { position: absolute; left: 15px; top: 14px; color: #94a3b8; z-index: 10; }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-4" href="#">
+            E-Learning Portal
+        </a>
+        <div class="ms-auto d-flex gap-3">
+            <button class="btn btn-outline-light" onclick="showLogin('student')">Student Login</button>
+            <button class="btn btn-light text-primary fw-bold" onclick="showLogin('teacher')">Teacher Login</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="container">
+        <h1 class="display-3 fw-bold">Learn Anytime, Anywhere</h1>
+        <p class="lead fs-3 mb-4">Access 500+ courses • Track progress • Earn certificates</p>
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-8">
+                <div class="search-bar position-relative">
+                    <i class="fas fa-search"></i>
+                    <input type="text" class="form-control form-control-lg" placeholder="Search courses, instructors, or topics..." onkeyup="searchCourses(this.value)">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container my-5">
+
+    <!-- Login Modal (Centered) -->
+    <div id="loginModal" class="d-none position-fixed top-50 start-50 translate-middle z-3">
+        <div class="login-box">
+            <h3 class="text-center mb-4" id="loginTitle">Student Login</h3>
+            <form onsubmit="event.preventDefault(); showDashboard()">
+                <div class="mb-3">
+                    <input type="text" class="form-control form-control-lg" placeholder="Student ID / Email" required>
+                </div>
+                <div class="mb-4">
+                    <input type="password" class="form-control form-control-lg" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 btn-lg">Login to Portal</button>
+            </form>
+            <div class="text-center mt-3">
+                <small><a href="#" class="text-decoration-none">Forgot password?</a> • <a href="#">New user?</a></small>
+            </div>
+            <button class="btn btn-link position-absolute top-0 end-0 mt-2 me-3" onclick="closeLogin()">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content (Courses) -->
+    <div id="mainContent">
+        <!-- Category Filters -->
+        <div class="row mb-4">
+            <div class="col">
+                <button class="btn btn-primary me-2 mb-2" onclick="filterCourses('all')">All Courses</button>
+                <button class="btn btn-outline-primary me-2 mb-2" onclick="filterCourses('math')">Mathematics</button>
+                <button class="btn btn-outline-primary me-2 mb-2" onclick="filterCourses('science')">Science</button>
+                <button class="btn btn-outline-primary me-2 mb-2" onclick="filterCourses('lang')">Languages</button>
+                <button class="btn btn-outline-primary me-2 mb-2" onclick="filterCourses('humanities')">Humanities</button>
+                <button class="btn btn-outline-primary me-2 mb-2" onclick="filterCourses('cs')">Computer Science</button>
+            </div>
+        </div>
+
+        <!-- Course Grid -->
+        <div class="row g-4" id="courseGrid">
+            <!-- Courses will be injected here by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Dashboard (Hidden until login) -->
+    <div id="dashboard" class="d-none">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <h2>Welcome back, <span id="userName">Ahmed Mohamed</span>!</h2>
+            <button class="btn btn-outline-danger" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <h4>My Enrolled Courses</h4>
+                <div class="dashboard-card mb-4 card-hover">
+                    <div class="d-flex align-items-center">
+                        <img src="https://images.unsplash.com/photo-1639413562051-8d57f80f7ab3?w=400" class="rounded me-4" style="width:120px; height:80px; object-fit:cover;">
+                        <div class="flex-grow-1">
+                            <h5>Advanced Calculus II</h5>
+                            <p class="text-muted mb-1">Dr. Fatima Al-Sayed • 12 weeks • Math Department</p>
+                            <div class="progress mt-2">
+                                <div class="progress-bar bg-success" style="width: 68%">68%</div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary ms-3">Continue Learning</a>
+                    </div>
+                </div>
+
+                <div class="dashboard-card mb-4 card-hover">
+                    <div class="d-flex align-items-center">
+                        <img src="https://images.unsplash.com/photo-1581092160562-36aa8c41bec7?w=400" class="rounded me-4" style="width:120px; height:80px; object-fit:cover;">
+                        <div class="flex-grow-1">
+                            <h5>Organic Chemistry Lab</h5>
+                            <p class="text-muted mb-1">Prof. Karim Hassan • 15 weeks • Science Faculty</p>
+                            <div class="progress mt-2">
+                                <div class="progress-bar bg-info" style="width: 45%">45%</div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-primary ms-3">Resume</a>
+                    </div>
+                </div>
+
+                <h5 class="mt-5">Upcoming Deadlines</h5>
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Quiz: Integration Techniques</strong><br>
+                            <small>Calculus II • Due Dec 5, 2025</small>
+                        </div>
+                        <span class="badge bg-danger rounded-pill">2 days</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>Oral Presentation – French Literature</div>
+                        <span class="badge bg-warning text-dark rounded-pill">Pending</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="dashboard-card text-center">
+                    <h5>Quick Access</h5>
+                    <div class="row g-3 mt-3">
+                        <div class="col-6"><button class="btn btn-outline-primary w-100 p-3"><i class="fas fa-video fa-2x mb-2"></i><br>Live Classes</button></div>
+                        <div class="col-6"><button class="btn btn-outline-success w-100 p-3"><i class="fas fa-tasks fa-2x mb-2"></i><br>Assignments</button></div>
+                        <div class="col-6"><button class="btn btn-outline-info w-100 p-3"><i class="fas fa-chart-line fa-2x mb-2"></i><br>My Grades</button></div>
+                        <div class="col-6"><button class="btn btn-outline-purple w-100 p-3"><i class="fas fa-comments fa-2x mb-2"></i><br>Discussion Forum</button></div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card mt-4">
+                    <h5>Latest Announcements</h5>
+                    <div class="alert alert-info small p-3">
+                        <strong>Midterm Schedule Released</strong><br>
+                        Check your exam timetable under “Exams” section.
+                    </div>
+                    <div class="alert alert-success small p-3">
+                        <strong>New Course Added!</strong><br>
+                        “Machine Learning Fundamentals” is now open for enrollment.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+// Sample course data
+const courses = [
+    {title: "Linear Algebra", instructor: "Prof. Omar Khalil", category: "math", students: 342, rating: 4.8, thumbnail: "https://images.unsplash.com/photo-1639413562051-8d57f80f7ab3?w=400"},
+    {title: "Organic Chemistry II", instructor: "Dr. Layla Hassan", category: "science", students: 289, rating: 4.9, thumbnail: "https://images.unsplash.com/photo-1581092160562-36aa8c41bec7?w=400"},
+    {title: "English Academic Writing", instructor: "Ms. Aisha Rahman", category: "lang", students: 412, rating: 4.7, thumbnail: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400"},
+    {title: "Introduction to Philosophy", instructor: "Prof. Youssef Kamal", category: "humanities", students: 256, rating: 4.9, thumbnail: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=400"},
+    {title: "Data Structures & Algorithms", instructor: "Dr. Sara Ali", category: "cs", students: 567, rating: 5.0, thumbnail: "https://images.unsplash.com/photo-1555066931-4365d14bab1b?w=400"},
+    {title: "Quantum Physics", instructor: "Prof. Nadia Youssef", category: "science", students: 198, rating: 4.6, thumbnail: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=400"},
+    {title: "French Language B2", instructor: "Mme. Claire Dubois", category: "lang", students: 178, rating: 4.8, thumbnail: "https://images.unsplash.com/photo-1517248135467-2c7ed3ab7222?w=400"},
+    {title: "Psychology of Learning", instructor: "Dr. Amal Ramadan", category: "humanities", students: 310, rating: 4.7, thumbnail: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=400"}
+];
+
+// Render all courses initially
+renderCourses(courses);
+
+function renderCourses(courseList) {
+    const grid = document.getElementById('courseGrid');
+    grid.innerHTML = courseList.map(c => `
+        <div class="col-md-6 col-lg-4 course-item" data-category="${c.category}">
+            <div class="card border-0 shadow card-course h-100">
+                <img src="${c.thumbnail}" class="card-img-top" alt="${c.title}" style="height:180px; object-fit:cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">${c.title}</h5>
+                    <p class="text-muted small"><i class="fas fa-user-tie"></i> ${c.instructor}</p>
+                    <div class="mt-auto">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-success"><i class="fas fa-users"></i> ${c.students}</span>
+                            <span class="text-warning"><i class="fas fa-star"></i> ${c.rating}</span>
+                        </div>
+                        <button class="btn btn-primary w-100" onclick="alert('You have enrolled in ${c.title}!')">Enroll Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function filterCourses(cat) {
+    const filtered = cat === 'all' ? courses : courses.filter(c => c.category === cat);
+    renderCourses(filtered);
+}
+
+function searchCourses(query) {
+    const filtered = courses.filter(c => 
+        c.title.toLowerCase().includes(query.toLowerCase()) || 
+        c.instructor.toLowerCase().includes(query.toLowerCase())
+    );
+    renderCourses(filtered);
+}
+
+function showLogin(type) {
+    document.getElementById('loginTitle').textContent = type === 'teacher' ? 'Teacher Login' : 'Student Login';
+    document.getElementById('loginModal').classList.remove('d-none');
+}
+
+function closeLogin() {
+    document.getElementById('loginModal').classList.add('d-none');
+}
+
+function showDashboard() {
+    closeLogin();
+    document.getElementById('mainContent').classList.add('d-none');
+    document.getElementById('dashboard').classList.remove('d-none');
+}
+
+function logout() {
+    document.getElementById('dashboard').classList.add('d-none');
+    document.getElementById('mainContent').classList.remove('d-none');
+}
+</script>
+
+</body>
+</html>

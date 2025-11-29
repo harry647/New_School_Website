@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mathematics Department</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary: #0d47a1;
+            --secondary: #1565c0;
+            --accent: #42a5f5;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background: #f8fafc; }
+        .navbar { background: var(--primary) !important; }
+        .hero { background: linear-gradient(rgba(13,71,161,0.9), rgba(13,71,161,0.8)), url('https://images.unsplash.com/photo-1509228628348-8f14fb9e1c1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'); background-size: cover; color: white; padding: 100px 0; }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; transition: all 0.3s; }
+        .section-title { position: relative; padding-bottom: 10px; }
+        .section-title::after { content: ''; position: absolute; left: 0; bottom: 0; width: 60px; height: 4px; background: var(--accent); }
+        .fake-upload { cursor: pointer; border: 2px dashed #ccc; border-radius: 10px; padding: 40px; text-align: center; transition: all 0.3s; }
+        .fake-upload:hover { border-color: var(--accent); background: #f0f8ff; }
+        .math { font-family: 'Times New Roman', serif; font-size: 1.1em; }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#">
+            <i class="fas fa-infinity me-2"></i>Mathematics Department
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#faculty">Faculty</a></li>
+                <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                <li class="nav-item"><a class="nav-link" href="#plans">Study Plans</a></li>
+                <li class="nav-item"><a class="nav-link" href="#forum">Forum</a></li>
+                <li class="nav-item"><a class="nav-link" href="#assignments">Assignments</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section id="home" class="hero text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Department of Mathematics</h1>
+        <p class="lead">Exploring the Beauty and Power of Mathematical Thinking</p>
+        <a href="#faculty" class="btn btn-light btn-lg mt-3">Meet Our Faculty</a>
+    </div>
+</section>
+
+<div class="container my-5">
+
+    <!-- Faculty Members -->
+    <section id="faculty" class="my-5">
+        <h2 class="section-title mb-4">Our Faculty & Staff</h2>
+        <div class="row g-4" id="faculty-container">
+            <!-- Sample Faculty (you can duplicate) -->
+            <div class="col-md-4">
+                <div class="card h-100 card-hover border-0 shadow">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="card-img-top" alt="Dr. Ahmed">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Prof. Ahmed Al-Mansour</h5>
+                        <p class="text-muted">Head of Department<br>PhD in Algebraic Geometry</p>
+                        <p>Research: Cohomology Theory, Moduli Spaces</p>
+                        <small>Office: M-305 | ahmed@uni.edu</small>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more faculty here -->
+        </div>
+        <div class="text-center mt-4">
+            <button class="btn btn-outline-primary" onclick="addFacultyMember()">Add New Member (Demo)</button>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="my-5">
+        <h2 class="section-title mb-4">Department Gallery</h2>
+        <div class="row g-3" id="gallery-container">
+            <!-- Images will be added here -->
+        </div>
+        <div class="text-center mt-4">
+            <label class="fake-upload">
+                <i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted"></i><br>
+                Click to Upload Image
+                <input type="file" accept="image/*" multiple style="display:none" onchange="previewImages(this.files)">
+            </label>
+        </div>
+    </section>
+
+    <!-- Study Plans -->
+    <section id="plans" class="my-5">
+        <h2 class="section-title mb-4">Study Plans & Curriculum</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card border-0 shadow card-hover">
+                    <div class="card-body">
+                        <h5><i class="fas fa-graduation-cap text-primary"></i> Bachelor of Science in Mathematics (2024–2028)</h5>
+                        <p>Semester-by-semester course plan with electives in Pure & Applied Math</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm">Download PDF</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow card-hover">
+                    <div class="card-body">
+                        <h5><i class="fas fa-chart-line text-success"></i> MSc in Applied Mathematics</h5>
+                        <p>Focus areas: Numerical Analysis, Mathematical Modeling, Data Science</p>
+                        <a href="#" class="btn btn-outline-success btn-sm">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discussion Forum -->
+    <section id="forum" class="my-5">
+        <h2 class="section-title mb-4">Student Discussion Forum</h2>
+        <div class="card border-0 shadow mb-4">
+            <div class="card-body">
+                <textarea class="form-control mb-3" rows="3" placeholder="Start a new discussion..."></textarea>
+                <button class="btn btn-primary" onclick="postDiscussion()">Post Discussion</button>
+            </div>
+        </div>
+        <div id="discussions-list">
+            <!-- Sample post -->
+            <div class="card border-0 shadow mb-3">
+                <div class="card-body">
+                    <strong>Aisha K.</strong> <small class="text-muted">– 2 hours ago</small>
+                    <p>How to solve this integral using contour integration?</p>
+                    <code class="math">∫<sub>-∞</sub><sup>∞</sup> e<sup>-x²</sup> cos(2πξx) dx = √π e<sup>-π²ξ²</sup></code>
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-outline-secondary">Reply</button>
+                        <span class="ms-3 text-muted">3 replies</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Assignments -->
+    <section id="assignments" class="my-5">
+        <h2 class="section-title mb-4">Assignments & Homework</h2>
+        <div class="list-group mb-4">
+            <div class="list-group-item">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">Assignment #5 – Real Analysis</h5>
+                    <small class="text-danger">Due: Dec 5, 2025</small>
+                </div>
+                <p class="mb-1">Prove the Banach fixed-point theorem and apply it to Picard’s existence theorem.</p>
+                <a href="#" class="btn btn-sm btn-outline-primary me-2">Download</a>
+                <label class="btn btn-sm btn-success">
+                    Submit <input type="file" style="display:none" onchange="alert('Submitted: '+this.files[0].name)">
+                </label>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newAssignmentModal">
+                Post New Assignment (Faculty View)
+            </button>
+        </div>
+    </section>
+
+</div>
+
+<!-- Modal: New Assignment -->
+<div class="modal fade" id="newAssignmentModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create New Assignment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control mb-3" placeholder="Assignment Title">
+                <textarea class="form-control mb-3" rows="4" placeholder="Description..."></textarea>
+                <input type="date" class="form-control mb-3">
+                <input type="file" class="form-control">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">Post Assignment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Fake data - Faculty
+const sampleFaculty = [
+    {name: "Dr. Fatima Zahir", title: "Associate Professor", field: "Number Theory", img: "https://randomuser.me/api/portraits/women/44.jpg"},
+    {name: "Prof. Omar Khalil", title: "Professor", field: "Differential Geometry", img: "https://randomuser.me/api/portraits/men/68.jpg"},
+    {name: "Dr. Layla Hassan", title: "Lecturer", field: "Statistics & Probability", img: "https://randomuser.me/api/portraits/women/68.jpg"}
+];
+sampleFaculty.forEach(addFacultyCard);
+
+// Add faculty card
+function addFacultyCard(f) {
+    const container = document.getElementById('faculty-container');
+    const card = `
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 card-hover border-0 shadow">
+                <img src="${f.img || 'https://via.placeholder.com/300'}" class="card-img-top" alt="${f.name}">
+                <div class="card-body text-center">
+                    <h5 class="card-title">${f.name}</h5>
+                    <p class="text-muted">${f.title}<br>${f.field}</p>
+                </div>
+            </div>
+        </div>`;
+    container.innerHTML += card;
+}
+
+// Demo: Add new member
+function addFacultyMember() {
+    const name = prompt("Name:");
+    const title = prompt("Title:");
+    if (name && title) {
+        addFacultyCard({name, title, field: "New Member", img: "https://via.placeholder.com/300"});
+    }
+}
+
+// Image preview (gallery)
+function previewImages(files) {
+    const container = document.getElementById('gallery-container');
+    [...files].forEach(file => {
+        const reader = new FileReader();
+        reader.onload = e => {
+            container.innerHTML += `
+                <div class="col-md-3">
+                    <img src="${e.target.result}" class="img-fluid rounded shadow" style="height:200px; object-fit:cover;">
+                </div>`;
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
+// Fake discussion post
+function postDiscussion() {
+    const text = document.querySelector('#forum textarea').value.trim();
+    if (!text) return alert("Write something first!");
+    const list = document.getElementById('discussions-list');
+    list.innerHTML = `
+        <div class="card border-0 shadow mb-3">
+            <div class="card-body">
+                <strong>You</strong> <small class="text-muted">– just now</small>
+                <p>${text.replace(/\n/g, '<br>')}</p>
+            </div>
+        </div>` + list.innerHTML;
+    document.querySelector('#forum textarea').value = '';
+}
+</script>
+
+</body>
+</html>

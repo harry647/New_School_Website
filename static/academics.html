@@ -14,7 +14,6 @@
     <meta property="og:url" content="https://barunionschool.ac.ke/academics.html">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/academics.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -497,8 +496,25 @@
     <!-- Footer -->
     <div w3-include-html="/includes/footer.html"></div>
 
+    <!-- Scripts – Order matters! -->
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script>w3.includeHTML();</script>
+
+    <!-- AOS Animation Library (if you use it) -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
+
+    <!-- Our Mobile Menu – This makes the hamburger work -->
+    <script src="/js/mobile-menu.js"></script>
+
+    <!-- Preloader hide (optional but nice) -->
+    <script>
+        window.addEventListener('load', function () {
+            document.getElementById('preloader').style.display = 'none';
+        });
+    </script>
+
     <!-- Scripts -->
-    <script src="/js/main.js"></script>
     <script src="/js/academics.js"></script> 
 
 </body>

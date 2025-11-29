@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Students & Teachers Welfare Department</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary: #1565c0;
+            --secondary: #1976d2;
+            --accent: #42a5f5;
+            --warm: #e3f2fd;
+            --soft: #bbdefb;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f5f9ff;
+            color: #333;
+            line-height: 1.8;
+        }
+        .navbar { background: var(--primary) !important; }
+        .hero {
+            background: linear-gradient(rgba(21,101,192,0.94), rgba(21,101,192,0.9)),
+                        url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; color: white; padding: 140px 0; text-align: center;
+        }
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12) !important;
+            transition: all 0.4s ease;
+        }
+        .section-title {
+            position: relative; padding-bottom: 12px; font-weight: 700; color: var(--primary);
+        }
+        .section-title::after {
+            content: ''; position: absolute; left: 0; bottom: 0;
+            width: 80px; height: 5px; background: var(--accent); border-radius: 3px;
+        }
+        .welfare-card {
+            background: white; border-radius: 16px; padding: 30px; text-align: center;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08); height: 100%;
+        }
+        .icon-circle {
+            width: 90px; height: 90px; border-radius: 50%;
+            background: var(--warm); color: var(--primary);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; margin: 0 auto 20px;
+        }
+        .quote {
+            background: white; padding: 30px; border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08); font-style: italic; color: #555;
+        }
+        .fake-upload {
+            cursor: pointer; border: 3px dashed var(--soft); border-radius: 15px;
+            padding: 50px; text-align: center; background: #e8f4ff;
+            transition: all 0.4s;
+        }
+        .fake-upload:hover { background: var(--soft); border-color: var(--accent); }
+        .badge-role {
+            font-size: 0.8rem; padding: 6px 14px; border-radius: 20px; color: white;
+        }
+        .student { background: #1976d2; }
+        .teacher { background: #7b1fa2; }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-4" href="#">
+            Welfare Department
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="#financial">Financial Aid</a></li>
+                <li class="nav-item"><a class="nav-link" href="#health">Health & Insurance</a></li>
+                <li class="nav-item"><a class="nav-link" href="#housing">Housing</a></li>
+                <li class="nav-item"><a class="nav-link" href="#grievance">Grievance</a></li>
+                <li class="nav-item"><a class="nav-link" href="#team">Our Team</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section id="home" class="hero">
+    <div class="container">
+        <h1 class="display-3 fw-bold">We Care About You</h1>
+        <p class="lead fs-3 mb-4">Students & Teachers Welfare Department</p>
+        <p class="fs-5 col-lg-9 mx-auto">
+            Supporting the well-being, rights, and success of every student and faculty member — 
+            financially, emotionally, physically, and academically.
+        </p>
+        <a href="#services" class="btn btn-light btn-lg mt-4 px-5">Explore Our Support</a>
+    </div>
+</section>
+
+<div class="container my-5">
+
+    <!-- Services Overview -->
+    <section id="services" class="my-5">
+        <h2 class="section-title mb-5 text-center">How We Support You</h2>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="welfare-card card-hover">
+                    <div class="icon-circle"><i class="fas fa-hand-holding-usd"></i></div>
+                    <h5>Financial Assistance</h5>
+                    <p>Scholarships, emergency funds, tuition waivers, meal plans</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="welfare-card card-hover">
+                    <div class="icon-circle"><i class="fas fa-heartbeat"></i></div>
+                    <h5>Health & Insurance</h5>
+                    <p>Free medical checkups, mental health support, health insurance</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="welfare-card card-hover">
+                    <div class="icon-circle"><i class="fas fa-home"></i></div>
+                    <h5>Housing Support</h5>
+                    <p>Dormitory allocation, rent assistance, family housing</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="welfare-card card-hover">
+                    <div class="icon-circle"><i class="fas fa-shield-alt"></i></div>
+                    <h5>Grievance & Rights</h5>
+                    <p>Fair mediation, anti-harassment, complaint resolution</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="welfare-card card-hover">
+                    <div class="icon-circle"><i class="fas fa-user-graduate"></i></div>
+                    <h5>Teacher Welfare</h5>
+                    <p>Salary advances, research grants, housing allowance, sabbatical</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="welfare-card card-hover">
+                    <div class="icon-circle"><i class="fas fa-hands-helping"></i></div>
+                    <h5>Emergency Relief</h5>
+                    <p>Immediate help during crises (medical, family, natural disasters)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote -->
+    <div class="quote my-5 text-center">
+        “No student should drop out due to financial difficulty.  
+        No teacher should struggle while serving education.  
+        We are here to make sure that never happens.”  
+        <br><strong>— Welfare Department</strong>
+    </div>
+
+    <!-- Financial Aid Application -->
+    <section id="financial" class="my-5 bg-white rounded shadow p-5">
+        <h2 class="section-title mb-5 text-center">Apply for Financial Aid</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <form onsubmit="event.preventDefault(); alert('Application submitted successfully! We will contact you within 3 working days.');">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="Full Name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="ID Number">
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-select">
+                                <option>Student</option>
+                                <option>Faculty / Staff</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <select class="form-select">
+                                <option>Scholarship</option>
+                                <option>Emergency Fund</option>
+                                <option>Meal Support</option>
+                                <option>Housing Aid</option>
+                                <option>Medical Fund</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <textarea class="form-control" rows="5" placeholder="Briefly explain your situation (confidential)"></textarea>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">Submit Application</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Health & Insurance -->
+    <section id="health" class="my-5">
+        <h2 class="section-title mb-5">Health & Medical Services</h2>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card border-0 shadow card-hover">
+                    <div class="card-body">
+                        <h5>University Clinic</h5>
+                        <p>Free consultations • Medications • Annual checkups</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card border-0 shadow card-hover">
+                    <div class="card-body">
+                        <h5>Health Insurance</h5>
+                        <p>Coverage up to 50,000 EGP/year for students & staff</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grievance Redressal (Anonymous Option) -->
+    <section id="grievance" class="my-5 bg-light rounded p-5">
+        <h2 class="section-title mb-5 text-center">File a Grievance or Complaint</h2>
+        <div class="text-center mb-4">
+            <p class="text-muted">100% confidential • Anonymous option available</p>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-outline-primary btn-lg me-3" onclick="alert('Opening grievance form...')">
+                Submit with Name & ID
+            </button>
+            <button class="btn btn-outline-secondary btn-lg" onclick="alert('Anonymous complaint submitted securely.')">
+                Submit Anonymously
+            </button>
+        </div>
+    </section>
+
+    <!-- Our Team -->
+    <section id="team" class="my-5">
+        <h2 class="section-title mb-5">Meet Our Welfare Team</h2>
+        <div class="row g-4" id="team-container">
+            <!-- Team members added via JS -->
+        </div>
+    </section>
+
+</div>
+
+<script>
+// Welfare Team
+const team = [
+    {name: "Dr. Hana Mahmoud", role: "Director of Welfare", type: "teacher"},
+    {name: "Mr. Khaled Osman", role: "Students Welfare Officer", type: "teacher"},
+    {name: "Ms. Reem Salah", role: "Financial Aid Coordinator", type: "teacher"},
+    {name: "Ahmed Tarek", role: "Student Representative", type: "student"},
+    {name: "Sara Ali", role: "Postgraduate Representative", type: "student"}
+];
+
+team.forEach(member => {
+    document.getElementById('team-container').innerHTML += `
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card border-0 shadow card-hover text-center">
+                <img src="https://randomuser.me/api/portraits/${member.type==='student'?'women':'men'}/${Math.floor(Math.random()*90)}.jpg"
+                     class="card-img-top rounded-circle mx-auto mt-3" style="width:140px;height:140px;object-fit:cover;">
+                <div class="card-body">
+                    <h5 class="card-title">${member.name}</h5>
+                    <p class="text-muted">${member.role}</p>
+                    <span class="badge-role ${member.type}">${member.type === 'student' ? 'Student Rep' : 'Staff'}</span>
+                </div>
+            </div>
+        </div>`;
+});
+</script>
+
+</body>
+</html>

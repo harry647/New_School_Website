@@ -1,24 +1,23 @@
-
-<!-- Main Header + Navigation -->
-<header class="header" id="header">
+<!-- header.html -->
+<header class="site-header" id="header">
     <div class="container">
         <div class="logo">
             <h1><a href="/index.html">Bar Union Secondary</a></h1>
-            <p>Excellence in Education Since 1983</p>
+            <p class="tagline">Excellence in Education Since 1983</p>
         </div>
 
-        <nav class="nav" aria-label="Main navigation">
+        <nav class="main-nav" aria-label="Main navigation">
             <ul class="nav-menu">
                 <li><a href="/static/index.html" class="nav-link">Home</a></li>
-
-                <li class="dropdown" aria-haspopup="true" aria-expanded="false">
+                
+                <li class="dropdown">
                     <a href="/static/about.html" class="nav-link">
-                        About Us <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                        About Us <i class="fas fa-chevron-down"></i>
                     </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li role="none"><a href="/static/administration.html" role="menuitem">Administration</a></li>
-                        <li role="none"><a href="/static/staff.html" role="menuitem">Staff</a></li>
-                        <li role="none"><a href="/static/alumni.html" role="menuitem">Alumni</a></li>
+                    <ul class="dropdown-menu">
+                        <li><a href="/static/administration.html">Administration</a></li>
+                        <li><a href="/static/staff.html">Staff</a></li>
+                        <li><a href="/static/alumni.html">Alumni</a></li>
                     </ul>
                 </li>
 
@@ -27,14 +26,14 @@
                 <li><a href="/static/gallery.html" class="nav-link">Gallery</a></li>
                 <li><a href="/static/news.html" class="nav-link">News & Events</a></li>
 
-                <li class="dropdown" aria-haspopup="true" aria-expanded="false">
+                <li class="dropdown">
                     <a href="#" class="nav-link">
-                        Student Corner <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                        Student Corner <i class="fas fa-chevron-down"></i>
                     </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li role="none"><a href="/static/student-life.html" role="menuitem">Student Life</a></li>
-                        <li role="none"><a href="/static/e-learning.html" role="menuitem">E-Learning</a></li>
-                        <li role="none"><a href="/static/career-guidance.html" role="menuitem">Career & Guidance</a></li>
+                    <ul class="dropdown-menu">
+                        <li><a href="/static/student-life.html">Student Life</a></li>
+                        <li><a href="/static/e-learning.html">E-Learning</a></li>
+                        <li><a href="/static/career-guidance.html">Career & Guidance</a></li>
                     </ul>
                 </li>
 
@@ -42,7 +41,7 @@
                 <li><a href="/static/contact.html" class="nav-link">Contact Us</a></li>
             </ul>
 
-            <!-- Hamburger -->
+            <!-- Mobile Hamburger -->
             <div class="hamburger" aria-label="Toggle menu" role="button" tabindex="0" aria-expanded="false">
                 <span></span>
                 <span></span>
@@ -51,3 +50,251 @@
         </nav>
     </div>
 </header>
+
+<style>
+/* ============================================================
+   BAR UNION SECONDARY SCHOOL – MODERN RESPONSIVE HEADER
+   ============================================================ */
+
+:root {
+    --primary-dark: #0b2d5e;
+    --primary-light: #1e4d8c;
+    --gold: #ffd700;
+    --header-height: 90px;
+    --font-main: 'Segoe UI', Arial, sans-serif;
+}
+
+/* ================= HEADER WRAPPER ================== */
+.site-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+    color: white;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    z-index: 1100;
+    padding: 0.7rem 0;
+    font-family: var(--font-main);
+}
+
+body {
+    padding-top: var(--header-height);
+}
+
+/* ================= HEADER CONTAINER ================== */
+.site-header .container {
+    max-width: 1300px;
+    margin: auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+/* ================= LOGO ================== */
+.site-header .logo h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+}
+.site-header .logo h1 a {
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.site-header .logo h1 a:hover {
+    color: var(--gold);
+}
+.site-header .logo .tagline {
+    margin-top: 4px;
+    font-size: 0.9rem;
+    opacity: 0.85;
+    letter-spacing: 0.4px;
+}
+
+/* ================= NAVIGATION ================== */
+.main-nav {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu > li {
+    position: relative;
+}
+
+.nav-link {
+    color: white !important;
+    padding: 0.7rem 1.1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.nav-link:hover {
+    background: rgba(255,255,255,0.18);
+    color: var(--gold) !important;
+}
+
+/* ================= DROPDOWNS ================== */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: var(--primary-dark);
+    padding: 0.5rem 0;
+    list-style: none;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-12px);
+    transition: 0.3s ease;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.4rem;
+    color: white !important;
+    transition: 0.3s;
+}
+.dropdown-menu a:hover {
+    background: var(--gold);
+    color: var(--primary-dark) !important;
+}
+
+/* ================= HAMBURGER ================== */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px 5px;
+}
+.hamburger span {
+    width: 30px;
+    height: 3px;
+    background: white;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+/* X animation */
+.hamburger.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ============================================================
+   RESPONSIVE – TABLET & MOBILE
+   ============================================================ */
+   
+@media (max-width: 992px) {
+    .site-header .container {
+        padding: 0 15px;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 78px;
+        left: 0;
+        right: 0;
+        background: #0b2d5e;
+        flex-direction: column;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.45s ease;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        z-index: 999;
+    }
+
+    /* OPEN STATE – Scrollable + Full visibility */
+    .nav-menu.active {
+        max-height: 85vh;           /* Use most of screen */
+        overflow-y: auto;           /* THIS ENABLES SCROLLING */
+        padding: 1.5rem 0;
+    }
+
+    .nav-menu > li {
+        width: 100%;
+        text-align: center;
+        margin: 0.4rem 0;
+    }
+
+    .nav-link {
+        padding: 1rem 1.5rem !important;
+        font-size: 1.15rem;
+        margin: 0 1.5rem;
+        border-radius: 8px;
+    }
+
+    /* Mobile Dropdowns – Show automatically when menu is open */
+    .dropdown-menu {
+        position: static;
+        background: rgba(255,255,255,0.12);
+        box-shadow: none;
+        border-radius: 8px;
+        margin: 0.5rem 2.5rem;
+        padding: 0.6rem 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s ease;
+    }
+
+    .nav-menu.active .dropdown-menu {
+        max-height: 400px;   /* Enough for all items */
+    }
+
+    .dropdown-menu a {
+        padding: 0.85rem 2rem;
+        font-size: 1rem;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+}
+
+/* Hamburger → X Animation */
+.hamburger.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Active page highlight */
+.nav-link.active {
+    background: #ffd700 !important;
+    color: #0b2d5e !important;
+    font-weight: 700;
+}
+
+</style>
+
