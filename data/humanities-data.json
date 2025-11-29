@@ -1,0 +1,30 @@
+{
+  "subjects": [
+    { "name": "History", "icon": "fa-landmark", "teacher": "Ms. Nyawanda", "description": "World & Kenyan history, archaeology" },
+    { "name": "Geography", "icon": "fa-globe", "teacher": "Mr. Ouma", "description": "Physical & human geography, GIS" },
+    { "name": "Literature", "icon": "fa-book-open", "teacher": "Ms. Adhiambo", "description": "English & Kiswahili literature" },
+    { "name": "Religious Studies", "icon": "fa-pray", "teacher": "Mr. Otieno", "description": "CRE & IRE" },
+    { "name": "Languages", "icon": "fa-language", "teacher": "Ms. Akinyi", "description": "French, German, Arabic" },
+    { "name": "Social Studies", "icon": "fa-users", "teacher": "Mr. Juma", "description": "Civics, ethics, citizenship" }
+  ],
+  "teachers": [
+    { "name": "Ms. Nyawanda", "subjects": ["History", "Social Studies"], "email": "nyawanda@barunion.sc.ke", "photo": "/assets/staff/nyawanda.jpg" },
+    { "name": "Mr. Ouma", "subjects": ["Geography"], "email": "ouma@barunion.sc.ke", "photo": "/assets/staff/ouma.jpg" },
+    { "name": "Ms. Adhiambo", "subjects": ["Literature"], "email": "adhiambo@barunion.sc.ke", "photo": "/assets/staff/adhiambo.jpg" },
+    { "name": "Mr. Otieno", "subjects": ["Religious Studies"], "email": "otieno@barunion.sc.ke", "photo": "/assets/staff/otieno.jpg" },
+    { "name": "Ms. Akinyi", "subjects": ["Languages"], "email": "akinyi@barunion.sc.ke", "photo": "/assets/staff/akinyi.jpg" },
+    { "name": "Mr. Juma", "subjects": ["Social Studies"], "email": "juma@barunion.sc.ke", "photo": "/assets/staff/juma.jpg" }
+  ],
+  "resources": [
+    { "title": "Form 4 History Notes 2025", "uploadedBy": "Ms. Nyawanda", "date": "Nov 2025", "url": "/downloads/history-f4.pdf" },
+    { "title": "Geography Map Work Pack", "uploadedBy": "Mr. Ouma", "date": "Oct 2025", "url": "/downloads/geography-maps.pdf" },
+    { "title": "Literature Analysis Handbook", "uploadedBy": "Ms. Adhiambo", "date": "Sep 2025", "url": "/downloads/literature-handbook.pdf" },
+    { "title": "Languages Grammar Pack", "uploadedBy": "Ms. Akinyi", "date": "Aug 2025", "url": "/downloads/languages-grammar.pdf" }
+  ],
+  "announcements": [
+    { "text": "Essay Writing Competition – Deadline: 30th Nov 2025", "date": "30 Nov 2025", "icon": "fa-bullhorn" },
+    { "text": "Geography Field Trip to Lake Victoria – 12th Dec 2025", "date": "12 Dec 2025", "icon": "fa-bus" },
+    { "text": "Languages Week Celebration – 5th Jan 2026", "date": "05 Jan 2026", "icon": "fa-globe" },
+    { "text": "History Project Submissions – 20th Jan 2026", "date": "20 Jan 2026", "icon": "fa-landmark" }
+  ]
+}

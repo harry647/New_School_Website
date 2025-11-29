@@ -1,0 +1,130 @@
+/* Co-Curricular Activities – Glassmorphic Luxury 2025+ */
+:root {
+  --primary: #0b2d5e;
+  --accent: #ffd700;
+  --glass: rgba(255,255,255,0.15);
+  --border: rgba(255,255,255,0.2);
+  --text-light: #fff;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, #1e4d8c 100%), url('/assets/images/co-curriculum-hero.jpg') center/cover;
+  min-height: 90vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-light);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+.hero h1, .hero p {
+  position: relative;
+  z-index: 2;
+}
+
+/* Glass Cards */
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  transition: all 0.4s ease;
+}
+.glass-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+}
+
+/* Activity, Achievement, Coordinator Cards */
+.activity-card, .achievement-card, .coordinator-card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  transition: all 0.4s ease;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+.activity-card:hover, .achievement-card:hover, .coordinator-card:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 30px 80px rgba(11,45,94,0.25);
+}
+.activity-card .icon-circle {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin: 0 auto 1rem auto;
+}
+
+/* Section Titles */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: var(--primary);
+  position: relative;
+  display: inline-block;
+  margin-bottom: 3rem;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 6px;
+  background: linear-gradient(90deg, var(--accent), #ff8c00);
+  border-radius: 3px;
+}
+
+/* Photo Gallery */
+#photoGallery .media-card, #photoGallery .col {
+  position: relative;
+}
+#photoGallery img {
+  border-radius: 16px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+#photoGallery img:hover {
+  transform: scale(1.05);
+}
+
+/* Form Styling */
+#joinActivityForm .form-control, #joinActivityForm .form-select {
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  font-size: 1.1rem;
+}
+#joinActivityForm button {
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+/* Login Prompt */
+.login-prompt {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Misc */
+.btn-lg {
+  font-size: 1.2rem;
+  padding: 0.9rem 2.2rem;
+}

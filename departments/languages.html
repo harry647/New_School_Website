@@ -1,332 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Language & Translation Department</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #34495e;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f9f9fb;
-            color: #2c3e50;
-        }
-        .navbar { background: var(--primary) !important; }
-        .hero {
-            background: linear-gradient(rgba(44,62,80,0.94), rgba(44,62,80,0.9)),
-                        url('https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover; background-position: center;
-            color: white; padding: 140px 0; text-align: center;
-        }
-        .card-hover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.18) !important;
-            transition: all 0.4s ease;
-        }
-        .section-title {
-            position: relative; padding-bottom: 15px; font-weight: 700; color: var(--primary);
-        }
-        .section-title::after {
-            content: ''; position: absolute; left: 0; bottom: 0;
-            width: 90px; height: 6px; background: var(--accent); border-radius: 3px;
-        }
-        .lang-flag {
-            width: 42px; height: 42px; border-radius: 50%; object-fit: cover;
-            border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-        .lang-card {
-            background: white; border-radius: 15px; overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1); transition: all 0.3s;
-        }
-        .lang-card:hover { transform: scale(1.05); }
-        .fake-upload {
-            cursor: pointer; border: 3px dashed #ddd; border-radius: 15px;
-            padding: 60px; text-align: center; background: #f8f9fa;
-            transition: all 0.4s;
-        }
-        .fake-upload:hover {
-            background: #e8f4f8; border-color: var(--accent);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Languages Department | Bar Union Secondary</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/languages/languages.css"/>
 </head>
 <body>
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <div class="container">
-        <a class="navbar-brand fw-bold fs-4" href="#">
-            Language & Translation Department
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="nav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#languages">Languages</a></li>
-                <li class="nav-item"><a class="nav-link" href="#faculty">Faculty</a></li>
-                <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
-                <li class="nav-item"><a class="nav-link" href="#forum">Forum</a></li>
-                <li class="nav-item"><a class="nav-link" href="#assignments">Assignments</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+  <div w3-include-html="/includes/header.html"></div>
 
-<!-- Hero -->
-<section id="home" class="hero">
-    <div class="container">
-        <h1 class="display-3 fw-bold">Department of Languages<br>& Translation</h1>
-        <p class="lead fs-3 mb-4">Breaking Barriers • Building Bridges</p>
-        <p class="fs-5 col-lg-9 mx-auto">
-            Master Arabic, English, French, Spanish, German, Chinese, and professional translation skills in a vibrant multilingual community.
+  <!-- Login Required -->
+  <div id="loginCheck" class="login-prompt d-none">
+    <div>
+      <i class="fas fa-globe fa-5x text-primary mb-4"></i>
+      <h1 class="display-4 fw-bold">Access Restricted</h1>
+      <p class="lead">Please log in to access language resources.</p>
+      <a href="/login.html" class="btn btn-primary btn-lg px-5">Login Now</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div id="mainContent" class="d-none">
+
+    <!-- Hero -->
+    <section class="hero text-white text-center d-flex align-items-center position-relative">
+      <div class="container position-relative z-2">
+        <h1 class="display-2 fw-bold mb-4">Languages Department</h1>
+        <p class="lead fs-3 mb-4">Speak the World</p>
+        <p class="col-lg-8 mx-auto fs-5 opacity-90">
+          Master English, Kiswahili, French, Arabic, German — and open doors to global opportunities.
         </p>
-        <a href="#languages" class="btn btn-danger btn-lg mt-4 px-5">Explore Our Languages</a>
+        <button onclick="scrollToSection('subjects')" class="btn btn-warning btn-lg px-5 mt-4 fw-bold shadow-lg">
+          Explore Languages
+        </button>
+      </div>
+    </section>
+
+    <div class="container my-5">
+
+      <!-- Session & Language Filter -->
+      <div class="text-center mb-5">
+        <select id="sessionFilter" class="form-select form-select-lg w-auto d-inline-block me-3">
+          <option value="">All Academic Years</option>
+          <option>2025/2026</option>
+          <option>2024/2025</option>
+          <option>2023/2024</option>
+        </select>
+
+        <select id="languageFilter" class="form-select form-select-lg w-auto d-inline-block">
+          <option value="">All Languages</option>
+          <option>English</option>
+          <option>Kiswahili</option>
+          <option>French</option>
+          <option>Arabic</option>
+          <option>German</option>
+        </select>
+      </div>
+
+      <!-- Languages -->
+      <h2 class="section-title text-center mb-5">Languages We Teach</h2>
+      <div id="subjectsGrid" class="row g-4 mb-5"></div>
+
+      <!-- Teachers -->
+      <h2 class="section-title text-center mb-5">Our Language Teachers</h2>
+      <div id="teachersGrid" class="row g-4 mb-5"></div>
+
+      <!-- Resources -->
+      <h2 class="section-title text-center mb-5">Learning Resources</h2>
+      <div class="text-center mb-4">
+        <label class="btn btn-primary btn-lg px-5">
+          Upload Audio / Notes / Essays
+          <input type="file" id="fileUpload" multiple accept="audio/*,.pdf,.doc,.docx" hidden>
+        </label>
+      </div>
+      <div id="resourcesGrid" class="row g-4 mb-5"></div>
+
+      <!-- Poll / Quick Quiz -->
+      <h2 class="section-title text-center mb-5">Language Poll / Quiz</h2>
+      <div id="pollSection" class="glass-card p-4 mb-5">
+        <p class="mb-3">Which language would you like more resources for?</p>
+        <div id="pollOptions" class="d-flex gap-3 flex-wrap"></div>
+        <h5 class="mt-3">Results:</h5>
+        <div id="pollResults"></div>
+      </div>
+
+      <!-- Student Forum / Discussion -->
+      <h2 class="section-title text-center mb-5">Student Forum</h2>
+      <div class="glass-card p-4 mb-4">
+        <textarea id="forumPost" class="form-control mb-3" rows="3" placeholder="Ask a question or share thoughts..."></textarea>
+        <button class="btn btn-primary" onclick="postForum()">Post</button>
+      </div>
+      <div id="forumPosts" class="mb-5"></div>
+
+      <!-- Announcements & Events -->
+      <h2 class="section-title text-center mb-5">Language Events & Competitions</h2>
+      <div id="announcements" class="glass-card p-5 text-white mb-5">
+        <ul class="list-unstyled mb-0 fs-5">
+          <li><i class="fas fa-microphone me-3"></i> French Debate Competition – 20th Dec 2025 <button class="btn btn-sm btn-light ms-2">RSVP</button></li>
+          <li><i class="fas fa-pen-fancy me-3"></i> Kiswahili Essay Contest – Submit by 10th Jan <button class="btn btn-sm btn-light ms-2">Submit</button></li>
+          <li><i class="fas fa-language me-3"></i> Arabic Speech Contest – February 2026 <button class="btn btn-sm btn-light ms-2">RSVP</button></li>
+        </ul>
+      </div>
+
     </div>
-</section>
+  </div>
 
-<div class="container my-5">
-
-    <!-- Languages We Teach -->
-    <section id="languages" class="my-5">
-        <h2 class="section-title mb-5 text-center">Languages & Programs</h2>
-        <div class="row g-4">
-            <!-- Arabic -->
-            <div class="col-md-6 col-lg-4">
-                <div class="lang-card text-center p-4 card-hover">
-                    <img src="https://flagcdn.com/w320/sa.png" class="lang-flag mb-3" alt="Arabic">
-                    <h4>Arabic Language & Literature</h4>
-                    <p class="text-muted">Classical • Modern Standard • Dialects • Rhetoric</p>
-                </div>
-            </div>
-            <!-- English -->
-            <div class="col-md-6 col-lg-4">
-                <div class="lang-card text-center p-4 card-hover">
-                    <img src="https://flagcdn.com/w320/gb.png" class="lang-flag mb-3" alt="English">
-                    <h4>English Language & Literature</h4>
-                    <p class="text-muted">Linguistics • British & American Lit • TESOL</p>
-                </div>
-            </div>
-            <!-- French -->
-            <div class="col-md-6 col-lg-4">
-                <div class="lang-card text-center p-4 card-hover">
-                    <img src="https://flagcdn.com/w320/fr.png" class="lang-flag mb-3" alt="French">
-                    <h4>French Language & Culture</h4>
-                    <p class="text-muted">DELF Preparation • Francophone Studies</p>
-                </div>
-            </div>
-            <!-- Spanish -->
-            <div class="col-md-6 col-lg-4">
-                <div class="lang-card text-center p-4 card-hover">
-                    <img src="https://flagcdn.com/w320/es.png" class="lang-flag mb-3" alt="Spanish">
-                    <h4>Spanish Language</h4>
-                    <p class="text-muted">DELE • Latin American Studies</p>
-                </div>
-            </div>
-            <!-- German -->
-            <div class="col-md-6 col-lg-4">
-                <div class="lang-card text-center p-4 card-hover">
-                    <img src="https://flagcdn.com/w320/de.png" class="lang-flag mb-3" alt="German">
-                    <h4>German Language</h4>
-                    <p class="text-muted">Goethe-Zertifikat • Business German</p>
-                </div>
-            </div>
-            <!-- Chinese -->
-            <div class="col-md-6 col-lg-4">
-                <div class="lang-card text-center p-4 card-hover">
-                    <img src="https://flagcdn.com/w320/cn.png" class="lang-flag mb-3" alt="Chinese">
-                    <h4>Chinese (Mandarin)</h4>
-                    <p class="text-muted">HSK Preparation • Business Chinese</p>
-                </div>
-            </div>
-            <!-- Translation -->
-            <div class="col-md-6 col-lg-4 mx-auto">
-                <div class="lang-card text-center p-4 card-hover bg-danger text-white">
-                    <i class="fas fa-exchange-alt fa-3x mb-3"></i>
-                    <h4>Translation & Interpreting</h4>
-                    <p>Legal • Medical • Conference • Literary Translation</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Faculty -->
-    <section id="faculty" class="my-5">
-        <h2 class="section-title mb-5">Our Multilingual Faculty</h2>
-        <div class="row g-4" id="faculty-container"></div>
-        <div class="text-center mt-5">
-            <button class="btn btn-outline-danger btn-lg" onclick="addFaculty()">
-                Add Faculty Member (Demo)
-            </button>
-        </div>
-    </section>
-
-    <!-- Gallery -->
-    <section id="gallery" class="my-5">
-        <h2 class="section-title mb-5">Language Events & Activities</h2>
-        <div class="row g-4 mb-5">
-            <div class="col-md-4">
-                <img src="https://images.unsplash.com/photo-1543269860-9402f14f8d88?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded shadow card-hover" alt="Debate">
-            </div>
-            <div class="col-md-4">
-                <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded shadow card-hover" alt="Workshop">
-            </div>
-            <div class="col-md-4">
-                <img src="https://images.unsplash.com/photo-1529390079861-591de3541a2f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid rounded shadow card-hover" alt="Cultural Day">
-            </div>
-        </div>
-        <div class="text-center">
-            <label class="fake-upload d-inline-block">
-                <i class="fas fa-camera-retro fa-3x mb-3 text-danger"></i><br>
-                <strong>Upload Event Photos</strong><br>
-                <small>Click to add to gallery</small>
-                <input type="file" accept="image/*" multiple style="display:none" onchange="previewGallery(this.files)">
-            </label>
-        </div>
-        <div class="row g-3 mt-4" id="gallery-container"></div>
-    </section>
-
-    <!-- Discussion Forum -->
-    <section id="forum" class="my-5">
-        <h2 class="section-title mb-5">Language Café Forum</h2>
-        <div class="card border-0 shadow mb-4">
-            <div class="card-body">
-                <textarea class="form-control mb-3" rows="4" placeholder="Ask about grammar, share a poem, recommend a book, or practice writing in any language..."></textarea>
-                <button class="btn btn-danger" onclick="postMessage()">Post Message</button>
-            </div>
-        </div>
-        <div id="forum-posts">
-            <div class="card border-0 shadow mb-3">
-                <div class="card-body">
-                    <strong>Hana Chen</strong> <small class="text-muted">– Chinese • 20 min ago</small>
-                    <p>大家好！Can anyone recommend good resources for HSK Level 5?</p>
-                    <button class="btn btn-sm btn-outline-secondary">Reply</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Assignments -->
-    <section id="assignments" class="my-5">
-        <h2 class="section-title mb-5">Assignments & Translation Projects</h2>
-        <div class="list-group mb-4">
-            <div class="list-group-item">
-                <div class="d-flex w-100 justify-content-between align-items-center">
-                    <div>
-                        <h5>Simultaneous Interpreting Practice – UN Speech (FR→AR)</h5>
-                        <p>Record yourself interpreting the attached speech | Due: Dec 12, 2025</p>
-                    </div>
-                    <div>
-                        <a href="#" class="btn btn-sm btn-outline-primary me-2">Download Audio</a>
-                        <label class="btn btn-sm btn-success">
-                            Submit Recording <input type="file" accept="audio/*,.mp4" style="display:none" onchange="alert('Submitted: '+this.files[0].name)">
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-center">
-            <button class="btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#newAssignment">
-                Post New Assignment (Faculty)
-            </button>
-        </div>
-    </section>
-
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="newAssignment">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title">Create New Assignment / Project</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <input type="text" class="form-control mb-3" placeholder="Title">
-                <select class="form-select mb-3">
-                    <option>Arabic</option><option>English</option><option>French</option>
-                    <option>Spanish</option><option>German</option><option>Chinese</option>
-                    <option>Translation</option>
-                </select>
-                <textarea class="form-control mb-3" rows="5" placeholder="Instructions..."></textarea>
-                <input type="date" class="form-control mb-3">
-                <input type="file" class="form-control" multiple>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-danger">Publish Assignment</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-// Faculty Data
-const faculty = [
-    {name: "Prof. Fatima Al-Sayed", lang: "Arabic", title: "Professor of Arabic Rhetoric"},
-    {name: "Dr. Michael Brown", lang: "English", title: "Head of English Department"},
-    {name: "Prof. Claire Dubois", lang: "French", title: "Professor of Francophone Literature"},
-    {name: "Dr. Ahmed Rashid", lang: "Translation", title: "Director of Translation Program"}
-];
-faculty.forEach(f => addFacultyCard(f));
-
-function addFacultyCard(f) {
-    const flags = {Arabic:"sa", English:"gb", French:"fr", Spanish:"es", German:"de", Chinese:"cn", Translation:"exchange-alt"};
-    const icon = flags[f.lang] ? `<img src="https://flagcdn.com/48x36/${flags[f.lang]}.png" class="me-2">` : `<i class="fas fa-${flags[f.lang]} me-2"></i>`;
-    document.getElementById('faculty-container').innerHTML += `
-        <div class="col-md-6 col-lg-3 mb-4">
-            <div class="card h-100 border-0 shadow card-hover text-center">
-                <img src="https://randomuser.me/api/portraits/${f.lang==='French'?'women':'men'}/${Math.floor(Math.random()*90)}.jpg"
-                     class="card-img-top rounded-circle mx-auto mt-4" style="width:120px;height:120px;object-fit:cover;">
-                <div class="card-body">
-                    <h5 class="card-title">${f.name}</h5>
-                    <p class="text-muted">${f.title}</p>
-                    <span class="badge bg-danger">${icon} ${f.lang}</span>
-                </div>
-            </div>
-        </div>`;
-}
-
-function addFaculty() {
-    const name = prompt("Name:");
-    const lang = prompt("Language (Arabic/English/French/etc):");
-    if(name && lang) addFacultyCard({name, lang, title:"Lecturer"});
-}
-
-function previewGallery(files) {
-    const container = document.getElementById('gallery-container');
-    [...files].forEach(file => {
-        const reader = new FileReader();
-        reader.onload = e => {
-            container.innerHTML += `<div class="col-6 col-md-4 col-lg-3">
-                <img src="${e.target.result}" class="img-fluid rounded shadow" style="height:220px;object-fit:cover;">
-            </div>`;
-        };
-        reader.readAsDataURL(file);
-    });
-}
-
-function postMessage() {
-    const text = document.querySelector('#forum textarea').value.trim();
-    if (!text) return alert("Please write something first!");
-    const posts = document.getElementById('forum-posts');
-    posts.innerHTML = `<div class="card border-0 shadow mb-3">
-        <div class="card-body">
-            <strong>You</strong> <small class="text-muted">– just now</small>
-            <p>${text.replace(/\n/g, '<br>')}</p>
-        </div>
-    </div>` + posts.innerHTML;
-    document.querySelector('#forum textarea').value = '';
-}
-</script>
-
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <script src="/static/languages/languages.js"></script>
 </body>
 </html>

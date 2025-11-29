@@ -1,0 +1,186 @@
+/* =========================
+   Clubs Dashboard – 2025+ (Responsive & Filterable)
+   ========================= */
+
+/* -------- ROOT VARIABLES -------- */
+:root {
+    --primary: #0b2d5e;       
+    --secondary: #e91e63;     
+    --accent: #ffd700;         
+    --dark: #880e4f;           
+    --light: #f8f9ff;          
+    --glass: rgba(255,255,255,0.15);
+    --border: rgba(255,255,255,0.2);
+}
+
+/* -------- BODY & GENERAL -------- */
+body {
+    font-family: 'Segoe UI', 'Poppins', sans-serif;
+    background: var(--light);
+    color: #333;
+    margin: 0;
+}
+
+a { text-decoration: none; }
+p { margin: 0.5rem 0; }
+
+/* -------- NAVBAR -------- */
+.navbar {
+    background: var(--primary) !important;
+}
+
+/* -------- HERO SECTION -------- */
+.hero {
+    background: linear-gradient(135deg, var(--primary) 0%, #1e4d8c 100%), 
+                url('/assets/images/clubs-hero.jpg') center/cover no-repeat;
+    min-height: 90vh;
+    color: white;
+    position: relative;
+    padding: 120px 0 80px;
+    text-align: center;
+}
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+}
+
+/* -------- GLASS CARDS -------- */
+.glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    transition: all 0.4s ease;
+    padding: 2rem;
+}
+.glass-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+}
+
+/* -------- CLUB CARD & LOGO -------- */
+.club-card, .club-card:hover {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.club-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+.club-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    background: white;
+    padding: 12px;
+    border-radius: 50%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    margin-bottom: 1rem;
+}
+.club-logo-small {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    margin-bottom: 0.5rem;
+}
+
+/* -------- TEXT & TITLES -------- */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    margin-bottom: 2rem;
+}
+.club-leader {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #1565c0;
+}
+.text-muted { color: rgba(0,0,0,0.6); }
+
+/* -------- ANNOUNCEMENTS & EVENTS -------- */
+.announcement {
+    background: #fff;
+    border-left: 5px solid var(--accent);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+}
+.event-card {
+    background: linear-gradient(135deg, #ff4081, #f50057);
+    color: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* -------- FILE UPLOAD MOCK -------- */
+.fake-upload {
+    border: 3px dashed #ff80ab;
+    border-radius: 15px;
+    padding: 40px;
+    background: #fff8f9;
+    transition: all 0.4s;
+}
+.fake-upload:hover {
+    background: #fce4ec;
+    border-color: var(--primary);
+}
+
+/* -------- LOGIN PROMPT -------- */
+.login-prompt {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* -------- SEARCH / FILTER BAR -------- */
+.club-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+.club-filters input, .club-filters select {
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    min-width: 200px;
+}
+
+/* -------- RESPONSIVE GRID -------- */
+#clubsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+#eventsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+/* -------- MEDIA QUERIES -------- */
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 0 50px;
+    }
+    .section-title {
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+    }
+    .club-logo { width: 100px; height: 100px; }
+}
+@media (max-width: 480px) {
+    .club-logo { width: 80px; height: 80px; }
+    .club-filters { flex-direction: column; gap: 0.5rem; }
+}

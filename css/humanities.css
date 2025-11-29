@@ -1,0 +1,117 @@
+/* Humanities Department – Warm, Elegant, Glassmorphic 2025+ */
+:root {
+  --primary: #5d4037;
+  --accent: #ff8a65;
+  --glass: rgba(255,255,255,0.15);
+  --border: rgba(255,255,255,0.2);
+  --text: #ffffff;
+  --soft-shadow: rgba(0,0,0,0.1);
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, #8d6e63 100%), url('/assets/images/humanities-bg.jpg') center/cover;
+  min-height: 90vh;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 2rem;
+  transition: all 0.4s ease;
+}
+.glass-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+}
+
+.subject-card, .teacher-card, .resource-card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 12px 35px var(--soft-shadow);
+  transition: all 0.4s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+.subject-card:hover, .teacher-card:hover, .resource-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(93,64,55,0.25);
+}
+
+.subject-card i, .resource-card i {
+  color: var(--primary);
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: var(--primary);
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+/* Forum / Discussion Cards */
+.forum-card {
+  background: var(--glass);
+  backdrop-filter: blur(15px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+.forum-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+}
+
+/* Poll / Quiz Panel */
+.poll-panel {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+.poll-panel button {
+  margin: 0.25rem;
+}
+
+/* File Upload */
+#fileUpload + label {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+#fileUpload + label:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.login-prompt {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

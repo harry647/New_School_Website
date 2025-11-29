@@ -1,0 +1,127 @@
+{
+  "activities": [
+    {
+      "id": "drama",
+      "name": "Drama & Theatre",
+      "icon": "fa-masks-theater",
+      "color": "#e91e63",
+      "description": "Stage productions, festivals, scriptwriting",
+      "session": "2025/2026",
+      "achievement": "National Drama Champions 2025",
+      "achievementDetail": "Won top awards in the National Theatre Festival"
+    },
+    {
+      "id": "music",
+      "name": "Music & Choir",
+      "icon": "fa-music",
+      "color": "#f57c00",
+      "description": "Choir, band, music festivals",
+      "session": "2025/2026",
+      "achievement": "Inter-School Choir Champions",
+      "achievementDetail": "1st place at the 2025 Regional Music Festival"
+    },
+    {
+      "id": "sports",
+      "name": "Sports & Athletics",
+      "icon": "fa-futbol",
+      "color": "#2e7d32",
+      "description": "Football, basketball, athletics",
+      "session": "2024/2025",
+      "achievement": "Regional Football Winners",
+      "achievementDetail": "Football team won 2024/2025 regional championship"
+    },
+    {
+      "id": "debate",
+      "name": "Debate & Public Speaking",
+      "icon": "fa-microphone",
+      "color": "#1565c0",
+      "description": "Competitions, Model UN",
+      "session": "2023/2024",
+      "achievement": "National Debate Champions",
+      "achievementDetail": "Won 2024 National Debate Competition"
+    },
+    {
+      "id": "art",
+      "name": "Art & Design",
+      "icon": "fa-palette",
+      "color": "#8e24aa",
+      "description": "Exhibitions, workshops",
+      "session": "2025/2026",
+      "achievement": "Art Exhibition Winner",
+      "achievementDetail": "Students showcased top artworks in 2025"
+    },
+    {
+      "id": "robotics",
+      "name": "Robotics",
+      "icon": "fa-robot",
+      "color": "#6d28d9",
+      "description": "Coding, competitions",
+      "session": "2024/2025",
+      "achievement": "Robotics Regional Champions",
+      "achievementDetail": "Won the 2024 Robotics Challenge"
+    }
+  ],
+  "events": [
+    {
+      "title": "Drama Festival",
+      "date": "15th July 2025",
+      "description": "Annual school drama festival with inter-school participation.",
+      "color": "#e91e63",
+      "session": "2025/2026"
+    },
+    {
+      "title": "Music Concert",
+      "date": "10th August 2025",
+      "description": "School choir and band perform at the annual concert.",
+      "color": "#f57c00",
+      "session": "2025/2026"
+    },
+    {
+      "title": "Football Finals",
+      "date": "5th September 2024",
+      "description": "Regional football finals for the school team.",
+      "color": "#2e7d32",
+      "session": "2024/2025"
+    }
+  ],
+  "gallery": [
+    {
+      "url": "/assets/gallery/drama1.jpg",
+      "caption": "Drama Rehearsals 2025",
+      "uploadedBy": "Drama Dept",
+      "date": "12th June 2025",
+      "session": "2025/2026"
+    },
+    {
+      "url": "/assets/gallery/music1.jpg",
+      "caption": "Choir Performance",
+      "uploadedBy": "Music Dept",
+      "date": "1st May 2025",
+      "session": "2025/2026"
+    },
+    {
+      "url": "/assets/gallery/sports1.jpg",
+      "caption": "Football Team 2024/2025",
+      "uploadedBy": "Sports Dept",
+      "date": "30th September 2024",
+      "session": "2024/2025"
+    }
+  ],
+  "coordinators": [
+    {
+      "name": "Mr. Odhiambo",
+      "role": "Sports Coordinator",
+      "photo": "/assets/staff/mr-odhiambo.jpg"
+    },
+    {
+      "name": "Ms. Wanjiku",
+      "role": "Drama & Theatre Coordinator",
+      "photo": "/assets/staff/ms-wanjiku.jpg"
+    },
+    {
+      "name": "Mr. Kamau",
+      "role": "Music & Choir Coordinator",
+      "photo": "/assets/staff/mr-kamau.jpg"
+    }
+  ]
+}

@@ -1,250 +1,354 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Faculty Resource Center</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        :root {
-            --primary: #1d4ed8;
-            --secondary: #3b82f6;
-            --accent: #93c5fd;
-            --success: #22c55e;
-            --warning: #f59e0b;
-        }
-        body { font-family: 'Segoe UI', sans-serif; background: #f8fafc; color: #1e293b; }
-        .navbar { background: var(--primary) !important; }
-        .hero {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            color: white; padding: 100px 0; text-align: center;
-        }
-        .card-resource {
-            border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.4s;
-        }
-        .card-resource:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(30,64,175,0.15); }
-        .upload-zone {
-            border: 3px dashed #93c5fd; border-radius: 16px; padding: 50px; background: #eff6ff;
-            text-align: center; transition: all 0.4s;
-        }
-        .upload-zone:hover { background: #dbeafe; border-color: var(--primary); }
-        .file-item {
-            background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px;
-            margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;
-        }
-        .badge-type { font-size: 0.75rem; padding: 5px 12px; border-radius: 20px; }
-        .holiday-item {
-            background: linear-gradient(120deg, #fef3c7, #fde68a); border-radius: 12px; padding: 15px;
-            margin-bottom: 12px; text-align: center; font-weight: 600;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>School Resources Hub | Bar Union Secondary</title>
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet"/>
+
+  <!-- Page CSS (glassmorphic + components) -->
+  <link rel="stylesheet" href="/static/resources/resources.css"/>
+
+  <!-- Page meta for accessibility & SEO -->
+  <meta name="description" content="Bar Union Secondary — School Resources Hub. Notes, past papers, assignments, projects and teacher uploads." />
 </head>
 <body>
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <div class="container">
-        <a class="navbar-brand fw-bold fs-4" href="#">
-            Faculty Resource Center
-        </a>
-        <span class="text-light">Faculty Only • Upload & Share</span>
-    </div>
-</nav>
+  <!-- header injected via w3-include-html -->
+  <div w3-include-html="/includes/header.html"></div>
 
-<!-- Hero -->
-<section class="hero">
-    <div class="container">
-        <h1 class="display-4 fw-bold">Central Resource Hub</h1>
-        <p class="lead fs-3">Upload assignments, notes, schedules — students download instantly</p>
-        <p class="fs-5 col-lg-8 mx-auto">One place for all teaching materials • Accessible 24/7</p>
-    </div>
-</section>
+  <!-- Login prompt (shown by JS if user not logged in) -->
+  <main id="app" class="site-main">
+    <section id="loginCheck" class="login-prompt d-none container-lg my-8">
+      <div class="glass-card p-5 text-center">
+        <i class="fas fa-book fa-4x text-primary mb-3" aria-hidden="true"></i>
+        <h1 class="h2 fw-bold">Learning Hub — Please Sign In</h1>
+        <p class="lead mb-3">You need to be logged in to view or upload resources.</p>
+        <a href="/login.html" class="btn btn-primary btn-lg">Login</a>
+      </div>
+    </section>
 
-<div class="container my-5">
+    <!-- Main content (hidden until JS shows it for logged users) -->
+    <section id="mainContent" class="d-none">
+      <!-- Hero -->
+      <header class="hero text-white text-center d-flex align-items-center position-relative" role="banner">
+        <div class="container py-8">
+          <h1 class="display-3 fw-bold mb-3">School Resources Hub</h1>
+          <p class="lead mb-4">Notes, past papers, assignments, video lessons, audio practice and more — all organized and searchable.</p>
 
-    <!-- Quick Upload Sections -->
-    <div class="row g-4 mb-5">
+          <!-- Role switch & quick actions -->
+          <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap" role="group" aria-label="Quick actions">
+            <div class="btn-group" role="group" aria-label="View role">
+              <button id="roleStudent" class="btn btn-outline-light active" onclick="setRole('student')">Student View</button>
+              <button id="roleTeacher" class="btn btn-outline-light" onclick="setRole('teacher')">Teacher View</button>
+              <button id="roleAdmin" class="btn btn-outline-light" onclick="setRole('admin')">Admin</button>
+            </div>
 
-        <!-- Upload Assignments -->
-        <div class="col-lg-6">
-            <div class="card border-0 shadow card-resource">
-                <div class="card-body">
-                    <h4><i class="fas fa-tasks text-primary me-2"></i> Upload New Assignment</h4>
-                    <div class="upload-zone" onclick="document.getElementById('assignFile').click()">
-                        <i class="fas fa-cloud-upload-alt fa-4x text-primary mb-3"></i>
-                        <p class="fw-bold">Drop assignment PDF here or click to browse</p>
-                        <input type="file" id="assignFile" accept=".pdf,.docx,.zip" style="display:none" onchange="uploadAssignment(this.files)">
+            <button id="openUploadBtn" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#uploadModal">
+              <i class="fas fa-upload me-2"></i> Upload Resource
+            </button>
+
+            <a href="#resourcesGrid" class="btn btn-outline-light btn-lg" onclick="document.getElementById('resourcesGrid').scrollIntoView({behavior:'smooth'})">
+              Browse Resources
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <div class="container my-5">
+
+        <!-- Featured carousel -->
+        <section aria-labelledby="featuredTitle" class="mb-5">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <h2 id="featuredTitle" class="section-title mb-0">Featured Resources</h2>
+            <small class="text-muted">Top picks & trending</small>
+          </div>
+
+          <div id="featuredCarousel" class="carousel slide" data-bs-ride="carousel" aria-label="Featured resources">
+            <div class="carousel-inner" id="featuredInner">
+              <!-- JS will populate .carousel-item elements -->
+              <div class="carousel-item active">
+                <div class="glass-card p-4 d-flex flex-column flex-md-row gap-4 align-items-center">
+                  <img src="/assets/images/placeholder-doc.png" alt="" class="d-none d-md-block" style="width:160px; height:auto;">
+                  <div>
+                    <h3 class="h5 fw-bold">Getting Started — Student Guide</h3>
+                    <p class="mb-2 text-muted">Overview • How to use the hub • Contact support</p>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-outline-light btn-sm" onclick="openPreview(null)">Preview</button>
+                      <a class="btn btn-primary btn-sm" href="/downloads/getting-started.pdf" download>Download</a>
                     </div>
-                    <div id="assignmentsList" class="mt-4"></div>
+                  </div>
                 </div>
+              </div>
             </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev" aria-label="Previous featured">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next" aria-label="Next featured">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+        </section>
+
+        <!-- Filters / search / view controls -->
+        <section class="mb-4" aria-label="Filters and search">
+          <form id="filtersForm" class="row g-3 align-items-center">
+            <div class="col-md-3">
+              <label class="form-label visually-hidden" for="categoryFilter">Category</label>
+              <select id="categoryFilter" class="form-select" aria-label="Filter by category">
+                <option value="">All Categories</option>
+                <option>Mathematics</option>
+                <option>Sciences</option>
+                <option>Languages</option>
+                <option>Humanities</option>
+                <option>Applied Sciences</option>
+                <option>Clubs</option>
+                <option>Guidance</option>
+              </select>
+            </div>
+
+            <div class="col-md-3">
+              <label class="form-label visually-hidden" for="typeFilter">Type</label>
+              <select id="typeFilter" class="form-select" aria-label="Filter by type">
+                <option value="">All Types</option>
+                <option value="pdf">PDF</option>
+                <option value="video">Video</option>
+                <option value="audio">Audio</option>
+                <option value="doc">Document</option>
+              </select>
+            </div>
+
+            <div class="col-md-4">
+              <label class="form-label visually-hidden" for="searchInput">Search</label>
+              <input id="searchInput" type="search" class="form-control" placeholder="Search by title, teacher, or tag..." aria-label="Search resources">
+            </div>
+
+            <div class="col-md-2 text-md-end">
+              <div class="btn-group" role="group" aria-label="Sort and view">
+                <button id="sortSelect" class="btn btn-outline-secondary" onclick="toggleSortMenu(event)">
+                  Sort
+                </button>
+                <button id="viewToggle" class="btn btn-outline-secondary" onclick="toggleGridList()">
+                  <i class="fas fa-grip"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <!-- Main grid + sidebar -->
+        <div class="row">
+          <!-- Resources Grid -->
+          <div class="col-lg-9">
+            <h2 class="section-title mb-4">All Resources</h2>
+
+            <!-- resource list -->
+            <div id="resourcesGrid" class="row g-4" aria-live="polite" role="list">
+              <!-- JS will populate resource cards here -->
+              <div class="col-12 text-center text-muted" id="resourcesEmpty" hidden>
+                No resources match your search / filters.
+              </div>
+            </div>
+
+            <!-- Pagination / load more -->
+            <nav aria-label="Resources pagination" class="mt-4">
+              <ul id="pagination" class="pagination justify-content-center"></ul>
+            </nav>
+          </div>
+
+          <!-- Right Sidebar -->
+          <aside class="col-lg-3">
+            <!-- Quick stats / analytics -->
+            <div class="glass-card p-4 mb-4" aria-labelledby="analyticsTitle">
+              <h3 id="analyticsTitle" class="h6">Resource Insights</h3>
+              <p class="small text-muted mb-2">Live counts & download trends</p>
+              <ul class="list-unstyled mb-0">
+                <li><strong id="countTotal">0</strong> total resources</li>
+                <li><strong id="countPdf">0</strong> PDFs</li>
+                <li><strong id="countVideo">0</strong> Videos</li>
+                <li><strong id="countAudio">0</strong> Audio</li>
+              </ul>
+
+              <div class="mt-3">
+                <button class="btn btn-sm btn-outline-primary w-100" onclick="showTrending()">Show Trending</button>
+              </div>
+            </div>
+
+            <!-- Featured tags -->
+            <div class="glass-card p-4 mb-4">
+              <h3 class="h6">Popular tags</h3>
+              <div id="tagList" class="d-flex flex-wrap gap-2 mt-2">
+                <!-- JS will fill tags -->
+              </div>
+            </div>
+
+            <!-- Teacher quick upload (visible to teachers) -->
+            <div id="teacherQuick" class="glass-card p-4 mb-4 d-none">
+              <h3 class="h6">Quick Upload</h3>
+              <p class="small text-muted">Drag & drop or choose files</p>
+              <div id="quickDrop" class="border rounded p-3 text-center" aria-label="Quick upload dropzone">
+                <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
+                <p class="mb-0">Drop files here or click to upload</p>
+                <input id="quickFile" type="file" multiple class="d-none" />
+                <button class="btn btn-sm btn-primary mt-2" onclick="document.getElementById('quickFile').click()">Choose</button>
+              </div>
+            </div>
+
+            <!-- Help / support -->
+            <div class="glass-card p-4 text-center">
+              <h3 class="h6">Need help?</h3>
+              <p class="small text-muted">Contact the admin or read our guide.</p>
+              <a href="/support.html" class="btn btn-outline-secondary btn-sm">Support</a>
+            </div>
+          </aside>
         </div>
 
-        <!-- Upload Lecture Notes -->
-        <div class="col-lg-6">
-            <div class="card border-0 shadow card-resource">
-                <div class="card-body">
-                    <h4><i class="fas fa-file-alt text-success me-2"></i> Upload Lecture Notes / Handouts</h4>
-                    <div class="upload-zone" onclick="document.getElementById('notesFile').click()">
-                        <i class="fas fa-file-powerpoint fa-4x text-success mb-3"></i>
-                        <p class="fw-bold">Drop PPT, PDF, or notes here</p>
-                        <input type="file" id="notesFile" accept=".pdf,.ppt,.pptx,.docx" multiple style="display:none" onchange="uploadNotes(this.files)">
-                    </div>
-                    <div id="notesList" class="mt-4"></div>
-                </div>
-            </div>
-        </div>
+        <!-- Student submissions & teacher approvals -->
+        <section class="mt-5" aria-labelledby="submissionsTitle">
+          <h2 id="submissionsTitle" class="section-title text-center mb-4">Student Submissions</h2>
 
+          <div class="glass-card p-4 mb-4">
+            <div class="row align-items-center">
+              <div class="col-md-8">
+                <p class="mb-1">Submit your assignment or project file below. Teachers will be notified.</p>
+                <small class="text-muted">Accepted types: PDF, DOC, ZIP, images.</small>
+              </div>
+              <div class="col-md-4 text-md-end">
+                <label class="btn btn-warning" for="studentUpload">
+                  <i class="fas fa-upload me-2"></i> Submit Work
+                </label>
+                <input id="studentUpload" type="file" class="d-none" multiple />
+              </div>
+            </div>
+          </div>
+
+          <!-- Submissions list (teachers see pending approval / students see own) -->
+          <div id="submissionsList" class="row g-3">
+            <!-- JS will render -->
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- Footer include -->
+    <div w3-include-html="/includes/footer.html"></div>
+  </main>
+
+  <!-- Resource preview modal -->
+  <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <header class="modal-header">
+          <h5 id="previewTitle" class="modal-title">Preview Resource</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </header>
+        <div class="modal-body">
+          <div id="previewBody">
+            <!-- JS inserts preview (PDF embed, video, audio, text) -->
+            <div class="text-center text-muted">Loading preview…</div>
+          </div>
+        </div>
+        <footer class="modal-footer">
+          <a id="previewDownload" class="btn btn-primary" href="#" download><i class="fas fa-download me-2"></i>Download</a>
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        </footer>
+      </div>
     </div>
+  </div>
 
-    <!-- Holiday & Exam Schedule -->
-    <div class="row g-4 mb-5">
-        <div class="col-lg-8">
-            <div class="card border-0 shadow card-resource">
-                <div class="card-body">
-                    <h4><i class="fas fa-calendar-alt text-warning me-2"></i> Academic Calendar & Holidays</h4>
-                    <button class="btn btn-warning btn-sm mb-3" onclick="addHoliday()">+ Add Holiday / Exam Date</button>
-                    <div id="holidayList"></div>
-                </div>
-            </div>
-        </div>
+  <!-- Upload modal (teacher/admin) -->
+  <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <header class="modal-header">
+          <h5 id="uploadTitle" class="modal-title">Upload Resource</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </header>
 
-        <div class="col-lg-4">
-            <div class="card border-0 shadow card-resource">
-                <div class="card-body text-center">
-                    <h5><i class="fas fa-download text-primary"></ hectic></i> Student Download Link</h5>
-                    <p class="small text-muted">Share this link with your students:</p>
-                    <div class="alert alert-info">
-                        <strong>https://university.edu/resources</strong>
-                    </div>
-                    <button class="btn btn-outline-primary btn-sm" onclick="navigator.clipboard.writeText('https://university.edu/resources'); alert('Link copied!')">
-                        Copy Public Link
-                    </button>
-                </div>
+        <form id="uploadForm" class="modal-body">
+          <div class="mb-3">
+            <label for="resourceTitle" class="form-label">Title</label>
+            <input id="resourceTitle" class="form-control" required />
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label">Category</label>
+              <select id="resourceCategory" class="form-select" required>
+                <option value="">Choose category</option>
+                <option>Mathematics</option>
+                <option>Sciences</option>
+                <option>Languages</option>
+                <option>Humanities</option>
+                <option>Applied Sciences</option>
+                <option>Clubs</option>
+                <option>Guidance</option>
+              </select>
             </div>
-        </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Type</label>
+              <select id="resourceType" class="form-select" required>
+                <option value="">Choose type</option>
+                <option value="pdf">PDF</option>
+                <option value="video">Video</option>
+                <option value="audio">Audio</option>
+                <option value="doc">Document</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="resourceDesc" class="form-label">Description (optional)</label>
+            <textarea id="resourceDesc" class="form-control" rows="3"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Files</label>
+            <div id="uploadDropZone" class="border rounded p-3 text-center">
+              <p class="mb-2">Drag & drop files here or click to select</p>
+              <input id="uploadFiles" type="file" multiple class="d-none" />
+              <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('uploadFiles').click()">Choose files</button>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Upload Resource</button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 
-    <!-- Announcements -->
-    <div class="card border-0 shadow card-resource mb-5">
-        <div class="card-body">
-            <h4><i class="fas fa-bullhorn text-danger me-2"></i> Department Announcements</h4>
-            <textarea class="form-control mb-3" rows="3" placeholder="Type announcement for all faculty..."></textarea>
-            <button class="btn btn-danger" onclick="postAnnouncement()">Post Announcement</button>
-            <div id="announcements" class="mt-4"></div>
+  <!-- Templates (for JS rendering) -->
+  <template id="resourceCardTpl">
+    <div class="col-md-6 col-lg-4" role="listitem">
+      <article class="resource-card p-4 h-100 glass-card">
+        <div class="d-flex align-items-start gap-3">
+          <div class="icon-box rounded-circle d-flex align-items-center justify-content-center" style="width:56px;height:56px;background:#f3f4f6">
+            <i class="fas fa-file-pdf fa-lg"></i>
+          </div>
+          <div class="flex-fill">
+            <h3 class="h6 mb-1 resource-title">Title</h3>
+            <p class="small text-muted mb-2 meta">By: Teacher • Nov 2025</p>
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-primary btn-sm previewBtn">Preview</button>
+              <a class="btn btn-outline-success btn-sm downloadBtn" href="#" download>Download</a>
+            </div>
+          </div>
         </div>
+      </article>
     </div>
+  </template>
 
-</div>
-
-<script>
-// Simulated storage
-let assignments = [];
-let notes = [];
-let holidays = [
-    {date: "2025-12-25", event: "Christmas Holiday"},
-    {date: "2026-01-07", event: "Coptic Christmas"},
-    {date: "2026-01-25", event: "Revolution Day"},
-    {date: "2026-04-20", event: "Spring Break Begins"}
-];
-let announcements = [];
-
-// Load sample data
-window.onload = () => {
-    renderHolidays();
-};
-
-// Upload Assignment
-function uploadAssignment(files) {
-    [...files].forEach(file => {
-        const reader = new FileReader();
-        reader.onload = () => {
-            const title = prompt("Assignment Title:", file.name.split('.')[0]);
-            const due = prompt("Due Date (e.g. Dec 15, 2025):", "");
-            if (title) {
-                assignments.push({title, due, file: reader.result, name: file.name, date: new Date().toLocaleDateString()});
-                renderAssignments();
-            }
-        };
-        reader.readAsDataURL(file);
-    });
-}
-
-function renderAssignments() {
-    document.getElementById('assignmentsList').innerHTML = assignments.map(a => `
-        <div class="file-item">
-            <div>
-                <strong>${a.title}</strong><br>
-                <small class="text-muted">Due: ${a.due} • Uploaded: ${a.date}</small>
-            </div>
-            <a href="${a.file}" download="${a.name}" class="btn btn-sm btn-primary"><i class="fas fa-download"></i></a>
-        </div>
-    `).join('') || '<p class="text-muted">No assignments uploaded yet.</p>';
-}
-
-// Upload Notes
-function uploadNotes(files) {
-    [...files].forEach(file => {
-        const reader = new FileReader();
-        reader.onload = () => {
-            const title = prompt("Note Title (e.g. Week 5 - Integration):", file.name.split('.')[0]);
-            if (title) {
-                notes.push({title, file: reader.result, name: file.name, date: new Date().toLocaleDateString()});
-                renderNotes();
-            }
-        };
-        reader.readAsDataURL(file);
-    });
-}
-
-function renderNotes() {
-    document.getElementById('notesList').innerHTML = notes.map(n => `
-        <div class="file-item">
-            <div>
-                <strong>${n.title}</strong><br>
-                <small class="text-muted">Uploaded: ${n.date}</small>
-            </div>
-            <a href="${n.file}" download="${n.name}" class="btn btn-sm btn-success"><i class="fas fa-download"></i></a>
-        </div>
-    `).join('') || '<p class="text-muted">No lecture notes uploaded yet.</p>';
-}
-
-// Holidays
-function addHoliday() {
-    const date = prompt("Date (YYYY-MM-DD):");
-    const event = prompt("Holiday / Event Name:");
-    if (date && event) {
-        holidays.push({date, event});
-        renderHolidays();
-    }
-}
-
-function renderHolidays() {
-    document.getElementById('holidayList').innerHTML = holidays.map(h => `
-        <div class="holiday-item">
-            <div class="fs-5">${h.event}</div>
-            <small class="text-muted"><i class="far fa-calendar"></i> ${new Date(h.date).toLocaleDateString('en-GB')}</small>
-        </div>
-    `).join('');
-}
-
-// Announcements
-function postAnnouncement() {
-    const text = document.querySelector('#announcements + textarea').value.trim();
-    if (!text) return alert("Please write an announcement.");
-    announcements.unshift({text, date: new Date().toLocaleString()});
-    document.querySelector('#announcements + textarea').value = '';
-    document.getElementById('announcements').innerHTML = announcements.map(a => `
-        <div class="alert alert-info">
-            <small class="text-muted">${a.date}</small>
-            <p class="mb-0">${a.text}</p>
-        </div>
-    `).join('');
-}
-</script>
-
+  <!-- Bootstrap, fancybox optional, w3 include, and page script -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <script src="/static/resources/resources.js"></script>
 </body>
 </html>

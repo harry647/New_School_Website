@@ -1,0 +1,143 @@
+/* Applied Sciences – Modern, Tech-Inspired, Glassmorphic 2025+ */
+:root {
+  --primary: #1a5d57;
+  --accent: #4db6ac;
+  --glass: rgba(255, 255, 255, 0.15);
+  --border: rgba(255, 255, 255, 0.2);
+  --text-light: #f9f9f9;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #f4f7f6;
+  color: #333;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, #2e7d72 100%), url('/assets/images/applied-sciences-bg.jpg') center/cover no-repeat;
+  min-height: 90vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-light);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+.hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Glass Cards */
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  transition: all 0.4s ease;
+  padding: 2rem;
+}
+.glass-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+}
+
+/* Subject, Teacher, Resource Cards */
+.subject-card, .teacher-card, .resource-card {
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+  padding: 2rem;
+  text-align: center;
+}
+.subject-card:hover, .teacher-card:hover, .resource-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 30px 80px rgba(26, 93, 87, 0.25);
+}
+.subject-card i, .teacher-card i, .resource-card i {
+  margin-bottom: 1rem;
+}
+.teacher-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+/* Section Titles */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: var(--primary);
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+/* Login Prompt */
+.login-prompt {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Buttons */
+.btn-primary, .btn-success, .btn-warning {
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.btn-primary:hover, .btn-success:hover, .btn-warning:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+/* Lists */
+#events ul {
+  padding-left: 0;
+}
+#events ul li {
+  padding: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+/* File Upload Label */
+#fileUpload + label {
+  cursor: pointer;
+}
+
+/* Responsive Grid */
+@media (max-width: 768px) {
+  .subject-card, .teacher-card, .resource-card {
+    padding: 1.5rem;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+  }
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+  }
+}

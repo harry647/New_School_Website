@@ -1,263 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Mathematics Department</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        :root {
-            --primary: #0d47a1;
-            --secondary: #1565c0;
-            --accent: #42a5f5;
-        }
-        body { font-family: 'Segoe UI', sans-serif; background: #f8fafc; }
-        .navbar { background: var(--primary) !important; }
-        .hero { background: linear-gradient(rgba(13,71,161,0.9), rgba(13,71,161,0.8)), url('https://images.unsplash.com/photo-1509228628348-8f14fb9e1c1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'); background-size: cover; color: white; padding: 100px 0; }
-        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; transition: all 0.3s; }
-        .section-title { position: relative; padding-bottom: 10px; }
-        .section-title::after { content: ''; position: absolute; left: 0; bottom: 0; width: 60px; height: 4px; background: var(--accent); }
-        .fake-upload { cursor: pointer; border: 2px dashed #ccc; border-radius: 10px; padding: 40px; text-align: center; transition: all 0.3s; }
-        .fake-upload:hover { border-color: var(--accent); background: #f0f8ff; }
-        .math { font-family: 'Times New Roman', serif; font-size: 1.1em; }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mathematics Department | Bar Union Secondary</title>
+
+  <!-- External libraries (CSS) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/mathematics/mathematics.css"/>
+
+  <!-- Page meta for PWA & sharing (optional) -->
+  <meta name="theme-color" content="#0b2d5e" />
+  <link rel="manifest" href="/manifest.json" />
 </head>
-<body>
+<body class="math-page">
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="#">
-            <i class="fas fa-infinity me-2"></i>Mathematics Department
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="nav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#faculty">Faculty</a></li>
-                <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
-                <li class="nav-item"><a class="nav-link" href="#plans">Study Plans</a></li>
-                <li class="nav-item"><a class="nav-link" href="#forum">Forum</a></li>
-                <li class="nav-item"><a class="nav-link" href="#assignments">Assignments</a></li>
-            </ul>
+  <!-- header included via w3-include-html -->
+  <div w3-include-html="/includes/header.html"></div>
+
+  <!-- LOGIN PROMPT (shown if user not logged in) -->
+  <div id="loginCheck" class="login-prompt d-none">
+    <div class="text-center p-5">
+      <i class="fas fa-lock fa-5x text-primary mb-4"></i>
+      <h1 class="display-4 fw-bold">Access Restricted</h1>
+      <p class="lead">Please log in to view Mathematics resources & tools.</p>
+      <a href="/login.html" class="btn btn-primary btn-lg px-5">Login Now</a>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main id="mainContent" class="d-none" role="main">
+
+    <!-- HERO -->
+    <header class="hero d-flex align-items-center text-white">
+      <div class="container text-center position-relative z-2">
+        <h1 class="display-2 fw-bold mb-3">Mathematics Department</h1>
+        <p class="lead fs-4 mb-3">From Form 1 to Form 4 — logical thinking, problem solving, and exam excellence.</p>
+
+        <!-- Quick action buttons -->
+        <div class="d-flex justify-content-center gap-3 mt-3 flex-wrap">
+          <button class="btn btn-lg btn-outline-light" onclick="scrollToSection('tools')"><i class="fas fa-calculator me-2"></i>Math Tools</button>
+          <button class="btn btn-lg btn-warning text-dark" onclick="scrollToSection('subjects')"><i class="fas fa-book-open me-2"></i>Topics & Resources</button>
+          <a class="btn btn-lg btn-outline-light" href="#competitions"><i class="fas fa-trophy me-2"></i>Competitions</a>
         </div>
-    </div>
-</nav>
 
-<!-- Hero -->
-<section id="home" class="hero text-center">
-    <div class="container">
-        <h1 class="display-4 fw-bold">Department of Mathematics</h1>
-        <p class="lead">Exploring the Beauty and Power of Mathematical Thinking</p>
-        <a href="#faculty" class="btn btn-light btn-lg mt-3">Meet Our Faculty</a>
-    </div>
-</section>
+        <!-- Mini controls -->
+        <div class="mt-4 d-flex justify-content-center gap-2">
+          <input id="globalSearch" class="form-control form-control-lg w-50" type="search" placeholder="Search teachers, resources, topics..." aria-label="Search">
+          <button id="searchBtn" class="btn btn-primary btn-lg"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+    </header>
 
-<div class="container my-5">
+    <div class="container my-5">
 
-    <!-- Faculty Members -->
-    <section id="faculty" class="my-5">
-        <h2 class="section-title mb-4">Our Faculty & Staff</h2>
-        <div class="row g-4" id="faculty-container">
-            <!-- Sample Faculty (you can duplicate) -->
-            <div class="col-md-4">
-                <div class="card h-100 card-hover border-0 shadow">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="card-img-top" alt="Dr. Ahmed">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Prof. Ahmed Al-Mansour</h5>
-                        <p class="text-muted">Head of Department<br>PhD in Algebraic Geometry</p>
-                        <p>Research: Cohomology Theory, Moduli Spaces</p>
-                        <small>Office: M-305 | ahmed@uni.edu</small>
-                    </div>
-                </div>
+      <!-- Row: left = Topic explorer + filters, right = Dashboard summary -->
+      <div class="row g-4 mb-5">
+
+        <!-- Left column: topic explorer & filters -->
+        <aside class="col-lg-8">
+
+          <!-- Topic Explorer (collapsible tree) -->
+          <section id="topicsPanel" class="mb-5">
+            <h2 class="section-title mb-4">Topic Explorer</h2>
+
+            <div id="topicExplorer" class="card card-body glass-card">
+              <!-- JS will render tree here (collapsibles with topics -> subtopics) -->
+              <div id="topicTree" class="accordion" aria-live="polite"></div>
             </div>
-            <!-- Add more faculty here -->
-        </div>
-        <div class="text-center mt-4">
-            <button class="btn btn-outline-primary" onclick="addFacultyMember()">Add New Member (Demo)</button>
-        </div>
-    </section>
+          </section>
 
-    <!-- Gallery -->
-    <section id="gallery" class="my-5">
-        <h2 class="section-title mb-4">Department Gallery</h2>
-        <div class="row g-3" id="gallery-container">
-            <!-- Images will be added here -->
-        </div>
-        <div class="text-center mt-4">
-            <label class="fake-upload">
-                <i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted"></i><br>
-                Click to Upload Image
-                <input type="file" accept="image/*" multiple style="display:none" onchange="previewImages(this.files)">
+          <!-- Subjects grid -->
+          <section id="subjects" class="mb-5">
+            <h2 class="section-title mb-4">Subjects & Courses</h2>
+
+            <!-- filters -->
+            <div class="d-flex gap-3 flex-wrap align-items-center mb-3">
+              <select id="filterForm" class="form-select w-auto">
+                <option value="">All Forms</option>
+                <option>Form 1</option><option>Form 2</option><option>Form 3</option><option>Form 4</option>
+              </select>
+
+              <select id="filterTopic" class="form-select w-auto">
+                <option value="">All Topics</option>
+              </select>
+
+              <div class="ms-auto d-flex gap-2">
+                <button id="toggleDark" class="btn btn-outline-secondary">Toggle Dark</button>
+                <button id="bookmarksBtn" class="btn btn-outline-primary"><i class="fas fa-bookmark"></i> Bookmarks</button>
+              </div>
+            </div>
+
+            <div id="subjectsGrid" class="row g-4"></div>
+          </section>
+
+          <!-- Video Lessons -->
+          <section id="videoLessons" class="mb-5">
+            <h2 class="section-title mb-4">Video Lessons & Walkthroughs</h2>
+            <div id="videoGrid" class="row g-4"></div>
+          </section>
+
+          <!-- Past papers + interactive past paper -->
+          <section id="pastPapers" class="mb-5">
+            <h2 class="section-title mb-4">Past Papers & Practice</h2>
+
+            <div class="row">
+              <div class="col-lg-6 mb-3">
+                <div class="card p-3 glass-card">
+                  <h5>Browse Past Papers</h5>
+                  <div id="pastPapersList"></div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 mb-3">
+                <div class="card p-3 glass-card">
+                  <h5>Timed Practice (MCQ)</h5>
+                  <div id="mcqPractice">
+                    <p class="small text-muted">Start a timed session and get instant feedback.</p>
+                    <button id="startPractice" class="btn btn-success">Start Practice</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </aside>
+
+        <!-- Right column: dashboard, teacher contact, quick tools -->
+        <aside class="col-lg-4">
+
+          <!-- Student Progress summary -->
+          <section id="progressSummary" class="mb-4">
+            <h3 class="h5">Your Learning Progress</h3>
+            <div class="card p-3 glass-card">
+              <div id="progressMini" aria-live="polite">
+                <!-- JS: progress bars and summary items -->
+                <p class="small text-muted">No progress data yet.</p>
+              </div>
+              <a href="#dashboard" class="btn btn-link mt-2">Open full dashboard</a>
+            </div>
+          </section>
+
+          <!-- Math Tools widget -->
+          <section id="tools" class="mb-4">
+            <h3 class="h5">Quick Math Tools</h3>
+            <div class="card p-3 glass-card d-grid gap-2">
+              <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#quadModal"><i class="fas fa-square-root-alt me-2"></i>Quadratic Solver</button>
+              <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#matrixModal"><i class="fas fa-th-large me-2"></i>Matrix Calculator</button>
+              <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#graphModal"><i class="fas fa-chart-line me-2"></i>Graph Plotter</button>
+            </div>
+          </section>
+
+          <!-- Ask a Teacher / Quick Q&A -->
+          <section id="askTeacher" class="mb-4">
+            <h3 class="h5">Ask A Teacher</h3>
+            <div class="card p-3 glass-card">
+              <form id="askForm">
+                <textarea id="askQuestion" class="form-control mb-2" rows="3" placeholder="Type your question — teachers will respond"></textarea>
+                <div class="d-flex gap-2">
+                  <select id="askTeacherSelect" class="form-select w-50">
+                    <option value="">Any Teacher</option>
+                  </select>
+                  <button type="submit" class="btn btn-primary">Send</button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <!-- Upcoming Competitions (small list + countdown) -->
+          <section id="competitions" class="mb-4">
+            <h3 class="h5">Competitions</h3>
+            <div class="card p-3 glass-card">
+              <div id="competitionsList"></div>
+            </div>
+          </section>
+
+        </aside>
+      </div>
+
+      <!-- Teachers grid -->
+      <section class="mb-5">
+        <h2 class="section-title text-center mb-4">Our Mathematics Teachers</h2>
+        <div id="teachersGrid" class="row g-4"></div>
+      </section>
+
+      <!-- Resources + assignments -->
+      <section class="mb-5">
+        <div class="d-flex align-items-center mb-3">
+          <h2 class="section-title mb-0">Resources & Assignments</h2>
+          <div class="ms-auto">
+            <label class="btn btn-success">
+              <i class="fas fa-upload me-2"></i>Upload Assignment
+              <input id="assignmentUpload" type="file" accept=".pdf,.docx,.zip" hidden multiple>
             </label>
+          </div>
         </div>
-    </section>
 
-    <!-- Study Plans -->
-    <section id="plans" class="my-5">
-        <h2 class="section-title mb-4">Study Plans & Curriculum</h2>
+        <div id="resourcesGrid" class="row g-4"></div>
+
+        <!-- Assignment submissions area (student view) -->
+        <div class="mt-4 card p-3 glass-card">
+          <h5>My Submissions</h5>
+          <div id="submissionsList" class="small text-muted">No submissions yet.</div>
+        </div>
+      </section>
+
+      <!-- Achievements & charts -->
+      <section id="achievements" class="mb-5">
+        <h2 class="section-title text-center mb-4">Achievements & Performance</h2>
         <div class="row g-4">
-            <div class="col-md-6">
-                <div class="card border-0 shadow card-hover">
-                    <div class="card-body">
-                        <h5><i class="fas fa-graduation-cap text-primary"></i> Bachelor of Science in Mathematics (2024–2028)</h5>
-                        <p>Semester-by-semester course plan with electives in Pure & Applied Math</p>
-                        <a href="#" class="btn btn-outline-primary btn-sm">Download PDF</a>
-                    </div>
-                </div>
+          <div class="col-lg-6">
+            <div class="card p-3 glass-card">
+              <h5 class="mb-3">KCSE Trend / Mean Score</h5>
+              <canvas id="kcseChart" height="200" aria-label="KCSE performance chart"></canvas>
             </div>
-            <div class="col-md-6">
-                <div class="card border-0 shadow card-hover">
-                    <div class="card-body">
-                        <h5><i class="fas fa-chart-line text-success"></i> MSc in Applied Mathematics</h5>
-                        <p>Focus areas: Numerical Analysis, Mathematical Modeling, Data Science</p>
-                        <a href="#" class="btn btn-outline-success btn-sm">View Details</a>
-                    </div>
-                </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card p-3 glass-card">
+              <h5 class="mb-3">Top Students</h5>
+              <div id="topStudents"></div>
             </div>
+          </div>
         </div>
-    </section>
+      </section>
 
-    <!-- Discussion Forum -->
-    <section id="forum" class="my-5">
-        <h2 class="section-title mb-4">Student Discussion Forum</h2>
-        <div class="card border-0 shadow mb-4">
-            <div class="card-body">
-                <textarea class="form-control mb-3" rows="3" placeholder="Start a new discussion..."></textarea>
-                <button class="btn btn-primary" onclick="postDiscussion()">Post Discussion</button>
-            </div>
+      <!-- Full Dashboard & Analytics (hidden panel, for logged-in users) -->
+      <section id="dashboard" class="mb-5 d-none">
+        <h2 class="section-title text-center mb-4">Student Dashboard</h2>
+        <div class="card p-3 glass-card">
+          <!-- JS will populate with charts, recent activity, suggested revision plan -->
+          <div id="dashboardContent">Loading dashboard...</div>
         </div>
-        <div id="discussions-list">
-            <!-- Sample post -->
-            <div class="card border-0 shadow mb-3">
-                <div class="card-body">
-                    <strong>Aisha K.</strong> <small class="text-muted">– 2 hours ago</small>
-                    <p>How to solve this integral using contour integration?</p>
-                    <code class="math">∫<sub>-∞</sub><sup>∞</sup> e<sup>-x²</sup> cos(2πξx) dx = √π e<sup>-π²ξ²</sup></code>
-                    <div class="mt-2">
-                        <button class="btn btn-sm btn-outline-secondary">Reply</button>
-                        <span class="ms-3 text-muted">3 replies</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+      </section>
 
-    <!-- Assignments -->
-    <section id="assignments" class="my-5">
-        <h2 class="section-title mb-4">Assignments & Homework</h2>
-        <div class="list-group mb-4">
-            <div class="list-group-item">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">Assignment #5 – Real Analysis</h5>
-                    <small class="text-danger">Due: Dec 5, 2025</small>
-                </div>
-                <p class="mb-1">Prove the Banach fixed-point theorem and apply it to Picard’s existence theorem.</p>
-                <a href="#" class="btn btn-sm btn-outline-primary me-2">Download</a>
-                <label class="btn btn-sm btn-success">
-                    Submit <input type="file" style="display:none" onchange="alert('Submitted: '+this.files[0].name)">
-                </label>
-            </div>
-        </div>
-
-        <div class="text-center">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newAssignmentModal">
-                Post New Assignment (Faculty View)
-            </button>
-        </div>
-    </section>
-
-</div>
-
-<!-- Modal: New Assignment -->
-<div class="modal fade" id="newAssignmentModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Create New Assignment</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <input type="text" class="form-control mb-3" placeholder="Assignment Title">
-                <textarea class="form-control mb-3" rows="4" placeholder="Description..."></textarea>
-                <input type="date" class="form-control mb-3">
-                <input type="file" class="form-control">
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary">Post Assignment</button>
-            </div>
-        </div>
     </div>
-</div>
+  </main>
 
-<script>
-// Fake data - Faculty
-const sampleFaculty = [
-    {name: "Dr. Fatima Zahir", title: "Associate Professor", field: "Number Theory", img: "https://randomuser.me/api/portraits/women/44.jpg"},
-    {name: "Prof. Omar Khalil", title: "Professor", field: "Differential Geometry", img: "https://randomuser.me/api/portraits/men/68.jpg"},
-    {name: "Dr. Layla Hassan", title: "Lecturer", field: "Statistics & Probability", img: "https://randomuser.me/api/portraits/women/68.jpg"}
-];
-sampleFaculty.forEach(addFacultyCard);
+  <!-- Footer included -->
+  <div w3-include-html="/includes/footer.html"></div>
 
-// Add faculty card
-function addFacultyCard(f) {
-    const container = document.getElementById('faculty-container');
-    const card = `
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 card-hover border-0 shadow">
-                <img src="${f.img || 'https://via.placeholder.com/300'}" class="card-img-top" alt="${f.name}">
-                <div class="card-body text-center">
-                    <h5 class="card-title">${f.name}</h5>
-                    <p class="text-muted">${f.title}<br>${f.field}</p>
-                </div>
+  <!-- Calculators & tools modals -->
+  <div class="modal fade" id="quadModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Quadratic Solver</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="quadForm" class="row g-3">
+            <div class="col-4"><input type="number" step="any" name="a" class="form-control" placeholder="a" required></div>
+            <div class="col-4"><input type="number" step="any" name="b" class="form-control" placeholder="b" required></div>
+            <div class="col-4"><input type="number" step="any" name="c" class="form-control" placeholder="c" required></div>
+            <div class="col-12 text-center">
+              <button class="btn btn-primary" type="submit">Solve</button>
             </div>
-        </div>`;
-    container.innerHTML += card;
-}
+          </form>
+          <div id="quadResult" class="mt-3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-// Demo: Add new member
-function addFacultyMember() {
-    const name = prompt("Name:");
-    const title = prompt("Title:");
-    if (name && title) {
-        addFacultyCard({name, title, field: "New Member", img: "https://via.placeholder.com/300"});
+  <div class="modal fade" id="matrixModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Matrix Calculator</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- placeholder: JS will render matrix inputs and operations -->
+          <div id="matrixTool">Matrix tool coming soon...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="graphModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Graph Plotter</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="graphTool">
+            <p class="small text-muted">Enter a function (e.g. <code>y = x^2 - 3*x + 2</code>) and press Plot.</p>
+            <div class="input-group mb-3">
+              <input id="graphExpr" class="form-control" placeholder="y = " value="x^2">
+              <button id="plotBtn" class="btn btn-primary">Plot</button>
+            </div>
+            <div id="graphCanvas" style="height:400px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTIONAL: modal for Join / contact teacher etc. -->
+
+  <!-- Scripts (JS) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+
+  <!-- Chart.js for charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- Fancybox (for previews) optional -->
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
+  <!-- Your page script (data-driven) -->
+  <script src="/static/mathematics/mathematics.js"></script>
+
+  <!-- Small helpers (inline) -->
+  <script>
+    function scrollToSection(id){
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
     }
-}
 
-// Image preview (gallery)
-function previewImages(files) {
-    const container = document.getElementById('gallery-container');
-    [...files].forEach(file => {
-        const reader = new FileReader();
-        reader.onload = e => {
-            container.innerHTML += `
-                <div class="col-md-3">
-                    <img src="${e.target.result}" class="img-fluid rounded shadow" style="height:200px; object-fit:cover;">
-                </div>`;
-        };
-        reader.readAsDataURL(file);
+    // small accessibility: Enter on search triggers searchBtn
+    document.addEventListener('DOMContentLoaded', () => {
+      const s = document.getElementById('globalSearch');
+      const btn = document.getElementById('searchBtn');
+      if(s && btn){
+        s.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); btn.click(); }});
+      }
     });
-}
-
-// Fake discussion post
-function postDiscussion() {
-    const text = document.querySelector('#forum textarea').value.trim();
-    if (!text) return alert("Write something first!");
-    const list = document.getElementById('discussions-list');
-    list.innerHTML = `
-        <div class="card border-0 shadow mb-3">
-            <div class="card-body">
-                <strong>You</strong> <small class="text-muted">– just now</small>
-                <p>${text.replace(/\n/g, '<br>')}</p>
-            </div>
-        </div>` + list.innerHTML;
-    document.querySelector('#forum textarea').value = '';
-}
-</script>
-
+  </script>
 </body>
 </html>

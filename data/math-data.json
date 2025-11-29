@@ -1,0 +1,88 @@
+{
+  "teachers": [
+    {
+      "name": "Mr. Owino",
+      "role": "HOD Mathematics",
+      "subject": "Pure & Applied Math",
+      "photo": "/assets/staff/owino.jpg",
+      "email": "owino@barunion.sc.ke",
+      "philosophy": "Mathematics is the language of logical thinking, and every learner can master it with proper guidance.",
+      "experience": "12 years teaching Mathematics at high school and competition level."
+    },
+    {
+      "name": "Ms. Atieno",
+      "role": "Senior Teacher",
+      "subject": "Form 3 & 4 Mathematics",
+      "photo": "/assets/staff/atieno.jpg",
+      "email": "atieno@barunion.sc.ke",
+      "philosophy": "Students learn best when mathematics is connected to real-life applications.",
+      "experience": "9 years teaching upper school mathematics."
+    },
+    {
+      "name": "Mr. Omondi",
+      "role": "Teacher",
+      "subject": "Form 1 & 2 Mathematics",
+      "photo": "/assets/staff/omondi.jpg",
+      "email": "omondi@barunion.sc.ke",
+      "philosophy": "Building strong foundational skills shapes successful mathematicians.",
+      "experience": "5 years teaching lower secondary mathematics."
+    }
+  ],
+
+  "achievements": [
+    {
+      "title": "National Olympiad Gold",
+      "student": "John Ochieng",
+      "year": "2025",
+      "event": "Kenya Math Olympiad",
+      "photo": "/assets/achievements/olympiad-gold.jpg"
+    },
+    {
+      "title": "KCSE A Plain",
+      "student": "Mary Achieng",
+      "year": "2024",
+      "event": "National Exams",
+      "photo": "/assets/achievements/kcse-top.jpg"
+    }
+  ],
+
+  "resources": [
+    {
+      "title": "Form 4 Revision Pack 2025",
+      "uploadedBy": "Mr. Owino",
+      "date": "Nov 2025",
+      "session": "2025/2026",
+      "url": "/downloads/math-form4-2025.pdf",
+      "preview": "/downloads/previews/math-form4-2025-preview.jpg"
+    },
+    {
+      "title": "Algebra Notes",
+      "uploadedBy": "Ms. Atieno",
+      "date": "Oct 2025",
+      "session": "2024/2025",
+      "url": "/downloads/algebra-notes.pdf",
+      "preview": "/downloads/previews/algebra-preview.jpg"
+    }
+  ],
+
+  "competitions": [
+    {
+      "name": "Kenya National Math Olympiad",
+      "year": "2025",
+      "description": "An elite-level mathematics competition bringing together the best students nationwide.",
+      "poster": "/assets/competitions/olympiad-2025.jpg"
+    },
+    {
+      "name": "Math Kangaroo Challenge",
+      "year": "2025",
+      "description": "Fun and logical mathematics contest open to all learners.",
+      "poster": "/assets/competitions/kangaroo.jpg"
+    },
+    {
+      "name": "Inter-School Mathematics Contest",
+      "year": "2024",
+      "description": "Compete with top schools in the county and win awards.",
+      "poster": "/assets/competitions/interschool-2024.jpg"
+    }
+  ]
+}

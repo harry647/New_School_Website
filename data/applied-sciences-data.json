@@ -1,0 +1,152 @@
+{
+  "subjects": [
+    {
+      "name": "Agriculture",
+      "icon": "fa-seedling",
+      "teacher": "Mr. Odhiambo",
+      "description": "Practical farming skills, crop management, and animal husbandry."
+    },
+    {
+      "name": "Computer Studies",
+      "icon": "fa-laptop-code",
+      "teacher": "Ms. Achieng",
+      "description": "Programming, databases, networking, and IT skills."
+    },
+    {
+      "name": "Home Science",
+      "icon": "fa-utensils",
+      "teacher": "Mrs. Kamau",
+      "description": "Nutrition, cooking, sewing, and household management."
+    },
+    {
+      "name": "Business Studies",
+      "icon": "fa-briefcase",
+      "teacher": "Mr. Mwangi",
+      "description": "Accounting, entrepreneurship, and financial literacy."
+    },
+    {
+      "name": "Technical Drawing",
+      "icon": "fa-ruler-combined",
+      "teacher": "Ms. Wanjiru",
+      "description": "Blueprint reading, CAD, and design principles."
+    },
+    {
+      "name": "Building & Construction",
+      "icon": "fa-hard-hat",
+      "teacher": "Mr. Mutua",
+      "description": "Construction skills, project planning, and safety practices."
+    }
+  ],
+  "teachers": [
+    {
+      "name": "Mr. Odhiambo",
+      "photo": "/assets/teachers/odhiambo.jpg",
+      "subjects": ["Agriculture"],
+      "email": "odhiambo@barunion.ac.ke"
+    },
+    {
+      "name": "Ms. Achieng",
+      "photo": "/assets/teachers/achieng.jpg",
+      "subjects": ["Computer Studies"],
+      "email": "achieng@barunion.ac.ke"
+    },
+    {
+      "name": "Mrs. Kamau",
+      "photo": "/assets/teachers/kamau.jpg",
+      "subjects": ["Home Science"],
+      "email": "kamau@barunion.ac.ke"
+    },
+    {
+      "name": "Mr. Mwangi",
+      "photo": "/assets/teachers/mwangi.jpg",
+      "subjects": ["Business Studies"],
+      "email": "mwangi@barunion.ac.ke"
+    },
+    {
+      "name": "Ms. Wanjiru",
+      "photo": "/assets/teachers/wanjiru.jpg",
+      "subjects": ["Technical Drawing"],
+      "email": "wanjiru@barunion.ac.ke"
+    },
+    {
+      "name": "Mr. Mutua",
+      "photo": "/assets/teachers/mutua.jpg",
+      "subjects": ["Building & Construction"],
+      "email": "mutua@barunion.ac.ke"
+    }
+  ],
+  "resources": [
+    {
+      "title": "Agriculture Lab Manual",
+      "uploadedBy": "Mr. Odhiambo",
+      "date": "Nov 2025",
+      "url": "/assets/resources/agriculture-lab.pdf",
+      "icon": "fa-file-pdf",
+      "color": "#28a745"
+    },
+    {
+      "title": "Computer Programming Notes",
+      "uploadedBy": "Ms. Achieng",
+      "date": "Oct 2025",
+      "url": "/assets/resources/programming-notes.pdf",
+      "icon": "fa-file-pdf",
+      "color": "#007bff"
+    },
+    {
+      "title": "Home Science Recipe Guide",
+      "uploadedBy": "Mrs. Kamau",
+      "date": "Sep 2025",
+      "url": "/assets/resources/recipe-guide.pdf",
+      "icon": "fa-file-pdf",
+      "color": "#ffc107"
+    },
+    {
+      "title": "Business Case Studies",
+      "uploadedBy": "Mr. Mwangi",
+      "date": "Nov 2025",
+      "url": "/assets/resources/business-case.pdf",
+      "icon": "fa-file-pdf",
+      "color": "#fd7e14"
+    }
+  ],
+  "events": [
+    {
+      "title": "Agriculture Exhibition",
+      "date": "18th Dec 2025",
+      "description": "Showcase of student farming projects and innovations.",
+      "color": "#28a745"
+    },
+    {
+      "title": "Coding Bootcamp",
+      "date": "Every Saturday",
+      "description": "Hands-on programming workshops for students.",
+      "color": "#007bff"
+    },
+    {
+      "title": "Construction Project Showcase",
+      "date": "Jan 2026",
+      "description": "Demonstration of student building and construction projects.",
+      "color": "#fd7e14"
+    }
+  ],
+  "media": [
+    {
+      "title": "Agriculture Project Photos",
+      "uploadedBy": "Mr. Odhiambo",
+      "date": "Nov 2025",
+      "url": "/assets/media/agriculture-project.jpg"
+    },
+    {
+      "title": "Coding Workshop Screenshots",
+      "uploadedBy": "Ms. Achieng",
+      "date": "Oct 2025",
+      "url": "/assets/media/coding-workshop.jpg"
+    },
+    {
+      "title": "Home Science Cooking Session",
+      "uploadedBy": "Mrs. Kamau",
+      "date": "Sep 2025",
+      "url": "/assets/media/cooking-session.jpg"
+    }
+  ]
+}

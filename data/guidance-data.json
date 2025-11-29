@@ -1,0 +1,48 @@
+{
+  "counsellors": [
+    { 
+      "name": "Ms. Achieng", 
+      "title": "Head Counsellor", 
+      "specialty": "Personal & Emotional Support", 
+      "photo": "/assets/staff/achieng.jpg",
+      "session": "2025/2026"
+    },
+    { 
+      "name": "Mr. Otieno", 
+      "title": "Career Guidance", 
+      "specialty": "Academic & Career Planning", 
+      "photo": "/assets/staff/otieno.jpg",
+      "session": "2024/2025"
+    },
+    { 
+      "name": "Ms. Anyango", 
+      "title": "Wellness Coach", 
+      "specialty": "Mental Health & Stress", 
+      "photo": "/assets/staff/anyango.jpg",
+      "session": "2023/2024"
+    }
+  ],
+  "resources": [
+    { 
+      "title": "Stress Management Guide", 
+      "category": "Mental Health", 
+      "icon": "fa-brain", 
+      "url": "/downloads/stress-guide.pdf",
+      "session": "2025/2026"
+    },
+    { 
+      "title": "Career Pathways 2025", 
+      "category": "Career", 
+      "icon": "fa-road", 
+      "url": "/downloads/career-2025.pdf",
+      "session": "2024/2025"
+    },
+    { 
+      "title": "Study Skills Handbook", 
+      "category": "Academic", 
+      "icon": "fa-book", 
+      "url": "/downloads/study-skills.pdf",
+      "session": "2023/2024"
+    }
+  ]
+}

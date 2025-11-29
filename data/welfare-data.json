@@ -1,0 +1,17 @@
+{
+  "announcements": [
+    { "icon": "fa-heartbeat", "text": "Mental Health Week – 10th–15th Dec 2025" },
+    { "icon": "fa-hand-holding-usd", "text": "Emergency Fund Applications Open" },
+    { "icon": "fa-calendar-check", "text": "Free Health Checkup Camp – 20th Dec" }
+  ],
+  "team": [
+    { "name": "Ms. Achieng", "role": "Head of Welfare", "contact": "achieng@barunion.sc.ke", "photo": "/assets/staff/achieng.jpg" },
+    { "name": "Mr. Otieno", "role": "Student Counsellor", "contact": "otieno@barunion.sc.ke", "photo": "/assets/staff/otieno.jpg" },
+    { "name": "Ms. Anyango", "role": "Teacher Support", "contact": "anyango@barunion.sc.ke", "photo": "/assets/staff/anyango.jpg" }
+  ],
+  "resources": [
+    { "title": "Mental Health Guide", "icon": "fa-brain", "url": "/downloads/mental-health.pdf" },
+    { "title": "Financial Aid Form", "icon": "fa-file-invoice-dollar", "url": "/downloads/aid-form.pdf" },
+    { "title": "Stress Management Tips", "icon": "fa-heartbeat", "url": "/downloads/stress-tips.pdf" }
+  ]
+}

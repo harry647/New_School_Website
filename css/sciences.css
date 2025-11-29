@@ -1,0 +1,132 @@
+/* Science Department – Glassmorphic Professional 2025+ */
+:root {
+  --primary: #0b2d5e;
+  --accent: #ffd700;
+  --glass: rgba(255,255,255,0.15);
+  --border: rgba(255,255,255,0.2);
+  --achievement-bg: rgba(255,255,255,0.1);
+  --competition-bg: rgba(255,255,255,0.2);
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, #1e4d8c 100%), url('/assets/images/science-hero.jpg') center/cover no-repeat;
+  min-height: 90vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+/* Glass Cards */
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2rem;
+  transition: all 0.4s ease;
+}
+.glass-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 30px 70px rgba(0,0,0,0.3);
+}
+
+/* Teacher, Achievement, Resource Cards */
+.teacher-card, .achievement-card, .resource-card, .competition-card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  transition: all 0.4s ease;
+  padding: 1.5rem;
+}
+.teacher-card:hover, .achievement-card:hover, .resource-card:hover, .competition-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 30px 80px rgba(11,45,94,0.25);
+}
+
+/* Department Badges for Teachers */
+.dept-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #fff;
+}
+.physics { background: #d32f2f; }
+.chemistry { background: #1976d2; }
+.biology { background: #388e3c; }
+
+/* Section Titles */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: var(--primary);
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 6px;
+  background: linear-gradient(90deg, var(--accent), #ff8c00);
+  border-radius: 3px;
+}
+
+/* Achievements Carousel */
+.achievement-card {
+  background: var(--achievement-bg);
+  text-align: center;
+  padding: 2rem;
+}
+.achievement-card i {
+  margin-bottom: 1rem;
+}
+
+/* Lab/Resource Cards */
+.resource-card i {
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+}
+
+/* Competitions Cards */
+.competition-card {
+  background: var(--competition-bg);
+  text-align: center;
+  padding: 2rem;
+}
+.competition-card h5 {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+/* Login Prompt */
+.login-prompt {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.5rem; }
+  .hero p { font-size: 1rem; }
+  .section-title { font-size: 2rem; }
+}

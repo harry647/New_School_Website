@@ -1,0 +1,20 @@
+{
+  "teachers": [
+    { "name": "Mr. Odhiambo", "subject": "Physics", "dept": "physics", "photo": "/assets/staff/odhiambo.jpg" },
+    { "name": "Ms. Akoth", "subject": "Chemistry", "dept": "chemistry", "photo": "/assets/staff/akoth.jpg" },
+    { "name": "Mr. Okoth", "subject": "Biology", "dept": "biology", "photo": "/assets/staff/okoth.jpg" }
+  ],
+  "achievements": [
+    { "title": "National Chemistry Olympiad Silver", "student": "Kevin Omondi", "year": "2025", "event": "KEMSA Olympiad" },
+    { "title": "Science Fair Best Project", "student": "Sarah Achieng", "year": "2024", "event": "Nairobi Science Expo" }
+  ],
+  "resources": [
+    { "title": "Organic Chemistry Notes", "date": "Nov 2025", "url": "/downloads/chem-notes.pdf", "icon": "fa-file-pdf", "color": "#d32f2f", "description": "Comprehensive notes on organic reactions and mechanisms." },
+    { "title": "Newton's Laws Lab", "date": "Oct 2025", "url": "/downloads/physics-lab.pdf", "icon": "fa-file-word", "color": "#1976d2", "description": "Lab manual for Newtonian mechanics experiments." }
+  ],
+  "competitions": [
+    { "name": "National Science Fair", "date": "March 2026", "location": "Nairobi", "description": "Annual exhibition showcasing student scientific projects." },
+    { "name": "Kenya Chemistry Olympiad", "date": "June 2026", "location": "KEMSA Labs", "description": "Competition testing advanced chemistry knowledge." },
+    { "name": "Biology Symposium", "date": "August 2026", "location": "Bar Union Science Hall", "description": "Presentation of innovative biology experiments and research." }
+  ]
+}

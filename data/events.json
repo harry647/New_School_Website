@@ -1,0 +1,86 @@
+[
+  {
+    "clubId": "scouts",
+    "events": [
+      { "title": "Annual Camp", "date": "2025-12-05", "location": "Ol Pejeta Conservancy", "description": "A weekend camp with outdoor survival and team-building exercises." },
+      { "title": "Community Service Day", "date": "2026-01-20", "location": "Local Community Center", "description": "Helping the local community with cleanup and social projects." }
+    ]
+  },
+  {
+    "clubId": "christian-union",
+    "events": [
+      { "title": "Youth Fellowship", "date": "2025-12-10", "location": "School Chapel", "description": "Weekly fellowship meeting with prayer, Bible study, and discussion." },
+      { "title": "Christmas Outreach", "date": "2025-12-24", "location": "Nearby Orphanage", "description": "Deliver gifts and conduct activities for children." }
+    ]
+  },
+  {
+    "clubId": "wildlife",
+    "events": [
+      { "title": "Tree Planting Drive", "date": "2026-01-15", "location": "School Grounds", "description": "Plant trees to promote environmental awareness." },
+      { "title": "Wildlife Awareness Talk", "date": "2025-12-18", "location": "Auditorium", "description": "Guest speaker on local wildlife conservation efforts." }
+    ]
+  },
+  {
+    "clubId": "journalism",
+    "events": [
+      { "title": "School Newsletter Launch", "date": "2025-12-20", "location": "Media Room", "description": "Release the new edition of the school newsletter." },
+      { "title": "Photography Workshop", "date": "2026-01-10", "location": "Photography Lab", "description": "Learn photography skills for journalism projects." }
+    ]
+  },
+  {
+    "clubId": "robotics",
+    "events": [
+      { "title": "Robot Competition", "date": "2026-02-05", "location": "Tech Hall", "description": "Compete with other schools in building autonomous robots." },
+      { "title": "Coding Bootcamp", "date": "2025-12-22", "location": "Computer Lab", "description": "Learn coding basics for robotics projects." }
+    ]
+  },
+  {
+    "clubId": "drama",
+    "events": [
+      { "title": "Winter Play", "date": "2025-12-15", "location": "School Theater", "description": "Perform the annual winter play." },
+      { "title": "Acting Workshop", "date": "2026-01-12", "location": "Drama Room", "description": "Improve acting skills with professional guidance." }
+    ]
+  },
+  {
+    "clubId": "music",
+    "events": [
+      { "title": "Christmas Concert", "date": "2025-12-22", "location": "Auditorium", "description": "Annual concert featuring choir and bands." },
+      { "title": "Music Workshop", "date": "2026-01-18", "location": "Music Room", "description": "Learn music techniques and instrument practice." }
+    ]
+  },
+  {
+    "clubId": "art",
+    "events": [
+      { "title": "Art Exhibition", "date": "2025-12-28", "location": "Art Gallery", "description": "Showcase students’ artwork from the semester." },
+      { "title": "Creative Workshop", "date": "2026-01-20", "location": "Art Studio", "description": "Hands-on workshop to explore painting and sculpture." }
+    ]
+  },
+  {
+    "clubId": "debate",
+    "events": [
+      { "title": "Inter-School Debate", "date": "2026-01-25", "location": "Debate Hall", "description": "Compete with other schools in public speaking and debate." },
+      { "title": "Debate Training Session", "date": "2025-12-30", "location": "Conference Room", "description": "Improve argumentation and speaking skills." }
+    ]
+  },
+  {
+    "clubId": "science",
+    "events": [
+      { "title": "Science Fair", "date": "2026-02-10", "location": "Science Hall", "description": "Exhibit experiments and research projects." },
+      { "title": "Weekly Lab Session", "date": "2025-12-12", "location": "Laboratory", "description": "Hands-on lab experiments with supervision." }
+    ]
+  },
+  {
+    "clubId": "mathematics",
+    "events": [
+      { "title": "Math Olympiad", "date": "2026-01-30", "location": "Math Hall", "description": "Test problem-solving and critical thinking skills." },
+      { "title": "Puzzle Workshop", "date": "2025-12-20", "location": "Room 101", "description": "Engage in fun mathematical puzzles and challenges." }
+    ]
+  },
+  {
+    "clubId": "humanities",
+    "events": [
+      { "title": "Cultural Festival", "date": "2025-12-18", "location": "Auditorium", "description": "Celebrate different cultures with presentations and performances." },
+      { "title": "Language Debate", "date": "2026-01-22", "location": "Conference Room", "description": "Debate in multiple languages to promote linguistic skills." }
+    ]
+  }
+]

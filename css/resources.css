@@ -1,0 +1,140 @@
+/* School Resources Hub – Clean, Professional, Glassmorphic 2025+ */
+:root {
+  --primary: #0b2d5e;
+  --accent: #ffd700;
+  --glass: rgba(255,255,255,0.15);
+  --border: rgba(255,255,255,0.2);
+  --text-light: #ffffff;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, #1e4d8c 100%), url('/assets/images/resources-hero.jpg') center/cover;
+  min-height: 85vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-light);
+}
+.hero::before { 
+  content: ''; 
+  position: absolute; 
+  inset: 0; 
+  background: rgba(0,0,0,0.5); 
+  z-index: 1;
+}
+.hero .container { position: relative; z-index: 2; }
+
+/* Glass Cards */
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  transition: all 0.4s ease;
+  color: var(--text-light);
+}
+.glass-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+}
+
+/* Resource Cards */
+.resource-card {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: all 0.4s ease;
+  padding: 20px;
+}
+.resource-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 60px rgba(11,45,94,0.2);
+}
+.resource-card h5 {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.resource-card p {
+  font-size: 0.9rem;
+}
+
+/* Badges for Categories */
+.badge-subject {
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: white;
+  font-weight: 500;
+}
+.mathematics { background: #f59e0b; }
+.sciences { background: #10b981; }
+.languages { background: #8b5cf6; }
+.humanities { background: #ec4899; }
+.applied-sciences { background: #06b6d4; }
+.clubs { background: #f97316; }
+.guidance { background: #6366f1; }
+
+/* Section Titles */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: var(--primary);
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 6px;
+  background: linear-gradient(90deg, var(--accent), #ff8c00);
+  border-radius: 3px;
+}
+
+/* Filters and Inputs */
+#categoryFilter, #typeFilter, #searchInput {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+#searchInput:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
+/* Login Prompt */
+.login-prompt {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Upload Forms */
+#uploadForm input, #uploadForm select, #uploadForm textarea {
+  border-radius: 12px;
+  padding: 12px;
+}
+#uploadForm button {
+  border-radius: 12px;
+  font-weight: 600;
+}
+#uploadSection label, #studentUpload + label {
+  cursor: pointer;
+}
+
+/* Responsive tweaks */
+@media(max-width: 768px) {
+  .hero h1 { font-size: 2.5rem; }
+  .hero p { font-size: 1rem; }
+  .glass-card, .resource-card { padding: 15px; }
+}

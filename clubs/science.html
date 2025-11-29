@@ -1,0 +1,81 @@
+<div class="glass-card p-5 text-white">
+  <!-- Header -->
+  <div class="text-center mb-5">
+    <button onclick="history.back()" class="btn btn-outline-light mb-4">Back</button>
+    <h1>Science Club</h1>
+    <p class="lead text-teal fs-4">Discover & Innovate</p>
+  </div>
+
+  <div class="row g-5">
+    <!-- Left Column: Logo, Join, Leader Info -->
+    <div class="col-lg-4 text-center">
+      <img src="/assets/clubs/science.png" class="club-logo shadow-lg mb-4" alt="Science Club Logo">
+      <button onclick="openJoinModal('Science Club')" class="btn btn-success btn-lg px-5 mb-4">Join Science Club</button>
+
+      <!-- Club Leader Info -->
+      <div class="glass-card p-3 mb-4 text-dark">
+        <h5 class="fw-bold">Club Leader</h5>
+        <p class="mb-1">Ms. Anyango</p>
+        <p class="small opacity-75">anyango@barunion.sc.ke</p>
+        <a href="mailto:anyango@barunion.sc.ke" class="btn btn-outline-primary btn-sm mt-2">Email Leader</a>
+      </div>
+
+      <!-- Downloadable Resources -->
+      <div class="glass-card p-3 text-dark">
+        <h5 class="fw-bold">Resources</h5>
+        <ul class="list-unstyled mb-0">
+          <li><a href="/downloads/science-guide.pdf" class="btn btn-outline-light btn-sm mb-2 w-100">Science Guide</a></li>
+          <li><a href="/downloads/lab-safety.pdf" class="btn btn-outline-light btn-sm w-100">Lab Safety Rules</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Right Column: About, Gallery, Events, Upload -->
+    <div class="col-lg-8">
+      <!-- About -->
+      <h3>About Us</h3>
+      <p class="lead">Experiments, science fairs, guest speakers, and innovative research projects.</p>
+
+      <!-- Lab & Fair Gallery -->
+      <h3 class="mt-5">Lab & Fair Photos</h3>
+      <div class="row g-3" data-fancybox="science-gallery">
+        <div class="col-6 col-md-4"><a href="/assets/gallery/science1.jpg"><img src="/assets/gallery/science1.jpg" class="img-fluid rounded"></a></div>
+        <div class="col-6 col-md-4"><a href="/assets/gallery/science2.jpg"><img src="/assets/gallery/science2.jpg" class="img-fluid rounded"></a></div>
+      </div>
+
+      <!-- Upcoming Events -->
+      <h3 class="mt-5">Upcoming Events</h3>
+      <div id="scienceEvents" class="row g-3">
+        <!-- JS will inject upcoming events for this club -->
+      </div>
+
+      <!-- Upload Submissions -->
+      <h3 class="mt-5">Submit Project Files</h3>
+      <label class="fake-upload">
+        Drag & Drop files here or click to upload
+        <input type="file" multiple hidden>
+      </label>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Inject club-specific upcoming events
+  const scienceEventsContainer = document.getElementById('scienceEvents');
+  if (typeof EVENTS !== 'undefined') {
+    const scienceEvents = EVENTS.filter(ev => ev.club.toLowerCase() === 'science club');
+    if (scienceEvents.length === 0) {
+      scienceEventsContainer.innerHTML = '<p class="text-muted">No upcoming events.</p>';
+    } else {
+      scienceEventsContainer.innerHTML = scienceEvents.map(ev => `
+        <div class="col-md-6">
+          <div class="event-card p-3">
+            <h5>${ev.title}</h5>
+            <p class="small opacity-80">${ev.date}</p>
+            <p>${ev.description}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+</script>

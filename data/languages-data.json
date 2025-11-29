@@ -1,0 +1,102 @@
+{
+  "subjects": [
+    {
+      "name": "English",
+      "flag": "https://flagcdn.com/w320/gb.png",
+      "levels": "Form 1–4",
+      "description": "Grammar, literature, composition, oral skills",
+      "session": "2025/2026",
+      "tags": ["english", "literature", "composition"]
+    },
+    {
+      "name": "Kiswahili",
+      "flag": "https://flagcdn.com/w320/ke.png",
+      "levels": "Fasihi, Lugha",
+      "description": "Fasihi ya Kiswahili, Insha, Lugha",
+      "session": "2024/2025",
+      "tags": ["kiswahili", "fasihi", "lugha"]
+    },
+    {
+      "name": "French",
+      "flag": "https://flagcdn.com/w320/fr.png",
+      "levels": "Beginner–Advanced",
+      "description": "DELF preparation, conversation, culture",
+      "session": "2025/2026",
+      "tags": ["french", "delf"]
+    },
+    {
+      "name": "Arabic",
+      "flag": "https://flagcdn.com/w320/sa.png",
+      "levels": "Classical & Modern",
+      "description": "Reading, writing, conversation",
+      "session": "2023/2024",
+      "tags": ["arabic", "classic", "modern"]
+    },
+    {
+      "name": "German",
+      "flag": "https://flagcdn.com/w320/de.png",
+      "levels": "A1–B2",
+      "description": "Goethe preparation, business German",
+      "session": "2024/2025",
+      "tags": ["german", "goethe"]
+    }
+  ],
+
+  "teachers": [
+    {
+      "name": "Ms. Akinyi",
+      "languages": ["English", "Kiswahili"],
+      "email": "akinyi@barunion.sc.ke",
+      "photo": "/assets/staff/akinyi.jpg"
+    },
+    {
+      "name": "Mr. Hassan",
+      "languages": ["Arabic"],
+      "email": "hassan@barunion.sc.ke",
+      "photo": "/assets/staff/hassan.jpg"
+    },
+    {
+      "name": "Ms. Claire",
+      "languages": ["French"],
+      "email": "claire@barunion.sc.ke",
+      "photo": "/assets/staff/claire.jpg"
+    }
+  ],
+
+  "resources": [
+    {
+      "title": "English Grammar Workbook 2025",
+      "uploadedBy": "Ms. Akinyi",
+      "date": "Nov 2025",
+      "url": "/downloads/english-grammar.pdf",
+      "icon": "fa-file-pdf",
+      "color": "#e74c3c"
+    },
+    {
+      "title": "French Listening Practice",
+      "uploadedBy": "Ms. Claire",
+      "date": "Oct 2025",
+      "url": "/downloads/french-audio.zip",
+      "icon": "fa-file-audio",
+      "color": "#3498db"
+    }
+  ],
+
+  "events": [
+    {
+      "title": "French Debate Competition",
+      "date": "20th Dec 2025",
+      "icon": "fa-microphone"
+    },
+    {
+      "title": "Kiswahili Essay Contest",
+      "date": "10th Jan 2026",
+      "icon": "fa-pen-fancy"
+    },
+    {
+      "title": "Arabic Speech Contest",
+      "date": "Feb 2026",
+      "icon": "fa-language"
+    }
+  ]
+}

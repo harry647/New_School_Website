@@ -1,0 +1,78 @@
+<div class="glass-card p-5 text-white">
+  <!-- Header -->
+  <div class="text-center mb-5">
+    <button onclick="history.back()" class="btn btn-outline-light mb-4">Back to Clubs</button>
+    <h1>Journalism & Media Club</h1>
+    <p class="lead text-danger fs-4">Voices That Matter</p>
+  </div>
+
+  <div class="row g-5 align-items-start">
+    <!-- Left Column: Logo, Join, Leaders, Resources -->
+    <div class="col-lg-4 text-center">
+      <img src="/assets/clubs/journalism.png" class="club-logo shadow-lg mb-4" alt="Journalism Logo">
+      <button onclick="openJoinModal('Journalism & Media Club')" class="btn btn-success btn-lg px-5 mb-4">Join</button>
+
+      <!-- Club Leaders -->
+      <div class="glass-card p-3 mb-4 text-dark">
+        <h5 class="fw-bold">Club Leaders</h5>
+        <p class="mb-1">Ms. Wanjiku (Patron)</p>
+        <p>Mr. Otieno</p>
+      </div>
+
+      <!-- Resources -->
+      <div class="glass-card p-3 text-dark">
+        <h5 class="fw-bold">Resources</h5>
+        <ul class="list-unstyled mb-0">
+          <li><a href="/downloads/media-guide.pdf" class="btn btn-outline-light btn-sm mb-2 w-100">Media & Reporting Guide</a></li>
+          <li><a href="/downloads/newsletter-template.pdf" class="btn btn-outline-light btn-sm w-100">Newsletter Template</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Right Column: About, Gallery, Events, Upload -->
+    <div class="col-lg-8">
+      <!-- About -->
+      <h3>About Us</h3>
+      <p class="lead">Reporting, editing, photography, videography, and school publications. We amplify student voices and develop communication skills.</p>
+
+      <!-- Gallery -->
+      <h3 class="mt-5">Gallery</h3>
+      <div class="row g-3" data-fancybox="journalism-gallery">
+        <div class="col-6 col-md-4"><a href="/assets/gallery/journalism1.jpg"><img src="/assets/gallery/journalism1.jpg" class="img-fluid rounded"></a></div>
+        <div class="col-6 col-md-4"><a href="/assets/gallery/journalism2.jpg"><img src="/assets/gallery/journalism2.jpg" class="img-fluid rounded"></a></div>
+      </div>
+
+      <!-- Upcoming Events -->
+      <h3 class="mt-5">Upcoming Events</h3>
+      <div id="journalismEvents" class="row g-3"></div>
+
+      <!-- File Upload / Submissions -->
+      <h3 class="mt-5">Upload Event Photos / Articles</h3>
+      <label class="fake-upload d-block text-center">
+        Drag & Drop files here or click to upload
+        <input type="file" multiple accept="image/*,.pdf,.docx" hidden onchange="alert('Files uploaded!')">
+      </label>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Inject club-specific upcoming events
+  const journalismEventsContainer = document.getElementById('journalismEvents');
+  if (typeof EVENTS !== 'undefined') {
+    const journalismEvents = EVENTS.filter(ev => ev.club.toLowerCase() === 'journalism & media club');
+    if (journalismEvents.length === 0) {
+      journalismEventsContainer.innerHTML = '<p class="text-muted">No upcoming events.</p>';
+    } else {
+      journalismEventsContainer.innerHTML = journalismEvents.map(ev => `
+        <div class="col-md-6">
+          <div class="event-card p-3">
+            <h5>${ev.title}</h5>
+            <p class="small opacity-80">${ev.date}</p>
+            <p>${ev.description}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+</script>

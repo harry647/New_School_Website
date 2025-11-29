@@ -1,0 +1,130 @@
+/* Welfare & Support – Calm, Caring, Glassmorphic 2025+ */
+:root {
+  --primary: #1565c0;
+  --accent: #42a5f5;
+  --glass: rgba(255,255,255,0.15);
+  --border: rgba(255,255,255,0.2);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f0f4f8;
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, #1976d2 100%), url('/assets/images/welfare-hero.jpg') center/cover;
+  min-height: 90vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+.hero::before {
+  content: ''; 
+  position: absolute; 
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+/* Glass Card */
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  transition: all 0.4s ease;
+}
+.glass-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+}
+
+/* Section Titles */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: var(--primary);
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 6px;
+  background: linear-gradient(90deg, var(--accent), #90caf9);
+  border-radius: 3px;
+}
+
+/* Team Cards */
+#teamGrid .glass-card {
+  text-align: center;
+  padding: 2rem;
+  color: white;
+}
+#teamGrid img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+#teamGrid h4 {
+  margin-bottom: 0.5rem;
+}
+#teamGrid p {
+  margin: 0.25rem 0;
+}
+#teamGrid button {
+  margin-top: 1rem;
+}
+
+/* Resources Cards */
+#resourcesGrid .glass-card {
+  text-align: center;
+  padding: 1.5rem;
+  color: white;
+}
+#resourcesGrid i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+#resourcesGrid h5 {
+  margin-bottom: 0.5rem;
+}
+
+/* Announcements */
+#announcements ul {
+  padding-left: 1rem;
+}
+#announcements li {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+#announcements i {
+  margin-right: 0.5rem;
+  color: var(--accent);
+}
+
+/* Form Elements */
+input, select, textarea {
+  border-radius: 12px;
+}
+button {
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .hero h1 { font-size: 2.5rem; }
+  .section-title { font-size: 2.2rem; }
+}

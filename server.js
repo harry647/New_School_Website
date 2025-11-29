@@ -16,6 +16,11 @@ app.use('/includes', express.static(path.join(__dirname, 'includes')));
 app.use('/data', express.static(path.join(__dirname, 'data')));
 app.use('/downloads', express.static(path.join(__dirname, 'downloads')));
 app.use('/admin', express.static(path.join(__dirname, 'admin')));
+app.use('/portal', express.static(path.join(__dirname, 'portal')));
+app.use('/clubs', express.static(path.join(__dirname, 'clubs')));
+app.use('/blogs', express.static(path.join(__dirname, 'blogs')));
+app.use('/departments', express.static(path.join(__dirname, 'departments')));
+app.use('/resources', express.static(path.join(__dirname, 'resources')));
 
 // HTML pages
 const pages = [

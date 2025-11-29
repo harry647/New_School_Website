@@ -1,0 +1,194 @@
+/* Languages Department – Elegant, Multilingual, Glassmorphic 2025+ */
+:root {
+  --primary: #2c3e50;
+  --accent: #e74c3c;
+  --glass: rgba(255,255,255,0.15);
+  --border: rgba(255,255,255,0.2);
+  --text-dark: #2c3e50;
+  --text-light: #f9f9f9;
+}
+
+/* ===================== HERO SECTION ===================== */
+
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, #34495e 100%),
+              url('/assets/images/languages-bg.jpg') center/cover;
+  min-height: 90vh;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(3px);
+}
+
+/* ===================== GLASS CARDS ===================== */
+
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 2.5rem;
+  transition: all 0.4s ease;
+  animation: fadeUp 1s ease forwards;
+  transform: translateY(40px);
+}
+.glass-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+}
+
+/* Smooth entrance */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0px); }
+}
+
+/* ===================== GENERAL CARD STYLING ===================== */
+
+.subject-card, .teacher-card, .resource-card {
+  background: white;
+  border-radius: 24px;
+  overflow: hidden;
+  padding: 1.5rem;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+  transition: all 0.4s ease;
+  position: relative;
+}
+.subject-card:hover, .teacher-card:hover, .resource-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 30px 80px rgba(44,62,80,0.25);
+}
+
+/* Subtle floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ===================== SECTION TITLES ===================== */
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: var(--primary);
+  position: relative;
+  display: inline-block;
+  margin-bottom: 2rem;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+/* ===================== FLAGS ===================== */
+
+.lang-flag {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+/* Larger flag for hover effect */
+.lang-flag:hover {
+  transform: scale(1.1);
+  transition: 0.3s ease;
+}
+
+/* ===================== TEACHERS ===================== */
+
+.teacher-card img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 18px;
+  margin-bottom: 1rem;
+}
+
+.teacher-languages {
+  font-size: 0.9rem;
+  background: #ecf0f1;
+  padding: 6px 12px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 6px;
+}
+
+/* ===================== RESOURCES ===================== */
+
+.resource-card {
+  border-left: 12px solid var(--accent);
+  position: relative;
+}
+.resource-card i {
+  font-size: 2.4rem;
+  margin-right: 1rem;
+}
+.resource-date {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+}
+
+/* Dynamic color injection */
+.resource-card[data-color] {
+  border-left-color: attr(data-color color, var(--accent));
+}
+
+/* ===================== RESPONSIVE GRID ===================== */
+
+.grid {
+  display: grid;
+  gap: 2rem;
+}
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+/* ===================== LOGIN PROMPT ===================== */
+
+.login-prompt {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.login-prompt .glass-card {
+  padding: 4rem;
+}
+
+/* ===================== BUTTON ===================== */
+
+.btn-primary {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 14px;
+  font-size: 1.1rem;
+  transition: 0.3s ease;
+}
+.btn-primary:hover {
+  background: #c0392b;
+  transform: translateY(-3px);
+}

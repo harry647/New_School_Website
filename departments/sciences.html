@@ -1,315 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Faculty of Science</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        :root {
-            --primary: #1a5d57;
-            --secondary: #2e7d72;
-            --accent: #4db6ac;
-            --light: #e0f2f1;
-        }
-        body { font-family: 'Segoe UI', sans-serif; background: #f5fffa; color: #333; }
-        .navbar { background: var(--primary) !important; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .hero {
-            background: linear-gradient(rgba(26,93,87,0.92), rgba(26,93,87,0.88)),
-                        url('https://images.unsplash.com/photo-1532187863598-3a25ea20e9c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover; background-position: center; color: white; padding: 120px 0; text-align: center;
-        }
-        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.15) !important; transition: all 0.3s ease; }
-        .section-title { position: relative; padding-bottom: 12px; font-weight: 700; color: var(--primary); }
-        .section-title::after { content: ''; position: absolute; left: 0; bottom: 0; width: 70px; height: 5px; background: var(--accent); border-radius: 3px; }
-        .fake-upload { cursor: pointer; border: 3px dashed #80cbc4; border-radius: 15px; padding: 50px; text-align: center; background: #e0f8f5; transition: all 0.4s; }
-        .fake-upload:hover { background: #b2dfdb; border-color: var(--accent); }
-        .dept-badge { font-size: 0.8rem; padding: 4px 10px; border-radius: 20px; color: white; }
-        .physics { background: #d32f2f; }
-        .chemistry { background: #1976d2; }
-        .biology { background: #388e3c; }
-        .general { background: #7b1fa2; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Science Department | Bar Union Secondary</title>
+
+  <!-- Libraries -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="/static/sciences/sciences.css"/>
 </head>
 <body>
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <div class="container">
-        <a class="navbar-brand fw-bold fs-4" href="#">
-            <i class="fas fa-flask-vial me-2"></i>Faculty of Science
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
-            <span class="navbar-toggler-icon"></span>
+  <!-- Header Include -->
+  <div w3-include-html="/includes/header.html"></div>
+
+  <!-- Login Check -->
+  <div id="loginCheck" class="login-prompt d-none">
+    <div>
+      <i class="fas fa-lock fa-5x text-primary mb-4"></i>
+      <h1 class="display-4 fw-bold">Access Restricted</h1>
+      <p class="lead">You must be logged in to access Science resources.</p>
+      <a href="/login.html" class="btn btn-primary btn-lg px-5">Login Now</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div id="mainContent" class="d-none">
+
+    <!-- Hero Section -->
+    <section class="hero text-white text-center d-flex align-items-center position-relative">
+      <div class="container position-relative z-2">
+        <h1 class="display-2 fw-bold mb-4">Science Department</h1>
+        <p class="lead fs-3 mb-4">Curiosity • Discovery • Innovation</p>
+        <p class="col-lg-8 mx-auto fs-5 opacity-90">
+          From Physics to Biology — explore labs, experiments, competitions, and groundbreaking student achievements.
+        </p>
+        <button onclick="scrollToSection('teachers')" class="btn btn-warning btn-lg px-5 mt-4 fw-bold shadow-lg">
+          Meet Our Scientists
         </button>
-        <div class="collapse navbar-collapse" id="nav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#faculty">Faculty</a></li>
-                <li class="nav-item"><a class="nav-link" href="#labs">Labs & Gallery</a></li>
-                <li class="nav-item"><a class="nav-link" href="#programs">Programs</a></li>
-                <li class="nav-item"><a class="nav-link" href="#forum">Forum</a></li>
-                <li class="nav-item"><a class="nav-link" href="#assignments">Assignments</a></li>
-            </ul>
-        </div>
+      </div>
+    </section>
+
+    <div class="container my-5">
+
+      <!-- Session Filter -->
+      <div class="text-center mb-5">
+        <select id="sessionFilter" class="form-select form-select-lg w-auto d-inline-block">
+          <option value="">All Academic Years</option>
+          <option>2025/2026</option>
+          <option>2024/2025</option>
+          <option>2023/2024</option>
+        </select>
+      </div>
+
+      <!-- Teachers Grid -->
+      <h2 class="section-title text-center mb-5">Science Teachers</h2>
+      <div id="teachersGrid" class="row g-4 mb-5"></div>
+
+      <!-- Achievements Carousel -->
+      <h2 class="section-title text-center mb-5">Student Achievements</h2>
+      <div id="achievementsCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+        <div class="carousel-inner" id="achievementsGrid"></div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#achievementsCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#achievementsCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+
+      <!-- Lab Experiments & Resources -->
+      <h2 class="section-title text-center mb-5">Lab Experiments & Resources</h2>
+      <div class="text-center mb-4">
+        <label class="btn btn-primary btn-lg px-5">
+          Upload Lab Photos / Reports
+          <input type="file" id="uploadFile" multiple accept="image/*,.pdf,.doc,.docx" hidden>
+        </label>
+      </div>
+      <div id="resourcesGrid" class="row g-4 mb-5"></div>
+
+      <!-- Competitions Calendar -->
+      <h2 class="section-title text-center mb-5">Science Competitions & Events</h2>
+      <div id="competitionsGrid" class="row g-4 mb-5"></div>
+
+      <!-- Student Submissions -->
+      <h2 class="section-title text-center mb-5">Student Submissions</h2>
+      <div class="glass-card p-5 text-center text-white">
+        <p class="mb-4">Upload your assignments, projects, or essays here.</p>
+        <label class="btn btn-warning btn-lg px-5">
+          Submit Work
+          <input type="file" id="studentUpload" multiple hidden>
+        </label>
+      </div>
+
     </div>
-</nav>
+  </div>
 
-<!-- Hero Section -->
-<section id="home" class="hero">
-    <div class="container">
-        <h1 class="display-3 fw-bold">Faculty of Science</h1>
-        <p class="lead fs-3 mb-4">Discover | Experiment | Innovate</p>
-        <p class="fs-5 col-md-8 mx-auto">Advancing knowledge in Physics, Chemistry, Biology, and interdisciplinary sciences through cutting-edge research and hands-on learning.</p>
-        <a href="#faculty" class="btn btn-light btn-lg mt-3 px-5">Explore Our Departments</a>
-    </div>
-</section>
-
-<div class="container my-5">
-
-    <!-- Faculty Members -->
-    <section id="faculty" class="my-5">
-        <h2 class="section-title mb-5">Our Distinguished Faculty</h2>
-        <div class="row g-4" id="faculty-container">
-            <!-- Sample Faculty Cards -->
-        </div>
-        <div class="text-center mt-5">
-            <button class="btn btn-outline-success btn-lg" onclick="addFacultyMember()">
-                <i class="fas fa-user-plus"></i> Add Faculty Member (Demo)
-            </button>
-        </div>
-    </section>
-
-    <!-- Labs & Gallery -->
-    <section id="labs" class="my-5">
-        <h2 class="section-title mb-5">Labs, Experiments & Gallery</h2>
-        <div class="row g-4 mb-5">
-            <div class="col-md-4">
-                <div class="card border-0 shadow card-hover">
-                    <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Physics Lab">
-                    <div class="card-body">
-                        <h5>Advanced Physics Laboratory</h5>
-                        <span class="dept-badge physics">Physics</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card border-0 shadow card-hover">
-                    <img src="https://images.unsplash.com/photo-1582719201242-0c6a5d8d6e1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Chemistry Lab">
-                    <div class="card-body">
-                        <h5>Organic Chemistry Research Lab</h5>
-                        <span class="dept-badge chemistry">Chemistry</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card border-0 shadow card-hover">
-                    <img src="https://images.unsplash.com/photo-1576088702134-9c73e9b6e1ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Biology Lab">
-                    <div class="card-body">
-                        <h5>Molecular Biology & Genetics Lab</h5>
-                        <span class="dept-badge biology">Biology</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="text-center">
-            <label class="fake-upload d-inline-block">
-                <i class="fas fa-camera fa-3x mb-3 text-success"></i><br>
-                <strong>Upload Lab Photos or Experiment Results</strong><br>
-                <small>Click here to add images to the gallery</small>
-                <input type="file" accept="image/*" multiple style="display:none" onchange="previewGallery(this.files)">
-            </label>
-        </div>
-        <div class="row g-3 mt-4" id="gallery-container"></div>
-    </section>
-
-    <!-- Academic Programs -->
-    <section id="programs" class="my-5">
-        <h2 class="section-title mb-5">Academic Programs</h2>
-        <div class="row g-4">
-            <div class="col-md-6">
-                <div class="card h-100 border-0 shadow card-hover">
-                    <div class="card-body">
-                        <h4><i class="fas fa-atom text-primary me-2"></i>B.Sc. in Physics</h4>
-                        <p>Quantum mechanics, electromagnetism, thermodynamics, and particle physics.</p>
-                        <a href="#" class="btn btn-outline-primary">View Curriculum</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card h-100 border-0 shadow card-hover">
-                    <div class="card-body">
-                        <h4><i class="fas fa-prescription-bottle-alt text-success me-2"></i>B.Sc. in Chemistry</h4>
-                        <p>Organic, inorganic, physical chemistry, spectroscopy, and green chemistry.</p>
-                        <a href="#" class="btn btn-outline-success">Download Plan</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card h-100 border-0 shadow card-hover">
-                    <div class="card-body">
-                        <h4><i class="fas fa-dna text-info me-2"></i>B.Sc. in Biology</h4>
-                        <p>Cell biology, genetics, ecology, microbiology, and biotechnology.</p>
-                        <a href="#" class="btn btn-outline-info">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card h-100 border-0 shadow card-hover">
-                    <div class="card-body">
-                        <h4><i class="fas fa-microscope text-warning me-2"></i>M.Sc. in Biomedical Sciences</h4>
-                        <p>Advanced research in cancer biology, neuroscience, and immunology.</p>
-                        <a href="#" class="btn btn-outline-warning">Apply Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Discussion Forum -->
-    <section id="forum" class="my-5">
-        <h2 class="section-title mb-5">Science Forum – Ask & Discuss</h2>
-        <div class="card border-0 shadow mb-4">
-            <div class="card-body">
-                <textarea class="form-control mb-3" rows="4" placeholder="Ask a question, share an experiment idea, or discuss a paper..."></textarea>
-                <button class="btn btn-success" onclick="postToForum()">Post Message</button>
-            </div>
-        </div>
-        <div id="forum-posts">
-            <div class="card border-0 shadow mb-3">
-                <div class="card-body">
-                    <strong>Sara Ahmed</strong> <small class="text-muted">– Biology • 1 hour ago</small>
-                    <p>How does CRISPR-Cas9 achieve targeted gene editing?</p>
-                    <button class="btn btn-sm btn-outline-primary">Reply</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Assignments & Lab Reports -->
-    <section id="assignments" class="my-5">
-        <h2 class="section-title mb-5">Assignments & Lab Reports</h2>
-        <div class="list-group mb-4">
-            <div class="list-group-item">
-                <div class="d-flex w-100 justify-content-between align-items-center">
-                    <div>
-                        <h5>Lab Report: Spectrophotometry of Chlorophyll</h5>
-                        <p>Determine absorption spectrum and concentration using Beer-Lambert law.</p>
-                    </div>
-                    <div>
-                        <small class="text-danger fw-bold">Due: Dec 10, 2025</small><br>
-                        <label class="btn btn-success btn-sm mt-2">
-                            Submit Report <input type="file" style="display:none" onchange="alert('Submitted: '+this.files[0].name)">
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="text-center">
-            <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#newAssignment">
-                <i class="fas fa-plus-circle"></i> Post New Assignment / Lab (Faculty)
-            </button>
-        </div>
-    </section>
-
-</div>
-
-<!-- Modal: New Assignment -->
-<div class="modal fade" id="newAssignment">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header bg-primary text-white">
-                <h5 class="modal-title">Create New Assignment / Lab Report</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <input type="text" class="form-control mb-3" placeholder="Title (e.g. Quantum Tunneling Experiment)">
-                <select class="form-select mb-3">
-                    <option>Physics</option>
-                    <option>Chemistry</option>
-                    <option>Biology</option>
-                    <option>General Science</option>
-                </select>
-                <textarea class="form-control mb-3" rows="5" placeholder="Instructions..."></textarea>
-                <input type="date" class="form-control mb-3">
-                <input type="file" class="form-control" placeholder="Attach handout (PDF)">
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-success">Publish Assignment</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-// Sample Faculty Data
-const scienceFaculty = [
-    { name: "Prof. Nadia Youssef", title: "Professor of Physics", dept: "physics", img: "https://randomuser.me/api/portraits/women/68.jpg" },
-    { name: "Dr. Karim Hassan", title: "Head of Chemistry Dept", dept: "chemistry", img: "https://randomuser.me/api/portraits/men/45.jpg" },
-    { name: "Prof. Leila Mahmoud", title: "Professor of Molecular Biology", dept: "biology", img: "https://randomuser.me/api/portraits/women/32.jpg" },
-    { name: "Dr. Omar Farouk", title: "Associate Professor", dept: "general", img: "https://randomuser.me/api/portraits/men/82.jpg" }
-];
-
-scienceFaculty.forEach(f => addFacultyCard(f));
-
-function addFacultyCard(f) {
-    const colors = { physics: "#d32f2f", chemistry: "#1976d2", biology: "#388e3c", general: "#7b1fa2" };
-    const icons = { physics: "fas fa-atom", chemistry: "fas fa-flask", biology: "fas fa-dna", general: "fas fa-microscope" };
-    document.getElementById('faculty-container').innerHTML += `
-        <div class="col-md-6 col-lg-4 col-xl-3">
-            <div class="card h-100 border-0 shadow card-hover">
-                <img src="${f.img}" class="card-img-top rounded-circle mx-auto mt-3" style="width:120px;height:120px;object-fit:cover;">
-                <div class="card-body text-center">
-                    <h5 class="card-title mt-2">${f.name}</h5>
-                    <p class="text-muted">${f.title}</p>
-                    <span class="dept-badge" style="background:${colors[f.dept]}">
-                        <i class="${icons[f.dept]}"></i> ${f.dept.charAt(0).toUpperCase() + f.dept.slice(1)}
-                    </span>
-                </div>
-            </div>
-        </div>`;
-}
-
-function addFacultyMember() {
-    const name = prompt("Faculty Name:");
-    const dept = prompt("Department (physics/chemistry/biology/general):");
-    if (name && dept) {
-        addFacultyCard({name, title: "Lecturer", dept, img: "https://via.placeholder.com/150"});
-    }
-}
-
-function previewGallery(files) {
-    const container = document.getElementById('gallery-container');
-    [...files].forEach(file => {
-        const reader = new FileReader();
-        reader.onload = e => {
-            container.innerHTML += `
-                <div class="col-6 col-md-4 col-lg-3">
-                    <img src="${e.target.result}" class="img-fluid rounded shadow" style="height:200px; object-fit:cover;">
-                </div>`;
-        };
-        reader.readAsDataURL(file);
-    });
-}
-
-function postToForum() {
-    const text = document.querySelector('#forum textarea').value.trim();
-    if (!text) return alert("Please write something first!");
-    const posts = document.getElementById('forum-posts');
-    posts.innerHTML = `
-        <div class="card border-0 shadow mb-3">
-            <div class="card-body">
-                <strong>You</strong> <small class="text-muted">– just now</small>
-                <p>${text.replace(/\n/g, '<br>')}</p>
-            </div>
-        </div>` + posts.innerHTML;
-    document.querySelector('#forum textarea').value = '';
-}
-</script>
-
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+  <script src="/static/sciences/sciences.js"></script>
 </body>
 </html>

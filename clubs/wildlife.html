@@ -1,0 +1,78 @@
+<div class="glass-card p-5 text-white">
+  <!-- Header -->
+  <div class="text-center mb-5">
+    <button onclick="history.back()" class="btn btn-outline-light mb-4">Back to Clubs</button>
+    <h1>Wildlife & Environmental Club</h1>
+    <p class="lead text-success fs-4">Protect Our Planet</p>
+  </div>
+
+  <div class="row g-5 align-items-start">
+    <!-- Left Column: Logo, Join, Leaders, Resources -->
+    <div class="col-lg-4 text-center">
+      <img src="/assets/clubs/wildlife.png" class="club-logo shadow-lg mb-4" alt="Wildlife Logo">
+      <button onclick="openJoinModal('Wildlife & Environmental Club')" class="btn btn-success btn-lg px-5 mb-4">Join</button>
+
+      <!-- Club Leaders -->
+      <div class="glass-card p-3 mb-4 text-dark">
+        <h5 class="fw-bold">Club Leaders</h5>
+        <p class="mb-1">Ms. Njeri (Patron)</p>
+        <p>Mr. Kamau</p>
+      </div>
+
+      <!-- Resources -->
+      <div class="glass-card p-3 text-dark">
+        <h5 class="fw-bold">Resources</h5>
+        <ul class="list-unstyled mb-0">
+          <li><a href="/downloads/environment-guide.pdf" class="btn btn-outline-light btn-sm mb-2 w-100">Environmental Guide</a></li>
+          <li><a href="/downloads/tree-planting.pdf" class="btn btn-outline-light btn-sm w-100">Tree Planting Handbook</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Right Column: About, Gallery, Events, Upload -->
+    <div class="col-lg-8">
+      <!-- About -->
+      <h3>About Us</h3>
+      <p class="lead">Tree planting, clean-ups, wildlife conservation talks, and eco-trips. We foster awareness and action for a sustainable future.</p>
+
+      <!-- Gallery -->
+      <h3 class="mt-5">Gallery</h3>
+      <div class="row g-3" data-fancybox="wildlife-gallery">
+        <div class="col-6 col-md-4"><a href="/assets/gallery/tree1.jpg"><img src="/assets/gallery/tree1.jpg" class="img-fluid rounded"></a></div>
+        <div class="col-6 col-md-4"><a href="/assets/gallery/eco1.jpg"><img src="/assets/gallery/eco1.jpg" class="img-fluid rounded"></a></div>
+      </div>
+
+      <!-- Upcoming Events -->
+      <h3 class="mt-5">Upcoming Events</h3>
+      <div id="wildlifeEvents" class="row g-3"></div>
+
+      <!-- File Upload / Submissions -->
+      <h3 class="mt-5">Upload Event Photos</h3>
+      <label class="fake-upload d-block text-center">
+        Drag & Drop photos here or click to upload
+        <input type="file" multiple accept="image/*" hidden onchange="alert('Photos uploaded!')">
+      </label>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Inject club-specific upcoming events
+  const wildlifeEventsContainer = document.getElementById('wildlifeEvents');
+  if (typeof EVENTS !== 'undefined') {
+    const wildlifeEvents = EVENTS.filter(ev => ev.club.toLowerCase() === 'wildlife & environmental club');
+    if (wildlifeEvents.length === 0) {
+      wildlifeEventsContainer.innerHTML = '<p class="text-muted">No upcoming events.</p>';
+    } else {
+      wildlifeEventsContainer.innerHTML = wildlifeEvents.map(ev => `
+        <div class="col-md-6">
+          <div class="event-card p-3">
+            <h5>${ev.title}</h5>
+            <p class="small opacity-80">${ev.date}</p>
+            <p>${ev.description}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+</script>

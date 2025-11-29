@@ -1,0 +1,83 @@
+{
+  "resources": [
+    {
+      "title": "Form 4 Mathematics Revision Kit",
+      "category": "Mathematics",
+      "type": "PDF",
+      "uploadedBy": "Mr. Owino",
+      "date": "Nov 2025",
+      "url": "/downloads/math-revision.pdf",
+      "icon": "fa-file-pdf",
+      "color": "#f59e0b",
+      "description": "Complete Form 4 math revision pack including exercises, past papers, and solutions."
+    },
+    {
+      "title": "Biology Lab Manual",
+      "category": "Sciences",
+      "type": "PDF",
+      "uploadedBy": "Ms. Akoth",
+      "date": "Oct 2025",
+      "url": "/downloads/bio-lab.pdf",
+      "icon": "fa-file-pdf",
+      "color": "#10b981",
+      "description": "Detailed biology experiments manual for practical labs in Forms 1–4."
+    },
+    {
+      "title": "French Grammar Workbook",
+      "category": "Languages",
+      "type": "Document",
+      "uploadedBy": "Ms. Claire",
+      "date": "Sep 2025",
+      "url": "/downloads/french-grammar.pdf",
+      "icon": "fa-book",
+      "color": "#8b5cf6",
+      "description": "Workbook to practice French grammar, conversation, and vocabulary."
+    },
+    {
+      "title": "Physics Experiments Video",
+      "category": "Sciences",
+      "type": "Video",
+      "uploadedBy": "Mr. Otieno",
+      "date": "Nov 2025",
+      "url": "/downloads/physics-lab.mp4",
+      "icon": "fa-video",
+      "color": "#ef4444",
+      "description": "Step-by-step demonstrations of key physics experiments."
+    },
+    {
+      "title": "English Listening Comprehension",
+      "category": "Languages",
+      "type": "Audio",
+      "uploadedBy": "Ms. Akinyi",
+      "date": "Oct 2025",
+      "url": "/downloads/english-listening.mp3",
+      "icon": "fa-file-audio",
+      "color": "#3b82f6",
+      "description": "Audio files to improve English listening skills and comprehension."
+    }
+  ],
+  "submissions": [],
+  "featured": [
+    {
+      "title": "Form 4 Mathematics Revision Kit",
+      "category": "Mathematics",
+      "type": "PDF",
+      "uploadedBy": "Mr. Owino",
+      "date": "Nov 2025",
+      "url": "/downloads/math-revision.pdf",
+      "thumb": "/assets/resources/thumbs/math-revision.jpg",
+      "description": "Complete Form 4 math revision pack including exercises, past papers, and solutions."
+    },
+    {
+      "title": "Physics Experiments Video",
+      "category": "Sciences",
+      "type": "Video",
+      "uploadedBy": "Mr. Otieno",
+      "date": "Nov 2025",
+      "url": "/downloads/physics-lab.mp4",
+      "thumb": "/assets/resources/thumbs/physics-lab.jpg",
+      "description": "Step-by-step demonstrations of key physics experiments."
+    }
+  ],
+  "tags": ["Mathematics", "Sciences", "Languages", "Revision", "Workbook", "Labs", "Audio", "Video"]
+}

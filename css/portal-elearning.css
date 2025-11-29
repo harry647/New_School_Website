@@ -1,0 +1,185 @@
+/* ==================================================
+   E-Learning Hub – Modern, Interactive, Glassmorphic 2025+
+================================================== */
+:root {
+  --primary: #1e40af;
+  --accent: #60a5fa;
+  --secondary: #ec4899;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --glass: rgba(255,255,255,0.15);
+  --border: rgba(255,255,255,0.2);
+  --radius: 24px;
+  --transition: all 0.4s ease;
+}
+
+/* ==================================
+   1. Hero Section
+================================== */
+.hero {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%), url('/assets/images/elearning-hero.jpg') center/cover;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  color: white;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 900;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+.hero p {
+  font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+  margin-bottom: 1.5rem;
+}
+.hero button {
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 50px;
+  transition: var(--transition);
+}
+.hero button:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* ==================================
+   2. Glass Cards & Panels
+================================== */
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  transition: var(--transition);
+}
+.glass-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+}
+
+/* ==================================
+   3. Cards (Subjects, Resources)
+================================== */
+.subject-card, .resource-card, .quiz-card, .forum-card, .media-card {
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  padding: 2rem;
+  transition: var(--transition);
+  text-align: center;
+}
+.subject-card:hover, .resource-card:hover, .quiz-card:hover, .forum-card:hover, .media-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 60px rgba(30,64,175,0.2);
+}
+.subject-card i, .resource-card i, .quiz-card i, .forum-card i, .media-card i {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==================================
+   4. Section Titles
+================================== */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  background: linear-gradient(90deg, #7c3aed, #ec4899, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+/* ==================================
+   5. Login Prompt
+================================== */
+.login-prompt {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ==================================
+   6. Buttons
+================================== */
+.btn-primary {
+  background: var(--primary);
+  border: none;
+  transition: var(--transition);
+}
+.btn-primary:hover {
+  background: var(--accent);
+  transform: translateY(-3px);
+}
+.btn-success {
+  background: var(--success);
+  border: none;
+}
+.btn-warning {
+  background: var(--warning);
+  border: none;
+}
+
+/* ==================================
+   7. Grids & Responsive
+================================== */
+.row.g-4 > [class*="col-"] {
+  display: flex;
+}
+.row.g-4 > [class*="col-"] > div {
+  flex: 1;
+}
+@media (max-width: 768px) {
+  .hero { min-height: 70vh; }
+  .section-title { font-size: clamp(2rem, 6vw, 3.5rem); }
+  .glass-card { padding: 1.5rem; }
+  .subject-card, .resource-card { padding: 1.5rem; }
+}
+
+/* ==================================
+   8. Form Elements
+================================== */
+#uploadForm .form-control, #uploadForm .form-select {
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+#uploadForm .form-control:focus, #uploadForm .form-select:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(30,64,175,0.2);
+}

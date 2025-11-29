@@ -1,0 +1,14 @@
+[
+  { "id": "scouts",          "name": "Scouts & Girl Guides",          "icon": "fa-compass",       "color": "#28a745", "category": "Outdoor",        "leader": "Mr. Kamau" },
+  { "id": "christian-union", "name": "Christian Union",               "icon": "fa-cross",         "color": "#4361ee", "category": "Spiritual",      "leader": "Ms. Achieng" },
+  { "id": "wildlife",        "name": "Wildlife & Environmental",     "icon": "fa-leaf",          "color": "#2ecc71", "category": "Science",        "leader": "Mr. Odhiambo" },
+  { "id": "journalism",      "name": "Journalism & Media",           "icon": "fa-newspaper",     "color": "#e74c3c", "category": "Media",          "leader": "Ms. Akoth" },
+  { "id": "robotics",        "name": "Robotics & Innovation",        "icon": "fa-robot",         "color": "#9b59b6", "category": "STEM",           "leader": "Mr. Okoth" },
+  { "id": "drama",           "name": "Drama & Performing Arts",      "icon": "fa-masks-theater", "color": "#e67e22", "category": "Arts",           "leader": "Ms. Wanjiku" },
+  { "id": "music",           "name": "Music & Choir",                "icon": "fa-music",         "color": "#f1c40f", "category": "Arts",           "leader": "Mr. Ochieng" },
+  { "id": "art",             "name": "Art & Design",                  "icon": "fa-palette",       "color": "#e91e63", "category": "Arts",           "leader": "Ms. Anyango" },
+  { "id": "debate",          "name": "Debate & Public Speaking",     "icon": "fa-microphone",    "color": "#3498db", "category": "Leadership",     "leader": "Mr. Otieno" },
+  { "id": "science",         "name": "Science Club",                  "icon": "fa-flask",         "color": "#1abc9c", "category": "STEM",           "leader": "Mr. Odhiambo" },
+  { "id": "mathematics",     "name": "Mathematics Club",              "icon": "fa-calculator",    "color": "#34495e", "category": "STEM",           "leader": "Ms. Akoth" },
+  { "id": "humanities",      "name": "Humanities & Languages",        "icon": "fa-globe",         "color": "#95a5a6", "category": "Academic",       "leader": "Ms. Anyango" }
+]

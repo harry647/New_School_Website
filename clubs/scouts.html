@@ -1,0 +1,81 @@
+<div class="glass-card p-5 text-white">
+  <!-- Header -->
+  <div class="text-center mb-5">
+    <button onclick="history.back()" class="btn btn-outline-light mb-4">Back to Clubs</button>
+    <h1>Scouts & Girl Guides</h1>
+    <p class="lead text-warning fs-4">Be Prepared</p>
+  </div>
+
+  <div class="row g-5 align-items-start">
+    <!-- Left Column: Logo, Join, Leaders, Resources -->
+    <div class="col-lg-4 text-center">
+      <img src="/assets/clubs/scouts.png" class="club-logo shadow-lg mb-4" alt="Scouts Logo">
+      <button onclick="openJoinModal('Scouts & Girl Guides')" class="btn btn-success btn-lg px-5 mb-4">Join Scouts</button>
+
+      <!-- Club Leaders -->
+      <div class="glass-card p-3 mb-4 text-dark">
+        <h5 class="fw-bold">Patron & Teachers</h5>
+        <p class="mb-1">Mr. Omondi (Patron)</p>
+        <p>Ms. Achieng</p>
+      </div>
+
+      <!-- Resources -->
+      <div class="glass-card p-3 text-dark">
+        <h5 class="fw-bold">Resources</h5>
+        <ul class="list-unstyled mb-0">
+          <li><a href="/downloads/scouts-handbook.pdf" class="btn btn-outline-light btn-sm mb-2 w-100">Scouts Handbook</a></li>
+          <li><a href="/downloads/first-aid.pdf" class="btn btn-outline-light btn-sm w-100">First Aid Guide</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Right Column: About, Gallery, Events, Upload -->
+    <div class="col-lg-8">
+      <!-- About -->
+      <h3>About Us</h3>
+      <p class="lead">Leadership training, camping, first aid, community service, and outdoor adventures. We build character and resilience.</p>
+
+      <!-- Gallery -->
+      <h3 class="mt-5">Gallery – 2024/2025</h3>
+      <div class="row g-3" data-fancybox="scouts-gallery">
+        <div class="col-6 col-md-4"><a href="/assets/gallery/scouts1.jpg"><img src="/assets/gallery/scouts1.jpg" class="img-fluid rounded"></a></div>
+        <div class="col-6 col-md-4"><a href="/assets/gallery/scouts2.jpg"><img src="/assets/gallery/scouts2.jpg" class="img-fluid rounded"></a></div>
+        <div class="col-6 col-md-4"><a href="/assets/gallery/scouts3.jpg"><img src="/assets/gallery/scouts3.jpg" class="img-fluid rounded"></a></div>
+      </div>
+
+      <!-- Upcoming Events -->
+      <h3 class="mt-5">Upcoming Events</h3>
+      <div id="scoutsEvents" class="row g-3">
+        <!-- JS will inject upcoming events for this club -->
+      </div>
+
+      <!-- File Upload / Submissions -->
+      <h3 class="mt-5">Upload Camp Photos</h3>
+      <label class="fake-upload d-block text-center">
+        Drag & Drop photos here or click to upload
+        <input type="file" multiple accept="image/*" hidden onchange="alert('Photos uploaded!')">
+      </label>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Inject club-specific upcoming events
+  const scoutsEventsContainer = document.getElementById('scoutsEvents');
+  if (typeof EVENTS !== 'undefined') {
+    const scoutsEvents = EVENTS.filter(ev => ev.club.toLowerCase() === 'scouts & girl guides');
+    if (scoutsEvents.length === 0) {
+      scoutsEventsContainer.innerHTML = '<p class="text-muted">No upcoming events.</p>';
+    } else {
+      scoutsEventsContainer.innerHTML = scoutsEvents.map(ev => `
+        <div class="col-md-6">
+          <div class="event-card p-3">
+            <h5>${ev.title}</h5>
+            <p class="small opacity-80">${ev.date}</p>
+            <p>${ev.description}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+  }
+</script>
