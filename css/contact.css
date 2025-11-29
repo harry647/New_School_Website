@@ -1,1152 +1,359 @@
-/* ==============================
-   CONTACT US PAGE – Stunning & Professional CSS (2026+)
-   Fully dynamic, elegant, and future-proof
-============================== */
+/* ==================================================
+   CONTACT PAGE – BAR UNION MIXED SECONDARY SCHOOL
+   FINAL 2025–2026 ULTRA-PREMIUM EDITION
+   100% matches your contact.html – Pixel-perfect & Mobile-First
+================================================== */
+
+:root {
+  --blue: #0175C2;
+  --blue-dark: #0b2d5e;
+  --gold: #ffd700;
+  --gold-light: #ffed4e;
+  --gray: #555;
+  --gray-light: #777;
+  --light: #f8fafc;
+  --radius: 32px;
+  --shadow-sm: 0 12px 35px rgba(0,0,0,0.1);
+  --shadow-md: 0 20px 50px rgba(0,0,0,0.15);
+  --shadow-lg: 0 35px 80px rgba(0,0,0,0.22);
+  --transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
 /* ==================================
-   1. Page Hero – Ultra Modern Glassmorphism
+   Global
 ================================== */
-.contact-hero {
-    position: relative;
-    min-height: 90vh;
-    background: linear-gradient(180deg, rgba(0,0,0,0.75), rgba(0,0,0,0.92)),
-                url('/assets/images/hero-bg.jpg') center/cover no-repeat fixed;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #fff;
-    overflow: hidden;
-    padding: 0 2rem;
+body.page-contact {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.75;
+  color: #333;
+  background: white;
 }
-
-/* Cinematic blur layer */
-.contact-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: inherit;
-    filter: blur(3px) brightness(0.95);
-    z-index: -1;
+.container {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
-
-/* Soft blue glow behind text */
-.contact-hero::after {
-    content: '';
-    position: absolute;
-    width: 450px;
-    height: 450px;
-    background: radial-gradient(circle, rgba(0,123,255,0.4), transparent 70%);
-    filter: blur(60px);
-    z-index: -1;
-    animation: glowPulse 8s infinite alternate ease-in-out;
-}
-
-/* Hero Title */
-.contact-hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3.2rem, 8vw, 6.5rem);
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    letter-spacing: -1px;
-    line-height: 1.1;
-    text-shadow: 0 12px 40px rgba(0,0,0,0.85);
-    opacity: 0;
-    transform: translateY(25px);
-    animation: fadeUp 1.2s forwards ease-out;
-}
-
-/* Hero Subtext */
-.contact-hero p {
-    font-size: clamp(1.15rem, 2.5vw, 1.55rem);
-    max-width: 950px;
-    margin: 1.5rem auto;
-    line-height: 1.9;
-    font-weight: 500;
-    color: #e8e8e8;
-    opacity: 0;
-    transform: translateY(25px);
-    animation: fadeUp 1.2s forwards ease-out;
-    animation-delay: 0.4s;
-}
-
-/* Glassmorphic CTA */
-.contact-hero .btn {
-    margin-top: 2.8rem;
-    padding: 1.2rem 3.5rem;
-    font-size: 1.3rem;
-    border-radius: 50px;
-    font-weight: 600;
-    background: rgba(255,255,255,0.12);
-    color: #fff;
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
-    border: 1px solid rgba(255,255,255,0.25);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-    opacity: 0;
-    transform: translateY(25px);
-    animation: fadeUp 1.2s forwards ease-out;
-    animation-delay: 0.7s;
-    transition: all 0.4s ease;
-}
-
-/* Hover Glow */
-.contact-hero .btn:hover {
-    background: rgba(255,255,255,0.25);
-    color: #007bff;
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 25px 50px rgba(0,123,255,0.45);
-}
-
-/* Animations */
-@keyframes fadeUp {
-    0% {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes glowPulse {
-    0% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 0.55;
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(1.35);
-        opacity: 0.8;
-    }
-}
-
-/* Mobile Styling */
-@media (max-width: 600px) {
-    .contact-hero h1 {
-        font-size: clamp(2.2rem, 10vw, 4rem);
-    }
-    .contact-hero p {
-        font-size: clamp(1rem, 3.2vw, 1.25rem);
-    }
-    .contact-hero .btn {
-        padding: 1.1rem 2.8rem;
-        font-size: 1.15rem;
-    }
-}
-
 
 /* ==================================
-   CONTACT US SECTION – ULTRA LUXURY CINEMATIC 2025 DESIGN
-   Works 100% with your current HTML
+   1. Hero – Below Fixed Header
 ================================== */
-
-/* Section Titles – Epic & Emotional */
-.section-title {
-    text-align: center;
-    margin-bottom: 6rem;
-    position: relative;
-    z-index: 2;
+.page-hero.contact-hero {
+  min-height: calc(100vh - 90px);
+  margin-top: 90px;
+  background: linear-gradient(135deg, rgba(11,45,94,0.97), rgba(1,117,194,0.91)),
+              url('/assets/images/contact-hero.jpg') center/cover no-repeat fixed;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero.contact-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 35%, rgba(0,0,0,0.7));
+}
+.page-hero.contact-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.8rem, 9vw, 7.2rem);
+  font-weight: 900;
+  margin: 0 0 1.8rem;
+  background: linear-gradient(135deg, white, #f0f9ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 15px 50px rgba(0,0,0,0.8);
+}
+.page-hero.contact-hero p {
+  font-size: clamp(1.3rem, 3.2vw, 1.8rem);
+  max-width: 960px;
+  opacity: 0.96;
+  line-height: 1.9;
+  margin: 1.4rem auto;
 }
 
-.section-title h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3.5rem, 8vw, 6rem);
-    font-weight: 900;
-    margin: 0;
-    background: linear-gradient(90deg, 
-        #7c3aed, #a855f7, #d946ef, #ec4899, 
-        #f43f5e, #3b82f6, #06b6d4);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1.1;
-    position: relative;
-    display: inline-block;
+/* ==================================
+   2. Contact Info + Map – #contact
+================================== */
+#contact {
+  padding: 130px 0;
+  background: #f8fbff;
 }
-
-.section-title h2::after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 180px;
-    height: 8px;
-    background: linear-gradient(90deg, #7c3aed, #ec4899, #06b6d4);
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(124, 58, 237, 0.5);
-    animation: pulseLine 4s ease-in-out infinite;
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 5.5rem;
+  align-items: start;
+  margin-top: 4rem;
 }
-
-@keyframes pulseLine {
-    0%, 100% { width: 180px; opacity: 0.8; }
-    50% { width: 240px; opacity: 1; }
-}
-
-.section-title p {
-    font-size: 1.4rem;
-    color: #475569;
-    max-width: 900px;
-    margin: 3rem auto 0;
-    line-height: 1.9;
-    font-weight: 500;
-    background: rgba(255, 255, 255, 0.7);
-    padding: 1.8rem 3rem;
-    border-radius: 24px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-}
-
-/* Contact Grid – Perfect Balance */
-#contactInfo {
-    display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: 5rem;
-    align-items: start;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-/* Contact Info Card – Glassmorphic Luxury */
-.contact-info {
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border-radius: 36px;
-    padding: 4rem 3.5rem;
-    box-shadow: 
-        0 30px 80px rgba(0,0,0,0.12),
-        0 0 0 1px rgba(255,255,255,0.6),
-        inset 0 1px 0 rgba(255,255,255,0.8);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.7s ease;
-}
-
-.contact-info::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, 
-        rgba(124, 58, 237, 0.1), 
-        rgba(236, 72, 153, 0.08), 
-        rgba(59, 130, 246, 0.1));
-    border-radius: 36px;
-    z-index: -1;
-}
-
-.contact-info:hover {
-    transform: translateY(-15px);
-    box-shadow: 
-        0 50px 120px rgba(124,58,237,0.28),
-        0 0 80px rgba(236,72,153,0.25);
-}
-
 .contact-info h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 3.2rem;
-    font-weight: 800;
-    margin-bottom: 2rem;
-    background: linear-gradient(135deg, #7c3aed, #ec4899);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6vw, 4rem);
+  color: var(--blue-dark);
+  margin-bottom: 2.2rem;
+  position: relative;
 }
-
-.contact-info > p {
-    font-size: 1.25rem;
-    line-height: 1.9;
-    color: #334155;
-    margin-bottom: 3rem;
-    font-weight: 500;
+.contact-info h2::after {
+  content: '';
+  position: absolute;
+  bottom: -20px; left: 0;
+  width: 140px; height: 8px;
+  background: linear-gradient(90deg, var(--blue-dark), var(--blue));
+  border-radius: 6px;
 }
-
-/* Contact Items – Elegant & Animated */
+.contact-info p {
+  font-size: 1.18rem;
+  color: var(--gray);
+  line-height: 1.95;
+  margin-bottom: 2.5rem;
+}
 .contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 2rem;
-    padding: 1.8rem 0;
-    border-bottom: 1px dashed rgba(139,92,246,0.2);
-    transition: all 0.5s ease;
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  padding: 2rem;
+  background: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
 }
-
-.contact-item:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-}
-
 .contact-item:hover {
-    transform: translateX(10px);
-    border-color: #7c3aed;
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-lg);
 }
-
 .contact-item i {
-    font-size: 3rem;
-    min-width: 70px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #7c3aed, #ec4899, #06b6d4);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    filter: drop-shadow(0 10px 20px rgba(124,58,237,0.4));
-    transition: all 0.6s ease;
+  font-size: 2.8rem;
+  color: var(--blue);
+  min-width: 70px;
+  height: 70px;
+  background: white;
+  border: 4px solid var(--blue);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 10px 30px rgba(1,117,194,0.2);
 }
-
-.contact-item:hover i {
-    transform: scale(1.2) rotate(15deg);
-    filter: drop-shadow(0 0 30px rgba(124,58,237,0.7));
-}
-
 .contact-item h4 {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #1e293b;
-    margin: 0 0 0.8rem;
+  font-size: 1.6rem;
+  color: var(--blue-dark);
+  margin: 0 0 1rem;
+  font-weight: 800;
 }
-
-.contact-item p {
-    margin: 0;
-    font-size: 1.15rem;
-    line-height: 1.7;
-    color: #475569;
-    font-weight: 500;
-}
-
+.contact-item p,
 .contact-item a {
-    color: #7c3aed;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.4s;
+  font-size: 1.12rem;
+  color: var(--gray);
+  line-height: 1.8;
+  margin: 0.4rem 0;
 }
-
+.contact-item a {
+  color: var(--blue);
+  text-decoration: none;
+  font-weight: 600;
+}
 .contact-item a:hover {
-    color: #ec4899;
-    text-decoration: underline;
-    text-underline-offset: 4px;
+  color: var(--blue-dark);
+  text-decoration: underline;
 }
 
-/* Social Links – Glowing Orbs */
+/* Social Links */
 .social-links-contact {
-    margin-top: 3rem;
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  justify-content: center;
 }
-
 .social-links-contact a {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #7c3aed, #ec4899);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.6rem;
-    transition: all 0.5s ease;
-    box-shadow: 0 10px 30px rgba(124,58,237,0.4);
+  width: 60px;
+  height: 60px;
+  background: var(--blue);
+  color: white;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.8rem;
+  transition: var(--transition);
+  box-shadow: 0 10px 30px rgba(1,117,194,0.3);
 }
-
 .social-links-contact a:hover {
-    transform: translateY(-12px) scale(1.15);
-    box-shadow: 0 20px 50px rgba(124,58,237,0.6);
-    background: linear-gradient(135deg, #ec4899, #f43f5e);
+  transform: translateY(-10px) scale(1.15);
+  background: var(--blue-dark);
+  box-shadow: 0 20px 50px rgba(1,117,194,0.5);
 }
 
-/* Google Map – Premium Frame */
+/* Google Map */
 .contact-map iframe {
-    width: 100%;
-    height: 560px;
-    border-radius: 36px;
-    border: 8px solid rgba(255,255,255,0.9);
-    box-shadow: 
-        0 30px 80px rgba(0,0,0,0.18),
-        0 0 60px rgba(124,58,237,0.2);
-    transition: all 0.6s ease;
-}
-
-.contact-map iframe:hover {
-    transform: scale(1.02);
-    box-shadow: 0 40px 100px rgba(124,58,237,0.35);
-}
-
-/* Responsive Perfection */
-@media (max-width: 992px) {
-    #contactInfo {
-        grid-template-columns: 1fr;
-        gap: 4rem;
-    }
-    .contact-map iframe {
-        height: 450px;
-    }
-}
-
-@media (max-width: 768px) {
-    .contact-info {
-        padding: 3rem 2.5rem;
-    }
-    .contact-item {
-        flex-direction: column;
-        text-align: center;
-        gap: 1.5rem;
-    }
-    .contact-item i {
-        margin: 0 auto;
-    }
-    .social-links-contact {
-        justify-content: center;
-    }
+  width: 100%;
+  height: 520px;
+  border-radius: var(--radius);
+  border: 8px solid white;
+  box-shadow: var(--shadow-lg);
 }
 
 /* ==================================
-   CONTACT FORM – PERFECT ALIGNMENT + CINEMATIC LUXURY 2025
-   Works 100% with your current HTML
+   3. Contact Form – #contactForm
 ================================== */
-
 #contactForm {
-    padding: 10rem 0 12rem;
-    position: relative;
-    overflow: hidden;
-    background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 50%, #e0e7ff 100%);
+  background: linear-gradient(135deg, #f0f5ff 0%, #e0eaff 100%);
+  padding: 140px 0;
 }
-
-/* Floating Orbs – Subtle Magic */
-#contactForm::before,
-#contactForm::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #7c3aed, #ec4899, #06b6d4);
-    filter: blur(140px);
-    opacity: 0.16;
-    z-index: 0;
-}
-#contactForm::before { width: 700px; height: 700px; top: -15%; left: -15%; }
-#contactForm::after  { width: 600px; height: 600px; bottom: -20%; right: -10%; animation-delay: 8s; }
-@keyframes floatOrb { 0% { transform: translate(0,0); } 100% { transform: translate(100px,-100px); } }
-#contactForm::before, #contactForm::after { animation: floatOrb 30s ease-in-out infinite alternate; }
-
-/* Section Title – Grand & Centered */
-#contactForm .section-title {
-    margin-bottom: 5rem;
-}
-#contactForm .section-title h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3.5rem, 8vw, 5.5rem);
-    font-weight: 900;
-    background: linear-gradient(90deg, #7c3aed, #d946ef, #ec4899, #3b82f6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 1.5rem;
-}
-#contactForm .section-title p {
-    font-size: 1.35rem;
-    color: #475569;
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.9;
-}
-
-/* Glassmorphic Form Card – Floating Luxury */
 #contactForm .form-wrapper {
-    position: relative;
-    z-index: 2;
-    max-width: 1200px;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    border-radius: 44px;
-    padding: 5rem 5.5rem;
-    box-shadow: 
-        0 40px 100px rgba(0,0,0,0.14),
-        0 0 0 1px rgba(255,255,255,0.7),
-        inset 0 2px 0 rgba(255,255,255,0.9);
-    border: 1px solid rgba(255,255,255,0.8);
-    transition: all 0.8s ease;
+  background: rgba(255,255,255,0.97);
+  padding: 6rem 6.5rem;
+  border-radius: 42px;
+  max-width: 1300px;
+  margin: 0 auto;
+  box-shadow: 0 35px 90px rgba(0,0,0,0.12), 0 0 80px rgba(1,117,194,0.18);
+  border: 1px solid rgba(1,117,194,0.15);
+  position: relative;
+  overflow: hidden;
+}
+#contactForm .form-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 12px;
+  background: linear-gradient(90deg, var(--blue-dark), var(--blue), var(--gold));
+  border-radius: 42px 42px 0 0;
 }
 
-#contactForm .form-wrapper:hover {
-    transform: translateY(-20px);
-    box-shadow: 0 60px 140px rgba(124,58,237,0.3);
-}
-
-/* Form Grid – Perfect Spacing & Alignment */
 .contact-form .form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 2.8rem 3rem;
-    align-items: end;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 2.8rem;
+  margin-bottom: 3.8rem;
 }
 
-/* Full-width fields */
-.contact-form .form-group.full {
-    grid-column: 1 / -1;
+.form-group label {
+  display: block;
+  font-weight: 700;
+  color: var(--blue-dark);
+  margin-bottom: 1rem;
+  font-size: 1.18rem;
 }
 
-/* Form Group – Clean & Modern */
-.contact-form .form-group {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 1.6rem 2rem;
+  border: 2px solid #dde6ff;
+  border-radius: 22px;
+  font-size: 1.12rem;
+  background: #f9fbff;
+  transition: var(--transition);
 }
 
-/* Labels – Floating & Elegant */
-.contact-form label {
-    font-weight: 700;
-    color: #1e293b;
-    margin-bottom: 1rem;
-    font-size: 1.15rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--blue);
+  background: white;
+  box-shadow: 0 0 0 6px rgba(1,117,194,0.17);
+  transform: translateY(-2px);
 }
 
-/* Inputs & Selects – Perfectly Aligned */
-.contact-form input,
-.contact-form select,
-.contact-form textarea {
-    width: 100%;
-    padding: 1.6rem 2rem;
-    border: 2px solid rgba(139, 92, 246, 0.25);
-    border-radius: 24px;
-    background: rgba(255, 255, 255, 0.98);
-    font-size: 1.1rem;
-    font-family: 'Inter', sans-serif;
-    transition: all 0.5s ease;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+.contact-form button {
+  margin: 4rem auto 0;
+  display: block;
+  padding: 1.7rem 6.7rem;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  color: white;
+  border: none;
+  border-radius: 75px;
+  font-size: 1.38rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 22px 65px rgba(1,117,194,0.5);
+  transition: var(--transition);
 }
-
-.contact-form input:focus,
-.contact-form select:focus,
-.contact-form textarea:focus {
-    outline: none;
-    border-color: #7c3aed;
-    background: #fff;
-    transform: translateY(-6px);
-    box-shadow: 
-        0 0 0 5px rgba(124, 58, 237, 0.25),
-        0 25px 50px rgba(124, 58, 237, 0.2);
-}
-
-/* Textarea */
-.contact-form textarea {
-    min-height: 180px;
-    resize: vertical;
-}
-
-/* File Upload – Beautiful Drop Zone */
-.contact-form input[type="file"] {
-    padding: 3rem 2rem;
-    border: 3px dashed rgba(124, 58, 237, 0.4);
-    background: linear-gradient(135deg, rgba(124,58,237,0.06), rgba(236,72,153,0.06));
-    text-align: center;
-    font-weight: 600;
-    color: #7c3aed;
-    cursor: pointer;
-    border-radius: 28px;
-    transition: all 0.5s ease;
-}
-
-.contact-form input[type="file"]:hover {
-    border-color: #ec4899;
-    background: linear-gradient(135deg, rgba(236,72,153,0.15), rgba(124,58,237,0.15));
-    transform: translateY(-8px);
-}
-
-.contact-form input[type="file"]::file-selector-button {
-    background: linear-gradient(135deg, #7c3aed, #ec4899);
-    color: white;
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 20px;
-    font-weight: 700;
-    margin-right: 1.5rem;
-    cursor: pointer;
-    transition: 0.4s;
-}
-
-.contact-form input[type="file"]::file-selector-button:hover {
-    background: linear-gradient(135deg, #ec4899, #f43f5e);
-}
-
-/* Form Notes – Clean & Aligned */
-.contact-form .form-note {
-    margin-top: 1rem;
-    font-size: 0.98rem;
-    color: #64748b;
-    font-style: italic;
-    line-height: 1.6;
-    padding-left: 0.5rem;
-}
-
-/* File Preview – Elegant Chips */
-#filePreview {
-    margin-top: 1.5rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.file-preview .file-item {
-    background: linear-gradient(135deg, #fefce8, #fffbeb);
-    color: #854d0e;
-    padding: 1rem 1.6rem;
-    border-radius: 20px;
-    font-size: 1rem;
-    font-weight: 600;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 8px 25px rgba(251, 191, 36, 0.25);
-    border: 1px solid rgba(251, 191, 36, 0.3);
-    animation: popIn 0.5s ease;
-}
-
-/* Submit Button – Cinematic Masterpiece */
-.contact-form .text-center button {
-    margin: 4rem auto 0;
-    display: block;
-    min-width: 320px;
-    padding: 1.8rem 5rem;
-    background: linear-gradient(135deg, #7c3aed, #ec4899, #06b6d4);
-    background-size: 200% 200%;
-    color: white;
-    border: none;
-    border-radius: 60px;
-    font-size: 1.5rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    cursor: pointer;
-    box-shadow: 0 25px 60px rgba(124,58,237,0.5);
-    transition: all 0.6s ease;
-    position: relative;
-    overflow: hidden;
-}
-
 .contact-form button:hover {
-    transform: translateY(-12px) scale(1.05);
-    background-position: 100% 0;
-    box-shadow: 0 35px 80px rgba(124,58,237,0.7);
-}
-
-.contact-form button:active::before {
-    content: '';
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 0; height: 0;
-    background: rgba(255,255,255,0.4);
-    border-radius: 50%;
-    transform: translate(-50%,-50%);
-    animation: ripple 0.8s ease-out;
-}
-
-@keyframes ripple {
-    to { width: 500px; height: 500px; opacity: 0; }
-}
-
-/* Bottom Note */
-.contact-form .form-note.text-center {
-    margin-top: 2.5rem;
-    font-size: 1.1rem;
-    color: #475569;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.8;
-}
-
-/* Responsive – Perfect on All Devices */
-@media (max-width: 992px) {
-    .contact-form .form-grid {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-    }
-}
-
-@media (max-width: 768px) {
-    #contactForm .form-wrapper {
-        padding: 4rem 2.5rem;
-        margin: 0 1.5rem;
-        border-radius: 32px;
-    }
-    .contact-form button {
-        width: 100%;
-        padding: 1.8rem;
-    }
+  transform: translateY(-12px);
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--blue-dark);
+  box-shadow: 0 35px 85px rgba(255,215,0,0.55);
 }
 
 /* ==================================
-   FAQ SECTION – FINAL CINEMATIC LUXURY 2025 DESIGN
-   100% working with your exact HTML structure
+   4. FAQ – #faq
 ================================== */
-
-#faq {
-    padding: 10rem 0 12rem;
-    position: relative;
-    background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 50%, #e0e7ff 100%);
-    overflow: hidden;
+#faq .faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 3.5rem;
+  margin: 5rem auto 0;
 }
-
-/* Floating Background Orbs */
-#faq::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(circle at 15% 85%, rgba(139,92,246,0.15) 0%, transparent 50%),
-        radial-gradient(circle at 85% 15%, rgba(236,72,153,0.12) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(59,130,246,0.08) 0%, transparent 60%);
-    animation: breathe 22s ease-in-out infinite alternate;
-    pointer-events: none;
-    z-index: 0;
-}
-@keyframes breathe {
-    0% { opacity: 0.7; transform: scale(1); }
-    100% { opacity: 1; transform: scale(1.06); }
-}
-
-/* Title – Epic & Centered */
-#faq .section-title h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3.8rem, 8vw, 6rem);
-    font-weight: 900;
-    background: linear-gradient(90deg, #7c3aed, #c084fc, #ec4899, #3b82f6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 1.8rem;
-    text-align: center;
-}
-#faq .section-title p {
-    font-size: 1.4rem;
-    color: #475569;
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.9;
-    text-align: center;
-    padding: 1.5rem 2rem;
-    background: rgba(255,255,255,0.7);
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-}
-
-/* FAQ Grid */
-.faq-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-    gap: 3rem;
-    margin-top: 3rem;
-    position: relative;
-    z-index: 2;
-}
-
-/* FAQ Card – Glassmorphic Perfection */
 .faq-item {
-    background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(26px);
-    -webkit-backdrop-filter: blur(26px);
-    border-radius: 36px;
-    overflow: hidden;
-    box-shadow:
-        0 25px 60px rgba(0,0,0,0.1),
-        0 0 0 1px rgba(255,255,255,0.6),
-        inset 0 1px 0 rgba(255,255,255,0.8);
-    border: 1px solid rgba(255,255,255,0.7);
-    transition: all 0.7s cubic-bezier(0.23,1,.32,1);
-    position: relative;
-    cursor: pointer;
+  background: white;
+  border-radius: var(--radius);
+  padding: 3rem;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
 }
-
-/* Glowing Top Bar */
-.faq-item::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 7px;
-    background: linear-gradient(90deg, #7c3aed, #ec4899, #06b6d4);
-    background-size: 300% 100%;
-    border-radius: 36px 36px 0 0;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-    animation: shimmer 6s linear infinite paused;
+.faq-item:hover {
+  transform: translateY(-16px);
+  box-shadow: var(--shadow-lg);
 }
-
-.faq-item:hover::before,
-.faq-item.active::before {
-    opacity: 1;
-    animation-play-state: running;
-}
-
-@keyframes shimmer {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 300% 50%; }
-}
-
-/* Hover & Active Lift */
-.faq-item:hover,
-.faq-item.active {
-    transform: translateY(-18px) scale(1.02);
-    box-shadow:
-        0 40px 100px rgba(124,58,237,0.3),
-        0 0 80px rgba(236,72,153,0.25);
-}
-
-/* Question – Perfect Alignment & Interaction */
 .faq-question {
-    padding: 2.6rem 3.2rem;
-    margin: 0;
-    font-size: 1.48rem;
-    font-weight: 700;
-    color: #1e293b;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(248,250,252,.95));
-    transition: all 0.5s ease;
-    user-select: none;
-    position: relative;
-    z-index: 2;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+  margin: 0 0 1.2rem;
+  cursor: pointer;
 }
-
-.faq-question:hover {
-    color: #7c3aed;
-    background: rgba(255,255,255,0.98);
-}
-
-/* Toggle Icon – Elegant Plus/Minus */
-.faq-question::after {
-    content: '+';
-    font-size: 2.8rem;
-    font-weight: 300;
-    color: #7c3aed;
-    width: 56px;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(124,58,237,0.12);
-    border-radius: 50%;
-    transition: all 0.5s ease;
-    flex-shrink: 0;
-}
-
-.faq-question.active::after {
-    content: '−';
-    background: linear-gradient(135deg, #7c3aed, #ec4899);
-    color: white;
-    transform: rotate(360deg);
-    box-shadow: 0 10px 30px rgba(124,58,237,0.4);
-}
-
-/* Answer – Smooth Expand */
 .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    transition: 
-        max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-        padding 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    background: rgba(255, 255, 255, 0.98);
-}
-
-.faq-answer.open {
-    max-height: 2000px; /* More than enough */
-    padding: 3.2rem 3.2rem 3.8rem;
-    border-top: 1px solid rgba(139,92,246,0.18);
-}
-
-/* Answer Text – Perfectly Aligned */
-.faq-answer p,
-.faq-answer ul,
-.faq-answer ol {
-    margin: 0 0 1.6rem;
-    font-size: 1.18rem;
-    line-height: 1.9;
-    color: #334155;
-    font-weight: 500;
-}
-
-.faq-answer ul,
-.faq-answer ol {
-    padding-left: 1.8rem;
-    margin: 1.2rem 0;
-}
-
-.faq-answer li {
-    margin: 0.9rem 0;
-    padding-left: 0.5rem;
-}
-
-.faq-answer a {
-    color: #7c3aed;
-    font-weight: 600;
-    text-decoration: none;
-    border-bottom: 2px solid transparent;
-    transition: 0.3s;
-}
-
-.faq-answer a:hover {
-    color: #ec4899;
-    border-color: #ec4899;
-}
-
-/* Active Glow */
-.faq-item.active {
-    box-shadow:
-        0 35px 90px rgba(124,58,237,0.32),
-        0 0 70px rgba(236,72,153,0.2);
-}
-
-/* Responsive */
-@media (max-width: 992px) {
-    .faq-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 640px) {
-    .faq-question {
-        padding: 2.2rem;
-        font-size: 1.35rem;
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-    }
-    .faq-question::after {
-        position: absolute;
-        right: 2rem;
-        top: 2rem;
-    }
-    .faq-answer.open {
-        padding: 2.8rem 2.2rem;
-    }
-}
-
-@media (max-width: 640px) {
-    .faq-question {
-        padding: 2.2rem 2.4rem;
-        font-size: 1.38rem;
-        flex-direction: column;
-        text-align: center;
-        gap: 1.2rem;
-    }
-    .faq-question::after {
-        position: absolute;
-        right: 2rem;
-        top: 2rem;
-    }
-    .faq-answer.open {
-        padding: 2.8rem 2.4rem;
-    }
+  color: var(--gray);
+  line-height: 1.9;
+  font-size: 1.1rem;
 }
 
 /* ==================================
-   QUICK STATS BANNER – ULTRA LUXURY CINEMATIC 2025 DESIGN
-   Works 100% with your HTML (id="contactStats")
+   5. Stats Banner
 ================================== */
-
-.bg-primary.text-white {
-    padding: 10rem 0 12rem;
-    position: relative;
-    background: linear-gradient(135deg, 
-        #0f172a 0%, 
-        #1e293b 30%, 
-        #334155 60%, 
-        #475569 100%);
-    overflow: hidden;
-}
-
-/* Floating Gradient Orbs + Stars */
-.bg-primary.text-white::before,
-.bg-primary.text-white::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(139,92,246,0.4), transparent 70%);
-    filter: blur(100px);
-    z-index: 0;
-    animation: floatGlow 20s ease-in-out infinite alternate;
-}
-.bg-primary.text-white::before {
-    width: 800px; height: 800px;
-    top: -20%; left: -20%;
-}
-.bg-primary.text-white::after {
-    width: 600px; height: 600px;
-    bottom: -15%; right: -15%;
-    animation-delay: 8s;
-}
-@keyframes floatGlow {
-    0% { transform: translate(0,0) scale(1); }
-    100% { transform: translate(80px,-80px) scale(1.1); }
-}
-
-
-
-/* ==================================
-   QUICK STATS BANNER – FINAL CINEMATIC LUXURY 2025
-   100% visible + animated + stunning on all devices
-================================== */
-
-/* Main Section */
-.bg-primary.text-white {
-    padding: 11rem 0 13rem;
-    position: relative;
-    background: linear-gradient(135deg, 
-        #0f172a 0%, 
-        #1e293b 35%, 
-        #334155 65%, 
-        #475569 100%);
-    overflow: hidden;
-}
-
-/* Floating Magic Orbs */
-.bg-primary.text-white::before,
-.bg-primary.text-white::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(139,92,246,0.5), transparent 70%);
-    filter: blur(120px);
-    z-index: 0;
-    animation: floatGlow 22s ease-in-out infinite alternate;
-}
-.bg-primary.text-white::before {
-    width: 900px; height: 900px;
-    top: -25%; left: -20%;
-}
-.bg-primary.text-white::after {
-    width: 700px; height: 700px;
-    bottom: -20%; right: -15%;
-    animation-delay: 10s;
-}
-@keyframes floatGlow {
-    0% { transform: translate(0,0) scale(1); }
-    100% { transform: translate(100px,-100px) scale(1.1); }
-}
-
-/* ==================================
-   Clean Modern Stats Grid (white text on colored background)
-================================== */
-
-/* Grid Layout */
 #contactStats.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 2.5rem;
-    padding: 2rem 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2.5rem;
+  padding: 4rem 0;
 }
-
-/* Stat Card — Minimal & Clear */
 #contactStats .stat {
-    text-align: center;
-    padding: 2rem 1rem;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.08); /* gentle contrast */
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  padding: 2.5rem;
 }
-
-/* Hover Effect */
-#contactStats .stat:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
-}
-
-/* Stat Number */
 #contactStats .stat h3 {
-    font-size: clamp(2.5rem, 6vw, 3.5rem);
-    font-weight: 800;
-    margin: 0;
-    color: #ffffff;
-    letter-spacing: -1px;
+  font-size: 4.2rem;
+  font-weight: 900;
+  color: var(--gold);
+  margin: 0;
 }
-
-/* Stat Label */
 #contactStats .stat p {
-    font-size: 1.1rem;
-    font-weight: 500;
-    margin-top: 0.8rem;
-    opacity: 0.95;
-}
-
-/* Fade-in Animation */
-.fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.9s ease forwards;
-}
-
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    #contactStats.stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.8rem;
-    }
-}
-
-@media (max-width: 576px) {
-    #contactStats.stats-grid {
-        grid-template-columns: 1fr;
-    }
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  opacity: 0.95;
 }
 
 /* ==================================
-   7. Back to Top Button – Floating & Elegant
+   6. RESPONSIVE – FLAWLESS
 ================================== */
-#backToTop {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    background: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    font-size: 1.8rem;
-    cursor: pointer;
-    box-shadow: 0 10px 30px rgba(0,123,255,0.4);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.4s ease;
-    z-index: 999;
-}
-#backToTop.visible {
-    opacity: 1;
-    visibility: visible;
-}
-#backToTop:hover {
-    background: #0056b3;
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0,123,255,0.5);
-}
-
-/* ==================================
-   8. Responsive Perfection
-================================== */
-@media (max-width: 1024px) {
-    #contactInfo { grid-template-columns: 1fr; }
-    .contact-map iframe { height: 400px; }
+@media (max-width: 992px) {
+  .page-hero.contact-hero { min-height: calc(100vh - 80px); margin-top: 80px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 4rem; }
 }
 @media (max-width: 768px) {
-    #faqList { grid-template-columns: 1fr; }
-    .contact-info { padding: 2rem; }
+  .contact-grid,
+  .grid-3,
+  #contactStats.stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .contact-map iframe { height: 400px; }
 }
-@media (max-width: 576px) {
-    .contact-hero { min-height: 75vh; }
-    .form-wrapper { padding: 2rem; }
-    #backToTop { width: 50px; height: 50px; font-size: 1.5rem; }
+@media (max-width: 640px) {
+  .page-hero.contact-hero { min-height: calc(100vh - 70px); margin-top: 70px; }
+  .form-wrapper { padding: 3.5rem 2.2rem; }
+  .contact-item { flex-direction: column; text-align: center; }
+  .contact-item i { margin-bottom: 1.5rem; }
 }

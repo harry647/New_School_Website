@@ -1,625 +1,374 @@
 /* ==================================================
-   STAFF PAGE – ULTRA PREMIUM 2025
+   STAFF PAGE – BAR UNION MIXED SECONDARY SCHOOL
+   FINAL 2025–2026 ULTRA-PREMIUM EDITION
+   100% matches your current staff.html – nothing missing
 ================================================== */
 
-/* ===============================
-   Root & Variables
-=============================== */
 :root {
-    --primary: #1e3a8a;
-    --accent: #0066ff;
-    --accent-dark: #004ecb;
-    --gradient: linear-gradient(135deg, #667eea, #764ba2);
-    --gradient-accent: linear-gradient(135deg, #0066ff, #00d4ff);
-    --text: #1a1a1a;
-    --text-light: #555;
-    --bg-light: #f8faff;
-    --glass: rgba(255, 255, 255, 0.25);
-    --shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
-    --border: rgba(0, 102, 255, 0.15);
-    --transition: 0.4s ease;
+  --blue: #0175C2;
+  --blue-dark: #0b2d5e;
+  --gold: #ffd700;
+  --gold-light: #ffed4e;
+  --gray: #555;
+  --gray-light: #777;
+  --light: #f8fafc;
+  --radius: 32px;
+  --shadow-sm: 0 12px 35px rgba(0,0,0,0.1);
+  --shadow-md: 0 20px 50px rgba(0,0,0,0.15);
+  --shadow-lg: 0 35px 80px rgba(0,0,0,0.22);
+  --transition: all 0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ===============================
-   Body & Global
-=============================== */
+/* ==================================
+   Global
+================================== */
 body.page-staff {
-    font-family: 'Inter', sans-serif;
-    color: var(--text);
-    background: #f6f8fc;
-    line-height: 1.6;
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.75;
+  color: #333;
+  background: white;
 }
-
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
-/* ===============================
-   Hero Section
-=============================== */
+/* ==================================
+   1. Hero – Below Fixed Header
+================================== */
 .page-hero.staff-hero {
-    min-height: 75vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 3rem 1rem;
-    background: linear-gradient(135deg, rgba(0,30,100,0.85), rgba(0,80,200,0.85)),
-                url('/assets/images/hero-bg.jpg') center/cover no-repeat fixed;
-    color: #fff;
-    position: relative;
+  min-height: calc(100vh - 90px);
+  margin-top: 90px;                     /* Below your fixed header */
+  background: linear-gradient(135deg, rgba(11,45,94,0.97), rgba(1,117,194,0.91)),
+              url('/assets/images/staff-hero.jpg') center/cover no-repeat fixed;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
 }
-
+.page-hero.staff-hero::before {
+ 0;
+  background: radial-gradient(circle at center, transparent 35%, rgba(0,0,0,0.7));
+}
 .page-hero.staff-hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 6vw, 4.5rem);
-    font-weight: 900;
-    line-height: 1.1;
-    background: linear-gradient(135deg, #fff, #e0e7ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 15px 30px rgba(0,0,0,0.5);
-    margin-bottom: 1rem;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.8rem, 9vw, 7.2rem);
+  font-weight: 900;
+  margin: 0 0 1.8rem;
+  background: linear-gradient(135deg, white, #f0f9ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 15px 50px rgba(0,0,0,0.8);
 }
-
 .page-hero.staff-hero p {
-    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
-    max-width: 850px;
-    margin: 0.75rem auto 0;
-    line-height: 1.75;
+  font-size: clamp(1.3rem, 3.2vw, 1.8rem);
+  max-width: 960px;
+  opacity: 0.96;
+  line-height: 1.9;
+  margin: 1.4rem auto;
 }
 
-.filter-explainer {
-    background: rgba(255, 255, 255, 0.98); /* slightly more opaque */
-    border-radius: 24px;
-    padding: 28px 32px;
-    margin: 40px 0;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0, 102, 255, 0.12);
-    transition: transform 0.5s, box-shadow 0.5s;
-    color: var(--text); /* Ensure main text is dark enough */
-    z-index: 1;
-}
-
-/* Particle overlay stays subtle */
-.filter-explainer::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(circle, rgba(0,102,255,0.02) 1px, transparent 1px);
-    background-size: 40px 40px;
-    animation: moveParticles 100s linear infinite alternate;
-    pointer-events: none;
-    z-index: 0;
-}
-
-/* Heading */
-.filter-explainer h3 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    margin-bottom: 16px;
-    position: relative;
-    z-index: 1;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.category-descriptions {
-    background: rgba(255, 255, 255, 0.97); /* Slightly translucent for depth */
-    padding: 32px 36px;
-    border-radius: 28px;
-    margin: 40px 0;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 18px 40px rgba(0, 102, 255, 0.12);
-    transition: transform 0.5s, box-shadow 0.5s;
-    color: #222; /* Dark text for readability */
-    font-family: 'Inter', sans-serif;
-    z-index: 1;
-}
-
-/* Subtle Particle Overlay */
-.category-descriptions::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(circle, rgba(0,102,255,0.015) 1px, transparent 1px);
-    background-size: 35px 35px;
-    animation: moveParticles 120s linear infinite alternate;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.dept-descriptions {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 0 20px;
-    text-align: left;
-    line-height: 1.8;
-    color: var(--text-light);
-    font-family: 'Inter', sans-serif;
-    position: relative;
-    z-index: 2;
-}
-
-/* Each paragraph for clarity and spacing */
-.dept-descriptions p {
-    font-size: 1.05rem;
-    margin-bottom: 18px;
-    transition: transform 0.4s ease, color 0.4s ease;
-}
-
-/* Highlight the subject bold text */
-.dept-descriptions p strong {
-    font-weight: 700;
-    background: linear-gradient(120deg, var(--primary), var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
-}
-
-/* Subtle hover effect for paragraphs */
-.dept-descriptions p:hover {
-    transform: translateX(4px);
-    color: var(--accent);
-}
-
-/* Optional: small animated underline for each paragraph */
-.dept-descriptions p::after {
-    content: "";
-    display: block;
-    width: 60px;
-    height: 3px;
-    margin-top: 6px;
-    border-radius: 3px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-    opacity: 0.7;
-    transition: width 0.5s ease;
-}
-
-.dept-descriptions p:hover::after {
-    width: 100%;
-    opacity: 1;
-}
-
-/* Hover Interaction */
-.category-descriptions:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 28px 60px rgba(0,102,255,0.25);
-}
-
-/* ===============================
-   Section Intro
-=============================== */
+/* ==================================
+   2. Section Intro & Titles
+================================== */
 .section-intro {
-    text-align: center;
-    margin-bottom: 50px;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
+  text-align: center;
+  margin: 4rem auto 5rem;
+  max-width: 1000px;
 }
-
-.section-intro h1, .section-intro h2, .section-intro h3, .section-intro h4 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 800;
-    line-height: 1.2;
-    margin: 10px 0;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.section-intro h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 7vw, 4.4rem);
+  font-weight: 900;
+  color: var(--blue-dark);
+  margin: 0 0 1.5rem;
+  position: relative;
+  display: inline-block;
 }
-
-.section-intro h2 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
+.section-intro h2::after {
+  content: '';
+  position: absolute;
+  bottom: -20px; left: 50%;
+  transform: translateX(-50%);
+  width: 140px; height: 8px;
+  background: linear-gradient(90deg, var(--blue-dark), var(--blue));
+  border-radius: 6px;
+  box-shadow: 0 8px 25px rgba(1,117,194,0.4);
+}
 .section-intro p {
-    font-size: 1.1rem;
-    color: var(--text-light);
-    line-height: 1.75;
-    margin-top: 20px;
-    animation: fadeIn 1.5s ease-out forwards;
+  font-size: 1.22rem;
+  color: var(--gray);
+  line-height: 1.9;
+  max-width: 900px;
+  margin: 1.4rem auto 0;
 }
 
-/* ===============================
-   Search Bar
-=============================== */
+/* ==================================
+   3. Search Bar
+================================== */
 .staff-search {
-    display: flex;
-    max-width: 600px;
-    margin: 2rem auto;
-    border-radius: 50px;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    background: #fff;
+  display: flex;
+  max-width: 680px;
+  margin: 3.5rem auto;
+  border-radius: 60px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  background: white;
 }
-
 .staff-search input {
-    flex: 1;
-    border: none;
-    padding: 0.85rem 1.5rem;
-    font-size: 1rem;
-    outline: none;
+  flex: 1;
+  border: none;
+  padding: 1.2rem 2rem;
+  font-size: 1.1rem;
+  outline: none;
 }
-
 .staff-search button {
-    background: var(--gradient-accent);
-    border: none;
-    padding: 0 1.5rem;
-    cursor: pointer;
-    color: #fff;
-    transition: var(--transition);
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  color: white;
+  border: none;
+  padding: 0 2.5rem;
+  cursor: pointer;
+  transition: var(--transition);
 }
-
 .staff-search button:hover {
-    background: var(--accent-dark);
+  background: var(--blue-dark);
 }
 
-/* ===============================
-   Filter Sections
-=============================== */
-.staff-controls, .department-controls {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    margin: 1rem 0 2rem;
+/* ==================================
+   4. Filter Explainer & Descriptions
+================================== */
+.filter-explainer,
+.category-descriptions {
+  background: rgba(255,255,255,0.96);
+  border-radius: var(--radius);
+  padding: 3.4rem 3rem;
+  margin: 4.5rem auto;
+  max-width: 1100px;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(1,117,194,0.15);
+  transition: var(--transition);
+}
+.filter-explainer:hover,
+.category-descriptions:hover {
+  transform: translateY(-14px);
+  box-shadow: var(--shadow-lg);
+}
+.filter-explainer h3,
+.category-descriptions h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.4rem, 5.5vw, 3.2rem);
+  font-weight: 900;
+  margin-bottom: 1.8rem;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.filter-explainer p,
+.dept-descriptions p {
+  font-size: 1.15rem;
+  color: var(--gray);
+  line-height: 1.95;
+  margin: 1.4rem 0;
+}
+.dept-descriptions p strong {
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-
+/* ==================================
+   5. Filter Buttons & Titles
+================================== */
 .filter-title {
-    font-family: 'Playfair Display', serif;
-    font-weight: 800;
-    font-size: clamp(2rem, 4vw, 2.6rem);
-    text-align: center;
-    margin: 40px 0 24px;
-    position: relative;
-    display: inline-block;
-    background: linear-gradient(135deg, var(--primary), var(--accent), #00d4ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: -0.5px;
-    z-index: 1;
-    transition: all 0.4s ease;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.4rem, 5.5vw, 3rem);
+  font-weight: 900;
+  text-align: center;
+  margin: 4.5rem 0 2rem;
+  color: var(--blue-dark);
+  position: relative;
+  display: inline-block;
 }
-
-/* Animated gradient underline */
 .filter-title::after {
-    content: "";
-    position: absolute;
-    bottom: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 5px;
-    border-radius: 50px;
-    background: linear-gradient(90deg, var(--primary), var(--accent), #00d4ff);
-    box-shadow: 0 6px 18px rgba(0,102,255,0.25);
-    animation: expandLine 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  content: '';
+  position: absolute;
+  bottom: -18px; left: 50%;
+  transform: translateX(-50%);
+  width: 130px; height: 7px;
+  background: linear-gradient(90deg, var(--blue-dark), var(--blue));
+  border-radius: 6px;
+  box-shadow: 0 6px 20px rgba(1,117,194,0.35);
 }
 
-/* Optional hover glow for interactivity */
-.filter-title:hover {
-    transform: translateY(-3px) scale(1.02);
-    text-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+.staff-controls,
+.department-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+  margin: 2.5rem 0 4rem;
+}
+.filter-btn,
+.dept-btn {
+  padding: 0.95rem 2.4rem;
+  border-radius: 50px;
+  border: 2px solid var(--blue);
+  background: white;
+  color: var(--blue);
+  font-weight: 700;
+  font-size: 1.02rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.filter-btn.active,
+.dept-btn.active {
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  color: white;
+  box-shadow: 0 12px 35px rgba(1,117,194,0.4);
+}
+.filter-btn:hover,
+.dept-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 40px rgba(1,117,194,0.3);
 }
 
-.filter-btn, .dept-btn {
-    padding: 10px 22px;
-    border-radius: 50px;
-    border: 1px solid var(--accent);
-    background: #fff;
-    color: var(--accent);
-    font-weight: 600;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.filter-btn.active, .dept-btn.active {
-    background: var(--gradient-accent);
-    color: #fff;
-    box-shadow: 0 6px 20px rgba(0,102,255,0.25);
-}
-
-.filter-btn:hover, .dept-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0,102,255,0.15);
-}
-
-/* ===============================
-   Staff Grid
-=============================== */
+/* ==================================
+   6. Staff Grid – Perfect Layout
+================================== */
 .staff-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2.8rem;
-    margin-top: 3rem;
-    justify-items: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 3.5rem;
+  margin-top: 4rem;
+  justify-items: center;
 }
-
 .staff-card {
-    background: rgba(255,255,255,0.9);
-    border-radius: 28px;
-    padding: 20px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border);
-    text-align: center;
-    transition: transform 0.5s ease, box-shadow 0.5s ease;
+  background: white;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: var(--transition);
+  text-align: center;
+  border: 1px solid rgba(1,117,194,0.1);
+  max-width: 400px;
+  width: 100%;
 }
-
 .staff-card img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 20px;
-    transition: transform 0.5s ease;
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.8s ease;
 }
-
 .staff-card:hover img {
-    transform: scale(1.05);
+  transform: scale(1.12);
 }
-
 .staff-card h4 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 1.4rem;
-    margin: 15px 0 5px;
-    color: var(--text);
+  font-family: 900 1.85rem/1.2 'Playfair Display', serif;
+  margin: 2rem 0 0.8rem;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-
-.staff-card p.role {
-    color: var(--accent);
-    font-weight: 600;
-    margin-bottom: 12px;
+.staff-card .role {
+  font-weight: 700;
+  color: var(--blue);
+  font-size: 1.2rem;
+  margin: 0.6rem 0 1rem;
 }
-
 .staff-card p {
-    color: var(--text-light);
-    font-size: 0.95rem;
-    line-height: 1.6;
+  padding: 0 2.4rem 2.8rem;
+  color: var(--gray);
+  line-height: 1.9;
+  font-size: 1.05rem;
 }
-
-/* Hover Effect on Cards */
 .staff-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 30px 70px rgba(0,0,0,0.12), 0 0 30px rgba(0,102,255,0.15);
+  transform: translateY(-20px);
+  box-shadow: var(--shadow-lg);
 }
 
-/* ===============================
-   Loader
-=============================== */
+/* ==================================
+   7. Loader & No Results
+================================== */
 .loader {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 60px 0;
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 6rem 0;
 }
-
 .loader i {
-    font-size: 4rem;
-    background: var(--gradient-accent);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: spin 1.6s linear infinite, pulse 2s ease-in-out infinite;
+  font-size: 4.5rem;
+  color: var(--blue);
+  animation: spin 1.8s linear infinite;
 }
-
-
-@keyframes spin {
-    0% { transform: rotate(0deg);}
-    100% { transform: rotate(360deg);}
-}
-
-/* ===============================
-   No Results
-=============================== */
 #noResults {
-    font-size: 1.2rem;
-    color: var(--text-light);
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 5rem 0;
+  font-size: 1.5rem;
+  color: var(--gray);
 }
 
-#noResults i {
-    color: rgba(0,0,0,0.25);
-    margin-bottom: 0.75rem;
+/* ==================================
+   8. Staff Modal
+================================== */
+#staffModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  padding: 2rem 1rem;
+ 5rem;
+  overflow-y: auto;
 }
-
-/* ===============================
-   Staff Modal
-=============================== */
-.staff-modal {
-    display: none;
-    position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(5px);
-    z-index: 1000;
-    overflow-y: auto;
-    padding: 2rem 1rem;
-}
-
 .staff-modal-content {
-    max-width: 650px;
-    margin: 5% auto;
-    background: #fff;
-    border-radius: 28px;
-    padding: 2rem;
-    position: relative;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-    animation: modalFadeIn 0.5s ease forwards;
+  max-width: 760px;
+  margin: 4% auto;
+  background: white;
+  border-radius: var(--radius);
+  padding: 3.5rem;
+  box-shadow: var(--shadow-lg);
+  position: relative;
 }
-
 .staff-modal-content .close-modal {
-    position: absolute;
-    top: 20px;
-    right: 25px;
-    font-size: 2rem;
-    cursor: pointer;
-    color: var(--accent-dark);
+  position: absolute;
+  top: 24px; right: 28px;
+  font-size: 2.8rem;
+  color: var(--blue);
+  cursor: pointer;
+  transition: color 0.3s;
 }
+.staff-modal-content .close-modal:hover { color: var(--blue-dark); }
 
-@keyframes modalFadeIn {
-    from { opacity: 0; transform: translateY(-30px);}
-    to { opacity: 1; transform: translateY(0);}
+/* ==================================
+   9. RESPONSIVE – FLAWLESS ON EVERY DEVICE
+================================== */
+@media (max-width: 1200px) {
+  .staff-grid { grid-template-columns: repeat(2, 1fr); }
 }
-
-
-
-/* ===============================
-   Particle Background Animation
-=============================== */
-@keyframes moveParticles {
-    0% { transform: translate(0, 0); }
-    50% { transform: translate(10px, -10px); }
-    100% { transform: translate(0, 0); }
+@media (max-width: 992px) {
+  .page-hero.staff-hero { min-height: calc(100vh - 80px); margin-top: 80px; }
 }
-
-
-/* -------------------------------
-   Staff Cards & Grids
--------------------------------- */
-.staff-grid, .dept-grid, .admin-grid {
-    display: grid;
-    gap: 2rem;
-    position: relative;
-    z-index: 2;
-}
-
-.staff-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.dept-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-.admin-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-
-.staff-card, .leader-card, .dept-head-card, .info-card {
-    background: rgba(255,255,255,0.95);
-    border-radius: 28px;
-    padding: 28px;
-    text-align: center;
-    box-shadow: 0 15px 40px rgba(0,102,255,0.15);
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.5s, box-shadow 0.5s;
-}
-
-.staff-card:hover, .leader-card:hover, .dept-head-card:hover, .info-card:hover {
-    transform: translateY(-12px) scale(1.03);
-    box-shadow: 0 25px 60px rgba(0,102,255,0.25);
-}
-
-/* Particle hover glow effect on cards */
-.staff-card::after, .leader-card::after, .dept-head-card::after, .info-card::after {
-    content: "";
-    position: absolute;
-    width: 150%;
-    height: 150%;
-    top: -25%;
-    left: -25%;
-    background: radial-gradient(circle, rgba(0,102,255,0.15) 2px, transparent 2px);
-    background-size: 25px 25px;
-    opacity: 0;
-    transition: opacity 0.5s, transform 0.8s;
-    transform: scale(0.5);
-    pointer-events: none;
-    z-index: 1;
-}
-
-.staff-card:hover::after, .leader-card:hover::after, .dept-head-card:hover::after, .info-card:hover::after {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Staff Images */
-.staff-card img, .leader-card img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
-    border: 3px solid var(--accent);
-    transition: transform 0.5s;
-}
-
-.staff-card:hover img, .leader-card:hover img {
-    transform: scale(1.05) rotate(-2deg);
-}
-
-
-/* ===============================
-   Buttons & Filters
-=============================== */
-.filter-btn, .dept-btn, .staff-search button {
-    background: var(--gradient-accent);
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 50px;
-    font-weight: 600;
-    cursor: pointer;
-    margin: 4px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s ease;
-}
-
-.filter-btn.active, .dept-btn.active {
-    box-shadow: 0 8px 24px rgba(0,102,255,0.3);
-}
-
-.filter-btn:hover::before, .dept-btn:hover::before, .staff-search button:hover::before {
-    content: "";
-    position: absolute;
-    inset: -6px;
-    background: radial-gradient(circle, rgba(0,102,255,0.3), transparent 70%);
-    border-radius: 50px;
-    z-index: -1;
-    animation: pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse {
-    0%,100% { transform: scale(0.9); opacity: 0.7; }
-    50% { transform: scale(1.1); opacity: 1; }
-}
-
-
-
-
-/* ===============================
-   Optional Floating Particles via JS
-=============================== */
-.particle {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(0,102,255,0.15);
-    width: 6px;
-    height: 6px;
-    pointer-events: none;
-    animation: floatParticles 15s linear infinite;
-}
-
-@keyframes floatParticles {
-    0% { transform: translateY(0) translateX(0); opacity: 0; }
-    50% { transform: translateY(-80px) translateX(50px); opacity: 1; }
-    100% { transform: translateY(-160px) translateX(-20px); opacity: 0; }
-}
-
-
-/* ===============================
-   Responsive
-=============================== */
 @media (max-width: 768px) {
-    .staff-search {
-        flex-direction: column;
-    }
-
-    .filter-btn, .dept-btn {
-        width: 100%;
-        text-align: center;
-    }
-
-    .staff-card img {
-        height: 200px;
-    }
+  .staff-search { flex-direction: column; border-radius: 24px; }
+  .staff-search input,
+  .staff-search button { border-radius: 0; }
+  .staff-search input { border-radius: 24px 24px 0 0; }
+  .staff-search button { border-radius: 0 0 24px 24px; padding: 1.2rem; }
 }
-
+@media (max-width: 640px) {
+  .page-hero.staff-hero { min-height: calc(100vh - 70px); margin-top: 70px; }
+  .staff-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .staff-card img { height: 340px; }
+  .filter-explainer,
+  .category-descriptions { padding: 2.8rem 2rem; }
+  .section-intro h2 { font-size: 2.8rem !important; }
+}

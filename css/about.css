@@ -1,420 +1,400 @@
 /* ==============================
-   ABOUT PAGE – STUNNING 2025 FINAL EDITION
-   Bar Union Mixed Secondary School
+   ABOUT PAGE – BAR UNION MIXED SECONDARY SCHOOL
+   Final 2025–2026 Edition | Clean • Consistent • Mobile-Perfect
+   Uses same palette as homepage: #0175C2 (blue), #0b2d5e (dark), #ffd700 (gold)
 ============================== */
 
-/* ==================================
-   Root Variables
-================================== */
 :root {
-    --primary: #1e3a8a;     
-    --secondary: #3b82f6;  
-    --accent: #ffbf00;     
-    --text: #1f2937;
-    --text-light: #4b5563;
-    --bg-light: #f8fafc;
-    --white: #ffffff;
-    --shadow: 0 20px 50px rgba(0,0,0,0.12);
-    --transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  --blue: #0175C2;
+  --blue-dark: #0b2d5e;
+  --gold: #ffd700;
+  --gold-light: #ffed4e;
+  --gray: #555;
+  --gray-light: #777;
+  --light: #f8fafc;
+  --radius: 28px;
+  --shadow-sm: 0 12px 35px rgba(0,0,0,0.1);
+  --shadow-md: 0 20px 50px rgba(0,0,0,0.15);
+  --shadow-lg: 0 35px 80px rgba(0,0,0,0.22);
+  --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ==================================
-   Global Section Styles
+   Global Section Styling
 ================================== */
 .section {
-    padding: 110px 0;
-    position: relative;
+  padding: 100px 0;
+  position: relative;
 }
-.bg-light { background: var(--bg-light); }
-.container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+.container {
+  max-width: 1340px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.bg-light { background: #f9fbff; }
 
 /* ==================================
-   Page Hero
+   1. Page Hero (About Hero Banner)
 ================================== */
 .page-hero {
-    position: relative;
-    min-height: 72vh;
-    background: linear-gradient(135deg, rgba(30,58,138,0.94), rgba(59,130,246,0.88)),
-                url('/assets/images/hero-bg.jpg') center/cover no-repeat fixed;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-    border-bottom: 8px solid var(--accent);
+  min-height: 75vh;
+  background: linear-gradient(135deg, rgba(11,45,94,0.94), rgba(1,117,194,0.88)),
+              url('/assets/images/about-hero.jpg') center/cover no-repeat fixed;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
 }
 .page-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.5));
-    pointer-events: none;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.6));
 }
 .page-hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3.2rem, 8vw, 6rem);
-    font-weight: 800;
-    letter-spacing: -1.5px;
-    text-shadow: 0 12px 40px rgba(0,0,0,0.7);
-    margin-bottom: 1rem;
-    animation: fadeInUp 1s ease forwards;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3.4rem, 8vw, 6.5rem);
+  font-weight: 800;
+  margin: 0 0 1.2rem;
+  text-shadow: 0 12px 40px rgba(0,0,0,0.7);
 }
 .page-hero p {
-    font-size: clamp(1.3rem, 3.5vw, 2rem);
-    font-weight: 500;
-    max-width: 900px;
-    margin: 0 auto;
-    line-height: 1.7;
-    opacity: 0.96;
-    animation: fadeInUp 1.2s ease forwards;
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  max-width: 900px;
+  margin: 0 auto;
+  line-height: 1.8;
+  opacity: 0.95;
 }
 
 /* ==================================
-   About Grid
+   2. Main About Grid (Text + Image)
+   Classes used: .about-grid, .about-text, .about-image
 ================================== */
 .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: 90px;
-    align-items: start;
-    margin-top: 70px;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 5rem;
+  align-items: start;
+  margin-top: 4rem;
 }
 .about-text h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.9rem, 6vw, 4.2rem);
-    color: var(--primary);
-    margin-bottom: 2.2rem;
-    padding-bottom: 18px;
-    position: relative;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  color: var(--blue-dark);
+  margin-bottom: 2rem;
+  position: relative;
+  padding-bottom: 1rem;
 }
 .about-text h2::after {
-    content: '';
-    position: absolute;
-    left: 0; bottom: 0;
-    width: 140px; height: 7px;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
-    border-radius: 4px;
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 120px; height: 6px;
+  background: linear-gradient(90deg, var(--blue-dark), var(--blue));
+  border-radius: 4px;
 }
 .about-text h3 {
-    color: var(--primary);
-    font-size: 1.7rem;
-    margin: 2.8rem 0 1.2rem;
-    font-weight: 700;
+  font-size: 1.8rem;
+  color: var(--blue-dark);
+  margin: 2.5rem 0 1rem;
+  font-weight: 700;
 }
 .about-text p {
-    font-size: 1.12rem;
-    line-height: 2.1;
-    color: var(--text-light);
-    margin-bottom: 1.5rem;
+  font-size: 1.15rem;
+  line-height: 2;
+  color: var(--gray);
+}
+.about-image {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  position: sticky;
+  top: 110px;
+}
+.about-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: var(--transition);
+}
+.about-image img:hover {
+  transform: scale(1.08);
 }
 
 /* ==================================
-   Stats – Glassmorphism
+   3. Stats Section (Glassmorphism)
+   Classes: .stats, .stat
 ================================== */
 .stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 32px;
-    margin: 80px 0;
-    padding: 55px 45px;
-    background: rgba(255,255,255,0.97);
-    backdrop-filter: blur(14px);
-    border-radius: 32px;
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(255,255,255,0.4);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2rem;
+  margin: 5rem 0;
+  padding: 3.5rem 3rem;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(16px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  border: 1px solid rgba(255,255,255,0.5);
 }
 .stat {
-    text-align: center;
-    padding: 22px;
-    border-radius: 24px;
-    transition: var(--transition);
-    cursor: default;
+  text-align: center;
+  transition: var(--transition);
 }
 .stat:hover {
-    transform: translateY(-18px) scale(1.06);
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
+  transform: translateY(-16px) scale(1.05);
 }
 .stat h3 {
-    font-size: 4rem;
-    font-weight: 900;
-    margin-bottom: 10px;
-    background: linear-gradient(90deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: fadeInUp 1s ease forwards;
+  font-size: 4rem;
+  font-weight: 900;
+  margin: 0 0 0.8rem;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.stat:hover h3 { -webkit-text-fill-color: white; }
 .stat p {
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 1rem;
-    color: var(--text-light);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  font-size: 0.95rem;
+  color: var(--gray-light);
 }
-.stat:hover p { color: white; opacity: 0.95; }
 
 /* ==================================
-   Timeline
+   4. Timeline Section
+   Classes: .timeline
 ================================== */
 .timeline {
-    background: white;
-    padding: 45px;
-    border-radius: 28px;
-    box-shadow: var(--shadow);
-    margin: 70px 0;
+  background: white;
+  padding: 3.5rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  margin: 4rem 0;
 }
 .timeline h4 {
-    font-size: 1.7rem;
-    color: var(--primary);
-    margin-bottom: 35px;
-    font-weight: 700;
+  font-size: 1.9rem;
+  color: var(--blue-dark);
+  margin-bottom: 2.5rem;
+  font-weight: 700;
+}
+.timeline ul {
+  list-style: none;
+  padding: 0;
+ 0 0 1rem;
 }
 .timeline li {
-    padding-left: 35px;
-    position: relative;
-    margin-bottom: 24px;
-    font-size: 1.12rem;
-    color: var(--text);
+  padding-left: 2.5rem;
+  position: relative;
+  margin-bottom: 1.8rem;
+  font-size: 1.12rem;
+  color: var(--gray);
+  line-height: 1.8;
 }
 .timeline li::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 10px;
-    width: 18px; height: 18px;
-    background: var(--accent);
-    border: 5px solid white;
-    border-radius: 50%;
-    box-shadow: 0 0 0 5px var(--primary);
+  content: '';
+  position: absolute;
+  left: 0; top: 0.6rem;
+  width: 18px; height: 18px;
+  background: var(--gold);
+  border: 5px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px var(--blue);
 }
 .timeline li::after {
-    content: '';
-    position: absolute;
-    left: 8px; top: 32px; bottom: -24px;
-    width: 3px;
-    background: var(--primary);
-    opacity: 0.25;
+  content: '';
+  position: absolute;
+  left: 8.5px; top: 2.2rem; bottom: -1.8rem;
+  width: 2px;
+  background: var(--blue);
+  opacity: 0.2;
 }
 .timeline li:last-child::after { display: none; }
 
 /* ==================================
-   About Image
-================================== */
-.about-image {
-    border-radius: 32px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    position: sticky;
-    top: 120px;
-}
-.about-image img {
-    transition: var(--transition);
-    width: 100%;
-    height: auto;
-    display: block;
-}
-.about-image img:hover { transform: scale(1.1); }
-
-/* ==================================
-   Vision, Mission, Motto & Philosophy
+   5. Vision, Mission, Philosophy
+   Classes: .vision-mission, .vm-card
 ================================== */
 .vision-mission {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-    gap: 36px;
-    margin-top: 60px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+  margin-top: 4rem;
 }
 .vm-card {
-    background: white;
-    padding: 45px 35px;
-    border-radius: 32px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    opacity: 0;
-    transform: translateY(40px);
-}
-.vm-card.animate {
-    opacity: 1;
-    transform: translateY(0);
-}
-.vm-card .icon i {
-    font-size: 3.8rem;
-    color: var(--primary);
-    margin-bottom: 24px;
-    transition: var(--transition);
+  background: white;
+  padding: 3rem 2.5rem;
+  border-radius: var(--radius);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
 }
 .vm-card:hover {
-    transform: translateY(-22px) scale(1.05);
-    box-shadow: 0 35px 90px rgba(30,58,138,0.25);
+  transform: translateY(-20px);
+  box-shadow: var(--shadow-lg);
 }
-.vm-card:hover .icon i {
-    color: var(--accent);
-    transform: rotate(18deg) scale(1.25);
+.vm-card .icon {
+  width: 90px; height: 90px;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 1.8rem;
+  color: white;
+  font-size: 2.8rem;
 }
 .vm-card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.75rem;
-    margin: 18px 0;
-    color: var(--text);
-    font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--blue-dark);
+  margin: 1rem 0;
 }
 .vm-card p {
-    font-size: 1.08rem;
-    line-height: 1.9;
-    color: var(--text-light);
+  color: var(--gray);
+  line-height: 1.9;
 }
 
 /* ==================================
-   Core Values
+   6. Core Values Grid
+   Classes: .values-grid, .value-card
 ================================== */
 .values-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 38px;
-    margin-top: 60px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  margin-top: 4rem;
 }
 .value-card {
-    background: white;
-    padding: 48px 35px;
-    border-radius: 32px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    position: relative;
-    overflow: hidden;
+  background: white;
+  padding: 3rem 2rem;
+  border-radius: var(--radius);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
 }
 .value-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 7px;
-    background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.7s ease;
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--blue-dark), var(--blue), var(--gold));
+  transform: scaleX(0);
+  transition: transform 0.7s ease;
 }
 .value-card:hover::before { transform: scaleX(1); }
 .value-card i {
-    font-size: 3.4rem;
-    color: var(--primary);
-    margin-bottom: 22px;
-    transition: var(--transition);
+  font-size: 3.6rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: var(--transition);
 }
 .value-card:hover i {
-    color: var(--accent);
-    transform: translateY(-12px) rotate(15deg);
+  transform: translateY(-10px) rotate(12deg);
 }
 .value-card h4 {
-    font-size: 1.55rem;
-    margin: 18px 0;
-    color: var(--text);
-    font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--blue-dark);
+  margin: 1rem 0;
+  font-weight: 700;
 }
-.value-card p {
-    color: var(--text-light);
-    line-height: 1.9;
-}
+.value-card p { color: var(--gray); line-height: 1.8; }
 .value-card:hover {
-    transform: translateY(-18px);
-    box-shadow: 0 40px 100px rgba(30,58,138,0.28);
+  transform: translateY(-16px);
+  box-shadow: var(--shadow-lg);
 }
 
 /* ==================================
-   Principal's Message + Timeline
+   7. Principal's Message Section
+   Classes: .principal-message-grid, .message-content, .principal-photo, .principal-timeline
 ================================== */
 .principal-message-grid {
-    display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: 90px;
-    align-items: start;
-    margin-top: 70px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 5rem;
+  align-items: start;
+  margin-top: 5rem;
+}
+.message-content h2 {
+  font-size: 2.8rem;
+  color: var(--blue-dark);
+  margin-bottom: 2rem;
 }
 .message-content blockquote {
-    font-size: 1.18rem;
-    line-height: 2.1;
-    color: var(--text);
-    margin: 2.5rem 0;
-    padding: 28px 35px;
-    padding-left: 40px;
-    border-left: 6px solid var(--secondary);
-    background: rgba(59,130,246,0.06);
-    border-radius: 0 18px 18px 0;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.9s ease;
+  font-size: 1.2rem;
+  line-height: 2.1;
+  color: var(--gray);
+  padding: 2rem 2.5rem;
+  padding-left: 3rem;
+  border-left: 6px solid var(--blue);
+  background: rgba(1,117,194,0.08);
+  border-radius: 0 20px 20px 0;
+  margin: 2rem 0;
+  font-style: italic;
 }
-.message-content blockquote.show {
-    opacity: 1;
-    transform: translateY(0);
+.signature {
+  margin-top: 2rem;
+  font-weight: 600;
+  color: var(--blue-dark);
 }
 .principal-photo img {
-    width: 100%;
-    height: auto;
-    border-radius: 28px;
-    box-shadow: var(--shadow);
-    opacity: 0;
-    transform: scale(0.94);
-    transition: all 1.4s ease;
+  width: 100%;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  border: 10px solid white;
 }
-.principal-photo img.loaded {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Principal Timeline */
 .principal-timeline h3 {
-    font-size: 1.9rem;
-    color: var(--primary);
-    margin-bottom: 35px;
-    font-weight: 700;
+  font-size: 2rem;
+  color: var(--blue-dark);
+  margin-bottom: 2rem;
 }
 .principal-timeline li {
-    padding-left: 40px;
-    position: relative;
-    margin-bottom: 30px;
-    font-size: 1.12rem;
-    opacity: 0;
-    transform: translateX(-40px);
-    transition: all 0.8s ease;
-}
-.principal-timeline li.show {
-    opacity: 1;
-    transform: translateX(0);
+  padding-left: 2.8rem;
+  position: relative;
+  margin-bottom: 1.8rem;
+  color: var(--gray);
 }
 .principal-timeline li::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 8px;
-    width: 20px; height: 20px;
-    background: var(--accent);
-    border: 6px solid white;
-    border-radius: 50%;
-    box-shadow: 0 0 0 4px var(--primary);
+  content: '';
+  position: absolute;
+  left: 0; top: 0.5rem;
+  width: 20px; height: 20px;
+  background: var(--gold);
+  border: 5px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px var(--blue);
 }
 
 /* ==================================
-   Animations
-================================== */
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(50px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* ==================================
-   Responsive
+   8. Responsive Design – Mobile First
 ================================== */
 @media (max-width: 1024px) {
-    .about-grid, .principal-message-grid { grid-template-columns: 1fr; gap: 70px; }
-    .about-image { order: -1; }
+  .about-grid,
+  .principal-message-grid {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+  .about-image { order: -1; }
+  .principal-photo { text-align: center; }
 }
+
 @media (max-width: 768px) {
-    .section { padding: 90px 0; }
-    .page-hero { min-height: 65vh; }
-    .stats { grid-template-columns: 1fr 1fr; padding: 45px 25px; }
+  .section { padding: 80px 0; }
+  .page-hero { min-height: 65vh; }
+  .stats { grid-template-columns: 1fr 1fr; padding: 2.5rem 1.5rem; }
 }
+
 @media (max-width: 480px) {
-    .stats, .vision-mission, .values-grid { grid-template-columns: 1fr; }
-    .stat h3 { font-size: 3.4rem; }
+  .stats,
+  .vision-mission,
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+  .stat h3 { font-size: 3.4rem; }
+  .vm-card,
+  .value-card { padding: 2.5rem 1.8rem; }
 }
