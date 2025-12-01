@@ -4,18 +4,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logout</title>
+  <title>Logout • Bar Union Secondary</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/user/common-user-style.css" />
   <style>
     .center-box { max-width: 450px; margin-top: 12%; }
   </style>
 </head>
-<body class="bg-light d-flex justify-content-center">
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+
   <div class="card shadow-lg p-4 text-center center-box">
-    <h2 class="mb-3">You have been logged out</h2>
-    <p class="text-muted mb-4">Thank you for using the platform.</p>
-    <a href="/user/login.html" class="btn btn-primary btn-lg">Login Again</a>
+    <h2 class="mb-3">Logging you out...</h2>
+    <p class="text-muted mb-4">Redirecting to login page.</p>
+    <a id="loginLink" href="/user/login.html" class="btn btn-primary btn-lg">Go to Login</a>
   </div>
+
+  <script>
+    // Clear frontend session
+    localStorage.removeItem("userLoggedIn");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userName");
+
+    // Call backend logout API
+    fetch("/auth/logout", { method: "POST", credentials: "include" })
+      .then(res => res.json())
+      .then(data => {
+        console.log("Server logout:", data);
+        // Redirect after 1 second
+        setTimeout(() => { window.location.href = "/user/login.html"; }, 1000);
+      })
+      .catch(err => {
+        console.error("Logout error:", err);
+        // Ensure redirect even if API fails
+        setTimeout(() => { window.location.href = "/user/login.html"; }, 1000);
+      });
+  </script>
+
 </body>
 </html>

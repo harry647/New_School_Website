@@ -1,248 +1,188 @@
-// ../js/index.js
-// Ultimate Interactive Homepage – Bar Union Mixed Secondary School (2026+)
+// ===============================================
+// Bar Union Mixed Secondary School – index.js
+// Fully interactive, mobile-first, production ready
+// ===============================================
 
-document.addEventListener("DOMContentLoaded", () => {
-    // ========================================
-    // 1. Preloader – Smooth Fade Out
-    // ========================================
-    const preloader = document.getElementById("preloader");
+document.addEventListener("DOMContentLoaded", function () {
+  "use strict";
+
+  // ===================================
+  // 1. Preloader (already in HTML, just hide safely)
+  // ===================================
+  const preloader = document.getElementById("preloader");
+  if (preloader) {
     window.addEventListener("load", () => {
-        setTimeout(() => {
-            preloader.style.opacity = "0";
-            setTimeout(() => preloader.remove(), 600);
-        }, 500);
+      preloader.style.opacity = "0";
+      setTimeout(() => {
+        preloader.style.display = "none";
+      }, 600);
     });
+  }
 
-    // ========================================
-    // 2. HTML Includes (Header & Footer)
-    // ========================================
-    const includeHTML = () => {
-        document.querySelectorAll("[w3-include-html]").forEach(el => {
-            const file = el.getAttribute("w3-include-html");
-            if (!file) return;
+  // ===================================
+  // 2. Animated Counters (Stats section)
+  // ===================================
+  const counters = document.querySelectorAll(".counter h3");
+  const counterOptions = {
+    threshold: 0.7,
+    rootMargin: "0px 0px -100px 0px",
+  };
 
-            fetch(file)
-                .then(res => res.ok ? res.text() : Promise.reject())
-                .then(html => {
-                    el.innerHTML = html;
-                    el.removeAttribute("w3-include-html");
+  const startCounter = (counter) => {
+    const target = parseInt(counter.getAttribute("data-target"));
+    const suffix = counter.innerText.includes("%") ? "%" : "+";
+    const current = parseInt(counter.innerText.replace(/[^\d]/g, "")) || 0;
+    const increment = target / 80; // speed control speed
 
-                    // Re-initialize everything after include
-                    initMobileMenu();
-                    highlightCurrentNav();
-                    initDarkMode();
-                })
-                .catch(() => {
-                    el.innerHTML = "<p style='color:red;'>Failed to load content.</p>";
-                });
-        });
-    };
-
-    // ========================================
-    // 3. Mobile Menu Toggle
-    // ========================================
-    const initMobileMenu = () => {
-        const burger = document.querySelector(".burger, .mobile-toggle");
-        const nav = document.querySelector(".nav-links, nav ul");
-        if (!burger || !nav) return;
-
-        const overlay = document.createElement("div");
-        overlay.className = "nav-overlay";
-        document.body.appendChild(overlay);
-
-        const toggleMenu = () => {
-            nav.classList.toggle("nav-active");
-            burger.classList.toggle("toggle");
-            overlay.classList.toggle("active");
-            document.body.style.overflow = nav.classList.contains("nav-active") ? "hidden" : "";
-        };
-
-        burger.addEventListener("click", toggleMenu);
-        overlay.addEventListener("click", toggleMenu);
-
-        document.querySelectorAll(".nav-links a, nav ul a").forEach(link => {
-            link.addEventListener("click", () => {
-                nav.classList.remove("nav-active");
-                burger.classList.remove("toggle");
-                overlay.classList.remove("active");
-                document.body.style.overflow = "";
-            });
-        });
-    };
-
-    // ========================================
-    // 4. Highlight Current Navigation Link
-    // ========================================
-    const highlightCurrentNav = () => {
-        const current = location.pathname.split("/").pop() || "index.html";
-        document.querySelectorAll("nav a").forEach(link => {
-            const href = link.getAttribute("href");
-            link.classList.toggle("active", href === current || (current === "" && href === "index.html"));
-        });
-    };
-
-    // ========================================
-    // 5. Dark Mode Toggle (Optional – if you have button)
-    // ========================================
-    const initDarkMode = () => {
-        const toggle = document.querySelector(".dark-mode-toggle");
-        if (!toggle) return;
-
-        const isDark = localStorage.getItem("darkMode") === "enabled";
-        if (isDark) document.body.classList.add("dark-mode");
-
-        toggle.innerHTML = isDark
-            ? '<i class="fas fa-sun"></i>'
-            : '<i class="fas fa-moon"></i>';
-
-        toggle.addEventListener("click", () => {
-            document.body.classList.toggle("dark-mode");
-            const nowDark = document.body.classList.contains("dark-mode");
-            localStorage.setItem("darkMode", nowDark ? "enabled" : "disabled");
-            toggle.innerHTML = nowDark
-                ? '<i class="fas fa-sun"></i>'
-                : '<i class="fas fa-moon"></i>';
-        });
-    };
-
-    // ========================================
-    // 6. Back to Top Button (Uses Existing HTML Button)
-    // ========================================
-    const backToTop = document.getElementById("backToTop");
-    if (backToTop) {
-        window.addEventListener("scroll", () => {
-            backToTop.classList.toggle("visible", window.scrollY > 500);
-        });
-        backToTop.addEventListener("click", () => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-        });
+    if (current < target) {
+      counter.innerText =
+        Math.ceil(current + increment) + (suffix === "%" && current + increment >= target ? "%" : suffix);
+      setTimeout(() => startCounter(counter), 30);
+    } else {
+      counter.innerText = target + suffix;
     }
+  };
 
-    // ========================================
-    // 7. Testimonial Auto-Slider
-    // ========================================
-    const testimonials = document.querySelectorAll(".testimonial-card");
-    if (testimonials.length > 0) {
-        let current = 0;
-        const showTestimonial = (i) => {
-            testimonials.forEach((t, idx) => t.classList.toggle("active", idx === i));
-        };
-
-        document.querySelector(".testimonial-nav .next")?.addEventListener("click", () => {
-            current = (current + 1) % testimonials.length;
-            showTestimonial(current);
-        });
-        document.querySelector(".testimonial-nav .prev")?.addEventListener("click", () => {
-            current = (current - 1 + testimonials.length) % testimonials.length;
-            showTestimonial(current);
-        });
-
-        // Auto-play every 7 seconds
-        setInterval(() => {
-            current = (current + 1) % testimonials.length;
-            showTestimonial(current);
-        }, 7000);
-    }
-
-    // ========================================
-    // 8. Animated Counters (About Section)
-    // ========================================
-    const animateCounters = () => {
-        document.querySelectorAll(".counter").forEach(counter => {
-            const target = +counter.getAttribute("data-target");
-            let count = 0;
-            const increment = target / 120;
-
-            const update = () => {
-                count += increment;
-                if (count < target) {
-                    counter.textContent = Math.ceil(count).toLocaleString();
-                    requestAnimationFrame(update);
-                } else {
-                    counter.textContent = target.toLocaleString() + (target > 1000 ? "+" : "");
-                }
-            };
-            update();
-        });
-    };
-
-    const statsObserver = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-            animateCounters();
-            statsObserver.unobserve(entries[0].target);
+  if (counters.length) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const counter = entry.target;
+          startCounter(counter);
+          observer.unobserve(counter); // run once
         }
-    }, { threshold: 0.5 });
+      });
+    }, counterOptions);
 
-    const statsSection = document.querySelector(".stats");
-    if (statsSection) statsObserver.observe(statsSection);
+    counters.forEach((counter) => observer.observe(counter));
+  }
 
-    // ========================================
-    // 9. Quick Enquiry Form – WhatsApp Redirect
-    // ========================================
-    const quickForm = document.getElementById("quickForm");
-    if (quickForm) {
-        quickForm.addEventListener("submit", function(e) {
-            e.preventDefault();
+  // ===================================
+  // 3. Testimonial Slider (Simple & Lightweight)
+  // ===================================
+  const slider = document.querySelector(".testimonial-slider");
+  const slides = document.querySelectorAll(".testimonial-card");
+  const prevBtn = document.querySelector(".testimonial-nav .prev");
+  const nextBtn = document.querySelector(".testimonial-nav .next");
+  let currentSlide = 0;
 
-            const name = this.studentName.value.trim();
-            const phone = this.parentPhone.value.trim();
-            const email = this.email.value.trim();
+  if (slider && slides.length > 1) {
+    const showSlide = (index) => {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle("active", i === index);
+      });
+      currentSlide = index;
+    };
 
-            if (!name || !phone) {
-                alert("Please fill in Student Name and Phone Number.");
-                return;
-            }
-
-            if (!/^0[0-9]{9}$/.test(phone)) {
-                alert("Please enter a valid Kenyan mobile number (e.g., 0712345678)");
-                return;
-            }
-
-            const message = `Hi Bar Union,%0A%0AI'd like the 2026 Prospectus!%0A%0AStudent: ${encodeURIComponent(name)}%0APhone: ${phone}${email ? `%0AEmail: ${email}` : ''}`;
-
-            const btn = this.querySelector("button");
-            const original = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-            btn.disabled = true;
-
-            setTimeout(() => {
-                window.open(`https://wa.me/254700735472?text=${message}`, "_blank");
-                btn.innerHTML = '<i class="fas fa-check"></i> Sent!';
-                btn.style.backgroundColor = "#28a745";
-                setTimeout(() => {
-                    quickForm.reset();
-                    btn.innerHTML = original;
-                    btn.disabled = false;
-                    btn.style.backgroundColor = "";
-                }, 3000);
-            }, 800);
-        });
-    }
-
-    // ========================================
-    // 10. Smooth Scroll for All Anchor Links
-    // ========================================
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function(e) {
-            const targetId = this.getAttribute("href");
-            if (targetId === "#") return;
-
-            const target = document.querySelector(targetId);
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
-        });
+    prevBtn?.addEventListener("click", () => {
+      let newIndex = currentSlide - 1;
+      if (newIndex < 0) newIndex = slides.length - 1;
+      showSlide(newIndex);
     });
 
-    // Hero scroll down arrow
-    document.querySelector(".hero-scroll a")?.addEventListener("click", (e) => {
-        e.preventDefault();
-        document.querySelector("#features")?.scrollIntoView({ behavior: "smooth" });
+    nextBtn?.addEventListener("click", () => {
+      let newIndex = currentSlide + 1;
+      if (newIndex >= slides.length) newIndex = 0;
+      showSlide(newIndex);
     });
 
-    // ========================================
-    // 11. Initialize Everything
-    // ========================================
-    includeHTML();
+    // Auto-play (optional – comment out if you don’t want it)
+    setInterval(() => {
+      nextBtn.click();
+    }, 7000);
+
+    // Touch/swipe support for mobile
+    let touchStartX = 0;
+    slider.addEventListener("touchstart", (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+    slider.addEventListener("touchend", (e) => {
+      const touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) nextBtn.click();
+      if (touchEndX - touchStartX > 50) prevBtn.click();
+    });
+  }
+
+    // ===================================
+  // 4. Quick Enquiry Form – YOUR OWN BACKEND (No Formspree)
+  // ===================================
+  const form = document.querySelector(".enquiry-form");
+  const submitBtn = form?.querySelector(".enquiry-btn");
+  const originalBtnHTML = submitBtn?.innerHTML || "Send My Prospectus";
+
+  if (form) {
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault(); // Prevent page reload
+
+      // Disable button + show loading state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Sending...`;
+
+      try {
+        const response = await fetch("/api/submit-enquiry", {
+          method: "POST",
+          body: new FormData(form),
+          headers: {
+            "Accept": "application/json",
+          },
+        });
+
+        const result = await response.json(); // Expecting JSON from your backend
+
+        if (response.ok) {
+
+          // Success – replace entire form with thank-you message
+          form.innerHTML = `
+            <div class="form-success" style="text-align:center; padding:2.5rem 2rem; background:#d4edda; border-radius:12px; color:#155724; line-height:1.6;">
+              <i class="fas fa-check-circle fa-4x mb-4" style="color:#28a745;"></i>
+              <h3 style="margin:0.5rem 0; color:#0f5132;">Thank You!</h3>
+              <p style="margin:0.5rem 0 0;">Your request has been received successfully.</p>
+              <p style="margin:0.3rem 0 0; font-weight:500;">
+                The 2026 Prospectus will be sent to you shortly via WhatsApp & Email.
+              </p>
+            </div>`;
+        } else {
+          // Backend returned error (e.g. validation fail, server issue)
+          throw new Error(result.message || "Submission failed");
+        }
+      } catch (error) {
+        // Network error or unexpected issue
+        setTimeout(() => {
+            form.reset();
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnHTML;
+          }, 8000);
+
+        alert(
+          "Oops! We couldn't send your request right now.\n\n" +
+          "Please reach us directly on WhatsApp: +254 7XX XXX XXX\n" +
+          "We'll get back to you immediately!"
+        );
+        console.error("Form submission error:", error);
+      }
+    });
+  }
+
+  // ===================================
+  // 5. Mobile Menu – already handled by mobile-menu.js
+  //    (just make sure it's loaded before this file)
+  // ===================================
+
+  // No action needed here
+
+  // ===================================
+  // 6. AOS Refresh on mobile orientation change
+  // ===================================
+  window.addEventListener("orientationchange", () => {
+    setTimeout(() => AOS.refresh(), 500);
+  });
+
+  // Optional: Refresh AOS when fonts are loaded (prevents jumpy animations)
+  document.fonts?.ready.then(() => AOS.refresh());
+});
+
+// Fallback: If JS fails, at least remove preloader
+window.addEventListener("load", () => {
+  const preloader = document.getElementById("preloader");
+  if (preloader) preloader.style.display = "none";
 });

@@ -115,20 +115,12 @@
                 every contribution makes a meaningful difference.
             </p>
 
-            <!-- Donation Form – Fully Working with Formspree -->
+            <!-- Donation Form – Fully Working with YOUR Backend (No Formspree) -->
             <div class="form-wrapper">
-                <form 
-                    action="https://formspree.io/f/xzzljkkr" 
-                    method="POST" 
-                    class="donation-form" 
-                    enctype="multipart/form-data" 
-                    id="donationForm">
-
-                    <!-- Anti-spam honeypot -->
+                <!-- FORMSPREE REMOVED – Now uses YOUR backend -->
+                <form class="donation-form" enctype="multipart/form-data" id="donationForm" novalidate>
+                    <!-- Anti-spam honeypot (invisible) -->
                     <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-
-                    <!-- Email subject & thank-you page redirect -->
-                    <input type="hidden" name="_subject" value="New Donation Received – Thank You!" />
 
                     <!-- Donor Name -->
                     <div class="form-group">
@@ -171,7 +163,7 @@
                         </select>
                     </div>
 
-                    <!-- Optional: Company/Organization (for corporate donors) -->
+                    <!-- Optional: Company/Organization -->
                     <div class="form-group">
                         <label for="organization">Company / Organization (Optional)</label>
                         <input type="text" name="organization" id="organization" placeholder="Company Ltd">
@@ -182,12 +174,14 @@
                         <label for="pledgeDoc">Upload Letterhead / Pledge Document (Optional)</label>
                         <input type="file" name="attachment" id="pledgeDoc" accept=".pdf,.jpg,.jpeg,.png">
                         <small class="help-text">Useful for corporate donations or formal pledges.</small>
+                        <div id="filePreview" class="file-preview mt-2"></div>
                     </div>
 
                     <!-- Message (optional dedication) -->
                     <div class="form-group">
                         <label for="dedication">Dedication / Message (Optional)</label>
-                        <textarea name="message" id="dedication" rows="3" placeholder="In memory of… / In honor of… / Anonymous donation"></textarea>
+                        <textarea name="message" id="dedication" rows="3" 
+                                  placeholder="In memory of… / In honor of… / Anonymous donation"></textarea>
                     </div>
 
                     <!-- Submit Button -->

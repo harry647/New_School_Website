@@ -1,125 +1,182 @@
-// /js/support.js
-// Ultimate Support & Utilities Page – Dynamic & Interactive (2026+)
+// =======================================================
+// support.js – Support & Utilities Page (2026+)
+// Fully responsive, donation form with backend, smooth UX
+// =======================================================
 
-document.addEventListener("DOMContentLoaded", () => {
-    const donationForm = document.getElementById("donationForm");
-    const donationMessage = document.getElementById("donationMessage");
+document.addEventListener("DOMContentLoaded", function () {
+  "use strict";
 
-    // ========================================
-    // 1. Quick Navigation – Smooth Scroll
-    // ========================================
-    document.querySelectorAll(".quick-nav a").forEach(link => {
-        link.addEventListener("click", e => {
-            e.preventDefault();
-            const target = document.querySelector(link.getAttribute("href"));
-            if (target) {
-                target.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
-        });
+  // ========================================
+  // 1. DONATION FORM – Submit to YOUR backend
+  // ========================================
+  const donationForm = document.getElementById("donationForm");
+  const fileInput = document.getElementById("pledgeDoc");
+  const filePreview = document.getElementById("filePreview");
+
+  if (donationForm) {
+    // Live file preview
+    fileInput?.addEventListener("change", function () {
+      filePreview.innerHTML = "";
+      const file = this.files[0];
+      if (!file) return;
+
+      if (file.size > 10 * 1024 * 1024) {
+        alert("File too large! Maximum 10MB allowed.");
+        this.value = "";
+        return;
+      }
+
+      filePreview.innerHTML = `
+        <div class="text-green-600 font-medium flex items-center gap-2 mt-2">
+          <i class="fas fa-paperclip"></i>
+          <span>${file.name}</span>
+          <small>(${(file.size / 1024 / 1024).toFixed(1)} MB)</small>
+        </div>
+      `;
     });
 
-    // ========================================
-    // 2. Donation Form – Full Processing
-    // ========================================
-    if (donationForm) {
-        donationForm.addEventListener("submit", function(e) {
-            e.preventDefault();
+    // Submit donation
+    donationForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-            const name = this.donorName.value.trim();
-            const email = this.donorEmail.value.trim();
-            const amount = parseFloat(this.donationAmount.value);
-            const purpose = this.donationPurpose.value;
+      const submitBtn = this.querySelector('button[type="submit"]');
+      const originalHTML = submitBtn.innerHTML;
 
-            // Validation
-            if (!name || !email || !amount || amount < 50 || !purpose) {
-                showDonationMessage("Please fill all fields correctly. Minimum donation: Ksh 50", "#dc2626");
-                return;
-            }
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Processing Donation...`;
 
-            if (!/^\S+@\S+\.\S+$/.test(email)) {
-                showDonationMessage("Please enter a valid email address.", "#dc2626");
-                return;
-            }
+      try {
+        const formData = new FormData(donationForm);
 
-            // Show processing
-            const submitBtn = this.querySelector("button");
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-            submitBtn.disabled = true;
-
-            // Simulate payment gateway (replace with real API later)
-            setTimeout(() => {
-                // Success message
-                showDonationMessage(`
-                    Thank you <strong>${name}</strong>!<br>
-                    Your generous donation of <strong>Ksh ${amount.toLocaleString()}</strong> 
-                    towards <em>${purpose.replace("-", " ")}</em> has been received.
-                `, "#16a34a");
-
-                // Save to localStorage
-                localStorage.setItem("lastDonation", JSON.stringify({
-                    name, email, amount, purpose, date: new Date().toISOString()
-                }));
-
-                // Reset form
-                donationForm.reset();
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            }, 1800);
+        const response = await fetch("/api/donate", {
+          method: "POST",
+          body: formData
         });
-    }
 
-    // ========================================
-    // 3. Show Donation Message with Animation
-    // ========================================
-    function showDonationMessage(msg, color = "#1e3a8a") {
-        donationMessage.innerHTML = msg;
-        donationMessage.style.color = color;
-        donationMessage.classList.remove("show");
-        void donationMessage.offsetWidth; // Trigger reflow
-        donationMessage.classList.add("show");
-    }
+        const result = await response.json();
 
-    // Load last donation on page load
-    const lastDonation = JSON.parse(localStorage.getItem("lastDonation"));
-    if (lastDonation && donationMessage) {
-        const date = new Date(lastDonation.date).toLocaleDateString("en-KE", {
-            day: "numeric", month: "long", year: "numeric"
-        });
-        showDonationMessage(`
-            Welcome back, <strong>${lastDonation.name}</strong>!<br>
-            Your last donation of <strong>Ksh ${lastDonation.amount.toLocaleString()}</strong> 
-            on ${date} supports ${lastDonation.purpose.replace("-", " ")}.
-        `, "#1e3a8a");
-    }
-
-    // ========================================
-    // 4. Scroll Reveal Animations
-    // ========================================
-    const animateElements = document.querySelectorAll(`
-        .utility-card,
-        .download-item,
-        .support-item,
-        .donation-form,
-        .impact-card,
-        .quick-card
-    `);
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("show");
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.15, rootMargin: "0px 0px -80px 0px" });
-
-    animateElements.forEach(el => observer.observe(el));
-
-    // Initial trigger for elements already in view
-    animateElements.forEach(el => {
-        if (el.getBoundingClientRect().top < window.innerHeight) {
-            el.classList.add("show");
+        if (response.ok && result.success) {
+          // SUCCESS – Beautiful thank you
+          donationForm.innerHTML = `
+            <div style="text-align:center; padding:4rem 2rem; background:#d4edda; border-radius:16px; color:#0f5132; line-height:1.8;">
+              <i class="fas fa-heart fa-5x mb-4" style="color:#e91e63;"></i>
+              <h2 style="color:#166534; margin:1rem 0;">Thank You for Your Kindness!</h2>
+              <p style="font-size:1.2rem;">
+                Dear <strong>${formData.get("donor_name") || "Generous Donor"}</strong>,
+              </p>
+              <p>
+                Your donation of <strong>Ksh ${formData.get("amount")}</strong> for 
+                <strong>"${formData.get("purpose")}"</strong> has been recorded.
+              </p>
+              <p>
+                We will send M-Pesa Till Number / Bank details to your phone and email within minutes.
+              </p>
+              <p style="margin-top:2rem; font-weight:600; color:#c2185b;">
+                Your support transforms lives at Bar Union Mixed Secondary School
+              </p>
+              <p class="mt-4 text-sm">A receipt will be emailed to you once payment is confirmed.</p>
+            </div>
+          `;
+        } else {
+          throw new Error(result.message || "Submission failed");
         }
+      } catch (err) {
+        console.error("Donation error:", err);
+        alert("Unable to process donation. Please try again or call +254 700 735 472");
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalHTML;
+      }
     });
+  }
+
+  // ========================================
+  // 2. RESPONSIVE UTILITIES GRID (Mobile Stacking)
+  // ========================================
+  const utilitiesGrid = document.querySelector(".utilities-grid");
+  const quickGrid = document.querySelector(".quick-access-grid");
+
+  function makeGridsResponsive() {
+    if (window.innerWidth <= 768) {
+      utilitiesGrid?.style.setProperty("grid-template-columns", "1fr");
+      quickGrid?.style.setProperty("grid-template-columns", "1fr");
+    } else {
+      utilitiesGrid?.style.removeProperty("grid-template-columns");
+      quickGrid?.style.removeProperty("grid-template-columns");
+    }
+  }
+
+  makeGridsResponsive();
+  window.addEventListener("resize", makeGridsResponsive);
+
+  // ========================================
+  // 3. DOWNLOADS GRID – Hover effect + mobile touch
+  // ========================================
+  document.querySelectorAll(".download-item").forEach(item => {
+    item.addEventListener("click", function (e) {
+      // Optional: Add analytics or confirmation later
+    });
+
+    // Mobile touch feedback
+    item.addEventListener("touchstart", function () {
+      this.style.transform = "scale(0.98)";
+    });
+    item.addEventListener("touchend", function () {
+      this.style.transform = "";
+    });
+  });
+
+  // ========================================
+  // 4. SUPPORT CONTACT CARDS – Mobile accordion (optional enhancement)
+  // ========================================
+  if (window.innerWidth <= 640) {
+    document.querySelectorAll(".support-item").forEach(card => {
+      const header = card.querySelector("div");
+      if (!header) return;
+
+      const content = document.createElement("div");
+      content.className = "support-content";
+      content.innerHTML = card.querySelector(".support-desc").outerHTML;
+      card.querySelector(".support-desc").remove();
+      card.appendChild(content);
+
+      header.style.cursor = "pointer";
+      header.addEventListener("click", () => {
+        card.classList.toggle("open");
+      });
+    });
+  }
+
+  // ========================================
+  // 5. SMOOTH SCROLL FOR ANCHOR LINKS
+  // ========================================
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function (e) {
+      const href = this.getAttribute("href");
+      if (href === "#" || !document.querySelector(href)) return;
+
+      e.preventDefault();
+      const target = document.querySelector(href);
+      const offset = 90;
+
+      window.scrollTo({
+        top: target.getBoundingClientRect().top + window.scrollY - offset,
+        behavior: "smooth"
+      });
+
+      history.pushState(null, null, href);
+    });
+  });
+
+  // ========================================
+  // 6. BACK TO TOP BUTTON (Optional – add if you have one)
+  // ========================================
+  const backToTop = document.getElementById("backToTop");
+  if (backToTop) {
+    window.addEventListener("scroll", () => {
+      backToTop.classList.toggle("show", window.scrollY > 600);
+    });
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
 });

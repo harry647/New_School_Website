@@ -337,7 +337,7 @@
         </div>
     </section>
 
-    <!-- Newsletter / Contact Form – Fully Working -->
+    <!-- Newsletter / Contact Form – Fully Working with YOUR Backend (No Formspree) -->
     <section class="section bg-light" id="newsletter">
         <div class="container">
             <div class="section-title text-center">
@@ -345,28 +345,20 @@
                 <p>Subscribe to our newsletter for the latest updates, events, e-learning resources, and important announcements</p>
             </div>
 
-            <form 
-                action="https://formspree.io/f/xeobrppk" 
-                method="POST" 
-                class="newsletter-form">
-
-                <!-- Anti-spam honeypot -->
+            <!-- FORMSPREE REMOVED – Now uses YOUR backend -->
+            <form class="newsletter-form" id="newsletterForm" novalidate>
+                <!-- Anti-spam honeypot (invisible) -->
                 <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-
-                <!-- Custom subject + instant thank-you redirect (no page reload needed) -->
-                <input type="hidden" name="_subject" value="New Newsletter Subscriber" />
 
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="email">Email Address *</label>
                         <input type="email" name="_replyto" id="email" placeholder="Enter your email address" required />
                     </div>
-
                     <div class="form-group">
                         <label for="name">Full Name (Optional)</label>
                         <input type="text" name="name" id="name" placeholder="Your full name" />
                     </div>
-
                     <div class="form-group">
                         <label>I’m interested in… (Optional)</label>
                         <div class="checkbox-group">
@@ -391,8 +383,8 @@
                     We respect your privacy — zero spam, ever.
                 </p>
 
-                <!-- Optional: success message if you ever want AJAX version later -->
-                <p class="form-success text-center mt-3 text-green-600 font-medium" style="display:none;" id="subscriptionSuccess">
+                <!-- Success message (shown via JS) -->
+                <p class="form-success text-center mt-center mt-3 text-green-600 font-medium" style="display:none;" id="subscriptionSuccess">
                     Thank you! You’re now subscribed. Check your inbox for the latest updates!
                 </p>
             </form>

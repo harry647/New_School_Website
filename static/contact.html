@@ -64,6 +64,7 @@
                                 <a href="tel:+254700735472">+2547 00735472</a> (Alumni & Career Guidance)
                             </p>
                         </div>
+                        
                     </div>
                     <!-- Email Addresses -->
                     <div class="contact-item">
@@ -114,20 +115,11 @@
                 <h2>Send Us a Message</h2>
                 <p>We typically reply within a few hours during working days. Please provide complete information for faster assistance.</p>
             </div>
-
             <div class="form-wrapper">
-                <form 
-                    action="https://formspree.io/f/xqavygbp" 
-                    method="POST" 
-                    class="contact-form" 
-                    enctype="multipart/form-data">
-
-                    <!-- Spam protection (invisible honeypot) -->
+                <!-- FORMSPREE REMOVED – Now uses YOUR backend -->
+                <form class="contact-form" enctype="multipart/form-data" novalidate>
+                    <!-- Invisible honeypot (anti-spam) – kept for protection -->
                     <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-
-                    <!-- Custom email subject + thank-you redirect -->
-                    <input type="hidden" name="_subject" value="New Contact Form Submission" />
-                    <input type="hidden" name="_next" value="https://yourschool.com/thanks.html" />
 
                     <div class="form-grid">
                         <!-- Personal Information -->
@@ -160,7 +152,6 @@
                                 <option>Other</option>
                             </select>
                         </div>
-
                         <div class="form-group">
                             <label>Preferred Department (Optional)</label>
                             <select name="department">
@@ -177,15 +168,15 @@
                         <!-- Message -->
                         <div class="form-group full">
                             <label>Your Message *</label>
-                            <textarea name="message" rows="6" required 
+                            <textarea name="message" rows="6" required
                                       placeholder="Please provide detailed information about your query or request..."></textarea>
                         </div>
 
-                        <!-- File Upload (fully supported by Formspree) -->
+                        <!-- File Upload (now supported by your backend) -->
                         <div class="form-group full">
                             <label>Upload Supporting Document (Optional)</label>
                             <input type="file" name="attachment" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" />
-                            <small class="form-note">PDF, Word, or images only • Max 10MB (Formspree allows up to 10MB)</small>
+                            <small class="form-note">PDF, Word, or images only • Max 10MB</small>
                             <div id="filePreview" class="file-preview mt-2"></div>
                         </div>
 

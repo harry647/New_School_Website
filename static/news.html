@@ -196,7 +196,7 @@
     <!-- Student Blog Posts -->
     <section class="section bg-light" id="studentBlogs">
         <div class="container">
-            <div class="section-title">
+            <div class="section-title text-center">
                 <h2>Student Blogs</h2>
                 <p>Insights, stories, and creative thoughts from our students</p>
             </div>
@@ -204,13 +204,18 @@
             <!-- Submission Info -->
             <div class="blog-info text-center mb-4">
                 <p>Students can submit up to <strong>2 blogs per month</strong>. All submissions are moderated before publishing.</p>
-                <a href="#submitBlog" class="btn btn-primary">Submit Your Blog →</a>
+                <a href="#submitBlog" class="btn btn-primary">Submit Your Blog</a>
             </div>
 
             <!-- Search & Filters -->
             <div class="blog-controls mb-4">
-                <input type="text" id="blogSearch" placeholder="Search blogs by title, topic, or author..." aria-label="Search blogs">
-                <div class="filter-btns mt-2 text-center">
+                <input 
+                    type="text" 
+                    id="blogSearch" 
+                    placeholder="Search blogs by title, topic, or author..." 
+                    aria-label="Search blogs"
+                    class="w-100">
+                <div class="filter-btns mt-3 text-center">
                     <button class="filter-btn active" data-filter="all">All Topics</button>
                     <button class="filter-btn" data-filter="academics">Academics</button>
                     <button class="filter-btn" data-filter="events">Events</button>
@@ -221,36 +226,39 @@
 
             <!-- Blog Grid -->
             <div class="blog-grid" id="blogGrid">
-                <div class="loader text-center">
+                <div class="loader text-center py-5">
                     <i class="fas fa-spinner fa-spin fa-3x"></i>
-                    <p>Loading student blogs...</p>
+                    <p class="mt-3">Loading student blogs...</p>
                 </div>
             </div>
 
-            <!-- No Results -->
+            <!-- No Results Message -->
             <div id="noBlogResults" class="text-center py-5" style="display:none; color:#666;">
                 <i class="fas fa-search fa-3x mb-3"></i>
-                <p>No blogs found matching your search or filter.</p>
+                <h4>No blogs found</h4>
+                <p>No blogs match your current search or filter.</p>
             </div>
 
-            <!-- Load More Blogs -->
-            <div class="text-center mt-4">
-                <button id="loadMoreBlogs" class="btn btn-primary">Load More Blogs</button>
+            <!-- Load More Button -->
+            <div class="text-center mt-5">
+                <button id="loadMoreBlogs" class="btn btn-primary" style="display:none;">
+                    Load More Blogs
+                </button>
             </div>
 
             <!-- Quick Stats -->
             <div class="blog-stats text-center mt-5" id="blogStatsBanner">
                 <div class="stats-grid">
-                    <div>
-                        <strong id="totalBlogs">45</strong>
+                    <div class="stat">
+                        <strong id="totalBlogs">—</strong>
                         <p>Total Blogs Published</p>
                     </div>
-                    <div>
-                        <strong id="activeBloggers">18</strong>
+                    <div class="stat">
+                        <strong id="activeBloggers">—</strong>
                         <p>Active Student Contributors</p>
                     </div>
-                    <div>
-                        <strong id="mostPopularTopic">Academics</strong>
+                    <div class="stat">
+                        <strong id="mostPopularTopic">—</strong>
                         <p>Most Popular Topic</p>
                     </div>
                 </div>

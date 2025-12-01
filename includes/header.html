@@ -342,5 +342,20 @@ body {
 .site-header.scrolled::before {
     opacity: 1;
 }
+
+/* Prevent body scroll when mobile menu is open */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* Smooth dropdown animation (optional) */
+.dropdown-menu {
+    transition: all 0.3s ease;
+    max-height: 0;
+    overflow: hidden;
+}
+.dropdown.open .dropdown-menu {
+    max-height: 500px; /* large enough */
+}
 </style>
 

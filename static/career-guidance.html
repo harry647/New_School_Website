@@ -198,7 +198,6 @@
                 <h2>Book a Free Counseling Session</h2>
                 <p>One-on-one guidance from our expert Career Guidance & Counseling Cell</p>
             </div>
-
             <p class="text-center mb-5 max-w-3xl mx-auto text-gray-600 leading-relaxed">
                 Fill out this form to schedule a personalized session. Our counselors will guide you on stream selection,
                 competitive exams (JEE, NEET, CLAT, SAT), international admissions, scholarships, internships, and long-term career planning.
@@ -206,18 +205,10 @@
 
             <!-- Glassmorphic Form Card -->
             <div class="form-wrapper reveal">
-                <form 
-                    action="https://formspree.io/f/xyzqnbbe" 
-                    method="POST" 
-                    class="career-form" 
-                    enctype="multipart/form-data" 
-                    id="counselingForm">
-
+                <!-- FORMSPREE REMOVED – Now uses YOUR backend -->
+                <form class="career-form" enctype="multipart/form-data" id="counselingForm" novalidate>
                     <!-- Anti-spam honeypot (invisible) -->
                     <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-
-                    <!-- Custom subject + thank-you redirect -->
-                    <input type="hidden" name="_subject" value="New Counseling Session Booking" />
 
                     <div class="form-grid">
                         <!-- Student Name -->
@@ -261,7 +252,7 @@
                             <small class="form-note">Confirmation & Zoom link will be sent here</small>
                         </div>
 
-                        <!-- Preferred Date (auto-sets today as minimum) -->
+                        <!-- Preferred Date -->
                         <div class="form-group">
                             <label>Preferred Session Date *</label>
                             <input type="date" name="date" id="sessionDate" min="" required />
@@ -280,7 +271,7 @@
                         <div class="form-group full">
                             <label>Area of Interest / Query *</label>
                             <textarea name="query" rows="5" required
-                                      placeholder="E.g., I’m confused between Medical and Engineering • Want to study Computer Science abroad • Need help with scholarship applications • CLAT preparation strategy, etc."></textarea>
+                                      placeholder="E.g., I’m confused between Medical and Engineering • Want to study Computer Science • Need help with scholarship applications •  preparation strategy, etc."></textarea>
                             <small class="form-note">The more details you share, the better we can prepare for you!</small>
                         </div>
                     </div>
