@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Administration & Leadership | Bar Union Mixed Secondary School</title>
     <meta name="description" content="Meet our Principal, Deputy Principals, Board of Management, and dedicated administrative team." />
+
     <!-- Styles -->
-    <link rel="stylesheet" href="/css/administration.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+    <link rel="stylesheet" href="/css/static/administration.css" />
+
 </head>
 <body class="page-administration">
     <!-- Header -->
@@ -114,7 +117,7 @@
                         <li>Maintains alignment with the school's mission to develop morally, spiritually, and academically well-rounded students.</li>
                     </ul>
                 </div>
-            </div> <!-- Closed .grid-2 properly -->
+            </div> 
 
             <!-- Dynamic JSON Loaded Grid (Separated to avoid breaking layout) -->
             <div id="bomGrid" class="grid-3"></div>
@@ -141,6 +144,7 @@
 
             <!-- Leadership Grid -->
             <div class="admin-grid" id="leadershipGrid">
+
                 <!-- Loader (Visible Before JSON Loads) -->
                 <div class="loader text-center">
                     <i class="fas fa-spinner fa-spin fa-3x"></i>
@@ -387,9 +391,9 @@
     <script>AOS.init();</script>
 
     <!-- Our Mobile Menu – This makes the hamburger work -->
-    <script src="/js/mobile-menu.js"></script>
+    <script src="/js/static/mobile-menu.js"></script>
 
-    <!-- Preloader hide (optional but nice) -->
+    <!-- Preloader hide  -->
     <script>
         window.addEventListener('load', function () {
             document.getElementById('preloader').style.display = 'none';
@@ -397,6 +401,6 @@
     </script>
 
     <!-- Scripts -->
-    <script src="/js/administration.js" defer></script>
+    <script src="/js/static/administration.js" defer></script>
 </body>
 </html>

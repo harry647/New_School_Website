@@ -1,0 +1,126 @@
+/* ===============================
+   COMMON PORTAL CSS (Stunning UI)
+   For: profile.html, settings.html, logout.html
+   Tech: Bootstrap + Custom Styling
+   =============================== */
+
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0a0f24, #1b2b4b);
+    min-height: 100vh;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* Glass Card */
+.glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    transition: 0.3s ease-in-out;
+}
+
+.glass-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-3px);
+}
+
+/* Page Header */
+.page-title {
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+/* Common Buttons */
+.btn-portal {
+    border-radius: 30px;
+    padding: 10px 25px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn-portal:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 20px rgba(255,255,255,0.2);
+}
+
+/* Form Inputs */
+.portal-input {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.portal-input:focus {
+    background: rgba(255,255,255,0.18);
+    outline: none;
+    box-shadow: none;
+    color: #fff;
+}
+
+/* Labels */
+.form-label {
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+/* Profile Avatar */
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255,255,255,0.5);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+/* Divider Line */
+.fancy-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    margin: 25px 0;
+}
+
+/* Logout Panel */
+.logout-box {
+    text-align: center;
+    padding: 40px;
+}
+
+.logout-icon {
+    font-size: 70px;
+    color: #ff6b6b;
+}
+
+/* Smooth Animations */
+.fade-in {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Buttons Colors */
+.btn-save { background: #4caf50; border: none; }
+.btn-save:hover { background: #45a049; }
+
+.btn-danger-portal { background: #e63946; border: none; }
+.btn-danger-portal:hover { background: #d62839; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .glass-card { padding: 20px; }
+    .page-title { font-size: 1.6rem; }
+}
