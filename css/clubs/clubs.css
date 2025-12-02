@@ -1,188 +1,193 @@
-/* =========================
-   Clubs Dashboard – 2025+ (Responsive & Filterable)
-   ========================= */
+/* ==================================================
+   CLUBS DASHBOARD – BAR UNION MIXED SECONDARY SCHOOL
+   FINAL 2026 EDITION – STUNNING & UNIFIED DESIGN
+   Text & buttons 100% visible • Mobile-perfect • Ultra-premium
+================================================== */
 
-/* -------- ROOT VARIABLES -------- */
 :root {
-    --primary: #0b2d5e;       
-    --secondary: #e91e63;     
-    --accent: #ffd700;         
-    --dark: #880e4f;           
-    --light: #f8f9ff;          
-    --glass: rgba(255,255,255,0.15);
-    --border: rgba(255,255,255,0.2);
+  --blue: #0175C2;
+  --blue-dark: #0b2d5e;
+  --gold: #ffd700;
+  --gold-light: #ffed4e;
+  --gray: #555;
+  --gray-light: #777;
+  --light: #f8fafc;
+  --radius: 32px;
+  --shadow-sm: 0 12px 35px rgba(0,0,0,0.1);
+  --shadow-md: 0 20px 50px rgba(0,0,0,0.15);
+  --shadow-lg: 0 35px 80px rgba(0,0,0,0.22);
+  --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* -------- BODY & GENERAL -------- */
-body {
-    font-family: 'Segoe UI', 'Poppins', sans-serif;
-    background: var(--light);
-    color: #333;
-    margin: 0;
+/* ==================================
+   Global
+================================== */
+body.page-clubs {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.75;
+  color: #333;
+  background: var(--light);
+}
+.container {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
-a { text-decoration: none; }
-p { margin: 0.5rem 0; }
-
-/* -------- NAVBAR -------- */
-.navbar {
-    background: var(--primary) !important;
-}
-
-/* -------- HERO SECTION -------- */
+/* ==================================
+   1. Hero Section
+================================== */
 .hero {
-    background: linear-gradient(135deg, var(--primary) 0%, #1e4d8c 100%), 
-                url('/assets/images/clubs-hero.jpg') center/cover no-repeat;
-    min-height: 90vh;
-    color: white;
-    position: relative;
-    padding: 120px 0 80px;
-    text-align: center;
+  padding: 8rem 0;
+  background: linear-gradient(135deg, rgba(11,45,94,0.94), rgba(1,117,194,0.88)),
+              url('/assets/images/clubs-hero.jpg') center/cover no-repeat fixed;
+  display: grid;
+  place-items: center;
 }
-.hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.5);
+.hero h1, .hero p {
+  text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
 }
 
+/* ==================================
+   2. Login Prompt
+================================== */
+.login-prompt {
+  min-height: 80vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background-color: #e9ecef;
+  padding: 2rem;
+}
+.login-prompt > div {
+  background: white;
+  padding: 4rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  max-width: 700px;
+}
 
-/* -------- GLASS CARDS -------- */
+/* ==================================
+   3. General Layout & Section Titles
+================================== */
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  color: var(--blue-dark);
+  margin-bottom: 3rem;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  position: relative;
+  padding-bottom: 1rem;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 5px;
+  background: linear-gradient(90deg, var(--blue), var(--gold));
+  border-radius: 5px;
+}
+
+/* ==================================
+   4. Search & Filter
+================================== */
+#clubSearch, #clubCategoryFilter {
+  border-radius: 50px;
+  padding: 0.9rem 1.5rem;
+  border: 2px solid #dee2e6;
+  transition: var(--transition);
+}
+#clubSearch:focus, #clubCategoryFilter:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(1, 117, 194, 0.2);
+}
+
+/* ==================================
+   5. Glass Cards (Clubs & Events)
+================================== */
 .glass-card {
-    background: var(--glass);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--border);
-    border-radius: 24px;
-    transition: all 0.4s ease;
-    padding: 2rem;
+  background: rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  color: var(--blue-dark);
+  cursor: pointer;
 }
 .glass-card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-lg);
+  background: rgba(255, 255, 255, 0.8);
+}
+.glass-card h3, .glass-card h5 {
+  color: var(--blue-dark);
+  font-weight: 700;
+}
+.glass-card p {
+  color: var(--gray);
+}
+.glass-card .opacity-80 {
+  opacity: 0.8 !important;
+  color: var(--blue);
+  font-weight: 500;
+}
+.glass-card i {
+  color: var(--blue);
 }
 
-/* -------- CLUB CARD & LOGO -------- */
-.club-card, .club-card:hover {
-    cursor: pointer;
-    transition: all 0.3s ease;
+/* Specifics for Event Cards */
+#eventsGrid .glass-card {
+  color: var(--blue-dark);
 }
-.club-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-}
-.club-logo {
-    width: 120px;
-    height: 120px;
-    object-fit: contain;
-    background: white;
-    padding: 12px;
-    border-radius: 50%;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    margin-bottom: 1rem;
-}
-.club-logo-small {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 5px solid white;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    margin-bottom: 0.5rem;
+#eventsGrid .glass-card i {
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* -------- TEXT & TITLES -------- */
-.section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 900;
-    margin-bottom: 2rem;
+/* ==================================
+   6. Join Modal
+================================== */
+.modal-content.glass-card {
+  background: rgba(11, 45, 94, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
-.club-leader {
-    font-size: 0.9rem;
-    font-weight: bold;
-    color: #1565c0;
+.modal-content.glass-card .form-control,
+.modal-content.glass-card .form-select {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
 }
-.text-muted { color: rgba(0,0,0,0.6); }
-
-/* -------- ANNOUNCEMENTS & EVENTS -------- */
-.announcement {
-    background: #fff;
-    border-left: 5px solid var(--accent);
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    margin-bottom: 1rem;
+.modal-content.glass-card .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
-.event-card {
-    background: linear-gradient(135deg, #ff4081, #f50057);
-    color: white;
-    border-radius: 15px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    text-align: center;
+.modal-content.glass-card .form-control:focus,
+.modal-content.glass-card .form-select:focus {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--gold);
+  box-shadow: none;
+  color: white;
 }
 
-/* -------- FILE UPLOAD MOCK -------- */
-.fake-upload {
-    border: 3px dashed #ff80ab;
-    border-radius: 15px;
-    padding: 40px;
-    background: #fff8f9;
-    transition: all 0.4s;
-}
-.fake-upload:hover {
-    background: #fce4ec;
-    border-color: var(--primary);
+/* ==================================
+   7. Responsive Adjustments
+================================== */
+@media (max-width: 992px) {
+  .hero { padding: 6rem 0; }
 }
 
-/* -------- LOGIN PROMPT -------- */
-.login-prompt {
-    min-height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-/* -------- SEARCH / FILTER BAR -------- */
-.club-filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    justify-content: center;
-}
-.club-filters input, .club-filters select {
-    padding: 0.8rem 1rem;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    min-width: 200px;
-}
-
-/* -------- RESPONSIVE GRID -------- */
-#clubsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-}
-#eventsGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-}
-
-/* -------- MEDIA QUERIES -------- */
-@media (max-width: 768px) {
-    .hero {
-        padding: 80px 0 50px;
-    }
-    .section-title {
-        font-size: clamp(1.8rem, 6vw, 2.5rem);
-    }
-    .club-logo { width: 100px; height: 100px; }
-}
-@media (max-width: 480px) {
-    .club-logo { width: 80px; height: 80px; }
-    .club-filters { flex-direction: column; gap: 0.5rem; }
+@media (max-width: 767px) {
+  #clubSearch { margin-bottom: 1rem; }
+  .section-title { font-size: 2.2rem; }
+  .login-prompt > div { padding: 2rem; }
 }

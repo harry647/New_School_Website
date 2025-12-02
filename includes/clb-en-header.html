@@ -3,7 +3,13 @@
 
   <!-- Left: Logo & Hamburger -->
   <div class="d-flex align-items-center gap-3">
-    <button class="btn btn-outline-light d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mainMenu">
+    <button class="btn btn-outline-light d-lg-none p-2" 
+            type="button" 
+            data-bs-toggle="offcanvas" 
+            data-bs-target="#mainMenu" 
+            aria-label="Open menu"
+            aria-controls="mainMenu"
+            aria-expanded="false">
       <i class="fas fa-bars"></i>
     </button>
 
@@ -17,7 +23,7 @@
   <nav class="d-none d-lg-flex align-items-center gap-4">
     <a href="/portal/e-learning-portal.html" class="text-white nav-link">E-Learning</a>
     <a href="/clubs/clubs.html" class="text-white nav-link">Clubs</a>
-    <a href="/deparments/resources.html" class="text-white nav-link">Resources</a>
+    <a href="/departments/resources.html" class="text-white nav-link">Resources</a>
     <a href="/portal/notifications.html" class="text-white nav-link position-relative">
       Notifications
       <span class="badge bg-danger position-absolute top-0 start-100 translate-middle small">3</span>
@@ -28,13 +34,19 @@
   <div class="d-flex align-items-center gap-3">
 
     <!-- Dark Mode Toggle -->
-    <button class="btn btn-sm btn-outline-light" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+    <button class="btn btn-outline-light p-2" 
+            onclick="toggleDarkMode()" 
+            title="Toggle Dark Mode" 
+            aria-label="Toggle Dark Mode">
       <i class="fas fa-moon"></i>
     </button>
 
     <!-- User Dropdown -->
     <div class="dropdown">
-      <button class="btn btn-outline-light d-flex align-items-center gap-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <button class="btn btn-outline-light d-flex align-items-center gap-2 dropdown-toggle p-2" 
+              data-bs-toggle="dropdown" 
+              aria-expanded="false" 
+              aria-label="User menu">
         <img id="userAvatar" src="/assets/images/defaults/default-user.png" class="rounded-circle" width="32" height="32" alt="User Avatar">
         <span id="userName" class="d-none d-md-inline">Guest</span>
       </button>
@@ -50,17 +62,17 @@
 </header>
 
 <!-- Offcanvas Mobile Menu -->
-<div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="mainMenu">
+<div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="mainMenu" aria-labelledby="mainMenuLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title">Menu</h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    <h5 class="offcanvas-title" id="mainMenuLabel">Menu</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close menu"></button>
   </div>
 
-  <div class="offcanvas-body">
-    <a href="/portal/e-learning-portal.html" class="text-white nav-link mb-3">E-Learning</a>
-    <a href="/clubs/clubs.html" class="text-white nav-link mb-3">Clubs</a>
-    <a href="/departments/resources.html" class="text-white nav-link mb-3">Resources</a>
-    <a href="/portal/notifications.html" class="text-white nav-link position-relative mb-3">
+  <div class="offcanvas-body d-flex flex-column gap-2">
+    <a href="/portal/e-learning-portal.html" class="text-white nav-link mb-1">E-Learning</a>
+    <a href="/clubs/clubs.html" class="text-white nav-link mb-1">Clubs</a>
+    <a href="/departments/resources.html" class="text-white nav-link mb-1">Resources</a>
+    <a href="/portal/notifications.html" class="text-white nav-link position-relative mb-1">
       Notifications
       <span class="badge bg-danger position-absolute top-0 start-100 translate-middle small">3</span>
     </a>
@@ -69,18 +81,40 @@
 
 <style>
   .glass-nav {
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(12px);
-    background: rgba(255, 255, 255, 0.12);
+    background: rgba(0, 0, 0, 0.4);
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
     transition: background 0.3s ease-in-out;
   }
+
+  .btn-outline-light {
+    color: #fff;
+    border-color: rgba(255,255,255,0.85);
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-outline-light:hover, 
+  .btn-outline-light:focus {
+    background-color: rgba(255,255,255,0.15);
+    color: #00e0ff;
+    border-color: #00e0ff;
+  }
+
   .nav-link {
     font-weight: 500;
     transition: 0.3s;
   }
-  .nav-link:hover {
+
+  .nav-link:hover, .nav-link:focus {
     color: #00e0ff !important;
+    text-decoration: underline;
   }
+
   body.dark-mode {
     background: #111;
     color: white;
@@ -92,7 +126,6 @@
     document.body.classList.toggle('dark-mode');
   }
 
-  // Simulated Dynamic User Data (Replace with real login data)
   const user = {
     loggedIn: true,
     name: "John Doe",
@@ -103,4 +136,24 @@
     document.getElementById('userName').textContent = user.name;
     document.getElementById('userAvatar').src = user.avatar;
   }
+
+  // =============================
+  // Keyboard Accessibility for Offcanvas
+  // =============================
+  const hamburgerBtn = document.querySelector('[data-bs-target="#mainMenu"]');
+  const offcanvas = document.getElementById('mainMenu');
+
+  hamburgerBtn.addEventListener('click', () => {
+    const expanded = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+    hamburgerBtn.setAttribute('aria-expanded', !expanded);
+  });
+
+  offcanvas.addEventListener('keydown', (e) => {
+    // Close on Escape key
+    if (e.key === 'Escape') {
+      const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvas);
+      bsOffcanvas.hide();
+      hamburgerBtn.focus();
+    }
+  });
 </script>

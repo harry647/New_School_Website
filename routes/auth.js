@@ -7,9 +7,21 @@ import { validationResult } from 'express-validator';
 
 const router = express.Router();
 
-// Helper: Read JSON data
+// Helper: Read JSON data (auto-create if missing)
 const readJSON = (filePath) => {
   try {
+    // Ensure folder exists
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
+
+    // Ensure file exists
+    if (!fs.existsSync(filePath)) {
+      fs.writeFileSync(filePath, '[]', 'utf-8'); // start with empty array
+    }
+
     return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
   } catch (err) {
     console.error('Error reading JSON:', err);
@@ -17,10 +29,22 @@ const readJSON = (filePath) => {
   }
 };
 
-// Helper: Write JSON data
+
+// Helper: Write JSON data (auto-create folder if missing)
 const writeJSON = (filePath, data) => {
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+  try {
+    // Ensure folder exists
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+  } catch (err) {
+    console.error('Error writing JSON:', err);
+  }
 };
+
 
 // --------------------
 // LOGIN
@@ -69,13 +93,17 @@ router.get('/logout', (req, res) => {
 // --------------------
 // REGISTER
 // --------------------
-router.post('/register', registerValidator, (req, res) => {
+router.post('/auth/register', registerValidator, (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
+    console.log('Validation errors:', errors.array()); // <-- log the exact errors
+    console.log('Request body:', req.body); // <-- log what was sent
     return res.status(400).json({ success: false, errors: errors.array() });
   }
 
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role, admission, gender } = req.body;
+  console.log('Register payload:', { name, email, password, role, admission, gender });
+
   const usersFile = path.join('data', 'users.json');
   const users = readJSON(usersFile);
 
@@ -83,13 +111,15 @@ router.post('/register', registerValidator, (req, res) => {
     return res.status(400).json({ success: false, message: 'Email already registered' });
   }
 
-  //  hash password for production
+  // hash password for production
   const newUser = {
     id: users.length + 1,
     name,
     email,
     password,
-    role
+    role,
+    admission,
+    gender
   };
 
   users.push(newUser);
@@ -98,8 +128,9 @@ router.post('/register', registerValidator, (req, res) => {
   res.json({
     success: true,
     message: 'User registered successfully',
-    user: { id: newUser.id, name, email, role }
+    user: { id: newUser.id, name, email, role, admission, gender }
   });
 });
 
 export default router;
+

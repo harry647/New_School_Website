@@ -7,6 +7,7 @@ import authRoutes from './routes/auth.js';
 import portalRoutes from './routes/portal.js';
 import { logger } from './middleware/logger.js';
 import { errorHandler } from './middleware/errorHandler.js';
+import apiRoutes from './routes/api.js';
 
 
 
@@ -57,6 +58,7 @@ app.use('/static', express.static(path.join(__dirname, 'static')));
 // --------------------
 app.use('/auth', authRoutes);       // login, logout, register APIs
 app.use('/portal', portalRoutes);   // e-learning, clubs, notifications, protected routes
+app.use('/api', apiRoutes);         // roues to all APIs
 
 // --------------------
 // HTML Pages

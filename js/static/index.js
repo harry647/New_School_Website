@@ -29,19 +29,23 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   const startCounter = (counter) => {
-    const target = parseInt(counter.getAttribute("data-target"));
+    const parent = counter.parentElement;
+    const target = parseInt(parent.getAttribute("data-target"));
+    if (isNaN(target)) return;
+
     const suffix = counter.innerText.includes("%") ? "%" : "+";
-    const current = parseInt(counter.innerText.replace(/[^\d]/g, "")) || 0;
-    const increment = target / 80; // speed control speed
+    let current = parseInt(counter.innerText.replace(/[^\d]/g, "")) || 0;
+    const increment = Math.ceil(target / 80);
 
     if (current < target) {
-      counter.innerText =
-        Math.ceil(current + increment) + (suffix === "%" && current + increment >= target ? "%" : suffix);
+      current = Math.min(current + increment, target);
+      counter.innerText = current + suffix;
       setTimeout(() => startCounter(counter), 30);
     } else {
       counter.innerText = target + suffix;
     }
   };
+
 
   if (counters.length) {
     const observer = new IntersectionObserver((entries) => {
@@ -57,51 +61,30 @@ document.addEventListener("DOMContentLoaded", function () {
     counters.forEach((counter) => observer.observe(counter));
   }
 
-  // ===================================
-  // 3. Testimonial Slider (Simple & Lightweight)
-  // ===================================
   const slider = document.querySelector(".testimonial-slider");
-  const slides = document.querySelectorAll(".testimonial-card");
   const prevBtn = document.querySelector(".testimonial-nav .prev");
   const nextBtn = document.querySelector(".testimonial-nav .next");
-  let currentSlide = 0;
 
-  if (slider && slides.length > 1) {
-    const showSlide = (index) => {
-      slides.forEach((slide, i) => {
-        slide.classList.toggle("active", i === index);
-      });
-      currentSlide = index;
-    };
+  if (slider) {
+    const cardWidth = document.querySelector(".testimonial-card").offsetWidth + 32; // gap = 32px
+    let scrollAmount = 0;
 
-    prevBtn?.addEventListener("click", () => {
-      let newIndex = currentSlide - 1;
-      if (newIndex < 0) newIndex = slides.length - 1;
-      showSlide(newIndex);
+    nextBtn.addEventListener("click", () => {
+      scrollAmount += cardWidth;
+      if (scrollAmount > slider.scrollWidth - slider.clientWidth) scrollAmount = 0; // loop
+      slider.scrollTo({ left: scrollAmount, behavior: "smooth" });
     });
 
-    nextBtn?.addEventListener("click", () => {
-      let newIndex = currentSlide + 1;
-      if (newIndex >= slides.length) newIndex = 0;
-      showSlide(newIndex);
+    prevBtn.addEventListener("click", () => {
+      scrollAmount -= cardWidth;
+      if (scrollAmount < 0) scrollAmount = slider.scrollWidth - slider.clientWidth;
+      slider.scrollTo({ left: scrollAmount, behavior: "smooth" });
     });
 
-    // Auto-play (optional – comment out if you don’t want it)
-    setInterval(() => {
-      nextBtn.click();
-    }, 7000);
-
-    // Touch/swipe support for mobile
-    let touchStartX = 0;
-    slider.addEventListener("touchstart", (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    });
-    slider.addEventListener("touchend", (e) => {
-      const touchEndX = e.changedTouches[0].screenX;
-      if (touchStartX - touchEndX > 50) nextBtn.click();
-      if (touchEndX - touchStartX > 50) prevBtn.click();
-    });
+    // Optional: auto-scroll
+    setInterval(() => nextBtn.click(), 7000);
   }
+
 
     // ===================================
   // 4. Quick Enquiry Form – YOUR OWN BACKEND (No Formspree)

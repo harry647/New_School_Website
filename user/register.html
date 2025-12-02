@@ -15,24 +15,43 @@
   <div class="floating-shapes shape1"></div>
   <div class="floating-shapes shape2"></div>
 
+  <!-- Toast container -->
+  <div class="position-fixed top-0 end-0 p-3" style="z-index: 1080">
+    <!-- Success Toast -->
+    <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">Registration successful! Redirecting to login...</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+
+    <!-- Error Toast -->
+    <div id="errorToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="errorToastBody">Registration failed. Please try again.</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
   <div class="register-container">
     <div class="register-card">
       <div class="text-center mb-4">
-        <img src="/assets/images/logo.png" alt="School Logo" class="logo">
+        <img src="/assets/images/school/logo.png" alt="School Logo" class="logo">
         <h1>Create Account</h1>
         <p class="subtitle">Join the Bar Union Secondary Community</p>
       </div>
 
       <form id="registerForm">
         <div class="row g-3">
-
           <!-- Full Name -->
           <div class="col-12">
             <div class="input-group input-group-lg">
               <label for="name" class="visually-hidden">Full Name</label>
               <span class="input-group-text"><i class="fas fa-user"></i></span>
-              <input type="text" id="name" name="name" class="form-control" placeholder="Full Name" required>
+              <input type="text" id="name" name="name" class="form-control" placeholder="Full Name" required autocomplete="name">
             </div>
+            <div class="invalid-feedback" id="nameError"></div>
           </div>
 
           <!-- Admission Number -->
@@ -40,23 +59,23 @@
             <div class="input-group input-group-lg">
               <label for="admission" class="visually-hidden">Admission Number</label>
               <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-              <input type="text" id="admission" name="admission" class="form-control" placeholder="Admission Number" required>
+              <input type="text" id="admission" name="admission" class="form-control" placeholder="Admission Number" required autocomplete="off">
             </div>
+            <div class="invalid-feedback" id="admissionError"></div>
           </div>
 
-          <!-- Form/Class -->
+          <!-- Role -->
           <div class="col-md-6 col-12">
             <div class="input-group input-group-lg">
-              <label for="classSelect" class="visually-hidden">Form / Class</label>
-              <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-              <select id="classSelect" name="class" class="form-select" required>
-                <option value="">Form/Class</option>
-                <option value="Form 1">Form 1</option>
-                <option value="Form 2">Form 2</option>
-                <option value="Form 3">Form 3</option>
-                <option value="Form 4">Form 4</option>
+              <label for="roleSelect" class="visually-hidden">Role</label>
+              <span class="input-group-text"><i class="fas fa-user-shield"></i></span>
+              <select id="roleSelect" name="role" class="form-select" required>
+                <option value="">Select Role</option>
+                <option value="clubs">Clubs</option>
+                <option value="e-learning">E-learning</option>
               </select>
             </div>
+            <div class="invalid-feedback" id="roleError"></div>
           </div>
 
           <!-- Gender -->
@@ -64,12 +83,13 @@
             <div class="input-group input-group-lg">
               <label for="genderSelect" class="visually-hidden">Gender</label>
               <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
-              <select id="genderSelect" name="gender" class="form-select" required>
+              <select id="genderSelect" name="gender" class="form-select" required autocomplete="sex">
                 <option value="">Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
             </div>
+            <div class="invalid-feedback" id="genderError"></div>
           </div>
 
           <!-- Email -->
@@ -77,8 +97,9 @@
             <div class="input-group input-group-lg">
               <label for="email" class="visually-hidden">School Email</label>
               <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-              <input type="email" id="email" name="email" class="form-control" placeholder="School Email" required>
+              <input type="email" id="email" name="email" class="form-control" placeholder="School Email" required autocomplete="email">
             </div>
+            <div class="invalid-feedback" id="emailError"></div>
           </div>
 
           <!-- Password -->
@@ -86,8 +107,9 @@
             <div class="input-group input-group-lg">
               <label for="password" class="visually-hidden">Create Password</label>
               <span class="input-group-text"><i class="fas fa-lock"></i></span>
-              <input type="password" id="password" name="password" class="form-control" placeholder="Create Password" required>
+              <input type="password" id="password" name="password" class="form-control" placeholder="Create Password" required autocomplete="new-password">
             </div>
+            <div class="invalid-feedback" id="passwordError"></div>
           </div>
 
           <!-- Terms -->
@@ -98,20 +120,19 @@
                 I agree to the <a href="#" class="extra-links">Terms & Privacy Policy</a>
               </label>
             </div>
+            <div class="invalid-feedback" id="termsError"></div>
           </div>
 
           <!-- Submit -->
           <div class="col-12 text-center">
             <button type="submit" class="btn btn-register">Create My Account</button>
           </div>
-
         </div>
       </form>
 
-
       <div class="text-center mt-3">
         <p class="text-white-50 mb-0">
-          Already have an account? <a href="/login.html" class="extra-links">Login here</a>
+          Already have an account? <a href="/user/login.html" class="extra-links">Login here</a>
         </p>
       </div>
 
@@ -126,45 +147,68 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
 document.getElementById("registerForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    const form = e.target;
-    const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
+  const form = e.target;
+  const payload = Object.fromEntries(new FormData(form).entries());
 
-    try {
-        const response = await fetch("/auth/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            // The backend expects 'form' but the name attribute is 'class'
-            // We can remap it here before sending.
-            body: JSON.stringify({ ...data, form: data.class })
+  // Clear previous errors
+  ['name','admission','role','gender','email','password','terms'].forEach(field => {
+    const errorDiv = document.getElementById(field + 'Error');
+    const inputField = document.getElementById(field) || document.getElementById(field + 'Select');
+    if (errorDiv) errorDiv.innerText = '';
+    if (inputField) inputField.classList.remove('is-invalid');
+  });
+
+  try {
+    const response = await fetch("/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+    console.log("Server response:", JSON.stringify(result, null, 2));
+
+    if (result.success) {
+      // Show success toast
+      const toastEl = document.getElementById('successToast');
+      const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+      toast.show();
+
+      // Redirect to login after toast
+      setTimeout(() => {
+        window.location.href = "/user/login.html";
+      }, 3000);
+
+    } else {
+      if (result.errors && Array.isArray(result.errors)) {
+        // Display validation errors next to inputs
+        result.errors.forEach(err => {
+          const errorDiv = document.getElementById(err.param + 'Error');
+          const inputField = document.getElementById(err.param) || document.getElementById(err.param + 'Select');
+          if (errorDiv) errorDiv.innerText = err.msg;
+          if (inputField) inputField.classList.add('is-invalid');
         });
-
-        const data = await response.json();
-
-        if (data.success) {
-            // Save basic info locally (frontend convenience)
-            localStorage.setItem("userLoggedIn", "true");
-            localStorage.setItem("userRole", data.role);
-            localStorage.setItem("userName", data.name || "");
-
-            // Redirect based on role
-            if (data.role === "clubs") {
-                window.location.href = "/portal/clubs";
-            } else if (data.role === "e-learning") {
-                window.location.href = "/portal/e-learning";
-            } else {
-                alert("Account created successfully, but role unknown. Redirecting to home.");
-                window.location.href = "/";
-            }
-        } else {
-            alert(data.message || "Registration failed. Please try again.");
-        }
-    } catch (err) {
-        console.error("Registration error:", err);
-        alert("An error occurred while creating your account. Please try again later.");
+      } else {
+        // Show error toast
+        const errorToastEl = document.getElementById('errorToast');
+        const errorToastBody = document.getElementById('errorToastBody');
+        errorToastBody.innerText = result.message || "Registration failed. Please try again.";
+        const errorToast = new bootstrap.Toast(errorToastEl, { delay: 5000 });
+        errorToast.show();
+      }
     }
+
+  } catch (err) {
+    console.error("Registration request failed:", err);
+    // Show unexpected error toast
+    const errorToastEl = document.getElementById('errorToast');
+    const errorToastBody = document.getElementById('errorToastBody');
+    errorToastBody.innerText = "An unexpected error occurred. Please try again later.";
+    const errorToast = new bootstrap.Toast(errorToastEl, { delay: 5000 });
+    errorToast.show();
+  }
 });
 </script>
 
