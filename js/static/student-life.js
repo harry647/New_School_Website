@@ -169,15 +169,18 @@
             container.innerHTML = "";
             sports.forEach((s, idx) => {
                 console.log("Rendering sport:", s.name);
-                const div = document.createElement("div");
-                div.className = "sport-item fade-in show lightbox-open";
-                div.style.animationDelay = `${idx * 0.12}s`;
-                div.innerHTML = `
+                const a = document.createElement("a");
+                a.href = s.full;
+                a.dataset.lightbox = "sports-gallery";
+                a.dataset.title = s.name;
+                a.className = "sport-item fade-in show";
+                a.style.animationDelay = `${idx * 0.12}s`;
+                a.innerHTML = `
                     <img src="${s.img}" alt="${s.name}">
                     <h4><i class="${s.icon}" style="color: ${s.color}"></i> ${s.name}</h4>
                     <p class="sport-desc">${s.description}</p>
                 `;
-                container.appendChild(div);
+                container.appendChild(a);
             });
         }
 

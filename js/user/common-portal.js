@@ -1,53 +1,85 @@
-<!-- common-portal.js -->
-<script>
-// Simulated user data (replace with backend API)
-const USER = {
-name: "John Doe",
-email: "john@example.com",
-photo: "/assets/images/defaults/default-user.png",
-notifications: 3
-};
+// common-portal.js 
 
+// -------------------------------
+// Helper Functions
+// -------------------------------
+const $ = (id) => document.getElementById(id);
+const $all = (selector) => document.querySelectorAll(selector);
 
-
-// Populate profile details
-function populateProfile() {
-const nameEl = document.getElementById('userName');
-const emailEl = document.getElementById('userEmail');
-const photoEls = document.querySelectorAll('.user-photo');
-const notifBadges = document.querySelectorAll('.notif-count');
-
-
-if (nameEl) nameEl.textContent = USER.name;
-if (emailEl) emailEl.textContent = USER.email;
-
-
-photoEls.forEach(el => el.src = USER.photo);
-notifBadges.forEach(el => el.textContent = USER.notifications);
+// Fetch wrapper
+async function apiGet(url) {
+    const res = await fetch(url, { credentials: "include" });
+    if (!res.ok) throw new Error(`GET ${url} failed`);
+    return res.json();
 }
 
-
-// Handle logout logic (backend-ready)
-function handleLogout() {
-// Replace with your backend logout API
-console.log("Logging out...");
-window.location.href = "/user/logout.html";
+async function apiPut(url, data) {
+    const res = await fetch(url, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(data)
+    });
+    if (!res.ok) throw new Error(`PUT ${url} failed`);
+    return res.json();
 }
 
+// -------------------------------
+// Load User Profile
+// -------------------------------
+async function populateProfile() {
+    try {
+        const user = await apiGet('/api/users/me'); // backend endpoint
 
-// Handle settings save
-function saveSettings() {
-const name = document.getElementById('setName').value;
-const email = document.getElementById('setEmail').value;
-const pass = document.getElementById('setPass').value;
+        // Update UI
+        if ($('userName')) $('userName').textContent = user.name;
+        if ($('userEmail')) $('userEmail').textContent = user.email;
 
+        $all('.user-photo').forEach(el => el.src = user.photo || "/assets/images/defaults/default-user.png");
+        $all('.notif-count').forEach(el => el.textContent = user.notifications || 0);
 
-// Ready for backend: send to API
-console.log("Saving settings", { name, email, pass });
-alert("Settings saved successfully!");
+    } catch (err) {
+        console.error("Failed to load profile:", err);
+    }
 }
 
+// -------------------------------
+// Logout Handler
+// -------------------------------
+async function handleLogout() {
+    try {
+        await apiGet('/auth/logout'); // Calls real logout API
+        window.location.href = "/login.html";
+    } catch (err) {
+        console.error("Logout failed:", err);
+    }
+}
 
-// Auto-run on load
+// -------------------------------
+// Save Settings
+// -------------------------------
+async function saveSettings() {
+    const name = $('setName')?.value;
+    const email = $('setEmail')?.value;
+    const pass = $('setPass')?.value;
+
+    try {
+        const update = { name, email };
+        if (pass.trim() !== "") update.password = pass;
+
+        const res = await apiPut('/api/users/me', update);
+
+        alert("Settings saved successfully!");
+        populateProfile(); // Refresh UI
+
+    } catch (err) {
+        console.error("Failed to save settings:", err);
+        alert("Error saving settings.");
+    }
+}
+
+// -------------------------------
+// Auto-run
+// -------------------------------
 window.addEventListener('DOMContentLoaded', populateProfile);
-</script>
+

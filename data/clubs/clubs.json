@@ -1,14 +1,122 @@
 [
-  { "id": "scouts",          "name": "Scouts & Girl Guides",          "icon": "fa-compass",       "color": "#28a745", "category": "Outdoor",        "leader": "Mr. Kamau" },
-  { "id": "christian-union", "name": "Christian Union",               "icon": "fa-cross",         "color": "#4361ee", "category": "Spiritual",      "leader": "Ms. Achieng" },
-  { "id": "wildlife",        "name": "Wildlife & Environmental",     "icon": "fa-leaf",          "color": "#2ecc71", "category": "Science",        "leader": "Mr. Odhiambo" },
-  { "id": "journalism",      "name": "Journalism & Media",           "icon": "fa-newspaper",     "color": "#e74c3c", "category": "Media",          "leader": "Ms. Akoth" },
-  { "id": "robotics",        "name": "Robotics & Innovation",        "icon": "fa-robot",         "color": "#9b59b6", "category": "STEM",           "leader": "Mr. Okoth" },
-  { "id": "drama",           "name": "Drama & Performing Arts",      "icon": "fa-masks-theater", "color": "#e67e22", "category": "Arts",           "leader": "Ms. Wanjiku" },
-  { "id": "music",           "name": "Music & Choir",                "icon": "fa-music",         "color": "#f1c40f", "category": "Arts",           "leader": "Mr. Ochieng" },
-  { "id": "art",             "name": "Art & Design",                  "icon": "fa-palette",       "color": "#e91e63", "category": "Arts",           "leader": "Ms. Anyango" },
-  { "id": "debate",          "name": "Debate & Public Speaking",     "icon": "fa-microphone",    "color": "#3498db", "category": "Leadership",     "leader": "Mr. Otieno" },
-  { "id": "science",         "name": "Science Club",                  "icon": "fa-flask",         "color": "#1abc9c", "category": "STEM",           "leader": "Mr. Odhiambo" },
-  { "id": "mathematics",     "name": "Mathematics Club",              "icon": "fa-calculator",    "color": "#34495e", "category": "STEM",           "leader": "Ms. Akoth" },
-  { "id": "humanities",      "name": "Humanities & Languages",        "icon": "fa-globe",         "color": "#95a5a6", "category": "Academic",       "leader": "Ms. Anyango" }
+  {
+    "id": "art",
+    "name": "Art & Design Club",
+    "icon": "fa-palette",
+    "color": "#e91e63",
+    "category": "Arts",
+    "logo": "/assets/images/clubs/art.png",
+    "shortDesc": "Painting, sculpture, exhibitions & creative expression",
+    "leader": { "name": "Mr. Isaac", "email": "barunionsecondary@gmail.com" }
+  },
+  {
+    "id": "robotics",
+    "name": "Robotics & Innovation",
+    "icon": "fa-robot",
+    "color": "#9c27b0",
+    "category": "STEM",
+    "logo": "/assets/images/clubs/robotics.png",
+    "shortDesc": "Arduino, coding, 3D printing & robotics competitions",
+    "leader": { "name": "Mr. Brian", "email": "barunionsecondary@gmail.com" }
+  },
+  {
+    "id": "christian-union",
+    "name": "Christian Union",
+    "icon": "fa-cross",
+    "color": "#4361ee",
+    "category": "Spiritual",
+    "logo": "/assets/images/clubs/cu.png",
+    "shortDesc": "Fellowship, worship & spiritual growth",
+    "leader": { "name": "Mr. Otaye", "email": "barunionsecondary@gmail.com" }
+  },
+  {
+    "id": "debate",
+    "name": "Debate & Public Speaking",
+    "icon": "fa-microphone-alt",
+    "color": "#3498db",
+    "category": "Leadership",
+    "logo": "/assets/images/clubs/debate.png",
+    "shortDesc": "Debate, Model UN, eloquence & confidence",
+    "leader": { "name": "Ms. Tago", "email": "barunionsecondary@gmail.com" }
+  },
+  {
+    "id": "drama",
+    "name": "Drama & Performing Arts",
+    "icon": "fa-theater-masks",
+    "color": "#e67e22",
+    "category": "Arts",
+    "logo": "/assets/images/clubs/drama.png",
+    "shortDesc": "Theatre, acting, scriptwriting & stage production",
+    "leader": { "name": "Mrs. Sharlene", "email": "barunionsecondary@gmail.com" }
+  },
+  {
+    "id": "humanities",
+    "name": "Humanities & Languages Club",
+    "icon": "fa-globe",
+    "color": "#95a5a6",
+    "category": "Academic",
+    "logo": "/assets/images/clubs/humanities.png",
+    "shortDesc": "History, Geography, CRE, culture & global awareness",
+    "leader": { "name": "Mr. Edwin", "email": "barunionsecondary@gmail.com" }
+  },
+  {
+    "id": "journalism",
+    "name": "Journalism & Media Club",
+    "icon": "fa-newspaper",
+    "color": "#e74c3c",
+    "category": "Communication",
+    "logo": "/assets/images/clubs/journalism.png",
+    "shortDesc": "Reporting, photography, school magazine & news",
+    "leader": { "name": "Mrs. Salome & Mr. Otieno", "email": "barunionsecondary@gmail.com" }
+  },
+  {
+    "id": "mathematics",
+    "name": "Mathematics Club",
+    "icon": "fa-square-root-alt",
+    "color": "#4caf50",
+    "category": "STEM",
+    "logo": "/assets/images/clubs/maths.png",
+    "shortDesc": "Math Olympiad, puzzles & problem-solving",
+    "leader": { "name": "Mr. Otieno Harry", "email": "barunionsecondary@gmail.com" }
+  },
+  {
+    "id": "music",
+    "name": "Music & Choir",
+    "icon": "fa-music",
+    "color": "#f1c40f",
+    "category": "Arts",
+    "logo": "/assets/images/clubs/music.png",
+    "shortDesc": "Choir, band, traditional dance & festivals",
+    "leader": { "name": "Ms. Isaac", "email": "barunionsecondary@gmail.com" }
+  },
+  {
+    "id": "science",
+    "name": "Science Club",
+    "icon": "fa-flask",
+    "color": "#009688",
+    "category": "STEM",
+    "logo": "/assets/images/clubs/science.png",
+    "shortDesc": "Experiments, science fairs & research",
+    "leader": { "name": "Ms. Kute", "email": "barunionsecondary@gmail.com" }
+  },
+  {
+    "id": "scouts",
+    "name": "Scouts & Girl Guides",
+    "icon": "fa-campground",
+    "color": "#ff9800",
+    "category": "Outdoors",
+    "logo": "/assets/images/clubs/scouts.png",
+    "shortDesc": "Camping, first aid, leadership & service",
+    "leader": { "name": "Mr. Maurice (Patron) & Ms. Violet", "email": "barunionsecondary@gmail.com" }
+  },
+  {
+    "id": "wildlife",
+    "name": "Wildlife & Environmental Club",
+    "icon": "fa-leaf",
+    "color": "#27ae60",
+    "category": "Environment",
+    "logo": "/assets/images/clubs/wildlife.png",
+    "shortDesc": "Conservation, tree planting & eco-awareness",
+    "leader": { "name": "Mr. Charles (Patron) & Mrs. Susan", "email": "barunionsecondary@gmail.com" }
+  }
 ]

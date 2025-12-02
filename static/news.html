@@ -9,7 +9,7 @@
     <meta property="og:title" content="News & Events | Bar Union Mixed Secondary School">
     <meta property="og:description" content="Latest updates, achievements, and upcoming events from our campus.">
     <meta property="og:image" content="/assets/images/common/og-image.jpg">
-    <meta property="og:url" content="https://yourschool.ac.ke/news-events.html">
+    <meta property="og:url" content="https://barunionschool.ac.ke/news-events.html">
     
     <!-- Preconnect for Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,7 +42,7 @@
             <!-- Search Bar -->
             <div class="search-bar mb-3">
                 <input type="text" id="newsSearch" placeholder="Search news, events, achievements, or announcements..." aria-label="Search news">
-                <button id="searchBtn" aria-label="Search News"><i class="fas fa-search"></i></button>
+                <button type="button" id="searchBtn" aria-label="Search News"><i class="fas fa-search"></i></button>
             </div>
 
             <!-- Filter Controls -->
@@ -57,10 +57,10 @@
             <!-- Dynamic News Grid -->
             <div class="news-grid" id="newsGrid" role="feed" aria-live="polite">
                 <!-- Loader will be replaced by JS -->
-                <div class="loader text-center">
+                <article class="loader text-center" aria-label="Loading news">
                     <i class="fas fa-spinner fa-spin fa-3x"></i>
                     <p>Loading latest news & events...</p>
-                </div>
+                </article>
             </div>
 
             <!-- No Results -->
@@ -117,11 +117,18 @@
     </section>
 
     <!-- Announcements Banner -->
-    <section class="section announcement-banner">
-        <div class="container">
-            <marquee behavior="scroll" direction="left" aria-label="Important Announcements">
-                📢 School closed on Dec 25 for Christmas | 🏆 Form 4 results announced today | 🎉 Annual Sports Day on Jan 15
-            </marquee>
+    <section class="section announcement-banner" aria-labelledby="announcement-heading">
+        <h2 id="announcement-heading" class="visually-hidden">Important Announcements</h2>
+        <div class="announcement-container">
+            <div class="announcement-ticker" aria-hidden="true">
+                <span>📢 School closed on Dec 25 for Christmas</span>
+                <span>🏆 Form 4 results announced today</span>
+                <span>🎉 Annual Sports Day on Jan 15</span>
+                <!-- Repeat for seamless loop -->
+                <span>📢 School closed on Dec 25 for Christmas</span>
+                <span>🏆 Form 4 results announced today</span>
+                <span>🎉 Annual Sports Day on Jan 15</span>
+            </div>
         </div>
     </section>
 
@@ -305,8 +312,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Grade / Class *</label>
-                            <select name="grade" required>
+                            <label for="grade">Grade / Class *</label>
+                            <select name="grade" id="grade" required>
                                 <option value="">Select Grade or Form</option>
                                 <option>Form 1</option>
                                 <option>Form 2</option>
@@ -320,13 +327,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Blog Title *</label>
-                            <input type="text" name="blog_title" placeholder="Enter a clear, descriptive title" required />
+                            <label for="blog_title">Blog Title *</label>
+                            <input type="text" name="blog_title" id="blog_title" placeholder="Enter a clear, descriptive title" required />
                         </div>
 
                         <div class="form-group">
-                            <label>Blog Category *</label>
-                            <select name="topic" required>
+                            <label for="topic">Blog Category *</label>
+                            <select name="topic" id="topic" required>
                                 <option value="">Choose a Category</option>
                                 <option>Academics & Study Tips</option>
                                 <option>School Events & Activities</option>
@@ -339,14 +346,14 @@
                         </div>
 
                         <div class="form-group full">
-                            <label>Blog Content *</label>
-                            <textarea name="blog_content" rows="10" required
+                            <label for="blog_content">Blog Content *</label>
+                            <textarea name="blog_content" id="blog_content" rows="10" required
                                       placeholder="Write your blog here... Share your experience, thoughts, creativity, or message."></textarea>
                         </div>
 
                         <div class="form-group full">
-                            <label>Featured Image (Optional)</label>
-                            <input type="file" name="featured_image" accept="image/jpeg,image/png,image/gif,image/webp" />
+                            <label for="featured_image">Featured Image (Optional)</label>
+                            <input type="file" name="featured_image" id="featured_image" accept="image/jpeg,image/png,image/gif,image/webp" />
                             <small class="text-muted">JPG, PNG, GIF, WebP • Max 10 MB • Will be used as the blog thumbnail</small>
                         </div>
                     </div>

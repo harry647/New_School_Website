@@ -1,81 +1,173 @@
 <div class="glass-card p-5 text-white">
   <!-- Header -->
   <div class="text-center mb-5">
-    <button onclick="history.back()" class="btn btn-outline-light mb-4">Back to Clubs</button>
+    <button onclick="history.back()" class="btn btn-outline-light mb-4">
+      Back to Clubs
+    </button>
     <h1>Scouts & Girl Guides</h1>
     <p class="lead text-warning fs-4">Be Prepared</p>
   </div>
 
   <div class="row g-5 align-items-start">
-    <!-- Left Column: Logo, Join, Leaders, Resources -->
+    <!-- Left Column -->
     <div class="col-lg-4 text-center">
-      <img src="/assets/images/clubs/scouts.png" class="club-logo shadow-lg mb-4" alt="Scouts Logo">
-      <button onclick="openJoinModal('Scouts & Girl Guides')" class="btn btn-success btn-lg px-5 mb-4">Join Scouts</button>
+
+      <img src="/assets/images/clubs/scouts.png" 
+           class="club-logo shadow-lg mb-4 rounded-4" 
+           alt="Scouts & Girl Guides Logo">
+
+      <button onclick="openJoinModal('Scouts & Girl Guides')" 
+              class="btn btn-success btn-lg px-5 w-100 mb-4 shadow">
+        Join Scouts
+      </button>
 
       <!-- Club Leaders -->
-      <div class="glass-card p-3 mb-4 text-dark">
-        <h5 class="fw-bold">Patron & Teachers</h5>
-        <p class="mb-1">Mr. Maurice (Patron)</p>
-        <p>Ms. Violet</p>
+      <div class="glass-card p-4 text-dark rounded-3 mb-4">
+        <h5 class="fw-bold mb-3">Patron & Teachers</h5>
+        <div class="text-center">
+          <p class="mb-1 fw-semibold">Mr. Maurice (Patron)</p>
+          <p class="mb-3">Ms. Violet</p>
+          <a href="mailto:barunionsecondary@gmail.com" 
+             class="btn btn-outline-primary btn-sm w-100">
+            Contact Leaders
+          </a>
+        </div>
       </div>
 
       <!-- Resources -->
-      <div class="glass-card p-3 text-dark">
-        <h5 class="fw-bold">Resources</h5>
-        <ul class="list-unstyled mb-0">
-          <li><a href="/downloads/scouts/scouts-handbook.pdf" class="btn btn-outline-light btn-sm mb-2 w-100">Scouts Handbook</a></li>
-          <li><a href="/downloads/scouts/first-aid.pdf" class="btn btn-outline-light btn-sm w-100">First Aid Guide</a></li>
-        </ul>
+      <div class="glass-card p-4 text-dark rounded-3">
+        <h5 class="fw-bold mb-3">Download Resources</h5>
+        <div class="d-grid gap-2">
+          <a href="/downloads/scouts/scouts-handbook.pdf" 
+             class="btn btn-outline-light btn-sm" download>
+            Scouts Handbook
+          </a>
+          <a href="/downloads/scouts/first-aid.pdf" 
+             class="btn btn-outline-light btn-sm" download>
+            First Aid Guide
+          </a>
+        </div>
       </div>
+
     </div>
 
-    <!-- Right Column: About, Gallery, Events, Upload -->
+    <!-- Right Column -->
     <div class="col-lg-8">
+
       <!-- About -->
-      <h3>About Us</h3>
-      <p class="lead">Leadership training, camping, first aid, community service, and outdoor adventures. We build character and resilience.</p>
+      <section class="mb-5">
+        <h3>About Us</h3>
+        <p class="lead fs-5">
+          Leadership training, camping, first aid, community service, and outdoor adventures. 
+          We build character, resilience, and lifelong skills through the Scout Promise and Law.
+        </p>
+      </section>
 
       <!-- Gallery -->
-      <h3 class="mt-5">Gallery – 2024/2025</h3>
-      <div class="row g-3" data-fancybox="scouts-gallery">
-        <div class="col-6 col-md-4"><a href="/assets/images/gallery/scouts/scouts1.jpg"><img src="/assets/images/gallery/scouts/scouts1.jpg" class="img-fluid rounded"></a></div>
-        <div class="col-6 col-md-4"><a href="/assets/images/gallery/scouts/scouts2.jpg"><img src="/assets/images/gallery/scouts/scouts2.jpg" class="img-fluid rounded"></a></div>
-        <div class="col-6 col-md-4"><a href="/assets/images/gallery/scouts/scouts3.jpg"><img src="/assets/images/gallery/scouts/scouts3.jpg" class="img-fluid rounded"></a></div>
-      </div>
+      <section class="mb-5">
+        <h3>Gallery – 2024/2025</h3>
+        <div class="row g-3" data-fancybox="scouts-gallery">
+          <div class="col-6 col-md-4">
+            <a href="/assets/images/gallery/scouts/scouts1.jpg" data-caption="Annual Camp 2025">
+              <img src="/assets/images/gallery/scouts/scouts1.jpg" class="img-fluid rounded shadow-sm" alt="Camp 2025">
+            </a>
+          </div>
+          <div class="col-6 col-md-4">
+            <a href="/assets/images/gallery/scouts/scouts2.jpg" data-caption="Community Service">
+              <img src="/assets/images/gallery/scouts/scouts2.jpg" class="img-fluid rounded shadow-sm" alt="Community Service">
+            </a>
+          </div>
+          <div class="col-6 col-md-4">
+            <a href="/assets/images/gallery/scouts/scouts3.jpg" data-caption="Scout Parade">
+              <img src="/assets/images/gallery/scouts/scouts3.jpg" class="img-fluid rounded shadow-sm" alt="Scout Parade">
+            </a>
+          </div>
+          <!-- Add more as needed -->
+        </div>
+      </section>
 
-      <!-- Upcoming Events -->
-      <h3 class="mt-5">Upcoming Events</h3>
-      <div id="scoutsEvents" class="row g-3">
-        <!-- JS will inject upcoming events for this club -->
-      </div>
+      <!-- Upcoming Events – Auto-loaded from backend -->
+      <section class="mb-5">
+        <h3>Upcoming Events</h3>
+        <div id="scoutsEvents" class="row g-3" data-club-id="scouts">
+          <!-- Events injected automatically by clubs.js -->
+          <div class="col-12 text-center py-5 text-muted">
+            <i class="fas fa-spinner fa-spin fa-2x"></i>
+            <p class="mt-3">Loading events...</p>
+          </div>
+        </div>
+      </section>
 
-      <!-- File Upload / Submissions -->
-      <h3 class="mt-5">Upload Camp Photos</h3>
-      <label class="fake-upload d-block text-center">
-        Drag & Drop photos here or click to upload
-        <input type="file" multiple accept="image/*" hidden onchange="alert('Photos uploaded!')">
-      </label>
+      <!-- File Upload Zone -->
+      <section class="mb-5">
+        <h3>Upload Camp Photos / Reports</h3>
+        <div class="upload-zone p-5 text-center border-2 border-dashed rounded-4 cursor-pointer"
+             id="uploadZone">
+          <i class="fas fa-cloud-upload-alt fa-4x mb-4 text-white opacity-75"></i>
+          <p class="lead mb-4">Drag & drop photos here</p>
+          <p class="small opacity-80 mb-4">or click to browse</p>
+          <input type="file" 
+                 id="clubFileInput" 
+                 multiple 
+                 accept="image/*,video/*"
+                 hidden>
+          <button type="button" 
+                  onclick="document.getElementById('clubFileInput').click()"
+                  class="btn btn-outline-light btn-lg">
+            Choose Files
+          </button>
+
+          <div id="uploadPreview" class="mt-4"></div>
+        </div>
+      </section>
+
     </div>
   </div>
 </div>
 
+<!-- Auto-load events & setup upload when page loads -->
 <script>
-  // Inject club-specific upcoming events
-  const scoutsEventsContainer = document.getElementById('scoutsEvents');
-  if (typeof EVENTS !== 'undefined') {
-    const scoutsEvents = EVENTS.filter(ev => ev.club.toLowerCase() === 'scouts & girl guides');
-    if (scoutsEvents.length === 0) {
-      scoutsEventsContainer.innerHTML = '<p class="text-muted">No upcoming events.</p>';
-    } else {
-      scoutsEventsContainer.innerHTML = scoutsEvents.map(ev => `
-        <div class="col-md-6">
-          <div class="event-card p-3">
-            <h5>${ev.title}</h5>
-            <p class="small opacity-80">${ev.date}</p>
-            <p>${ev.description}</p>
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById('scoutsEvents');
+    if (!container) return;
+
+    const clubId = 'scouts'; // Must match club.id in clubs.json
+
+    const loadEvents = () => {
+      if (typeof window.EVENTS === 'undefined') {
+        setTimeout(loadEvents, 100);
+        return;
+      }
+
+      const clubEvents = window.EVENTS
+        .filter(group => group.clubId === clubId)
+        .flatMap(group => group.events || []);
+
+      if (clubEvents.length === 0) {
+        container.innerHTML = `
+          <div class="col-12 text-center py-5">
+            <p class="text-muted fs-5">No upcoming events scheduled.</p>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = clubEvents.map(ev => `
+        <div class="col-md-6 mb-4">
+          <div class="glass-card p-4 text-white h-100">
+            <h5 class="fw-bold mb-2">${ev.title}</h5>
+            <p class="small opacity-80 mb-2">
+              ${new Date(ev.date).toLocaleDateString('en-KE', { 
+                weekday: 'long', month: 'long', day: 'numeric' 
+              })}
+            </p>
+            ${ev.time ? `<p class="small opacity-80"><i class="far fa-clock"></i> ${ev.time}</p>` : ''}
+            ${ev.location ? `<p class="small opacity-80"><i class="fas fa-map-marker-alt"></i> ${ev.location}</p>` : ''}
+            <p class="mt-3">${ev.description || ''}</p>
           </div>
         </div>
       `).join('');
-    }
-  }
+    };
+
+    loadEvents();
+  });
 </script>

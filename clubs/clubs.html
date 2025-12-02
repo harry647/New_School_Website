@@ -46,7 +46,7 @@
           <input type="text" id="clubSearch" class="form-control form-control-lg" placeholder="Search Clubs...">
         </div>
         <div class="col-md-6">
-          <select id="clubCategoryFilter" class="form-select form-select-lg">
+          <select id="clubCategoryFilter" class="form-select form-select-lg" aria-label="Filter by category">
             <option value="">All Categories</option>
             <option>Academic</option>
             <option>Sports</option>
@@ -75,20 +75,20 @@
         <form id="joinForm" class="modal-content glass-card border-0 text-white">
           <div class="modal-header border-0">
             <h3>Join <span id="modalClubName"></span></h3>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <div class="row g-3">
-              <div class="col-md-6"><input type="text" class="form-control form-control-lg" placeholder="Full Name" required></div>
-              <div class="col-md-6"><input type="email" class="form-control form-control-lg" placeholder="Email" required></div>
+              <div class="col-md-6"><input name="name" type="text" class="form-control form-control-lg" placeholder="Full Name" required aria-label="Full Name"></div>
+              <div class="col-md-6"><input name="email" type="email" class="form-control form-control-lg" placeholder="Email" required aria-label="Email"></div>
               <div class="col-md-6">
-                <select class="form-select form-select-lg" required>
+                <select name="form" class="form-select form-select-lg" required aria-label="Select Form/Class">
                   <option value="">Select Form/Class</option>
                   <option>Form 1</option><option>Form 2</option><option>Form 3</option><option>Form 4</option>
                 </select>
               </div>
-              <div class="col-md-6"><input type="tel" class="form-control form-control-lg" placeholder="Phone"></div>
-              <div class="col-12"><textarea class="form-control form-control-lg" rows="3" placeholder="Why join this club?"></textarea></div>
+              <div class="col-md-6"><input name="phone" type="tel" class="form-control form-control-lg" placeholder="Phone" aria-label="Phone"></div>
+              <div class="col-12"><textarea name="reason" class="form-control form-control-lg" rows="3" placeholder="Why join this club?" aria-label="Reason for joining"></textarea></div>
               <div class="col-12 text-center">
                 <button type="submit" class="btn btn-success btn-lg px-5">Submit Application</button>
               </div>
@@ -105,31 +105,5 @@
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
   <script src="https://www.w3schools.com/lib/w3.js"></script>
   <script src="/js/clubs/clubs.js"></script>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      w3.includeHTML(() => {
-        if (isUserLoggedIn()) {
-          document.getElementById("mainContent").classList.remove("d-none");
-          loadClubsList();
-          loadUpcomingEvents();
-
-          // Auto-load club if hash exists
-          if (location.hash) {
-            const id = location.hash.substring(1);
-            if (CLUBS.find(c => c.id === id)) loadClub(id);
-          }
-
-          // Search filter
-          document.getElementById("clubSearch").addEventListener("input", e => filterClubs(e.target.value));
-          document.getElementById("clubCategoryFilter").addEventListener("change", e => filterClubsByCategory(e.target.value));
-
-        } else {
-          document.getElementById("loginCheck").classList.remove("d-none");
-        }
-      });
-    });
-  </script>
-
 </body>
 </html>

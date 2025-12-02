@@ -25,48 +25,72 @@
 
       <form id="registerForm">
         <div class="row g-3">
+
+          <!-- Full Name -->
           <div class="col-12">
             <div class="input-group input-group-lg">
+              <label for="name" class="visually-hidden">Full Name</label>
               <span class="input-group-text"><i class="fas fa-user"></i></span>
-              <input type="text" name="name" class="form-control" placeholder="Full Name" required>
+              <input type="text" id="name" name="name" class="form-control" placeholder="Full Name" required>
             </div>
           </div>
+
+          <!-- Admission Number -->
           <div class="col-12">
             <div class="input-group input-group-lg">
+              <label for="admission" class="visually-hidden">Admission Number</label>
               <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-              <input type="text" name="admission" class="form-control" placeholder="Admission Number" required>
+              <input type="text" id="admission" name="admission" class="form-control" placeholder="Admission Number" required>
             </div>
           </div>
+
+          <!-- Form/Class -->
           <div class="col-md-6 col-12">
             <div class="input-group input-group-lg">
+              <label for="classSelect" class="visually-hidden">Form / Class</label>
               <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-              <select name="class" class="form-select" required>
+              <select id="classSelect" name="class" class="form-select" required>
                 <option value="">Form/Class</option>
-                <option value="Form 1">Form 1</option><option value="Form 2">Form 2</option><option value="Form 3">Form 3</option><option value="Form 4">Form 4</option>
+                <option value="Form 1">Form 1</option>
+                <option value="Form 2">Form 2</option>
+                <option value="Form 3">Form 3</option>
+                <option value="Form 4">Form 4</option>
               </select>
             </div>
           </div>
+
+          <!-- Gender -->
           <div class="col-md-6 col-12">
             <div class="input-group input-group-lg">
+              <label for="genderSelect" class="visually-hidden">Gender</label>
               <span class="input-group-text"><i class="fas fa-venus-mars"></i></span>
-              <select name="gender" class="form-select" required>
+              <select id="genderSelect" name="gender" class="form-select" required>
                 <option value="">Gender</option>
-                <option value="Male">Male</option><option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
               </select>
             </div>
           </div>
+
+          <!-- Email -->
           <div class="col-12">
             <div class="input-group input-group-lg">
+              <label for="email" class="visually-hidden">School Email</label>
               <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-              <input type="email" name="email" class="form-control" placeholder="School Email" required>
+              <input type="email" id="email" name="email" class="form-control" placeholder="School Email" required>
             </div>
           </div>
+
+          <!-- Password -->
           <div class="col-12">
             <div class="input-group input-group-lg">
+              <label for="password" class="visually-hidden">Create Password</label>
               <span class="input-group-text"><i class="fas fa-lock"></i></span>
-              <input type="password" name="password" class="form-control" placeholder="Create Password" required>
+              <input type="password" id="password" name="password" class="form-control" placeholder="Create Password" required>
             </div>
           </div>
+
+          <!-- Terms -->
           <div class="col-12">
             <div class="form-check">
               <input type="checkbox" class="form-check-input" id="terms" required>
@@ -75,11 +99,15 @@
               </label>
             </div>
           </div>
+
+          <!-- Submit -->
           <div class="col-12 text-center">
             <button type="submit" class="btn btn-register">Create My Account</button>
           </div>
+
         </div>
       </form>
+
 
       <div class="text-center mt-3">
         <p class="text-white-50 mb-0">

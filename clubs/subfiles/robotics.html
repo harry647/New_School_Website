@@ -1,81 +1,174 @@
 <div class="glass-card p-5 text-white">
   <!-- Header -->
   <div class="text-center mb-5">
-    <button onclick="history.back()" class="btn btn-outline-light mb-4">Back</button>
+    <button onclick="history.back()" class="btn btn-outline-light mb-4">
+      Back to Clubs
+    </button>
     <h1>Robotics & Innovation</h1>
     <p class="lead text-purple fs-4">Build the Future</p>
   </div>
 
   <div class="row g-5">
-    <!-- Left Column: Logo, Join, Leader Info -->
+    <!-- Left Column -->
     <div class="col-lg-4 text-center">
-      <img src="/assets/images/clubs/robotics.png" class="club-logo shadow-lg mb-4" alt="Robotics Club Logo">
-      <button onclick="openJoinModal('Robotics & Innovation')" class="btn btn-success btn-lg px-5 mb-4">Join Robotics Club</button>
 
-      <!-- Club Leader Info -->
-      <div class="glass-card p-3 mb-4 text-dark">
-        <h5 class="fw-bold">Club Leader</h5>
-        <p class="mb-1">Mr. Brian</p>
-        <p class="small opacity-75">barunionsecondary@gmail.com</p>
-        <a href="mailto:barunionsecondary@gmail.com" class="btn btn-outline-primary btn-sm mt-2">Email Leader</a>
+      <img src="/assets/images/clubs/robotics.png" 
+           class="club-logo shadow-lg mb-4 rounded-4" 
+           alt="Robotics & Innovation Club Logo">
+
+      <button onclick="openJoinModal('Robotics & Innovation')" 
+              class="btn btn-success btn-lg px-5 w-100 mb-4 shadow">
+        Join Robotics Club
+      </button>
+
+      <!-- Club Leader -->
+      <div class="glass-card p-4 text-dark rounded-3 mb-4">
+        <h5 class="fw-bold mb-3">Club Leader</h5>
+        <div class="text-center">
+          <p class="mb-1 fw-semibold">Mr. Brian</p>
+          <p class="small text-muted mb-3">barunionsecondary@gmail.com</p>
+          <a href="mailto:barunionsecondary@gmail.com" 
+             class="btn btn-outline-primary btn-sm w-100">
+            Contact Leader
+          </a>
+        </div>
       </div>
 
-      <!-- Download Resources -->
-      <div class="glass-card p-3 text-dark">
-        <h5 class="fw-bold">Resources</h5>
-        <ul class="list-unstyled mb-0">
-          <li><a href="/downloads/robotics/robotics-manual.pdf" class="btn btn-outline-light btn-sm mb-2 w-100">Robotics Manual</a></li>
-          <li><a href="/downloads/robotics/coding-guidelines.pdf" class="btn btn-outline-light btn-sm w-100">Coding Guidelines</a></li>
-        </ul>
+      <!-- Resources -->
+      <div class="glass-card p-4 text-dark rounded-3">
+        <h5 class="fw-bold mb-3">Download Resources</h5>
+        <div class="d-grid gap-2">
+          <a href="/downloads/robotics/robotics-manual.pdf" 
+             class="btn btn-outline-light btn-sm" download>
+            Robotics Manual
+          </a>
+          <a href="/downloads/robotics/coding-guidelines.pdf" 
+             class="btn btn-outline-light btn-sm" download>
+            Coding Guidelines
+          </a>
+        </div>
       </div>
+
     </div>
 
-    <!-- Right Column: About, Gallery, Events, Upload -->
+    <!-- Right Column -->
     <div class="col-lg-8">
+
       <!-- About -->
-      <h3>About Us</h3>
-      <p class="lead">Arduino, 3D printing, coding, and participation in national and international robotics competitions.</p>
+      <section class="mb-5">
+        <h3>About Us</h3>
+        <p class="lead fs-5">
+          Arduino, 3D printing, coding, and participation in national and international robotics competitions. 
+          We turn ideas into working robots — from line-followers to autonomous drones. 
+          Innovate, compete, and shape tomorrow.
+        </p>
+      </section>
 
-      <!-- Project Gallery -->
-      <h3 class="mt-5">Our Projects</h3>
-      <div class="row g-3" data-fancybox="robotics-gallery">
-        <div class="col-6 col-md-4"><a href="/assets/images/gallery/robotics/robo1.jpg"><img src="/assets/images/gallery/robotics/robo1.jpg" class="img-fluid rounded"></a></div>
-        <div class="col-6 col-md-4"><a href="/assets/images/gallery/robotics/robo2.jpg"><img src="/assets/images/gallery/robotics/robo2.jpg" class="img-fluid rounded"></a></div>
-      </div>
+      <!-- Gallery -->
+      <section class="mb-5">
+        <h3>Our Projects</h3>
+        <div class="row g-3" data-fancybox="robotics-gallery">
+          <div class="col-6 col-md-4">
+            <a href="/assets/images/gallery/robotics/robo1.jpg" data-caption="Autonomous Robot 2025">
+              <img src="/assets/images/gallery/robotics/robo1.jpg" class="img-fluid rounded shadow-sm" alt="Robot Project 1">
+            </a>
+          </div>
+          <div class="col-6 col-md-4">
+            <a href="/assets/images/gallery/robotics/robo2.jpg" data-caption="3D Printed Drone">
+              <img src="/assets/images/gallery/robotics/robo2.jpg" class="img-fluid rounded shadow-sm" alt="Drone Project">
+            </a>
+          </div>
+          <div class="col-6 col-md-4">
+            <a href="/assets/images/gallery/robotics/robo3.jpg" data-caption="National Robotics Finals">
+              <img src="/assets/images/gallery/robotics/robo3.jpg" class="img-fluid rounded shadow-sm" alt="Competition">
+            </a>
+          </div>
+          <!-- Add more as needed -->
+        </div>
+      </section>
 
-      <!-- Upcoming Events -->
-      <h3 class="mt-5">Upcoming Events</h3>
-      <div id="roboticsEvents" class="row g-3">
-        <!-- JS injects upcoming events for this club -->
-      </div>
+      <!-- Upcoming Events – Auto-loaded from backend -->
+      <section class="mb-5">
+        <h3>Upcoming Events</h3>
+        <div id="roboticsEvents" class="row g-3" data-club-id="robotics">
+          <!-- Events injected automatically by clubs.js -->
+          <div class="col-12 text-center py-5 text-muted">
+            <i class="fas fa-spinner fa-spin fa-2x"></i>
+            <p class="mt-3">Loading events...</p>
+          </div>
+        </div>
+      </section>
 
-      <!-- Upload Submissions -->
-      <h3 class="mt-5">Submit Project Files</h3>
-      <label class="fake-upload">
-        Drag & Drop files here or click to upload
-        <input type="file" multiple hidden>
-      </label>
+      <!-- File Upload Zone -->
+      <section class="mb-5">
+        <h3>Submit Project Files / Code / Videos</h3>
+        <div class="upload-zone p-5 text-center border-2 border-dashed rounded-4 cursor-pointer"
+             id="uploadZone">
+          <i class="fas fa-cloud-upload-alt fa-4x mb-4 text-white opacity-75"></i>
+          <p class="lead mb-4">Drag & drop files here</p>
+          <p class="small opacity-80 mb-4">or click to browse</p>
+          <input type="file" 
+                 id="clubFileInput" 
+                 multiple 
+                 accept="image/*,video/*,.pdf,.doc,.docx,.zip,.ino,.py"
+                 hidden>
+          <button type="button" 
+                  onclick="document.getElementById('clubFileInput').click()"
+                  class="btn btn-outline-light btn-lg">
+            Choose Files
+          </button>
+
+          <div id="uploadPreview" class="mt-4"></div>
+        </div>
+      </section>
+
     </div>
   </div>
 </div>
 
+<!-- Auto-load events & setup upload when page loads -->
 <script>
-  // Inject club-specific upcoming events
-  const roboticsEventsContainer = document.getElementById('roboticsEvents');
-  if (typeof EVENTS !== 'undefined') {
-    const roboticsEvents = EVENTS.filter(ev => ev.club.toLowerCase() === 'robotics & innovation');
-    if (roboticsEvents.length === 0) {
-      roboticsEventsContainer.innerHTML = '<p class="text-muted">No upcoming events.</p>';
-    } else {
-      roboticsEventsContainer.innerHTML = roboticsEvents.map(ev => `
-        <div class="col-md-6">
-          <div class="event-card p-3">
-            <h5>${ev.title}</h5>
-            <p class="small opacity-80">${ev.date}</p>
-            <p>${ev.description}</p>
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.getElementById('roboticsEvents');
+    if (!container) return;
+
+    const clubId = 'robotics'; // Must match club.id in clubs.json
+
+    const loadEvents = () => {
+      if (typeof window.EVENTS === 'undefined') {
+        setTimeout(loadEvents, 100);
+        return;
+      }
+
+      const clubEvents = window.EVENTS
+        .filter(group => group.clubId === clubId)
+        .flatMap(group => group.events || []);
+
+      if (clubEvents.length === 0) {
+        container.innerHTML = `
+          <div class="col-12 text-center py-5">
+            <p class="text-muted fs-5">No upcoming events scheduled.</p>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = clubEvents.map(ev => `
+        <div class="col-md-6 mb-4">
+          <div class="glass-card p-4 text-white h-100">
+            <h5 class="fw-bold mb-2">${ev.title}</h5>
+            <p class="small opacity-80 mb-2">
+              ${new Date(ev.date).toLocaleDateString('en-KE', { 
+                weekday: 'long', month: 'long', day: 'numeric' 
+              })}
+            </p>
+            ${ev.time ? `<p class="small opacity-80"><i class="far fa-clock"></i> ${ev.time}</p>` : ''}
+            ${ev.location ? `<p class="small opacity-80"><i class="fas fa-map-marker-alt"></i> ${ev.location}</p>` : ''}
+            <p class="mt-3">${ev.description || ''}</p>
           </div>
         </div>
       `).join('');
-    }
-  }
+    };
+
+    loadEvents();
+  });
 </script>

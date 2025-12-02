@@ -4,101 +4,124 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>E-Learning Hub | Bar Union Secondary</title>
+  <meta name="description" content="Access online classes, assignments, study materials, live sessions and digital resources anytime, anywhere." />
 
-  <!-- Bootstrap & Font Awesome -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="/css/portal/portal-elearning.css"/>
+  <!-- Bootstrap 5 + Font Awesome -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="/css/portal/portal-elearning.css">
 </head>
+<body class="page-learning-portal">
 
-<body>
-
-  <!-- Header -->
+  <!-- Header (included via w3.js) -->
   <div w3-include-html="/includes/clb-en-header.html"></div>
 
-  <!-- Login Prompt -->
-  <div id="loginCheck" class="login-prompt d-none">
-    <div>
+  <!-- Login Prompt (shown if not logged in) -->
+  <div id="loginCheck" class="container d-flex align-items-center justify-content-center min-vh-100">
+    <div class="text-center p-5 bg-white rounded-4 shadow-lg" style="max-width: 500px;">
       <i class="fas fa-graduation-cap fa-5x text-primary mb-4"></i>
-      <h1 class="display-4 fw-bold">E-Learning Hub</h1>
-      <p class="lead">Please log in to access your courses and resources.</p>
-      <a href="/user/login.html" class="btn btn-primary btn-lg px-5">Login Now</a>
+      <h1 class="display-5 fw-bold mb-3">Welcome to E-Learning Hub</h1>
+      <p class="lead mb-4">Please log in to access your courses, assignments, and resources.</p>
+      <a href="/user/login.html" class="btn btn-primary btn-lg px-5">
+        <i class="fas fa-sign-in-alt me-2"></i> Login Now
+      </a>
     </div>
   </div>
 
-  <!-- Main Content -->
+  <!-- Main Portal Content (hidden until logged in) -->
   <div id="mainContent" class="d-none">
-
+    
     <!-- Hero Section -->
-    <section class="hero text-white text-center d-flex align-items-center position-relative">
-      <div class="container position-relative z-2">
-        <h1 class="display-2 fw-bold mb-4">Interactive E-Learning Hub</h1>
-        <p class="lead fs-3 mb-4">Learn • Practice • Excel</p>
-        <p class="col-lg-8 mx-auto fs-5 opacity-90">Access lessons, assignments, quizzes, live classes, and interactive resources — anytime, anywhere.</p>
-        <button onclick="scrollToSection('subjectsGrid')" class="btn btn-warning btn-lg px-5 mt-4 fw-bold shadow-lg">Start Learning Now</button>
+    <section class="hero text-white text-center py-5 position-relative overflow-hidden">
+      <div class="container py-5 position-relative z-2">
+        <h1 class="display-3 fw-bold mb-4">Interactive E-Learning Hub</h1>
+        <p class="lead fs-4 mb-4">Learn • Practice • Excel</p>
+        <p class="col-lg-8 mx-auto fs-5 opacity-90 mb-5">
+          Access lessons, assignments, quizzes, live classes, and interactive resources — anytime, anywhere.
+        </p>
+        <button onclick="scrollToSection('subjectsGrid')" class="btn btn-warning btn-lg px-5 fw-bold shadow">
+          Start Learning Now
+        </button>
       </div>
     </section>
 
     <div class="container my-5">
 
-      <!-- Role Switch -->
+      <!-- Role Switcher -->
       <div class="text-center mb-5">
-        <div class="btn-group" role="group">
-          <button onclick="setRole('student')" class="btn btn-outline-primary btn-lg active" id="roleStudent">Student View</button>
-          <button onclick="setRole('teacher')" class="btn btn-outline-primary btn-lg" id="roleTeacher">Teacher View</button>
+        <div class="btn-group btn-group-lg" role="group" aria-label="User Role">
+          <button type="button" class="btn btn-primary active" id="roleStudent" onclick="setRole('student')">
+            Student View
+          </button>
+          <button type="button" class="btn btn-outline-primary" id="roleTeacher" onclick="setRole('teacher')">
+            Teacher View
+          </button>
         </div>
       </div>
 
-      <!-- Subjects & Courses -->
+      <!-- Subjects & Courses Grid -->
       <h2 class="section-title text-center mb-5">Subjects & Courses</h2>
       <div id="subjectsGrid" class="row g-4 mb-5"></div>
 
       <!-- Teacher Upload Panel -->
-      <div id="teacherPanel" class="glass-card p-5 mb-5 d-none">
-        <h3 class="text-center mb-4">Teacher Upload Center</h3>
-        <form id="uploadForm">
-          <div class="row g-3">
-            <div class="col-md-12">
-              <input type="text" class="form-control form-control-lg" placeholder="Lesson/Assignment Title" required>
+      <div id="teacherPanel" class="card border-0 shadow-lg p-4 p-md-5 mb-5 d-none" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);">
+        <h3 class="text-center mb-4 text-primary fw-bold">Teacher Upload Center</h3>
+        <form id="uploadForm" enctype="multipart/form-data">
+          <div class="row g-4">
+            <div class="col-12">
+              <label for="title" class="form-label fw-bold">Title</label>
+              <input id="title" type="text" class="form-control form-control-lg" placeholder="Lesson/Assignment Title" required>
             </div>
             <div class="col-md-6">
-              <select class="form-select form-select-lg" required>
-                <option>Select Subject</option>
+              <label for="subject" class="form-label fw-bold">Subject</label>
+              <select id="subject" class="form-select form-select-lg" required>
+                <option value="">Select Subject</option>
                 <option>Mathematics</option>
-                <option>Sciences</option>
-                <option>Languages</option>
-                <option>Humanities</option>
-                <option>Applied Sciences</option>
-                <option>Co-Curriculum</option>
-                <option>Guidance & Counselling</option>
-                <option>Clubs & Societies</option>
-                <option>Resources</option>
-                <option>Welfare</option>
+                <option>Physics</option>
+                <option>Chemistry</option>
+                <option>Biology</option>
+                <option>English</option>
+                <option>Kiswahili</option>
+                <option>History</option>
+                <option>Geography</option>
+                <option>CRE/IRE</option>
+                <option>Business Studies</option>
+                <option>Computer Studies</option>
               </select>
             </div>
             <div class="col-md-6">
-              <select class="form-select form-select-lg" required>
-                <option>Type</option>
+              <label for="resource-type" class="form-label fw-bold">Type</label>
+              <select id="resource-type" class="form-select form-select-lg" required>
+                <option value="">Select Type</option>
                 <option>Lesson Notes</option>
                 <option>Assignment</option>
                 <option>Quiz</option>
-                <option>Video</option>
-                <option>Interactive Tool</option>
-                <option>Teacher Upload</option>
+                <option>Video Lesson</option>
+                <option>Past Paper</option>
+                <option>Revision Guide</option>
               </select>
             </div>
             <div class="col-12">
-              <textarea class="form-control" rows="3" placeholder="Description"></textarea>
+              <label for="description" class="form-label fw-bold">Description</label>
+              <textarea id="description" class="form-control" rows="4" placeholder="Brief description of the resource (optional)"></textarea>
             </div>
-            <div class="col-12 d-flex justify-content-between align-items-center">
-              <label class="btn btn-light btn-lg">Choose Files <input type="file" multiple hidden></label>
-              <button type="submit" class="btn btn-success btn-lg">Upload Resource</button>
+            <div class="col-12">
+              <label for="file-upload" class="form-label fw-bold">Upload Files (Multiple allowed)</label>
+              <input id="file-upload" type="file" class="form-control form-control-lg" name="files" multiple accept=".pdf,.doc,.docx,.mp4,.jpg,.png,.zip">
+              <div id="fileList" class="mt-3"></div>
+            </div>
+            <div class="col-12 text-center">
+              <button type="submit" class="btn btn-success btn-lg px-5">
+                Upload Resource
+              </button>
             </div>
           </div>
         </form>
       </div>
 
-      <!-- All Learning Resources -->
+      <!-- All Resources Grid -->
       <h2 class="section-title text-center mb-5">All Learning Resources</h2>
       <div id="resourcesGrid" class="row g-4 mb-5"></div>
 
@@ -106,7 +129,7 @@
       <h2 class="section-title text-center mb-5">Quizzes & Assignments</h2>
       <div id="quizGrid" class="row g-4 mb-5"></div>
 
-      <!-- Discussion / Q&A Forum -->
+      <!-- Discussion Forum -->
       <h2 class="section-title text-center mb-5">Discussion & Q&A Forum</h2>
       <div id="forumGrid" class="row g-4 mb-5"></div>
 
@@ -114,38 +137,57 @@
       <h2 class="section-title text-center mb-5">Your Learning Progress</h2>
       <div id="progressGrid" class="row g-4 mb-5"></div>
 
-      <!-- Notifications / Announcements -->
-      <h2 class="section-title text-center mb-5">Notifications</h2>
+      <!-- Notifications -->
+      <h2 class="section-title text-center mb-5">Notifications & Announcements</h2>
       <div id="notificationList" class="list-group mb-5"></div>
 
-      <!-- Media / Lesson Gallery -->
-      <h2 class="section-title text-center mb-5">Media / Lesson Gallery</h2>
+      <!-- Media Gallery -->
+      <h2 class="section-title text-center mb-5">Media & Lesson Gallery</h2>
       <div id="mediaGrid" class="row g-4 mb-5"></div>
-
     </div>
+
   </div>
 
   <!-- Footer -->
   <div w3-include-html="/includes/footer.html"></div>
 
+  <!-- Back to Top Button -->
+  <button id="backToTop" class="btn btn-primary rounded-circle shadow" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://www.w3schools.com/lib/w3.js"></script>
-  <script src="/js/portal/e-learning-portal.js"></script>
+  <script src="/js/portal/e-learning-portal.js" defer></script>
 
   <script>
-    // Scroll to section
+    // Smooth scroll function
     function scrollToSection(id) {
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
 
-    // Initialize login check & role panel after HTML include
+    // Simple role switcher (student/teacher view)
+    function setRole(role) {
+      document.getElementById('roleStudent').classList.toggle('active', role === 'student');
+      document.getElementById('roleTeacher').classList.toggle('active', role === 'teacher');
+      document.getElementById('teacherPanel').classList.toggle('d-none', role !== 'teacher');
+      localStorage.setItem('portalRole', role);
+    }
+
+    // Check login status on load
     document.addEventListener("DOMContentLoaded", () => {
       w3.includeHTML(() => {
-        const isLoggedIn = localStorage.getItem("userLoggedIn") === "true"; 
+        const isLoggedIn = localStorage.getItem("userLoggedIn") === "true";
+        const savedRole = localStorage.getItem("portalRole") || "student";
+
         if (isLoggedIn) {
           document.getElementById('loginCheck').classList.add('d-none');
           document.getElementById('mainContent').classList.remove('d-none');
+          setRole(savedRole);
         } else {
           document.getElementById('loginCheck').classList.remove('d-none');
           document.getElementById('mainContent').classList.add('d-none');
@@ -153,6 +195,5 @@
       });
     });
   </script>
-
 </body>
 </html>

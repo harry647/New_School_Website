@@ -1037,3 +1037,57 @@ body.page-news {
     padding-left: 3rem;
   }
 }
+
+/* ==================================
+   11. ACCESSIBLE ANNOUNCEMENT BANNER
+================================== */
+.announcement-banner {
+    background: var(--blue-dark);
+    color: white;
+    padding: 1rem 0;
+    overflow: hidden; /* This is key */
+}
+
+.announcement-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.announcement-ticker {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee-scroll 30s linear infinite;
+}
+
+.announcement-ticker:hover {
+    animation-play-state: paused;
+}
+
+.announcement-ticker span {
+    display: inline-block;
+    padding: 0 2.5rem; /* More spacing */
+    font-size: 1.15rem; /* Slightly larger */
+    font-weight: 500;
+}
+
+/*
+  The animation moves the ticker from its original position (0) to a point
+  where the first half of its content is completely off-screen to the left (-50%).
+  Since the content is duplicated, this creates a seamless loop.
+*/
+@keyframes marquee-scroll {
+    from { transform: translateX(0%); }
+    to { transform: translateX(-50%); }
+}
+
+/* For visually hidden labels, good for accessibility */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}

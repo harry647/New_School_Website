@@ -213,14 +213,14 @@
                     <div class="form-grid">
                         <!-- Student Name -->
                         <div class="form-group">
-                            <label>Student Name *</label>
-                            <input type="text" name="student_name" placeholder="Full name as in school records" required />
+                            <label for="student_name">Student Name *</label>
+                            <input type="text" id="student_name" name="student_name" placeholder="Full name as in school records" required />
                         </div>
 
                         <!-- Current Grade -->
                         <div class="form-group">
-                            <label>Current Grade / Year *</label>
-                            <select name="grade" required>
+                            <label for="grade">Current Grade / Year *</label>
+                            <select id="grade" name="grade" required>
                                 <option value="" disabled selected>Select your grade</option>
                                 <option>Form 3</option>
                                 <option>Form 4</option>
@@ -234,43 +234,43 @@
 
                         <!-- Parent Name -->
                         <div class="form-group">
-                            <label>Parent / Guardian Name</label>
-                            <input type="text" name="parent_name" placeholder="Recommended for students below Grade 11" />
+                            <label for="parent_name">Parent / Guardian Name</label>
+                            <input type="text" id="parent_name" name="parent_name" placeholder="Recommended for students below Grade 11" />
                         </div>
 
                         <!-- Phone -->
                         <div class="form-group">
-                            <label>Phone Number *</label>
-                            <input type="tel" name="phone" placeholder="+254 712 345 678" required />
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+254 712 345 678" required />
                             <small class="form-note">We’ll call/WhatsApp to confirm your slot</small>
                         </div>
 
                         <!-- Email -->
                         <div class="form-group">
-                            <label>Email Address *</label>
-                            <input type="email" name="_replyto" placeholder="yourname@example.com" required />
+                            <label for="_replyto">Email Address *</label>
+                            <input type="email" id="_replyto" name="_replyto" placeholder="yourname@example.com" required />
                             <small class="form-note">Confirmation & Zoom link will be sent here</small>
                         </div>
 
                         <!-- Preferred Date -->
                         <div class="form-group">
-                            <label>Preferred Session Date *</label>
+                            <label for="sessionDate">Preferred Session Date *</label>
                             <input type="date" name="date" id="sessionDate" min="" required />
                             <small class="form-note">We’ll confirm availability within 24 hours</small>
                         </div>
 
                         <!-- Resume / SOP Upload -->
                         <div class="form-group">
-                            <label>Upload Resume / SOP (Optional)</label>
-                            <input type="file" name="resume" accept=".pdf,.doc,.docx" />
+                            <label for="resume">Upload Resume / SOP (Optional)</label>
+                            <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" />
                             <small class="form-note">PDF or Word only • Max 10 MB • Helps us give personalized advice</small>
                             <div class="file-preview" id="resumePreview"></div>
                         </div>
 
                         <!-- Query / Interest Area -->
                         <div class="form-group full">
-                            <label>Area of Interest / Query *</label>
-                            <textarea name="query" rows="5" required
+                            <label for="query">Area of Interest / Query *</label>
+                            <textarea id="query" name="query" rows="5" required
                                       placeholder="E.g., I’m confused between Medical and Engineering • Want to study Computer Science • Need help with scholarship applications •  preparation strategy, etc."></textarea>
                             <small class="form-note">The more details you share, the better we can prepare for you!</small>
                         </div>

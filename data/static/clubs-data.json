@@ -140,5 +140,71 @@
       "color": "#e11d48",
       "link": "/clubs/humanities.html"
     }
+  ],
+"sports": [
+    {
+      "name": "Athletics",
+      "description": "Track and field events that build endurance, speed, and strength.",
+      "icon": "fas fa-running",
+      "color": "#e67e22",
+      "img": "/assets/images/student-life/athletics.jpg",
+      "full": "/assets/images/student-life/athletics.jpg"
+    },
+    {
+      "name": "Football",
+      "description": "One of our most popular sports fostering strategy, teamwork, and unity.",
+      "icon": "fas fa-futbol",
+      "color": "#2ecc71",
+      "img": "/assets/images/student-life/football.jpg",
+      "full": "/assets/images/student-life/football.jpg"
+    },
+    {
+      "name": "Handball",
+      "description": "Fast-paced game that builds agility, precision, and high coordination.",
+      "icon": "fas fa-hand-paper",
+      "color": "#3498db",
+      "img": "/assets/images/student-life/handball.jpg",
+      "full": "/assets/images/student-life/handball.jpg"
+    },
+    {
+      "name": "Netball",
+      "description": "A key sport for girls promoting teamwork, discipline, and focus.",
+      "icon": "fas fa-basketball-ball",
+      "color": "#f1c40f",
+      "img": "/assets/images/student-life/netball.png",
+      "full": "/assets/images/student-life/netball.png"
+    },
+    {
+      "name": "Volleyball",
+      "description": "A highly engaging sport enhancing speed, coordination, and power.",
+      "icon": "fas fa-volleyball-ball",
+      "color": "#e74c3c",
+      "img": "/assets/images/student-life/volleyball.jpg",
+      "full": "/assets/images/student-life/volleyball.jpg"
+    },
+    {
+      "name": "Basketball",
+      "description": "Growing rapidly in popularity, improving reflexes and team strategy.",
+      "icon": "fas fa-basketball-ball",
+      "color": "#f39c12",
+      "img": "/assets/images/student-life/basketball.jpg",
+      "full": "/assets/images/student-life/basketball.jpg"
+    },
+    {
+      "name": "Hockey",
+      "description": "Recently introduced, developing skill, precision, and tactical discipline.",
+      "icon": "fas fa-hockey-puck",
+      "color": "#8e44ad",
+      "img": "/assets/images/student-life/hockey.jpg",
+      "full": "/assets/images/student-life/hockey.jpg"
+    },
+    {
+      "name": "Rugby",
+      "description": "A strength-building sport that nurtures courage, resilience, and teamwork.",
+      "icon": "fas fa-football-ball",
+      "color": "#c0392b",
+      "img": "/assets/images/student-life/rugby.jpg",
+      "full": "/assets/images/student-life/rugby.jpg"
+    }
   ]
 }

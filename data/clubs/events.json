@@ -1,86 +1,231 @@
 [
   {
-    "clubId": "scouts",
+    "clubId": "art",
     "events": [
-      { "title": "Annual Camp", "date": "2025-12-05", "location": "Ol Pejeta Conservancy", "description": "A weekend camp with outdoor survival and team-building exercises." },
-      { "title": "Community Service Day", "date": "2026-01-20", "location": "Local Community Center", "description": "Helping the local community with cleanup and social projects." }
-    ]
-  },
-  {
-    "clubId": "christian-union",
-    "events": [
-      { "title": "Youth Fellowship", "date": "2025-12-10", "location": "School Chapel", "description": "Weekly fellowship meeting with prayer, Bible study, and discussion." },
-      { "title": "Christmas Outreach", "date": "2025-12-24", "location": "Nearby Orphanage", "description": "Deliver gifts and conduct activities for children." }
-    ]
-  },
-  {
-    "clubId": "wildlife",
-    "events": [
-      { "title": "Tree Planting Drive", "date": "2026-01-15", "location": "School Grounds", "description": "Plant trees to promote environmental awareness." },
-      { "title": "Wildlife Awareness Talk", "date": "2025-12-18", "location": "Auditorium", "description": "Guest speaker on local wildlife conservation efforts." }
-    ]
-  },
-  {
-    "clubId": "journalism",
-    "events": [
-      { "title": "School Newsletter Launch", "date": "2025-12-20", "location": "Media Room", "description": "Release the new edition of the school newsletter." },
-      { "title": "Photography Workshop", "date": "2026-01-10", "location": "Photography Lab", "description": "Learn photography skills for journalism projects." }
+      {
+        "title": "Annual Art Exhibition",
+        "date": "2025-12-28",
+        "time": "10:00 AM",
+        "location": "School Art Gallery",
+        "description": "Showcase of student paintings, sculptures, and mixed media works from the year."
+      },
+      {
+        "title": "Creative Workshop: Watercolor Techniques",
+        "date": "2026-01-20",
+        "time": "2:00 PM",
+        "location": "Art Studio",
+        "description": "Hands-on workshop exploring watercolor painting with professional guidance."
+      }
     ]
   },
   {
     "clubId": "robotics",
     "events": [
-      { "title": "Robot Competition", "date": "2026-02-05", "location": "Tech Hall", "description": "Compete with other schools in building autonomous robots." },
-      { "title": "Coding Bootcamp", "date": "2025-12-22", "location": "Computer Lab", "description": "Learn coding basics for robotics projects." }
+      {
+        "title": "National Robotics Competition",
+        "date": "2026-02-05",
+        "time": "9:00 AM",
+        "location": "Tech Hall",
+        "description": "Compete against top schools in building and programming autonomous robots."
+      },
+      {
+        "title": "Arduino & Coding Bootcamp",
+        "date": "2025-12-22",
+        "time": "1:00 PM",
+        "location": "Computer Lab",
+        "description": "Learn Arduino programming, sensors, and basic electronics for robotics projects."
+      }
     ]
   },
   {
-    "clubId": "drama",
+    "clubId": "christian-union",
     "events": [
-      { "title": "Winter Play", "date": "2025-12-15", "location": "School Theater", "description": "Perform the annual winter play." },
-      { "title": "Acting Workshop", "date": "2026-01-12", "location": "Drama Room", "description": "Improve acting skills with professional guidance." }
-    ]
-  },
-  {
-    "clubId": "music",
-    "events": [
-      { "title": "Christmas Concert", "date": "2025-12-22", "location": "Auditorium", "description": "Annual concert featuring choir and bands." },
-      { "title": "Music Workshop", "date": "2026-01-18", "location": "Music Room", "description": "Learn music techniques and instrument practice." }
-    ]
-  },
-  {
-    "clubId": "art",
-    "events": [
-      { "title": "Art Exhibition", "date": "2025-12-28", "location": "Art Gallery", "description": "Showcase students’ artwork from the semester." },
-      { "title": "Creative Workshop", "date": "2026-01-20", "location": "Art Studio", "description": "Hands-on workshop to explore painting and sculpture." }
+      {
+        "title": "Weekly Youth Fellowship",
+        "date": "2025-12-10",
+        "time": "4:30 PM",
+        "location": "School Chapel",
+        "description": "Bible study, worship, prayer, and fellowship for spiritual growth."
+      },
+      {
+        "title": "Christmas Outreach Program",
+        "date": "2025-12-24",
+        "time": "10:00 AM",
+        "location": "Local Orphanage",
+        "description": "Deliver gifts, food, and spread Christmas joy to children in need."
+      }
     ]
   },
   {
     "clubId": "debate",
     "events": [
-      { "title": "Inter-School Debate", "date": "2026-01-25", "location": "Debate Hall", "description": "Compete with other schools in public speaking and debate." },
-      { "title": "Debate Training Session", "date": "2025-12-30", "location": "Conference Room", "description": "Improve argumentation and speaking skills." }
+      {
+        "title": "Inter-School Debate Championship",
+        "date": "2026-01-25",
+        "time": "8:00 AM",
+        "location": "Main Hall",
+        "description": "Compete with regional schools in policy and public forum debate."
+      },
+      {
+        "title": "Public Speaking Masterclass",
+        "date": "2025-12-30",
+        "time": "3:00 PM",
+        "location": "Conference Room",
+        "description": "Training in speech writing, delivery, and confidence building."
+      }
     ]
   },
   {
-    "clubId": "science",
+    "clubId": "drama",
     "events": [
-      { "title": "Science Fair", "date": "2026-02-10", "location": "Science Hall", "description": "Exhibit experiments and research projects." },
-      { "title": "Weekly Lab Session", "date": "2025-12-12", "location": "Laboratory", "description": "Hands-on lab experiments with supervision." }
-    ]
-  },
-  {
-    "clubId": "mathematics",
-    "events": [
-      { "title": "Math Olympiad", "date": "2026-01-30", "location": "Math Hall", "description": "Test problem-solving and critical thinking skills." },
-      { "title": "Puzzle Workshop", "date": "2025-12-20", "location": "Room 101", "description": "Engage in fun mathematical puzzles and challenges." }
+      {
+        "title": "Winter Theater Production",
+        "date": "2025-12-15",
+        "time": "6:00 PM",
+        "location": "School Theater",
+        "description": "Full-scale performance of a classic play directed by students."
+      },
+      {
+        "title": "Acting & Improv Workshop",
+        "date": "2026-01-12",
+        "time": "2:00 PM",
+        "location": "Drama Room",
+        "description": "Professional actor leads workshop on stage presence and improvisation."
+      }
     ]
   },
   {
     "clubId": "humanities",
     "events": [
-      { "title": "Cultural Festival", "date": "2025-12-18", "location": "Auditorium", "description": "Celebrate different cultures with presentations and performances." },
-      { "title": "Language Debate", "date": "2026-01-22", "location": "Conference Room", "description": "Debate in multiple languages to promote linguistic skills." }
+      {
+        "title": "Cultural Heritage Festival",
+        "date": "2025-12-18",
+        "time": "9:00 AM",
+        "location": "School Grounds",
+        "description": "Celebrate Kenya's diverse cultures through dance, food, and exhibitions."
+      },
+      {
+        "title": "Model United Nations Conference",
+        "date": "2026-01-22",
+        "time": "8:00 AM",
+        "location": "Main Hall",
+        "description": "Simulated UN sessions with diplomacy, negotiation, and resolution writing."
+      }
+    ]
+  },
+  {
+    "clubId": "journalism",
+    "events": [
+      {
+        "title": "School Magazine Launch",
+        "date": "2025-12-20",
+        "time": "11:00 AM",
+        "location": "Media Room",
+        "description": "Official release of the annual school magazine designed by the club."
+      },
+      {
+        {
+        "title": "Photography & Editing Workshop",
+        "date": "2026-01-10",
+        "time": "1:00 PM",
+        "location": "Photography Lab",
+        "description": "Learn professional photo editing and journalism photography skills."
+      }
+    ]
+  },
+  {
+    "clubId": "mathematics",
+    "events": [
+      {
+        "title": "Math Olympiad 2026",
+        "date": "2026-01-30",
+        "time": "9:00 AM",
+        "location": "Math Hall",
+        "description": "Annual competition testing advanced problem-solving and critical thinking."
+      },
+      {
+        "title": "Puzzle & Logic Challenge Day",
+        "date": "2025-12-20",
+        "time": "2:00 PM",
+        "location": "Room 101",
+        "description": "Fun day of brain teasers, riddles, and mathematical games."
+      }
+    ]
+  },
+  {
+    "clubId": "music",
+    "events": [
+      {
+        "title": "Christmas Carol Concert",
+        "date": "2025-12-22",
+        "time": "6:00 PM",
+        "location": "School Auditorium",
+        "description": "Beautiful evening of choir performances, solos, and festive music."
+      },
+      {
+        "title": "Instrument Mastery Workshop",
+        "date": "2026-01-18",
+        "time": "10:00 AM",
+        "location": "Music Room",
+        "description": "Learn guitar, keyboard, drums, or traditional instruments from experts."
+      }
+    ]
+  },
+  {
+    "clubId": "science",
+    "events": [
+      {
+        "title": "Annual Science Fair",
+        "date": "2026-02-10",
+        "time": "9:00 AM",
+        "location": "Science Block",
+        "description": "Showcase student experiments, inventions, and research projects."
+      },
+      {
+        "title": "Chemistry Magic Show",
+        "date": "2025-12-12",
+        "time": "2:00 PM",
+        "location": "Laboratory",
+        "description": "Fun and educational chemistry demonstrations for all students."
+      }
+    ]
+  },
+  {
+    "clubId": "scouts",
+    "events": [
+      {
+        "title": "Annual Scouts Camp",
+        "date": "2025-12-05",
+        "time": "All Day",
+        "location": "Ol Pejeta Conservancy",
+        "description": "Weekend camp with survival skills, hiking, and team building."
+      },
+      {
+        "title": "Community Service Day",
+        "date": "2026-01-20",
+        "time": "8:00 AM",
+        "location": "Local Community Center",
+        "description": "Clean-up drive and social service project with local residents."
+      }
+    ]
+  },
+  {
+    "clubId": "wildlife",
+    "events": [
+      {
+        "title": "Great Tree Planting Drive",
+        "date": "2026-01-15",
+        "time": "8:00 AM",
+        "location": "School Grounds & Nearby Forest",
+        "description": "Plant 1000+ trees to combat climate change and beautify our environment."
+      },
+      {
+        "title": "Wildlife Conservation Talk",
+        "date": "2025-12-18",
+        "time": "2:00 PM",
+        "location": "Auditorium",
+        "description": "Guest speaker from Kenya Wildlife Service on conservation efforts."
+      }
     ]
   }
 ]

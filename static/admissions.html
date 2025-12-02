@@ -231,16 +231,16 @@
                     <div class="form-grid">
                         <!-- Student Details -->
                         <div class="form-group">
-                            <label>Student's Full Name *</label>
-                            <input type="text" name="student_name" placeholder="Enter full name" required />
+                            <label for="student_name">Student's Full Name *</label>
+                            <input type="text" id="student_name" name="student_name" placeholder="Enter full name" required />
                         </div>
                         <div class="form-group">
-                            <label>Date of Birth *</label>
-                            <input type="date" name="dob" required />
+                            <label for="dob">Date of Birth *</label>
+                            <input type="date" id="dob" name="dob" required />
                         </div>
                         <div class="form-group">
-                            <label>Gender *</label>
-                            <select name="gender" required>
+                            <label for="gender">Gender *</label>
+                            <select id="gender" name="gender" required>
                                 <option value="">Select</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -248,8 +248,8 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Applying for Grade / Pathway *</label>
-                            <select name="grade" required>
+                            <label for="grade">Applying for Grade / Pathway *</label>
+                            <select id="grade" name="grade" required>
                                 <option value="">Select Grade / Pathway</option>
                                 <option>Grade 10 - STEM</option>
                                 <option>Grade 10 - Humanities</option>
@@ -265,26 +265,26 @@
 
                         <!-- Parent / Guardian Details -->
                         <div class="form-group">
-                            <label>Parent / Guardian Name *</label>
-                            <input type="text" name="parent_name" placeholder="Enter full name" required />
+                            <label for="parent_name">Parent / Guardian Name *</label>
+                            <input type="text" id="parent_name" name="parent_name" placeholder="Enter full name" required />
                         </div>
                         <div class="form-group">
-                            <label>Email Address *</label>
-                            <input type="email" name="_replyto" placeholder="Enter email address" required />
+                            <label for="_replyto">Email Address *</label>
+                            <input type="email" id="_replyto" name="_replyto" placeholder="Enter email address" required />
                         </div>
                         <div class="form-group">
-                            <label>Phone Number *</label>
-                            <input type="tel" name="phone" placeholder="e.g., 0712345678" required />
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" placeholder="e.g., 0712345678" required />
                         </div>
 
                         <!-- Additional Information -->
                         <div class="form-group full">
-                            <label>Previous School & Academic Records</label>
-                            <textarea name="previous_school" rows="3" placeholder="Name of school, grades, KCPE/KCSE results, etc."></textarea>
+                            <label for="previous_school">Previous School & Academic Records</label>
+                            <textarea id="previous_school" name="previous_school" rows="3" placeholder="Name of school, grades, KCPE/KCSE results, etc."></textarea>
                         </div>
                         <div class="form-group full">
-                            <label>Special Needs / Interests</label>
-                            <textarea name="message" rows="3" placeholder="Any special requirements, talents, or extracurricular interests"></textarea>
+                            <label for="message">Special Needs / Interests</label>
+                            <textarea id="message" name="message" rows="3" placeholder="Any special requirements, talents, or extracurricular interests"></textarea>
                         </div>
                     </div>
 

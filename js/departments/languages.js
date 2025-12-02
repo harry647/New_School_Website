@@ -1,191 +1,371 @@
-// languages.js – Full Featured Languages Department
-let DATA = { subjects: [], teachers: [], resources: [] };
-let POLL = {}; // store poll votes
-let FORUM_POSTS = []; // store forum posts
-let RSVP_EVENTS = {}; // track event RSVPs
+// =======================================================
+// languages.js – Full Languages Department System (2026+)
+// Backend-powered, dual filtering, audio upload, forum, poll, RSVP
+// =======================================================
 
-// Check login
+let DATA = { subjects: [], teachers: [], resources: [], events: [] };
+let POLL = {};
+let FORUM_POSTS = [];
+let RSVP_EVENTS = {};
+let currentSession = "";
+let currentLanguage = "";
+
+// ==================== AUTH ====================
 function isLoggedIn() {
   return localStorage.getItem("userLoggedIn") === "true";
 }
 
-// Initialize
+// ==================== DOM READY ====================
 document.addEventListener("DOMContentLoaded", () => {
   w3.includeHTML(() => {
     if (!isLoggedIn()) {
       document.getElementById("loginCheck").classList.remove("d-none");
       return;
     }
+
     document.getElementById("mainContent").classList.remove("d-none");
 
-    fetch("/static/languages/data/languages-data.json")
-      .then(r => r.json())
-      .then(data => {
-        DATA = data;
+    // Load all data from backend
+    loadLanguagesData();
 
-        // Initialize Poll votes for subjects
-        POLL = Object.fromEntries(DATA.subjects.map(s => [s.name, 0]));
-        // Initialize RSVP status
-        DATA.events?.forEach(ev => RSVP_EVENTS[ev.title] = false);
+    // Setup file upload
+    setupFileUpload();
 
-        loadSubjects();
-        loadTeachers();
-        loadResources();
-        renderPoll();
-        renderPollResults();
-        setupFileUpload();
-        renderForum();
-        renderEvents();
-      });
+    // Setup forum
+    setupForum();
 
     // Filters
-    document.getElementById("sessionFilter").addEventListener("change", applyFilters);
-    document.getElementById("languageFilter").addEventListener("change", applyFilters);
+    document.getElementById("sessionFilter")?.addEventListener("change", applyFilters);
+    document.getElementById("languageFilter")?.addEventListener("change", applyFilters);
   });
 });
 
-// Load Subjects
+// ==================== LOAD DATA FROM BACKEND ====================
+async function loadLanguagesData() {
+  try {
+    const res = await fetch("/api/departments/languages", { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed");
+
+    DATA = await res.json();
+
+    // Initialize poll & RSVP
+    POLL = Object.fromEntries(DATA.subjects.map(s => [s.name, 0]));
+    DATA.events?.forEach(ev => RSVP_EVENTS[ev.title] = false);
+
+    renderAll();
+    populateFilters();
+  } catch (err) {
+    console.error("Load error:", err);
+    showAlert("Unable to load Languages content. Please try again.", "danger");
+  }
+}
+
+// Populate filter dropdowns
+function populateFilters() {
+  const sessionFilter = document.getElementById("sessionFilter");
+  const langFilter = document.getElementById("languageFilter");
+
+  if (!sessionFilter || !langFilter) return;
+
+  // Sessions
+  const sessions = [...new Set([
+    ...DATA.subjects.map(s => s.session).filter(Boolean),
+    ...DATA.resources.map(r => r.session).filter(Boolean)
+  ])].sort().reverse();
+
+  sessions.forEach(sess => {
+    const opt = document.createElement("option");
+    opt.value = sess;
+    opt.textContent = sess;
+    sessionFilter.appendChild(opt);
+  });
+
+  // Languages
+  DATA.subjects.forEach(s => {
+    const opt = document.createElement("option");
+    opt.value = s.name;
+    opt.textContent = s.name;
+    langFilter.appendChild(opt);
+  });
+}
+
+// ==================== RENDER ALL ====================
+function renderAll() {
+  loadSubjects();
+  loadTeachers();
+  loadResources();
+  loadEvents();
+  renderPoll();
+  renderForum();
+}
+
+// ==================== RENDER FUNCTIONS ====================
 function loadSubjects() {
   const grid = document.getElementById("subjectsGrid");
-  grid.innerHTML = DATA.subjects.map(s => `
-    <div class="col-md-6 col-lg-4">
-      <div class="subject-card p-5 text-center h-100">
-        ${s.flag ? `<img src="${s.flag}" class="lang-flag mb-4" alt="${s.name}">` : ''}
-        <h3 class="h5 fw-bold">${s.name}</h3>
-        <p class="text-muted small">${s.levels || ''}</p>
-        <p>${s.description}</p>
+  if (!grid) return;
+
+  const filtered = DATA.subjects.filter(s => {
+    const sessionMatch = !currentSession || s.session === currentSession;
+    const langMatch = !currentLanguage || s.name === currentLanguage;
+    return sessionMatch && langMatch;
+  });
+
+  grid.innerHTML = filtered.length === 0
+    ? `<div class="col-12 text-center py-5 text-muted">No subjects match your filters.</div>`
+    : filtered.map(s => `
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="subject-card p-5 text-center h-100 glass-card shadow-sm">
+          ${s.flag ? `<img src="${s.flag}" class="lang-flag mb-4" alt="${s.name}">` : ''}
+          <h3 class="h5 fw-bold">${s.name}</h3>
+          <p class="text-muted small mb-2">${s.levels || 'All Levels'}</p>
+          <p class="mb-4">${s.description}</p>
+          <button onclick="votePoll('${s.name}')" 
+                  class="btn btn-outline-warning btn-sm w-100">
+            Vote for ${s.name}
+          </button>
+        </div>
       </div>
-    </div>
-  `).join("");
+    `).join("");
 }
 
-// Load Teachers
 function loadTeachers() {
   const grid = document.getElementById("teachersGrid");
-  grid.innerHTML = DATA.teachers.map(t => `
-    <div class="col-md-6 col-lg-4">
-      <div class="teacher-card text-center p-4">
-        <img src="${t.photo}" class="rounded-circle mb-3" width="120" alt="${t.name}">
-        <h4 class="fw-bold">${t.name}</h4>
-        <p class="text-muted">${t.languages.join(" • ")}</p>
-        <small>${t.email}</small>
+  if (!grid) return;
+
+  grid.innerHTML = DATA.teachers.length === 0
+    ? `<div class="col-12 text-center py-5 text-muted">No teachers listed.</div>`
+    : DATA.teachers.map(t => `
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="teacher-card text-center p-5 glass-card shadow-sm">
+          <img src="${t.photo || '/assets/images/defaults/teacher.png'}" 
+               class="rounded-circle mb-4 shadow" width="140" height="140" alt="${t.name}">
+          <h4 class="fw-bold mb-2">${t.name}</h4>
+          <p class="text-muted mb-1">${t.languages?.join(" • ") || "Languages"}</p>
+          <p class="small text-primary">${t.email}</p>
+        </div>
       </div>
-    </div>
-  `).join("");
+    `).join("");
 }
 
-// Load Resources
 function loadResources() {
   const grid = document.getElementById("resourcesGrid");
-  grid.innerHTML = DATA.resources.map(r => `
-    <div class="col-md-6 col-lg-4">
-      <div class="resource-card p-4">
-        <i class="fas ${r.icon || 'fa-file-pdf'} fa-3x mb-3" style="color:${r.color || '#d9534f'}"></i>
-        <h5>${r.title}</h5>
-        <p class="text-muted small">By: ${r.uploadedBy} • ${r.date}</p>
-        <a href="${r.url}" class="btn btn-outline-danger btn-sm" target="_blank">Download</a>
+  if (!grid) return;
+
+  const filtered = currentSession
+    ? DATA.resources.filter(r => r.session === currentSession)
+    : DATA.resources;
+
+  grid.innerHTML = filtered.length === 0
+    ? `<div class="col-12 text-center py-5 text-muted">No resources available.</div>`
+    : filtered.map(r => `
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="resource-card p-5 text-center glass-card shadow-sm">
+          <i class="fas ${getFileIcon(r.type)} fa-4x mb-4 text-danger"></i>
+          <h5 class="fw-bold">${r.title}</h5>
+          <p class="text-muted small mb-3">By: ${r.uploadedBy} • ${formatDate(r.date)}</p>
+          <a href="${r.url}" class="btn btn-outline-primary btn-sm w-100" download>
+            Download ${r.type === 'audio' ? 'Audio' : 'File'}
+          </a>
+        </div>
       </div>
-    </div>
-  `).join("");
+    `).join("");
 }
 
-// File Upload
-function setupFileUpload() {
-  document.getElementById("fileUpload").onchange = e => {
-    const files = e.target.files;
-    if (!files.length) return;
-    alert(`Uploading ${files.length} language file(s)...`);
-    // Future: implement actual upload to server
-  };
+function loadEvents() {
+  const container = document.getElementById("announcements");
+  if (!container) return;
+
+  const filtered = currentSession
+    ? DATA.events?.filter(e => e.session === currentSession) || []
+    : DATA.events || [];
+
+  container.innerHTML = filtered.length === 0
+    ? `<p class="text-center text-white-50 py-5">No upcoming events.</p>`
+    : `<ul class="list-unstyled mb-0 fs-5">
+      ${filtered.map(ev => `
+        <li class="mb-3">
+          <i class="fas ${ev.icon || 'fa-calendar'} me-3 text-warning"></i>
+          ${ev.title} — ${ev.date}
+          <button class="btn btn-sm btn-light ms-3" onclick="toggleRSVP('${ev.title}')">
+            ${RSVP_EVENTS[ev.title] ? 'Cancel RSVP' : 'RSVP'}
+          </button>
+        </li>
+      `).join("")}
+    </ul>`;
 }
 
-// Poll / Quiz
+// ==================== POLL ====================
 function renderPoll() {
-  const pollDiv = document.getElementById("pollOptions");
-  pollDiv.innerHTML = DATA.subjects.map(s => `
-    <button class="btn btn-outline-primary m-1" onclick="votePoll('${s.name}')">${s.name}</button>
+  const container = document.getElementById("pollOptions");
+  if (!container) return;
+
+  container.innerHTML = DATA.subjects.map(s => `
+    <button class="btn btn-outline-warning m-2 px-4" onclick="votePoll('${s.name}')">
+      ${s.name}
+    </button>
   `).join("");
 }
 
 function votePoll(subject) {
   POLL[subject] = (POLL[subject] || 0) + 1;
+
+  fetch("/api/departments/languages/poll", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ subject })
+  }).catch(() => {});
+
   renderPollResults();
+  showAlert(`Voted for ${subject}!`, "success");
 }
 
 function renderPollResults() {
-  const resultsDiv = document.getElementById("pollResults");
-  resultsDiv.innerHTML = Object.entries(POLL).map(([sub, count]) => `
-    <div>${sub}: ${count} vote(s)</div>
-  `).join("");
+  const container = document.getElementById("pollResults");
+  if (!container) return;
+
+  const total = Object.values(POLL).reduce((a, b) => a + b, 0);
+  if (total === 0) {
+    container.innerHTML = `<p class="text-muted">No votes yet. Be the first!</p>`;
+    return;
+  }
+
+  container.innerHTML = Object.entries(POLL)
+    .sort((a, b) => b[1] - a[1])
+    .map(([lang, votes]) => `
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <span>${lang}</span>
+        <span class="fw-bold">${votes} vote${votes !== 1 ? 's' : ''}</span>
+      </div>
+      <div class="progress mb-3" style="height:20px;">
+        <div class="progress-bar bg-warning" style="width:${(votes/total*100)}%">
+          ${Math.round(votes/total*100)}%
+        </div>
+      </div>
+    `).join("");
 }
 
-// Forum
-function postForum() {
-  const text = document.getElementById("forumPost").value.trim();
-  if (!text) return alert("Please write something first.");
-  const post = {
-    user: "Student",
-    time: new Date().toLocaleString(),
-    text
-  };
-  FORUM_POSTS.unshift(post);
-  renderForum();
-  document.getElementById("forumPost").value = "";
+// ==================== FORUM ====================
+async function setupForum() {
+  const textarea = document.getElementById("forumPost");
+  const container = document.getElementById("forumPosts");
+
+  if (!textarea || !container) return;
+
+  // Load posts
+  loadForumPosts();
+
+  document.getElementById("forumPost").addEventListener("keydown", async (e) => {
+    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+      await postForum();
+    }
+  });
 }
 
-function renderForum() {
-  const postsDiv = document.getElementById("forumPosts");
-  postsDiv.innerHTML = FORUM_POSTS.map(p => `
-    <div class="glass-card p-4 mb-4">
-      <p class="mb-2"><strong>${p.user}</strong> <small class="text-muted">– ${p.time}</small></p>
-      <p>${p.text.replace(/\n/g, "<br>")}</p>
-    </div>
-  `).join("");
+async function postForum() {
+  const textarea = document.getElementById("forumPost");
+  const text = textarea.value.trim();
+  if (!text) return showAlert("Write something first.", "warning");
+
+  try {
+    const res = await fetch("/api/departments/languages/forum", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text })
+    });
+
+    if (res.ok) {
+      textarea.value = "";
+      showAlert("Posted!", "success");
+      loadForumPosts();
+    }
+  } catch (err) {
+    showAlert("Failed to post.", "danger");
+  }
 }
 
-// Events RSVP
-function renderEvents() {
-  const ul = document.getElementById("announcements").querySelector("ul");
-  ul.innerHTML = DATA.events?.map(ev => `
-    <li>
-      <i class="fas ${ev.icon || 'fa-calendar'} me-3"></i> ${ev.title} – ${ev.date}
-      <button class="btn btn-sm btn-light ms-2" onclick="toggleRSVP('${ev.title}')">
-        ${RSVP_EVENTS[ev.title] ? "Cancel RSVP" : "RSVP"}
-      </button>
-    </li>
-  `).join("") || "";
+async function loadForumPosts() {
+  const container = document.getElementById("forumPosts");
+  if (!container) return;
+
+  try {
+    const res = await fetch("/api/departments/languages/forum");
+    const posts = await res.json();
+
+    container.innerHTML = posts.length === 0
+      ? `<p class="text-center text-muted py-5">No posts yet. Start the conversation!</p>`
+      : posts.map(p => `
+        <div class="glass-card p-4 mb-4 rounded-3">
+          <p class="mb-2">
+            <strong>Student</strong>
+            <small class="text-muted">– ${new Date(p.timestamp).toLocaleString()}</small>
+          </p>
+          <p class="text-white opacity-90">${p.text.replace(/\n/g, "<br>")}</p>
+        </div>
+      `).join("");
+  } catch (err) {
+    container.innerHTML = `<p class="text-danger">Failed to load posts.</p>`;
+  }
 }
 
+// ==================== RSVP ====================
 function toggleRSVP(title) {
   RSVP_EVENTS[title] = !RSVP_EVENTS[title];
-  renderEvents();
+  loadEvents();
+  showAlert(RSVP_EVENTS[title] ? "RSVP confirmed!" : "RSVP cancelled", "info");
 }
 
-// Filters
-function applyFilters() {
-  const session = document.getElementById("sessionFilter").value;
-  const language = document.getElementById("languageFilter").value.toLowerCase();
+// ==================== FILE UPLOAD ====================
+function setupFileUpload() {
+  const input = document.getElementById("fileUpload");
+  if (!input) return;
 
-  const filteredSubjects = DATA.subjects.filter(s => {
-    const matchesSession = !session || s.session === session;
-    const matchesLanguage = !language || s.name.toLowerCase().includes(language);
-    return matchesSession && matchesLanguage;
+  input.addEventListener("change", async function () {
+    if (this.files.length === 0) return;
+
+    const formData = new FormData();
+    Array.from(this.files).forEach(file => formData.append("files", file));
+
+    try {
+      const res = await fetch("/api/departments/languages/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        showAlert(`Uploaded ${this.files.length} file(s)!`, "success");
+        this.value = "";
+        loadLanguagesData(); // Refresh
+      }
+    } catch (err) {
+      showAlert("Upload failed.", "danger");
+    }
   });
-
-  const grid = document.getElementById("subjectsGrid");
-  grid.innerHTML = filteredSubjects.map(s => `
-    <div class="col-md-6 col-lg-4">
-      <div class="subject-card p-5 text-center h-100">
-        ${s.flag ? `<img src="${s.flag}" class="lang-flag mb-4" alt="${s.name}">` : ''}
-        <h3 class="h5 fw-bold">${s.name}</h3>
-        <p class="text-muted small">${s.levels || ''}</p>
-        <p>${s.description}</p>
-      </div>
-    </div>
-  `).join("");
 }
 
-// Scroll Helper
+// ==================== FILTERS ====================
+function applyFilters() {
+  currentSession = document.getElementById("sessionFilter")?.value || "";
+  currentLanguage = document.getElementById("languageFilter")?.value || "";
+
+  loadSubjects();
+  loadResources();
+  loadEvents();
+}
+
+// ==================== UTILITIES ====================
 function scrollToSection(id) {
-  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function showAlert(message, type = "info") {
+  const alert = document.createElement("div");
+  alert.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+  alert.style.cssText = "top:20px; right:20px; z-index:9999;";
+  alert.innerHTML = `
+    ${message}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  `;
+  document.body.appendChild(alert);
+  setTimeout(() => alert.remove(), 5000);
 }
