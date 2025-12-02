@@ -56,28 +56,49 @@ router.post('/login', loginValidator, (req, res) => {
   }
 
   const { email, password } = req.body;
-  const users = readJSON(path.join('data', 'users.json'));
 
-  // In production, compare hashed password
+  const users = readJSON(path.join('data', 'users.json'));
   const user = users.find(u => u.email === email && u.password === password);
 
-  if (!user) return res.status(401).json({ success: false, message: 'Invalid credentials' });
+  if (!user) {
+    return res.status(401).json({
+      success: false,
+      message: 'Invalid credentials'
+    });
+  }
 
-  // Set session
+  // Prepare safe user data
+  const { password: removed, ...safeUser } = user;
+
+  // Store session
   req.session.user = {
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    role: user.role
+    id: safeUser.id,
+    name: safeUser.name,
+    email: safeUser.email,
+    role: safeUser.role,
+    photo: safeUser.photo || '/assets/images/defaults/default-user.png'
   };
 
-  res.json({
-    success: true,
-    message: 'Login successful',
-    role: user.role,
-    name: user.name
+  req.session.save(err => {
+    if (err) {
+      console.error("Session save failed:", err);
+      return res.status(500).json({
+        success: false,
+        message: "Login failed – server error"
+      });
+    }
+
+    console.log(`LOGIN SUCCESS → ${safeUser.name} (${safeUser.email}) – Role: ${safeUser.role}`);
+
+    // Frontend expects: success, message, and user object
+    res.json({
+      success: true,
+      message: "Login successful!",
+      user: safeUser
+    });
   });
 });
+
 
 // --------------------
 // LOGOUT

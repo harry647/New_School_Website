@@ -29,29 +29,32 @@ const __dirname = path.dirname(__filename);
  * @param {string[]} allowedExtensions - An array of allowed file extensions (e.g., ['.jpg', '.pdf']).
  * @returns {multer.Instance} A configured multer instance.
  */
-const createUploader = (folder, allowedExtensions) => {
+// =================================================================
+// MULTER CONFIGURATION – Smart & Secure Uploads
+// =================================================================
+const createUploader = (folder, allowedExtensions = [], maxSize = 15 * 1024 * 1024) => {
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      // Use path.join for robust path creation
       const uploadPath = path.join(__dirname, '..', 'public', 'uploads', folder);
       fs.mkdirSync(uploadPath, { recursive: true });
       cb(null, uploadPath);
     },
     filename: (req, file, cb) => {
-      const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);
-      cb(null, `${folder.slice(0, -1)}-${unique}${path.extname(file.originalname)}`);
+      const unique = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
+      const ext = path.extname(file.originalname).toLowerCase();
+      cb(null, `${folder.slice(0, -1)}-${unique}${ext}`);
     }
   });
 
   return multer({
     storage,
-    limits: { fileSize: 15 * 1024 * 1024 }, // 15MB limit for all files
+    limits: { fileSize: maxSize },
     fileFilter: (req, file, cb) => {
       const ext = path.extname(file.originalname).toLowerCase();
-      if (allowedExtensions.includes(ext)) {
+      if (allowedExtensions.length === 0 || allowedExtensions.includes(ext)) {
         cb(null, true);
       } else {
-        cb(new Error(`Invalid file type. Only ${allowedExtensions.join(', ')} are allowed.`), false);
+        cb(new Error(`Invalid file type. Allowed: ${allowedExtensions.join(', ')}`), false);
       }
     }
   });
@@ -71,6 +74,13 @@ const uploadDepartmentFile = createUploader('departments/', [...documentExtensio
 const uploadCoCurriculumPhoto = createUploader('cocurriculum/', imageExtensions);
 const uploadGuidanceResource = createUploader('guidance/', documentExtensions);
 const uploadWelfareAttachment = createUploader('welfare/', [...documentExtensions, ...imageExtensions]);
+
+
+// Dedicated uploaders
+const uploadImage = createUploader('images/', ['.jpg', '.jpeg', '.png', '.webp', '.gif']);
+const uploadDocument = createUploader('documents/', ['.pdf', '.doc', '.docx']);
+const uploadMedia = createUploader('media/', ['.mp4', '.mov', '.mp3', '.wav']);
+const uploadMixed = createUploader('mixed/', []); // Allows all safe types
 
 
 // =================================================================
@@ -110,6 +120,44 @@ const writeJSON = (filePath, data) => {
     return false;
   }
 };
+
+// =================================================================
+// AUTH MIDDLEWARE (SIMPLE SESSION CHECK)
+// =================================================================
+const requireAuth = (req, res, next) => {
+  if (!req.session?.user) {
+    return res.status(401).json({ success: false, message: 'Authentication required' });
+  }
+  next();
+};
+
+// =================================================================
+// CORE API ROUTES – CLEAN, MODULAR & PROFESSIONAL
+// =================================================================
+
+/* ==================== USER & AUTH ==================== */
+router.get('/profile', requireAuth, (req, res) => {
+  const { password, ...safeUser } = req.session.user;
+  res.json({ success: true, user: safeUser });
+});
+
+router.put('/profile', requireAuth, uploadImage.single('photo'), (req, res) => {
+  const users = readJSON(path.join(__dirname, '..', 'data', 'users.json'));
+  const index = users.findIndex(u => u.id === req.session.user.id);
+  if (index === -1) return res.status(404).json({ success: false, message: 'User not found' });
+
+  const updates = req.body;
+  if (req.file) updates.photo = `/uploads/images/${req.file.filename}`;
+
+  users[index] = { ...users[index], ...updates, updated_at: new Date().toISOString() };
+  if (writeJSON(path.join(__dirname, '..', 'data', 'users.json'), users)) {
+    req.session.user = users[index];
+    const { password, ...safeUser } = users[index];
+    res.json({ success: true, user: safeUser, message: 'Profile updated!' });
+  } else {
+    res.status(500).json({ success: false, message: 'Failed to save profile' });
+  }
+});
 
 
 // =================================================================

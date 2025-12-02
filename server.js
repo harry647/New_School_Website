@@ -1,108 +1,122 @@
+// ==================================================
+// server.js – FINAL WORKING VERSION (2025–2026)
+// Using SQLite session storage (correct and stable)
+// ==================================================
+
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import session from 'express-session';
+import SQLiteStore from 'connect-sqlite3';
+import fs from 'fs';
 
 import authRoutes from './routes/auth.js';
 import portalRoutes from './routes/portal.js';
+import apiRoutes from './routes/api.js';
 import { logger } from './middleware/logger.js';
 import { errorHandler } from './middleware/errorHandler.js';
-import apiRoutes from './routes/api.js';
 
 
 
 
+
+// ================================================
+// Resolve __dirname and file paths
+// ================================================
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// --------------------
-// Middleware
-// --------------------
+// ================================================
+// 1. SESSION SETUP – USING SQLITE (BEST OPTION)
+// ================================================
+// Ensure database folder exists
+const dbFolder = path.join(__dirname, 'database');
+if (!fs.existsSync(dbFolder)) {
+  fs.mkdirSync(dbFolder, { recursive: true });
+}
+
+const SQLiteStoreInstance = SQLiteStore(session);
+
+app.use(
+  session({
+    store: new SQLiteStoreInstance({
+      db: 'sessions.db',
+      dir: dbFolder,
+      concurrentDB: true
+    }),
+    secret: 'bar-union-2025-super-secret-key-please-change-in-production',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    }
+  })
+);
+
+// ================================================
+// 2. Middleware
+// ================================================
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Session setup for login/role handling
-app.use(session({
-    secret: 'school-secret-key',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 } // 1 day
-}));
-
-// Logger middleware
 app.use(logger);
 
-// --------------------
-// Static assets
-// --------------------
-app.use('/css', express.static(path.join(__dirname, 'css')));
-app.use('/js', express.static(path.join(__dirname, 'js')));
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
-app.use('/includes', express.static(path.join(__dirname, 'includes')));
-app.use('/data', express.static(path.join(__dirname, 'data')));
-app.use('/downloads', express.static(path.join(__dirname, 'downloads')));
-app.use('/admin', express.static(path.join(__dirname, 'admin')));
-app.use('/portal', express.static(path.join(__dirname, 'portal')));
-app.use('/clubs', express.static(path.join(__dirname, 'clubs')));
-app.use('/blogs', express.static(path.join(__dirname, 'blogs')));
-app.use('/departments', express.static(path.join(__dirname, 'departments')));
-app.use('/resources', express.static(path.join(__dirname, 'resources')));
-app.use('/user', express.static(path.join(__dirname, 'user')));
-app.use('/static', express.static(path.join(__dirname, 'static')));
+// ================================================
+// 3. Static Files
+// ================================================
+const staticPaths = [
+  'css', 'js', 'assets', 'includes', 'data', 'downloads',
+  'admin', 'portal', 'clubs', 'blogs', 'departments',
+  'resources', 'user', 'static'
+];
 
-// --------------------
-// Modular Routes
-// --------------------
-app.use('/auth', authRoutes);       // login, logout, register APIs
-app.use('/portal', portalRoutes);   // e-learning, clubs, notifications, protected routes
-app.use('/api', apiRoutes);         // roues to all APIs
+staticPaths.forEach(folder => {
+  app.use(`/${folder}`, express.static(path.join(__dirname, folder)));
+});
 
-// --------------------
-// HTML Pages
-// --------------------
+// ================================================
+// 4. Routes
+// ================================================
+app.use('/auth', authRoutes);
+app.use('/portal', portalRoutes);
+app.use('/api', apiRoutes);
+
+// ================================================
+// 5. HTML Pages (Root Routes)
+// ================================================
 const pages = [
-    '',
-    'about',
-    'academics',
-    'admissions',
-    'gallery',
-    'news',
-    'contact',
-    'administration',
-    'staff',
-    'student-life',
-    'e-learning',
-    'alumni',
-    'career-guidance',
-    'support-utilities'
+  '', 'about', 'academics', 'admissions', 'gallery', 'news',
+  'contact', 'administration', 'staff', 'student-life',
+  'e-learning', 'alumni', 'career-guidance', 'support-utilities'
 ];
 
 pages.forEach(page => {
-    const route = page === '' ? '/' : `/${page}`;
-    app.get(route, (req, res) => {
-        const fileName = page === '' ? 'index.html' : `${page}.html`;
-        res.sendFile(path.join(__dirname, 'static', fileName));
-    });
+  const route = page === '' ? '/' : `/${page}`;
+  const fileName = page === '' ? 'index.html' : `${page}.html`;
+
+  app.get(route, (req, res) => {
+    res.sendFile(path.join(__dirname, 'static', fileName));
+  });
 });
 
-// --------------------
-// Fallback for non-file routes
-// --------------------
+// SPA fallback (for routes without a dot/extension)
 app.get(/^\/[^.]*$/, (req, res) => {
-    res.sendFile(path.join(__dirname, 'static', 'index.html'));
+  res.sendFile(path.join(__dirname, 'static', 'index.html'));
 });
 
-// --------------------
-// Error Handler
-// --------------------
+// ================================================
+// 6. Error Handler
+// ================================================
 app.use(errorHandler);
 
-// --------------------
-// Start Server
-// --------------------
+// ================================================
+// 7. Start Server
+// ================================================
 app.listen(PORT, () => {
-    console.log(`School Website live at port ${PORT}`);
+  console.log(`Bar Union School Website LIVE at http://localhost:${PORT}`);
+  console.log('SQLite session database → /database/sessions.db');
 });

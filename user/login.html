@@ -24,17 +24,34 @@
       </div>
 
       <form id="loginForm">
+        
+        <!-- EMAIL / ADMISSION -->
         <div class="mb-3">
           <div class="input-group input-group-lg">
             <span class="input-group-text"><i class="fas fa-user"></i></span>
-            <input type="text" class="form-control" placeholder="Admission Number or Email" required>
+            <input 
+              type="text" 
+              name="email"
+              class="form-control" 
+              placeholder="Admission Number or Email"
+              required 
+              autocomplete="username"
+            >
           </div>
         </div>
 
+        <!-- PASSWORD -->
         <div class="mb-3">
           <div class="input-group input-group-lg">
             <span class="input-group-text"><i class="fas fa-lock"></i></span>
-            <input type="password" class="form-control" placeholder="Password" required>
+            <input 
+              type="password" 
+              name="password"
+              class="form-control" 
+              placeholder="Password" 
+              required
+              autocomplete="current-password"
+            >
           </div>
         </div>
 
@@ -66,48 +83,69 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   
   <script>
-document.getElementById("loginForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
 
-    const email = document.querySelector('input[type="text"]').value.trim();
-    const password = document.querySelector('input[type="password"]').value;
+    const loginForm = document.getElementById("loginForm");
 
-    if (!email || !password) {
-        alert("Please enter both email and password.");
-        return;
-    }
+    const emailInput = document.querySelector("#loginForm input[name='email']");
+    const passwordInput = document.querySelector("#loginForm input[name='password']");
 
-    try {
-        const response = await fetch("/auth/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
-        });
+    loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-        const data = await response.json();
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
 
-        if (data.success) {
-            localStorage.setItem("userLoggedIn", "true");
-            localStorage.setItem("userRole", data.role);
-            localStorage.setItem("userName", data.name || "");
-
-            // Role-based redirect
-            if (data.role === "clubs") {
-                window.location.href = "/portal/clubs";
-            } else if (data.role === "e-learning") {
-                window.location.href = "/portal/e-learning";
-            } else {
-                alert("Role not recognized. Redirecting to home.");
-                window.location.href = "/";
-            }
-        } else {
-            alert(data.message || "Login failed. Please check your credentials.");
+        if (!email || !password) {
+            alert("Please enter both email and password.");
+            return;
         }
-    } catch (err) {
-        console.error("Login error:", err);
-        alert("An error occurred while logging in. Please try again later.");
-    }
+
+        try {
+            const response = await fetch("/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
+
+            let data;
+            try {
+                data = await response.json();
+            } catch {
+                alert("Invalid response from server.");
+                return;
+            }
+
+            if (data.success) {
+
+                // Store client-side data
+                localStorage.setItem("userLoggedIn", "true");
+                localStorage.setItem("userRole", data.user.role);
+                localStorage.setItem("userName", data.user.name || "");
+
+                // Redirect by role
+                switch (data.user.role) {
+                    case "clubs":
+                        window.location.href = "/portal/clubs";
+                        break;
+                    case "e-learning":
+                        window.location.href = "/portal/e-learning";
+                        break;
+                    default:
+                        window.location.href = "/";
+                }
+
+            } else {
+                alert(data.message || "Login failed. Check your credentials.");
+            }
+
+        } catch (err) {
+            console.error("Login error:", err);
+            alert("Unable to reach server. Try again later.");
+        }
+    });
 });
 </script>
+
 </body>
 </html>

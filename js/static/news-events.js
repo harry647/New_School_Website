@@ -164,6 +164,136 @@ document.addEventListener("DOMContentLoaded", async () => {
     removeLoader(blogGrid);
   };
 
+
+
+  const renderEventsCalendar = (events = []) => {
+      if (!eventsCalendar) return;
+      eventsCalendar.innerHTML = ""; // clear previous
+      if (events.length === 0) {
+          eventsCalendar.innerHTML = `<p>No upcoming events.</p>`;
+          return;
+      }
+
+      const frag = document.createDocumentFragment();
+      events.forEach(ev => {
+          const div = document.createElement("div");
+          div.className = "event-item";
+          div.innerHTML = `<strong>${ev.title}</strong> — ${new Date(ev.date).toLocaleDateString()}`;
+          frag.appendChild(div);
+      });
+
+      eventsCalendar.appendChild(frag);
+  };
+
+  // ------------------- Event Photos -------------------
+  
+
+  const renderEventPhotos = (photos = []) => {
+      if (!eventPhotosGrid) return;
+      eventPhotosGrid.innerHTML = ""; // clear previous
+      if (photos.length === 0) {
+          eventPhotosGrid.innerHTML = `<p>No event photos available.</p>`;
+          return;
+      }
+
+      const frag = document.createDocumentFragment();
+      photos.forEach(photo => {
+          const div = document.createElement("div");
+          div.className = "photo-item";
+          div.innerHTML = `<img src="${photo.src || '/assets/images/defaults/default-news.jpg'}" 
+                             alt="${photo.alt || 'Event Photo'}" loading="lazy"
+                             onerror="this.src='/assets/images/defaults/default-news.jpg'">`;
+          frag.appendChild(div);
+      });
+
+      eventPhotosGrid.appendChild(frag);
+  };
+
+  // ------------------- Spotlight Profiles -------------------
+  
+
+  const renderSpotlight = (profiles = []) => {
+      if (!spotlightProfiles) return;
+      spotlightProfiles.innerHTML = "";
+      if (profiles.length === 0) {
+          spotlightProfiles.innerHTML = `<p>No spotlight profiles available.</p>`;
+          return;
+      }
+
+      const frag = document.createDocumentFragment();
+      profiles.forEach(profile => {
+          const div = document.createElement("div");
+          div.className = "spotlight-card";
+          div.innerHTML = `
+              <img src="${profile.photo || '/assets/images/defaults/default-user.png'}" 
+                   alt="${profile.name || 'Profile'}" loading="lazy"
+                   onerror="this.src='/assets/images/defaults/default-user.png'">
+              <h4>${profile.name || "Unnamed"}</h4>
+              <p>${profile.role || ""}</p>
+          `;
+          frag.appendChild(div);
+      });
+
+      spotlightProfiles.appendChild(frag);
+  };
+
+  // ------------------- Media Coverage -------------------
+  
+
+  const renderMedia = (mediaItems = []) => {
+      if (!mediaCoverage) return;
+      mediaCoverage.innerHTML = "";
+      if (mediaItems.length === 0) {
+          mediaCoverage.innerHTML = `<p>No media coverage available.</p>`;
+          return;
+      }
+
+      const frag = document.createDocumentFragment();
+      mediaItems.forEach(item => {
+          const div = document.createElement("div");
+          div.className = "media-card";
+          div.innerHTML = `
+              <a href="${item.link || '#'}" target="_blank">
+                  <img src="${item.image || '/assets/images/defaults/default-news.jpg'}" 
+                       alt="${item.title || 'Media'}" loading="lazy"
+                       onerror="this.src='/assets/images/defaults/default-news.jpg'">
+                  <p>${item.title || ''}</p>
+              </a>
+          `;
+          frag.appendChild(div);
+      });
+
+      mediaCoverage.appendChild(frag);
+  };
+
+  // ------------------- Downloads / Resources -------------------
+  
+
+  const renderDownloads = (downloads = []) => {
+      if (!downloadsResources) return;
+      downloadsResources.innerHTML = "";
+      if (downloads.length === 0) {
+          downloadsResources.innerHTML = `<p>No downloads available.</p>`;
+          return;
+      }
+
+      const frag = document.createDocumentFragment();
+      downloads.forEach(file => {
+          const a = document.createElement("a");
+          a.href = file.link || "#";
+          a.className = "download-card";
+          a.innerHTML = `
+              <i class="fas fa-file-pdf"></i>
+              <p>${file.title || 'Download'}</p>
+          `;
+          frag.appendChild(a);
+      });
+
+      downloadsResources.appendChild(frag);
+  };
+
+
+
   // ===================== FILTER & SEARCH =====================
   const applyNewsFilters = () => {
     const term = (searchInput?.value || "").toLowerCase().trim();
@@ -289,10 +419,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     renderNews();
     renderBlogs();
     renderEventsCalendar(events);
-    // renderEventPhotos(photos);   // Uncomment when you have photos
-    // renderSpotlight(spotlight);  // Uncomment when ready
-    // renderMedia(media);
-    // renderDownloads(downloads);
+    renderEventPhotos(photos);   
+    renderSpotlight(spotlight); 
+    renderMedia(media);
+    renderDownloads(downloads);
   };
 
   // Start loading
