@@ -79,6 +79,25 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // ===================================
+        // 3b. Dropdown Toggle ON DESKTOP (Click to open)
+        // ===================================
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', function (e) {
+                if (window.innerWidth <= 992) return; // skip mobile
+
+                e.preventDefault();
+
+                const dropdown = this.parentElement;
+
+                document.querySelectorAll('.dropdown.open').forEach(open => {
+                    if (open !== dropdown) open.classList.remove('open');
+                });
+
+                dropdown.classList.toggle('open');
+            });
+        });
+
+        // ===================================
         // 4. Auto Highlight Current Page (Smart & Reliable)
         // ===================================
         const currentPath = window.location.pathname;

@@ -42,7 +42,7 @@ body { margin: 0; font-family: 'Inter', system-ui, sans-serif; line-height: 1.7;
 .hero {
   min-height: 100vh;
   background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)),
-              url('/assets/images/hero-bg.jpg') center/cover no-repeat fixed;
+              url('/assets/images/common/hero-bg.jpg') center/cover no-repeat fixed;
   display: grid;
   place-items: center;
   text-align: center;

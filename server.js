@@ -7,7 +7,7 @@ import authRoutes from './routes/auth.js';
 import portalRoutes from './routes/portal.js';
 import { logger } from './middleware/logger.js';
 import { errorHandler } from './middleware/errorHandler.js';
-import portalRoutes from './routes/portal.js';
+
 
 
 
