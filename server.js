@@ -104,8 +104,17 @@ pages.forEach(page => {
 });
 
 // SPA fallback (for routes without a dot/extension)
-app.get(/^\/[^.]*$/, (req, res) => {
-  res.sendFile(path.join(__dirname, 'static', 'index.html'));
+app.get('*', (req, res) => {
+  // Only serve index.html for routes that don't have a file extension
+  // and are not API/auth/portal routes
+  if (!req.path.includes('.') &&
+      !req.path.startsWith('/auth') &&
+      !req.path.startsWith('/api') &&
+      !req.path.startsWith('/portal')) {
+    res.sendFile(path.join(__dirname, 'static', 'index.html'));
+  } else {
+    res.status(404).send('Not Found');
+  }
 });
 
 // ================================================

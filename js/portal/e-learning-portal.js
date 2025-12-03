@@ -5,8 +5,32 @@
 // Fully backend-powered (no Formspree)
 // =======================================================
 
+// Configuration Management
+const CONFIG = {
+    API_BASE: '/api',
+    LOG_LEVEL: 'info', // debug, info, warn, error
+    CACHE_DURATION: 5 * 60 * 1000, // 5 minutes
+    MAX_RETRY_ATTEMPTS: 3,
+    RETRY_DELAY: 1000 // 1 second
+};
+
+// Logging Utility
+const logger = {
+    log: (level, message, data = null) => {
+        const levels = ['debug', 'info', 'warn', 'error'];
+        if (levels.indexOf(CONFIG.LOG_LEVEL) <= levels.indexOf(level)) {
+            console[level](`[${new Date().toISOString()}] [E-Learning] ${message}`, data || '');
+        }
+    },
+    debug: (msg, data) => logger.log('debug', msg, data),
+    info: (msg, data) => logger.log('info', msg, data),
+    warn: (msg, data) => logger.log('warn', msg, data),
+    error: (msg, data) => logger.log('error', msg, data)
+};
+
 let DATA = {};
 let currentRole = "student";
+let cache = {};
 
 // ==================== AUTH & ROLE ====================
 function isLoggedIn() {
@@ -41,31 +65,109 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedRole = localStorage.getItem("portalRole") || "student";
     setRole(savedRole);
 
+    // Show loading spinner
+    const spinner = document.getElementById("loadingSpinner");
+    if (spinner) spinner.classList.remove("d-none");
+
     // Load all portal data
-    loadPortalData();
+    loadPortalData().finally(() => {
+      if (spinner) spinner.classList.add("d-none");
+    });
+
     setupTeacherUpload();
+    setupBackToTop();
   });
 });
 
+// ==================== BACK TO TOP FUNCTIONALITY ====================
+function setupBackToTop() {
+  const backToTopBtn = document.getElementById("backToTop");
+
+  if (!backToTopBtn) return;
+
+  // Show/hide button based on scroll position
+  window.addEventListener("scroll", () => {
+    if (window.pageYOffset > 300) {
+      backToTopBtn.style.display = "block";
+    } else {
+      backToTopBtn.style.display = "none";
+    }
+  });
+
+  // Smooth scroll to top
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+}
+
 // ==================== LOAD DATA FROM BACKEND ====================
-async function loadPortalData() {
-  try {
-    const res = await fetch("/api/elearning/data", { cache: "no-store" });
-    if (!res.ok) throw new Error("Failed to load data");
+async function loadPortalData(forceRefresh = false) {
+  const cacheKey = 'portalData';
+  const now = Date.now();
 
-    DATA = await res.json();
-
-    loadSubjects();
-    loadResources();
-    loadQuizzes();
-    loadForum();
-    loadProgress();
-    loadMedia();
-    loadNotifications();
-  } catch (err) {
-    console.error("Data load error:", err);
-    showAlert("Unable to load portal data. Please refresh.", "danger");
+  // Check cache if not forcing refresh
+  if (!forceRefresh && cache[cacheKey] && (now - cache[cacheKey].timestamp) < CONFIG.CACHE_DURATION) {
+    logger.debug('Using cached portal data');
+    DATA = cache[cacheKey].data;
+    renderAllSections();
+    return;
   }
+
+  let attempts = 0;
+  while (attempts < CONFIG.MAX_RETRY_ATTEMPTS) {
+    try {
+      logger.info(`Fetching portal data (attempt ${attempts + 1})`);
+      const res = await fetch(`${CONFIG.API_BASE}/elearning/data`, {
+        cache: forceRefresh ? "no-store" : "default",
+        headers: { 'Cache-Control': forceRefresh ? 'no-cache' : 'max-age=300' }
+      });
+
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+      }
+
+      DATA = await res.json();
+
+      // Cache the data
+      cache[cacheKey] = { data: DATA, timestamp: now };
+      logger.info('Portal data loaded successfully');
+
+      renderAllSections();
+      return;
+    } catch (err) {
+      attempts++;
+      logger.warn(`Data load attempt ${attempts} failed:`, err.message);
+
+      if (attempts >= CONFIG.MAX_RETRY_ATTEMPTS) {
+        logger.error('All data load attempts failed');
+        showAlert("Unable to load portal data. Please check your connection and refresh.", "danger");
+        // Load from cache if available as fallback
+        if (cache[cacheKey]) {
+          logger.info('Falling back to cached data');
+          DATA = cache[cacheKey].data;
+          renderAllSections();
+        }
+        return;
+      }
+
+      // Wait before retry
+      await new Promise(resolve => setTimeout(resolve, CONFIG.RETRY_DELAY * attempts));
+    }
+  }
+}
+
+// Helper to render all sections
+function renderAllSections() {
+  loadSubjects();
+  loadResources();
+  loadQuizzes();
+  loadForum();
+  loadProgress();
+  loadMedia();
+  loadNotifications();
 }
 
 // ==================== RENDER FUNCTIONS ====================
@@ -174,12 +276,12 @@ function loadMedia() {
   grid.innerHTML = DATA.media.map(m => `
     <div class="col-md-6 col-lg-4 mb-4">
       <div class="media-card glass-card overflow-hidden">
-        ${m.type === 'video' 
-          ? `<video controls class="w-100" poster="${m.thumbnail || ''}">
-               <source src="${m.url}" type="video/mp4">
-               Your browser does not support video.
-             </video>`
-          : `<img src="${m.url}" class="img-fluid" alt="${m.title}" loading="lazy">`
+        ${m.type === 'video'
+          ? `<video controls class="w-100" poster="${m.thumbnail || ''}" preload="metadata">
+                <source src="${m.url}" type="video/mp4">
+                Your browser does not support video.
+              </video>`
+          : `<img src="${m.url}" class="img-fluid" alt="${m.title}" loading="lazy" decoding="async">`
         }
         <div class="p-3">
           <h5 class="mb-1">${m.title}</h5>
@@ -236,28 +338,49 @@ function setupTeacherUpload() {
 
     const formData = new FormData(this);
 
-    try {
-      const res = await fetch("/api/elearning/upload", {
-        method: "POST",
-        body: formData
-      });
+    let attempts = 0;
+    while (attempts < CONFIG.MAX_RETRY_ATTEMPTS) {
+      try {
+        logger.info(`Uploading files (attempt ${attempts + 1})`);
+        const res = await fetch(`${CONFIG.API_BASE}/elearning/upload`, {
+          method: "POST",
+          body: formData
+        });
 
-      const result = await res.json();
+        let result;
+        try {
+          result = await res.json();
+        } catch (parseErr) {
+          logger.error('Failed to parse upload response', parseErr);
+          throw new Error('Invalid response from server');
+        }
 
-      if (res.ok && result.success) {
-        showAlert("Resource uploaded successfully!", "success");
-        this.reset();
-        fileList.innerHTML = "";
-        loadPortalData(); // Refresh content
-      } else {
-        throw new Error(result.message || "Upload failed");
+        if (res.ok && result.success) {
+          logger.info('Upload successful');
+          showAlert("Resource uploaded successfully!", "success");
+          this.reset();
+          fileList.innerHTML = "";
+          loadPortalData(true); // Force refresh content
+          return;
+        } else {
+          throw new Error(result.message || `Upload failed with status ${res.status}`);
+        }
+      } catch (err) {
+        attempts++;
+        logger.warn(`Upload attempt ${attempts} failed:`, err.message);
+
+        if (attempts >= CONFIG.MAX_RETRY_ATTEMPTS) {
+          logger.error('All upload attempts failed');
+          showAlert(`Upload failed after ${CONFIG.MAX_RETRY_ATTEMPTS} attempts. Please try again.`, "danger");
+          return;
+        }
+
+        // Wait before retry
+        await new Promise(resolve => setTimeout(resolve, CONFIG.RETRY_DELAY * attempts));
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = original;
       }
-    } catch (err) {
-      console.error(err);
-      showAlert("Upload failed. Please try again.", "danger");
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = original;
     }
   });
 }
@@ -297,7 +420,38 @@ function showAlert(message, type = "info") {
   setTimeout(() => alert.remove(), 5000);
 }
 
-// Placeholder functions
-function openCourse(id) { alert(`Opening course ID: ${id}`); }
-function startQuiz(id) { alert(`Starting quiz ID: ${id}`); }
-function viewThread(id) { alert(`Viewing thread ID: ${id}`); }
+// Course and interaction functions
+function openCourse(id) {
+  logger.info(`Opening course: ${id}`);
+  // In a real implementation, this would navigate to the course page
+  // For now, show a modal or redirect to a course page
+  const course = DATA.subjects?.find(s => s.id === id);
+  if (course) {
+    showAlert(`Opening ${course.name} course...`, "info");
+    // Could redirect to: window.location.href = `/portal/course/${id}`;
+  } else {
+    showAlert("Course not found.", "warning");
+  }
+}
+
+function startQuiz(id) {
+  logger.info(`Starting quiz: ${id}`);
+  const quiz = DATA.quizzes?.find(q => q.id === id);
+  if (quiz) {
+    showAlert(`Starting ${quiz.title}...`, "info");
+    // Could redirect to: window.location.href = `/portal/quiz/${id}`;
+  } else {
+    showAlert("Quiz not found.", "warning");
+  }
+}
+
+function viewThread(id) {
+  logger.info(`Viewing forum thread: ${id}`);
+  const thread = DATA.forum?.find(f => f.id === id);
+  if (thread) {
+    showAlert(`Opening discussion: ${thread.topic}`, "info");
+    // Could redirect to: window.location.href = `/portal/forum/${id}`;
+  } else {
+    showAlert("Discussion thread not found.", "warning");
+  }
+}

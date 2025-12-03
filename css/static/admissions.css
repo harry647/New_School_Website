@@ -5,19 +5,21 @@
 ================================================== */
 
 :root {
-  --blue: #0175C2;
-  --blue-dark: #0b2d5e;
-  ;
-  --gold: #ffd700;
-  --gold-light: #ffed4e;
-  --gray: #555;
-  --gray-light: #777;
-  --light: #f8fafc;
-  --radius: 32px;
-  --shadow-sm: 0 12px 35px rgba(0,0,0,0.1);
-  --shadow-md: 0 20px 50px rgba(0,0,0,0.15);
-  --shadow-lg: 0 35px 80px rgba(0,0,0,0.22);
-  --transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+   --blue: #0175C2;
+   --blue-dark: #0b2d5e;
+   --gold: #ffd700;
+   --gold-light: #ffed4e;
+   --gray: #555;
+   --gray-light: #777;
+   --light: #f8fafc;
+   --radius: 32px;
+   --shadow-xs: 0 6px 18px rgba(0,0,0,0.08);
+   --shadow-sm: 0 12px 35px rgba(0,0,0,0.1);
+   --shadow-md: 0 20px 50px rgba(0,0,0,0.15);
+   --shadow-lg: 0 35px 80px rgba(0,0,0,0.22);
+   --transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+   --font-primary: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+   --font-heading: 'Playfair Display', serif;
 }
 
 /* ==================================
@@ -58,15 +60,14 @@ body.page-admissions {
   background: radial-gradient(circle at center, transparent 35%, rgba(0,0,0,0.7));
 }
 .page-hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(3.8rem, 9vw, 7.2rem);
-  );
-  font-weight: 900;
-  margin: 0 0 1.8rem;
-  background: linear-gradient(135deg, white, #f0f9ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 15px 50px rgba(0,0,0,0.8);
+   font-family: var(--font-heading);
+   font-size: clamp(3.8rem, 9vw, 7.2rem);
+   font-weight: 900;
+   margin: 0 0 1.8rem;
+   background: linear-gradient(135deg, white, #f0f9ff);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   text-shadow: 0 15px 50px rgba(0,0,0,0.8);
 }
 .page-hero p {
   font-size: clamp(1.3rem, 3.2vw, 1.8rem);

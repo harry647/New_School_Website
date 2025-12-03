@@ -8,14 +8,26 @@ let POSTS = [];
 let currentSession = "";
 
 // ==================== AUTH ====================
-function isLoggedIn() {
-  return localStorage.getItem("userLoggedIn") === "true";
+async function isLoggedIn() {
+  try {
+    const response = await fetch('/auth/check', {
+      method: 'GET',
+      credentials: 'include' // Include session cookies
+    });
+    const data = await response.json();
+    return data.loggedIn === true;
+  } catch (error) {
+    console.error('Auth check failed:', error);
+    return false;
+  }
 }
 
 // ==================== DOM READY ====================
-document.addEventListener("DOMContentLoaded", () => {
-  w3.includeHTML(() => {
-    if (!isLoggedIn()) {
+document.addEventListener("DOMContentLoaded", async () => {
+  w3.includeHTML(async () => {
+    const loggedIn = await isLoggedIn();
+
+    if (!loggedIn) {
       document.getElementById("loginCheck").classList.remove("d-none");
       return;
     }
@@ -38,6 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ==================== LOAD DATA FROM BACKEND ====================
 async function loadGuidanceData() {
+  // Show loading state
+  const loadingEl = document.getElementById("loadingState");
+  if (loadingEl) loadingEl.style.display = "block";
+
   try {
     const res = await fetch("/api/guidance/data", { cache: "no-store" });
     if (!res.ok) throw new Error("Failed");
@@ -50,6 +66,9 @@ async function loadGuidanceData() {
   } catch (err) {
     console.error("Load error:", err);
     showAlert("Unable to load counselling content. Please try again.", "danger");
+  } finally {
+    // Hide loading state
+    if (loadingEl) loadingEl.style.display = "none";
   }
 }
 
@@ -58,23 +77,42 @@ function renderCounsellors() {
   const grid = document.getElementById("counsellorsGrid");
   if (!grid) return;
 
-  grid.innerHTML = DATA.counsellors.length === 0
-    ? `<div class="col-12 text-center py-5 text-muted">No counsellors listed.</div>`
-    : DATA.counsellors.map(c => `
-      <div class="col-md-6 col-lg-4 mb-4">
+  // Use document fragment for better performance
+  const fragment = document.createDocumentFragment();
+
+  if (DATA.counsellors.length === 0) {
+    const emptyDiv = document.createElement("div");
+    emptyDiv.className = "col-12 text-center py-5 text-muted";
+    emptyDiv.textContent = "No counsellors listed.";
+    fragment.appendChild(emptyDiv);
+  } else {
+    DATA.counsellors.forEach(c => {
+      const colDiv = document.createElement("div");
+      colDiv.className = "col-md-6 col-lg-4 mb-4";
+
+      colDiv.innerHTML = `
         <div class="counsellor-card text-center p-5 glass-card shadow-sm">
-          <img src="${c.photo || '/assets/images/defaults/counsellor.png'}" 
-               class="rounded-circle mb-4 shadow" width="150" height="150" alt="${c.name}">
+          <img src="${c.photo || '/assets/images/defaults/counsellor.png'}"
+               class="rounded-circle mb-4 shadow lazy"
+               loading="lazy"
+               width="150" height="150" alt="${c.name}">
           <h4 class="fw-bold mb-2">${c.name}</h4>
           <p class="text-muted mb-1">${c.title}</p>
           <p class="text-info small mb-3">${c.specialty}</p>
-          <button onclick="openAppointment('${c.name}')" 
+          <button onclick="openAppointment('${c.name}')"
                   class="btn btn-outline-primary btn-lg w-100">
             Book Session with ${c.name.split(" ")[0]}
           </button>
         </div>
-      </div>
-    `).join("");
+      `;
+
+      fragment.appendChild(colDiv);
+    });
+  }
+
+  // Clear and append in one operation
+  grid.innerHTML = "";
+  grid.appendChild(fragment);
 }
 
 // ==================== RENDER RESOURCES ====================

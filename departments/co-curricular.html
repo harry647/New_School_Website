@@ -15,7 +15,7 @@
 </head>
 <body>
 
-  <div w3-include-html="/includes/clb-en-header.html"></div>
+  <div w3-include-html="/includes/header.html"></div>
 
   <!-- Login Check -->
   <div id="loginCheck" class="login-prompt d-none text-center py-5">
@@ -46,8 +46,10 @@
 
       <!-- Session Filter -->
       <div class="text-center mb-5">
-        <select id="sessionFilter" class="form-select form-select-lg w-auto d-inline-block">
+        <label for="sessionFilter" class="visually-hidden">Filter by Academic Year</label>
+        <select id="sessionFilter" class="form-select form-select-lg w-auto d-inline-block" aria-label="Filter content by academic year">
           <option value="">All Academic Years</option>
+          <!-- Options will be populated dynamically by JavaScript -->
         </select>
       </div>
 
@@ -89,12 +91,14 @@
               <input type="email" class="form-control form-control-lg" placeholder="Email" required>
             </div>
             <div class="col-md-6">
-              <select class="form-select form-select-lg" required>
+              <label for="formClass" class="visually-hidden">Select Form/Class</label>
+              <select id="formClass" class="form-select form-select-lg" required aria-label="Select your form/class">
                 <option value="">Select Form/Class</option>
               </select>
             </div>
             <div class="col-md-6">
-              <select id="activitySelect" class="form-select form-select-lg" required>
+              <label for="activitySelect" class="visually-hidden">Choose Activity</label>
+              <select id="activitySelect" class="form-select form-select-lg" required aria-label="Choose co-curricular activity">
                 <option value="">Choose Activity</option>
               </select>
             </div>

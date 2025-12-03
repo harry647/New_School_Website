@@ -101,6 +101,22 @@ router.post('/login', loginValidator, (req, res) => {
 
 
 // --------------------
+// CHECK AUTH STATUS
+// --------------------
+router.get('/check', (req, res) => {
+  if (req.session && req.session.user) {
+    res.json({
+      loggedIn: true,
+      user: req.session.user
+    });
+  } else {
+    res.json({
+      loggedIn: false
+    });
+  }
+});
+
+// --------------------
 // LOGOUT
 // --------------------
 router.get('/logout', (req, res) => {

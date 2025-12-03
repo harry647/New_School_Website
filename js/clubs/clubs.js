@@ -1,21 +1,232 @@
 // =======================================================
-// clubs.js – Full Clubs & Societies System (2026+)
+// clubs.js – Optimized Clubs & Societies System (2026+)
 // Backend-powered, mobile-perfect, secure, beautiful
 // =======================================================
 
 let CLUBS = [];
 let EVENTS = [];
 let currentClubId = null;
+let cache = new Map();
+let abortController = null;
+
+// Configuration - loaded dynamically with fallback
+let CLUBS_CONFIG = {
+  api: {
+    timeout: 10000,
+    retries: 3,
+    cache: { enabled: true, ttl: 300000 }
+  },
+  upload: {
+    maxFiles: 20,
+    maxFileSize: 50 * 1024 * 1024,
+    allowedTypes: {
+      images: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
+      documents: ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+      media: ['video/mp4', 'video/mov', 'audio/mp3', 'audio/wav']
+    }
+  },
+  performance: { debounceSearch: 300 },
+  ui: { theme: { primaryColor: '#0175C2' } },
+  messages: {
+    errors: {
+      network: 'Network error. Please check your connection and try again.',
+      server: 'Server error. Please try again later.',
+      validation: 'Please check your input and try again.',
+      auth: 'You must be logged in to access this feature.',
+      duplicate: 'You already have a pending application for this club.',
+      upload: {
+        noFiles: 'Please select files to upload.',
+        invalidType: 'Invalid file type. Please check allowed formats.',
+        tooLarge: 'File is too large. Please check size limits.',
+        failed: 'Upload failed. Please try again.'
+      }
+    },
+    success: {
+      load: 'Data loaded successfully.',
+      join: 'Application submitted successfully! We\'ll contact you soon.',
+      upload: 'Files uploaded successfully.'
+    }
+  },
+  features: {
+    enableJoinApplications: true,
+    enableFileUploads: true,
+    enableEventRegistration: true,
+    enableSearch: true,
+    enableFiltering: true,
+    enableGallery: true
+  }
+};
+
+// Load configuration
+async function loadConfig() {
+  if (CLUBS_CONFIG) return CLUBS_CONFIG;
+
+  try {
+    const response = await fetch('/api/config/clubs');
+    CLUBS_CONFIG = await response.json();
+  } catch (err) {
+    console.warn('Failed to load config, using defaults:', err);
+    // Fallback configuration
+    CLUBS_CONFIG = {
+      api: { timeout: 10000, retries: 3, cache: { enabled: true, ttl: 300000 } },
+      upload: { maxFiles: 20, maxFileSize: 50 * 1024 * 1024 },
+      performance: { debounceSearch: 300 },
+      ui: { theme: { primaryColor: '#0175C2' } },
+      messages: {
+        errors: { network: 'Network error. Please try again.', server: 'Server error. Please try again.' },
+        success: { load: 'Data loaded successfully.', join: 'Application submitted successfully!' }
+      },
+      features: {
+        enableJoinApplications: true,
+        enableFileUploads: true,
+        enableSearch: true,
+        enableFiltering: true
+      }
+    };
+  }
+
+  return CLUBS_CONFIG;
+}
+
+// Helper functions
+function isFeatureEnabled(feature) {
+  return CLUBS_CONFIG?.features?.[feature] !== false;
+}
+
+function getMessage(type, key) {
+  return CLUBS_CONFIG?.messages?.[type]?.[key] || `${type}.${key}`;
+}
 
 // ==================== AUTH ====================
-function isUserLoggedIn() {
-  return localStorage.getItem("userLoggedIn") === "true";
+async function checkAuthStatus() {
+  try {
+    const response = await fetch('/api/profile', {
+      method: 'GET',
+      credentials: 'same-origin',
+      headers: {
+        'Cache-Control': 'no-cache'
+      }
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data.success && data.user;
+    }
+    return false;
+  } catch (err) {
+    console.warn('Auth check failed:', err);
+    return false;
+  }
+}
+
+// ==================== UTILITIES ====================
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+function showAlert(message, type = "info", duration = 5000) {
+  const alert = document.createElement("div");
+  alert.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+  alert.style.cssText = "top:20px; right:20px; z-index:9999; min-width:300px;";
+  alert.innerHTML = `${message}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
+  document.body.appendChild(alert);
+
+  if (duration > 0) {
+    setTimeout(() => alert.remove(), duration);
+  }
+
+  return alert;
+}
+
+function showLoading(element, text = "Loading...") {
+  if (!element) return;
+  element.innerHTML = `
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" style="width:3rem;height:3rem;"></div>
+      <p class="mt-3">${text}</p>
+    </div>
+  `;
+}
+
+// ==================== API CALLS ====================
+async function apiCall(endpoint, options = {}) {
+  if (abortController) {
+    abortController.abort();
+  }
+  abortController = new AbortController();
+
+  const defaultOptions = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'same-origin',
+    signal: abortController.signal,
+    timeout: CLUBS_CONFIG.api.timeout
+  };
+
+  const finalOptions = { ...defaultOptions, ...options };
+
+  // Check cache for GET requests
+  const cacheKey = `${endpoint}-${JSON.stringify(finalOptions.body || {})}`;
+  if (finalOptions.method === 'GET' && CLUBS_CONFIG.api.cache.enabled && cache.has(cacheKey)) {
+    const cached = cache.get(cacheKey);
+    if (Date.now() - cached.timestamp < CLUBS_CONFIG.api.cache.ttl) {
+      return cached.data;
+    }
+  }
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), finalOptions.timeout);
+
+    const response = await fetch(endpoint, {
+      ...finalOptions,
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    // Cache successful GET responses
+    if (finalOptions.method === 'GET' && CLUBS_CONFIG.api.cache.enabled) {
+      cache.set(cacheKey, { data, timestamp: Date.now() });
+    }
+
+    return data;
+  } catch (err) {
+    if (err.name === 'AbortError') {
+      throw new Error('Request cancelled');
+    }
+
+    console.error(`API call failed: ${endpoint}`, err);
+    throw err;
+  }
 }
 
 // ==================== DOM READY ====================
-document.addEventListener("DOMContentLoaded", () => {
-  w3.includeHTML(() => {
-    if (!isUserLoggedIn()) {
+document.addEventListener("DOMContentLoaded", async () => {
+  // Load configuration first
+  await loadConfig();
+
+  w3.includeHTML(async () => {
+    const isLoggedIn = await checkAuthStatus();
+
+    if (!isLoggedIn) {
       document.getElementById("loginCheck")?.classList.remove("d-none");
       return;
     }
@@ -23,69 +234,126 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("mainContent")?.classList.remove("d-none");
 
     // Load data from backend
-    loadClubsAndEvents();
+    await loadClubsAndEvents();
 
-    // Search & filter
-    document.getElementById("clubSearch")?.addEventListener("input", filterClubs);
-    document.getElementById("clubCategoryFilter")?.addEventListener("change", filterClubs);
+    // Setup event listeners
+    setupEventListeners();
 
     // Handle URL hash (deep linking)
     if (location.hash) {
       const id = location.hash.substring(1);
-      loadClub(id);
+      await loadClub(id);
     }
   });
 });
 
+function setupEventListeners() {
+  // Search with debounce
+  const searchInput = document.getElementById("clubSearch");
+  if (searchInput && isFeatureEnabled('enableSearch')) {
+    const debouncedFilter = debounce(filterClubs, CLUBS_CONFIG.performance.debounceSearch);
+    searchInput.addEventListener("input", debouncedFilter);
+  }
+
+  // Filter
+  const filterSelect = document.getElementById("clubCategoryFilter");
+  if (filterSelect && isFeatureEnabled('enableFiltering')) {
+    filterSelect.addEventListener("change", filterClubs);
+  }
+
+  // Join form
+  const joinForm = document.getElementById("joinForm");
+  if (joinForm && isFeatureEnabled('enableJoinApplications')) {
+    joinForm.addEventListener("submit", handleJoinSubmit);
+  }
+}
+
 // ==================== LOAD DATA FROM BACKEND ====================
 async function loadClubsAndEvents() {
+  const grid = document.getElementById("clubsGrid");
+  const eventsGrid = document.getElementById("eventsGrid");
+
+  showLoading(grid, "Loading clubs...");
+  showLoading(eventsGrid, "Loading events...");
+
   try {
-    const [clubsRes, eventsRes] = await Promise.all([
-      fetch("/api/clubs/list", { cache: "no-store" }),
-      fetch("/api/clubs/events", { cache: "no-store" })
+    const [clubsData, eventsData] = await Promise.all([
+      apiCall("/api/clubs/list"),
+      apiCall("/api/clubs/events")
     ]);
 
-    if (!clubsRes.ok || !eventsRes.ok) throw new Error("API error");
-
-    CLUBS = await clubsRes.json();
-    EVENTS = await eventsRes.json();
+    CLUBS = clubsData.data || [];
+    EVENTS = eventsData.data || [];
 
     renderClubsGrid();
     renderUpcomingEvents();
 
+    showAlert(getMessage('success', 'load'), 'success', 3000);
+
     // Auto-load club from URL hash
     if (location.hash) {
       const id = location.hash.substring(1);
-      if (CLUBS.find(c => c.id === id)) loadClub(id);
+      if (CLUBS.find(c => c.id === id)) await loadClub(id);
     }
   } catch (err) {
     console.error("Failed to load clubs:", err);
-    showAlert("Unable to load clubs. Please try again later.", "danger");
+    showAlert(getMessage('errors', 'network'), "danger");
+
+    // Show error state
+    grid.innerHTML = `
+      <div class="col-12 text-center py-5 text-muted">
+        <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+        <h4>Unable to load clubs</h4>
+        <p>Please check your connection and try again.</p>
+        <button onclick="loadClubsAndEvents()" class="btn btn-primary">Retry</button>
+      </div>
+    `;
+    eventsGrid.innerHTML = '<p class="text-center text-muted col-12">Events unavailable</p>';
   }
 }
 
 // ==================== RENDER ALL CLUBS GRID ====================
-function renderClubsGrid() {
+function renderClubsGrid(clubsToRender = CLUBS) {
   const grid = document.getElementById("clubsGrid");
   if (!grid) return;
 
-  if (CLUBS.length === 0) {
-    grid.innerHTML = `<div class="col-12 text-center py-5 text-muted">No clubs available.</div>`;
+  if (clubsToRender.length === 0) {
+    grid.innerHTML = `<div class="col-12 text-center py-5 text-muted">
+      <i class="fas fa-users fa-3x mb-3 opacity-50"></i>
+      <h4>No clubs found</h4>
+      <p>Try adjusting your search or filter criteria.</p>
+    </div>`;
     return;
   }
 
-  grid.innerHTML = CLUBS.map(club => `
+  grid.innerHTML = clubsToRender.map(club => `
     <div class="col-md-6 col-lg-4 mb-4">
-      <div class="glass-card p-5 text-center text-white h-100 shadow-lg cursor-pointer"
-           style="border-top: 8px solid ${club.color || '#007bff'};"
-           onclick="loadClub('${club.id}')">
-        <i class="fas ${club.icon || 'fa-users'} fa-4x mb-4"></i>
-        <h3 class="h4 fw-bold mb-2">${club.name}</h3>
-        <p class="small opacity-80">${club.category || "General"} • ${club.members || 0} Members</p>
-        <p class="mt-3">${club.shortDesc || "Click to explore →"}</p>
+      <div class="glass-card p-4 text-center text-white h-100 shadow-lg cursor-pointer position-relative overflow-hidden"
+            style="border-top: 8px solid ${club.color || CLUBS_CONFIG.ui.theme.primaryColor};"
+            onclick="loadClub('${club.id}')"
+            role="button"
+            tabindex="0"
+            aria-label="View ${club.name} details">
+        <div class="card-overlay"></div>
+        <i class="fas ${club.icon || 'fa-users'} fa-3x mb-3 position-relative z-1"></i>
+        <h3 class="h5 fw-bold mb-2 position-relative z-1">${club.name}</h3>
+        <p class="small opacity-80 mb-2 position-relative z-1">${club.category || "General"}</p>
+        <p class="small opacity-70 position-relative z-1">${club.members || 0} Members</p>
+        <p class="mt-3 small position-relative z-1">${club.shortDesc || "Click to explore →"}</p>
+        <div class="card-hover-indicator position-absolute bottom-0 start-50 translate-middle-x">
+          <i class="fas fa-chevron-down fa-sm opacity-75"></i>
+        </div>
       </div>
     </div>
   `).join("");
+
+  // Add keyboard navigation
+  grid.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      e.target.click();
+    }
+  });
 }
 
 // ==================== LOAD SINGLE CLUB PAGE ====================
@@ -101,22 +369,22 @@ async function loadClub(id) {
   document.getElementById("clubsGrid").style.display = "none";
 
   const container = document.getElementById("clubContainer");
-  container.innerHTML = `
-    <div class="text-center py-5">
-      <div class="spinner-border text-primary" style="width:4rem;height:4rem;"></div>
-      <p class="mt-3">Loading ${club.name}...</p>
-    </div>
-  `;
+  showLoading(container, `Loading ${club.name}...`);
 
   try {
-    const res = await fetch(`/clubs/subfiles/${id}.html`);
-    if (!res.ok) throw new Error("NotFound");
+    const response = await fetch(`/clubs/subfiles/${id}.html`, {
+      cache: CLUBS_CONFIG.performance.cacheImages ? 'default' : 'no-cache'
+    });
 
-    const html = await res.text();
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: Club page not found`);
+    }
+
+    const html = await response.text();
     container.innerHTML = html;
 
-    // Re-initialize Fancybox
-    if (window.Fancybox) {
+    // Re-initialize Fancybox for galleries
+    if (window.Fancybox && isFeatureEnabled('enableGallery')) {
       Fancybox.bind(`[data-fancybox]`, {
         Thumbs: { autoStart: false },
         Toolbar: { display: ["zoom", "slideshow", "download", "close"] }
@@ -127,18 +395,32 @@ async function loadClub(id) {
     injectClubEvents(id);
 
     // Setup file upload zone
-    setupClubUpload(id);
+    if (isFeatureEnabled('enableFileUploads')) {
+      setupClubUpload(id);
+    }
 
-    // Update URL
+    // Update page title and URL
+    document.title = `${club.name} | Clubs & Societies`;
     history.pushState({ clubId: id }, club.name, `#${id}`);
+
+    // Scroll to top smoothly
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
   } catch (err) {
+    console.error(`Failed to load club ${id}:`, err);
     container.innerHTML = `
       <div class="text-center py-5 text-danger">
         <i class="fas fa-exclamation-triangle fa-4x mb-3"></i>
-        <h3>Club Page Not Found</h3>
-        <button onclick="showAllClubs()" class="btn btn-primary btn-lg mt-3">
-          Back to Clubs
-        </button>
+        <h3>Club Page Not Available</h3>
+        <p class="mb-4">We're having trouble loading this club's information.</p>
+        <div class="d-flex justify-content-center gap-2">
+          <button onclick="loadClub('${id}')" class="btn btn-primary">
+            <i class="fas fa-redo me-2"></i>Try Again
+          </button>
+          <button onclick="showAllClubs()" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Clubs
+          </button>
+        </div>
       </div>
     `;
   }
@@ -180,86 +462,191 @@ function setupClubUpload(clubId) {
 
   if (!zone || !input) return;
 
+  let isDragOver = false;
+
   // Drag & drop effects
-  ["dragenter", "dragover"].forEach(evt => {
-    zone.addEventListener(evt, e => {
-      e.preventDefault();
-      zone.classList.add("border-primary", "bg-primary/10");
-    });
-  });
+  const dragEnter = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!isDragOver) {
+      isDragOver = true;
+      zone.classList.add("drag-over");
+    }
+  };
 
-  ["dragleave", "drop"].forEach(evt => {
-    zone.addEventListener(evt, e => {
-      e.preventDefault();
-      zone.classList.remove("border-primary", "bg-primary/10");
-    });
-  });
+  const dragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!zone.contains(e.relatedTarget)) {
+      isDragOver = false;
+      zone.classList.remove("drag-over");
+    }
+  };
 
-  zone.addEventListener("drop", e => {
-    if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
-  });
+  const drop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    isDragOver = false;
+    zone.classList.remove("drag-over");
+
+    const files = e.dataTransfer.files;
+    if (files.length) handleFiles(files);
+  };
+
+  zone.addEventListener("dragenter", dragEnter);
+  zone.addEventListener("dragover", dragEnter);
+  zone.addEventListener("dragleave", dragLeave);
+  zone.addEventListener("drop", drop);
 
   input.addEventListener("change", () => {
     if (input.files.length) handleFiles(input.files);
   });
 
   async function handleFiles(files) {
-    preview.innerHTML = `<p class="text-info">Uploading ${files.length} file(s)...</p>`;
+    // Validate files
+    const maxFiles = CLUBS_CONFIG.upload.maxFiles;
+    const maxSize = CLUBS_CONFIG.upload.maxFileSize;
+    const allowedTypes = [
+      ...CLUBS_CONFIG.upload.allowedTypes.images,
+      ...CLUBS_CONFIG.upload.allowedTypes.documents,
+      ...CLUBS_CONFIG.upload.allowedTypes.media
+    ].flat();
+
+    if (files.length > maxFiles) {
+      showAlert(`Maximum ${maxFiles} files allowed`, "warning");
+      return;
+    }
+
+    for (let file of files) {
+      if (file.size > maxSize) {
+        showAlert(`File "${file.name}" is too large. Maximum size: ${Math.round(maxSize / 1024 / 1024)}MB`, "warning");
+        return;
+      }
+      if (!allowedTypes.includes(file.type)) {
+        showAlert(`File type "${file.type}" not allowed for "${file.name}"`, "warning");
+        return;
+      }
+    }
+
+    preview.innerHTML = `<div class="text-info">
+      <i class="fas fa-spinner fa-spin me-2"></i>
+      Uploading ${files.length} file(s)...
+    </div>`;
 
     const formData = new FormData();
     Array.from(files).forEach(file => formData.append("files", file));
     formData.append("clubId", clubId);
 
     try {
-      const res = await fetch("/api/clubs/upload", {
+      const result = await apiCall("/api/clubs/upload", {
         method: "POST",
-        body: formData
+        body: formData,
+        headers: {} // Let browser set content-type for FormData
       });
 
-      const result = await res.json();
       if (result.success) {
-        preview.innerHTML = `<p class="text-success">Uploaded ${files.length} file(s)!</p>`;
+        preview.innerHTML = `<div class="text-success">
+          <i class="fas fa-check-circle me-2"></i>
+          Successfully uploaded ${files.length} file(s)!
+        </div>`;
         setTimeout(() => preview.innerHTML = "", 5000);
+
+        // Clear file input
+        input.value = '';
       } else {
-        throw new Error();
+        throw new Error(result.message || 'Upload failed');
       }
     } catch (err) {
-      preview.innerHTML = `<p class="text-danger">Upload failed. Try again.</p>`;
+      console.error('Upload failed:', err);
+      preview.innerHTML = `<div class="text-danger">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        ${getMessage('errors', 'upload').failed}
+      </div>`;
     }
   }
 }
 
 // ==================== JOIN CLUB FORM ====================
-document.getElementById("joinForm")?.addEventListener("submit", async function (e) {
+async function handleJoinSubmit(e) {
   e.preventDefault();
 
-  const formData = new FormData(this);
-  const data = Object.fromEntries(formData.entries());
+  const form = e.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const originalText = submitBtn.innerHTML;
+
+  // Disable form and show loading
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Submitting...';
 
   try {
-    const res = await fetch("/api/clubs/join", {
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    // Get club info
+    const club = CLUBS.find(c => c.id === currentClubId);
+    if (!club) {
+      throw new Error('Club information not found');
+    }
+
+    const payload = {
+      ...data,
+      clubId: currentClubId,
+      clubName: club.name
+    };
+
+    const result = await apiCall("/api/clubs/join", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...data,
-        clubId: currentClubId,
-        clubName: document.getElementById("modalClubName")?.textContent
-      })
+      body: JSON.stringify(payload)
     });
 
-    const result = await res.json();
-
     if (result.success) {
-      showAlert("Application submitted! We'll contact you soon.", "success");
-      bootstrap.Modal.getInstance(document.getElementById("joinModal")).hide();
-      this.reset();
+      showAlert(getMessage('success', 'join'), "success");
+      const modal = bootstrap.Modal.getInstance(document.getElementById("joinModal"));
+      modal?.hide();
+      form.reset();
+
+      // Clear cache to refresh data
+      cache.clear();
     } else {
-      showAlert(result.message || "Failed to submit", "danger");
+      showAlert(result.message || getMessage('errors', 'server'), "danger");
     }
   } catch (err) {
-    showAlert("Network error. Try again.", "danger");
+    console.error('Join submission failed:', err);
+    const message = err.message.includes('Network') ?
+      getMessage('errors', 'network') :
+      getMessage('errors', 'server');
+    showAlert(message, "danger");
+  } finally {
+    // Re-enable form
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalText;
   }
-});
+}
+
+// ==================== SEARCH & FILTER ====================
+function filterClubs() {
+  const searchTerm = document.getElementById("clubSearch")?.value.toLowerCase().trim() || "";
+  const categoryFilter = document.getElementById("clubCategoryFilter")?.value || "";
+
+  const filtered = CLUBS.filter(club => {
+    const matchesSearch = !searchTerm ||
+      club.name.toLowerCase().includes(searchTerm) ||
+      (club.shortDesc || "").toLowerCase().includes(searchTerm) ||
+      (club.category || "").toLowerCase().includes(searchTerm);
+
+    const matchesCategory = !categoryFilter || club.category === categoryFilter;
+
+    return matchesSearch && matchesCategory;
+  });
+
+  renderClubsGrid(filtered);
+
+  // Update results count
+  const resultsCount = document.getElementById("resultsCount");
+  if (resultsCount) {
+    resultsCount.textContent = `Showing ${filtered.length} of ${CLUBS.length} clubs`;
+  }
+}
 
 // ==================== SEARCH & FILTER ====================
 function filterClubs() {
@@ -315,18 +702,38 @@ window.addEventListener("popstate", (e) => {
   }
 });
 
+// ==================== MODAL FUNCTIONS ====================
+function openJoinModal(clubName) {
+  const modal = document.getElementById("joinModal");
+  const modalClubName = document.getElementById("modalClubName");
+
+  if (modal && modalClubName) {
+    modalClubName.textContent = clubName;
+    const bsModal = new bootstrap.Modal(modal);
+    bsModal.show();
+  }
+}
+
 // ==================== UTILITIES ====================
 function showAllClubs() {
   document.getElementById("clubsGrid").style.display = "";
   document.getElementById("clubContainer").innerHTML = "";
+  document.title = "Clubs & Societies | Bar Union Secondary";
   history.pushState({}, "", "/clubs/clubs.html");
+
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function showAlert(msg, type = "info") {
-  const alert = document.createElement("div");
-  alert.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
-  alert.style.cssText = "top:20px; right:20px; z-index:9999; min-width:300px;";
-  alert.innerHTML = `${msg}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
-  document.body.appendChild(alert);
-  setTimeout(() => alert.remove(), 6000);
-}
+// ==================== CLEANUP ====================
+window.addEventListener('beforeunload', () => {
+  if (abortController) {
+    abortController.abort();
+  }
+  cache.clear();
+});
+
+// ==================== EXPORTS ====================
+window.loadClub = loadClub;
+window.showAllClubs = showAllClubs;
+window.openJoinModal = openJoinModal;

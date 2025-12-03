@@ -135,6 +135,64 @@ const requireAuth = (req, res, next) => {
 // CORE API ROUTES – CLEAN, MODULAR & PROFESSIONAL
 // =================================================================
 
+/**
+ * @route   GET /config/clubs
+ * @desc    Serves client-side configuration for clubs
+ * @access  Public
+ */
+router.get('/config/clubs', (req, res) => {
+  console.log('Serving clubs config');
+  // Client-safe configuration (no sensitive data)
+  const clientConfig = {
+    api: {
+      timeout: 10000,
+      retries: 3,
+      cache: { enabled: true, ttl: 5 * 60 * 1000 }
+    },
+    upload: {
+      maxFiles: 20,
+      maxFileSize: 50 * 1024 * 1024,
+      allowedTypes: {
+        images: ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
+        documents: ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+        media: ['video/mp4', 'video/mov', 'audio/mp3', 'audio/wav']
+      }
+    },
+    performance: { debounceSearch: 300 },
+    ui: { theme: { primaryColor: '#0175C2', secondaryColor: '#0b2d5e', accentColor: '#ffd700' } },
+    messages: {
+      errors: {
+        network: 'Network error. Please check your connection and try again.',
+        server: 'Server error. Please try again later.',
+        validation: 'Please check your input and try again.',
+        auth: 'You must be logged in to access this feature.',
+        duplicate: 'You already have a pending application for this club.',
+        upload: {
+          noFiles: 'Please select files to upload.',
+          invalidType: 'Invalid file type. Please check allowed formats.',
+          tooLarge: 'File is too large. Please check size limits.',
+          failed: 'Upload failed. Please try again.'
+        }
+      },
+      success: {
+        load: 'Data loaded successfully.',
+        join: 'Application submitted successfully! We\'ll contact you soon.',
+        upload: 'Files uploaded successfully.'
+      }
+    },
+    features: {
+      enableJoinApplications: true,
+      enableFileUploads: true,
+      enableEventRegistration: true,
+      enableSearch: true,
+      enableFiltering: true,
+      enableGallery: true
+    }
+  };
+
+  res.json(clientConfig);
+});
+
 /* ==================== USER & AUTH ==================== */
 router.get('/profile', requireAuth, (req, res) => {
   const { password, ...safeUser } = req.session.user;
@@ -542,6 +600,16 @@ router.get('/elearning/data', (req, res) => {
 });
 
 /**
+ * @route   GET /notifications
+ * @desc    Fetches notifications for the portal.
+ * @access  Public
+ */
+router.get('/notifications', (req, res) => {
+  const notifications = readJSON(path.join(__dirname, '..', 'data', 'notifications.json'));
+  res.json(notifications || []);
+});
+
+/**
  * @route   POST /elearning/upload
  * @desc    Handles resource uploads from teachers in the e-learning portal.
  * @access  Protected (should require teacher/admin role)
@@ -589,9 +657,33 @@ router.post('/elearning/upload', uploadElearning.array('files', 10), (req, res) 
  * @desc    Fetches the list of all clubs.
  * @access  Protected
  */
-router.get('/clubs/list', (req, res) => {
-  const clubs = readJSON(path.join(__dirname, '..', 'data', 'clubs', 'clubs.json'));
-  res.json(clubs);
+router.get('/clubs/list', requireAuth, (req, res) => {
+  try {
+    const clubsFile = path.join(__dirname, '..', 'data', 'clubs', 'clubs.json');
+    const clubs = readJSON(clubsFile);
+
+    if (!Array.isArray(clubs)) {
+      return res.status(500).json({
+        success: false,
+        message: "Invalid clubs data format"
+      });
+    }
+
+    // Log successful fetch
+    console.log(`Clubs list fetched by user: ${req.session.user?.name || 'Unknown'}`);
+
+    res.json({
+      success: true,
+      data: clubs,
+      count: clubs.length
+    });
+  } catch (err) {
+    console.error('Error fetching clubs list:', err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to load clubs data"
+    });
+  }
 });
 
 /**
@@ -599,9 +691,46 @@ router.get('/clubs/list', (req, res) => {
  * @desc    Fetches all scheduled club events.
  * @access  Protected
  */
-router.get('/clubs/events', (req, res) => {
-  const events = readJSON(path.join(__dirname, '..', 'data', 'clubs', 'events.json'));
-  res.json(events);
+router.get('/clubs/events', requireAuth, (req, res) => {
+  try {
+    const eventsFile = path.join(__dirname, '..', 'data', 'clubs', 'events.json');
+    const events = readJSON(eventsFile);
+
+    if (!Array.isArray(events)) {
+      return res.status(500).json({
+        success: false,
+        message: "Invalid events data format"
+      });
+    }
+
+    // Filter out past events and sort by date
+    const now = new Date();
+    const upcomingEvents = events
+      .map(group => ({
+        ...group,
+        events: group.events.filter(event => new Date(event.date) >= now)
+      }))
+      .filter(group => group.events.length > 0)
+      .sort((a, b) => {
+        const aDate = new Date(a.events[0].date);
+        const bDate = new Date(b.events[0].date);
+        return aDate - bDate;
+      });
+
+    console.log(`Events fetched by user: ${req.session.user?.name || 'Unknown'}`);
+
+    res.json({
+      success: true,
+      data: upcomingEvents,
+      totalEvents: upcomingEvents.reduce((sum, group) => sum + group.events.length, 0)
+    });
+  } catch (err) {
+    console.error('Error fetching events:', err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to load events data"
+    });
+  }
 });
 
 /**
@@ -609,17 +738,86 @@ router.get('/clubs/events', (req, res) => {
  * @desc    Handles a student's application to join a club.
  * @access  Protected
  */
-router.post('/clubs/join', (req, res) => {
-  const data = req.body;
-  if (!data.name || !data.clubName) {
-    return res.status(400).json({ success: false, message: "Name and Club Name are required." });
+router.post('/clubs/join', requireAuth, (req, res) => {
+  try {
+    const { name, email, form, phone, clubName, clubId, reason } = req.body;
+
+    // Validation
+    if (!name?.trim() || !email?.trim() || !clubName?.trim() || !clubId?.trim()) {
+      return res.status(400).json({
+        success: false,
+        message: "Name, email, and club information are required."
+      });
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid email format."
+      });
+    }
+
+    // Phone validation (Kenyan format)
+    if (phone && !/^(\+254|0)[71]\d{8}$/.test(phone.replace(/\s/g, ''))) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid phone number format."
+      });
+    }
+
+    const file = path.join(__dirname, '..', 'data', 'club-joins.json');
+    let joins = readJSON(file);
+
+    // Check for duplicate applications
+    const existing = joins.find(j =>
+      j.email.toLowerCase() === email.toLowerCase() &&
+      j.clubId === clubId &&
+      j.status === 'pending'
+    );
+
+    if (existing) {
+      return res.status(409).json({
+        success: false,
+        message: "You already have a pending application for this club."
+      });
+    }
+
+    const application = {
+      id: Date.now().toString(),
+      name: name.trim(),
+      email: email.toLowerCase().trim(),
+      form: form || null,
+      phone: phone?.trim() || null,
+      clubName: clubName.trim(),
+      clubId: clubId.trim(),
+      reason: reason?.trim() || null,
+      submitted_at: new Date().toISOString(),
+      status: 'pending',
+      userId: req.session.user?.id
+    };
+
+    joins.push(application);
+
+    if (!writeJSON(file, joins)) {
+      throw new Error('Failed to save application');
+    }
+
+    console.log(`Club Join Application → ${name} for ${clubName}`);
+
+    res.json({
+      success: true,
+      message: "Application submitted successfully! We'll contact you soon.",
+      applicationId: application.id
+    });
+  } catch (err) {
+    console.error('Error processing club join:', err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to submit application. Please try again."
+    });
   }
-  const file = path.join(__dirname, '..', 'data', 'club-joins.json');
-  let joins = readJSON(file);
-  joins.push({ ...data, submitted_at: new Date().toISOString(), status: 'pending' });
-  writeJSON(file, joins);
-  console.log(`Club Join Application → ${data.name} for ${data.clubName}`);
-  res.json({ success: true, message: "Application submitted!" });
 });
 
 /**
@@ -627,12 +825,66 @@ router.post('/clubs/join', (req, res) => {
  * @desc    Handles file submissions for a specific club.
  * @access  Protected
  */
-router.post('/clubs/upload', uploadClubSubmission.array('files', 20), (req, res) => {
-  if (!req.files?.length) {
-    return res.status(400).json({ success: false, message: "No files uploaded" });
+router.post('/clubs/upload', requireAuth, uploadClubSubmission.array('files', 20), (req, res) => {
+  try {
+    if (!req.files?.length) {
+      return res.status(400).json({
+        success: false,
+        message: "No files were uploaded"
+      });
+    }
+
+    const { clubId } = req.body;
+    if (!clubId) {
+      return res.status(400).json({
+        success: false,
+        message: "Club ID is required"
+      });
+    }
+
+    // Validate file types and sizes
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp',
+                         'application/pdf', 'application/msword',
+                         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                         'video/mp4', 'video/mov', 'audio/mp3', 'audio/wav'];
+
+    const maxSize = 50 * 1024 * 1024; // 50MB per file
+
+    for (const file of req.files) {
+      if (!allowedTypes.includes(file.mimetype)) {
+        return res.status(400).json({
+          success: false,
+          message: `Invalid file type: ${file.originalname}. Allowed: images, PDFs, documents, videos, audio.`
+        });
+      }
+      if (file.size > maxSize) {
+        return res.status(400).json({
+          success: false,
+          message: `File too large: ${file.originalname}. Maximum size: 50MB.`
+        });
+      }
+    }
+
+    // Log successful upload
+    console.log(`Club Upload → Club ID: ${clubId} | ${req.files.length} files by ${req.session.user?.name || 'Unknown'}`);
+
+    res.json({
+      success: true,
+      message: `${req.files.length} file(s) uploaded successfully.`,
+      files: req.files.map(f => ({
+        filename: f.filename,
+        originalname: f.originalname,
+        size: f.size,
+        mimetype: f.mimetype
+      }))
+    });
+  } catch (err) {
+    console.error('Error processing club upload:', err);
+    res.status(500).json({
+      success: false,
+      message: "Upload failed. Please try again."
+    });
   }
-  console.log(`Club Upload → Club ID: ${req.body.clubId} | ${req.files.length} files received.`);
-  res.json({ success: true, message: "Files submitted." });
 });
 
 /**
@@ -679,7 +931,7 @@ router.post('/cocurriculum/upload', uploadCoCurriculumPhoto.array('photos', 30),
 
 // --- Applied Sciences ---
 router.get('/departments/applied-sciences', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'applied-sciences.json'));
+  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'applied-sciences-data.json'));
   res.json(data);
 });
 router.post('/departments/applied-sciences/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
@@ -690,7 +942,7 @@ router.post('/departments/applied-sciences/upload', uploadDepartmentFile.array('
 
 // --- Humanities ---
 router.get('/departments/humanities', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'humanities.json'));
+  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'humanities-data.json'));
   res.json(data);
 });
 router.post('/departments/humanities/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
@@ -701,7 +953,7 @@ router.post('/departments/humanities/upload', uploadDepartmentFile.array('files'
 
 // --- Languages ---
 router.get('/departments/languages', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'languages.json'));
+  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'languages-data.json'));
   res.json(data);
 });
 router.post('/departments/languages/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
@@ -712,7 +964,7 @@ router.post('/departments/languages/upload', uploadDepartmentFile.array('files',
 
 // --- Mathematics ---
 router.get('/departments/mathematics', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'mathematics.json'));
+  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'math-data.json'));
   res.json(data);
 });
 router.post('/departments/mathematics/upload', uploadDepartmentFile.array('files', 20), (req, res) => {

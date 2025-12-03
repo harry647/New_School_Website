@@ -18,7 +18,7 @@
 <body>
 
   <!-- header injected via w3-include-html -->
-  <div w3-include-html="/includes/clb-en-header.html"></div>
+  <div w3-include-html="/includes/header.html"></div>
 
   <!-- Login prompt (shown by JS if user not logged in) -->
   <main id="app" class="site-main">
@@ -132,7 +132,7 @@
                 <button id="sortSelect" class="btn btn-outline-secondary" onclick="toggleSortMenu(event)">
                   Sort
                 </button>
-                <button id="viewToggle" class="btn btn-outline-secondary" onclick="toggleGridList()">
+                <button id="viewToggle" class="btn btn-outline-secondary" onclick="toggleGridList()" aria-label="Toggle grid/list view">
                   <i class="fas fa-grip"></i>
                 </button>
               </div>
@@ -193,7 +193,7 @@
               <div id="quickDrop" class="border rounded p-3 text-center" aria-label="Quick upload dropzone">
                 <i class="fas fa-cloud-upload-alt fa-2x mb-2"></i>
                 <p class="mb-0">Drop files here or click to upload</p>
-                <input id="quickFile" type="file" multiple class="d-none" />
+                <input id="quickFile" type="file" multiple class="d-none" aria-label="Quick file upload" />
                 <button class="btn btn-sm btn-primary mt-2" onclick="document.getElementById('quickFile').click()">Choose</button>
               </div>
             </div>

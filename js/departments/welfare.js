@@ -6,14 +6,26 @@
 let DATA = { announcements: [], team: [], resources: [] };
 
 // ==================== AUTH ====================
-function isLoggedIn() {
-  return localStorage.getItem("userLoggedIn") === "true";
+async function isLoggedIn() {
+  try {
+    const response = await fetch('/auth/check', {
+      method: 'GET',
+      credentials: 'include' // Include session cookies
+    });
+    const data = await response.json();
+    return data.loggedIn === true;
+  } catch (error) {
+    console.error('Auth check failed:', error);
+    return false;
+  }
 }
 
 // ==================== DOM READY ====================
-document.addEventListener("DOMContentLoaded", () => {
-  w3.includeHTML(() => {
-    if (!isLoggedIn()) {
+document.addEventListener("DOMContentLoaded", async () => {
+  w3.includeHTML(async () => {
+    const loggedIn = await isLoggedIn();
+
+    if (!loggedIn) {
       document.getElementById("loginCheck").classList.remove("d-none");
       return;
     }

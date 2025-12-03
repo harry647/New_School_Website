@@ -44,47 +44,60 @@
 
 <!-- Common Portal JS -->
 <script>
-// Simulated backend notification list (replace with API)
-const NOTIFICATIONS = [
-    {
-        title: "New Assignment Uploaded",
-        message: "Your Mathematics teacher has uploaded a new worksheet.",
-        icon: "fa-file-alt",
-        time: "2 hours ago"
-    },
-    {
-        title: "Fee Reminder",
-        message: "Term 2 fee balance is due.",
-        icon: "fa-wallet",
-        time: "Yesterday"
-    },
-    {
-        title: "Event: Science Fair",
-        message: "Register for the upcoming school science fair.",
-        icon: "fa-flask",
-        time: "3 days ago"
-    }
-];
+// Configuration
+const CONFIG = {
+    API_BASE: '/api',
+    LOG_LEVEL: 'info' // debug, info, warn, error
+};
 
-function loadNotifications() {
+// Logging utility
+const logger = {
+    log: (level, message, data = null) => {
+        if (['debug', 'info', 'warn', 'error'].indexOf(CONFIG.LOG_LEVEL) <= ['debug', 'info', 'warn', 'error'].indexOf(level)) {
+            console[level](`[${new Date().toISOString()}] ${message}`, data || '');
+        }
+    },
+    debug: (msg, data) => logger.log('debug', msg, data),
+    info: (msg, data) => logger.log('info', msg, data),
+    warn: (msg, data) => logger.log('warn', msg, data),
+    error: (msg, data) => logger.log('error', msg, data)
+};
+
+async function loadNotifications() {
     const container = document.getElementById("notificationList");
     const emptyMsg = document.getElementById("noNotifMsg");
 
-    if (NOTIFICATIONS.length === 0) {
-        emptyMsg.style.display = "block";
-        return;
-    }
+    try {
+        logger.info('Fetching notifications from API');
+        const response = await fetch(`${CONFIG.API_BASE}/notifications`);
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        const notifications = await response.json();
 
-    container.innerHTML = NOTIFICATIONS.map(n => `
-        <div class="notification-item d-flex align-items-start">
-            <i class="fas ${n.icon} notif-icon"></i>
-            <div>
-                <h5 class="mb-1">${n.title}</h5>
-                <p class="mb-1 opacity-75">${n.message}</p>
-                <small class="opacity-50">${n.time}</small>
+        if (!Array.isArray(notifications) || notifications.length === 0) {
+            emptyMsg.style.display = "block";
+            logger.info('No notifications found');
+            return;
+        }
+
+        container.innerHTML = notifications.map(n => `
+            <div class="notification-item d-flex align-items-start">
+                <i class="fas ${n.icon || 'fa-bell'} notif-icon"></i>
+                <div>
+                    <h5 class="mb-1">${n.title || 'Notification'}</h5>
+                    <p class="mb-1 opacity-75">${n.message || ''}</p>
+                    <small class="opacity-50">${n.time || new Date().toLocaleString()}</small>
+                </div>
             </div>
-        </div>
-    `).join('');
+        `).join('');
+
+        logger.info(`Loaded ${notifications.length} notifications`);
+    } catch (error) {
+        logger.error('Failed to load notifications', error);
+        container.innerHTML = '<div class="alert alert-danger">Failed to load notifications. Please try again later.</div>';
+        emptyMsg.style.display = "none";
+    }
 }
 
 window.addEventListener('DOMContentLoaded', loadNotifications);

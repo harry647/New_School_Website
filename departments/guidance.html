@@ -12,7 +12,7 @@
 </head>
 <body>
 
-  <div w3-include-html="/includes/clb-en-header.html"></div>
+  <div w3-include-html="/includes/header.html"></div>
 
   <!-- Login Check -->
   <div id="loginCheck" class="login-prompt d-none">
@@ -22,6 +22,14 @@
       <p class="lead">Please log in to access counselling services.</p>
       <a href="/user/login.html" class="btn btn-primary btn-lg px-5">Login Now</a>
     </div>
+  </div>
+
+  <!-- Loading state -->
+  <div id="loadingState" class="text-center py-5" style="display: none;">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3">Loading counselling services...</p>
   </div>
 
   <!-- Main Content -->
@@ -101,7 +109,8 @@
             <div class="col-md-6"><input type="text" class="form-control form-control-lg" placeholder="Your Name (optional for anonymity)"></div>
             <div class="col-md-6"><input type="email" class="form-control form-control-lg" placeholder="Email (confidential)" required></div>
             <div class="col-md-6">
-              <select class="form-select form-select-lg" required>
+              <label for="formClass" class="visually-hidden">Select Form/Class</label>
+              <select id="formClass" class="form-select form-select-lg" required aria-label="Select your form/class">
                 <option value="">Select Form/Class</option>
                 <option>Form 1</option>
                 <option>Form 2</option>
@@ -109,7 +118,10 @@
                 <option>Form 4</option>
               </select>
             </div>
-            <div class="col-md-6"><input type="date" class="form-control form-control-lg" required></div>
+            <div class="col-md-6">
+              <label for="appointmentDate" class="visually-hidden">Preferred Appointment Date</label>
+              <input type="date" id="appointmentDate" class="form-control form-control-lg" required aria-label="Select preferred appointment date">
+            </div>
             <div class="col-12">
               <textarea class="form-control form-control-lg" rows="4" placeholder="Brief reason for session (optional but helpful)"></textarea>
             </div>

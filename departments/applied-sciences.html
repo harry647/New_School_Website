@@ -55,7 +55,7 @@
 <body>
 
   <!-- Header -->
-  <div w3-include-html="/includes/clb-en-header.html"></div>
+  <div w3-include-html="/includes/header.html"></div>
 
   <!-- Login Prompt -->
   <div id="loginCheck" class="login-prompt d-none">
@@ -89,11 +89,10 @@
 
       <!-- Session Filter -->
       <div class="text-center mb-5">
-        <select id="sessionFilter" class="form-select form-select-lg w-auto d-inline-block" onchange="filterBySession(this.value)">
+        <label for="sessionFilter" class="visually-hidden">Filter by Academic Year</label>
+        <select id="sessionFilter" class="form-select form-select-lg w-auto d-inline-block" onchange="filterBySession(this.value)" aria-label="Filter content by academic year">
           <option value="">All Academic Years</option>
-          <option>2025/2026</option>
-          <option>2024/2025</option>
-          <option>2023/2024</option>
+          <!-- Options will be populated dynamically by JavaScript -->
         </select>
       </div>
 
@@ -145,12 +144,7 @@
       // Implement filtering logic using JS/JSON data
     }
 
-    // Check login
-    const loggedIn = localStorage.getItem('userLoggedIn') === 'true';
-    if(loggedIn){
-      document.getElementById('loginCheck').classList.add('d-none');
-      document.getElementById('mainContent').classList.remove('d-none');
-    }
+    // Authentication is now handled securely in the JavaScript file
   </script>
 </body>
 </html>

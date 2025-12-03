@@ -1,0 +1,32 @@
+[
+  {
+    "title": "New Assignment Uploaded",
+    "message": "Your Mathematics teacher has uploaded a new worksheet.",
+    "icon": "fa-file-alt",
+    "time": "2 hours ago"
+  },
+  {
+    "title": "Fee Reminder",
+    "message": "Term 2 fee balance is due.",
+    "icon": "fa-wallet",
+    "time": "Yesterday"
+  },
+  {
+    "title": "Event: Science Fair",
+    "message": "Register for the upcoming school science fair.",
+    "icon": "fa-flask",
+    "time": "3 days ago"
+  },
+  {
+    "title": "Exam Schedule Updated",
+    "message": "Final exam schedule has been posted.",
+    "icon": "fa-calendar-alt",
+    "time": "1 week ago"
+  },
+  {
+    "title": "Library Books Due",
+    "message": "You have 3 books due for return.",
+    "icon": "fa-book",
+    "time": "5 days ago"
+  }
+]

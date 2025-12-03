@@ -7,14 +7,26 @@ let DATA = {};
 let currentSession = "";
 
 // ==================== AUTH & LOGIN CHECK ====================
-function isLoggedIn() {
-  return localStorage.getItem("userLoggedIn") === "true";
+async function isLoggedIn() {
+  try {
+    const response = await fetch('/auth/check', {
+      method: 'GET',
+      credentials: 'include' // Include session cookies
+    });
+    const data = await response.json();
+    return data.loggedIn === true;
+  } catch (error) {
+    console.error('Auth check failed:', error);
+    return false;
+  }
 }
 
 // ==================== DOM READY ====================
-document.addEventListener("DOMContentLoaded", () => {
-  w3.includeHTML(() => {
-    if (!isLoggedIn()) {
+document.addEventListener("DOMContentLoaded", async () => {
+  w3.includeHTML(async () => {
+    const loggedIn = await isLoggedIn();
+
+    if (!loggedIn) {
       document.getElementById("loginCheck").classList.remove("d-none");
       return;
     }
@@ -110,14 +122,20 @@ function loadTeachers(data) {
     : teachers.map(t => `
       <div class="col-md-6 col-lg-4 mb-4">
         <div class="teacher-card text-center p-4 glass-card">
-          <img src="${t.photo || '/assets/images/defaults/teacher.png'}" 
-               class="rounded-circle mb-3 shadow" width="140" height="140" alt="${t.name}">
+          <img src="${t.photo || '/assets/images/defaults/teacher.png'}"
+               class="rounded-circle mb-3 shadow lazy"
+               width="140" height="140" alt="${t.name}"
+               loading="lazy"
+               data-src="${t.photo || '/assets/images/defaults/teacher.png'}">
           <h4 class="fw-bold">${t.name}</h4>
           <p class="text-muted mb-1">${t.subjects?.join(" • ") || "Applied Sciences"}</p>
           <p class="small text-primary">${t.email}</p>
         </div>
       </div>
     `).join("");
+
+  // Initialize lazy loading
+  initializeLazyLoading();
 }
 
 function loadResources(data) {
@@ -272,4 +290,30 @@ function showAlert(message, type = "info") {
   `;
   document.body.appendChild(alert);
   setTimeout(() => alert.remove(), 5000);
+}
+
+// ==================== LAZY LOADING ====================
+function initializeLazyLoading() {
+  const lazyImages = document.querySelectorAll('img.lazy');
+
+  if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          img.src = img.dataset.src;
+          img.classList.remove('lazy');
+          observer.unobserve(img);
+        }
+      });
+    });
+
+    lazyImages.forEach(img => imageObserver.observe(img));
+  } else {
+    // Fallback for browsers without IntersectionObserver
+    lazyImages.forEach(img => {
+      img.src = img.dataset.src;
+      img.classList.remove('lazy');
+    });
+  }
 }

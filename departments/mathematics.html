@@ -17,7 +17,7 @@
 <body class="math-page">
 
   <!-- header included via w3-include-html -->
-  <div w3-include-html="/includes/clb-en-header.html"></div>
+  <div w3-include-html="/includes/header.html"></div>
 
   <!-- LOGIN PROMPT (shown if user not logged in) -->
   <div id="loginCheck" class="login-prompt d-none">
@@ -48,7 +48,7 @@
         <!-- Mini controls -->
         <div class="mt-4 d-flex justify-content-center gap-2">
           <input id="globalSearch" class="form-control form-control-lg w-50" type="search" placeholder="Search teachers, resources, topics..." aria-label="Search">
-          <button id="searchBtn" class="btn btn-primary btn-lg"><i class="fas fa-search"></i></button>
+          <button id="searchBtn" class="btn btn-primary btn-lg" aria-label="Search"><i class="fas fa-search"></i></button>
         </div>
       </div>
     </header>
@@ -77,12 +77,14 @@
 
             <!-- filters -->
             <div class="d-flex gap-3 flex-wrap align-items-center mb-3">
-              <select id="filterForm" class="form-select w-auto">
+              <label for="filterForm" class="visually-hidden">Filter by Form</label>
+              <select id="filterForm" class="form-select w-auto" aria-label="Filter by form level">
                 <option value="">All Forms</option>
                 <option>Form 1</option><option>Form 2</option><option>Form 3</option><option>Form 4</option>
               </select>
 
-              <select id="filterTopic" class="form-select w-auto">
+              <label for="filterTopic" class="visually-hidden">Filter by Topic</label>
+              <select id="filterTopic" class="form-select w-auto" aria-label="Filter by mathematics topic">
                 <option value="">All Topics</option>
               </select>
 
@@ -159,7 +161,8 @@
               <form id="askForm">
                 <textarea id="askQuestion" class="form-control mb-2" rows="3" placeholder="Type your question — teachers will respond"></textarea>
                 <div class="d-flex gap-2">
-                  <select id="askTeacherSelect" class="form-select w-50">
+                  <label for="askTeacherSelect" class="visually-hidden">Select Teacher</label>
+                  <select id="askTeacherSelect" class="form-select w-50" aria-label="Select teacher to ask">
                     <option value="">Any Teacher</option>
                   </select>
                   <button type="submit" class="btn btn-primary">Send</button>

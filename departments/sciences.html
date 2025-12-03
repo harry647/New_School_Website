@@ -16,7 +16,7 @@
 <body>
 
   <!-- Header Include -->
-  <div w3-include-html="/includes/clb-en-header.html"></div>
+  <div w3-include-html="/includes/header.html"></div>
 
   <!-- Login Check -->
   <div id="loginCheck" class="login-prompt d-none">
@@ -49,11 +49,10 @@
 
       <!-- Session Filter -->
       <div class="text-center mb-5">
-        <select id="sessionFilter" class="form-select form-select-lg w-auto d-inline-block">
+        <label for="sessionFilter" class="visually-hidden">Filter by Academic Year</label>
+        <select id="sessionFilter" class="form-select form-select-lg w-auto d-inline-block" aria-label="Filter content by academic year">
           <option value="">All Academic Years</option>
-          <option>2025/2026</option>
-          <option>2024/2025</option>
-          <option>2023/2024</option>
+          <!-- Options will be populated dynamically by JavaScript -->
         </select>
       </div>
 
@@ -65,11 +64,11 @@
       <h2 class="section-title text-center mb-5">Student Achievements</h2>
       <div id="achievementsCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
         <div class="carousel-inner" id="achievementsGrid"></div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#achievementsCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon"></span>
+        <button class="carousel-control-prev" type="button" data-bs-target="#achievementsCarousel" data-bs-slide="prev" aria-label="Previous achievement">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#achievementsCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon"></span>
+        <button class="carousel-control-next" type="button" data-bs-target="#achievementsCarousel" data-bs-slide="next" aria-label="Next achievement">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
         </button>
       </div>
 

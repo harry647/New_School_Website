@@ -17,7 +17,7 @@
 </head>
 <body>
 
-  <div w3-include-html="/includes/clb-en-header.html"></div>
+  <div w3-include-html="/includes/header.html"></div>
 
   <!-- Login Check -->
   <div id="loginCheck" class="login-prompt d-none">
@@ -50,11 +50,10 @@
 
       <!-- Session Filter -->
       <div class="text-center mb-5">
-        <select id="sessionFilter" class="form-select form-select-lg w-auto d-inline-block">
+        <label for="sessionFilter" class="visually-hidden">Filter by Academic Year</label>
+        <select id="sessionFilter" class="form-select form-select-lg w-auto d-inline-block" aria-label="Filter content by academic year">
           <option value="">All Academic Years</option>
-          <option>2025/2026</option>
-          <option>2024/2025</option>
-          <option>2023/2024</option>
+          <!-- Options will be populated dynamically by JavaScript -->
         </select>
       </div>
 
@@ -80,8 +79,8 @@
       <h2 class="section-title text-center mb-5">Announcements & Events</h2>
       <div id="announcements" class="glass-card p-5 text-white mb-5">
         <ul class="list-unstyled mb-0 fs-5">
-          <li><i class="fas fa-bullhorn me-3"></i> Essay Writing Competition – Deadline: 30th Nov 2025</li>
-          <li><i class="fas fa-bus me-3"></i> Geography Field Trip to Lake Victoria – 12th Dec 2025</li>
+          <li><i class="fas fa-bullhorn me-3"></i> Essay Writing Competition – Check announcements for current deadline</li>
+          <li><i class="fas fa-bus me-3"></i> Geography Field Trip to Lake Victoria – Check calendar for dates</li>
         </ul>
       </div>
 

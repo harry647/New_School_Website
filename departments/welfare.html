@@ -15,7 +15,7 @@
 </head>
 <body>
 
-  <div w3-include-html="/includes/clb-en-header.html"></div>
+  <div w3-include-html="/includes/header.html"></div>
 
   <!-- Login Required -->
   <div id="loginCheck" class="login-prompt d-none">
@@ -84,7 +84,8 @@
       <div class="glass-card p-5 max-w-900 mx-auto text-white">
         <div class="row g-3">
           <div class="col-md-6">
-            <select class="form-select form-select-lg" id="userType">
+            <label for="userType" class="visually-hidden">Select user type</label>
+            <select class="form-select form-select-lg" id="userType" aria-label="Select whether you are a student or teacher">
               <option>I am a...</option>
               <option>Student</option>
               <option>Teacher</option>
@@ -93,7 +94,8 @@
           <div class="col-md-6"><input type="text" class="form-control form-control-lg" placeholder="Your Name (optional for anonymity)" id="name"></div>
           <div class="col-md-6"><input type="email" class="form-control form-control-lg" placeholder="Email (confidential)" id="email" required></div>
           <div class="col-md-6">
-            <select class="form-select form-select-lg" id="supportType">
+            <label for="supportType" class="visually-hidden">Select type of support needed</label>
+            <select class="form-select form-select-lg" id="supportType" aria-label="Select the type of support you need">
               <option>Type of Support Needed</option>
               <option>Counselling</option>
               <option>Financial Aid</option>

@@ -1,19 +1,19 @@
 {
   "subjects": [
-    { "name": "Mathematics", "icon": "fa-square-root-alt", "lessons": 48, "quizzes": 12 },
-    { "name": "Physics", "icon": "fa-atom", "lessons": 42, "quizzes": 10 },
-    { "name": "Chemistry", "icon": "fa-flask", "lessons": 40, "quizzes": 15 },
-    { "name": "Biology", "icon": "fa-dna", "lessons": 38, "quizzes": 8 },
-    { "name": "English", "icon": "fa-book", "lessons": 50, "quizzes": 20 },
-    { "name": "Kiswahili", "icon": "fa-language", "lessons": 45, "quizzes": 12 },
-    { "name": "Humanities", "icon": "fa-landmark", "lessons": 36, "quizzes": 9 },
-    { "name": "Applied Sciences", "icon": "fa-microscope", "lessons": 30, "quizzes": 7 },
-    { "name": "Clubs & Co-Curriculum", "icon": "fa-users", "lessons": 25, "quizzes": 5 },
-    { "name": "Guidance & Counselling", "icon": "fa-comments", "lessons": 20, "quizzes": 4 },
-    { "name": "Languages", "icon": "fa-language", "lessons": 40, "quizzes": 10 },
-    { "name": "Welfare", "icon": "fa-heart", "lessons": 15, "quizzes": 2 },
-    { "name": "Teachers Welfare", "icon": "fa-chalkboard-teacher", "lessons": 12, "quizzes": 2 },
-    { "name": "Interactive E-Learning", "icon": "fa-laptop-code", "lessons": 60, "quizzes": 18 }
+    { "id": "mathematics", "name": "Mathematics", "icon": "fa-square-root-alt", "lessons": 48, "quizzes": 12 },
+    { "id": "physics", "name": "Physics", "icon": "fa-atom", "lessons": 42, "quizzes": 10 },
+    { "id": "chemistry", "name": "Chemistry", "icon": "fa-flask", "lessons": 40, "quizzes": 15 },
+    { "id": "biology", "name": "Biology", "icon": "fa-dna", "lessons": 38, "quizzes": 8 },
+    { "id": "english", "name": "English", "icon": "fa-book", "lessons": 50, "quizzes": 20 },
+    { "id": "kiswahili", "name": "Kiswahili", "icon": "fa-language", "lessons": 45, "quizzes": 12 },
+    { "id": "humanities", "name": "Humanities", "icon": "fa-landmark", "lessons": 36, "quizzes": 9 },
+    { "id": "applied-sciences", "name": "Applied Sciences", "icon": "fa-microscope", "lessons": 30, "quizzes": 7 },
+    { "id": "clubs-co-curriculum", "name": "Clubs & Co-Curriculum", "icon": "fa-users", "lessons": 25, "quizzes": 5 },
+    { "id": "guidance-counselling", "name": "Guidance & Counselling", "icon": "fa-comments", "lessons": 20, "quizzes": 4 },
+    { "id": "languages", "name": "Languages", "icon": "fa-language", "lessons": 40, "quizzes": 10 },
+    { "id": "welfare", "name": "Welfare", "icon": "fa-heart", "lessons": 15, "quizzes": 2 },
+    { "id": "teachers-welfare", "name": "Teachers Welfare", "icon": "fa-chalkboard-teacher", "lessons": 12, "quizzes": 2 },
+    { "id": "interactive-e-learning", "name": "Interactive E-Learning", "icon": "fa-laptop-code", "lessons": 60, "quizzes": 18 }
   ],
 
   "resources": [
@@ -24,16 +24,16 @@
   ],
 
   "quizzes": [
-    { "title": "Algebra Quiz 1", "subject": "Mathematics", "dueDate": "Dec 5, 2025" },
-    { "title": "Chemistry Midterm", "subject": "Chemistry", "dueDate": "Dec 10, 2025" },
-    { "title": "Biology Practical Test", "subject": "Biology", "dueDate": "Dec 12, 2025" },
-    { "title": "Physics Assignment", "subject": "Physics", "dueDate": "Dec 15, 2025" }
+    { "id": "algebra-quiz-1", "title": "Algebra Quiz 1", "subject": "Mathematics", "dueDate": "Dec 5, 2025" },
+    { "id": "chemistry-midterm", "title": "Chemistry Midterm", "subject": "Chemistry", "dueDate": "Dec 10, 2025" },
+    { "id": "biology-practical", "title": "Biology Practical Test", "subject": "Biology", "dueDate": "Dec 12, 2025" },
+    { "id": "physics-assignment", "title": "Physics Assignment", "subject": "Physics", "dueDate": "Dec 15, 2025" }
   ],
 
   "forum": [
-    { "topic": "Doubt in Algebra", "user": "Jane W.", "date": "Nov 20, 2025" },
-    { "topic": "Chemistry Lab Question", "user": "Mark T.", "date": "Nov 22, 2025" },
-    { "topic": "Biology Revision Tips", "user": "Alice N.", "date": "Nov 24, 2025" }
+    { "id": "algebra-doubt", "topic": "Doubt in Algebra", "user": "Jane W.", "date": "Nov 20, 2025", "replies": 5, "category": "Mathematics", "preview": "I'm having trouble understanding quadratic equations..." },
+    { "id": "chemistry-lab-question", "topic": "Chemistry Lab Question", "user": "Mark T.", "date": "Nov 22, 2025", "replies": 3, "category": "Chemistry", "preview": "What safety precautions should we take during the acid-base titration?" },
+    { "id": "biology-revision-tips", "topic": "Biology Revision Tips", "user": "Alice N.", "date": "Nov 24, 2025", "replies": 8, "category": "Biology", "preview": "Here are some effective revision techniques for biology exams..." }
   ],
 
   "progress": [
