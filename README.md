@@ -19,6 +19,108 @@ A modern, responsive, and professional website for Bar Union Mixed Secondary Sch
 - **Accessibility**: WCAG compliant with proper ARIA labels
 - **Performance**: Optimized loading with lazy loading and caching
 
+## 📚 Departments, Clubs & Portal
+
+### Academic Departments
+
+The website features comprehensive department pages with interactive features:
+
+#### **Applied Sciences**
+- Subjects: Chemistry, Physics, Biology, Computer Science
+- Features: Lab reports, project uploads, experiment documentation
+- Interactive: File uploads, session filtering, teacher profiles
+
+#### **Humanities**
+- Subjects: History, Geography, Literature, Religious Studies, Languages, Social Studies
+- Features: Essay competitions, field trips, literature analysis
+- Interactive: Discussion forum, subject polls, resource sharing
+
+#### **Languages**
+- Subjects: English, Kiswahili, French, German, Arabic
+- Features: Language immersion, cultural events, translation exercises
+- Interactive: Dual filtering (session/language), audio uploads, RSVP events
+
+#### **Mathematics**
+- Subjects: Algebra, Geometry, Calculus, Statistics
+- Features: Math Olympiad, problem-solving competitions
+- Interactive: Topic explorer tree, progress tracking, KCSE trend charts
+
+#### **Sciences**
+- Subjects: Physics, Chemistry, Biology
+- Features: Science fairs, research projects, lab experiments
+- Interactive: Achievement carousel, competition registration
+
+#### **Guidance & Counselling**
+- Features: Anonymous support forum, appointment booking
+- Interactive: Resource uploads, counsellor profiles, private messaging
+
+#### **Welfare**
+- Features: Support request system, wellness resources
+- Interactive: Anonymous submissions, team coordination
+
+#### **Resources Hub**
+- Features: School-wide document repository
+- Interactive: Search, filtering, preview, pagination, role-based access
+
+### Student Clubs & Co-Curricular Activities
+
+12 active clubs with full management system:
+
+#### **Arts & STEM Clubs**
+- **Art & Design Club**: Painting, sculpture, exhibitions
+- **Robotics & Innovation**: Arduino, coding, 3D printing
+- **Mathematics Club**: Olympiad, puzzles, problem-solving
+- **Science Club**: Experiments, science fairs, research
+
+#### **Leadership & Communication**
+- **Debate & Public Speaking**: Debate, Model UN, eloquence
+- **Journalism & Media Club**: Reporting, photography, school magazine
+- **Drama & Performing Arts**: Theatre, acting, scriptwriting
+
+#### **Cultural & Spiritual**
+- **Music & Choir**: Choir, band, traditional dance
+- **Christian Union**: Fellowship, worship, spiritual growth
+- **Humanities & Languages Club**: History, Geography, culture
+
+#### **Outdoor & Environmental**
+- **Scouts & Girl Guides**: Camping, first aid, leadership
+- **Wildlife & Environmental Club**: Conservation, tree planting
+
+**Club Features:**
+- Application system with validation
+- File upload for submissions
+- Event registration and RSVP
+- Photo galleries with Fancybox
+- Session-based filtering
+
+### Student Portal & E-Learning
+
+Comprehensive learning management system:
+
+#### **Core Features**
+- **16 Subject Areas**: Mathematics, Sciences, Languages, Humanities, Applied Sciences, Clubs & Co-Curriculum, Guidance, Welfare
+- **Interactive Lessons**: Video content, quizzes, assignments
+- **Progress Tracking**: Completion percentages, mastery levels
+- **Resource Library**: PDFs, videos, interactive materials
+
+#### **Advanced Features**
+- **Forum System**: Student-teacher discussions, Q&A
+- **Quiz Engine**: Automated testing with due dates
+- **Media Gallery**: Experiment videos, lecture screenshots
+- **Notification System**: Updates, deadlines, announcements
+
+#### **Teacher Dashboard**
+- Content upload and management
+- Student progress monitoring
+- Assignment grading
+- Resource sharing
+
+#### **Student Dashboard**
+- Personalized learning paths
+- Progress analytics
+- Assignment submissions
+- Discussion participation
+
 ## 📋 Prerequisites
 
 Before running this project, ensure you have the following installed:

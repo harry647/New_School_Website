@@ -1,117 +1,781 @@
-/* Humanities Department – Warm, Elegant, Glassmorphic 2025+ */
+/* =======================================================
+   HUMANITIES DEPARTMENT - PROFESSIONAL & STUNNING CSS
+   Elegant Typography, Warm Colors, Literary Aesthetics
+   ======================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
 :root {
+  /* Color Palette - Warm, Literary Inspired */
   --primary: #5d4037;
+  --primary-light: #8d6e63;
+  --primary-dark: #3e2723;
   --accent: #ff8a65;
-  --glass: rgba(255,255,255,0.15);
-  --border: rgba(255,255,255,0.2);
-  --text: #ffffff;
-  --soft-shadow: rgba(0,0,0,0.1);
+  --accent-light: #ffab91;
+  --accent-glow: #ff6b43;
+  --secondary: #ffb74d;
+  --tertiary: #81c784;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+
+  /* Gradients */
+  --hero-gradient: linear-gradient(135deg, #5d4037 0%, #8d6e63 50%, #a1887f 100%);
+  --card-gradient: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  --button-gradient: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+  --forum-gradient: linear-gradient(145deg, rgba(255, 248, 220, 0.1) 0%, rgba(255, 243, 224, 0.05) 100%);
+
+  /* Typography */
+  --text-primary: #ffffff;
+  --text-secondary: #f5f5f5;
+  --text-muted: #d4a574;
+  --text-dark: #2d1810;
+
+  /* Spacing & Layout */
+  --border-radius: 16px;
+  --border-radius-large: 24px;
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.15);
+  --shadow-glow: 0 0 30px rgba(255, 138, 101, 0.3);
 }
 
-.hero {
-  background: linear-gradient(135deg, var(--primary) 0%, #8d6e63 100%), url('/assets/images/humanities-bg.jpg') center/cover;
-  min-height: 90vh;
-  position: relative;
+/* ===== RESET & BASE STYLES ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: linear-gradient(135deg, #fef7ed 0%, #fed7aa 100%);
+  color: var(--text-dark);
+  line-height: 1.6;
+  font-feature-settings: 'kern' 1, 'liga' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hero-gradient);
+  overflow: hidden;
+}
+
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background:
+    radial-gradient(circle at 30% 70%, rgba(255, 138, 101, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(255, 183, 77, 0.1) 0%, transparent 50%),
+    linear-gradient(45deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.05) 100%);
 }
 
-.glass-card {
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  border-radius: 28px;
-  padding: 2rem;
-  transition: all 0.4s ease;
-}
-.glass-card:hover {
-  transform: translateY(-12px);
-  box-shadow: 0 25px 60px rgba(0,0,0,0.3);
-}
-
-.subject-card, .teacher-card, .resource-card {
-  background: white;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 12px 35px var(--soft-shadow);
-  transition: all 0.4s ease, transform 0.3s ease;
-  cursor: pointer;
-}
-.subject-card:hover, .teacher-card:hover, .resource-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 25px 60px rgba(93,64,55,0.25);
-}
-
-.subject-card i, .resource-card i {
-  color: var(--primary);
-}
-
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.8rem, 6vw, 4.5rem);
-  font-weight: 900;
-  color: var(--primary);
+.hero-content {
   position: relative;
-  display: inline-block;
-  margin-bottom: 2rem;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+  padding: 2rem;
+  animation: fadeInUp 1s ease-out;
 }
-.section-title::after {
+
+.hero-title {
+  font-family: 'Crimson Text', serif;
+  font-size: clamp(3.5rem, 8vw, 5.5rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+  opacity: 0.9;
+  font-style: italic;
+}
+
+.hero-cta {
+  display: inline-flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ===== GLASSMORPHISM SYSTEM ===== */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--glass-shadow);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card::before {
   content: '';
   position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 6px;
-  background: var(--accent);
-  border-radius: 3px;
+  inset: 0;
+  background: var(--card-gradient);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-/* Forum / Discussion Cards */
+.glass-card:hover::before {
+  opacity: 1;
+}
+
+.glass-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-strong), var(--shadow-glow);
+  border-color: rgba(255, 138, 101, 0.3);
+}
+
+/* ===== CARD COMPONENTS ===== */
+.subject-card,
+.teacher-card,
+.resource-card,
 .forum-card {
-  background: var(--glass);
-  backdrop-filter: blur(15px);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 1.5rem;
-  margin-bottom: 1rem;
-  transition: all 0.3s ease;
-}
-.forum-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+  background: #ffffff;
+  border-radius: var(--border-radius-large);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
-/* Poll / Quiz Panel */
-.poll-panel {
-  background: var(--glass);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 1.5rem;
-  margin-top: 2rem;
-}
-.poll-panel button {
-  margin: 0.25rem;
-}
-
-/* File Upload */
-#fileUpload + label {
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-#fileUpload + label:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+.subject-card::before,
+.teacher-card::before,
+.resource-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--button-gradient);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
 }
 
-.login-prompt {
-  min-height: 80vh;
+.subject-card:hover::before,
+.teacher-card:hover::before,
+.resource-card:hover::before {
+  transform: scaleX(1);
+}
+
+.subject-card:hover,
+.teacher-card:hover,
+.resource-card:hover {
+  transform: translateY(-12px) rotate(-1deg);
+  box-shadow: var(--shadow-strong);
+}
+
+.subject-card {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  background: linear-gradient(145deg, #ffffff 0%, #fef7ed 100%);
+}
+
+.subject-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--button-gradient);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2rem;
+  color: white;
+  box-shadow: var(--shadow-medium);
+  transition: all 0.3s ease;
+}
+
+.subject-card:hover .subject-icon {
+  transform: scale(1.1) rotate(-5deg);
+  box-shadow: var(--shadow-glow);
+}
+
+.subject-title {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.subject-teacher {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.subject-description {
+  color: var(--text-dark);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.teacher-card {
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(145deg, #ffffff 0%, #fef7ed 100%);
+}
+
+.teacher-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 1.5rem;
+  border: 4px solid var(--accent-light);
+  box-shadow: var(--shadow-medium);
+  transition: all 0.3s ease;
+}
+
+.teacher-card:hover .teacher-image {
+  transform: scale(1.05);
+  border-color: var(--accent);
+}
+
+.teacher-name {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.teacher-subjects {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.resource-card {
+  padding: 2rem;
+  background: linear-gradient(145deg, #ffffff 0%, #fef7ed 100%);
+}
+
+.resource-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  color: white;
+  font-size: 1.5rem;
+  box-shadow: var(--shadow-medium);
+}
+
+.resource-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.resource-meta {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+/* ===== FORUM & DISCUSSION ===== */
+.forum-card {
+  background: var(--forum-gradient);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 193, 193, 0.2);
+  border-radius: var(--border-radius-large);
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.forum-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--button-gradient);
+  border-radius: 2px 0 0 2px;
+}
+
+.forum-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-strong);
+  border-color: rgba(255, 138, 101, 0.3);
+}
+
+.forum-author {
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.forum-timestamp {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.forum-content {
+  color: var(--text-dark);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* ===== POLL SYSTEM ===== */
+.poll-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-large);
+  padding: 2rem;
+  margin-top: 2rem;
+  box-shadow: var(--glass-shadow);
+}
+
+.poll-title {
+  font-family: 'Crimson Text', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
   text-align: center;
 }
+
+.poll-options {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.poll-button {
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border: 2px solid var(--secondary);
+  border-radius: var(--border-radius);
+  color: var(--text-dark);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.poll-button:hover {
+  background: var(--button-gradient);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.poll-results {
+  margin-top: 2rem;
+}
+
+.poll-result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: var(--border-radius);
+}
+
+.poll-result-bar {
+  height: 8px;
+  background: var(--button-gradient);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  transition: width 1s ease;
+}
+
+/* ===== SECTION TITLES ===== */
+.section-title {
+  font-family: 'Crimson Text', serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 600;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: var(--button-gradient);
+  border-radius: 2px;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: var(--button-gradient);
+  color: white;
+  box-shadow: var(--shadow-medium);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-strong), var(--shadow-glow);
+}
+
+.btn-outline-primary {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-outline-primary:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
+}
+
+/* ===== FORM ELEMENTS ===== */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+  font-family: 'Crimson Text', serif;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #fed7aa;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #ffffff;
+  font-family: 'Inter', sans-serif;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 138, 101, 0.1);
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* ===== LAYOUT & GRID ===== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section {
+  padding: 5rem 0;
+}
+
+.grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 90vh;
+    padding: 2rem 0;
+  }
+
+  .hero-content {
+    padding: 1rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 10vw, 4rem);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 4vw, 1.3rem);
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin-bottom: 2rem;
+  }
+
+  .subject-card,
+  .teacher-card,
+  .resource-card,
+  .forum-card {
+    padding: 1.5rem;
+  }
+
+  .subject-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  .teacher-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .grid {
+    gap: 1.5rem;
+  }
+
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .poll-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 12vw, 3rem);
+  }
+
+  .subject-card,
+  .teacher-card,
+  .resource-card,
+  .forum-card {
+    padding: 1.25rem;
+  }
+
+  .section {
+    padding: 2rem 0;
+  }
+
+  .poll-panel {
+    padding: 1.5rem;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus states for keyboard navigation */
+.btn:focus,
+.form-control:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #000;
+  }
+
+  .subject-card,
+  .teacher-card,
+  .resource-card,
+  .forum-card {
+    border: 2px solid #000;
+  }
+}
+
+/* ===== UTILITIES ===== */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.d-none { display: none; }
+.d-block { display: block; }
+.d-flex { display: flex; }
+.d-grid { display: grid; }
+
+.justify-center { justify-content: center; }
+.align-center { align-items: center; }
+.items-center { align-items: center; }
+
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+
+.rounded { border-radius: var(--border-radius); }
+.rounded-lg { border-radius: var(--border-radius-large); }
+
+.shadow { box-shadow: var(--shadow-soft); }
+.shadow-md { box-shadow: var(--shadow-medium); }
+.shadow-lg { box-shadow: var(--shadow-strong); }

@@ -5,21 +5,51 @@
 ============================== */
 
 :root {
-   --blue: #0175C2;
-   --blue-dark: #0b2d5e;
-   --gold: #ffd700;
-   --gold-light: #ffed4e;
-   --gray: #555;
-   --gray-light: #777;
-   --light: #f8fafc;
-   --radius: 28px;
-   --shadow-xs: 0 6px 18px rgba(0,0,0,0.08);
-   --shadow-sm: 0 12px 35px rgba(0,0,0,0.1);
-   --shadow-md: 0 20px 50px rgba(0,0,0,0.15);
-   --shadow-lg: 0 35px 80px rgba(0,0,0,0.22);
-   --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-   --font-primary: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-   --font-heading: 'Playfair Display', serif;
+    --blue: #0175C2;
+    --blue-dark: #0b2d5e;
+    --gold: #ffd700;
+    --gold-light: #ffed4e;
+    --gray: #555;
+    --gray-light: #777;
+    --light: #f8fafc;
+    --radius: 28px;
+    --shadow-xs: 0 6px 18px rgba(0,0,0,0.08);
+    --shadow-sm: 0 12px 35px rgba(0,0,0,0.1);
+    --shadow-md: 0 20px 50px rgba(0,0,0,0.15);
+    --shadow-lg: 0 35px 80px rgba(0,0,0,0.22);
+    --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --font-primary: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-heading: 'Playfair Display', serif;
+    /* Dark mode variables */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --card-bg: #ffffff;
+    --border-color: rgba(0,0,0,0.1);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-primary: #0f172a;
+        --bg-secondary: #1e293b;
+        --text-primary: #f1f5f9;
+        --text-secondary: #cbd5e1;
+        --card-bg: #1e293b;
+        --border-color: rgba(255,255,255,0.1);
+        --shadow-xs: 0 6px 18px rgba(0,0,0,0.3);
+        --shadow-sm: 0 12px 35px rgba(0,0,0,0.4);
+        --shadow-md: 0 20px 50px rgba(0,0,0,0.5);
+        --shadow-lg: 0 35px 80px rgba(0,0,0,0.6);
+    }
+    body { background: var(--bg-primary); color: var(--text-primary); }
+    .bg-light { background: var(--bg-secondary); }
+    .stats, .timeline, .vm-card, .value-card { background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-primary); }
+    .section-title h2 { color: var(--text-primary); }
+    .page-hero { background: linear-gradient(135deg, rgba(11,45,94,0.94), rgba(1,117,194,0.88)), url('/assets/images/about-hero.jpg') center/cover no-repeat fixed; }
+    .about-text h2, .about-text h3, .about-text p { color: var(--text-primary); }
+    .timeline li { color: var(--text-secondary); }
 }
 
 /* ==================================
@@ -121,9 +151,12 @@
   height: auto;
   display: block;
   transition: var(--transition);
+  filter: brightness(1) contrast(1);
 }
 .about-image img:hover {
-  transform: scale(1.08);
+  transform: scale(1.08) rotate(1deg);
+  filter: brightness(1.1) contrast(1.05);
+  box-shadow: var(--shadow-lg);
 }
 
 /* ==================================

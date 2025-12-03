@@ -20,6 +20,35 @@
    --transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
    --font-primary: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
    --font-heading: 'Playfair Display', serif;
+   /* Dark mode variables */
+   --bg-primary: #ffffff;
+   --bg-secondary: #f8fafc;
+   --text-primary: #1e293b;
+   --text-secondary: #64748b;
+   --card-bg: #ffffff;
+   --border-color: rgba(0,0,0,0.1);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+   :root {
+     --bg-primary: #0f172a;
+     --bg-secondary: #1e293b;
+     --text-primary: #f1f5f9;
+     --text-secondary: #cbd5e1;
+     --card-bg: #1e293b;
+     --border-color: rgba(255,255,255,0.1);
+     --shadow-xs: 0 6px 18px rgba(0,0,0,0.3);
+     --shadow-sm: 0 12px 35px rgba(0,0,0,0.4);
+     --shadow-md: 0 20px 50px rgba(0,0,0,0.5);
+     --shadow-lg: 0 35px 80px rgba(0,0,0,0.6);
+   }
+   body { background: var(--bg-primary); color: var(--text-primary); }
+   .requirement-card, .card { background: var(--card-bg); border-color: var(--border-color); color: var(--text-primary); }
+   .section-title h2 { color: var(--text-primary); }
+   .page-hero { background: linear-gradient(135deg, rgba(11,45,94,0.97), rgba(1,117,194,0.91)), url('/assets/images/admissions-hero.jpg') center/cover no-repeat fixed; }
+   .timeline-content p, .requirement-card p, .dates-list li { color: var(--text-secondary); }
+   .form-wrapper { background: var(--card-bg); }
 }
 
 /* ==================================

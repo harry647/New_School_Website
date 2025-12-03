@@ -1,207 +1,843 @@
-/* Mathematics Department – Glassmorphic Professional 2025+ */
+/* =======================================================
+   MATHEMATICS DEPARTMENT - PROFESSIONAL & STUNNING CSS
+   Mathematical Precision, Geometric Harmony, Analytical Excellence
+   ======================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
 :root {
+  /* Color Palette - Mathematical & Precise */
   --primary: #0b2d5e;
+  --primary-light: #1e4d8c;
+  --primary-dark: #051b3a;
   --accent: #ffd700;
-  --accent2: #ff8c00;
-  --glass: rgba(255,255,255,0.15);
-  --border: rgba(255,255,255,0.2);
+  --accent-light: #ffed4e;
+  --accent-glow: #fbbf24;
+  --secondary: #6366f1;
+  --tertiary: #10b981;
 
-  --text-dark: #1a1a1a;
-  --text-light: #ffffff;
+  /* Mathematical Colors */
+  --pi: #ff6b6b;
+  --phi: #4ecdc4;
+  --euler: #45b7d1;
+  --golden: #f9ca24;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+
+  /* Gradients */
+  --hero-gradient: linear-gradient(135deg, #0b2d5e 0%, #1e4d8c 50%, #3b5998 100%);
+  --card-gradient: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  --button-gradient: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+  --math-gradient: linear-gradient(45deg, var(--pi) 0%, var(--phi) 25%, var(--euler) 50%, var(--golden) 75%, var(--secondary) 100%);
+
+  /* Typography */
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-dark: #1e293b;
+
+  /* Spacing & Layout */
+  --border-radius: 16px;
+  --border-radius-large: 24px;
+  --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --shadow-strong: 0 20px 60px rgba(0, 0, 0, 0.15);
+  --shadow-glow: 0 0 30px rgba(255, 215, 0, 0.3);
 }
 
-/* ------------------------------------------------------
- HERO SECTION
------------------------------------------------------- */
+/* ===== RESET & BASE STYLES ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'JetBrains Mono', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  color: var(--text-dark);
+  line-height: 1.6;
+  font-feature-settings: 'tnum' 1, 'lnum' 1, 'kern' 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ===== HERO SECTION ===== */
 .hero {
-  background: linear-gradient(135deg, var(--primary) 0%, #1e4d8c 100%), 
-              url('/assets/images/math-hero.jpg') center/cover;
-  min-height: 90vh;
   position: relative;
-  animation: fadeInHero 1.2s ease-in-out forwards;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--hero-gradient);
+  overflow: hidden;
 }
+
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.55);
+  background:
+    radial-gradient(circle at 20% 80%, rgba(30, 77, 140, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+    linear-gradient(45deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.05) 100%);
 }
 
-@keyframes fadeInHero {
-  from { opacity: 0; transform: scale(1.05); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-/* ------------------------------------------------------
- GLASS CARD CORE STYLE
------------------------------------------------------- */
-.glass-card {
-  background: var(--glass);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  transition: all 0.4s ease;
-}
-.glass-card:hover {
-  transform: translateY(-15px);
-  box-shadow: 0 30px 70px rgba(0,0,0,0.3);
-}
-
-/* ------------------------------------------------------
- CARDS
------------------------------------------------------- */
-.teacher-card,
-.achievement-card,
-.resource-card,
-.competition-card {
-  background: #ffffff;
-  border-radius: 22px;
-  overflow: hidden;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-  transition: all 0.4s ease;
-}
-.teacher-card:hover,
-.achievement-card:hover,
-.resource-card:hover,
-.competition-card:hover {
-  transform: translateY(-12px);
-  box-shadow: 0 30px 80px rgba(11,45,94,0.25);
-}
-
-/* ------------------------------------------------------
- SECTION TITLE
------------------------------------------------------- */
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.8rem, 6vw, 4.5rem);
-  font-weight: 900;
-  color: var(--primary);
+.hero-content {
   position: relative;
-  display: inline-block;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+  padding: 2rem;
+  animation: fadeInUp 1s ease-out;
 }
-.section-title::after {
+
+.hero-title {
+  font-size: clamp(3.5rem, 8vw, 5.5rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  color: var(--text-secondary);
+  margin-bottom: 2.5rem;
+  font-weight: 400;
+  opacity: 0.9;
+  font-family: 'Inter', sans-serif;
+}
+
+.hero-cta {
+  display: inline-flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ===== GLASSMORPHISM SYSTEM ===== */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--glass-shadow);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card::before {
   content: '';
   position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120px;
-  height: 6px;
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  border-radius: 3px;
+  inset: 0;
+  background: var(--card-gradient);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-/* ------------------------------------------------------
- SESSION FILTER DROPDOWN
------------------------------------------------------- */
-#sessionFilter {
-  border-radius: 14px;
-  padding: 10px 18px;
-  border: 2px solid var(--primary);
-  font-weight: 600;
-  transition: 0.3s ease;
-}
-#sessionFilter:hover {
-  border-color: var(--accent);
-  background: #fffbe6;
+.glass-card:hover::before {
+  opacity: 1;
 }
 
-/* ------------------------------------------------------
- TEACHER PROFILE MODAL (Full Profile)
------------------------------------------------------- */
-.teacher-modal img {
-  border: 6px solid var(--primary);
+.glass-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-strong), var(--shadow-glow);
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+/* ===== CARD COMPONENTS ===== */
+.subject-card,
+.teacher-card,
+.resource-card,
+.competition-card,
+.achievement-card {
+  background: #ffffff;
+  border-radius: var(--border-radius-large);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.subject-card::before,
+.teacher-card::before,
+.resource-card::before,
+.competition-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--button-gradient);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.subject-card:hover::before,
+.teacher-card:hover::before,
+.resource-card:hover::before,
+.competition-card:hover::before {
+  transform: scaleX(1);
+}
+
+.subject-card:hover,
+.teacher-card:hover,
+.resource-card:hover,
+.competition-card:hover {
+  transform: translateY(-12px) rotate(1deg);
+  box-shadow: var(--shadow-strong);
+}
+
+.subject-card {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+}
+
+.subject-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--math-gradient);
   border-radius: 50%;
-}
-.teacher-modal h3 {
-  color: var(--primary);
-  font-weight: 700;
-}
-.teacher-modal .tag {
-  background: var(--primary);
-  color: var(--text-light);
-  padding: 6px 12px;
-  border-radius: 12px;
-  font-size: 0.85rem;
-}
-
-/* ------------------------------------------------------
- RESOURCE PREVIEW THUMBNAILS
------------------------------------------------------- */
-.resource-thumb {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 12px;
-  transition: 0.3s ease;
-}
-.resource-card:hover .resource-thumb {
-  transform: scale(1.05);
-}
-
-/* ------------------------------------------------------
- COMPETITION CARDS
------------------------------------------------------- */
-.competition-card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 18px;
-  margin-bottom: 18px;
-}
-.competition-card h4 {
-  font-weight: 800;
-  color: var(--primary);
-}
-
-/* ------------------------------------------------------
- LOGIN PROMPT
------------------------------------------------------- */
-.login-prompt {
-  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2rem;
+  color: white;
+  box-shadow: var(--shadow-medium);
+  transition: all 0.3s ease;
+}
+
+.subject-card:hover .subject-icon {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: var(--shadow-glow);
+}
+
+.subject-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.subject-form {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.subject-description {
+  color: var(--text-dark);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.teacher-card {
+  padding: 2rem;
+  text-align: center;
+  background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+}
+
+.teacher-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 1.5rem;
+  border: 4px solid var(--primary-light);
+  box-shadow: var(--shadow-medium);
+  transition: all 0.3s ease;
+}
+
+.teacher-card:hover .teacher-image {
+  transform: scale(1.05);
+  border-color: var(--primary);
+}
+
+.teacher-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.teacher-subjects {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+  font-family: 'Inter', sans-serif;
+}
+
+.resource-card {
+  padding: 2rem;
+  background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+}
+
+.resource-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--tertiary) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  color: white;
+  font-size: 1.5rem;
+  box-shadow: var(--shadow-medium);
+}
+
+.resource-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.resource-meta {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+  font-family: 'Inter', sans-serif;
+}
+
+.competition-card {
+  padding: 2rem;
+  background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
   text-align: center;
 }
 
-/* ------------------------------------------------------
- FANCYBOX OVERRIDES (Cleaner Look)
------------------------------------------------------- */
-.fancybox__container {
-  backdrop-filter: blur(12px);
-}
-.fancybox__caption {
-  font-size: 1.1rem;
-  font-weight: 600;
+.competition-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
 }
 
-/* ------------------------------------------------------
- BUTTONS
------------------------------------------------------- */
-.btn-gold {
-  background: var(--accent);
-  color: #000;
-  font-weight: bold;
-  border-radius: 14px;
-  padding: 10px 24px;
-  box-shadow: 0 5px 20px rgba(255,215,0,0.3);
-  transition: 0.3s;
+.competition-card:hover .competition-image {
+  transform: scale(1.05);
 }
-.btn-gold:hover {
-  background: var(--accent2);
-  color: #fff;
+
+.competition-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.competition-date {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+.competition-location {
+  color: var(--text-dark);
+  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ===== TOPIC TREE EXPLORER ===== */
+.topic-tree {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-large);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.topic-accordion .accordion-button {
+  background: transparent;
+  border: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  color: var(--text-dark);
+  padding: 1rem;
+}
+
+.topic-accordion .accordion-button:focus {
+  box-shadow: none;
+  border-color: var(--accent);
+}
+
+.topic-item {
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+
+.topic-item:hover {
+  background: var(--math-gradient);
+  color: white;
+  transform: translateX(5px);
+}
+
+.topic-badge {
+  background: var(--accent);
+  color: var(--text-dark);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 10px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ===== PROGRESS & ANALYTICS ===== */
+.progress-chart {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-large);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--math-gradient);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  transition: width 1s ease;
+}
+
+.top-students {
+  display: grid;
+  gap: 1rem;
+}
+
+.student-rank {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: var(--border-radius);
+  transition: all 0.3s ease;
+}
+
+.student-rank:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-medium);
+}
+
+.rank-badge {
+  width: 40px;
+  height: 40px;
+  background: var(--math-gradient);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.student-info h6 {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-dark);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.student-score {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ===== SECTION TITLES ===== */
+.section-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--math-gradient);
+  border-radius: 2px;
+}
+
+/* ===== FILTERS ===== */
+.session-filter {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  padding: 0.75rem 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  color: var(--text-dark);
+  transition: all 0.3s ease;
+}
+
+.session-filter:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.btn-primary {
+  background: var(--button-gradient);
+  color: var(--text-dark);
+  box-shadow: var(--shadow-medium);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-strong), var(--shadow-glow);
+}
+
+.btn-outline-primary {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-outline-primary:hover {
+  background: var(--primary);
+  color: white;
   transform: translateY(-2px);
 }
 
-/* ------------------------------------------------------
- ANIMATIONS
------------------------------------------------------- */
-.fade-in {
-  animation: fadeIn 0.8s ease forwards;
+.btn-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
 }
-@keyframes fadeIn {
-  from { opacity: 0; translate: 0 20px; }
-  to { opacity: 1; translate: 0 0; }
+
+.btn-warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: white;
 }
+
+/* ===== LAYOUT & GRID ===== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section {
+  padding: 5rem 0;
+}
+
+.grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: 90vh;
+    padding: 2rem 0;
+  }
+
+  .hero-content {
+    padding: 1rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 10vw, 4rem);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 4vw, 1.3rem);
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin-bottom: 2rem;
+  }
+
+  .subject-card,
+  .teacher-card,
+  .resource-card,
+  .competition-card {
+    padding: 1.5rem;
+  }
+
+  .subject-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  .teacher-image {
+    width: 100px;
+    height: 100px;
+  }
+
+  .competition-image {
+    height: 150px;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .grid {
+    gap: 1.5rem;
+  }
+
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  .topic-tree {
+    padding: 1.5rem;
+  }
+
+  .progress-chart {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 12vw, 3rem);
+  }
+
+  .subject-card,
+  .teacher-card,
+  .resource-card,
+  .competition-card {
+    padding: 1.25rem;
+  }
+
+  .section {
+    padding: 2rem 0;
+  }
+
+  .topic-item {
+    padding: 0.5rem;
+  }
+
+  .student-rank {
+    padding: 0.75rem;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus states for keyboard navigation */
+.btn:focus,
+.session-filter:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #000;
+  }
+
+  .subject-card,
+  .teacher-card,
+  .resource-card,
+  .competition-card {
+    border: 2px solid #000;
+  }
+}
+
+/* ===== UTILITIES ===== */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+
+.d-none { display: none; }
+.d-block { display: block; }
+.d-flex { display: flex; }
+.d-grid { display: grid; }
+
+.justify-center { justify-content: center; }
+.align-center { align-items: center; }
+.items-center { align-items: center; }
+
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+
+.rounded { border-radius: var(--border-radius); }
+.rounded-lg { border-radius: var(--border-radius-large); }
+
+.shadow { box-shadow: var(--shadow-soft); }
+.shadow-md { box-shadow: var(--shadow-medium); }
+.shadow-lg { box-shadow: var(--shadow-strong); }

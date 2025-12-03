@@ -945,6 +945,28 @@ router.get('/departments/humanities', (req, res) => {
   const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'humanities-data.json'));
   res.json(data);
 });
+router.get('/departments/humanities/forum', (req, res) => {
+  const posts = readJSON(path.join(__dirname, '..', 'data', 'departments', 'humanities-forum.json'));
+  res.json(posts.slice(0, 50)); // Return latest 50
+});
+router.post('/departments/humanities/forum', (req, res) => {
+  const { text } = req.body;
+  if (!text?.trim()) return res.status(400).json({ success: false, message: "Post text cannot be empty." });
+  const file = path.join(__dirname, '..', 'data', 'departments', 'humanities-forum.json');
+  let posts = readJSON(file);
+  posts.unshift({ id: Date.now(), text: text.trim(), timestamp: new Date().toISOString() });
+  writeJSON(file, posts);
+  res.json({ success: true });
+});
+router.post('/departments/humanities/poll', (req, res) => {
+  const { subject } = req.body;
+  if (!subject) return res.status(400).json({ success: false, message: "Subject required." });
+  const file = path.join(__dirname, '..', 'data', 'departments', 'humanities-poll.json');
+  let poll = readJSON(file);
+  poll[subject] = (poll[subject] || 0) + 1;
+  writeJSON(file, poll);
+  res.json({ success: true });
+});
 router.post('/departments/humanities/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
   if (!req.files?.length) return res.status(400).json({ success: false, message: "No files" });
   console.log(`Humanities Upload → ${req.files.length} files`);
@@ -955,6 +977,28 @@ router.post('/departments/humanities/upload', uploadDepartmentFile.array('files'
 router.get('/departments/languages', (req, res) => {
   const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'languages-data.json'));
   res.json(data);
+});
+router.get('/departments/languages/forum', (req, res) => {
+  const posts = readJSON(path.join(__dirname, '..', 'data', 'departments', 'languages-forum.json'));
+  res.json(posts.slice(0, 50)); // Return latest 50
+});
+router.post('/departments/languages/forum', (req, res) => {
+  const { text } = req.body;
+  if (!text?.trim()) return res.status(400).json({ success: false, message: "Post text cannot be empty." });
+  const file = path.join(__dirname, '..', 'data', 'departments', 'languages-forum.json');
+  let posts = readJSON(file);
+  posts.unshift({ id: Date.now(), text: text.trim(), timestamp: new Date().toISOString() });
+  writeJSON(file, posts);
+  res.json({ success: true });
+});
+router.post('/departments/languages/poll', (req, res) => {
+  const { subject } = req.body;
+  if (!subject) return res.status(400).json({ success: false, message: "Subject required." });
+  const file = path.join(__dirname, '..', 'data', 'departments', 'languages-poll.json');
+  let poll = readJSON(file);
+  poll[subject] = (poll[subject] || 0) + 1;
+  writeJSON(file, poll);
+  res.json({ success: true });
 });
 router.post('/departments/languages/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
   if (!req.files?.length) return res.status(400).json({ success: false, message: "No files" });
