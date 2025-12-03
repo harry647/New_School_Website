@@ -89,7 +89,7 @@
       <!-- Upcoming Events – Auto-loaded from backend -->
       <section class="mb-5">
         <h3>Upcoming Events</h3>
-        <div id="mathEvents" class="row g-3" data-club-id="math">
+        <div id="mathematicsEvents" class="row g-3" data-club-id="mathematics">
           <!-- Events injected automatically by clubs.js -->
           <div class="col-12 text-center py-5 text-muted">
             <i class="fas fa-spinner fa-spin fa-2x"></i>
@@ -128,10 +128,10 @@
 <!-- Auto-load events & setup upload when page loads -->
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const container = document.getElementById('mathEvents');
+    const container = document.getElementById('mathematicsEvents');
     if (!container) return;
 
-    const clubId = 'math'; // Must match club.id in clubs.json
+    const clubId = 'mathematics'; // Must match club.id in clubs.json
 
     const loadEvents = () => {
       if (typeof window.EVENTS === 'undefined') {

@@ -68,18 +68,18 @@
         <h3>Gallery & Recent Events</h3>
         <div class="row g-3" data-fancybox="cu-gallery">
           <div class="col-6 col-md-4">
-            <a href="/assets/images/gallery/cu/cu1.jpg" data-caption="Worship Session">
-              <img src="/assets/images/gallery/cu/cu1.jpg" class="img-fluid rounded shadow-sm" alt="CU Worship">
+            <a href="/assets/images/gallery/gallery4.jpg" data-caption="Worship Session">
+              <img src="/assets/images/gallery/gallery4.jpg" class="img-fluid rounded shadow-sm" alt="CU Worship">
             </a>
           </div>
           <div class="col-6 col-md-4">
-            <a href="/assets/images/gallery/cu/cu2.jpg" data-caption="Outreach Program">
-              <img src="/assets/images/gallery/cu/cu2.jpg" class="img-fluid rounded shadow-sm" alt="CU Outreach">
+            <a href="/assets/images/gallery/gallery5.jpg" data-caption="Outreach Program">
+              <img src="/assets/images/gallery/gallery5.jpg" class="img-fluid rounded shadow-sm" alt="CU Outreach">
             </a>
           </div>
           <div class="col-6 col-md-4">
-            <a href="/assets/images/gallery/cu/cu3.jpg" data-caption="Bible Study">
-              <img src="/assets/images/gallery/cu/cu3.jpg" class="img-fluid rounded shadow-sm" alt="Bible Study">
+            <a href="/assets/images/gallery/gallery6.jpg" data-caption="Bible Study">
+              <img src="/assets/images/gallery/gallery6.jpg" class="img-fluid rounded shadow-sm" alt="Bible Study">
             </a>
           </div>
           <!-- Add more images as needed -->
@@ -89,7 +89,7 @@
       <!-- Upcoming Events – Auto-injected by clubs.js -->
       <section class="mb-5">
         <h3>Upcoming Events</h3>
-        <div id="cuEvents" class="row g-3" data-club-id="cu">
+        <div id="christian-unionEvents" class="row g-3" data-club-id="christian-union">
           <!-- Events loaded automatically from backend -->
           <div class="col-12 text-center py-5 text-muted">
             <i class="fas fa-spinner fa-spin fa-2x"></i>
@@ -128,10 +128,10 @@
 <!-- Auto-load events & setup upload when page loads -->
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const container = document.getElementById('cuEvents');
+    const container = document.getElementById('christian-unionEvents');
     if (!container) return;
 
-    const clubId = 'cu'; // Must match club.id in clubs.json
+    const clubId = 'christian-union'; // Must match club.id in clubs.json
 
     const load = () => {
       if (typeof window.EVENTS === 'undefined') {
