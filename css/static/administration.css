@@ -64,8 +64,9 @@ body { margin: 0; font-family: 'Inter', system-ui, sans-serif; line-height: 1.7;
    1. Hero Banner – Cinematic & Elegant
 ================================== */
 .page-hero {
-  min-height: calc(100vh - 90px);     /* 90px = your header height */
-  margin-top: 90px;                   /* Pushes hero down under the fixed header */
+  /* Body already has top padding from the fixed header, so no extra margin is needed. */
+  min-height: 100vh;
+  margin-top: 0;
   padding-top: 2rem;                  /* Extra breathing room on mobile */
   background: linear-gradient(135deg, rgba(11,45,94,0.96), rgba(1,117,194,0.89)),
               url('/assets/images/admin-hero.jpg') center/cover no-repeat fixed;
@@ -531,14 +532,6 @@ body { margin: 0; font-family: 'Inter', system-ui, sans-serif; line-height: 1.7;
   #leadershipGrid,
   #dynamicDepartmentsGrid {
     grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Mobile adjustment – header shrinks on scroll or mobile */
-@media (max-width: 992px) {
-  .page-hero {
-    min-height: calc(100vh - 80px);
-    margin-top: 80px;
   }
 }
 

@@ -68,9 +68,11 @@
 
 /* ==================================
    1. Page Hero (About Hero Banner)
+   Note: header is fixed, so we offset the hero to avoid overlap.
 ================================== */
 .page-hero {
-  min-height: 75vh;
+  min-height: calc(75vh - 90px);
+  margin-top: 90px;
   background: linear-gradient(135deg, rgba(11,45,94,0.94), rgba(1,117,194,0.88)),
               url('/assets/images/about-hero.jpg') center/cover no-repeat fixed;
   display: grid;
@@ -346,7 +348,7 @@
 
 /* ==================================
    7. Principal's Message Section
-   Classes: .principal-message-grid, .message-content, .principal-photo, .principal-timeline
+   Classes: .principal-message-grid, .message-content, .principal-sidebar, .principal-photo, .principal-timeline
 ================================== */
 .principal-message-grid {
   display: grid;
@@ -354,6 +356,11 @@
   gap: 5rem;
   align-items: start;
   margin-top: 5rem;
+}
+.principal-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 .message-content h2 {
   font-size: 2.8rem;
@@ -414,14 +421,50 @@
     grid-template-columns: 1fr;
     gap: 4rem;
   }
-  .about-image { order: -1; }
-  .principal-photo { text-align: center; }
+  .about-image {
+    order: -1;
+    position: relative;
+    top: auto;
+  }
+  .principal-sidebar {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .principal-photo {
+    text-align: center;
+  }
+  .stats {
+    padding: 3rem 2rem;
+  }
 }
 
 @media (max-width: 768px) {
   .section { padding: 80px 0; }
-  .page-hero { min-height: 65vh; }
-  .stats { grid-template-columns: 1fr 1fr; padding: 2.5rem 1.5rem; }
+  .page-hero {
+    min-height: calc(65vh - 80px);
+    margin-top: 80px;
+  }
+  .about-text h2 {
+    font-size: clamp(2.2rem, 5vw, 3rem);
+  }
+  .stats {
+    grid-template-columns: 1fr 1fr;
+    padding: 2.5rem 1.5rem;
+  }
+  .timeline {
+    padding: 2.5rem 2rem;
+  }
+  .principal-message-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .principal-photo img {
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .principal-timeline ul {
+    padding-left: 0;
+  }
 }
 
 @media (max-width: 480px) {
@@ -432,5 +475,10 @@
   }
   .stat h3 { font-size: 3.4rem; }
   .vm-card,
-  .value-card { padding: 2.5rem 1.8rem; }
+  .value-card {
+    padding: 2.5rem 1.8rem;
+  }
+  .timeline {
+    padding: 2.2rem 1.6rem;
+  }
 }

@@ -27,8 +27,10 @@ body.page-student {
   font-family: 'Inter', system-ui, sans-serif;
   line-height: 1.75;
   color: #333;
-  ;
   background: white;
+}
+.section {
+  padding: 100px 0;
 }
 .container {
   max-width: 1380px;
@@ -40,8 +42,10 @@ body.page-student {
    1. Hero – Below Fixed Header
 ================================== */
 .page-hero {
-  min-height: calc(100vh - 90px);
-  margin-top: 90px;
+  /* Body already has top padding from the fixed header, so no extra margin is needed. */
+  min-height: 100vh;
+  margin-top: 0;
+  padding-top: 2rem;
   background: linear-gradient(135deg, rgba(11,45,94,0.97), rgba(1,117,194,0.91)),
               url('/assets/images/student-life-hero.jpg') center/cover no-repeat fixed;
   display: grid;
@@ -387,7 +391,6 @@ body.page-student {
   }
 }
 @media (max-width: 992px) {
-  .page-hero { min-height: calc(100vh - 80px); margin-top: 80px; }
   .intro-grid { grid-template-columns: 1fr; text-align: center; }
 }
 @media (max-width: 768px) {
@@ -398,9 +401,27 @@ body.page-student {
     gap: 3.5rem;
   }
   .quick-nav a { display: block; margin: 0.5rem 0; padding: 1rem; }
+
+  /* Make events timeline single-column and centered on tablets/phones */
+  #events .events-timeline {
+    padding-left: 0;
+    margin: 4rem auto;
+  }
+  #events .events-timeline::before {
+    display: none;
+  }
+  .event-month {
+    padding-left: 0;
+    margin-bottom: 3.5rem;
+  }
+  .event-month::before {
+    position: static;
+    margin: 0 auto 1.5rem;
+    width: 80px;
+    height: 80px;
+  }
 }
 @media (max-width: 640px) {
-  .page-hero { min-height: calc(100vh - 70px); margin-top: 70px; }
   .section { padding: 90px 0; }
   .house-card,
   .activity-card,

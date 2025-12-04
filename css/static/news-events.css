@@ -81,13 +81,14 @@ body.page-news {
    2. Main Section – #latest-news
 ================================== */
 #latest-news {
-  padding: 130px 0;
+  padding: 110px 0;
   background: #f8fbff;
 }
 
 /* Search Bar */
 #latest-news .search-bar {
   display: flex;
+  align-items: stretch;
   max-width: 800px;
   margin: 0 auto 4rem;
   border-radius: 70px;
@@ -99,7 +100,7 @@ body.page-news {
   flex: 1;
   border: none;
   padding: 1.6rem 3rem 1.6rem 2.5rem;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   outline: none;
 }
 #latest-news .search-bar button {
@@ -109,6 +110,7 @@ body.page-news {
   padding: 0 3.2rem;
   cursor: pointer;
   transition: var(--transition);
+  white-space: nowrap;
 }
 #latest-news .search-bar button:hover {
   background: var(--blue-dark);
@@ -950,7 +952,7 @@ body.page-news {
   #studentBlogs .blog-info,
   #submitBlog .form-wrapper {
     padding: 4rem 3.5rem;
-    border-radius: 36 끌px;
+    border-radius: 36px;
   }
 }
 @media (max-width: 768px) {
@@ -993,6 +995,14 @@ body.page-news {
   .page-hero.news-hero { min-height: calc(100vh - 80px); margin-top: 80px; }
 }
 @media (max-width: 768px) {
+  #latest-news {
+    padding: 90px 0;
+  }
+
+  #latest-news .search-bar {
+    margin: 0 1rem 3rem;
+  }
+
   #newsGrid.news-grid,
   #eventPhotos.photo-highlights-grid,
   #spotlightProfiles.spotlight-cards,
@@ -1006,6 +1016,28 @@ body.page-news {
    .page-hero.news-hero { min-height: calc(100vh - 70px); margin-top: 70px; }
    .news-thumb { height: 260px; }
    .news-body { padding: 2.5rem; }
+  #latest-news .search-bar {
+    flex-direction: column;
+    border-radius: 24px;
+  }
+  #latest-news .search-bar input {
+    padding: 1.2rem 1.5rem;
+    font-size: 1rem;
+  }
+  #latest-news .search-bar button {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    text-align: center;
+  }
+  #latest-news .news-controls {
+    gap: 0.6rem;
+    margin: 2.5rem 0 4rem;
+  }
+  #latest-news .filter-btn {
+    padding: 0.8rem 1.4rem;
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 480px) {
