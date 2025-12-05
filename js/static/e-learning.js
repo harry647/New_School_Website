@@ -98,48 +98,163 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ========================================
-  // 3. MOBILE RESPONSIVE ENHANCEMENTS
+  // 3. ENHANCED MOBILE RESPONSIVE ENHANCEMENTS
   // ========================================
 
-  // FAQ Accordion on mobile
-  if (window.innerWidth <= 768) {
+  // FAQ Accordion functionality with smooth animations
+  function initializeFAQ() {
     document.querySelectorAll(".faq-item").forEach(item => {
       const question = item.querySelector(".faq-question");
       const answer = item.querySelector(".faq-answer");
 
-      question.style.cursor = "cursor:pointer; padding:1rem 0; border-bottom:1px solid #eee;";
-      question.addEventListener("click", () => {
-        const isOpen = item.classList.toggle("open");
-        answer.style.maxHeight = isOpen ? answer.scrollHeight + "px" : "0";
-      });
-
-      // Add chevron
-      if (!question.querySelector("i")) {
-        question.innerHTML += ' <i class="fas fa-chevron-down float-right"></i>';
+      if (question && answer) {
+        // Initialize answer as collapsed
+        answer.style.maxHeight = "0";
+        answer.style.opacity = "0";
+        answer.style.transform = "translateY(-10px)";
+        
+        // Add chevron icon if not present
+        if (!question.querySelector("i")) {
+          question.innerHTML += ' <i class="fas fa-chevron-down"></i>';
+        }
+        
+        question.addEventListener("click", () => {
+          const isOpen = item.classList.toggle("open");
+          
+          // Smooth animation for answer height
+          if (isOpen) {
+            answer.style.maxHeight = answer.scrollHeight + "px";
+            answer.style.opacity = "1";
+            answer.style.transform = "translateY(0)";
+          } else {
+            answer.style.maxHeight = "0";
+            answer.style.opacity = "0";
+            answer.style.transform = "translateY(-10px)";
+          }
+        });
+        
+        // Add keyboard support
+        question.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            question.click();
+          }
+        });
       }
     });
   }
+  
+  // Initialize FAQ on page load
+  initializeFAQ();
 
-  // Features grid – stack on mobile
-  const featuresGrid = document.querySelector(".features-grid");
-  if (featuresGrid && window.innerWidth <= 768) {
-    featuresGrid.style.gridTemplateColumns = "1fr";
-  }
+  // Enhanced scroll reveal animations
+  const revealElements = document.querySelectorAll('.feature-box, .testimonial-card, .faq-item, .quick-card, .elearning-features li, .app-features li');
 
-  // App promo layout
-  const appPromo = document.querySelector(".app-promo");
-  if (appPromo && window.innerWidth <= 768) {
-    appPromo.style.flexDirection = "column";
-    appPromo.querySelector(".app-image")?.style.setProperty("order", "-1");
+  const revealOnScroll = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = "1";
+          entry.target.style.transform = "translateY(0) scale(1)";
+        }, index * 100); // Staggered animation
+      }
+    });
+  }, { 
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  });
+
+  revealElements.forEach(el => {
+    el.style.opacity = "0";
+    el.style.transform = "translateY(30px) scale(0.95)";
+    el.style.transition = "all 0.8s cubic-bezier(0.4, 0, 0.2, 1)";
+    revealOnScroll.observe(el);
+  });
+
+  // ========================================
+  // 4. ENHANCED INTERACTIONS & MICRO-ANIMATIONS
+  // ========================================
+
+  // Enhanced feature box interactions
+  document.querySelectorAll('.feature-box').forEach(box => {
+    box.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-15px) scale(1.02)';
+      
+      // Add ripple effect
+      const ripple = document.createElement('div');
+      ripple.style.cssText = `
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(1, 117, 194, 0.3);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+        top: 50%;
+        left: 50%;
+        width: 100px;
+        height: 100px;
+        margin-left: -50px;
+        margin-top: -50px;
+      `;
+      
+      this.style.position = 'relative';
+      this.appendChild(ripple);
+      
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    });
+
+    box.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0) scale(1)';
+    });
+  });
+
+  // Enhanced quick card interactions
+  document.querySelectorAll('.quick-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+      this.style.transform = 'translateY(-12px) scale(1.03)';
+      
+      // Add subtle glow effect
+      this.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 30px rgba(139, 92, 246, 0.4)';
+    });
+
+    card.addEventListener('mouseleave', function() {
+      this.style.transform = 'translateY(0) scale(1)';
+      this.style.boxShadow = '';
+    });
+  });
+
+  // Add CSS for ripple animation
+  if (!document.querySelector('#ripple-animation-style')) {
+    const style = document.createElement('style');
+    style.id = 'ripple-animation-style';
+    style.textContent = `
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
   }
 
   // ========================================
-  // 4. BACK TO TOP BUTTON
+  // 5. BACK TO TOP BUTTON - ENHANCED
   // ========================================
   const backToTop = document.getElementById("backToTop");
   if (backToTop) {
     window.addEventListener("scroll", () => {
-      backToTop.classList.toggle("show", window.scrollY > 500);
+      if (window.scrollY > 500) {
+        backToTop.classList.add("show");
+        backToTop.style.opacity = "1";
+        backToTop.style.transform = "translateY(0)";
+      } else {
+        backToTop.classList.remove("show");
+        backToTop.style.opacity = "0";
+        backToTop.style.transform = "translateY(20px)";
+      }
     });
 
     backToTop.addEventListener("click", () => {
@@ -148,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ========================================
-  // 5. SMOOTH SCROLL FOR ANCHOR LINKS
+  // 6. SMOOTH SCROLL FOR ANCHOR LINKS
   // ========================================
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener("click", function (e) {
@@ -169,23 +284,102 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // ========================================
-  // 6. SCROLL REVEAL ANIMATIONS (AOS-style fallback)
+  // 7. ENHANCED MOBILE OPTIMIZATIONS
   // ========================================
-  const revealElements = document.querySelectorAll('.feature-box, .testimonial-card, .faq-item, .quick-card');
 
-  const revealOnScroll = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = "1";
-        entry.target.style.transform = "translateY(0)";
+  // Mobile touch interactions
+  if (window.innerWidth <= 768) {
+    // Add touch feedback
+    document.querySelectorAll('.feature-box, .quick-card, .faq-item').forEach(element => {
+      element.addEventListener('touchstart', function() {
+        this.style.transform = 'scale(0.98)';
+        this.style.transition = 'transform 0.1s ease';
+      });
+
+      element.addEventListener('touchend', function() {
+        this.style.transform = 'scale(1)';
+      });
+    });
+
+    // Improve mobile scrolling performance
+    document.body.style.webkitOverflowScrolling = 'touch';
+  }
+
+  // ========================================
+  // 8. LOADING ANIMATIONS
+  // ========================================
+  
+  // Page load animation
+  window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+    
+    // Animate intro elements with stagger
+    const introElements = document.querySelectorAll('.elearning-intro > *');
+    introElements.forEach((el, index) => {
+      setTimeout(() => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, index * 200);
+    });
+  });
+
+  // ========================================
+  // 9. PERFORMANCE OPTIMIZATIONS
+  // ========================================
+  
+  // Throttle scroll events for better performance
+  let ticking = false;
+  
+  function updateScrollEffects() {
+    // Update scroll-based effects here
+    ticking = false;
+  }
+  
+  function requestScrollUpdate() {
+    if (!ticking) {
+      requestAnimationFrame(updateScrollEffects);
+      ticking = true;
+    }
+  }
+  
+  window.addEventListener('scroll', requestScrollUpdate);
+
+  // ========================================
+  // 10. ACCESSIBILITY ENHANCEMENTS
+  // ========================================
+  
+  // Keyboard navigation for FAQ items
+  document.querySelectorAll('.faq-question').forEach(question => {
+    question.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.click();
       }
     });
-  }, { threshold: 0.1 });
-
-  revealElements.forEach(el => {
-    el.style.opacity = "0";
-    el.style.transform = "translateY(30px)";
-    el.style.transition = "all 0.8s ease";
-    revealOnScroll.observe(el);
   });
+
+  // Focus management for modal-like interactions
+  document.querySelectorAll('.feature-box, .quick-card').forEach(element => {
+    element.setAttribute('tabindex', '0');
+    element.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        // Trigger click if element is a link or button
+        const link = this.querySelector('a');
+        if (link) {
+          link.click();
+        }
+      }
+    });
+  });
+
+  // ========================================
+  // 11. CONSOLE WELCOME MESSAGE
+  // ========================================
+  console.log(`
+    🎓 Welcome to Bar Union Mixed Secondary School E-Learning Portal!
+    📱 Mobile-first design with advanced animations
+    ✨ Enhanced with modern UX patterns
+    🚀 Powered by cutting-edge web technologies
+  `);
 });

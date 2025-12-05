@@ -1,429 +1,880 @@
 /* ==================================================
    ADMISSIONS PAGE – BAR UNION MIXED SECONDARY SCHOOL
-   FINAL 2025–2026 ULTRA-PREMIUM EDITION
-   100% matches your current admissions.html – ZERO issues
+   ULTRA-PREMIUM STUNNING EDITION 2025–2026
+   Professional, Mobile-Responsive, Eye-Catching Design
 ================================================== */
 
 :root {
-   --blue: #0175C2;
-   --blue-dark: #0b2d5e;
+   --primary-blue: #0175C2;
+   --primary-dark: #0b2d5e;
    --gold: #ffd700;
    --gold-light: #ffed4e;
-   --gray: #555;
-   --gray-light: #777;
+   --emerald: #10b981;
+   --purple: #8b5cf6;
+   --orange: #f97316;
+   --gray: #64748b;
+   --gray-light: #94a3b8;
    --light: #f8fafc;
+   --dark: #1e293b;
+   --white: #ffffff;
    --radius: 32px;
-   --shadow-xs: 0 6px 18px rgba(0,0,0,0.08);
-   --shadow-sm: 0 12px 35px rgba(0,0,0,0.1);
-   --shadow-md: 0 20px 50px rgba(0,0,0,0.15);
-   --shadow-lg: 0 35px 80px rgba(0,0,0,0.22);
-   --transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+   --shadow-xs: 0 4px 20px rgba(0,0,0,0.06);
+   --shadow-sm: 0 8px 30px rgba(0,0,0,0.08);
+   --shadow-md: 0 15px 40px rgba(0,0,0,0.12);
+   --shadow-lg: 0 25px 60px rgba(0,0,0,0.18);
+   --shadow-xl: 0 40px 80px rgba(0,0,0,0.25);
+   --transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
    --font-primary: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
    --font-heading: 'Playfair Display', serif;
-   /* Dark mode variables */
-   --bg-primary: #ffffff;
-   --bg-secondary: #f8fafc;
-   --text-primary: #1e293b;
-   --text-secondary: #64748b;
-   --card-bg: #ffffff;
-   --border-color: rgba(0,0,0,0.1);
+   
+   /* Enhanced color palette */
+   --gradient-primary: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
+   --gradient-gold: linear-gradient(135deg, var(--gold), var(--gold-light));
+   --gradient-emerald: linear-gradient(135deg, #059669, var(--emerald));
+   --gradient-purple: linear-gradient(135deg, #7c3aed, var(--purple));
+   --gradient-orange: linear-gradient(135deg, #ea580c, var(--orange));
+   --gradient-hero: linear-gradient(135deg, rgba(11,45,94,0.98), rgba(1,117,194,0.93), rgba(139,92,246,0.85));
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-   :root {
-     --bg-primary: #0f172a;
-     --bg-secondary: #1e293b;
-     --text-primary: #f1f5f9;
-     --text-secondary: #cbd5e1;
-     --card-bg: #1e293b;
-     --border-color: rgba(255,255,255,0.1);
-     --shadow-xs: 0 6px 18px rgba(0,0,0,0.3);
-     --shadow-sm: 0 12px 35px rgba(0,0,0,0.4);
-     --shadow-md: 0 20px 50px rgba(0,0,0,0.5);
-     --shadow-lg: 0 35px 80px rgba(0,0,0,0.6);
-   }
-   body { background: var(--bg-primary); color: var(--text-primary); }
-   .requirement-card, .card { background: var(--card-bg); border-color: var(--border-color); color: var(--text-primary); }
-   .section-title h2 { color: var(--text-primary); }
-   .page-hero { background: linear-gradient(135deg, rgba(11,45,94,0.97), rgba(1,117,194,0.91)), url('/assets/images/admissions-hero.jpg') center/cover no-repeat fixed; }
-   .timeline-content p, .requirement-card p, .dates-list li { color: var(--text-secondary); }
-   .form-wrapper { background: var(--card-bg); }
+/* Global Styles */
+* {
+   box-sizing: border-box;
 }
 
-/* ==================================
-   Global
-================================== */
 body.page-admissions {
-  margin: 0;
-  font-family: 'Inter', system-ui, sans-serif;
-  line-height: 1.75;
-  color: #333;
-  background: white;
-}
-.container {
-  max-width: 1380px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+   margin: 0;
+   font-family: var(--font-primary);
+   line-height: 1.75;
+   color: var(--dark);
+   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+   overflow-x: hidden;
 }
 
-/* ==================================
-   1. Hero – Below Fixed Header
-================================== */
+.container {
+   max-width: 1380px;
+   margin: 0 auto;
+   padding: 0 1.5rem;
+}
+
+/* Enhanced Animation Classes */
+@keyframes fadeInUp {
+   from {
+      opacity: 0;
+      transform: translateY(40px);
+   }
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+
+@keyframes float {
+   0%, 100% { transform: translateY(0px); }
+   50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+   0%, 100% { transform: scale(1); }
+   50% { transform: scale(1.05); }
+}
+
+@keyframes shimmer {
+   0% { background-position: -200px 0; }
+   100% { background-position: calc(200px + 100%) 0; }
+}
+
+@keyframes gradientShift {
+   0%, 100% { background-position: 0% 50%; }
+   50% { background-position: 100% 50%; }
+}
+
+.fade-in {
+   opacity: 0;
+   animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.visible {
+   opacity: 1;
+   transform: translateY(0);
+}
+
+/* Enhanced Hero Section */
 .page-hero {
-  min-height: calc(100vh - 90px);
-  margin-top: 90px;
-  background: linear-gradient(135deg, rgba(11,45,94,0.97), rgba(1,117,194,0.91)),
-              url('/assets/images/admissions-hero.jpg') center/cover no-repeat fixed;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  color: white;
-  position: relative;
-  overflow: hidden;
+   min-height: calc(100vh - 90px);
+   margin-top: 90px;
+   background: var(--gradient-hero),
+               url('/assets/images/common/hero-bg.jpg') center/cover no-repeat fixed;
+   display: grid;
+   place-items: center;
+   text-align: center;
+   color: white;
+   position: relative;
+   overflow: hidden;
 }
+
 .page-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, transparent 35%, rgba(0,0,0,0.7));
+   content: '';
+   position: absolute;
+   inset: 0;
+   background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.7));
+   z-index: 1;
 }
+
+.page-hero::after {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='7' cy='7' r='7'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+   z-index: 2;
+}
+
+.page-hero .container {
+   position: relative;
+   z-index: 3;
+}
+
 .page-hero h1 {
    font-family: var(--font-heading);
-   font-size: clamp(3.8rem, 9vw, 7.2rem);
+   font-size: clamp(4rem, 10vw, 8rem);
    font-weight: 900;
-   margin: 0 0 1.8rem;
-   background: linear-gradient(135deg, white, #f0f9ff);
+   margin: 0 0 2rem;
+   background: var(--gradient-gold);
    -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;
-   text-shadow: 0 15px 50px rgba(0,0,0,0.8);
+   text-shadow: 0 20px 60px rgba(0,0,0,0.8);
+   animation: pulse 3s ease-in-out infinite;
 }
+
 .page-hero p {
-  font-size: clamp(1.3rem, 3.2vw, 1.8rem);
-  max-width: 960px;
-  opacity: 0.96;
-  line-height: 1.9;
-  margin: 1.4rem auto;
+   font-size: clamp(1.4rem, 3.5vw, 2rem);
+   max-width: 1000px;
+   opacity: 0.98;
+   line-height: 1.8;
+   margin: 1.5rem auto;
+   text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
-/* ==================================
-   2. Section Titles
-================================== */
+/* Enhanced Buttons */
+.btn {
+   display: inline-block;
+   padding: 1rem 2.5rem;
+   font-size: 1.1rem;
+   font-weight: 600;
+   text-decoration: none;
+   border-radius: 50px;
+   border: none;
+   cursor: pointer;
+   transition: var(--transition);
+   position: relative;
+   overflow: hidden;
+   z-index: 1;
+}
+
+.btn-primary {
+   background: var(--gradient-primary);
+   color: white;
+   box-shadow: var(--shadow-md);
+}
+
+.btn-primary::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: -100%;
+   width: 100%;
+   height: 100%;
+   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+   transition: left 0.8s;
+   z-index: -1;
+}
+
+.btn-primary:hover::before {
+   left: 100%;
+}
+
+.btn-primary:hover {
+   transform: translateY(-8px) scale(1.05);
+   box-shadow: var(--shadow-xl);
+   background: var(--gradient-gold);
+   color: var(--primary-dark);
+}
+
+.btn.large {
+   padding: 1.5rem 4rem;
+   font-size: 1.3rem;
+   font-weight: 700;
+}
+
+.btn.small {
+   padding: 0.8rem 2rem;
+   font-size: 1rem;
+}
+
+/* Enhanced Section Styles */
 .section {
-  padding: 110px 0;
+   padding: 140px 0;
+   position: relative;
 }
+
+.section.bg-light {
+   background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+}
+
 .section-title {
-  text-align: center;
-  margin-bottom: 5rem;
+   text-align: center;
+   margin-bottom: 6rem;
 }
+
 .section-title h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(3rem, 7vw, 4.4rem);
-  font-weight: 900;
-  color: var(--blue-dark);
-  position: relative;
-  display: inline-block;
+   font-family: var(--font-heading);
+   font-size: clamp(3.2rem, 8vw, 5rem);
+   font-weight: 900;
+   background: var(--gradient-primary);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   position: relative;
+   display: inline-block;
+   margin-bottom: 2rem;
 }
+
 .section-title h2::after {
-  content: '';
-  position: absolute;
-  bottom: -20px; left: 50%;
-  transform: translateX(-50%);
-  width: 140px; height: 8px;
-  background: linear-gradient(90deg, var(--blue-dark), var(--blue));
-  border-radius: 6px;
-  box-shadow: 0 8px 25px rgba(1,117,194,0.4);
+   content: '';
+   position: absolute;
+   bottom: -25px;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 160px;
+   height: 10px;
+   background: var(--gradient-gold);
+   border-radius: 8px;
+   box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+   animation: gradientShift 3s ease-in-out infinite;
+   background-size: 200% 200%;
 }
+
 .section-title p {
-  margin-top: 2.5rem;
-  font-size: 1.25rem;
-  color: var(--gray);
-  max-width: 840px;
-  margin-left: auto;
-  margin-right: auto;
+   font-size: 1.3rem;
+   color: var(--gray);
+   max-width: 900px;
+   margin: 3rem auto 0;
+   line-height: 1.8;
 }
 
-/* ==================================
-   3. Timeline – #process
-================================== */
+/* Enhanced Timeline */
 #process .timeline {
-  position: relative;
-  max-width: 1000px;
-  margin: 5rem auto;
-  padding-left: 5rem;
+   position: relative;
+   max-width: 1100px;
+   margin: 6rem auto;
+   padding-left: 6rem;
 }
+
 #process .timeline::before {
-  content: '';
-  position: absolute;
-  left: 2.5rem;
-  top: 0; bottom: 0;
-  width: 6px;
-  background: linear-gradient(to bottom, var(--blue-dark), var(--blue));
-  border-radius: 6px;
+   content: '';
+   position: absolute;
+   left: 3rem;
+   top: 0;
+   bottom: 0;
+   width: 8px;
+   background: var(--gradient-primary);
+   border-radius: 8px;
+   box-shadow: var(--shadow-lg);
 }
+
 .timeline-item {
-  position: relative;
-  margin-bottom: 4.5rem;
-  padding-left: 6rem;
+   position: relative;
+   margin-bottom: 5rem;
+   padding-left: 8rem;
+   opacity: 0;
+   transform: translateX(-50px);
+   transition: var(--transition);
 }
+
+.timeline-item.visible {
+   opacity: 1;
+   transform: translateX(0);
+}
+
 .timeline-icon {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 80px;
-  height: 80px;
-  background: white;
-  border: 6px solid var(--blue);
-  color: var(--blue-dark);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 2.2rem;
-  box-shadow: var(--shadow-lg);
+   position: absolute;
+   left: 0;
+   top: 0;
+   width: 100px;
+   height: 100px;
+   background: var(--gradient-gold);
+   color: var(--primary-dark);
+   border-radius: 50%;
+   display: grid;
+   place-items: center;
+   font-size: 2.5rem;
+   box-shadow: var(--shadow-xl);
+   border: 6px solid white;
+   animation: float 3s ease-in-out infinite;
 }
+
+.timeline-item:nth-child(even) .timeline-icon {
+   background: var(--gradient-emerald);
+   color: white;
+}
+
 .timeline-item:hover .timeline-icon {
-  transform: scale(1.15);
-  background: var(--blue);
-  color: white;
+   transform: scale(1.2) rotate(360deg);
+   box-shadow: var(--shadow-xl);
 }
+
+.timeline-content {
+   background: white;
+   padding: 3rem;
+   border-radius: 24px;
+   box-shadow: var(--shadow-lg);
+   border: 1px solid rgba(1,117,194,0.1);
+   transition: var(--transition);
+   position: relative;
+}
+
+.timeline-content::before {
+   content: '';
+   position: absolute;
+   left: -15px;
+   top: 30px;
+   width: 0;
+   height: 0;
+   border-style: solid;
+   border-width: 15px 15px 15px 0;
+   border-color: transparent white transparent transparent;
+}
+
+.timeline-content:hover {
+   transform: translateY(-10px);
+   box-shadow: var(--shadow-xl);
+}
+
 .timeline-content h3 {
-  font-size: 1.9rem;
-  font-weight: 800;
-  color: var(--blue-dark);
-  margin: 0 0 1.2rem;
+   font-size: 2rem;
+   font-weight: 800;
+   color: var(--primary-dark);
+   margin: 0 0 1.5rem;
+   background: var(--gradient-primary);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
 }
+
 .timeline-content p {
-  font-size: 1.15rem;
-  color: var(--gray);
-  line-height: 1.9;
+   font-size: 1.2rem;
+   color: var(--gray);
+   line-height: 1.8;
 }
 
-/* ==================================
-   4. Requirements – #requirements
-================================== */
+/* Enhanced Requirements Grid */
 #requirements .requirements-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 4rem;
-  margin: 5rem auto 0;
-  justify-content: center;
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+   gap: 3rem;
+   margin: 6rem auto 0;
 }
+
 .requirement-card {
-  background: white;
-  border-radius: var(--radius);
-  padding: 3.8rem 3.2rem;
-  text-align: center;
-  box-shadow: var(--shadow-md);
-  border: 1px solid rgba(1,117,194,0.12);
-  transition: var(--transition);
+   background: white;
+   border-radius: var(--radius);
+   padding: 4rem 3rem;
+   text-align: center;
+   box-shadow: var(--shadow-md);
+   border: 1px solid rgba(1,117,194,0.1);
+   transition: var(--transition);
+   position: relative;
+   overflow: hidden;
+   opacity: 0;
+   transform: translateY(50px);
 }
+
+.requirement-card.visible {
+   opacity: 1;
+   transform: translateY(0);
+}
+
+.requirement-card::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   height: 6px;
+   background: var(--gradient-primary);
+}
+
+.requirement-card:nth-child(even)::before {
+   background: var(--gradient-emerald);
+}
+
+.requirement-card:nth-child(3n)::before {
+   background: var(--gradient-gold);
+}
+
 .requirement-card:hover {
-  transform: translateY(-24px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--blue);
+   transform: translateY(-20px) scale(1.03);
+   box-shadow: var(--shadow-xl);
 }
+
 .requirement-card i {
-  font-size: 5rem;
-  margin-bottom: 2rem;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+   font-size: 5.5rem;
+   margin-bottom: 2.5rem;
+   background: var(--gradient-primary);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   animation: pulse 2s ease-in-out infinite;
 }
+
+.requirement-card:nth-child(even) i {
+   background: var(--gradient-emerald);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+}
+
+.requirement-card:nth-child(3n) i {
+   background: var(--gradient-gold);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+}
+
 .requirement-card h4 {
-  font-size: 1.9rem;
-  font-weight: 800;
-  color: var(--blue-dark);
-  margin: 1.2rem 0;
+   font-size: 2rem;
+   font-weight: 800;
+   color: var(--primary-dark);
+   margin: 1.5rem 0;
 }
+
 .requirement-card p {
-  color: var(--gray);
-  line-height: 1.95;
-  font-size: 1.12rem;
+   color: var(--gray);
+   line-height: 1.9;
+   font-size: 1.15rem;
 }
 
-/* ==================================
-   5. Fees & Dates – #fees
-================================== */
+/* Enhanced Fees Section */
 #fees .grid-2 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-  gap: 4rem;
-  margin: 5rem auto;
-  justify-content: center;
-  max-width: 1200px;
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+   gap: 4rem;
+   margin: 6rem auto;
+   max-width: 1300px;
 }
+
 #fees .card {
-  background: white;
-  border-radius: var(--radius);
-  padding: 4rem 3.5rem;
-  box-shadow: var(--shadow-md);
-  border: 1px solid rgba(1,117,194,0.12);
+   background: white;
+   border-radius: var(--radius);
+   padding: 4.5rem 4rem;
+   box-shadow: var(--shadow-lg);
+   border: 1px solid rgba(1,117,194,0.1);
+   transition: var(--transition);
+   position: relative;
+   overflow: hidden;
 }
+
+#fees .card::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   height: 8px;
+   background: var(--gradient-primary);
+}
+
+#fees .card:nth-child(even)::before {
+   background: var(--gradient-emerald);
+}
+
 #fees .card:hover {
-  transform: translateY(-20px);
-  box-shadow: var(--shadow-lg);
+   transform: translateY(-15px);
+   box-shadow: var(--shadow-xl);
 }
+
 #fees .card h3 {
-  font-size: 2rem;
-  font-weight: 800;
-  color: var(--blue-dark);
-  margin: 0 0 2rem;
-  text-align: center;
+   font-size: 2.2rem;
+   font-weight: 800;
+   color: var(--primary-dark);
+   margin: 0 0 2.5rem;
+   text-align: center;
+   background: var(--gradient-primary);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
 }
+
 .dates-list {
-  list-style: none;
-  padding: 0;
-  margin: 1.5rem 0;
+   list-style: none;
+   padding: 0;
+   margin: 2rem 0;
 }
+
 .dates-list li {
-  font-size: 1.15rem;
-  color: var(--gray);
-  line-height: 2.2;
-  padding: 0.8rem 0;
-  border-bottom: 1px dashed rgba(1,0.15);
+   font-size: 1.2rem;
+   color: var(--gray);
+   line-height: 2.4;
+   padding: 1rem 0;
+   border-bottom: 1px solid rgba(1,0,15,0.1);
+   transition: var(--transition);
+   opacity: 0;
+   transform: translateX(-20px);
 }
+
+.dates-list li.visible {
+   opacity: 1;
+   transform: translateX(0);
+}
+
+.dates-list li:hover {
+   background: rgba(1,117,194,0.05);
+   padding-left: 1rem;
+}
+
 .dates-list li:last-child {
-  border-bottom: none;
+   border-bottom: none;
 }
 
-/* ==================================
-   6. Apply Form – #apply (NOW 100% WORKING)
-================================== */
+/* Enhanced Form Styles */
 #apply {
-  background: linear-gradient(135deg, #f0f5ff 0%, #e0eaff 100%);
-  padding: 140px 0;
-}
-#apply .form-wrapper {
-  background: rgba(255,255,255,0.97);
-  backdrop-filter: blur(20px);
-  padding: 6rem 6.5rem;
-  border-radius: 42px;
-  max-width: 1300px;
-  margin: 0 auto;
-  box-shadow: 0 35px 90px rgba(0,0,0,0.12), 0 0 80px rgba(1,117,194,0.18);
-  border: 1px solid rgba(1,117,194,0.15);
-  position: relative;
-  overflow: hidden;
-}
-#apply .form-wrapper::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 12px;
-  background: linear-gradient(90deg, var(--blue-dark), var(--blue), var(--gold));
-  border-radius: 42px 42px 0 0;
+   background: linear-gradient(135deg, #f0f5ff 0%, #e0eaff 50%, #fef7f0 100%);
+   padding: 160px 0;
 }
 
-/* CORRECT CLASS – This is now applied! */
+#apply .form-wrapper {
+   background: rgba(255,255,255,0.98);
+   backdrop-filter: blur(25px);
+   padding: 7rem 7rem;
+   border-radius: 48px;
+   max-width: 1400px;
+   margin: 0 auto;
+   box-shadow: var(--shadow-xl);
+   border: 1px solid rgba(1,117,194,0.2);
+   position: relative;
+   overflow: hidden;
+}
+
+#apply .form-wrapper::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   height: 12px;
+   background: var(--gradient-primary);
+   border-radius: 48px 48px 0 0;
+}
+
+#apply .form-wrapper::after {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%230175C2' fill-opacity='0.02'%3E%3Cpath d='M20 20.5V18H0v-2h20v-2H0v-2h20v-2H0V8h20V6H0V4h20V2H0V0h22v20H20z'/%3E%3C/g%3E%3C/svg%3E");
+   z-index: -1;
+}
+
 .admission-form .form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 2.8rem;
-  margin-bottom: 3.8rem;
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+   gap: 3rem;
+   margin-bottom: 4rem;
+}
+
+.form-group {
+   position: relative;
+}
+
+.form-group.full {
+   grid-column: 1 / -1;
 }
 
 .form-group label {
-  display: block;
-  margin-bottom: 0.9rem;
-  font-size: 1.18rem;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  color: var(--blue-dark);
+   display: block;
+   margin-bottom: 1rem;
+   font-size: 1.2rem;
+   font-weight: 700;
+   color: var(--primary-dark);
+   letter-spacing: 0.5px;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
-  width: 100%;
-  padding: 1.6rem 2rem;
-  font-size: 1.12rem;
-  font-family: inherit;
-  background: #f9fbff;
-  border: 2px solid #dde6ff;
-  border-radius: 22px;
-  transition: all 0.45s ease;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.03);
+   width: 100%;
+   padding: 2rem 2.5rem;
+   font-size: 1.15rem;
+   font-family: inherit;
+   background: linear-gradient(135deg, #f8fbff 0%, #f1f5ff 100%);
+   border: 2px solid #dbeafe;
+   border-radius: 24px;
+   transition: var(--transition);
+   box-shadow: inset 0 2px 8px rgba(0,0,0,0.04);
 }
 
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-  outline: none;
-  background: white;
-  border-color: var(--blue);
-  transform: translateY(-2px);
-  box-shadow: 0 0 0 6px rgba(1,117,194,0.17), 0 14px 36px rgba(1,117,194,0.11);
+   outline: none;
+   background: white;
+   border-color: var(--primary-blue);
+   transform: translateY(-4px);
+   box-shadow: 0 0 0 8px rgba(1,117,194,0.15), var(--shadow-lg);
 }
 
 .form-group textarea {
-  min-height: 140px;
-  resize: vertical;
+   min-height: 160px;
+   resize: vertical;
 }
 
 .admission-form button {
-  margin: 4.5rem auto 0;
-  display: block;
-  padding: 1.7rem 6.7rem;
-  color: white;
-  font-size: 1.38rem;
-  font-weight: 800;
-  letter-spacing: 1.3px;
-  cursor: pointer;
-  border: none;
-  border-radius: 75px;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  box-shadow: 0 22px 65px rgba(1,117,194,0.50);
-  position: relative;
-  overflow: hidden;
-  transition: all 0.6s ease;
+   margin: 5rem auto 0;
+   display: block;
+   padding: 2rem 8rem;
+   color: white;
+   font-size: 1.4rem;
+   font-weight: 800;
+   letter-spacing: 1.5px;
+   cursor: pointer;
+   border: none;
+   border-radius: 80px;
+   background: var(--gradient-primary);
+   box-shadow: var(--shadow-lg);
+   position: relative;
+   overflow: hidden;
+   transition: var(--transition);
 }
 
 .admission-form button::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 100%; height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
-  transition: left 0.75s;
+   content: '';
+   position: absolute;
+   top: 0;
+   left: -100%;
+   width: 100%;
+   height: 100%;
+   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+   transition: left 1s;
 }
 
 .admission-form button:hover::before {
-  left: 100%;
+   left: 100%;
 }
 
 .admission-form button:hover {
-  transform: translateY(-12px);
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  color: var(--blue-dark);
-  box-shadow: 0 35px 85px rgba(255,215,0,0.55);
+   transform: translateY(-8px) scale(1.05);
+   background: var(--gradient-gold);
+   color: var(--primary-dark);
+   box-shadow: var(--shadow-xl);
 }
 
 .form-note {
-  margin-top: 2.8rem;
-  font-size: 1.08rem;
-  ;
-  line-height: 1.85;
-  color: var(--gray);
-  opacity: 0.9;
+   margin-top: 3rem;
+   font-size: 1.1rem;
+   line-height: 1.9;
+   color: var(--gray);
+   text-align: center;
+   opacity: 0.9;
 }
 
-/* ==================================
-   7. RESPONSIVE – PERFECT EVERYWHERE
-================================== */
+/* Fee Table Enhancements */
+.table-wrapper {
+   margin: 2.5rem 0;
+   border-radius: 20px;
+   overflow: hidden;
+   box-shadow: var(--shadow-md);
+}
+
+.fee-table {
+   width: 100%;
+   border-collapse: collapse;
+   background: white;
+}
+
+.fee-table th {
+   background: var(--gradient-primary);
+   color: white;
+   padding: 1.5rem;
+   font-weight: 700;
+   font-size: 1.1rem;
+   text-align: left;
+}
+
+.fee-table td {
+   padding: 1.5rem;
+   border-bottom: 1px solid #e2e8f0;
+   font-size: 1.1rem;
+   color: var(--dark);
+}
+
+.fee-table tbody tr:hover {
+   background: rgba(1,117,194,0.05);
+   transform: scale(1.02);
+   transition: var(--transition);
+}
+
+.fee-table tbody tr:last-child td {
+   border-bottom: none;
+   font-weight: 700;
+   background: rgba(16,185,129,0.1);
+}
+
+.note {
+   background: linear-gradient(135deg, #fef3c7, #fde68a);
+   padding: 1.5rem;
+   border-radius: 16px;
+   border-left: 6px solid var(--gold);
+   margin: 2rem 0;
+   font-weight: 500;
+}
+
+/* Enhanced Mobile Responsiveness */
+@media (max-width: 1200px) {
+   .container {
+      padding: 0 2rem;
+   }
+   
+   #fees .grid-2 {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+   }
+}
+
 @media (max-width: 992px) {
-  .page-hero { min-height: calc(100vh - 80px); margin-top: 80px; }
+   .page-hero {
+      min-height: calc(100vh - 80px);
+      margin-top: 80px;
+   }
+   
+   .section {
+      padding: 100px 0;
+   }
+   
+   #requirements .requirements-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+   }
+   
+   .admission-form .form-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+   }
+   
+   #apply .form-wrapper {
+      padding: 4rem 3rem;
+   }
 }
+
 @media (max-width: 768px) {
-  .grid-2,
-  .requirements-grid {
-    grid-template-columns: 1fr;
-  }
-  .admission-form .form-grid {
-    grid-template-columns: 1fr;
-  }
+   .page-hero h1 {
+      font-size: clamp(3rem, 8vw, 5rem);
+   }
+   
+   .page-hero p {
+      font-size: clamp(1.2rem, 4vw, 1.6rem);
+   }
+   
+   .section-title h2 {
+      font-size: clamp(2.5rem, 7vw, 3.5rem);
+   }
+   
+   .timeline {
+      padding-left: 4rem;
+   }
+   
+   .timeline-item {
+      padding-left: 6rem;
+   }
+   
+   .timeline-icon {
+      width: 80px;
+      height: 80px;
+      font-size: 2rem;
+   }
+   
+   .timeline-content {
+      padding: 2rem;
+   }
+   
+   .requirement-card {
+      padding: 3rem 2rem;
+   }
+   
+   #fees .card {
+      padding: 3rem 2rem;
+   }
+   
+   .fee-table {
+      font-size: 0.9rem;
+   }
+   
+   .fee-table th,
+   .fee-table td {
+      padding: 1rem 0.8rem;
+   }
 }
+
 @media (max-width: 640px) {
-  .page-hero { min-height: calc(100vh - 70px); margin-top: 70px; }
-  #apply .form-wrapper { padding: 3.5rem 2.2rem; }
-  .admission-form button { padding: 1.4rem 4.5rem; font-size: 1.25rem; }
+   .page-hero {
+      min-height: calc(100vh - 70px);
+      margin-top: 70px;
+   }
+   
+   #apply .form-wrapper {
+      padding: 2.5rem 1.5rem;
+      margin: 0 1rem;
+   }
+   
+   .admission-form button {
+      padding: 1.5rem 4rem;
+      font-size: 1.2rem;
+   }
+   
+   .requirement-card {
+      padding: 2.5rem 1.5rem;
+   }
+   
+   .requirement-card i {
+      font-size: 4rem;
+   }
+}
+
+/* Dark Mode Enhancements */
+@media (prefers-color-scheme: dark) {
+   :root {
+      --dark: #f1f5f9;
+      --gray: #94a3b8;
+      --white: #1e293b;
+   }
+   
+   body.page-admissions {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: var(--dark);
+   }
+   
+   .requirement-card,
+   .card,
+   #apply .form-wrapper {
+      background: #1e293b;
+      border-color: rgba(255,255,255,0.1);
+      color: var(--dark);
+   }
+   
+   .section-title h2 {
+      background: linear-gradient(135deg, #60a5fa, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+   }
+   
+   .timeline-content {
+      background: #1e293b;
+      border-color: rgba(255,255,255,0.1);
+   }
+   
+   .fee-table {
+      background: #1e293b;
+      color: var(--dark);
+   }
+   
+   .fee-table th {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+   }
 }

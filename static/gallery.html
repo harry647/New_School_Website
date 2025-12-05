@@ -135,48 +135,44 @@
                 <button class="tab-btn" data-tab="messages">Messages & Greetings</button>
             </div>
 
-            <!-- Add these inside the videoGrid -->
-            <div class="video-item" data-category="events">
-                <div class="video-wrapper">
-                    <iframe 
-                        src="https://www.facebook.com/plugins/video.php?height=280&href=https%3A%2F%2Fweb.facebook.com%2FABAETV%2Fvideos%2F449467996545623%2F&show_text=false&width=560&t=0"
-                        style="border:none;overflow:hidden"
-                        scrolling="no"
-                        frameborder="0"
-                        allowfullscreen="true"
-                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                    </iframe>
-                </div>
-                <p class="video-title text-center mt-2">Guests Visit</p>
-                <p class="video-description text-center mt-1">
-                    This video captures a special visit by a prominent politician to our school. During the visit, the guest donated funds to support student welfare and recommended teachers for their dedication and service. The visit was made possible through the courtesy and support of the President, and the highlight showcases key moments from the event.
-                </p>
-
-            </div>
-
-            <div class="video-item" data-category="school-life">
-                <div class="video-wrapper">
-                    <iframe 
-                        src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2Fsoulhunter010%2Fvideos%2F1143422126903805%2F%3Fidorvanity%3D466873166757176&show_text=false&width=560&t=0"
-                        style="border:none;overflow:hidden"
-                        scrolling="no"
-                        frameborder="0"
-                        allowfullscreen="true"
-                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                    </iframe>
-                </div>
-                <p class="video-title text-center mt-2">Student Moments</p>
-                <p class="video-description text-justify mt-1">
-                    This video showcases our students in action during football training sessions, highlighting teamwork, discipline, and sportsmanship. It captures the dedication of both players and coaches as they prepare for inter-school competitions, reflecting our commitment to holistic student development.
-                </p>
-
-            </div>
-
-            <!-- Video Grid — Dynamic Ready -->
+            <!-- Video Grid -->
             <div class="video-grid" id="videoGrid" role="region" aria-label="Video gallery">
-                <div class="loader text-center">
-                    <i class="fas fa-spinner fa-spin fa-3x"></i>
-                    <p>Loading videos, please wait...</p>
+                <!-- Static Video 1 - Guests Visit -->
+                <div class="video-item" data-category="events">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.facebook.com/plugins/video.php?height=280&href=https%3A%2F%2Fweb.facebook.com%2FABAETV%2Fvideos%2F449467996545623%2F&show_text=false&width=560&t=0"
+                            style="border:none;overflow:hidden"
+                            scrolling="no"
+                            frameborder="0"
+                            allowfullscreen="true"
+                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                    <h3 class="video-title">Guests Visit</h3>
+                    <p class="video-description">
+                        This video captures a special visit by a prominent politician to our school. During the visit, the guest donated funds to support student welfare and recommended teachers for their dedication and service.
+                    </p>
+                </div>
+
+                <!-- Static Video 2 - Student Moments -->
+                <div class="video-item" data-category="school-life">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2Fsoulhunter010%2Fvideos%2F1143422126903805%2F%3Fidorvanity%3D466873166757176&show_text=false&width=560&t=0"
+                            style="border:none;overflow:hidden"
+                            scrolling="no"
+                            frameborder="0"
+                            allowfullscreen="true"
+                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                    <h3 class="video-title">Student Moments</h3>
+                    <p class="video-description">
+                        This video showcases our students in action during football training sessions, highlighting teamwork, discipline, and sportsmanship as they prepare for inter-school competitions.
+                    </p>
                 </div>
             </div>
 

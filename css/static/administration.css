@@ -1,502 +1,624 @@
 /* ==================================================
    ADMINISTRATION PAGE – BAR UNION MIXED SECONDARY SCHOOL
-   FINAL 2025–2026 EDITION | Ultra-Premium • Fully Responsive • Pixel-Perfect
-   Works perfectly with your current HTML
+   STUNNING 2025 EDITION | Ultra-Premium • Fully Responsive • Pixel-Perfect
+   Enhanced with Premium Animations, Better Typography, and Mobile-First Design
 ================================================== */
 
 :root {
-  --blue: #0175C2;
-  --blue-dark: #0b2d5e;
-  --gold: #ffd700;
-  --gold-light: #ffed4e;
-  --gray: #555;
-  --gray-light: #777;
-  --light: #f8fafc;
-  --radius: 28px;
-  --shadow-sm: 0 12px 35px rgba(0,0,0,0.1);
-  --shadow-md: 0 20px 50px rgba(0,0,0,0.15);
-  --shadow-lg: 0 35px 80px rgba(0,0,0,0.22);
-  --transition: all 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Dark mode variables */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8fafc;
+  /* Enhanced Color Palette */
+  --primary-blue: #0175C2;
+  --primary-blue-dark: #0b2d5e;
+  --accent-gold: #FFD700;
+  --accent-gold-light: #FFED4E;
+  --accent-gradient: linear-gradient(135deg, #0175C2 0%, #0b2d5e 100%);
   --text-primary: #1e293b;
   --text-secondary: #64748b;
-  --card-bg: #ffffff;
-  --border-color: rgba(0,0,0,0.1);
+  --text-muted: #94a3b8;
+  --background-primary: #ffffff;
+  --background-secondary: #f8fafc;
+  --background-hero: linear-gradient(135deg, rgba(11,45,94,0.97), rgba(1,117,194,0.91));
+  --border-light: rgba(0,0,0,0.08);
+  --border-medium: rgba(0,0,0,0.12);
+  --shadow-soft: 0 4px 20px rgba(0,0,0,0.08);
+  --shadow-medium: 0 8px 30px rgba(0,0,0,0.12);
+  --shadow-strong: 0 20px 60px rgba(0,0,0,0.15);
+  --shadow-intense: 0 35px 80px rgba(0,0,0,0.22);
+  
+  /* Enhanced Typography */
+  --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Playfair Display', serif;
+  
+  /* Advanced Spacing */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-xxl: 6rem;
+  
+  /* Refined Border Radius */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 32px;
+  
+  /* Enhanced Transitions */
+  --transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* Dark mode support */
+/* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-primary: #0f172a;
-    --bg-secondary: #1e293b;
     --text-primary: #f1f5f9;
     --text-secondary: #cbd5e1;
-    --card-bg: #1e293b;
-    --border-color: rgba(255,255,255,0.1);
-    --shadow-sm: 0 12px 35px rgba(0,0,0,0.4);
-    --shadow-md: 0 20px 50px rgba(0,0,0,0.5);
-    --shadow-lg: 0 35px 80px rgba(0,0,0,0.6);
+    --text-muted: #94a3b8;
+    --background-primary: #0f172a;
+    --background-secondary: #1e293b;
+    --border-light: rgba(255,255,255,0.05);
+    --border-medium: rgba(255,255,255,0.1);
+    --shadow-soft: 0 4px 20px rgba(0,0,0,0.3);
+    --shadow-medium: 0 8px 30px rgba(0,0,0,0.4);
+    --shadow-strong: 0 20px 60px rgba(0,0,0,0.5);
+    --shadow-intense: 0 35px 80px rgba(0,0,0,0.6);
   }
-  body { background: var(--bg-primary); color: var(--text-primary); }
-  .bg-light { background: var(--bg-secondary); }
-  .info-card, .leader-card, .dept-card, .dept-head-card, .stat { background: var(--card-bg); border-color: var(--border-color); color: var(--text-primary); }
-  .section-title h2 { color: var(--text-primary); }
-  .page-hero { background: linear-gradient(135deg, rgba(11,45,94,0.97), rgba(1,117,194,0.91)), url('/assets/images/admin-hero.jpg') center/cover no-repeat fixed; }
-  .info-card p, .leader-card p, .dept-card p, .stat p { color: var(--text-secondary); }
-  .modal-content { background: var(--card-bg); color: var(--text-primary); }
 }
 
 /* ==================================
-   Global Reset & Layout
+   GLOBAL RESET & ENHANCED BASE STYLES
 ================================== */
 *,
 *::before,
-*::after { box-sizing: border-box; }
-body { margin: 0; font-family: 'Inter', system-ui, sans-serif; line-height: 1.7; color: #333; background: white; }
-.section { padding: 110px 0; }
-.container { max-width: 1380px; margin: 0 auto; padding: 0 1.5rem; }
-.bg-light { background: #f9fbff; }
-.text-center { text-align: center; }
+*::after { 
+  box-sizing: border-box; 
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body { 
+  margin: 0;
+  font-family: var(--font-primary);
+  line-height: 1.7;
+  color: var(--text-primary);
+  background: var(--background-primary);
+  overflow-x: hidden;
+}
+
+/* Enhanced Container System */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.section {
+  padding: var(--space-xxl) 0;
+  position: relative;
+}
+
+.bg-light {
+  background: var(--background-secondary);
+}
+
+.text-center {
+  text-align: center;
+}
 
 /* ==================================
-   1. Hero Banner – Cinematic & Elegant
+   1. HERO SECTION – CINEMATIC EXCELLENCE
 ================================== */
 .page-hero {
-  min-height: calc(100vh - 90px);     /* 90px = your header height */
-  margin-top: 90px;                   /* Pushes hero down under the fixed header */
-  padding-top: 2rem;                  /* Extra breathing room on mobile */
-  background: linear-gradient(135deg, rgba(11,45,94,0.96), rgba(1,117,194,0.89)),
-              url('/assets/images/admin-hero.jpg') center/cover no-repeat fixed;
-
+  min-height: calc(100vh - 90px);
+  margin-top: 90px;
+  padding: var(--space-xl) 0;
+  
+  background: var(--background-hero),
+              url('/assets/images/common/admin-hero.png') center/cover no-repeat fixed;
+  
   display: grid;
   place-items: center;
   text-align: center;
   color: white;
   position: relative;
   overflow: hidden;
+  
+  /* Enhanced backdrop effects */
+  backdrop-filter: saturate(120%) blur(1px);
 }
+
 .page-hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, transparent 35%, rgba(0,0,0,0.65));
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(255,215,0,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(1,117,194,0.1) 0%, transparent 50%),
+    radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.3) 100%);
+  z-index: 1;
 }
+
+.page-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, rgba(248,250,252,1));
+  z-index: 2;
+}
+
+.page-hero .container {
+  position: relative;
+  z-index: 3;
+}
+
 .page-hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(3.6rem, 8.5vw, 7rem);
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6.5rem);
   font-weight: 900;
-  margin: 0 0 1.6rem;
-  background: linear-gradient(135deg, white, #e0f7ff);
+  margin: 0 0 var(--space-lg);
+  
+  background: linear-gradient(135deg, #ffffff 0%, #e0f7ff 50%, #ffffff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  text-shadow: 0 12px 45px rgba(0,0,0,0.7);
+  background-clip: text;
+  
+  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  
+  animation: heroFadeIn 1.5s ease-out;
 }
+
 .page-hero p {
-  font-size: clamp(1.25rem, 3vw, 1.7rem);
-  max-width: 920px;
-  opacity: 0.96;
-  line-height: 1.85;
-  margin: 1.2rem auto;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  max-width: 900px;
+  opacity: 0.95;
+  line-height: 1.8;
+  margin: var(--space-md) auto;
+  
+  animation: heroSlideUp 1.5s ease-out 0.3s both;
+}
+
+@keyframes heroFadeIn {
+  0% { opacity: 0; transform: translateY(30px) scale(0.9); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes heroSlideUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 /* ==================================
-   2. Section Titles – Premium Look
+   2. SECTION TITLES – PREMIUM TYPOGRAPHY
 ================================== */
 .section-title {
   text-align: center;
-  margin-bottom: 4.5rem;
+  margin-bottom: var(--space-xl);
+  position: relative;
 }
+
 .section-title h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.9rem, 6.5vw, 4.2rem);
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 900;
-  color: var(--blue-dark);
+  color: var(--primary-blue-dark);
   position: relative;
   display: inline-block;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
+
 .section-title h2::after {
   content: '';
   position: absolute;
-  bottom: -18px; left: 50%;
+  bottom: -20px;
+  left: 50%;
   transform: translateX(-50%);
-  width: 130px; height: 7px;
-  background: linear-gradient(90deg, var(--blue-dark), var(--blue));
-  border-radius: 4px;
-  box-shadow: 0 6px 22px rgba(1,117,194,0.35);
+  width: 120px;
+  height: 6px;
+  background: var(--accent-gradient);
+  border-radius: 3px;
+  box-shadow: 0 6px 25px rgba(1,117,194,0.4);
+  animation: titleUnderline 1s ease-out 0.8s both;
 }
+
+@keyframes titleUnderline {
+  0% { width: 0; transform: translateX(-50%) scaleX(0); }
+  100% { width: 120px; transform: translateX(-50%) scaleX(1); }
+}
+
 .section-title p {
-  margin-top: 2.2rem;
-  font-size: 1.22rem;
-  color: var(--gray);
-  max-width: 820px;
+  margin-top: var(--space-lg);
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+  line-height: 1.6;
+}
+
+.section-intro {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto var(--space-xl);
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
 }
 
 /* ==================================
-   3. Board of Management – #bom
+   3. BOARD OF MANAGEMENT – ENHANCED CARDS
 ================================== */
 #bom .grid-2,
 #bomGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 3rem;
-  margin-top: 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
 }
+
 .info-card {
-  background: white;
-  border-radius: var(--radius);
-  padding: 2.8rem 2.2rem;
-  box-shadow: var(--shadow-md);
-  border: 1px solid rgba(1,117,194,0.12);
-  transition: var(--transition);
+  background: var(--background-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-medium);
+  border: 1px solid var(--border-medium);
+  transition: var(--transition-smooth);
   height: 100%;
+  position: relative;
+  overflow: hidden;
+  
+  /* Enhanced entrance animation */
+  animation: cardSlideUp 0.8s ease-out;
 }
+
+.info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--accent-gradient);
+  transform: scaleX(0);
+  transition: var(--transition-smooth);
+}
+
+.info-card:hover::before {
+  transform: scaleX(1);
+}
+
 .info-card:hover {
-  transform: translateY(-14px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--blue);
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: var(--shadow-intense);
+  border-color: var(--primary-blue);
 }
+
 .info-card i {
-  font-size: 3.4rem;
-  margin-bottom: 1.4rem;
+  font-size: 3.5rem;
+  margin-bottom: var(--space-md);
   display: block;
   text-align: center;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
+
 .info-card h3 {
   text-align: center;
-  font-size: 1.65rem;
-  color: var(--blue-dark);
-  margin: 1.2rem 0;
+  font-size: 1.7rem;
+  color: var(--primary-blue-dark);
+  margin: var(--space-md) 0;
   font-weight: 800;
 }
+
 .info-card ul {
-  color: var(--gray);
-  line-height: 1.95;
-  padding-left: 1.6rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  padding-left: var(--space-md);
+}
+
+.info-card li {
+  margin-bottom: var(--space-xs);
+  position: relative;
+}
+
+.info-card li::marker {
+  color: var(--primary-blue);
 }
 
 /* ==================================
-   4. LEADERSHIP TEAM – NOW FLAWLESS
+   4. LEADERSHIP TEAM – PREMIUM CARDS
 ================================== */
 .admin-grid,
 #leadershipGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 3.2rem;
-  margin-top: 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
   justify-content: center;
   align-items: stretch;
 }
+
 .leader-card {
-  background: white;
-  border-radius: var(--radius);
+  background: var(--background-primary);
+  border-radius: var(--radius-xl);
   overflow: hidden;
-  box-shadow: var(--shadow-md);
-  transition: var(--transition);
+  box-shadow: var(--shadow-medium);
+  transition: var(--transition-smooth);
   text-align: center;
-  border: 1px solid rgba(1,117,194,0.1);
-  max-width: 390px;
+  border: 1px solid var(--border-medium);
+  max-width: 400px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  
+  animation: cardSlideUp 0.8s ease-out;
 }
+
 .leader-card img {
   width: 100%;
   height: 380px;
   object-fit: cover;
-  object-position: top;
-  transition: transform 0.7s ease;
+  object-position: center;
+  transition: transform 0.8s ease;
 }
+
 .leader-card:hover img {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
+
 .leader-card h4 {
   font-size: 1.8rem;
-  font-weight: 900;
-  margin: 1.8rem 0 0.6rem;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  font-weight: 800;
+  margin: var(--space-lg) 0 var(--space-sm);
+  background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
+
 .leader-card strong {
   display: block;
-  font-size: 1.18rem;
-  color: var(--blue);
+  font-size: 1.2rem;
+  color: var(--primary-blue);
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-md);
+  letter-spacing: 0.5px;
 }
+
 .leader-card p {
   flex-grow: 1;
-  padding: 0 2.2rem 2.5rem;
-  color: var(--gray);
-  line-height: 1.85;
+  padding: 0 var(--space-lg) var(--space-lg);
+  color: var(--text-secondary);
+  line-height: 1.7;
   font-size: 1.05rem;
 }
+
 .leader-card.principal {
-  border: 4px solid var(--blue);
-  box-shadow: 0 0 55px rgba(1,117,194,0.38);
+  border: 3px solid var(--accent-gold);
+  box-shadow: 0 0 60px rgba(255,215,0,0.3);
   position: relative;
 }
+
 .leader-card.principal::after {
   content: 'Principal & Director';
   position: absolute;
-  top: 20px; right: 20px;
-  background: var(--blue);
-  color: white;
-  padding: 12px 26px;
-  border-radius: 50px;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-light));
+  color: var(--primary-blue-dark);
+  padding: 8px 20px;
+  border-radius: 25px;
   font-weight: 800;
-  font-size: 0.95rem;
-  box-shadow: 0 10px 35px rgba(1,117,194,0.5);
+  font-size: 0.85rem;
+  box-shadow: 0 8px 25px rgba(255,215,0,0.4);
 }
+
 .leader-card:hover {
-  transform: translateY(-18px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-15px);
+  box-shadow: var(--shadow-intense);
 }
 
 /* ==================================
-   5. ADMINISTRATIVE DEPARTMENTS – STUNNING & EQUAL
+   5. ADMINISTRATIVE DEPARTMENTS – ENHANCED DESIGN
 ================================== */
 .dept-grid,
 .dept-heads-grid,
 #departmentsGrid,
 #dynamicDepartmentsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 3.2rem;
-  margin-top: 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
   justify-content: center;
 }
 
 /* Main Department Cards */
 .dept-card {
-  background: white;
-  border-radius: var(--radius);
-  padding: 3.4rem 2.6rem;
+  background: var(--background-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
   text-align: center;
-  box-shadow: var(--shadow-md);
-  border: 1px solid rgba(1,117,194,0.12);
-  transition: var(--transition);
+  box-shadow: var(--shadow-medium);
+  border: 1px solid var(--border-medium);
+  transition: var(--transition-smooth);
   height: 100%;
   display: flex;
   flex-direction: column;
+  
+  animation: cardSlideUp 0.8s ease-out;
 }
+
 .dept-card:hover {
-  transform: translateY(-20px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--blue);
+  transform: translateY(-18px) scale(1.03);
+  box-shadow: var(--shadow-intense);
+  border-color: var(--primary-blue);
 }
+
 .dept-card i {
-  font-size: 4.8rem;
-  margin-bottom: 1.8rem;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  font-size: 4.5rem;
+  margin-bottom: var(--space-lg);
+  background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
+
 .dept-card h4 {
-  font-size: 1.75rem;
+  font-size: 1.8rem;
   font-weight: 800;
-  color: var(--blue-dark);
-  margin: 1rem 0;
+  color: var(--primary-blue-dark);
+  margin: var(--space-md) 0;
 }
+
 .dept-card p {
-  color: var(--gray);
-  line-height: 1.9;
+  color: var(--text-secondary);
+  line-height: 1.7;
   flex-grow: 1;
   font-size: 1.05rem;
 }
 
 /* Department Heads Contact Cards */
 .dept-head-card {
-  background: white;
-  border-radius: var(--radius);
-  padding: 3rem 2.2rem;
+  background: var(--background-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
   text-align: center;
-  box-shadow: var(--shadow-md);
-  border: 1px solid rgba(1,117,194,0.12);
-  transition: var(--transition);
+  box-shadow: var(--shadow-medium);
+  border: 1px solid var(--border-medium);
+  transition: var(--transition-smooth);
   height: 100%;
+  
+  animation: cardSlideUp 0.8s ease-out;
 }
+
 .dept-head-card:hover {
-  transform: translateY(-16px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--blue);
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-intense);
+  border-color: var(--primary-blue);
 }
+
 .dept-head-card strong {
   display: block;
   font-size: 1.4rem;
   font-weight: 800;
-  color: var(--blue-dark);
-  margin-bottom: 1.2rem;
+  color: var(--primary-blue-dark);
+  margin-bottom: var(--space-md);
 }
+
 .dept-head-card i {
-  color: var(--blue);
-  margin-right: 10px;
+  color: var(--primary-blue);
+  margin-right: var(--space-xs);
   font-size: 1.1rem;
 }
+
 .dept-head-card a {
-  color: var(--blue);
+  color: var(--primary-blue);
   font-weight: 600;
   text-decoration: none;
+  transition: var(--transition-fast);
 }
+
 .dept-head-card a:hover {
-  color: var(--blue-dark);
+  color: var(--primary-blue-dark);
   text-decoration: underline;
 }
 
-/* Additional utility classes */
-.section-subtitle {
-  text-align: center;
-  margin: 3rem 0 2rem;
-}
-.section-subtitle h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2rem, 4vw, 2.5rem);
-  font-weight: 700;
-  color: var(--blue-dark);
-  margin-bottom: 1rem;
-}
-.mt-5 {
-  margin-top: 3rem;
-}
-
 /* ==================================
-   6. Stats / Highlights Section
+   6. ENHANCED STATS SECTION
 ================================== */
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-lg);
 }
+
 .stat {
-  background: white;
-  padding: 3rem 2rem;
-  border-radius: var(--radius);
+  background: var(--background-primary);
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
   text-align: center;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
+  box-shadow: var(--shadow-medium);
+  transition: var(--transition-smooth);
+  border: 1px solid var(--border-light);
+  
+  animation: cardSlideUp 0.8s ease-out;
 }
+
 .stat:hover {
-  transform: translateY(-12px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: var(--shadow-intense);
 }
+
 .stat i {
-  font-size: 3rem;
-  margin-bottom: 1.2rem;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  font-size: 3.2rem;
+  margin-bottom: var(--space-md);
+  background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
+
 .stat h3 {
-  font-size: 3.8rem;
-  font-weight: 900;
-  margin: 0.6rem 0;
-  color: var(--blue-dark);
-}
-.stat p {
-  color: var(--gray);
-  font-size: 1.1rem;
-  line-height: 1.75;
-}
-
-/* ==================================
-   7. Loader
-================================== */
-.loader {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 5rem 0;
-}
-.loader i {
   font-size: 4rem;
-  color: var(--blue);
-  animation: spin 1.8s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* ==================================
-    Modal Styles
-================================== */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  font-weight: 900;
+  margin: var(--space-sm) 0;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
 }
 
-.modal-content {
-  background: white;
-  padding: 2rem;
-  border-radius: var(--radius);
-  max-width: 600px;
-  width: 90%;
-  max-height: 80vh;
-  overflow-y: auto;
-  position: relative;
-  box-shadow: var(--shadow-lg);
-}
-
-.close-modal {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  color: var(--gray);
-  transition: color 0.3s;
-}
-
-.close-modal:hover {
-  color: var(--blue);
+.stat p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  font-weight: 500;
 }
 
 /* ==================================
-    2. STUNNING "VIEW MORE" BUTTON (Add this anywhere after your existing styles
+   7. STUNNING BUTTONS & INTERACTIONS
 ================================== */
 .view-more-btn {
-  margin: 4rem auto 0;
+  margin: var(--space-lg) auto 0;
   display: block;
   width: fit-content;
-  padding: 1.3rem 4rem;
-  font-size: 1.22rem;
-  font-weight: 800;
-  letter-spacing: 1.8px;
+  padding: 1.2rem 3.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  color: var(--blue-dark);
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--primary-blue-dark);
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-gold-light));
   border: none;
-  border-radius: 60px;
+  border-radius: 50px;
   cursor: pointer;
-  box-shadow: 
-    0 12px 40px rgba(255,215,0,0.45),
-    0 0 30px rgba(255,215,0,0.3);
+  box-shadow: var(--shadow-medium);
   position: relative;
   overflow: hidden;
-  transition: var(--transition);
+  transition: var(--transition-bounce);
   z-index: 1;
 }
 
 .view-more-btn::before {
   content: '';
   position: absolute;
-  top: 0; left: -100%;
-  width: 100%; height: 100%;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-  transition: left 0.7s ease;
+  transition: left 0.6s ease;
   z-index: -1;
 }
 
@@ -505,24 +627,109 @@ body { margin: 0; font-family: 'Inter', system-ui, sans-serif; line-height: 1.7;
 }
 
 .view-more-btn:hover {
-  transform: translateY(-8px);
-  background: linear-gradient(135deg, #ffb800, #ffeddd50);
+  transform: translateY(-5px) scale(1.05);
+  background: linear-gradient(135deg, #ffb800, #ffed4e);
   color: white;
-  box-shadow: 
-    0 20px 60px rgba(255,184,0,0.6),
-    0 0 40px rgba(255,215,0,0.5);
-}
-
-/* Mobile-friendly button */
-@media (max-width: 640px) {
-  .view-more-btn {
-    padding: 1.1rem 3rem;
-    font-size: 1.1rem;
-  }
+  box-shadow: var(--shadow-intense);
 }
 
 /* ==================================
-    8. RESPONSIVE – MOBILE-FIRST PERFECTION
+   8. ENHANCED LOADERS & MODALS
+================================== */
+.loader {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--space-xl) 0;
+}
+
+.loader i {
+  font-size: 3.5rem;
+  color: var(--primary-blue);
+  animation: spin 1.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Enhanced Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.modal-content {
+  background: var(--background-primary);
+  padding: var(--space-xl);
+  border-radius: var(--radius-lg);
+  max-width: 650px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: var(--shadow-intense);
+  border: 1px solid var(--border-medium);
+}
+
+.close-modal {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: var(--transition-fast);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-modal:hover {
+  background: var(--background-secondary);
+  color: var(--primary-blue);
+}
+
+/* ==================================
+   9. ANIMATIONS & ENHANCED INTERACTIONS
+================================== */
+@keyframes cardSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==================================
+   10. RESPONSIVE DESIGN – MOBILE PERFECTION
 ================================== */
 @media (max-width: 1200px) {
   .admin-grid,
@@ -534,29 +741,49 @@ body { margin: 0; font-family: 'Inter', system-ui, sans-serif; line-height: 1.7;
   }
 }
 
-/* Mobile adjustment – header shrinks on scroll or mobile */
 @media (max-width: 992px) {
   .page-hero {
     min-height: calc(100vh - 80px);
     margin-top: 80px;
+    padding: var(--space-lg) 0;
+  }
+  
+  .section {
+    padding: var(--space-xl) 0;
   }
 }
 
-@media (max-width: 992px) {
-  .section { padding: 90px 0; }
-}
-
 @media (max-width: 768px) {
-  .leader-card img,
+  .container {
+    padding: 0 var(--space-sm);
+  }
+  
+  .section {
+    padding: var(--space-lg) 0;
+  }
+  
+  .leader-card img {
+    height: 300px;
+  }
+  
+  .info-card,
   .dept-card,
   .dept-head-card,
-  .info-card { padding: 2.2rem 1.6rem; }
-  .leader-card img { height: 320px; }
+  .stat {
+    padding: var(--space-lg);
+  }
 }
 
 @media (max-width: 640px) {
-  .section { padding: 70px 0; }
-  .page-hero { min-height: 65vh; }
+  .section {
+    padding: var(--space-md) 0;
+  }
+  
+  .page-hero {
+    min-height: 70vh;
+    padding: var(--space-md) 0;
+  }
+  
   .grid-2,
   .admin-grid,
   .dept-grid,
@@ -566,29 +793,290 @@ body { margin: 0; font-family: 'Inter', system-ui, sans-serif; line-height: 1.7;
   #dynamicDepartmentsGrid,
   .stats {
     grid-template-columns: 1fr !important;
-    gap: 2.5rem;
+    gap: var(--space-lg);
   }
-  .leader-card img { height: 300px; }
-  .dept-card,
-  .dept-head-card,
-  .info-card { padding: 2.5rem 1.8rem; }
-  .section-title h2 { font-size: 2.6rem !important; }
-}
-
-@media (max-width: 480px) {
-  .container { padding: 0 1rem; }
-  .section { padding: 60px 0; }
-  .page-hero { padding-top: 1rem; }
-  .page-hero h1 { font-size: clamp(2.5rem, 10vw, 4rem); }
-  .page-hero p { font-size: clamp(1rem, 4vw, 1.3rem); margin: 1rem auto; }
-  .section-title { margin-bottom: 3rem; }
-  .section-title h2 { font-size: 2.2rem !important; }
-  .section-title p { font-size: 1rem; margin-top: 1.5rem; }
+  
+  .leader-card img {
+    height: 280px;
+  }
+  
+  .section-title h2 {
+    font-size: 2.4rem !important;
+  }
+  
   .info-card,
   .leader-card,
   .dept-card,
   .dept-head-card,
-  .stat { padding: 2rem 1.5rem; }
-  .leader-card img { height: 280px; }
-  .modal-content { padding: 1.5rem; width: 95%; }
+  .stat {
+    padding: var(--space-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 var(--space-xs);
+  }
+  
+  .section {
+    padding: var(--space-sm) 0;
+  }
+  
+  .page-hero h1 {
+    font-size: clamp(2rem, 12vw, 3.5rem);
+  }
+  
+  .page-hero p {
+    font-size: clamp(0.95rem, 4vw, 1.2rem);
+  }
+  
+  .section-title {
+    margin-bottom: var(--space-lg);
+  }
+  
+  .section-title h2 {
+    font-size: 2rem !important;
+  }
+  
+  .section-title p {
+    font-size: 1rem;
+    margin-top: var(--space-md);
+  }
+  
+  .modal-content {
+    padding: var(--space-lg);
+    width: 95%;
+  }
+  
+  .view-more-btn {
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* ==================================
+   11. UTILITY CLASSES & ENHANCEMENTS
+================================== */
+.section-subtitle {
+  text-align: center;
+  margin: var(--space-xl) 0 var(--space-lg);
+}
+
+.section-subtitle h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--primary-blue-dark);
+  margin-bottom: var(--space-sm);
+}
+
+.mt-5 {
+  margin-top: var(--space-xl);
+}
+
+/* ==================================
+   12. ENHANCED CARD STRUCTURE (for JS compatibility)
+================================== */
+.card-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.card-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contact {
+  margin-top: auto;
+  padding-top: var(--space-md);
+}
+
+.contact span {
+  display: block;
+  margin-bottom: var(--space-xs);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.contact i {
+  color: var(--primary-blue);
+  margin-right: var(--space-xs);
+  width: 16px;
+}
+
+.contact a {
+  color: var(--primary-blue);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+.contact a:hover {
+  color: var(--primary-blue-dark);
+  text-decoration: underline;
+}
+
+/* Enhanced button with icon */
+.view-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-top: var(--space-md);
+}
+
+.btn-icon {
+  transition: transform 0.3s ease;
+}
+
+.view-more-btn:hover .btn-icon {
+  transform: translateX(4px);
+}
+
+/* ==================================
+   13. ENHANCED RESPONSIVE ADJUSTMENTS
+================================== */
+@media (max-width: 480px) {
+  .view-more-btn {
+    padding: 1rem 2rem;
+    font-size: 0.95rem;
+  }
+  
+  .card-content {
+    padding: 0;
+  }
+  
+  .contact {
+    padding-top: var(--space-sm);
+  }
+  
+  .contact span {
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+  }
+}
+
+/* ==================================
+   14. ACCESSIBILITY ENHANCEMENTS
+================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .page-hero {
+    transform: none !important;
+  }
+  
+  .stat {
+    transform: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border-light: rgba(0,0,0,0.3);
+    --border-medium: rgba(0,0,0,0.5);
+    --shadow-soft: 0 4px 20px rgba(0,0,0,0.2);
+    --shadow-medium: 0 8px 30px rgba(0,0,0,0.3);
+  }
+  
+  .info-card,
+  .leader-card,
+  .dept-card,
+  .dept-head-card {
+    border: 2px solid var(--text-primary);
+  }
+}
+
+/* ==================================
+   15. PRINT STYLES
+================================== */
+@media print {
+  .page-hero {
+    background: var(--background-primary) !important;
+    color: var(--text-primary) !important;
+    padding: 2rem 0 !important;
+    min-height: auto !important;
+    margin-top: 0 !important;
+  }
+  
+  .page-hero h1,
+  .page-hero p {
+    color: var(--text-primary) !important;
+  }
+  
+  .leader-card,
+  .dept-card,
+  .info-card,
+  .dept-head-card {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid var(--text-primary) !important;
+    transform: none !important;
+  }
+  
+  .stat {
+    break-inside: avoid;
+  }
+
+/* ==================================
+   16. PRELOADER ENHANCEMENTS
+================================== */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#preloader .spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  position: relative;
+}
+
+#preloader .spinner::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 4px solid transparent;
+  border-top: 4px solid var(--accent-gold);
+  border-radius: 50%;
+  animation: spin 1.5s linear infinite reverse;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Hide preloader when page is ready */
+.page-loaded #preloader {
+  opacity: 0;
+  visibility: hidden;
+}
 }

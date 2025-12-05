@@ -1,131 +1,298 @@
-// ../js/staff.js
-// Ultimate Dynamic Staff Directory – Bar Union Mixed Secondary School (2026+)
+/**
+ * ENHANCED STAFF DIRECTORY - BAR UNION MIXED SECONDARY SCHOOL
+ * Ultra-Premium JavaScript with Modern Features
+ * Professional • Smooth • Accessible • Mobile-First
+ */
+
 document.addEventListener("DOMContentLoaded", () => {
-    const DEFAULT_PHOTO = "/assets/images/defaults/default-user.png"; // Fixed path (was ../)
-    
+    // Constants and Configuration
+    const CONFIG = {
+        DEFAULT_PHOTO: "/assets/images/defaults/default-user.png",
+        ANIMATION_DELAY: 100,
+        SEARCH_DEBOUNCE_MS: 300,
+        LOADING_MIN_TIME: 800,
+        MODAL_ANIMATION_DURATION: 300
+    };
+
     // DOM Elements
-    const staffGrid = document.getElementById("staffGrid");
-    const searchInput = document.getElementById("staffSearch");
-    const staffCategories = document.getElementById("staffCategories");
-    const departmentControls = document.getElementById("departmentControls");
-    const noResults = document.getElementById("noResults");
-    const modal = document.getElementById("staffModal");
-    const modalDetails = document.getElementById("modalDetails");
-    
-    let allStaff = [];
-    let filteredStaff = [];
-    let activeCategory = "all";
-    let activeDept = null;
-
-    // ========================================
-    // 1. Load Staff from JSON
-    // ========================================
-    const loadStaff = async () => {
-        try {
-            const res = await fetch("/data/static/staff-data.json"); // Fixed path
-            if (!res.ok) throw new Error("Staff data not found");
-            allStaff = await res.json();
-            filteredStaff = [...allStaff];
-
-            populateDepartments();   // Now safe to populate
-            renderStaff();
-            initObservers();
-        } catch (err) {
-            console.error("Staff load failed:", err);
-            staffGrid.innerHTML = `
-                <div class="text-center py-5 text-danger">
-                    <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
-                    <p>Unable to load staff directory.<br>Please try again later.</p>
-                </div>`;
-        }
+    const elements = {
+        staffGrid: document.getElementById("staffGrid"),
+        searchInput: document.getElementById("staffSearch"),
+        staffCategories: document.getElementById("staffCategories"),
+        departmentControls: document.getElementById("departmentControls"),
+        noResults: document.getElementById("noResults"),
+        modal: document.getElementById("staffModal"),
+        modalDetails: document.getElementById("modalDetails")
     };
 
-    // ========================================
-    // 2. Populate Department Filters Dynamically
-    // ========================================
-    const populateDepartments = () => {
-        const depts = [...new Set(allStaff.map(s => s.department).filter(Boolean))].sort();
-        
-        // Clear and rebuild department buttons
-        departmentControls.innerHTML = `
-            <button class="dept-btn active" data-dept="all">All Departments</button>
-            ${depts.map(d => `
-                <button class="dept-btn" data-dept="${d.toLowerCase()}">${d}</button>
-            `).join('')}
-        `;
-
-        // Re-attach event listeners
-        departmentControls.querySelectorAll(".dept-btn").forEach(btn => {
-            btn.addEventListener("click", () => {
-                departmentControls.querySelectorAll(".dept-btn").forEach(b => b.classList.remove("active"));
-                btn.classList.add("active");
-                activeDept = btn.dataset.dept === "all" ? null : btn.dataset.dept;
-                applyFilters();
-            });
-        });
+    // State Management
+    const state = {
+        allStaff: [],
+        filteredStaff: [],
+        activeCategory: "all",
+        activeDept: null,
+        searchTerm: "",
+        isLoading: false,
+        animations: [],
+        observers: new Map()
     };
 
-    // ========================================
-    // 3. Render Staff Cards
-    // ========================================
-    const renderStaff = () => {
-        // Clear previous content (except loader if needed)
-        staffGrid.innerHTML = '';
+    // ==========================================
+    // UTILITY FUNCTIONS
+    // ==========================================
 
-        if (filteredStaff.length === 0) {
-            noResults.style.display = "block";
-            return;
-        }
-        noResults.style.display = "none";
-
-        const fragment = document.createDocumentFragment();
-        filteredStaff.forEach(member => {
-            const card = document.createElement("div");
-            card.className = "staff-card reveal";
-            card.dataset.category = member.category || "teaching";
-            card.dataset.department = (member.department || "").toLowerCase();
-
-            card.innerHTML = `
-                <div class="staff-photo">
-                    <img data-src="${member.photo || DEFAULT_PHOTO}"
-                         alt="${member.name}"
-                         class="lazy blur"
-                         onerror="this.src='${DEFAULT_PHOTO}'; this.onerror=null;">
-                </div>
-                <div class="staff-info">
-                    <h3>${escapeHtml(member.name)}</h3>
-                    <p class="designation">${escapeHtml(member.designation || '')}</p>
-                    <p class="qualification">${escapeHtml(member.qualification || '')}</p>
-                    ${member.department ? `<p class="dept"><strong>Dept:</strong> ${escapeHtml(member.department)}</p>` : ''}
-                </div>
-            `;
-            card.addEventListener("click", () => openStaffModal(member));
-            fragment.appendChild(card);
-        });
-        staffGrid.appendChild(fragment);
-    };
-
-    // Simple HTML escape (security)
+    /**
+     * Escape HTML to prevent XSS attacks
+     */
     const escapeHtml = (str) => {
+        if (!str) return "";
         const div = document.createElement('div');
         div.textContent = str;
         return div.innerHTML;
     };
 
-    // ========================================
-    // 4. Filtering Logic
-    // ========================================
-    const applyFilters = () => {
-        const term = searchInput.value.toLowerCase().trim();
+    /**
+     * Debounce function for search optimization
+     */
+    const debounce = (func, wait) => {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    };
 
-        filteredStaff = allStaff.filter(member => {
-            const matchesCategory = activeCategory === "all" || member.category === activeCategory;
-            const matchesDept = !activeDept || (member.department || "").toLowerCase() === activeDept;
-            const matchesSearch = !term ||
-                member.name.toLowerCase().includes(term) ||
-                (member.designation || "").toLowerCase().includes(term) ||
-                (member.department || "").toLowerCase().includes(term) ||
-                (member.qualification || "").toLowerCase().includes(term);
+    /**
+     * Smooth scroll to element
+     */
+    const smoothScrollTo = (element) => {
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    };
+
+    /**
+     * Add loading state
+     */
+    const showLoading = () => {
+        state.isLoading = true;
+        elements.staffGrid.innerHTML = `
+            <div class="loader">
+                <i class="fas fa-spinner fa-spin fa-4x mb-4"></i>
+                <p>Loading our dedicated team...</p>
+            </div>
+        `;
+    };
+
+    /**
+     * Hide loading state
+     */
+    const hideLoading = () => {
+        state.isLoading = false;
+    };
+
+    // ==========================================
+    // DATA LOADING
+    // ==========================================
+
+    /**
+     * Load staff data from JSON with enhanced error handling
+     */
+    const loadStaff = async () => {
+        showLoading();
+        const startTime = Date.now();
+        
+        try {
+            const response = await fetch("/data/static/staff-data.json");
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            
+            // Ensure minimum loading time for smooth UX
+            const elapsedTime = Date.now() - startTime;
+            const remainingTime = CONFIG.LOADING_MIN_TIME - elapsedTime;
+            
+            if (remainingTime > 0) {
+                await new Promise(resolve => setTimeout(resolve, remainingTime));
+            }
+            
+            state.allStaff = Array.isArray(data) ? data : [];
+            state.filteredStaff = [...state.allStaff];
+            
+            populateDepartments();
+            renderStaff();
+            initIntersectionObserver();
+            addEventListeners();
+            
+        } catch (error) {
+            console.error("Staff load failed:", error);
+            elements.staffGrid.innerHTML = `
+                <div class="text-center py-5 text-danger">
+                    <i class="fas fa-exclamation-triangle fa-4x mb-4"></i>
+                    <h3>Oops! Something went wrong</h3>
+                    <p>Unable to load staff directory.<br>Please check your connection and try again.</p>
+                    <button onclick="location.reload()" class="btn btn-primary" style="margin-top: 1rem;">
+                        <i class="fas fa-refresh"></i> Try Again
+                    </button>
+                </div>
+            `;
+        } finally {
+            hideLoading();
+        }
+    };
+
+    // ==========================================
+    // DEPARTMENT MANAGEMENT
+    // ==========================================
+
+    /**
+     * Populate department filters dynamically
+     */
+    const populateDepartments = () => {
+        const departments = [...new Set(state.allStaff
+            .map(staff => staff.department)
+            .filter(dept => dept && dept.trim())
+        )].sort();
+
+        const departmentButtons = [
+            '<button class="dept-btn active" data-dept="all">All Departments</button>',
+            ...departments.map(dept => 
+                `<button class="dept-btn" data-dept="${dept.toLowerCase()}">${escapeHtml(dept)}</button>`
+            )
+        ];
+
+        elements.departmentControls.innerHTML = departmentButtons.join('');
+    };
+
+    // ==========================================
+    // STAFF RENDERING
+    // ==========================================
+
+    /**
+     * Render staff cards with enhanced animations
+     */
+    const renderStaff = () => {
+        elements.staffGrid.innerHTML = '';
+
+        if (state.filteredStaff.length === 0) {
+            showNoResults();
+            return;
+        }
+
+        hideNoResults();
+
+        const fragment = document.createDocumentFragment();
+        state.filteredStaff.forEach((member, index) => {
+            const card = createStaffCard(member, index);
+            fragment.appendChild(card);
+        });
+
+        elements.staffGrid.appendChild(fragment);
+        
+        // Trigger intersection observer for animations
+        setTimeout(() => {
+            state.observers.get('reveal')?.observeAll?.();
+        }, 50);
+    };
+
+    /**
+     * Create individual staff card with enhanced markup
+     */
+    const createStaffCard = (member, index) => {
+        const card = document.createElement("div");
+        card.className = "staff-card reveal";
+        card.style.animationDelay = `${index * CONFIG.ANIMATION_DELAY}ms`;
+        card.dataset.category = member.category || "teaching";
+        card.dataset.department = (member.department || "").toLowerCase();
+
+        card.innerHTML = `
+            <div class="staff-photo">
+                <img data-src="${escapeHtml(member.photo || CONFIG.DEFAULT_PHOTO)}"
+                     alt="${escapeHtml(member.name)}"
+                     class="lazy blur"
+                     loading="lazy"
+                     onerror="this.src='${CONFIG.DEFAULT_PHOTO}'; this.onerror=null;">
+            </div>
+            <div class="staff-info">
+                <h3>${escapeHtml(member.name)}</h3>
+                <p class="designation">${escapeHtml(member.designation || '')}</p>
+                ${member.qualification ? `<p class="qualification">${escapeHtml(member.qualification)}</p>` : ''}
+                ${member.department ? `<p class="dept"><strong>Dept:</strong> ${escapeHtml(member.department)}</p>` : ''}
+            </div>
+            <div class="card-overlay">
+                <i class="fas fa-user-graduate"></i>
+                <span>View Details</span>
+            </div>
+        `;
+
+        // Add click event for modal
+        card.addEventListener("click", () => openStaffModal(member));
+        
+        // Add keyboard navigation
+        card.setAttribute("tabindex", "0");
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-label", `View details for ${member.name}`);
+        
+        card.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openStaffModal(member);
+            }
+        });
+
+        return card;
+    };
+
+    /**
+     * Show no results message
+     */
+    const showNoResults = () => {
+        elements.noResults.style.display = "block";
+        elements.noResults.innerHTML = `
+            <i class="fas fa-users-slash fa-4x mb-4"></i>
+            <h3>No Staff Found</h3>
+            <p>Try adjusting your search or filter criteria.</p>
+        `;
+    };
+
+    /**
+     * Hide no results message
+     */
+    const hideNoResults = () => {
+        elements.noResults.style.display = "none";
+    };
+
+    // ==========================================
+    // FILTERING & SEARCH
+    // ==========================================
+
+    /**
+     * Apply all filters with enhanced logic
+     */
+    const applyFilters = () => {
+        const searchTerm = state.searchTerm.toLowerCase().trim();
+
+        state.filteredStaff = state.allStaff.filter(member => {
+            const matchesCategory = state.activeCategory === "all" || 
+                                  member.category === state.activeCategory;
+            const matchesDept = !state.activeDept || 
+                              (member.department || "").toLowerCase() === state.activeDept;
+            const matchesSearch = !searchTerm || [
+                member.name,
+                member.designation,
+                member.department,
+                member.qualification,
+                member.bio
+            ].filter(field => field).some(field => 
+                field.toLowerCase().includes(searchTerm)
+            );
 
             return matchesCategory && matchesDept && matchesSearch;
         });
@@ -133,24 +300,92 @@ document.addEventListener("DOMContentLoaded", () => {
         renderStaff();
     };
 
-    // Search input
-    searchInput.addEventListener("input", applyFilters);
-
-    // Category Filters (already in DOM)
-    staffCategories.addEventListener("click", (e) => {
-        const btn = e.target.closest(".filter-btn");
-        if (!btn) return;
-        staffCategories.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        activeCategory = btn.dataset.filter;
+    /**
+     * Enhanced search with debouncing
+     */
+    const debouncedSearch = debounce((value) => {
+        state.searchTerm = value;
         applyFilters();
-    });
+    }, CONFIG.SEARCH_DEBOUNCE_MS);
 
-    // ========================================
-    // 5. Modal with QR + Contact Actions
-    // ========================================
+    // ==========================================
+    // MODAL FUNCTIONALITY
+    // ==========================================
+
+    /**
+     * Open staff modal with enhanced features
+     */
     const openStaffModal = (member) => {
-        const vcard = [
+        const vcard = createVCard(member);
+        const qrUrl = generateQRCode(vcard);
+
+        elements.modalDetails.innerHTML = `
+            <div class="modal-profile">
+                <div class="modal-photo">
+                    <img src="${escapeHtml(member.photo || CONFIG.DEFAULT_PHOTO)}" 
+                         alt="${escapeHtml(member.name)}" 
+                         onerror="this.src='${CONFIG.DEFAULT_PHOTO}'">
+                </div>
+                <div class="modal-info">
+                    <h2>${escapeHtml(member.name)}</h2>
+                    <p class="designation">${escapeHtml(member.designation || '')}</p>
+                    ${member.qualification ? `<p class="qualification">${escapeHtml(member.qualification)}</p>` : ''}
+                    ${member.department ? `<p><strong>Department:</strong> ${escapeHtml(member.department)}</p>` : ''}
+                    
+                    ${member.bio ? `
+                        <div class="bio">
+                            <h4><i class="fas fa-info-circle"></i> About</h4>
+                            <p>${escapeHtml(member.bio)}</p>
+                        </div>
+                    ` : ''}
+
+                    <div class="modal-actions">
+                        ${member.email ? `
+                            <a href="mailto:${member.email}" class="btn btn-outline" aria-label="Email ${member.name}">
+                                <i class="fas fa-envelope"></i> Email
+                            </a>
+                        ` : ''}
+                        ${member.phone ? `
+                            <a href="tel:${member.phone}" class="btn btn-primary" aria-label="Call ${member.name}">
+                                <i class="fas fa-phone"></i> Call
+                            </a>
+                            <a href="https://wa.me/${member.phone.replace(/\D/g,'')}" 
+                               target="_blank" 
+                               rel="noopener" 
+                               class="btn btn-success"
+                               aria-label="WhatsApp ${member.name}">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                        ` : ''}
+                        <button onclick="window.print()" class="btn btn-secondary" aria-label="Print contact info">
+                            <i class="fas fa-print"></i> Print
+                        </button>
+                    </div>
+
+                    <div class="modal-qr">
+                        <h4><i class="fas fa-qrcode"></i> Scan to Save Contact</h4>
+                        <img src="${qrUrl}" alt="QR Code for ${escapeHtml(member.name)}" loading="lazy">
+                        <p><small>Scan with your phone to save contact information</small></p>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Show modal with animation
+        elements.modal.style.display = "block";
+        document.body.style.overflow = "hidden";
+        
+        // Focus management for accessibility
+        elements.modal.setAttribute("aria-hidden", "false");
+        const firstFocusable = elements.modal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        firstFocusable?.focus();
+    };
+
+    /**
+     * Create vCard for QR code
+     */
+    const createVCard = (member) => {
+        return [
             "BEGIN:VCARD",
             "VERSION:3.0",
             `FN:${member.name}`,
@@ -160,63 +395,36 @@ document.addEventListener("DOMContentLoaded", () => {
             member.phone ? `TEL;TYPE=WORK,VOICE:${member.phone}` : '',
             "END:VCARD"
         ].filter(Boolean).join("\n");
-
-        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(vcard)}`;
-
-        modalDetails.innerHTML = `
-            <div class="modal-profile">
-                <div class="modal-photo">
-                    <img src="${member.photo || DEFAULT_PHOTO}" alt="${member.name}" onerror="this.src='${DEFAULT_PHOTO}'">
-                </div>
-                <div class="modal-info">
-                    <h2>${escapeHtml(member.name)}</h2>
-                    <p class="designation">${escapeHtml(member.designation || '')}</p>
-                    <p class="qualification">${escapeHtml(member.qualification || '')}</p>
-                    ${member.department ? `<p><strong>Department:</strong> ${escapeHtml(member.department)}</p>` : ''}
-                    ${member.bio ? `<div class="bio"><h4>About</h4><p>${escapeHtml(member.bio)}</p></div>` : ''}
-
-                    <div class="modal-actions">
-                        ${member.email ? `<a href="mailto:${member.email}" class="btn btn-outline"><i class="fas fa-envelope"></i> Email</a>` : ''}
-                        ${member.phone ? `<a href="tel:${member.phone}" class="btn btn-primary"><i class="fas fa-phone"></i> Call</a>` : ''}
-                        ${member.phone ? `<a href="https://wa.me/${member.phone.replace(/\D/g,'')}" target="_blank" rel="noopener" class="btn btn-success"><i class="fab fa-whatsapp"></i> WhatsApp</a>` : ''}
-                        <button onclick="window.print()" class="btn btn-secondary"><i class="fas fa-print"></i> Print</button>
-                    </div>
-
-                    <div class="modal-qr">
-                        <h4>Scan to Save Contact</h4>
-                        <img src="${qrUrl}" alt="QR Code for ${member.name}">
-                        <p><small>Scan with your phone to save contact</small></p>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        modal.classList.add("open");
-        document.body.style.overflow = "hidden";
     };
 
-    // Close modal
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal || e.target.classList.contains("close-modal")) {
-            modal.classList.remove("open");
-            document.body.style.overflow = "";
-        }
-    });
+    /**
+     * Generate QR code URL
+     */
+    const generateQRCode = (data) => {
+        return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(data)}`;
+    };
 
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modal.classList.contains("open")) {
-            modal.classList.remove("open");
-            document.body.style.overflow = "";
-        }
-    });
+    /**
+     * Close modal with animation
+     */
+    const closeModal = () => {
+        elements.modal.style.display = "none";
+        document.body.style.overflow = "";
+        elements.modal.setAttribute("aria-hidden", "true");
+    };
 
-    // ========================================
-    // 6. Lazy Load & Reveal Animations (Fixed observeAll)
-    // ========================================
-    const initObservers = () => {
+    // ==========================================
+    // ANIMATIONS & INTERSECTION OBSERVER
+    // ==========================================
+
+    /**
+     * Initialize intersection observer for animations
+     */
+    const initIntersectionObserver = () => {
         const lazyImages = document.querySelectorAll(".lazy");
         const revealElements = document.querySelectorAll(".reveal");
 
+        // Image lazy loading observer
         const imageObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -227,8 +435,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     imageObserver.unobserve(img);
                 }
             });
-        }, { rootMargin: "50px" });
+        }, { 
+            rootMargin: "50px",
+            threshold: 0.1 
+        });
 
+        // Reveal animation observer
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -236,14 +448,173 @@ document.addEventListener("DOMContentLoaded", () => {
                     revealObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1 });
+        }, { 
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        });
 
+        // Store observers for later use
+        state.observers.set('image', imageObserver);
+        state.observers.set('reveal', {
+            observeAll: () => revealElements.forEach(el => revealObserver.observe(el))
+        });
+
+        // Apply to existing elements
         lazyImages.forEach(img => imageObserver.observe(img));
         revealElements.forEach(el => revealObserver.observe(el));
     };
 
-    // ========================================
-    // 7. Initialize
-    // ========================================
-    loadStaff();
+    // ==========================================
+    // EVENT LISTENERS
+    // ==========================================
+
+    /**
+     * Add all event listeners
+     */
+    const addEventListeners = () => {
+        // Search input
+        elements.searchInput?.addEventListener("input", (e) => {
+            debouncedSearch(e.target.value);
+        });
+
+        // Category filters
+        elements.staffCategories?.addEventListener("click", (e) => {
+            const btn = e.target.closest(".filter-btn");
+            if (!btn) return;
+
+            elements.staffCategories.querySelectorAll(".filter-btn").forEach(b => 
+                b.classList.remove("active")
+            );
+            btn.classList.add("active");
+            state.activeCategory = btn.dataset.filter;
+            applyFilters();
+        });
+
+        // Department filters
+        elements.departmentControls?.addEventListener("click", (e) => {
+            const btn = e.target.closest(".dept-btn");
+            if (!btn) return;
+
+            elements.departmentControls.querySelectorAll(".dept-btn").forEach(b => 
+                b.classList.remove("active")
+            );
+            btn.classList.add("active");
+            state.activeDept = btn.dataset.dept === "all" ? null : btn.dataset.dept;
+            applyFilters();
+        });
+
+        // Modal events
+        elements.modal?.addEventListener("click", (e) => {
+            if (e.target === elements.modal || e.target.classList.contains("close-modal")) {
+                closeModal();
+            }
+        });
+
+        // Keyboard events
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && elements.modal.style.display === "block") {
+                closeModal();
+            }
+        });
+
+        // Window events
+        window.addEventListener("beforeunload", () => {
+            // Cleanup observers
+            state.observers.forEach(observer => {
+                if (observer.disconnect) observer.disconnect();
+            });
+        });
+    };
+
+    // ==========================================
+    // ENHANCED FEATURES
+    // ==========================================
+
+    /**
+     * Add keyboard navigation
+     */
+    const initKeyboardNavigation = () => {
+        const cards = document.querySelectorAll('.staff-card');
+        
+        cards.forEach((card, index) => {
+            card.addEventListener('keydown', (e) => {
+                let targetIndex;
+                
+                switch(e.key) {
+                    case 'ArrowRight':
+                        e.preventDefault();
+                        targetIndex = (index + 1) % cards.length;
+                        break;
+                    case 'ArrowLeft':
+                        e.preventDefault();
+                        targetIndex = (index - 1 + cards.length) % cards.length;
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        targetIndex = Math.min(index + getCardsPerRow(), cards.length - 1);
+                        break;
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        targetIndex = Math.max(index - getCardsPerRow(), 0);
+                        break;
+                }
+                
+                if (targetIndex !== undefined) {
+                    cards[targetIndex].focus();
+                }
+            });
+        });
+    };
+
+    /**
+     * Get number of cards per row for keyboard navigation
+     */
+    const getCardsPerRow = () => {
+        const grid = elements.staffGrid;
+        const style = window.getComputedStyle(grid);
+        const gridTemplateColumns = style.gridTemplateColumns;
+        return gridTemplateColumns.split(' ').length;
+    };
+
+    /**
+     * Performance monitoring
+     */
+    const monitorPerformance = () => {
+        if ('performance' in window) {
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    const perfData = performance.getEntriesByType('navigation')[0];
+                    console.log('Staff page load time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
+                }, 0);
+            });
+        }
+    };
+
+    // ==========================================
+    // INITIALIZATION
+    // ==========================================
+
+    /**
+     * Initialize the staff directory
+     */
+    const init = async () => {
+        try {
+            await loadStaff();
+            initKeyboardNavigation();
+            monitorPerformance();
+        } catch (error) {
+            console.error("Initialization failed:", error);
+        }
+    };
+
+    // Start the application
+    init();
+
+    // Export for potential external use
+    window.StaffDirectory = {
+        refresh: loadStaff,
+        filter: applyFilters,
+        openModal: openStaffModal,
+        closeModal: closeModal
+    };
 });

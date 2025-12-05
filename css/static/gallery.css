@@ -1,311 +1,1045 @@
 /* ==================================================
    GALLERY PAGE – BAR UNION MIXED SECONDARY SCHOOL
-   FINAL 2025–2026 ULTRA-PREMIUM EDITION
-   100% matches your gallery.html – Stunning & Mobile-Perfect
+   ULTRA-PREMIUM 2025 EDITION
+   Stunning, Professional & Fully Mobile Responsive
 ================================================== */
 
+/* ==========================================
+   CSS VARIABLES
+========================================== */
 :root {
-  --blue: #0175C2;
-  --blue-dark: #0b2d5e;
-  --gold: #ffd700;
-  --gold-light: #ffed4e;
-  --gray: #555;
-  --gray-light: #777;
-  --light: #f8fafc;
-  --radius: 32px;
-  --shadow-sm: 0 12px 35px rgba(0,0,0,0.1);
-  --shadow-md: 0 20px 50px rgba(0,0,0,0.15);
-  --shadow-lg: 0 35px 80px rgba(0,0,0,0.22);
-  --transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  --primary: #0175C2;
+  --primary-dark: #0b2d5e;
+  --primary-light: #e0f2fe;
+  --accent: #ffd700;
+  --accent-light: #fff8dc;
+  --gradient-primary: linear-gradient(135deg, #0b2d5e 0%, #0175C2 50%, #38bdf8 100%);
+  --gradient-gold: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #fbbf24 100%);
+  --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  --text-dark: #1e293b;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+  --bg-light: #f8fafc;
+  --bg-section: #f1f5f9;
+  --white: #ffffff;
+  --shadow-sm: 0 4px 20px rgba(0,0,0,0.08);
+  --shadow-md: 0 10px 40px rgba(0,0,0,0.12);
+  --shadow-lg: 0 25px 60px rgba(0,0,0,0.18);
+  --shadow-xl: 0 40px 80px rgba(0,0,0,0.25);
+  --shadow-glow: 0 0 40px rgba(1,117,194,0.3);
+  --shadow-gold: 0 0 30px rgba(255,215,0,0.4);
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --radius-xl: 48px;
+  --transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* ==================================
-   Global
-================================== */
+/* ==========================================
+   GLOBAL STYLES
+========================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body.page-gallery {
   margin: 0;
-  font-family: 'Inter', system-ui, sans-serif;
-  line-height: 1.75;
-  color: #333;
-  background: white;
-}
-.container {
-  max-width: 1380px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-dark);
+  background: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ==================================
-   1. Hero – Below Fixed Header
-================================== */
-.page-hero.gallery-hero {
-  min-height: 90px;
-  margin-top: 90px;
-  background: linear-gradient(135deg, rgba(11,45,94,0.97), rgba(1,117,194,0.91)),
-              url('/assets/images/gallery-hero.jpg') center/cover no-repeat fixed;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  color: white;
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2.5rem);
+}
+
+.section {
+  padding: clamp(4rem, 8vw, 8rem) 0;
   position: relative;
+}
+
+.section-title {
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.section-title h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin: 0 0 1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title h2::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--gradient-gold);
+  border-radius: 4px;
+}
+
+.section-title p {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 1.5rem auto 0;
+  line-height: 1.8;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-muted {
+  color: var(--text-muted);
+}
+
+.bg-light {
+  background: var(--bg-section);
+}
+
+.bg-primary {
+  background: var(--gradient-primary);
+}
+
+.text-white {
+  color: var(--white);
+}
+
+.mt-4 { margin-top: 2rem; }
+.mt-5 { margin-top: 3rem; }
+.py-4 { padding-top: 2rem; padding-bottom: 2rem; }
+.p-5 { padding: 3rem; }
+
+/* ==========================================
+   1. HERO SECTION
+========================================== */
+.page-hero.gallery-hero {
+  min-height: 85vh;
+  margin-top: 90px;
+  background: var(--gradient-dark);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
+
 .page-hero.gallery-hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, transparent 35%, rgba(0,0,0,0.7));
-}
-.page-hero.gallery-hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(3.8rem, 9vw, 7.2rem);
-  font-weight: 900;
-  margin: 0 0 1.8rem;
-  background: linear-gradient(135deg, white, #f0f9ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 15px 50px rgba(0,0,0,0,0.8);
-}
-.page-hero.gallery-hero p {
-  font-size: clamp(1.3rem, 3.2vw, 1.8rem);
-  max-width: 960px;
-  opacity: 0.96;
-  line-height: 1.9;
-  margin: 1.4rem auto;
+  background: 
+    radial-gradient(ellipse at 20% 80%, rgba(1,117,194,0.3) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(255,215,0,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(56,189,248,0.1) 0%, transparent 70%);
+  animation: heroGlow 8s ease-in-out infinite alternate;
 }
 
-/* ==================================
-   2. Gallery Filters
-================================== */
+@keyframes heroGlow {
+  0% { opacity: 0.7; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.05); }
+}
+
+.page-hero.gallery-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.5;
+}
+
+.page-hero.gallery-hero .container {
+  position: relative;
+  z-index: 2;
+  max-width: 1000px;
+  padding: clamp(2rem, 5vw, 4rem);
+}
+
+.page-hero.gallery-hero h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 700;
+  color: var(--white);
+  margin: 0 0 2rem;
+  text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+  letter-spacing: -0.02em;
+  animation: fadeInUp 1s ease-out;
+}
+
+.page-hero.gallery-hero h1::before {
+  content: '📸';
+  display: block;
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 1rem;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-hero.gallery-hero p {
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: rgba(255,255,255,0.9);
+  line-height: 1.9;
+  margin: 0 auto 1.5rem;
+  max-width: 850px;
+  animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.page-hero.gallery-hero p:last-of-type {
+  animation-delay: 0.4s;
+}
+
+/* ==========================================
+   2. GALLERY FILTERS
+========================================== */
 .gallery-filters {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.2rem;
-  margin: 4rem 0 5rem;
-}
-.filter-btn {
-  padding: 1rem 2.5rem;
-  background: white;
-  color: var(--blue-dark);
-  border: 2px solid var(--blue);
-  border-radius: 60px;
-  font-weight: 700;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: var(--shadow-sm);
-}
-.filter-btn.active,
-.filter-btn:hover {
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  color: white;
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(1,117,194,0.4);
+  gap: clamp(0.5rem, 2vw, 1rem);
+  margin-bottom: clamp(2rem, 4vw, 4rem);
+  padding: 1.5rem;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 100px;
+  z-index: 50;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
-/* ==================================
-   3. Gallery Grid – #galleryGrid
-   ULTRA-STUNNING MASONRY-STYLE GRID
-================================== */
+.filter-btn {
+  padding: clamp(0.6rem, 1.5vw, 1rem) clamp(1.2rem, 3vw, 2rem);
+  background: var(--bg-light);
+  color: var(--text-dark);
+  border: 2px solid transparent;
+  border-radius: 50px;
+  font-family: inherit;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: var(--transition-fast);
+}
+
+.filter-btn span {
+  position: relative;
+  z-index: 1;
+}
+
+.filter-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--primary);
+}
+
+.filter-btn.active {
+  background: var(--gradient-primary);
+  color: var(--white);
+  border-color: transparent;
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-3px);
+}
+
+.filter-btn.active::before {
+  opacity: 1;
+}
+
+/* ==========================================
+   3. GALLERY GRID
+========================================== */
 #galleryGrid.gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 2.5rem;
-  margin: 4rem auto;
-  justify-content: center;
-  max-width: 1500px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  margin-bottom: 3rem;
 }
-.gallery-grid a {
+
+.gallery-grid a,
+.gallery-item {
   display: block;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  transition: var(--transition);
   position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-light);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+  aspect-ratio: 4/3;
 }
-.gallery-grid a:hover {
-  transform: translateY(-16px) scale(1.04);
+
+.gallery-grid a:hover,
+.gallery-item:hover {
+  transform: translateY(-10px) scale(1.02);
   box-shadow: var(--shadow-lg);
 }
+
 .gallery-grid img {
   width: 100%;
-  height: 320px;
+  height: 100%;
   object-fit: cover;
-  transition: transform 0.8s ease;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .gallery-grid a:hover img {
   transform: scale(1.15);
 }
+
+.gallery-grid .overlay,
 .gallery-grid .gallery-caption {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(transparent, rgba(11,45,94,0.9));
-  color: white;
-  padding: 2rem 1.5rem 1.5rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  text-align: center;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(11,45,94,0.95) 0%,
+    rgba(11,45,94,0.6) 40%,
+    transparent 100%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 2rem 1.5rem;
   opacity: 0;
-  transition: opacity 0.5s ease;
+  transition: var(--transition-smooth);
 }
+
+.gallery-grid a:hover .overlay,
 .gallery-grid a:hover .gallery-caption {
   opacity: 1;
 }
 
-/* ==================================
-   4. 360° Virtual Tour – #panorama
-================================== */
-#panorama {
-  width: 100%;
-  height: 600px;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  border: 10px solid white;
-  margin: 4rem 0;
+.gallery-grid .overlay i {
+  font-size: 2.5rem;
+  color: var(--accent);
+  margin-bottom: 1rem;
+  transform: translateY(20px);
+  transition: var(--transition-bounce);
 }
 
-/* ==================================
-   5. Video Gallery – #videoGrid
-================================== */
+.gallery-grid a:hover .overlay i {
+  transform: translateY(0);
+}
+
+.gallery-grid .overlay p,
+.gallery-grid .gallery-caption {
+  color: var(--white);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+  transform: translateY(20px);
+  transition: var(--transition-bounce);
+  transition-delay: 0.1s;
+}
+
+.gallery-grid a:hover .overlay p {
+  transform: translateY(0);
+}
+
+/* ==========================================
+   4. GALLERY DESCRIPTION
+========================================== */
+.gallery-description {
+  background: linear-gradient(135deg, var(--primary-light) 0%, var(--white) 100%);
+  border-radius: var(--radius-lg);
+  padding: clamp(2rem, 4vw, 3rem);
+  border-left: 5px solid var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.gallery-description p {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+
+.gallery-description ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.gallery-description li {
+  padding: 1rem 1.5rem;
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+  line-height: 1.7;
+  transition: var(--transition-fast);
+  border-left: 3px solid var(--accent);
+}
+
+.gallery-description li:hover {
+  transform: translateX(10px);
+  box-shadow: var(--shadow-md);
+}
+
+.gallery-description li strong {
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+
+/* ==========================================
+   5. 360° VIRTUAL TOUR
+========================================== */
+#panorama {
+  width: 100%;
+  height: clamp(350px, 50vw, 600px);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  border: 6px solid var(--white);
+  position: relative;
+  background: var(--gradient-dark);
+}
+
+#panorama::before {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: calc(var(--radius-lg) + 6px);
+  background: var(--gradient-primary);
+  z-index: -1;
+}
+
+.tour-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--white);
+}
+
+.tour-loading i {
+  font-size: 4rem;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+
+.tour-loading p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.tour-container {
+  margin: 2rem 0;
+}
+
+.tour-highlights {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: clamp(2rem, 4vw, 3rem);
+  box-shadow: var(--shadow-md);
+}
+
+.tour-highlights h4 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  color: var(--primary-dark);
+  margin: 0 0 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--primary-light);
+}
+
+.tour-highlights ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.tour-highlights li {
+  padding: 1.2rem 1.5rem;
+  background: var(--bg-light);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  line-height: 1.7;
+  transition: var(--transition-fast);
+  position: relative;
+  padding-left: 3rem;
+}
+
+.tour-highlights li::before {
+  content: '🎯';
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+}
+
+.tour-highlights li:hover {
+  background: var(--primary-light);
+  transform: translateY(-3px);
+}
+
+.tour-highlights li strong {
+  color: var(--primary-dark);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+/* ==========================================
+   6. VIDEO GALLERY
+========================================== */
 .video-tabs {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1.2rem;
-  margin: 4rem 0 5rem;
+  gap: clamp(0.5rem, 2vw, 1rem);
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  padding: 1rem;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
 }
+
 .tab-btn {
-  padding: 1rem 2.5rem;
-  background: white;
-  color: var(--blue-dark);
-  border: 2px solid var(--blue);
-  border-radius: 60px;
-  font-weight: 700;
-  font-size: 1.1rem;
+  padding: clamp(0.6rem, 1.5vw, 0.9rem) clamp(1rem, 2.5vw, 1.8rem);
+  background: var(--bg-light);
+  color: var(--text-dark);
+  border: 2px solid transparent;
+  border-radius: 50px;
+  font-family: inherit;
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+  font-weight: 600;
   cursor: pointer;
-  transition: var(--transition);
+  transition: var(--transition-smooth);
 }
-.tab-btn.active,
+
 .tab-btn:hover {
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  color: white;
-  transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(1,117,194,0.4);
+  background: var(--primary-light);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.tab-btn.active {
+  background: var(--gradient-primary);
+  color: var(--white);
+  box-shadow: var(--shadow-glow);
 }
 
 #videoGrid.video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-  gap: 4rem;
-  margin: 4rem auto;
-  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
 }
+
 .video-item {
-  background: white;
-  border-radius: var(--radius);
+  background: var(--white);
+  border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-md);
-  transition: var(--transition);
+  transition: var(--transition-smooth);
 }
+
 .video-item:hover {
-  transform: translateY(-20px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-12px);
+  box-shadow: var(--shadow-xl);
 }
+
 .video-wrapper {
   position: relative;
   padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
+  background: var(--gradient-dark);
 }
-.video-wrapper iframe {
+
+.video-wrapper iframe,
+.video-wrapper video {
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   border: none;
 }
+
 .video-title {
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: var(--blue-dark);
-  margin: 1.5rem 0 0.8rem;
-  padding: 0 2rem;
-}
-.video-description {
-  padding: 0 2rem 2.5rem;
-  color: var(--gray);
-  line-height: 1.8;
-  font-size: 1.05rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: 700;
+  color: var(--primary-dark);
+  margin: 1.5rem 1.5rem 0.8rem;
+  line-height: 1.4;
 }
 
-/* ==================================
-   6. Quick Stats Banner – #galleryStats
-================================== */
+.video-description {
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  color: var(--text-muted);
+  line-height: 1.8;
+  padding: 0 1.5rem 2rem;
+  margin: 0;
+}
+
+.video-info {
+  background: var(--bg-light);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.video-info p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================
+   7. QUICK STATS BANNER
+========================================== */
 #galleryStats.quick-stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 3rem;
-  padding: 4.5rem 0;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+  padding: clamp(2rem, 4vw, 4rem) 0;
 }
+
 #galleryStats .stat {
   text-align: center;
-}
-#galleryStats .stat h3 {
-  font-size: 4.8rem;
-  font-weight: 900;
-  color: var(--gold);
-  margin: 0;
-  text-shadow: 0 6px 20px rgba(0,0,0,0.3);
-}
-#galleryStats .stat p {
-  font-size: 1.25rem;
-  margin-top: 1rem;
-  opacity: 0.95;
+  padding: 2rem 1rem;
+  background: rgba(255,255,255,0.1);
+  border-radius: var(--radius-md);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  transition: var(--transition-smooth);
 }
 
-/* ==================================
-   7. Loader
-================================== */
+#galleryStats .stat:hover {
+  background: rgba(255,255,255,0.15);
+  transform: translateY(-8px);
+}
+
+#galleryStats .stat h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+  color: var(--accent);
+  margin: 0 0 0.5rem;
+  text-shadow: 0 4px 20px rgba(255,215,0,0.3);
+  line-height: 1;
+}
+
+#galleryStats .stat p {
+  font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+  margin: 0;
+  opacity: 0.95;
+  font-weight: 500;
+}
+
+/* ==========================================
+   8. LOADER
+========================================== */
 .loader {
   grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
   text-align: center;
-  padding: 6rem 0;
 }
-.loader i {
-  font-size: 5rem;
-  color: var(--blue);
-  animation: spin 1.8s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
 
-/* ==================================
-   8. RESPONSIVE – FLAWLESS EVERYWHERE
-================================== */
+.loader i {
+  font-size: 4rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  animation: spin 1.5s linear infinite;
+}
+
+.loader p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   9. BACK TO TOP BUTTON
+========================================== */
+#backToTop {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px;
+  height: 56px;
+  background: var(--gradient-primary);
+  color: var(--white);
+  border: none;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: var(--transition-smooth);
+  z-index: 1000;
+}
+
+#backToTop.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+#backToTop:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: var(--shadow-glow);
+}
+
+/* ==========================================
+   10. LINKS & MISC
+========================================== */
+a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition-fast);
+}
+
+a:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/* ==========================================
+   11. RESPONSIVE DESIGN
+========================================== */
+
+/* Large Tablets & Small Desktops */
 @media (max-width: 1200px) {
-  #galleryGrid.gallery-grid,
-  #videoGrid.video-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .gallery-filters {
+    position: relative;
+    top: 0;
   }
 }
+
+/* Tablets */
 @media (max-width: 992px) {
-  .page-hero.gallery-hero { min-height: calc(100vh - 80px); margin-top: 80px; }
+  .page-hero.gallery-hero {
+    min-height: 70vh;
+    margin-top: 80px;
+  }
+  
+  .page-hero.gallery-hero h1 {
+    font-size: clamp(2.5rem, 8vw, 4rem);
+  }
+  
+  .gallery-description ul {
+    grid-template-columns: 1fr;
+  }
+  
+  .tour-highlights ul {
+    grid-template-columns: 1fr;
+  }
 }
+
+/* Mobile Landscape & Small Tablets */
 @media (max-width: 768px) {
-  #galleryGrid.gallery-grid,
+  .page-hero.gallery-hero {
+    min-height: 60vh;
+    margin-top: 70px;
+  }
+  
+  .gallery-filters {
+    gap: 0.5rem;
+    padding: 1rem;
+  }
+  
+  .filter-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  #galleryGrid.gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .gallery-grid a,
+  .gallery-item {
+    aspect-ratio: 1;
+  }
+  
+  .gallery-grid .overlay,
+  .gallery-grid .gallery-caption {
+    opacity: 1;
+    background: linear-gradient(
+      to top,
+      rgba(11,45,94,0.9) 0%,
+      transparent 60%
+    );
+    padding: 1rem;
+  }
+  
+  .gallery-grid .overlay i {
+    display: none;
+  }
+  
+  .gallery-grid .overlay p {
+    font-size: 0.9rem;
+    transform: none;
+  }
+  
   #videoGrid.video-grid {
     grid-template-columns: 1fr;
   }
-  .gallery-caption { opacity: 1; padding: 1.5rem; }
+  
+  .video-tabs {
+    gap: 0.4rem;
+    padding: 0.8rem;
+  }
+  
+  .tab-btn {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.8rem;
+  }
+  
+  #galleryStats.quick-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  #galleryStats .stat {
+    padding: 1.5rem 0.5rem;
+  }
+  
+  #galleryStats .stat h3 {
+    font-size: 2rem;
+  }
+  
+  #backToTop {
+    width: 48px;
+    height: 48px;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.1rem;
+  }
 }
-@media (max-width: 640px) {
-  .page-hero.gallery-hero { min-height: calc(100vh - 70px); margin-top: 70px; }
-  #panorama { height: 400px; }
-  .gallery-filters,
-  .video-tabs { gap: 0.8rem; }
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+  .page-hero.gallery-hero {
+    min-height: 55vh;
+    margin-top: 60px;
+  }
+  
+  .page-hero.gallery-hero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .page-hero.gallery-hero h1::before {
+    font-size: 1.8rem;
+  }
+  
+  .page-hero.gallery-hero p {
+    font-size: 0.95rem;
+  }
+  
+  .section {
+    padding: 3rem 0;
+  }
+  
+  .section-title h2 {
+    font-size: 1.8rem;
+  }
+  
+  .section-title p {
+    font-size: 0.95rem;
+  }
+  
+  .gallery-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .filter-btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  #galleryGrid.gallery-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .gallery-description {
+    padding: 1.5rem;
+  }
+  
+  .gallery-description li {
+    padding: 1rem;
+    padding-left: 2.5rem;
+  }
+  
+  #panorama {
+    height: 280px;
+    border-width: 4px;
+  }
+  
+  .tour-highlights {
+    padding: 1.5rem;
+  }
+  
+  .tour-highlights li {
+    padding: 1rem;
+    padding-left: 2.5rem;
+  }
+  
+  .video-tabs {
+    flex-direction: column;
+  }
+  
+  .tab-btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .video-title {
+    font-size: 1.1rem;
+    margin: 1rem 1rem 0.5rem;
+  }
+  
+  .video-description {
+    font-size: 0.9rem;
+    padding: 0 1rem 1.5rem;
+  }
+  
+  #galleryStats.quick-stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  #galleryStats .stat h3 {
+    font-size: 2.5rem;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 360px) {
+  .container {
+    padding: 0 0.75rem;
+  }
+  
+  .page-hero.gallery-hero h1 {
+    font-size: 1.8rem;
+  }
+  
+  .section-title h2 {
+    font-size: 1.5rem;
+  }
+  
   .filter-btn,
-  .tab-btn { padding: 0.8rem 1.8rem; font-size: 1rem; }
+  .tab-btn {
+    font-size: 0.8rem;
+    padding: 0.5rem 0.8rem;
+  }
+}
+
+/* High Resolution Displays */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1500px;
+  }
+  
+  #galleryGrid.gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  #videoGrid.video-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .page-hero.gallery-hero {
+    min-height: auto;
+    padding: 2rem;
+    background: var(--primary-dark) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  .gallery-filters,
+  .video-tabs,
+  #backToTop,
+  #panorama {
+    display: none !important;
+  }
+  
+  #galleryGrid.gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  .gallery-grid a {
+    break-inside: avoid;
+  }
 }
