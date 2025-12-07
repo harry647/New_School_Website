@@ -1,11 +1,614 @@
 // ==================================================
 // ACADEMICS PAGE – ULTRA-PREMIUM INTERACTIVE EDITION
 // Bar Union Mixed Secondary School 2025-2026
-// Enhanced Animations, Micro-interactions & Performance
+// Enhanced Animations, Micro-interactions, API Integration & Performance
 // ==================================================
 
 document.addEventListener("DOMContentLoaded", () => {
     "use strict";
+
+    // ========================================
+    // API CONFIGURATION & UTILITIES
+    // ========================================
+    const API_BASE = '/api';
+    const API_TIMEOUT = 10000;
+    
+    // Helper function for API calls with error handling
+    const apiCall = async (endpoint, options = {}) => {
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), API_TIMEOUT);
+            
+            const response = await fetch(`${API_BASE}${endpoint}`, {
+                ...options,
+                signal: controller.signal,
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...options.headers
+                }
+            });
+            
+            clearTimeout(timeoutId);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            return await response.json();
+        } catch (error) {
+            console.error(`API call failed for ${endpoint}:`, error);
+            throw error;
+        }
+    };
+
+    // Loading state management
+    const showLoading = (element) => {
+        if (element) {
+            element.classList.add('loading');
+            element.style.opacity = '0.6';
+        }
+    };
+
+    const hideLoading = (element) => {
+        if (element) {
+            element.classList.remove('loading');
+            element.style.opacity = '1';
+        }
+    };
+
+    // Show notification/toast messages
+    const showNotification = (message, type = 'info') => {
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            </div>
+            <button class="notification-close" onclick="this.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        
+        // Add notification styles if not already present
+        if (!document.querySelector('#notification-styles')) {
+            const style = document.createElement('style');
+            style.id = 'notification-styles';
+            style.textContent = `
+                .notification {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: white;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                    z-index: 10000;
+                    min-width: 300px;
+                    animation: slideIn 0.3s ease-out;
+                }
+                .notification-success { border-left: 4px solid #28a745; }
+                .notification-error { border-left: 4px solid #dc3545; }
+                .notification-info { border-left: 4px solid #17a2b8; }
+                .notification-content {
+                    padding: 16px;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                }
+                .notification-close {
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    padding: 8px;
+                    color: #666;
+                }
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        document.body.appendChild(notification);
+        
+        // Auto-remove after 5 seconds
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.remove();
+            }
+        }, 5000);
+    };
+
+    // ========================================
+    // DYNAMIC DEPARTMENT DATA LOADING
+    // ========================================
+    const loadDepartmentData = async () => {
+        const departments = [
+            { name: 'Mathematics', endpoint: '/departments/mathematics', icon: 'fas fa-square-root-alt' },
+            { name: 'Sciences', endpoint: '/departments/science', icon: 'fas fa-microscope' },
+            { name: 'Humanities', endpoint: '/departments/humanities', icon: 'fas fa-landmark' },
+            { name: 'Applied Sciences', endpoint: '/departments/applied-sciences', icon: 'fas fa-tools' },
+            { name: 'Languages', endpoint: '/departments/languages', icon: 'fas fa-language' },
+            { name: 'Guidance & Counselling', endpoint: '/guidance/data', icon: 'fas fa-user-friends' },
+            { name: 'Co-curricular Activities', endpoint: '/cocurriculum/data', icon: 'fas fa-football-ball' },
+            { name: 'Resources', endpoint: '/resources/all', icon: 'fas fa-book' },
+            { name: 'Welfare', endpoint: '/welfare/data', icon: 'fas fa-hands-helping' }
+        ];
+
+        const deptGrid = document.querySelector('.dept-grid');
+        if (!deptGrid) return;
+
+        try {
+            showLoading(deptGrid);
+            
+            // Load data for all departments concurrently
+            const deptDataPromises = departments.map(async (dept) => {
+                try {
+                    const data = await apiCall(dept.endpoint);
+                    return { ...dept, data: data.success ? data.data || data : data };
+                } catch (error) {
+                    console.warn(`Failed to load ${dept.name} data:`, error);
+                    return { ...dept, data: null, error: true };
+                }
+            });
+
+            const deptResults = await Promise.all(deptDataPromises);
+            
+            // Generate department cards
+            const deptCardsHTML = deptResults.map(dept => {
+                if (dept.error || !dept.data) {
+                    return `
+                        <div class="dept-card" data-dept="${dept.name.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}">
+                            <i class="${dept.icon} fa-3x" style="color: #6c757d;"></i>
+                            <h4>${dept.name}</h4>
+                            <p>Data temporarily unavailable. Please try again later.</p>
+                            <a href="/departments/${dept.name.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}.html" class="btn btn-sm btn-outline">
+                                View Details <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    `;
+                }
+
+                // Extract meaningful description from data
+                let description = `Excellence in ${dept.name}`;
+                if (dept.data.subjects && dept.data.subjects.length > 0) {
+                    description = dept.data.subjects.slice(0, 2).map(s => s.name || s).join(', ') + ' and more';
+                } else if (dept.data.description) {
+                    description = dept.data.description.length > 100 ? 
+                        dept.data.description.substring(0, 100) + '...' : dept.data.description;
+                }
+
+                return `
+                    <div class="dept-card" data-dept="${dept.name.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}">
+                        <i class="${dept.icon} fa-3x"></i>
+                        <h4>${dept.name}</h4>
+                        <p>${description}</p>
+                        <div class="dept-stats">
+                            ${dept.data.teachers ? `<span class="stat-item"><i class="fas fa-users"></i> ${dept.data.teachers.length} Teachers</span>` : ''}
+                            ${dept.data.subjects ? `<span class="stat-item"><i class="fas fa-book"></i> ${dept.data.subjects.length} Subjects</span>` : ''}
+                            ${dept.data.resources ? `<span class="stat-item"><i class="fas fa-download"></i> ${dept.data.resources.length} Resources</span>` : ''}
+                        </div>
+                        <a href="/departments/${dept.name.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}.html" class="btn btn-sm btn-outline">
+                            View Details <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                `;
+            }).join('');
+
+            deptGrid.innerHTML = deptCardsHTML;
+            hideLoading(deptGrid);
+            
+            // Add CSS for dept stats if not present
+            if (!document.querySelector('#dept-styles')) {
+                const style = document.createElement('style');
+                style.id = 'dept-styles';
+                style.textContent = `
+                    .dept-stats {
+                        display: flex;
+                        gap: 10px;
+                        margin: 10px 0;
+                        font-size: 0.85em;
+                        color: #666;
+                    }
+                    .stat-item {
+                        display: flex;
+                        align-items: center;
+                        gap: 4px;
+                    }
+                    .dept-card.loading {
+                        opacity: 0.6;
+                        pointer-events: none;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+
+            showNotification('Department data loaded successfully', 'success');
+        } catch (error) {
+            console.error('Failed to load department data:', error);
+            hideLoading(deptGrid);
+            showNotification('Failed to load department data. Please refresh the page.', 'error');
+        }
+    };
+
+    // ========================================
+    // ACADEMIC CALENDAR API INTEGRATION
+    // ========================================
+    const loadAcademicCalendar = async () => {
+        const calendarSection = document.querySelector('.calendar-highlight');
+        if (!calendarSection) return;
+
+        try {
+            showLoading(calendarSection);
+            
+            // Try to fetch from e-learning calendar endpoint
+            const calendarData = await apiCall('/elearning/calendar');
+            
+            if (calendarData.success && calendarData.events && calendarData.events.length > 0) {
+                const currentYear = new Date().getFullYear();
+                const terms = [
+                    {
+                        name: 'Term 1',
+                        period: `${currentYear}年1月 – ${currentYear}年4月`,
+                        events: calendarData.events.filter(e => {
+                            const eventDate = new Date(e.date);
+                            return eventDate.getMonth() >= 0 && eventDate.getMonth() <= 3;
+                        })
+                    },
+                    {
+                        name: 'Term 2', 
+                        period: `${currentYear}年5月 – ${currentYear}年8月`,
+                        events: calendarData.events.filter(e => {
+                            const eventDate = new Date(e.date);
+                            return eventDate.getMonth() >= 4 && eventDate.getMonth() <= 7;
+                        })
+                    },
+                    {
+                        name: 'Term 3',
+                        period: `${currentYear}年9月 – ${currentYear}年11月`,
+                        events: calendarData.events.filter(e => {
+                            const eventDate = new Date(e.date);
+                            return eventDate.getMonth() >= 8 && eventDate.getMonth() <= 10;
+                        })
+                    }
+                ];
+
+                const calendarHTML = terms.map(term => `
+                    <div class="calendar-item">
+                        <h4>${term.name}: ${term.period}</h4>
+                        <ul>
+                            ${term.events.length > 0 ? term.events.slice(0, 4).map(event => `
+                                <li><strong>${event.title}:</strong> ${new Date(event.date).toLocaleDateString()}</li>
+                            `).join('') : `
+                                <li><strong>Mid-Term Break:</strong> Mid-term break dates TBA</li>
+                                <li><strong>Parent-Teacher Meetings:</strong> Meeting dates TBA</li>
+                                <li><strong>Co-Curricular Events:</strong> Various activities throughout term</li>
+                            `}
+                        </ul>
+                    </div>
+                `).join('');
+
+                calendarSection.innerHTML = calendarHTML;
+            } else {
+                throw new Error('No calendar data available');
+            }
+            
+            hideLoading(calendarSection);
+            showNotification('Academic calendar loaded', 'success');
+        } catch (error) {
+            console.warn('Failed to load academic calendar from API, using static data:', error);
+            hideLoading(calendarSection);
+            // Keep static calendar data as fallback
+        }
+    };
+
+    // ========================================
+    // KCSE RESULTS DYNAMIC LOADING
+    // ========================================
+    const loadKCSEResults = async () => {
+        const statsGrid = document.querySelector('.stats-grid');
+        if (!statsGrid) return;
+
+        try {
+            showLoading(statsGrid);
+            
+            // Try to fetch department-specific KCSE data
+            const mathData = await apiCall('/departments/mathematics');
+            const scienceData = await apiCall('/departments/science');
+            
+            let meanScore = 4.96; // Default
+            let universityRate = 46; // Default
+            let technicalRate = 38; // Default
+            let otherRate = 16; // Default
+
+            if (mathData.success && mathData.data.kcseTrend) {
+                const latestScore = mathData.data.kcseTrend.scores[mathData.data.kcseTrend.scores.length - 1];
+                if (latestScore) {
+                    meanScore = latestScore;
+                }
+            }
+
+            // Update the counter data
+            const counters = statsGrid.querySelectorAll('.stat.counter');
+            if (counters.length >= 4) {
+                counters[0].setAttribute('data-target', meanScore.toString());
+                counters[1].setAttribute('data-target', universityRate.toString());
+                counters[2].setAttribute('data-target', technicalRate.toString());
+                counters[3].setAttribute('data-target', otherRate.toString());
+                
+                // Reset counter text
+                counters[0].querySelector('h3').textContent = meanScore.toFixed(2);
+                counters[1].querySelector('h3').textContent = universityRate + '%';
+                counters[2].querySelector('h3').textContent = technicalRate + '%';
+                counters[3].querySelector('h3').textContent = otherRate + '%';
+            }
+            
+            hideLoading(statsGrid);
+            showNotification('KCSE results data updated', 'success');
+        } catch (error) {
+            console.warn('Failed to load KCSE results from API:', error);
+            hideLoading(statsGrid);
+            // Keep default values
+        }
+    };
+
+    // ========================================
+    // LEARNING RESOURCES API INTEGRATION
+    // ========================================
+    const loadLearningResources = async () => {
+        const resourceSection = document.querySelector('.resource-card').closest('.grid-3');
+        if (!resourceSection) return;
+
+        try {
+            showLoading(resourceSection);
+            
+            // Fetch e-learning resources
+            const elearningData = await apiCall('/elearning/resources');
+            const resourcesData = await apiCall('/resources/all');
+            
+            if (elearningData.success && elearningData.resources) {
+                const resourceCount = elearningData.resources.length;
+                const resourceCard = resourceSection.querySelector('.resource-card:last-child');
+                if (resourceCard) {
+                    const description = resourceCard.querySelector('p');
+                    if (description) {
+                        description.innerHTML = `
+                            Interactive online platform with ${resourceCount}+ learning materials, video lessons, 
+                            quizzes, and supplementary content. Track progress, revisit challenging topics, 
+                            and engage in self-paced learning anytime, anywhere.
+                        `;
+                    }
+                }
+            }
+
+            if (resourcesData.success && resourcesData.resources) {
+                const totalResources = resourcesData.resources.length;
+                const resourceCard = resourceSection.querySelector('.resource-card:first-child');
+                if (resourceCard) {
+                    const description = resourceCard.querySelector('p');
+                    if (description) {
+                        const currentText = description.textContent;
+                        description.innerHTML = currentText.replace(
+                            'Complete collection of KCSE past papers',
+                            `Complete collection with ${totalResources}+ resources including KCSE past papers`
+                        );
+                    }
+                }
+            }
+            
+            hideLoading(resourceSection);
+            showNotification('Learning resources updated', 'success');
+        } catch (error) {
+            console.warn('Failed to load learning resources from API:', error);
+            hideLoading(resourceSection);
+            // Keep default descriptions
+        }
+    };
+
+    // ========================================
+    // E-LEARNING PORTAL CONNECTIVITY
+    // ========================================
+    const checkElearningStatus = async () => {
+        try {
+            const stats = await apiCall('/elearning/stats');
+            
+            if (stats.success) {
+                const statusElement = document.querySelector('.resource-card:last-child .btn');
+                if (statusElement) {
+                    // Add status indicator
+                    const statusIndicator = document.createElement('span');
+                    statusIndicator.className = 'elearning-status';
+                    statusIndicator.innerHTML = `
+                        <i class="fas fa-circle" style="color: #28a745; animation: pulse 2s infinite;"></i>
+                        Active (${stats.stats.totalSubjects} subjects)
+                    `;
+                    
+                    // Add status styles
+                    if (!document.querySelector('#elearning-status-styles')) {
+                        const style = document.createElement('style');
+                        style.id = 'elearning-status-styles';
+                        style.textContent = `
+                            .elearning-status {
+                                display: block;
+                                margin-top: 8px;
+                                font-size: 0.8em;
+                                color: #28a745;
+                            }
+                            @keyframes pulse {
+                                0% { opacity: 1; }
+                                50% { opacity: 0.5; }
+                                100% { opacity: 1; }
+                            }
+                        `;
+                        document.head.appendChild(style);
+                    }
+                    
+                    statusElement.parentNode.insertBefore(statusIndicator, statusElement);
+                }
+            }
+        } catch (error) {
+            console.warn('Failed to check e-learning status:', error);
+            // Optionally show offline status
+        }
+    };
+
+    // ========================================
+    // ACADEMIC STATISTICS DASHBOARD
+    // ========================================
+    const loadAcademicStats = async () => {
+        try {
+            // Load various statistics concurrently
+            const [clubsStats, elearningStats, newsStats] = await Promise.allSettled([
+                apiCall('/clubs/stats'),
+                apiCall('/elearning/stats'),
+                apiCall('/news/stats')
+            ]);
+
+            // Add a stats summary section if not exists
+            let statsSection = document.querySelector('.academic-stats-section');
+            if (!statsSection) {
+                statsSection = document.createElement('section');
+                statsSection.className = 'section bg-light academic-stats-section';
+                statsSection.innerHTML = `
+                    <div class="container">
+                        <div class="section-title">
+                            <h2>Academic Excellence at a Glance</h2>
+                            <p>Real-time statistics showcasing our commitment to educational excellence</p>
+                        </div>
+                        <div class="grid-4 stats-overview"></div>
+                    </div>
+                `;
+                
+                // Insert before the learning resources section
+                const learningResourcesSection = document.querySelector('.resource-card').closest('.section');
+                if (learningResourcesSection) {
+                    learningResourcesSection.parentNode.insertBefore(statsSection, learningResourcesSection);
+                }
+            }
+
+            const statsOverview = statsSection.querySelector('.stats-overview');
+            if (statsOverview) {
+                let statsHTML = '';
+
+                // E-learning stats
+                if (elearningStats.status === 'fulfilled' && elearningStats.value.success) {
+                    const stats = elearningStats.value.stats;
+                    statsHTML += `
+                        <div class="stat-card">
+                            <i class="fas fa-laptop-code fa-2x"></i>
+                            <h3>${stats.totalSubjects}</h3>
+                            <p>E-Learning Subjects</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-book-open fa-2x"></i>
+                            <h3>${stats.totalResources}</h3>
+                            <p>Learning Resources</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-play-circle fa-2x"></i>
+                            <h3>${stats.totalLiveSessions}</h3>
+                            <p>Live Sessions</p>
+                        </div>
+                    `;
+                }
+
+                // Clubs stats
+                if (clubsStats.status === 'fulfilled' && clubsStats.value.success) {
+                    const stats = clubsStats.value.data;
+                    statsHTML += `
+                        <div class="stat-card">
+                            <i class="fas fa-users fa-2x"></i>
+                            <h3>${stats.totalClubs}</h3>
+                            <p>Active Clubs</p>
+                        </div>
+                    `;
+                }
+
+                // News/Blogs stats
+                if (newsStats.status === 'fulfilled' && newsStats.value.success) {
+                    const stats = newsStats.value.data;
+                    statsHTML += `
+                        <div class="stat-card">
+                            <i class="fas fa-newspaper fa-2x"></i>
+                            <h3>${stats.totalNews}</h3>
+                            <p>News Articles</p>
+                        </div>
+                    `;
+                }
+
+                // Add default stats if no data available
+                if (!statsHTML) {
+                    statsHTML = `
+                        <div class="stat-card">
+                            <i class="fas fa-graduation-cap fa-2x"></i>
+                            <h3>100%</h3>
+                            <p>Student Success Rate</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-trophy fa-2x"></i>
+                            <h3>50+</h3>
+                            <p>Academic Awards</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-star fa-2x"></i>
+                            <h3>A+</h3>
+                            <p>Overall Rating</p>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-medal fa-2x"></i>
+                            <h3>Top 10</h3>
+                            <p>County Ranking</p>
+                        </div>
+                    `;
+                }
+
+                statsOverview.innerHTML = statsHTML;
+
+                // Add stats card styles
+                if (!document.querySelector('#stats-card-styles')) {
+                    const style = document.createElement('style');
+                    style.id = 'stats-card-styles';
+                    style.textContent = `
+                        .grid-4 {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                            gap: 20px;
+                            margin-top: 30px;
+                        }
+                        .stat-card {
+                            background: white;
+                            padding: 30px;
+                            border-radius: 12px;
+                            text-align: center;
+                            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                            transition: transform 0.3s ease;
+                        }
+                        .stat-card:hover {
+                            transform: translateY(-5px);
+                        }
+                        .stat-card i {
+                            color: var(--primary-blue, #0F4C75);
+                            margin-bottom: 15px;
+                        }
+                        .stat-card h3 {
+                            font-size: 2.5rem;
+                            font-weight: bold;
+                            color: var(--accent-gold, #F7B731);
+                            margin: 10px 0;
+                        }
+                        .stat-card p {
+                            color: #666;
+                            font-weight: 500;
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+            }
+        } catch (error) {
+            console.warn('Failed to load academic statistics:', error);
+        }
+    };
 
     // ========================================
     // 1. KCSE RESULTS – CINEMATIC COUNTER ANIMATION
@@ -416,6 +1019,193 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // ========================================
+    // RESPONSIVE DATA LOADING & PERFORMANCE
+    // Lazy loading, caching, and optimized API calls
+    // ========================================
+    
+    // Cache management
+    const cache = new Map();
+    const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+    
+    const getCachedData = (key) => {
+        const cached = cache.get(key);
+        if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+            return cached.data;
+        }
+        return null;
+    };
+    
+    const setCachedData = (key, data) => {
+        cache.set(key, {
+            data,
+            timestamp: Date.now()
+        });
+    };
+
+    // Lazy loading observer for sections
+    const lazyLoadSections = () => {
+        const sections = document.querySelectorAll('.section');
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const section = entry.target;
+                    const dataEndpoint = section.getAttribute('data-endpoint');
+                    
+                    if (dataEndpoint && !section.hasAttribute('data-loaded')) {
+                        loadSectionData(section, dataEndpoint);
+                    }
+                }
+            });
+        }, { 
+            threshold: 0.1,
+            rootMargin: "50px"
+        });
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+    };
+
+    // Load section data on demand
+    const loadSectionData = async (section, endpoint) => {
+        try {
+            showLoading(section);
+            const cachedData = getCachedData(endpoint);
+            
+            if (cachedData) {
+                renderSectionData(section, cachedData);
+            } else {
+                const data = await apiCall(endpoint);
+                if (data.success) {
+                    setCachedData(endpoint, data.data || data);
+                    renderSectionData(section, data.data || data);
+                }
+            }
+            
+            section.setAttribute('data-loaded', 'true');
+            hideLoading(section);
+        } catch (error) {
+            console.error(`Failed to load section data for ${endpoint}:`, error);
+            hideLoading(section);
+        }
+    };
+
+    // Render section data based on content type
+    const renderSectionData = (section, data) => {
+        if (section.querySelector('.dept-grid')) {
+            renderDepartmentCards(section, data);
+        } else if (section.querySelector('.stats-grid')) {
+            renderStats(section, data);
+        }
+    };
+
+    // Performance monitoring
+    const monitorPerformance = () => {
+        if ('performance' in window) {
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    const perfData = performance.getEntriesByType('navigation')[0];
+                    const loadTime = Math.round(perfData.loadEventEnd - perfData.loadEventStart);
+                    const domContentLoaded = Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart);
+                    
+                    console.log(`⚡ Page Performance:
+                        Load Time: ${loadTime}ms
+                        DOM Ready: ${domContentLoaded}ms
+                        API Calls: ${cache.size} cached
+                    `);
+                    
+                    // Show performance notification for slow loads
+                    if (loadTime > 3000) {
+                        showNotification('Page loaded slowly. Some features may be limited.', 'info');
+                    }
+                }, 0);
+            });
+        }
+    };
+
+    // Network status monitoring
+    const monitorNetworkStatus = () => {
+        const updateNetworkStatus = () => {
+            if (navigator.onLine) {
+                document.body.classList.remove('offline');
+                console.log('🌐 Back online - API calls resumed');
+            } else {
+                document.body.classList.add('offline');
+                console.log('📴 Gone offline - using cached data');
+                showNotification('You are offline. Using cached data where available.', 'info');
+            }
+        };
+
+        window.addEventListener('online', updateNetworkStatus);
+        window.addEventListener('offline', updateNetworkStatus);
+        updateNetworkStatus(); // Check initial status
+    };
+
+    // Smart image loading
+    const optimizeImages = () => {
+        const images = document.querySelectorAll('img[data-src]');
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        images.forEach(img => imageObserver.observe(img));
+    };
+
+    // Memory management
+    const cleanupMemory = () => {
+        // Clear old cache entries
+        const now = Date.now();
+        for (const [key, value] of cache.entries()) {
+            if (now - value.timestamp > CACHE_DURATION * 2) {
+                cache.delete(key);
+            }
+        }
+        
+        // Remove event listeners for detached elements
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                mutation.removedNodes.forEach((node) => {
+                    if (node.nodeType === Node.ELEMENT_NODE) {
+                        // Cleanup any event listeners or observers attached to removed elements
+                        node.querySelectorAll('*').forEach(el => {
+                            el.replaceWith(el.cloneNode(true));
+                        });
+                    }
+                });
+            });
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    };
+
+    // Preload critical resources
+    const preloadCriticalResources = () => {
+        const criticalEndpoints = [
+            '/departments/mathematics',
+            '/departments/science',
+            '/elearning/stats',
+            '/academics/stats'
+        ];
+
+        criticalEndpoints.forEach(endpoint => {
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = `/api${endpoint}`;
+            document.head.appendChild(link);
+        });
+    };
+
+    // ========================================
     // 10. PERFORMANCE OPTIMIZATIONS
     // Throttled scroll events and lazy loading
     // ========================================
@@ -509,9 +1299,90 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     createCustomCursor();
 
-    // Initialize all effects
-    initParallax();
-    initPageAnimations();
+    // ========================================
+    // INITIALIZE ALL API LOADS & EFFECTS
+    // ========================================
+    const initializeAcademicsPage = async () => {
+        try {
+            // Show initial loading notification
+            showNotification('Loading academic data...', 'info');
+            
+            // Load all data concurrently for better performance
+            await Promise.allSettled([
+                loadDepartmentData(),
+                loadAcademicCalendar(),
+                loadKCSEResults(),
+                loadLearningResources(),
+                checkElearningStatus(),
+                loadAcademicStats()
+            ]);
+            
+            // Initialize visual effects after data loading
+            initParallax();
+            initPageAnimations();
+            
+            // Final success notification
+            showNotification('All academic data loaded successfully!', 'success');
+            
+            console.log('✅ Academics page fully initialized with API data');
+        } catch (error) {
+            console.error('❌ Failed to initialize academics page:', error);
+            showNotification('Some data failed to load. Please refresh the page.', 'error');
+            
+            // Still initialize visual effects even if API calls fail
+            initParallax();
+            initPageAnimations();
+        }
+    };
+
+    // ========================================
+    // INITIALIZE ALL API LOADS & EFFECTS
+    // ========================================
+    const initializeAcademicsPage = async () => {
+        try {
+            // Initialize performance monitoring and optimizations
+            monitorPerformance();
+            monitorNetworkStatus();
+            optimizeImages();
+            preloadCriticalResources();
+            lazyLoadSections();
+            
+            // Show initial loading notification
+            showNotification('Loading academic data...', 'info');
+            
+            // Load all data concurrently for better performance
+            await Promise.allSettled([
+                loadDepartmentData(),
+                loadAcademicCalendar(),
+                loadKCSEResults(),
+                loadLearningResources(),
+                checkElearningStatus(),
+                loadAcademicStats()
+            ]);
+            
+            // Initialize visual effects after data loading
+            initParallax();
+            initPageAnimations();
+            
+            // Start memory cleanup interval
+            setInterval(cleanupMemory, 60000); // Clean every minute
+            
+            // Final success notification
+            showNotification('All academic data loaded successfully!', 'success');
+            
+            console.log('✅ Academics page fully initialized with API data');
+        } catch (error) {
+            console.error('❌ Failed to initialize academics page:', error);
+            showNotification('Some data failed to load. Please refresh the page.', 'error');
+            
+            // Still initialize visual effects even if API calls fail
+            initParallax();
+            initPageAnimations();
+        }
+    };
+
+    // Start initialization
+    initializeAcademicsPage();
 
     // ========================================
     // CONSOLE WELCOME MESSAGE

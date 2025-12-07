@@ -101,14 +101,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================
 
     /**
-     * Load staff data from JSON with enhanced error handling
+     * Load staff data from API with enhanced error handling
      */
     const loadStaff = async () => {
         showLoading();
         const startTime = Date.now();
         
         try {
-            const response = await fetch("/data/static/staff-data.json");
+            const response = await fetch("/api/staff/data");
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

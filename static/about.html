@@ -248,6 +248,164 @@
         </div>
     </section>
 
+    <!-- Contact & Feedback Section -->
+    <section class="section contact-feedback-section" aria-labelledby="contact-title">
+        <div class="container">
+            <div class="section-title">
+                <h2 id="contact-title">Get in Touch</h2>
+                <p>Have questions about our school? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            </div>
+
+            <div class="contact-feedback-grid">
+                <!-- Contact Form -->
+                <div class="contact-form-container">
+                    <h3>Contact Us</h3>
+                    <form id="contactForm" class="contact-form" novalidate>
+                        <div class="form-group">
+                            <label for="contactName">Full Name *</label>
+                            <input type="text" id="contactName" name="name" required aria-describedby="contactName-error">
+                            <span class="error-message" id="contactName-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactEmail">Email Address *</label>
+                            <input type="email" id="contactEmail" name="_replyto" required aria-describedby="contactEmail-error">
+                            <span class="error-message" id="contactEmail-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactPhone">Phone Number</label>
+                            <input type="tel" id="contactPhone" name="phone" aria-describedby="contactPhone-error">
+                            <span class="error-message" id="contactPhone-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactSubject">Subject *</label>
+                            <select id="contactSubject" name="subject" required aria-describedby="contactSubject-error">
+                                <option value="">Select a subject</option>
+                                <option value="admissions">Admissions Information</option>
+                                <option value="academics">Academic Programs</option>
+                                <option value="fees">School Fees & Payments</option>
+                                <option value="activities">Co-curricular Activities</option>
+                                <option value="transport">Transport & Facilities</option>
+                                <option value="general">General Inquiry</option>
+                            </select>
+                            <span class="error-message" id="contactSubject-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactDepartment">Department</label>
+                            <select id="contactDepartment" name="department">
+                                <option value="General">General</option>
+                                <option value="Admissions">Admissions</option>
+                                <option value="Academic">Academic Affairs</option>
+                                <option value="Student Affairs">Student Affairs</option>
+                                <option value="Finance">Finance</option>
+                                <option value="Administration">Administration</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactMessage">Message *</label>
+                            <textarea id="contactMessage" name="message" rows="5" required aria-describedby="contactMessage-error" placeholder="Please describe your inquiry in detail..."></textarea>
+                            <span class="error-message" id="contactMessage-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contactFollowup">Preferred Contact Method</label>
+                            <select id="contactFollowup" name="followup">
+                                <option value="No preference">No preference</option>
+                                <option value="Email">Email</option>
+                                <option value="Phone">Phone call</option>
+                                <option value="SMS">SMS</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="contactSubmitBtn">
+                            <span class="btn-text">Send Message</span>
+                            <span class="btn-loading" style="display: none;">
+                                <i class="fas fa-spinner fa-spin"></i> Sending...
+                            </span>
+                        </button>
+
+                        <div class="form-status" id="contactFormStatus" role="alert" aria-live="polite"></div>
+                    </form>
+                </div>
+
+                <!-- Feedback Form -->
+                <div class="feedback-form-container">
+                    <h3>Share Your Feedback</h3>
+                    <p>Help us improve by sharing your thoughts about our school and programs.</p>
+                    
+                    <form id="feedbackForm" class="feedback-form" novalidate>
+                        <div class="form-group">
+                            <label for="feedbackEmail">Email Address *</label>
+                            <input type="email" id="feedbackEmail" name="email" required aria-describedby="feedbackEmail-error">
+                            <span class="error-message" id="feedbackEmail-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="feedbackCategory">Feedback Category *</label>
+                            <select id="feedbackCategory" name="category" required aria-describedby="feedbackCategory-error">
+                                <option value="">Select category</option>
+                                <option value="school facilities">School Facilities</option>
+                                <option value="academic programs">Academic Programs</option>
+                                <option value="teaching quality">Teaching Quality</option>
+                                <option value="student services">Student Services</option>
+                                <option value="school culture">School Culture</option>
+                                <option value="communication">Communication</option>
+                                <option value="overall experience">Overall Experience</option>
+                            </select>
+                            <span class="error-message" id="feedbackCategory-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="feedbackRating">Rating *</label>
+                            <div class="rating-container" role="radiogroup" aria-labelledby="feedbackRating-label">
+                                <span id="feedbackRating-label" class="sr-only">Rate your experience</span>
+                                <input type="radio" id="rating5" name="rating" value="5" required>
+                                <label for="rating5" aria-label="5 stars"><i class="fas fa-star"></i></label>
+                                
+                                <input type="radio" id="rating4" name="rating" value="4" required>
+                                <label for="rating4" aria-label="4 stars"><i class="fas fa-star"></i></label>
+                                
+                                <input type="radio" id="rating3" name="rating" value="3" required>
+                                <label for="rating3" aria-label="3 stars"><i class="fas fa-star"></i></label>
+                                
+                                <input type="radio" id="rating2" name="rating" value="2" required>
+                                <label for="rating2" aria-label="2 stars"><i class="fas fa-star"></i></label>
+                                
+                                <input type="radio" id="rating1" name="rating" value="1" required>
+                                <label for="rating1" aria-label="1 star"><i class="fas fa-star"></i></label>
+                            </div>
+                            <span class="error-message" id="feedbackRating-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="feedbackContent">Your Feedback *</label>
+                            <textarea id="feedbackContent" name="feedback" rows="4" required aria-describedby="feedbackContent-error" placeholder="Tell us about your experience..."></textarea>
+                            <span class="error-message" id="feedbackContent-error" role="alert"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="feedbackSuggestions">Suggestions for Improvement</label>
+                            <textarea id="feedbackSuggestions" name="suggestions" rows="3" placeholder="How can we do better? (Optional)"></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn secondary" id="feedbackSubmitBtn">
+                            <span class="btn-text">Submit Feedback</span>
+                            <span class="btn-loading" style="display: none;">
+                                <i class="fas fa-spinner fa-spin"></i> Submitting...
+                            </span>
+                        </button>
+
+                        <div class="form-status" id="feedbackFormStatus" role="alert" aria-live="polite"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div w3-include-html="/includes/footer.html"></div>
 
     <!-- Scripts – Order matters! -->
@@ -269,5 +427,420 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/js/static/about.js"></script>
+    
+    <!-- Contact & Feedback Forms JavaScript -->
+    <script>
+        /**
+         * About Page Contact & Feedback Forms
+         * Professional form handling with fetch API integration
+         */
+        (function() {
+            'use strict';
+            
+            // API Configuration
+            const API_BASE = '/api';
+            
+            // Utility Functions
+            const utils = {
+                // Show form status message
+                showStatus(formId, message, type = 'success') {
+                    const statusEl = document.getElementById(`${formId}Status`);
+                    if (statusEl) {
+                        statusEl.textContent = message;
+                        statusEl.className = `form-status ${type} show`;
+                        
+                        // Auto-hide after 5 seconds for success messages
+                        if (type === 'success') {
+                            setTimeout(() => {
+                                statusEl.classList.remove('show');
+                            }, 5000);
+                        }
+                    }
+                },
+                
+                // Hide form status
+                hideStatus(formId) {
+                    const statusEl = document.getElementById(`${formId}Status`);
+                    if (statusEl) {
+                        statusEl.classList.remove('show');
+                    }
+                },
+                
+                // Show/hide loading state
+                setLoading(formId, isLoading) {
+                    const submitBtn = document.getElementById(`${formId}SubmitBtn`);
+                    if (submitBtn) {
+                        const btnText = submitBtn.querySelector('.btn-text');
+                        const btnLoading = submitBtn.querySelector('.btn-loading');
+                        
+                        if (isLoading) {
+                            submitBtn.disabled = true;
+                            btnText.style.display = 'none';
+                            btnLoading.style.display = 'inline-flex';
+                        } else {
+                            submitBtn.disabled = false;
+                            btnText.style.display = 'inline';
+                            btnLoading.style.display = 'none';
+                        }
+                    }
+                },
+                
+                // Validate email format
+                validateEmail(email) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    return emailRegex.test(email);
+                },
+                
+                // Validate phone number (Kenyan format)
+                validatePhone(phone) {
+                    if (!phone) return true; // Optional field
+                    const phoneRegex = /^(\+254|0)[71]\d{8}$/;
+                    return phoneRegex.test(phone.replace(/\s/g, ''));
+                },
+                
+                // Clear form errors
+                clearErrors(formId) {
+                    const form = document.getElementById(`${formId}Form`);
+                    if (form) {
+                        const errorElements = form.querySelectorAll('.error');
+                        const errorMessages = form.querySelectorAll('.error-message');
+                        
+                        errorElements.forEach(el => el.classList.remove('error'));
+                        errorMessages.forEach(el => el.classList.remove('show'));
+                    }
+                },
+                
+                // Show field error
+                showFieldError(fieldId, message) {
+                    const field = document.getElementById(fieldId);
+                    const errorEl = document.getElementById(`${fieldId}-error`);
+                    
+                    if (field) field.classList.add('error');
+                    if (errorEl) {
+                        errorEl.textContent = message;
+                        errorEl.classList.add('show');
+                    }
+                },
+                
+                // Sanitize form data
+                sanitizeFormData(formData) {
+                    const sanitized = {};
+                    for (let [key, value] of formData.entries()) {
+                        sanitized[key] = typeof value === 'string' ? value.trim() : value;
+                    }
+                    return sanitized;
+                }
+            };
+            
+            // Contact Form Handler
+            class ContactFormHandler {
+                constructor() {
+                    this.formId = 'contact';
+                    this.init();
+                }
+                
+                init() {
+                    const form = document.getElementById('contactForm');
+                    if (!form) return;
+                    
+                    form.addEventListener('submit', this.handleSubmit.bind(this));
+                    
+                    // Real-time validation
+                    const emailField = document.getElementById('contactEmail');
+                    const phoneField = document.getElementById('contactPhone');
+                    
+                    if (emailField) {
+                        emailField.addEventListener('blur', () => this.validateEmail(emailField));
+                    }
+                    
+                    if (phoneField) {
+                        phoneField.addEventListener('blur', () => this.validatePhone(phoneField));
+                    }
+                }
+                
+                validateEmail(field) {
+                    const email = field.value.trim();
+                    if (email && !utils.validateEmail(email)) {
+                        utils.showFieldError('contactEmail', 'Please enter a valid email address');
+                        return false;
+                    }
+                    return true;
+                }
+                
+                validatePhone(field) {
+                    const phone = field.value.trim();
+                    if (phone && !utils.validatePhone(phone)) {
+                        utils.showFieldError('contactPhone', 'Please enter a valid Kenyan phone number (e.g., 0712345678)');
+                        return false;
+                    }
+                    return true;
+                }
+                
+                validateForm(formData) {
+                    utils.clearErrors(this.formId);
+                    let isValid = true;
+                    
+                    // Required fields validation
+                    const requiredFields = [
+                        { id: 'contactName', name: 'Full Name' },
+                        { id: 'contactEmail', name: 'Email Address' },
+                        { id: 'contactSubject', name: 'Subject' },
+                        { id: 'contactMessage', name: 'Message' }
+                    ];
+                    
+                    requiredFields.forEach(field => {
+                        const value = formData.get(field.id);
+                        if (!value || !value.trim()) {
+                            utils.showFieldError(field.id, `${field.name} is required`);
+                            isValid = false;
+                        }
+                    });
+                    
+                    // Email validation
+                    const email = formData.get('contactEmail');
+                    if (email && !utils.validateEmail(email)) {
+                        utils.showFieldError('contactEmail', 'Please enter a valid email address');
+                        isValid = false;
+                    }
+                    
+                    // Phone validation (optional but if provided, must be valid)
+                    const phone = formData.get('contactPhone');
+                    if (phone && !utils.validatePhone(phone)) {
+                        utils.showFieldError('contactPhone', 'Please enter a valid Kenyan phone number');
+                        isValid = false;
+                    }
+                    
+                    return isValid;
+                }
+                
+                async handleSubmit(event) {
+                    event.preventDefault();
+                    
+                    const form = event.target;
+                    const formData = new FormData(form);
+                    const sanitizedData = utils.sanitizeFormData(formData);
+                    
+                    // Validate form
+                    if (!this.validateForm(formData)) {
+                        utils.showStatus(this.formId, 'Please correct the errors above', 'error');
+                        return;
+                    }
+                    
+                    // Show loading state
+                    utils.setLoading(this.formId, true);
+                    utils.hideStatus(this.formId);
+                    
+                    try {
+                        const response = await fetch(`${API_BASE}/contact`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(sanitizedData)
+                        });
+                        
+                        const result = await response.json();
+                        
+                        if (response.ok && result.success) {
+                            utils.showStatus(this.formId, result.message || 'Message sent successfully! We\'ll get back to you soon.', 'success');
+                            form.reset();
+                        } else {
+                            throw new Error(result.message || 'Failed to send message');
+                        }
+                        
+                    } catch (error) {
+                        console.error('Contact form error:', error);
+                        utils.showStatus(this.formId, 'Sorry, there was an error sending your message. Please try again or contact us directly.', 'error');
+                    } finally {
+                        utils.setLoading(this.formId, false);
+                    }
+                }
+            }
+            
+            // Feedback Form Handler
+            class FeedbackFormHandler {
+                constructor() {
+                    this.formId = 'feedback';
+                    this.init();
+                }
+                
+                init() {
+                    const form = document.getElementById('feedbackForm');
+                    if (!form) return;
+                    
+                    form.addEventListener('submit', this.handleSubmit.bind(this));
+                    
+                    // Rating interaction
+                    this.initRatingSystem();
+                    
+                    // Real-time validation
+                    const emailField = document.getElementById('feedbackEmail');
+                    if (emailField) {
+                        emailField.addEventListener('blur', () => this.validateEmail(emailField));
+                    }
+                }
+                
+                initRatingSystem() {
+                    const ratingContainer = document.querySelector('.rating-container');
+                    if (!ratingContainer) return;
+                    
+                    const stars = ratingContainer.querySelectorAll('label');
+                    stars.forEach((star, index) => {
+                        star.addEventListener('click', () => {
+                            this.updateRatingDisplay(stars.length - index);
+                        });
+                        
+                        star.addEventListener('mouseenter', () => {
+                            this.highlightStars(stars, stars.length - index);
+                        });
+                    });
+                    
+                    ratingContainer.addEventListener('mouseleave', () => {
+                        const checkedRating = ratingContainer.querySelector('input[type="radio"]:checked');
+                        if (checkedRating) {
+                            this.updateRatingDisplay(parseInt(checkedRating.value));
+                        } else {
+                            this.clearStarHighlights(stars);
+                        }
+                    });
+                }
+                
+                updateRatingDisplay(rating) {
+                    const ratingLabel = document.getElementById('feedbackRating-label');
+                    if (ratingLabel) {
+                        const ratingText = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'][rating] || '';
+                        ratingLabel.textContent = `Rate your experience: ${rating} star${rating !== 1 ? 's' : ''} (${ratingText})`;
+                    }
+                }
+                
+                highlightStars(stars, rating) {
+                    stars.forEach((star, index) => {
+                        if (index >= stars.length - rating) {
+                            star.style.color = 'var(--accent-gold)';
+                        } else {
+                            star.style.color = 'var(--neutral-300)';
+                        }
+                    });
+                }
+                
+                clearStarHighlights(stars) {
+                    const checkedRating = document.querySelector('input[name="rating"]:checked');
+                    if (checkedRating) {
+                        this.updateRatingDisplay(parseInt(checkedRating.value));
+                    } else {
+                        stars.forEach(star => {
+                            star.style.color = 'var(--neutral-300)';
+                        });
+                    }
+                }
+                
+                validateEmail(field) {
+                    const email = field.value.trim();
+                    if (email && !utils.validateEmail(email)) {
+                        utils.showFieldError('feedbackEmail', 'Please enter a valid email address');
+                        return false;
+                    }
+                    return true;
+                }
+                
+                validateForm(formData) {
+                    utils.clearErrors(this.formId);
+                    let isValid = true;
+                    
+                    // Required fields validation
+                    const requiredFields = [
+                        { id: 'feedbackEmail', name: 'Email Address' },
+                        { id: 'feedbackCategory', name: 'Feedback Category' },
+                        { id: 'feedbackContent', name: 'Your Feedback' }
+                    ];
+                    
+                    requiredFields.forEach(field => {
+                        const value = formData.get(field.id);
+                        if (!value || !value.trim()) {
+                            utils.showFieldError(field.id, `${field.name} is required`);
+                            isValid = false;
+                        }
+                    });
+                    
+                    // Rating validation
+                    const rating = formData.get('rating');
+                    if (!rating) {
+                        utils.showFieldError('feedbackRating-error', 'Please select a rating');
+                        isValid = false;
+                    }
+                    
+                    // Email validation
+                    const email = formData.get('feedbackEmail');
+                    if (email && !utils.validateEmail(email)) {
+                        utils.showFieldError('feedbackEmail', 'Please enter a valid email address');
+                        isValid = false;
+                    }
+                    
+                    return isValid;
+                }
+                
+                async handleSubmit(event) {
+                    event.preventDefault();
+                    
+                    const form = event.target;
+                    const formData = new FormData(form);
+                    const sanitizedData = utils.sanitizeFormData(formData);
+                    
+                    // Validate form
+                    if (!this.validateForm(formData)) {
+                        utils.showStatus(this.formId, 'Please correct the errors above', 'error');
+                        return;
+                    }
+                    
+                    // Show loading state
+                    utils.setLoading(this.formId, true);
+                    utils.hideStatus(this.formId);
+                    
+                    try {
+                        const response = await fetch(`${API_BASE}/elearning/feedback`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(sanitizedData)
+                        });
+                        
+                        const result = await response.json();
+                        
+                        if (response.ok && result.success) {
+                            utils.showStatus(this.formId, result.message || 'Thank you for your feedback! We appreciate your input.', 'success');
+                            form.reset();
+                            // Clear rating display
+                            this.clearStarHighlights(document.querySelectorAll('.rating-container label'));
+                            this.updateRatingDisplay(0);
+                        } else {
+                            throw new Error(result.message || 'Failed to submit feedback');
+                        }
+                        
+                    } catch (error) {
+                        console.error('Feedback form error:', error);
+                        utils.showStatus(this.formId, 'Sorry, there was an error submitting your feedback. Please try again.', 'error');
+                    } finally {
+                        utils.setLoading(this.formId, false);
+                    }
+                }
+            }
+            
+            // Initialize forms when DOM is ready
+            function init() {
+                new ContactFormHandler();
+                new FeedbackFormHandler();
+                
+                console.log('About page contact and feedback forms initialized');
+            }
+            
+            // Wait for DOM to be ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+        })();
+    </script>
 </body>
 </html>

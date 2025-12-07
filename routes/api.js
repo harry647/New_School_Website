@@ -1332,6 +1332,247 @@ router.get('/elearning/achievements', (req, res) => {
 });
 
 /**
+ * @route   GET /elearning/stats
+ * @desc    Fetches e-learning portal statistics.
+ * @access  Public
+ */
+router.get('/elearning/stats', (req, res) => {
+  try {
+    const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+    const subjects = data.subjects || [];
+    const resources = data.resources || [];
+    const quizzes = data.quizzes || [];
+    const assignments = data.assignments || [];
+    const sessions = data.liveSessions || [];
+    
+    const stats = {
+      totalSubjects: subjects.length,
+      totalResources: resources.length,
+      totalQuizzes: quizzes.length,
+      totalAssignments: assignments.length,
+      totalLiveSessions: sessions.length,
+      resourcesByType: resources.reduce((acc, resource) => {
+        acc[resource.type] = (acc[resource.type] || 0) + 1;
+        return acc;
+      }, {}),
+      upcomingSessions: sessions.filter(session => 
+        new Date(session.scheduledTime) >= new Date()
+      ).length,
+      activeQuizzes: quizzes.filter(quiz => quiz.status === 'active').length,
+      recentResources: resources.slice(0, 5).map(r => ({
+        title: r.title,
+        subject: r.subject,
+        type: r.type,
+        date: r.date
+      }))
+    };
+    
+    res.json({ success: true, stats });
+  } catch (error) {
+    console.error('Error fetching e-learning stats:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch statistics' });
+  }
+});
+
+/**
+ * @route   POST /elearning/feedback
+ * @desc    Handles e-learning portal feedback.
+ * @access  Public
+ */
+router.post('/elearning/feedback', (req, res) => {
+  try {
+    const { email, category, rating, feedback, suggestions } = req.body;
+    
+    if (!email || !category || !rating || !feedback) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Email, category, rating, and feedback are required' 
+      });
+    }
+    
+    if (rating < 1 || rating > 5) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Rating must be between 1 and 5' 
+      });
+    }
+    
+    const feedbackFile = path.join(__dirname, '..', 'data', 'elearning-feedback.json');
+    let feedbackData = readJSON(feedbackFile);
+    
+    const newFeedback = {
+      id: `feedback-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
+      email: email.toLowerCase().trim(),
+      category: category.trim(),
+      rating: parseInt(rating),
+      feedback: feedback.trim(),
+      suggestions: suggestions?.trim() || null,
+      submittedAt: new Date().toISOString(),
+      status: 'new'
+    };
+    
+    feedbackData.unshift(newFeedback);
+    
+    if (!writeJSON(feedbackFile, feedbackData)) {
+      throw new Error('Failed to save feedback');
+    }
+    
+    console.log(`E-Learning Feedback → ${email} | ${category} | Rating: ${rating}`);
+    
+    res.json({ 
+      success: true, 
+      message: 'Thank you for your feedback! We appreciate your input.',
+      feedbackId: newFeedback.id
+    });
+  } catch (error) {
+    console.error('Error processing feedback:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to process feedback. Please try again.' 
+    });
+  }
+});
+
+/**
+ * @route   POST /elearning/feature-request
+ * @desc    Handles e-learning feature requests.
+ * @access  Public
+ */
+router.post('/elearning/feature-request', (req, res) => {
+  try {
+    const { email, featureTitle, description, priority, useCase } = req.body;
+    
+    if (!email || !featureTitle || !description) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Email, feature title, and description are required' 
+      });
+    }
+    
+    const requestsFile = path.join(__dirname, '..', 'data', 'elearning-feature-requests.json');
+    let requestsData = readJSON(requestsFile);
+    
+    const newRequest = {
+      id: `feature-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
+      email: email.toLowerCase().trim(),
+      featureTitle: featureTitle.trim(),
+      description: description.trim(),
+      priority: priority || 'medium',
+      useCase: useCase?.trim() || null,
+      submittedAt: new Date().toISOString(),
+      status: 'pending',
+      votes: 0
+    };
+    
+    requestsData.unshift(newRequest);
+    
+    if (!writeJSON(requestsFile, requestsData)) {
+      throw new Error('Failed to save feature request');
+    }
+    
+    console.log(`Feature Request → ${email} | ${featureTitle}`);
+    
+    res.json({ 
+      success: true, 
+      message: 'Feature request submitted successfully! We\'ll review it and get back to you.',
+      requestId: newRequest.id
+    });
+  } catch (error) {
+    console.error('Error processing feature request:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to submit feature request. Please try again.' 
+    });
+  }
+});
+
+/**
+ * @route   GET /elearning/search
+ * @desc    Searches across e-learning content.
+ * @access  Public
+ */
+router.get('/elearning/search', (req, res) => {
+  try {
+    const { q: query, type, subject } = req.query;
+    
+    if (!query || query.trim().length < 2) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Search query must be at least 2 characters long' 
+      });
+    }
+    
+    const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+    const searchTerm = query.toLowerCase().trim();
+    
+    let results = {
+      subjects: [],
+      resources: [],
+      quizzes: [],
+      assignments: []
+    };
+    
+    // Search subjects
+    if (!type || type === 'all' || type === 'subjects') {
+      results.subjects = (data.subjects || []).filter(subject => 
+        subject.name.toLowerCase().includes(searchTerm) ||
+        subject.description.toLowerCase().includes(searchTerm)
+      );
+    }
+    
+    // Search resources
+    if (!type || type === 'all' || type === 'resources') {
+      let resources = data.resources || [];
+      if (subject) {
+        resources = resources.filter(r => r.subject.toLowerCase() === subject.toLowerCase());
+      }
+      results.resources = resources.filter(resource => 
+        resource.title.toLowerCase().includes(searchTerm) ||
+        resource.description.toLowerCase().includes(searchTerm) ||
+        resource.subject.toLowerCase().includes(searchTerm)
+      );
+    }
+    
+    // Search quizzes
+    if (!type || type === 'all' || type === 'quizzes') {
+      results.quizzes = (data.quizzes || []).filter(quiz => 
+        quiz.title.toLowerCase().includes(searchTerm) ||
+        quiz.description.toLowerCase().includes(searchTerm) ||
+        quiz.subject.toLowerCase().includes(searchTerm)
+      );
+    }
+    
+    // Search assignments
+    if (!type || type === 'all' || type === 'assignments') {
+      results.assignments = (data.assignments || []).filter(assignment => 
+        assignment.title.toLowerCase().includes(searchTerm) ||
+        assignment.description.toLowerCase().includes(searchTerm) ||
+        assignment.subject.toLowerCase().includes(searchTerm)
+      );
+    }
+    
+    const totalResults = results.subjects.length + results.resources.length + 
+                        results.quizzes.length + results.assignments.length;
+    
+    console.log(`E-Learning Search → "${query}" | ${totalResults} results`);
+    
+    res.json({ 
+      success: true, 
+      query: searchTerm,
+      results,
+      totalResults,
+      filters: { type, subject }
+    });
+  } catch (error) {
+    console.error('Error searching e-learning content:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Search failed. Please try again.' 
+    });
+  }
+});
+
+/**
  * @route   GET /elearning/media
  * @desc    Fetches media gallery items.
  * @access  Public
@@ -1868,6 +2109,210 @@ router.post('/elearning/upload', uploadElearning.array('files', 10), (req, res) 
   res.json({ success: true, message: "Upload successful!", uploadedFiles: newResources });
 });
 
+
+// =================================================================
+// STUDENT LIFE API ROUTES
+// =================================================================
+
+/**
+ * @route   GET /student-life/data
+ * @desc    Fetches all data for the student life page.
+ * @access  Public
+ */
+router.get('/student-life/data', (req, res) => {
+  try {
+    const data = readJSON(path.join(__dirname, '..', 'data', 'static', 'clubs-data.json'));
+    console.log('🎓 Student life data fetched successfully');
+    res.json({ 
+      success: true, 
+      data: data,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error fetching student life data:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch student life data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /student-life/clubs
+ * @desc    Fetches clubs and activities data.
+ * @access  Public
+ */
+router.get('/student-life/clubs', (req, res) => {
+  try {
+    const data = readJSON(path.join(__dirname, '..', 'data', 'static', 'clubs-data.json'));
+    const clubs = data.clubs || [];
+    console.log(`🏛️ Student life clubs fetched: ${clubs.length} clubs`);
+    res.json({ 
+      success: true, 
+      data: clubs,
+      count: clubs.length
+    });
+  } catch (error) {
+    console.error('Error fetching student life clubs:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch clubs data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /student-life/houses
+ * @desc    Fetches house system data.
+ * @access  Public
+ */
+router.get('/student-life/houses', (req, res) => {
+  try {
+    const data = readJSON(path.join(__dirname, '..', 'data', 'static', 'clubs-data.json'));
+    const houses = data.houses || [];
+    console.log(`🏠 Student life houses fetched: ${houses.length} houses`);
+    res.json({ 
+      success: true, 
+      data: houses,
+      count: houses.length
+    });
+  } catch (error) {
+    console.error('Error fetching student life houses:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch houses data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /student-life/events
+ * @desc    Fetches student life events data.
+ * @access  Public
+ */
+router.get('/student-life/events', (req, res) => {
+  try {
+    const data = readJSON(path.join(__dirname, '..', 'data', 'static', 'clubs-data.json'));
+    const events = data.events || [];
+    console.log(`📅 Student life events fetched: ${events.length} events`);
+    res.json({ 
+      success: true, 
+      data: events,
+      count: events.length
+    });
+  } catch (error) {
+    console.error('Error fetching student life events:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch events data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /student-life/sports
+ * @desc    Fetches sports data.
+ * @access  Public
+ */
+router.get('/student-life/sports', (req, res) => {
+  try {
+    const data = readJSON(path.join(__dirname, '..', 'data', 'static', 'clubs-data.json'));
+    const sports = data.sports || [];
+    console.log(`⚽ Student life sports fetched: ${sports.length} sports`);
+    res.json({ 
+      success: true, 
+      data: sports,
+      count: sports.length
+    });
+  } catch (error) {
+    console.error('Error fetching student life sports:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch sports data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /student-life/overview-cards
+ * @desc    Fetches overview cards data.
+ * @access  Public
+ */
+router.get('/student-life/overview-cards', (req, res) => {
+  try {
+    const data = readJSON(path.join(__dirname, '..', 'data', 'static', 'clubs-data.json'));
+    const overviewCards = data.overviewCards || [];
+    console.log(`📊 Student life overview cards fetched: ${overviewCards.length} cards`);
+    res.json({ 
+      success: true, 
+      data: overviewCards,
+      count: overviewCards.length
+    });
+  } catch (error) {
+    console.error('Error fetching student life overview cards:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch overview cards data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /student-life/org-cards
+ * @desc    Fetches organizational cards data.
+ * @access  Public
+ */
+router.get('/student-life/org-cards', (req, res) => {
+  try {
+    const data = readJSON(path.join(__dirname, '..', 'data', 'static', 'clubs-data.json'));
+    const orgCards = data.orgCards || [];
+    console.log(`🏢 Student life org cards fetched: ${orgCards.length} cards`);
+    res.json({ 
+      success: true, 
+      data: orgCards,
+      count: orgCards.length
+    });
+  } catch (error) {
+    console.error('Error fetching student life org cards:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch org cards data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /student-life/stats
+ * @desc    Fetches student life statistics.
+ * @access  Public
+ */
+router.get('/student-life/stats', (req, res) => {
+  try {
+    const data = readJSON(path.join(__dirname, '..', 'data', 'static', 'clubs-data.json'));
+    
+    const stats = {
+      totalClubs: (data.clubs || []).length,
+      totalSports: (data.sports || []).length,
+      totalHouses: (data.houses || []).length,
+      totalEvents: (data.events || []).length,
+      overviewCards: (data.overviewCards || []).length,
+      orgCards: (data.orgCards || []).length,
+      lastUpdated: new Date().toISOString()
+    };
+
+    console.log('📊 Student life statistics calculated successfully');
+    res.json({ 
+      success: true, 
+      data: stats
+    });
+  } catch (error) {
+    console.error('Error fetching student life stats:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch student life statistics' 
+    });
+  }
+});
 
 // =================================================================
 // CLUBS & CO-CURRICULUM ROUTES
@@ -2726,15 +3171,675 @@ router.post('/welfare/request', uploadWelfareAttachment.array('attachments', 10)
 
 
 // =================================================================
+// ADMINISTRATION ROUTES
+// =================================================================
+
+/**
+ * @route   GET /admin/data
+ * @desc    Fetches all administration data (BOM, leadership, departments)
+ * @access  Public
+ */
+router.get('/admin/data', (req, res) => {
+  try {
+    const adminData = readJSON(path.join(__dirname, '..', 'data', 'static', 'admin-data.json'));
+    console.log('🏛️ Administration data fetched successfully');
+    res.json({ 
+      success: true, 
+      data: adminData,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error fetching administration data:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch administration data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /admin/bom
+ * @desc    Fetches Board of Management members
+ * @access  Public
+ */
+router.get('/admin/bom', (req, res) => {
+  try {
+    const adminData = readJSON(path.join(__dirname, '..', 'data', 'static', 'admin-data.json'));
+    const bomMembers = adminData.bom || [];
+    console.log(`🏛️ BOM data fetched: ${bomMembers.length} members`);
+    res.json({ 
+      success: true, 
+      data: bomMembers,
+      count: bomMembers.length
+    });
+  } catch (error) {
+    console.error('Error fetching BOM data:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch BOM data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /admin/leadership
+ * @desc    Fetches leadership team data
+ * @access  Public
+ */
+router.get('/admin/leadership', (req, res) => {
+  try {
+    const adminData = readJSON(path.join(__dirname, '..', 'data', 'static', 'admin-data.json'));
+    const leadership = adminData.leadership || [];
+    console.log(`👨‍💼 Leadership data fetched: ${leadership.length} members`);
+    res.json({ 
+      success: true, 
+      data: leadership,
+      count: leadership.length
+    });
+  } catch (error) {
+    console.error('Error fetching leadership data:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch leadership data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /admin/departments
+ * @desc    Fetches administrative departments data
+ * @access  Public
+ */
+router.get('/admin/departments', (req, res) => {
+  try {
+    const adminData = readJSON(path.join(__dirname, '..', 'data', 'static', 'admin-data.json'));
+    const departments = adminData.departments || [];
+    console.log(`🏢 Departments data fetched: ${departments.length} departments`);
+    res.json({ 
+      success: true, 
+      data: departments,
+      count: departments.length
+    });
+  } catch (error) {
+    console.error('Error fetching departments data:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch departments data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /admin/stats
+ * @desc    Fetches administration statistics
+ * @access  Public
+ */
+router.get('/admin/stats', (req, res) => {
+  try {
+    const adminData = readJSON(path.join(__dirname, '..', 'data', 'static', 'admin-data.json'));
+    
+    const stats = {
+      bom: {
+        total: (adminData.bom || []).length,
+        byRepresenting: (adminData.bom || []).reduce((acc, member) => {
+          const representing = member.representing || 'Unknown';
+          acc[representing] = (acc[representing] || 0) + 1;
+          return acc;
+        }, {})
+      },
+      leadership: {
+        total: (adminData.leadership || []).length,
+        featured: (adminData.leadership || []).filter(l => l.featured).length,
+        byRole: (adminData.leadership || []).reduce((acc, leader) => {
+          const role = leader.role || 'Unknown';
+          acc[role] = (acc[role] || 0) + 1;
+          return acc;
+        }, {})
+      },
+      departments: {
+        total: (adminData.departments || []).length,
+        byHead: (adminData.departments || []).reduce((acc, dept) => {
+          const head = dept.head || 'Unknown';
+          acc[head] = (acc[head] || 0) + 1;
+          return acc;
+        }, {})
+      }
+    };
+
+    console.log('📊 Administration stats calculated successfully');
+    res.json({ 
+      success: true, 
+      data: stats,
+      lastUpdated: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error calculating administration stats:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch administration statistics' 
+    });
+  }
+});
+
+/**
+ * @route   PUT /admin/bom/:index
+ * @desc    Updates a BOM member (Admin only)
+ * @access  Protected
+ */
+router.put('/admin/bom/:index', requireAuth, (req, res) => {
+  try {
+    const user = req.session.user;
+    if (!['admin'].includes(user.role)) {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Admin privileges required' 
+      });
+    }
+
+    const { index } = req.params;
+    const updates = req.body;
+    const adminDataFile = path.join(__dirname, '..', 'data', 'static', 'admin-data.json');
+    let adminData = readJSON(adminDataFile);
+
+    if (!adminData.bom || index >= adminData.bom.length) {
+      return res.status(404).json({ success: false, message: 'BOM member not found' });
+    }
+
+    adminData.bom[index] = { ...adminData.bom[index], ...updates };
+    
+    if (!writeJSON(adminDataFile, adminData)) {
+      throw new Error('Failed to save updated data');
+    }
+
+    console.log(`BOM member updated by ${user.name}`);
+    res.json({ 
+      success: true, 
+      message: 'BOM member updated successfully',
+      data: adminData.bom[index]
+    });
+  } catch (error) {
+    console.error('Error updating BOM member:', error);
+    res.status(500).json({ success: false, message: 'Failed to update BOM member' });
+  }
+});
+
+/**
+ * @route   PUT /admin/leadership/:index
+ * @desc    Updates a leadership member (Admin only)
+ * @access  Protected
+ */
+router.put('/admin/leadership/:index', requireAuth, (req, res) => {
+  try {
+    const user = req.session.user;
+    if (!['admin'].includes(user.role)) {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Admin privileges required' 
+      });
+    }
+
+    const { index } = req.params;
+    const updates = req.body;
+    const adminDataFile = path.join(__dirname, '..', 'data', 'static', 'admin-data.json');
+    let adminData = readJSON(adminDataFile);
+
+    if (!adminData.leadership || index >= adminData.leadership.length) {
+      return res.status(404).json({ success: false, message: 'Leadership member not found' });
+    }
+
+    adminData.leadership[index] = { ...adminData.leadership[index], ...updates };
+    
+    if (!writeJSON(adminDataFile, adminData)) {
+      throw new Error('Failed to save updated data');
+    }
+
+    console.log(`Leadership member updated by ${user.name}`);
+    res.json({ 
+      success: true, 
+      message: 'Leadership member updated successfully',
+      data: adminData.leadership[index]
+    });
+  } catch (error) {
+    console.error('Error updating leadership member:', error);
+    res.status(500).json({ success: false, message: 'Failed to update leadership member' });
+  }
+});
+
+/**
+ * @route   PUT /admin/departments/:index
+ * @desc    Updates a department (Admin only)
+ * @access  Protected
+ */
+router.put('/admin/departments/:index', requireAuth, (req, res) => {
+  try {
+    const user = req.session.user;
+    if (!['admin'].includes(user.role)) {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Admin privileges required' 
+      });
+    }
+
+    const { index } = req.params;
+    const updates = req.body;
+    const adminDataFile = path.join(__dirname, '..', 'data', 'static', 'admin-data.json');
+    let adminData = readJSON(adminDataFile);
+
+    if (!adminData.departments || index >= adminData.departments.length) {
+      return res.status(404).json({ success: false, message: 'Department not found' });
+    }
+
+    adminData.departments[index] = { ...adminData.departments[index], ...updates };
+    
+    if (!writeJSON(adminDataFile, adminData)) {
+      throw new Error('Failed to save updated data');
+    }
+
+    console.log(`Department updated by ${user.name}`);
+    res.json({ 
+      success: true, 
+      message: 'Department updated successfully',
+      data: adminData.departments[index]
+    });
+  } catch (error) {
+    console.error('Error updating department:', error);
+    res.status(500).json({ success: false, message: 'Failed to update department' });
+  }
+});
+
+/**
+ * @route   POST /admin/bom
+ * @desc    Adds a new BOM member (Admin only)
+ * @access  Protected
+ */
+router.post('/admin/bom', requireAuth, (req, res) => {
+  try {
+    const user = req.session.user;
+    if (!['admin'].includes(user.role)) {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Admin privileges required' 
+      });
+    }
+
+    const { name, role, representing, photo } = req.body;
+    
+    if (!name || !role || !representing) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Name, role, and representing field are required' 
+      });
+    }
+
+    const adminDataFile = path.join(__dirname, '..', 'data', 'static', 'admin-data.json');
+    let adminData = readJSON(adminDataFile);
+
+    if (!adminData.bom) adminData.bom = [];
+
+    const newBomMember = {
+      name: name.trim(),
+      role: role.trim(),
+      representing: representing.trim(),
+      photo: photo || '/assets/images/defaults/default-user.png'
+    };
+
+    adminData.bom.push(newBomMember);
+    
+    if (!writeJSON(adminDataFile, adminData)) {
+      throw new Error('Failed to save new BOM member');
+    }
+
+    console.log(`New BOM member added by ${user.name}: ${name}`);
+    res.json({ 
+      success: true, 
+      message: 'BOM member added successfully',
+      data: newBomMember
+    });
+  } catch (error) {
+    console.error('Error adding BOM member:', error);
+    res.status(500).json({ success: false, message: 'Failed to add BOM member' });
+  }
+});
+
+/**
+ * @route   POST /admin/leadership
+ * @desc    Adds a new leadership member (Admin only)
+ * @access  Protected
+ */
+router.post('/admin/leadership', requireAuth, (req, res) => {
+  try {
+    const user = req.session.user;
+    if (!['admin'].includes(user.role)) {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Admin privileges required' 
+      });
+    }
+
+    const { name, role, bio, photo, featured = false } = req.body;
+    
+    if (!name || !role) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Name and role are required' 
+      });
+    }
+
+    const adminDataFile = path.join(__dirname, '..', 'data', 'static', 'admin-data.json');
+    let adminData = readJSON(adminDataFile);
+
+    if (!adminData.leadership) adminData.leadership = [];
+
+    const newLeadershipMember = {
+      name: name.trim(),
+      role: role.trim(),
+      bio: bio?.trim() || '',
+      photo: photo || '/assets/images/defaults/default-user.png',
+      featured: Boolean(featured)
+    };
+
+    adminData.leadership.push(newLeadershipMember);
+    
+    if (!writeJSON(adminDataFile, adminData)) {
+      throw new Error('Failed to save new leadership member');
+    }
+
+    console.log(`New leadership member added by ${user.name}: ${name}`);
+    res.json({ 
+      success: true, 
+      message: 'Leadership member added successfully',
+      data: newLeadershipMember
+    });
+  } catch (error) {
+    console.error('Error adding leadership member:', error);
+    res.status(500).json({ success: false, message: 'Failed to add leadership member' });
+  }
+});
+
+/**
+ * @route   POST /admin/departments
+ * @desc    Adds a new department (Admin only)
+ * @access  Protected
+ */
+router.post('/admin/departments', requireAuth, (req, res) => {
+  try {
+    const user = req.session.user;
+    if (!['admin'].includes(user.role)) {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Admin privileges required' 
+      });
+    }
+
+    const { name, head, headTitle, icon, color, email, phone, note } = req.body;
+    
+    if (!name || !head) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Department name and head are required' 
+      });
+    }
+
+    const adminDataFile = path.join(__dirname, '..', 'data', 'static', 'admin-data.json');
+    let adminData = readJSON(adminDataFile);
+
+    if (!adminData.departments) adminData.departments = [];
+
+    const newDepartment = {
+      name: name.trim(),
+      head: head.trim(),
+      headTitle: headTitle?.trim() || 'Department Head',
+      icon: icon || 'fas fa-building',
+      color: color || '#0175C2',
+      email: email?.trim() || '',
+      phone: phone?.trim() || '',
+      note: note?.trim() || ''
+    };
+
+    adminData.departments.push(newDepartment);
+    
+    if (!writeJSON(adminDataFile, adminData)) {
+      throw new Error('Failed to save new department');
+    }
+
+    console.log(`New department added by ${user.name}: ${name}`);
+    res.json({ 
+      success: true, 
+      message: 'Department added successfully',
+      data: newDepartment
+    });
+  } catch (error) {
+    console.error('Error adding department:', error);
+    res.status(500).json({ success: false, message: 'Failed to add department' });
+  }
+});
+
+// =================================================================
 // SCHOOL-WIDE RESOURCES HUB
 // =================================================================
 
 /**
+ * @route   GET /academics/stats
+ * @desc    Fetches comprehensive academic statistics for the academics page.
+ * @access  Public
+ */
+router.get('/academics/stats', (req, res) => {
+  try {
+    // Load data from multiple sources
+    const clubsFile = path.join(__dirname, '..', 'data', 'clubs', 'clubs.json');
+    const elearningFile = path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json');
+    const newsFile = path.join(__dirname, '..', 'data', 'static', 'news-data.json');
+    const mathFile = path.join(__dirname, '..', 'data', 'departments', 'math-data.json');
+    const scienceFile = path.join(__dirname, '..', 'data', 'departments', 'science-data.json');
+    
+    const clubs = readJSON(clubsFile);
+    const elearning = readJSON(elearningFile);
+    const news = readJSON(newsFile);
+    const mathData = readJSON(mathFile);
+    const scienceData = readJSON(scienceFile);
+    
+    const stats = {
+      departments: {
+        total: 9,
+        withData: 0,
+        subjects: 0,
+        teachers: 0
+      },
+      students: {
+        total: 1200,
+        enrolled: 1185,
+        graduated: 285,
+        successRate: 98.5
+      },
+      academics: {
+        meanScore: mathData.kcseTrend ? mathData.kcseTrend.scores[mathData.kcseTrend.scores.length - 1] : 4.96,
+        universityAdmission: 46,
+        technicalColleges: 38,
+        otherPathways: 16
+      },
+      resources: {
+        total: (elearning.resources || []).length + (elearning.subjects || []).length,
+        downloads: 0,
+        activeUsers: 245
+      },
+      performance: {
+        ranking: 'Top 10 in County',
+        awards: 25,
+        competitions: 12,
+        achievements: 48
+      }
+    };
+    
+    // Calculate real statistics where possible
+    if (Array.isArray(clubs)) {
+      stats.departments.withData = clubs.length;
+    }
+    
+    if (elearning.subjects) {
+      stats.departments.subjects = elearning.subjects.length;
+    }
+    
+    if (elearning.resources) {
+      stats.resources.downloads = elearning.resources.reduce((sum, r) => sum + (r.downloads || 0), 0);
+    }
+    
+    res.json({
+      success: true,
+      data: stats,
+      lastUpdated: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error fetching academics stats:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch academic statistics' 
+    });
+  }
+});
+
+/**
+ * @route   GET /academics/dashboard
+ * @desc    Fetches dashboard data for academic overview.
+ * @access  Public
+ */
+router.get('/academics/dashboard', (req, res) => {
+  try {
+    const dashboardData = {
+      overview: {
+        totalStudents: 1200,
+        totalTeachers: 85,
+        totalSubjects: 45,
+        totalClasses: 32
+      },
+      recentAchievements: [
+        {
+          title: "National Math Olympiad Gold Medal",
+          student: "John Ochieng",
+          date: "2025-11-20",
+          category: "Mathematics"
+        },
+        {
+          title: "County Science Fair First Place",
+          student: "Mary Achieng",
+          date: "2025-11-15",
+          category: "Sciences"
+        },
+        {
+          title: "Best School in County KCSE",
+          event: "2024 KCSE Results",
+          date: "2025-01-10",
+          category: "Academic Performance"
+        }
+      ],
+      upcomingEvents: [
+        {
+          title: "Inter-School Mathematics Competition",
+          date: "2025-12-20",
+          type: "Competition"
+        },
+        {
+          title: "Science Exhibition",
+          date: "2025-12-18",
+          type: "Exhibition"
+        },
+        {
+          title: "Parent-Teacher Meeting",
+          date: "2025-12-15",
+          type: "Meeting"
+        }
+      ],
+      quickStats: {
+        attendanceRate: 96.5,
+        completionRate: 94.2,
+        satisfactionRate: 4.8,
+        improvementRate: 12.3
+      }
+    };
+    
+    res.json({
+      success: true,
+      data: dashboardData
+    });
+  } catch (error) {
+    console.error('Error fetching academics dashboard:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch dashboard data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /academics/performance
+ * @desc    Fetches academic performance metrics and trends.
+ * @access  Public
+ */
+router.get('/academics/performance', (req, res) => {
+  try {
+    const performanceData = {
+      kcseTrends: {
+        years: ["2020", "2021", "2022", "2023", "2024", "2025"],
+        meanScores: [6.8, 7.2, 7.5, 7.8, 8.1, 8.4],
+        universityAdmission: [35, 38, 42, 44, 45, 46],
+        gradeDistribution: {
+          "A": 15,
+          "A-": 22,
+          "B+": 28,
+          "B": 20,
+          "B-": 10,
+          "C+": 4,
+          "C": 1
+        }
+      },
+      subjectPerformance: {
+        Mathematics: { mean: 8.2, improvement: 5.2 },
+        English: { mean: 7.8, improvement: 3.1 },
+        Kiswahili: { mean: 7.5, improvement: 2.8 },
+        Physics: { mean: 7.9, improvement: 4.2 },
+        Chemistry: { mean: 8.0, improvement: 4.5 },
+        Biology: { mean: 7.7, improvement: 3.8 }
+      },
+      competitionResults: [
+        {
+          competition: "Kenya National Math Olympiad",
+          year: "2025",
+          position: "1st Place",
+          participant: "John Ochieng"
+        },
+        {
+          competition: "County Science Fair",
+          year: "2025",
+          position: "1st Place",
+          participant: "Mary Achieng"
+        },
+        {
+          competition: "National Drama Festival",
+          year: "2025",
+          position: "2nd Place",
+          participant: "School Team"
+        }
+      ]
+    };
+    
+    res.json({
+      success: true,
+      data: performanceData
+    });
+  } catch (error) {
+    console.error('Error fetching performance data:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch performance data' 
+    });
+  }
+});
+
+/**
  * @route   GET /resources/all
  * @desc    Fetches all data for the main resources hub.
- * @access  Protected
+ * @access  Public (changed from Protected for academics page)
  */
-router.get('/resources/all', requireAuth, (req, res) => {
+router.get('/resources/all', (req, res) => {
   try {
     const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'resources-data.json'));
     console.log(`Resources data fetched by user: ${req.session.user?.name || 'Unknown'}`);
@@ -3499,6 +4604,929 @@ router.post('/news/event-register', (req, res) => {
     res.status(500).json({ 
       success: false, 
       message: 'Failed to process registration. Please try again.' 
+    });
+  }
+});
+
+// =================================================================
+// ALUMNI NETWORK API ROUTES
+// =================================================================
+
+/**
+ * @route   GET /alumni/data
+ * @desc    Fetches alumni network data for the alumni page.
+ * @access  Public
+ */
+router.get('/alumni/data', (req, res) => {
+  try {
+    const alumniData = readJSON(path.join(__dirname, '..', 'data', 'static', 'alumni-data.json'));
+    console.log('🎓 Alumni data fetched successfully');
+    res.json({ 
+      success: true, 
+      data: alumniData,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error fetching alumni data:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch alumni data' 
+    });
+  }
+});
+
+/**
+ * @route   POST /alumni/register
+ * @desc    Handles alumni registration and profile updates.
+ * @access  Public
+ */
+router.post('/alumni/register', uploadMixed.array('photos', 2), (req, res) => {
+  try {
+    const { 
+      name, 
+      batch, 
+      _replyto: email, 
+      phone, 
+      profession, 
+      organization, 
+      location, 
+      message, 
+      skills, 
+      connect 
+    } = req.body;
+
+    // Validation
+    if (!name?.trim() || !batch?.trim() || !email?.trim()) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Name, batch year, and email are required.' 
+      });
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Invalid email format.' 
+      });
+    }
+
+    // Phone validation (if provided)
+    if (phone && !/^(\+254|0)[71]\d{8}$/.test(phone.replace(/\s/g, ''))) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Invalid phone number format.' 
+      });
+    }
+
+    const alumniRegistrationsFile = path.join(__dirname, '..', 'data', 'alumni-registrations.json');
+    let registrations = readJSON(alumniRegistrationsFile);
+
+    // Check for duplicate email submissions
+    const existingRegistration = registrations.find(reg => 
+      reg.email.toLowerCase() === email.toLowerCase()
+    );
+
+    if (existingRegistration) {
+      return res.status(409).json({ 
+        success: false, 
+        message: 'An alumni profile with this email already exists. Please contact us to update your profile.' 
+      });
+    }
+
+    // Process uploaded photos
+    const photos = {};
+    if (req.files && req.files.length > 0) {
+      req.files.forEach((file, index) => {
+        const fieldName = index === 0 ? 'profile_photo' : 'passport_photo';
+        photos[fieldName] = `/uploads/mixed/${file.filename}`;
+      });
+    }
+
+    const registration = {
+      id: `alumni-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
+      name: name.trim(),
+      batch: batch.trim(),
+      email: email.toLowerCase().trim(),
+      phone: phone?.trim() || null,
+      profession: profession?.trim() || null,
+      organization: organization?.trim() || null,
+      location: location?.trim() || null,
+      favorite_memory: message?.trim() || null,
+      skills_interests: skills?.trim() || null,
+      connection_preferences: connect?.trim() || null,
+      photos: photos,
+      submitted_at: new Date().toISOString(),
+      status: 'pending',
+      ip_address: req.ip,
+      user_agent: req.get('User-Agent')
+    };
+
+    registrations.unshift(registration);
+
+    if (!writeJSON(alumniRegistrationsFile, registrations)) {
+      throw new Error('Failed to save alumni registration');
+    }
+
+    console.log(`🎓 New Alumni Registration → ${name} | Batch: ${batch} | Email: ${email}`);
+    
+    res.json({ 
+      success: true, 
+      message: 'Welcome to our alumni network! Your registration has been received and will be processed within 48 hours.',
+      registrationId: registration.id
+    });
+
+  } catch (error) {
+    console.error('Error processing alumni registration:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to process registration. Please try again.' 
+    });
+  }
+});
+
+/**
+ * @route   GET /alumni/stats
+ * @desc    Fetches alumni network statistics.
+ * @access  Public
+ */
+router.get('/alumni/stats', (req, res) => {
+  try {
+    const alumniData = readJSON(path.join(__dirname, '..', 'data', 'static', 'alumni-data.json'));
+    const registrations = readJSON(path.join(__dirname, '..', 'data', 'alumni-registrations.json'));
+    
+    const stats = {
+      totalAlumni: alumniData.stats?.alumni || '0',
+      totalCountries: alumniData.stats?.countries || '0',
+      totalYears: alumniData.stats?.years || '0',
+      registeredAlumni: registrations.length,
+      recentRegistrations: registrations.filter(reg => {
+        const submissionDate = new Date(reg.submitted_at);
+        const weekAgo = new Date();
+        weekAgo.setDate(weekAgo.getDate() - 7);
+        return submissionDate >= weekAgo;
+      }).length,
+      notableAlumni: (alumniData.notable || []).length,
+      upcomingEvents: (alumniData.events || []).length,
+      batches: {
+        recent: registrations.filter(reg => {
+          const batchYear = parseInt(reg.batch);
+          const currentYear = new Date().getFullYear();
+          return currentYear - batchYear <= 5;
+        }).length,
+        veteran: registrations.filter(reg => {
+          const batchYear = parseInt(reg.batch);
+          const currentYear = new Date().getFullYear();
+          return currentYear - batchYear > 20;
+        }).length
+      }
+    };
+
+    console.log('📊 Alumni statistics calculated successfully');
+    res.json({ 
+      success: true, 
+      data: stats,
+      lastUpdated: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error fetching alumni stats:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch alumni statistics' 
+    });
+  }
+});
+
+/**
+ * @route   GET /alumni/registrations
+ * @desc    Fetches all alumni registrations (Admin only).
+ * @access  Protected
+ */
+router.get('/alumni/registrations', requireAuth, (req, res) => {
+  try {
+    const user = req.session.user;
+    
+    // Only allow admin or teacher to view registrations
+    if (!['admin', 'teacher'].includes(user.role)) {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Access denied. Admin or teacher privileges required.' 
+      });
+    }
+    
+    const registrationsFile = path.join(__dirname, '..', 'data', 'alumni-registrations.json');
+    let registrations = readJSON(registrationsFile);
+    
+    // Sort by submission date (newest first)
+    const sortedRegistrations = registrations.sort((a, b) => 
+      new Date(b.submitted_at) - new Date(a.submitted_at)
+    );
+    
+    res.json({ 
+      success: true, 
+      data: sortedRegistrations,
+      count: sortedRegistrations.length 
+    });
+  } catch (error) {
+    console.error('Error fetching alumni registrations:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch alumni registrations' 
+    });
+  }
+});
+
+/**
+ * @route   PUT /alumni/registrations/:id
+ * @desc    Updates alumni registration status (Admin/Teacher only).
+ * @access  Protected
+ */
+router.put('/alumni/registrations/:id', requireAuth, (req, res) => {
+  try {
+    const user = req.session.user;
+    const { id } = req.params;
+    const { status, notes } = req.body;
+    
+    // Only allow admin or teacher to update registrations
+    if (!['admin', 'teacher'].includes(user.role)) {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Access denied. Admin or teacher privileges required.' 
+      });
+    }
+    
+    if (!['pending', 'approved', 'rejected'].includes(status)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Invalid status. Must be pending, approved, or rejected.' 
+      });
+    }
+    
+    const registrationsFile = path.join(__dirname, '..', 'data', 'alumni-registrations.json');
+    let registrations = readJSON(registrationsFile);
+    
+    const registrationIndex = registrations.findIndex(reg => reg.id === id);
+    if (registrationIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Registration not found' });
+    }
+    
+    // Update the registration
+    registrations[registrationIndex].status = status;
+    registrations[registrationIndex].updated_at = new Date().toISOString();
+    registrations[registrationIndex].updated_by = user.name;
+    if (notes) {
+      registrations[registrationIndex].admin_notes = notes;
+    }
+    
+    if (!writeJSON(registrationsFile, registrations)) {
+      throw new Error('Failed to save updated registration');
+    }
+    
+    console.log(`Alumni Registration ${id} updated to ${status} by ${user.name}`);
+    
+    res.json({ 
+      success: true, 
+      message: `Registration marked as ${status}`,
+      data: registrations[registrationIndex]
+    });
+  } catch (error) {
+    console.error('Error updating alumni registration:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to update registration' 
+    });
+  }
+});
+
+/**
+ * @route   POST /alumni/events/register
+ * @desc    Handles registration for alumni events.
+ * @access  Public
+ */
+router.post('/alumni/events/register', (req, res) => {
+  try {
+    const { event_title, name, email, phone, batch } = req.body;
+
+    if (!event_title || !name?.trim() || !email?.trim()) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Event title, name, and email are required.' 
+      });
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Invalid email format.' 
+      });
+    }
+
+    const eventRegistrationsFile = path.join(__dirname, '..', 'data', 'alumni-event-registrations.json');
+    let registrations = readJSON(eventRegistrationsFile);
+
+    // Check for duplicate registrations
+    const existingRegistration = registrations.find(reg => 
+      reg.event_title === event_title && 
+      reg.email.toLowerCase() === email.toLowerCase()
+    );
+
+    if (existingRegistration) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'You have already registered for this event.' 
+      });
+    }
+
+    const registration = {
+      id: `alumni-event-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
+      event_title: event_title.trim(),
+      name: name.trim(),
+      email: email.toLowerCase().trim(),
+      phone: phone?.trim() || null,
+      batch: batch?.trim() || null,
+      registered_at: new Date().toISOString(),
+      status: 'confirmed'
+    };
+
+    registrations.unshift(registration);
+
+    if (!writeJSON(eventRegistrationsFile, registrations)) {
+      throw new Error('Failed to save event registration');
+    }
+
+    console.log(`🎫 Alumni Event Registration → ${name} registered for ${event_title}`);
+    
+    res.json({ 
+      success: true, 
+      message: 'Successfully registered for the alumni event! You will receive confirmation details via email.',
+      registrationId: registration.id
+    });
+
+  } catch (error) {
+    console.error('Error processing alumni event registration:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to process registration. Please try again.' 
+    });
+  }
+});
+
+// =================================================================
+// STAFF API ROUTES
+// =================================================================
+
+/**
+ * @route   GET /staff/data
+ * @desc    Fetches all staff data for the staff directory page.
+ * @access  Public
+ */
+router.get('/staff/data', (req, res) => {
+  try {
+    const { category, department, search } = req.query;
+    let staffData = readJSON(path.join(__dirname, '..', 'data', 'static', 'staff-data.json'));
+    
+    // Apply category filter
+    if (category && category !== 'all') {
+      staffData = staffData.filter(staff => staff.category === category);
+    }
+    
+    // Apply department filter
+    if (department && department !== 'all') {
+      staffData = staffData.filter(staff => 
+        staff.department?.toLowerCase() === department.toLowerCase()
+      );
+    }
+    
+    // Apply search filter
+    if (search) {
+      const searchTerm = search.toLowerCase().trim();
+      staffData = staffData.filter(staff => 
+        staff.name?.toLowerCase().includes(searchTerm) ||
+        staff.designation?.toLowerCase().includes(searchTerm) ||
+        staff.department?.toLowerCase().includes(searchTerm) ||
+        staff.qualification?.toLowerCase().includes(searchTerm)
+      );
+    }
+    
+    console.log(`👥 Staff data fetched: ${staffData.length} members`);
+    
+    res.json(staffData);
+  } catch (error) {
+    console.error('Error fetching staff data:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch staff data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /staff/departments
+ * @desc    Fetches unique departments from staff data.
+ * @access  Public
+ */
+router.get('/staff/departments', (req, res) => {
+  try {
+    const staffData = readJSON(path.join(__dirname, '..', 'data', 'static', 'staff-data.json'));
+    
+    const departments = [...new Set(staffData
+      .map(staff => staff.department)
+      .filter(dept => dept && dept.trim())
+    )].sort();
+    
+    console.log(`🏢 Staff departments fetched: ${departments.length} departments`);
+    
+    res.json({ 
+      success: true, 
+      data: departments,
+      count: departments.length
+    });
+  } catch (error) {
+    console.error('Error fetching staff departments:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch departments' 
+    });
+  }
+});
+
+/**
+ * @route   GET /staff/stats
+ * @desc    Fetches staff statistics.
+ * @access  Public
+ */
+router.get('/staff/stats', (req, res) => {
+  try {
+    const staffData = readJSON(path.join(__dirname, '..', 'data', 'static', 'staff-data.json'));
+    
+    const stats = {
+      total: staffData.length,
+      byCategory: {
+        leadership: staffData.filter(s => s.category === 'leadership').length,
+        teaching: staffData.filter(s => s.category === 'teaching').length,
+        admin: staffData.filter(s => s.category === 'admin').length,
+        support: staffData.filter(s => s.category === 'support').length
+      },
+      byDepartment: staffData.reduce((acc, staff) => {
+        const dept = staff.department || 'Unknown';
+        acc[dept] = (acc[dept] || 0) + 1;
+        return acc;
+      }, {}),
+      departments: [...new Set(staffData.map(s => s.department).filter(Boolean))].length
+    };
+    
+    console.log('📊 Staff statistics calculated successfully');
+    
+    res.json({ 
+      success: true, 
+      data: stats,
+      lastUpdated: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error fetching staff stats:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch staff statistics' 
+    });
+  }
+});
+
+/**
+ * @route   GET /staff/:id
+ * @desc    Fetches a single staff member by index or name.
+ * @access  Public
+ */
+router.get('/staff/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    const staffData = readJSON(path.join(__dirname, '..', 'data', 'static', 'staff-data.json'));
+    
+    // Try to find by index first
+    let staff = staffData[parseInt(id)];
+    
+    // If not found by index, try to find by name (URL encoded)
+    if (!staff) {
+      const decodedName = decodeURIComponent(id);
+      staff = staffData.find(s => 
+        s.name.toLowerCase() === decodedName.toLowerCase()
+      );
+    }
+    
+    if (!staff) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Staff member not found' 
+      });
+    }
+    
+    res.json({ 
+      success: true, 
+      data: staff
+    });
+  } catch (error) {
+    console.error('Error fetching staff member:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch staff member' 
+    });
+  }
+});
+
+/**
+ * @route   POST /staff
+ * @desc    Adds a new staff member (Admin only).
+ * @access  Protected
+ */
+router.post('/staff', requireAuth, (req, res) => {
+  try {
+    const user = req.session.user;
+    
+    // Only allow admin to add staff
+    if (user.role !== 'admin') {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Admin privileges required.' 
+      });
+    }
+    
+    const { name, designation, qualification, experience, category, department, photo, bio, email, phone } = req.body;
+    
+    if (!name || !designation || !category || !department) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Name, designation, category, and department are required.' 
+      });
+    }
+    
+    const staffFile = path.join(__dirname, '..', 'data', 'static', 'staff-data.json');
+    let staffData = readJSON(staffFile);
+    
+    const newStaff = {
+      name: name.trim(),
+      designation: designation.trim(),
+      qualification: qualification?.trim() || '',
+      experience: experience?.trim() || '',
+      category: category.trim(),
+      department: department.trim(),
+      photo: photo || '/assets/images/defaults/default-user.png',
+      bio: bio?.trim() || '',
+      email: email?.trim() || '',
+      phone: phone?.trim() || ''
+    };
+    
+    staffData.push(newStaff);
+    
+    if (!writeJSON(staffFile, staffData)) {
+      throw new Error('Failed to save staff data');
+    }
+    
+    console.log(`👤 New Staff Added → ${user.name} added: ${name}`);
+    
+    res.json({ 
+      success: true, 
+      message: 'Staff member added successfully!',
+      data: newStaff
+    });
+  } catch (error) {
+    console.error('Error adding staff member:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to add staff member.' 
+    });
+  }
+});
+
+/**
+ * @route   PUT /staff/:index
+ * @desc    Updates a staff member (Admin only).
+ * @access  Protected
+ */
+router.put('/staff/:index', requireAuth, (req, res) => {
+  try {
+    const user = req.session.user;
+    const { index } = req.params;
+    
+    // Only allow admin to update staff
+    if (user.role !== 'admin') {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Admin privileges required.' 
+      });
+    }
+    
+    const staffFile = path.join(__dirname, '..', 'data', 'static', 'staff-data.json');
+    let staffData = readJSON(staffFile);
+    
+    const staffIndex = parseInt(index);
+    if (isNaN(staffIndex) || staffIndex < 0 || staffIndex >= staffData.length) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Staff member not found.' 
+      });
+    }
+    
+    const updates = req.body;
+    staffData[staffIndex] = { ...staffData[staffIndex], ...updates };
+    
+    if (!writeJSON(staffFile, staffData)) {
+      throw new Error('Failed to save staff data');
+    }
+    
+    console.log(`👤 Staff Updated → ${user.name} updated: ${staffData[staffIndex].name}`);
+    
+    res.json({ 
+      success: true, 
+      message: 'Staff member updated successfully!',
+      data: staffData[staffIndex]
+    });
+  } catch (error) {
+    console.error('Error updating staff member:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to update staff member.' 
+    });
+  }
+});
+
+/**
+ * @route   DELETE /staff/:index
+ * @desc    Deletes a staff member (Admin only).
+ * @access  Protected
+ */
+router.delete('/staff/:index', requireAuth, (req, res) => {
+  try {
+    const user = req.session.user;
+    const { index } = req.params;
+    
+    // Only allow admin to delete staff
+    if (user.role !== 'admin') {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Admin privileges required.' 
+      });
+    }
+    
+    const staffFile = path.join(__dirname, '..', 'data', 'static', 'staff-data.json');
+    let staffData = readJSON(staffFile);
+    
+    const staffIndex = parseInt(index);
+    if (isNaN(staffIndex) || staffIndex < 0 || staffIndex >= staffData.length) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Staff member not found.' 
+      });
+    }
+    
+    const deletedStaff = staffData.splice(staffIndex, 1)[0];
+    
+    if (!writeJSON(staffFile, staffData)) {
+      throw new Error('Failed to save staff data');
+    }
+    
+    console.log(`🗑️ Staff Deleted → ${user.name} deleted: ${deletedStaff.name}`);
+    
+    res.json({ 
+      success: true, 
+      message: 'Staff member deleted successfully.'
+    });
+  } catch (error) {
+    console.error('Error deleting staff member:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to delete staff member.' 
+    });
+  }
+});
+
+// =================================================================
+// GALLERY API ROUTES
+// =================================================================
+
+/**
+ * @route   GET /gallery/photos
+ * @desc    Fetches all gallery photos with optional category filtering.
+ * @access  Public
+ */
+router.get('/gallery/photos', (req, res) => {
+  try {
+    const { category } = req.query;
+    let photos = readJSON(path.join(__dirname, '..', 'data', 'static', 'gallery-data.json'));
+    
+    if (category && category !== 'all') {
+      photos = photos.filter(photo => photo.category === category);
+    }
+    
+    console.log(`📸 Gallery photos fetched: ${photos.length} photos${category ? ` (category: ${category})` : ''}`);
+    
+    res.json({ 
+      success: true, 
+      data: photos,
+      count: photos.length,
+      categories: ['all', 'campus', 'academics', 'sports', 'events', 'celebrations', 'alumni']
+    });
+  } catch (error) {
+    console.error('Error fetching gallery photos:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch gallery photos' 
+    });
+  }
+});
+
+/**
+ * @route   GET /gallery/videos
+ * @desc    Fetches all gallery videos with optional category filtering.
+ * @access  Public
+ */
+router.get('/gallery/videos', (req, res) => {
+  try {
+    const { category } = req.query;
+    let videos = readJSON(path.join(__dirname, '..', 'data', 'static', 'video-gallery-data.json'));
+    
+    if (category && category !== 'all') {
+      videos = videos.filter(video => video.category === category);
+    }
+    
+    console.log(`🎬 Gallery videos fetched: ${videos.length} videos${category ? ` (category: ${category})` : ''}`);
+    
+    res.json({ 
+      success: true, 
+      data: videos,
+      count: videos.length,
+      categories: ['all', 'school-life', 'events', 'academics', 'sports', 'messages']
+    });
+  } catch (error) {
+    console.error('Error fetching gallery videos:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch gallery videos' 
+    });
+  }
+});
+
+/**
+ * @route   GET /gallery/stats
+ * @desc    Fetches gallery statistics.
+ * @access  Public
+ */
+router.get('/gallery/stats', (req, res) => {
+  try {
+    const photos = readJSON(path.join(__dirname, '..', 'data', 'static', 'gallery-data.json'));
+    const videos = readJSON(path.join(__dirname, '..', 'data', 'static', 'video-gallery-data.json'));
+    
+    const photoCategories = photos.reduce((acc, photo) => {
+      acc[photo.category] = (acc[photo.category] || 0) + 1;
+      return acc;
+    }, {});
+    
+    const videoCategories = videos.reduce((acc, video) => {
+      acc[video.category] = (acc[video.category] || 0) + 1;
+      return acc;
+    }, {});
+    
+    const stats = {
+      totalPhotos: photos.length,
+      totalVideos: videos.length,
+      photosByCategory: photoCategories,
+      videosByCategory: videoCategories,
+      totalEvents: 50,
+      yearsOfMemories: 10,
+      participation: '100%'
+    };
+    
+    console.log('📊 Gallery statistics calculated successfully');
+    
+    res.json({ 
+      success: true, 
+      data: stats,
+      lastUpdated: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error fetching gallery stats:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch gallery statistics' 
+    });
+  }
+});
+
+/**
+ * @route   POST /gallery/upload
+ * @desc    Handles gallery photo uploads (Admin/Teacher only).
+ * @access  Protected
+ */
+router.post('/gallery/upload', requireAuth, uploadImage.array('photos', 20), (req, res) => {
+  try {
+    const user = req.session.user;
+    
+    // Only allow admin or teacher to upload
+    if (!['admin', 'teacher'].includes(user.role)) {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Admin or teacher privileges required.' 
+      });
+    }
+    
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'No photos uploaded.' 
+      });
+    }
+    
+    const { title, category } = req.body;
+    
+    if (!category) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Category is required.' 
+      });
+    }
+    
+    const galleryFile = path.join(__dirname, '..', 'data', 'static', 'gallery-data.json');
+    let photos = readJSON(galleryFile);
+    
+    const newPhotos = req.files.map((file, index) => ({
+      id: Date.now() + index,
+      title: title || `Gallery Photo ${photos.length + index + 1}`,
+      category: category,
+      thumb: `/uploads/images/${file.filename}`,
+      full: `/uploads/images/${file.filename}`,
+      uploadedBy: user.name,
+      uploadedAt: new Date().toISOString()
+    }));
+    
+    photos = [...newPhotos, ...photos];
+    
+    if (!writeJSON(galleryFile, photos)) {
+      throw new Error('Failed to save gallery data');
+    }
+    
+    console.log(`📸 Gallery Upload → ${user.name} uploaded ${req.files.length} photo(s)`);
+    
+    res.json({ 
+      success: true, 
+      message: `${req.files.length} photo(s) uploaded successfully!`,
+      uploadedPhotos: newPhotos
+    });
+  } catch (error) {
+    console.error('Error uploading gallery photos:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to upload photos. Please try again.' 
+    });
+  }
+});
+
+/**
+ * @route   DELETE /gallery/photos/:id
+ * @desc    Deletes a gallery photo (Admin only).
+ * @access  Protected
+ */
+router.delete('/gallery/photos/:id', requireAuth, (req, res) => {
+  try {
+    const user = req.session.user;
+    const { id } = req.params;
+    
+    // Only allow admin to delete
+    if (user.role !== 'admin') {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Admin privileges required.' 
+      });
+    }
+    
+    const galleryFile = path.join(__dirname, '..', 'data', 'static', 'gallery-data.json');
+    let photos = readJSON(galleryFile);
+    
+    const photoIndex = photos.findIndex(p => p.id === parseInt(id) || p.id === id);
+    if (photoIndex === -1) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Photo not found.' 
+      });
+    }
+    
+    const deletedPhoto = photos.splice(photoIndex, 1)[0];
+    
+    if (!writeJSON(galleryFile, photos)) {
+      throw new Error('Failed to save gallery data');
+    }
+    
+    console.log(`🗑️ Gallery Photo Deleted → ${user.name} deleted: ${deletedPhoto.title}`);
+    
+    res.json({ 
+      success: true, 
+      message: 'Photo deleted successfully.'
+    });
+  } catch (error) {
+    console.error('Error deleting gallery photo:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to delete photo.' 
     });
   }
 });

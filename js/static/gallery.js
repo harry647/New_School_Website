@@ -62,13 +62,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ========================================
     async function loadPhotos() {
         try {
-            const res = await fetch("/data/static/gallery-data.json");
+            // Try API first
+            let res = await fetch("/api/gallery/photos");
+            if (res.ok) {
+                const data = await res.json();
+                if (data.success && data.data) {
+                    allPhotos = data.data;
+                    renderPhotos(allPhotos);
+                    attachPhotoFilterEvents();
+                    return;
+                }
+            }
+            
+            // Fallback to direct JSON file
+            res = await fetch("/data/static/gallery-data.json");
             if (!res.ok) throw new Error("Not found");
             allPhotos = await res.json();
             renderPhotos(allPhotos);
             attachPhotoFilterEvents();
         } catch (err) {
-            console.warn("Photo gallery JSON failed, using fallback images");
+            console.warn("Photo gallery failed, using fallback images:", err.message);
             // Use fallback gallery images
             allPhotos = generateFallbackPhotos();
             renderPhotos(allPhotos);
@@ -203,16 +216,29 @@ document.addEventListener("DOMContentLoaded", async () => {
         const existingVideos = videoGrid ? Array.from(videoGrid.querySelectorAll('.video-item')) : [];
         
         try {
-            const res = await fetch("/data/static/video-gallery-data.json");
-            if (!res.ok) throw new Error("Not found");
-            allVideos = await res.json();
+            // Try API first
+            let res = await fetch("/api/gallery/videos");
+            let apiVideos = [];
+            
+            if (res.ok) {
+                const data = await res.json();
+                if (data.success && data.data) {
+                    apiVideos = data.data;
+                }
+            } else {
+                // Fallback to direct JSON file
+                res = await fetch("/data/static/video-gallery-data.json");
+                if (res.ok) {
+                    apiVideos = await res.json();
+                }
+            }
             
             // Store static video data for filtering
             existingVideos.forEach(item => {
                 const category = item.dataset.category || 'all';
                 const title = item.querySelector('.video-title')?.textContent || '';
                 const desc = item.querySelector('.video-description')?.textContent || '';
-                allVideos.unshift({
+                allVideos.push({
                     type: 'static',
                     category,
                     title,
@@ -221,10 +247,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                 });
             });
             
+            // Add API videos
+            apiVideos.forEach(video => {
+                allVideos.push(video);
+            });
+            
             renderVideos(allVideos);
             attachVideoTabEvents();
         } catch (err) {
-            console.warn("Video gallery JSON not found, using static videos only");
+            console.warn("Video gallery failed, using static videos only:", err.message);
             
             // Use static videos from HTML
             existingVideos.forEach(item => {
@@ -287,11 +318,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             card.style.animationDelay = `${index * 100}ms`;
 
             let embed = '';
+            const videoId = video.videoId || video.id;
             
             if (video.type === "youtube") {
                 embed = `
                     <iframe 
-                        src="https://www.youtube.com/embed/${video.id}?rel=0" 
+                        src="https://www.youtube.com/embed/${videoId}?rel=0" 
                         title="${video.title}" 
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
                         allowfullscreen 
@@ -308,6 +340,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                         allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                         loading="lazy"
                     ></iframe>`;
+            } else if (video.type === "local") {
+                embed = `
+                    <video controls poster="${video.poster || '/assets/images/defaults/default-gallery.jpg'}">
+                        <source src="${video.src}" type="video/mp4">
+                        Your browser does not support video.
+                    </video>`;
             } else {
                 embed = `
                     <video controls poster="${video.poster || ''}">
@@ -319,7 +357,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             card.innerHTML = `
                 <div class="video-wrapper">${embed}</div>
                 <h3 class="video-title">${video.title || 'Untitled Video'}</h3>
-                <p class="video-description">${video.desc || ''}</p>
+                <p class="video-description">${video.desc || video.description || ''}</p>
             `;
 
             fragment.appendChild(card);

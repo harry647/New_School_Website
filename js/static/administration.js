@@ -138,7 +138,7 @@ class ContentLoader {
     
     async loadData() {
         try {
-            console.log("📡 Fetching /data/static/admin-data.json...");
+            console.log("📡 Fetching /api/admin/data...");
             
             // Add cache busting for development
             const cacheKey = 'adminData';
@@ -147,16 +147,69 @@ class ContentLoader {
                 return this.cache.get(cacheKey);
             }
             
-            const res = await fetch('/data/static/admin-data.json?t=' + Date.now());
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            // Create AbortController for timeout handling
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
             
-            const data = await res.json();
+            const res = await fetch('/api/admin/data?t=' + Date.now(), {
+                signal: controller.signal,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            clearTimeout(timeoutId);
+            
+            if (!res.ok) {
+                const errorText = await res.text();
+                let errorMessage = `HTTP ${res.status}`;
+                
+                // Provide more specific error messages
+                switch (res.status) {
+                    case 404:
+                        errorMessage = 'Administration data not found';
+                        break;
+                    case 500:
+                        errorMessage = 'Server error while loading administration data';
+                        break;
+                    case 503:
+                        errorMessage = 'Service temporarily unavailable';
+                        break;
+                    default:
+                        errorMessage += `: ${errorText}`;
+                }
+                
+                throw new Error(errorMessage);
+            }
+            
+            const response = await res.json();
+            
+            if (!response.success) {
+                throw new Error(response.message || 'API request failed');
+            }
+            
+            // Validate data structure
+            const data = response.data;
+            if (!data || typeof data !== 'object') {
+                throw new Error('Invalid data format received from server');
+            }
+            
             this.cache.set(cacheKey, data);
-            console.log("✅ JSON loaded →", data);
+            console.log("✅ API data loaded →", {
+                bom: data.bom?.length || 0,
+                leadership: data.leadership?.length || 0,
+                departments: data.departments?.length || 0
+            });
             
             return data;
             
         } catch (err) {
+            if (err.name === 'AbortError') {
+                console.error("❌ TIMEOUT ERROR → Request took too long");
+                throw new Error('Request timeout - please check your connection and try again');
+            }
+            
             console.error("❌ ERROR →", err);
             throw err;
         }
@@ -208,33 +261,77 @@ class ContentLoader {
     }
     
     showError(err) {
+        console.error("🔴 Showing error to user:", err.message);
+        
+        // Determine error type and appropriate message
+        let errorTitle = "Unable to load administration data";
+        let errorMessage = "Please check your internet connection and try again.";
+        let errorIcon = "fas fa-exclamation-triangle";
+        
+        if (err.message.includes('timeout')) {
+            errorTitle = "Request Timeout";
+            errorMessage = "The request took too long to complete. Please try again.";
+            errorIcon = "fas fa-clock";
+        } else if (err.message.includes('HTTP 404')) {
+            errorTitle = "Data Not Found";
+            errorMessage = "The administration data could not be found on the server.";
+            errorIcon = "fas fa-search";
+        } else if (err.message.includes('HTTP 500')) {
+            errorTitle = "Server Error";
+            errorMessage = "There was a problem on the server. Please try again later.";
+            errorIcon = "fas fa-server";
+        } else if (!navigator.onLine) {
+            errorTitle = "No Internet Connection";
+            errorMessage = "Please check your internet connection and try again.";
+            errorIcon = "fas fa-wifi";
+        }
+        
         Object.values(this.grids).forEach(grid => {
             if (grid) {
                 grid.innerHTML = `
                     <div class="error-message fade-in" style="
                         text-align: center;
                         padding: 3rem;
-                        background: #fee;
+                        background: linear-gradient(135deg, #fee 0%, #fff5f5 100%);
                         border: 1px solid #fcc;
                         border-radius: 16px;
                         color: #c33;
                         margin: 2rem 0;
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
                     ">
-                        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; margin-bottom: 1rem; color: #e74c3c;"></i>
-                        <h3>Unable to load content</h3>
-                        <p>Please check your internet connection and try refreshing the page.</p>
-                        <button onclick="location.reload()" style="
-                            margin-top: 1rem;
-                            padding: 0.8rem 2rem;
-                            background: #e74c3c;
-                            color: white;
-                            border: none;
-                            border-radius: 25px;
-                            cursor: pointer;
-                            font-weight: 600;
-                        ">
-                            <i class="fas fa-refresh"></i> Retry
-                        </button>
+                        <i class="${errorIcon}" style="font-size: 3rem; margin-bottom: 1rem; color: #e74c3c;"></i>
+                        <h3 style="color: #c33; margin-bottom: 1rem;">${errorTitle}</h3>
+                        <p style="margin-bottom: 1.5rem; color: #666;">${errorMessage}</p>
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                            <button onclick="window.location.reload()" style="
+                                padding: 0.8rem 2rem;
+                                background: #e74c3c;
+                                color: white;
+                                border: none;
+                                border-radius: 25px;
+                                cursor: pointer;
+                                font-weight: 600;
+                                transition: all 0.3s ease;
+                            " onmouseover="this.style.background='#c0392b'" onmouseout="this.style.background='#e74c3c'">
+                                <i class="fas fa-refresh"></i> Refresh Page
+                            </button>
+                            <button onclick="this.closest('.error-message').style.display='none'" style="
+                                padding: 0.8rem 2rem;
+                                background: #95a5a6;
+                                color: white;
+                                border: none;
+                                border-radius: 25px;
+                                cursor: pointer;
+                                font-weight: 600;
+                                transition: all 0.3s ease;
+                            " onmouseover="this.style.background='#7f8c8d'" onmouseout="this.style.background='#95a5a6'">
+                                <i class="fas fa-times"></i> Dismiss
+                            </button>
+                        </div>
+                        ${err.message ? `<details style="margin-top: 1rem; text-align: left;">
+                            <summary style="cursor: pointer; color: #666;">Technical Details</summary>
+                            <pre style="background: #f8f9fa; padding: 1rem; border-radius: 8px; font-size: 0.8rem; color: #666; overflow-x: auto;">${err.message}</pre>
+                        </details>` : ''}
                     </div>
                 `;
             }
@@ -564,11 +661,58 @@ window.addEventListener('error', (e) => {
 // Network status monitoring
 window.addEventListener('online', () => {
     console.log("🌐 Network connection restored");
-    // Optionally reload content if needed
+    
+    // Show notification and optionally retry loading
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #2ecc71;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        z-index: 10000;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        animation: slideIn 0.3s ease;
+    `;
+    notification.innerHTML = `
+        <i class="fas fa-check-circle"></i> 
+        Connection restored! <button onclick="this.parentElement.remove()" style="background: none; border: none; color: white; margin-left: 10px; cursor: pointer;">×</button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.remove();
+        }
+    }, 5000);
 });
 
 window.addEventListener('offline', () => {
     console.log("📡 Network connection lost");
+    
+    // Show offline notification
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #e74c3c;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        z-index: 10000;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    `;
+    notification.innerHTML = `
+        <i class="fas fa-wifi"></i> 
+        You are offline. Some features may not work. <button onclick="this.parentElement.remove()" style="background: none; border: none; color: white; margin-left: 10px; cursor: pointer;">×</button>
+    `;
+    
+    document.body.appendChild(notification);
 });
 
 // ================================================================

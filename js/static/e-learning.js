@@ -46,18 +46,68 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ========================================
-  // 2. NEWSLETTER SUBSCRIPTION – YOUR BACKEND
+  // 2. NEWSLETTER SUBSCRIPTION – PROFESSIONAL IMPLEMENTATION
   // ========================================
   const newsletterForm = document.getElementById("newsletterForm");
   const successMsg = document.getElementById("subscriptionSuccess");
 
   if (newsletterForm) {
+    // Enhanced form validation
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    function showFieldError(field, message) {
+      // Remove existing error
+      const existingError = field.parentNode.querySelector('.field-error');
+      if (existingError) existingError.remove();
+
+      // Add new error
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'field-error text-red-600 text-sm mt-1';
+      errorDiv.textContent = message;
+      field.parentNode.appendChild(errorDiv);
+      
+      // Add error styling
+      field.classList.add('border-red-500');
+    }
+
+    function clearFieldError(field) {
+      const existingError = field.parentNode.querySelector('.field-error');
+      if (existingError) existingError.remove();
+      field.classList.remove('border-red-500');
+    }
+
     newsletterForm.addEventListener("submit", async function (e) {
       e.preventDefault();
 
       const submitBtn = this.querySelector('button[type="submit"]');
       const originalHTML = submitBtn.innerHTML;
+      const emailField = this.querySelector('input[name="_replyto"]');
+      const nameField = this.querySelector('input[name="name"]');
 
+      // Clear previous errors
+      clearFieldError(emailField);
+      clearFieldError(nameField);
+
+      // Validate form
+      const email = emailField.value.trim().toLowerCase();
+      const name = nameField.value.trim();
+      
+      if (!email) {
+        showFieldError(emailField, 'Email address is required');
+        emailField.focus();
+        return;
+      }
+
+      if (!validateEmail(email)) {
+        showFieldError(emailField, 'Please enter a valid email address');
+        emailField.focus();
+        return;
+      }
+
+      // Update button state
       submitBtn.disabled = true;
       submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Subscribing...`;
 
@@ -67,34 +117,100 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.getAll("preferences[]").forEach(p => preferences.push(p));
 
         const payload = {
-          email: formData.get("_replyto")?.trim().toLowerCase(),
-          name: formData.get("name")?.trim() || null,
+          email: email,
+          name: name || null,
           preferences: preferences
         };
 
+        // Show loading state
+        newsletterForm.style.opacity = '0.7';
+
         const response = await fetch("/api/subscribe", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+          headers: { 
+            "Content-Type": "application/json",
+            "X-Requested-With": "XMLHttpRequest"
+          },
+          body: JSON.stringify(payload),
+          credentials: 'same-origin'
         });
 
         const result = await response.json();
 
         if (response.ok && result.success) {
+          // Success state
           newsletterForm.style.opacity = "0.5";
           newsletterForm.style.pointerEvents = "none";
           successMsg.style.display = "block";
           successMsg.scrollIntoView({ behavior: "smooth", block: "center" });
+          
+          // Track success event (analytics ready)
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'newsletter_signup', {
+              event_category: 'engagement',
+              event_label: 'e-learning page'
+            });
+          }
+          
         } else {
-          throw new Error(result.message || "Subscription failed");
+          throw new Error(result.message || "Subscription failed. Please try again.");
         }
       } catch (err) {
         console.error("Subscription error:", err);
-        alert("Could not subscribe. Please try again later or email us directly.");
+        
+        // Show user-friendly error message
+        let errorMessage = "Unable to subscribe. Please check your connection and try again.";
+        
+        if (err.message.includes('already subscribed')) {
+          errorMessage = "This email is already subscribed to our newsletter.";
+        } else if (err.message.includes('Invalid email')) {
+          errorMessage = "Please enter a valid email address.";
+        }
+        
+        // Create temporary error message
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'subscription-error text-red-600 text-center mt-3 p-3 bg-red-50 border border-red-200 rounded';
+        errorDiv.textContent = errorMessage;
+        
+        // Remove any existing error
+        const existingError = newsletterForm.querySelector('.subscription-error');
+        if (existingError) existingError.remove();
+        
+        newsletterForm.appendChild(errorDiv);
+        
+        // Auto-remove error after 5 seconds
+        setTimeout(() => {
+          errorDiv.remove();
+        }, 5000);
+        
+        // Reset button
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalHTML;
+        newsletterForm.style.opacity = '1';
       }
     });
+
+    // Real-time validation
+    const emailField = newsletterForm.querySelector('input[name="_replyto"]');
+    if (emailField) {
+      emailField.addEventListener('blur', function() {
+        const email = this.value.trim().toLowerCase();
+        if (email && !validateEmail(email)) {
+          showFieldError(this, 'Please enter a valid email address');
+        } else {
+          clearFieldError(this);
+        }
+      });
+
+      emailField.addEventListener('input', function() {
+        if (this.classList.contains('border-red-500')) {
+          const email = this.value.trim().toLowerCase();
+          if (email && validateEmail(email)) {
+            clearFieldError(this);
+          }
+        }
+      });
+    }
   }
 
   // ========================================

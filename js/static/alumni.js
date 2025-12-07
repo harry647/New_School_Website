@@ -633,7 +633,7 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 
-function handleFormSubmission(e) {
+async function handleFormSubmission(e) {
     e.preventDefault();
     
     const form = e.target;
@@ -660,14 +660,32 @@ function handleFormSubmission(e) {
     submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
     submitButton.disabled = true;
     
-    // Simulate form submission (replace with actual submission logic)
-    setTimeout(() => {
+    try {
+        // Submit to the alumni registration API
+        const response = await fetch('/api/alumni/register', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            // Success
+            form.reset();
+            document.querySelectorAll('.file-preview').forEach(preview => preview.innerHTML = '');
+            showNotification(result.message, 'success');
+        } else {
+            // Error
+            showNotification(result.message || 'Failed to submit registration. Please try again.', 'error');
+        }
+    } catch (error) {
+        console.error('Form submission error:', error);
+        showNotification('Network error. Please check your connection and try again.', 'error');
+    } finally {
+        // Restore button state
         submitButton.innerHTML = originalText;
         submitButton.disabled = false;
-        form.reset();
-        document.querySelectorAll('.file-preview').forEach(preview => preview.innerHTML = '');
-        showNotification('Thank you for joining our alumni network!', 'success');
-    }, 2000);
+    }
 }
 
 function showNotification(message, type) {
@@ -786,9 +804,27 @@ function viewProfile(name) {
 }
 
 function registerForEvent(eventTitle) {
-    showNotification(`Registration opened for: ${eventTitle}`, 'success');
-    // Scroll to registration form
+    // Scroll to registration form with event title pre-filled
     document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
+    
+    // Show registration notification
+    showNotification(`Registration opened for: ${eventTitle}`, 'success');
+    
+    // You can enhance this by pre-filling a modal or form with event details
+    setTimeout(() => {
+        // For now, just highlight the form to draw attention
+        const form = document.querySelector('.alumni-form');
+        if (form) {
+            form.style.border = '2px solid #0175C2';
+            form.style.borderRadius = '8px';
+            form.style.padding = '20px';
+            setTimeout(() => {
+                form.style.border = '';
+                form.style.borderRadius = '';
+                form.style.padding = '';
+            }, 3000);
+        }
+    }, 1000);
 }
 
 // ==============================

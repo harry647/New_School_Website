@@ -213,7 +213,7 @@
         // 5. Enhanced Dynamic Content Loading
         // ===============================
         const loadSectionData = async () => {
-            const JSON_PATH = "/data/static/clubs-data.json";
+            const JSON_PATH = "/api/student-life/data";
 
             try {
                 const res = await fetch(JSON_PATH, { 
@@ -225,7 +225,12 @@
                 
                 if (!res.ok) throw new Error(`Failed to fetch JSON: ${res.status} ${res.statusText}`);
 
-                const data = await res.json();
+                const response = await res.json();
+                if (!response.success) {
+                    throw new Error(response.message || 'Failed to fetch data');
+                }
+                
+                const data = response.data;
                 console.log("JSON data loaded:", data);
 
                 // Render sections with enhanced animations

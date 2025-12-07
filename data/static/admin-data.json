@@ -1,81 +1,166 @@
-{  
+{
   "bom": [
-    { "name": "Mr. James Kamau", "role": "BOM Chairman", "representing": "Sponsor Representative", "photo": "/assets/images/bom/chairman.jpg" },
-    { "name": "Mr. George Achilla", "role": "Secretary", "representing": "Principal (Ex-Officio)", "photo": "/assets/images/admin/principal.jpg" },
-    { "name": "Eng. Peter Omondi", "role": "Member", "representing": "PA Representative", "photo": "/assets/images/bom/member1.jpg" }
+    {
+      "name": "Mr. George Ominde",
+      "role": "BOM Chairperson",
+      "representing": "Community Representative",
+      "photo": "/assets/images/bom/chairman.png"
+    },
+    {
+      "name": "Mrs. Grace Wanjiru",
+      "role": "BOM Vice-Chairperson", 
+      "representing": "Sponsoring Church (AIC)",
+      "photo": "/assets/images/bom/member1.png"
+    },
+    {
+      "name": "Mr. Charles Oswago",
+      "role": "Parents' Association Chairman",
+      "representing": "Parents' Association",
+      "photo": "/assets/images/bom/member2.jpg"
+    },
+    {
+      "name": "Rev. Peter Mwangi",
+      "role": "BOM Secretary",
+      "representing": "Sponsoring Church (AIC)",
+      "photo": "/assets/images/defaults/default-user.png"
+    },
+    {
+      "name": "Ms. Faith Chemutai",
+      "role": "BOM Member",
+      "representing": "Special Interest Groups",
+      "photo": "/assets/images/defaults/default-user.png"
+    },
+    {
+      "name": "Mr. David Kiprotich",
+      "role": "BOM Member",
+      "representing": "Community Representative",
+      "photo": "/assets/images/defaults/default-user.png"
+    }
   ],
-  
   "leadership": [
     {
-      "name": "Mr. George Achilla",
-      "role": "Principal & Director",
-      "photo": "assets/images/admin/principal.jpg",
-      "quote": "Education is the most powerful tool to change the world.",
-      "bio": "With over 26 years of experience in educational leadership, Mr. George has transformed institutions with innovative pedagogy and inclusive policies.",
-      "contact": {
-        "email": "barunionsecondary@gmail.com",
-        "phone": "+254 700735472"
-      },
-      "social": {
-        "linkedin": "https://linkedin.com/in/georgeachilla",
-        "twitter": "https://twitter.com/georgeachilla"
-      }
+      "name": "Ms. Julia Kute",
+      "role": "Senior Teacher – STEM",
+      "photo": "/assets/images/leadership/seniorteacher1.jpg",
+      "bio": "Ms. Julia Kute leads our STEM department with over 15 years of teaching experience. She specializes in Mathematics and Physics, having previously taught at several top-performing schools in the region. Her innovative teaching methods and dedication to student success have resulted in consistently excellent KCSE performance in STEM subjects. She mentors both teachers and students, fostering a culture of academic excellence and scientific inquiry.",
+      "featured": true
     },
     {
-      "name": "Mr. Paul Were",
-      "role": "Deputy Principal (Admininistration)",
-      "photo": "assets/images/admin/dp-principal1.jpg",
-      "bio": "23 years experience<br>Oversees curriculum, assessments & faculty development",
-      "contact": {
-        "email": "barunionsecondary@gmail.com"
-      }
+      "name": "Mr. Edwin Okello",
+      "role": "Senior Teacher – Humanities",
+      "photo": "/assets/images/leadership/seniorteacher2.jpg",
+      "bio": "Mr. Edwin Okello brings a wealth of experience in humanities education, with expertise in History, Geography, and Literature. He has been instrumental in developing our school's cultural programs and debate teams. His leadership has led to numerous inter-school competition victories and has helped students develop critical thinking and communication skills essential for leadership roles.",
+      "featured": true
     },
     {
-      "name": "Ms. Ouma Ceciline",
-      "role": "Deputy Principal (Academics)",
-      "photo": "assets/images/admin/dp-principal2.jpg",
-      "bio": "25 years experience<br>Manages operations, infrastructure & parent relations",
-      "contact": {
-        "email": "barunionsecondary@gmail.com"
-      }
+      "name": "Mr. Norman Origa",
+      "role": "HOD – Co-Curricular Activities",
+      "photo": "/assets/images/leadership/hod-cocurriculum.jpg",
+      "bio": "Mr. Norman Origa oversees all co-curricular activities including sports, clubs, and cultural programs. With a background in Physical Education and Sports Management, he has transformed our school's sports programs, leading teams to county and regional competitions. He believes in holistic development and ensures every student finds their passion beyond academics.",
+      "featured": true
+    },
+    {
+      "name": "Ms. Isdora Auma",
+      "role": "Guidance and Counseling Head",
+      "photo": "/assets/images/defaults/default-user.png",
+      "bio": "Ms. Isdora Auma leads our student welfare and guidance department, providing essential emotional and psychological support to students. With professional training in counseling and years of experience in adolescent psychology, she helps students navigate academic pressures, personal challenges, and future planning. Her work has significantly improved student wellbeing and academic performance.",
+      "featured": false
+    },
+    {
+      "name": "Mr. Fredrick Otae",
+      "role": "Student Welfare Officer",
+      "photo": "/assets/images/defaults/default-user.png",
+      "bio": "Mr. Fredrick Otae works alongside Ms. Isdora in student welfare, focusing on discipline, conflict resolution, and student development programs. His approach emphasizes restorative justice and character building. He coordinates mentorship programs and ensures a safe, supportive environment for all students.",
+      "featured": false
+    },
+    {
+      "name": "Ms. Mary Tago",
+      "role": "Library and Resource Centre Manager",
+      "photo": "/assets/images/defaults/default-user.png",
+      "bio": "Ms. Mary Tago manages our comprehensive library and resource center, promoting reading culture and research skills among students. She has digitized our library system and created programs that have increased student engagement with literature and research materials. Her initiatives have significantly improved students' research and analytical abilities.",
+      "featured": false
     }
   ],
   "departments": [
     {
-      "name": "Admissions Office",
-      "icon": "fas fa-user-graduate",
-      "head": "Ms. Judith Ominde",
-      "headTitle": "Secretary(principal)",
-      "phone": "+254 700735472",
-      "email": "barunionsecondary@gmail.com"
+      "name": "Academic Department",
+      "head": "Mr. Benedict Ochieng",
+      "headTitle": "Director of Studies",
+      "icon": "fas fa-user-tie",
+      "color": "#3498db",
+      "email": "academic@barunion.ac.ke",
+      "phone": "+254 712 345 678",
+      "note": "Oversees curriculum planning and academic standards"
     },
     {
-      "name": "Accounts & Finance",
+      "name": "Finance & Accounts",
+      "head": "Ms. Jackline Achieng",
+      "headTitle": "Bursar",
       "icon": "fas fa-calculator",
-      "head": "Ms. Opiyo Jackline",
-      "headTitle": "School Bursar",
-      "email": "barunionsecondary@gmail.com"
+      "color": "#e74c3c",
+      "email": "finance@barunion.ac.ke",
+      "phone": "+254 712 876 543",
+      "note": "Manages school finances and budgeting"
     },
     {
-      "name": "Transport & Safety",
-      "icon": "fas fa-heartbeat",
-      "head": "Mr. Andiego Horace",
-      "headTitle": "Transport Manager",
-      "phone": "+254 700735472"
+      "name": "Administration & Operations",
+      "head": "Mr. Paul Were",
+      "headTitle": "Deputy Principal Administration",
+      "icon": "fas fa-cogs",
+      "color": "#16a34a",
+      "email": "admin@barunion.ac.ke",
+      "phone": "+254 711 234 567",
+      "note": "Coordinates daily operations and student welfare"
     },
     {
-      "name": "Security & Maintenance",
-      "icon": "fas fa-shield-alt",
-      "head": "Security Agencies",
-      "headTitle": "Estate Officers",
-      "note": "24×7 emergency support available"
+      "name": "Sports & Physical Education",
+      "head": "Mr. Norman Origa",
+      "headTitle": "HOD Co-Curricular",
+      "icon": "fas fa-running",
+      "color": "#f39c12",
+      "email": "sports@barunion.ac.ke",
+      "phone": "+254 713 987 654",
+      "note": "Leads athletics, team sports, and fitness programs"
     },
     {
-      "name": "Examination Centre",
-      "icon": "fas fa-book-reader",
-      "head": "Mrs. Sally Ouma",
-      "headTitle": "Secretary Exams",
-      "email": "barunionsecondary@gmail.com"
-    } 
+      "name": "Arts & Culture",
+      "head": "Ms. Sharlene Omonya",
+      "headTitle": "Arts Coordinator",
+      "icon": "fas fa-paint-brush",
+      "color": "#dc2626",
+      "email": "arts@barunion.ac.ke",
+      "phone": "+254 714 321 098",
+      "note": "Promotes creative expression through arts and culture"
+    },
+    {
+      "name": "Student Welfare & Guidance",
+      "head": "Ms. Isdora & Mr. Fredrick",
+      "headTitle": "Welfare Officers",
+      "icon": "fas fa-users",
+      "color": "#2563eb",
+      "email": "guidance@barunion.ac.ke",
+      "phone": "+254 715 654 321",
+      "note": "Provides counseling and student support services"
+    },
+    {
+      "name": "Library & Resource Centre",
+      "head": "Ms. Mary Tago",
+      "headTitle": "Librarian",
+      "icon": "fas fa-book",
+      "color": "#9c27b0",
+      "email": "library@barunion.ac.ke",
+      "phone": "+254 716 234 567",
+      "note": "Manages learning resources and research facilities"
+    },
+    {
+      "name": "ICT & Innovation",
+      "head": "Mr. Fredrick Aboge",
+      "headTitle": "ICT Coordinator",
+      "icon": "fas fa-network-wired",
+      "color": "#00bcd4",
+      "email": "ict@barunion.ac.ke",
+      "phone": "+254 717 890 123",
+      "note": "Maintains IT infrastructure and e-learning platforms"
+    }
   ]
 }
