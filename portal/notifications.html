@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Notifications</title>
+    <title>Notifications - Bar Union School Portal</title>
 
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -15,92 +15,619 @@
     <link rel="stylesheet" href="/css/user/common-user-style.css" />
 
     <style>
-        .notification-item {
-            background: rgba(255, 255, 255, 0.12);
+        .notification-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .notification-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+        
+        .notification-controls {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            transition: 0.3s;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
         }
+        
+        .notification-item {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+        }
+        
         .notification-item:hover {
-            background: rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 1);
             transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
-        .notif-icon {
-            font-size: 24px;
-            margin-right: 12px;
+        
+        .notification-item.unread {
+            border-left-color: #007bff;
+            background: rgba(0, 123, 255, 0.05);
+        }
+        
+        .notification-item.high-priority {
+            border-left-color: #dc3545;
+        }
+        
+        .notification-item.medium-priority {
+            border-left-color: #ffc107;
+        }
+        
+        .notification-item.low-priority {
+            border-left-color: #28a745;
+        }
+        
+        .notification-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .notification-icon.academic { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .notification-icon.administrative { background: linear-gradient(135deg, #f093fb, #f5576c); color: white; }
+        .notification-icon.event { background: linear-gradient(135deg, #4facfe, #00f2fe); color: white; }
+        .notification-icon.assignment { background: linear-gradient(135deg, #43e97b, #38f9d7); color: white; }
+        .notification-icon.exam { background: linear-gradient(135deg, #fa709a, #fee140); color: white; }
+        .notification-icon.fee { background: linear-gradient(135deg, #a8edea, #fed6e3); color: #333; }
+        .notification-icon.library { background: linear-gradient(135deg, #ffecd2, #fcb69f); color: #333; }
+        
+        .notification-meta {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+        
+        .notification-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .btn-action {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-mark-read {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-mark-read:hover {
+            background: #218838;
+        }
+        
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .btn-delete:hover {
+            background: #c82333;
+        }
+        
+        .filter-tabs .nav-link {
+            color: #6c757d;
+            border: none;
+            padding: 0.5rem 1rem;
+            margin: 0 0.25rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        
+        .filter-tabs .nav-link.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .search-box {
+            position: relative;
+        }
+        
+        .search-box input {
+            padding-left: 2.5rem;
+            border-radius: 25px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .search-box input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .stats-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin-left: 1rem;
+        }
+        
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #6c757d;
+        }
+        
+        .priority-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        
+        .priority-high { background: #dc3545; color: white; }
+        .priority-medium { background: #ffc107; color: #333; }
+        .priority-low { background: #28a745; color: white; }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .notification-item {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
-<body class="p-3">
-
-<div class="container fade-in" style="max-width: 800px;">
-    <h1 class="page-title">Notifications</h1>
-
-    <div id="notificationList"></div>
-
-    <p class="text-center text-muted mt-4" id="noNotifMsg" style="display:none;">No new notifications.</p>
-</div>
-
-<!-- Common Portal JS -->
-<script>
-// Configuration
-const CONFIG = {
-    API_BASE: '/api',
-    LOG_LEVEL: 'info' // debug, info, warn, error
-};
-
-// Logging utility
-const logger = {
-    log: (level, message, data = null) => {
-        if (['debug', 'info', 'warn', 'error'].indexOf(CONFIG.LOG_LEVEL) <= ['debug', 'info', 'warn', 'error'].indexOf(level)) {
-            console[level](`[${new Date().toISOString()}] ${message}`, data || '');
-        }
-    },
-    debug: (msg, data) => logger.log('debug', msg, data),
-    info: (msg, data) => logger.log('info', msg, data),
-    warn: (msg, data) => logger.log('warn', msg, data),
-    error: (msg, data) => logger.log('error', msg, data)
-};
-
-async function loadNotifications() {
-    const container = document.getElementById("notificationList");
-    const emptyMsg = document.getElementById("noNotifMsg");
-
-    try {
-        logger.info('Fetching notifications from API');
-        const response = await fetch(`${CONFIG.API_BASE}/notifications`);
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        const notifications = await response.json();
-
-        if (!Array.isArray(notifications) || notifications.length === 0) {
-            emptyMsg.style.display = "block";
-            logger.info('No notifications found');
-            return;
-        }
-
-        container.innerHTML = notifications.map(n => `
-            <div class="notification-item d-flex align-items-start">
-                <i class="fas ${n.icon || 'fa-bell'} notif-icon"></i>
-                <div>
-                    <h5 class="mb-1">${n.title || 'Notification'}</h5>
-                    <p class="mb-1 opacity-75">${n.message || ''}</p>
-                    <small class="opacity-50">${n.time || new Date().toLocaleString()}</small>
+<body class="bg-light">
+    <div class="container-fluid py-4">
+        <div class="notification-container">
+            <!-- Header -->
+            <div class="notification-header">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h1 class="h2 mb-0">
+                        <i class="fas fa-bell me-2"></i>
+                        Notifications
+                    </h1>
+                    <div class="stats-badge">
+                        <span id="unreadCount">0</span> unread
+                    </div>
+                </div>
+                
+                <!-- Controls -->
+                <div class="notification-controls">
+                    <!-- Search -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" class="form-control" id="searchInput" placeholder="Search notifications...">
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <button class="btn btn-light btn-sm me-2" id="markAllRead">
+                                <i class="fas fa-check-double me-1"></i>
+                                Mark All Read
+                            </button>
+                            <button class="btn btn-outline-light btn-sm" id="refreshBtn">
+                                <i class="fas fa-sync-alt me-1"></i>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Filters -->
+                    <ul class="nav nav-pills filter-tabs" id="filterTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" data-filter="all">
+                                <i class="fas fa-list me-1"></i>
+                                All
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" data-filter="unread">
+                                <i class="fas fa-envelope me-1"></i>
+                                Unread
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" data-filter="academic">
+                                <i class="fas fa-graduation-cap me-1"></i>
+                                Academic
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" data-filter="administrative">
+                                <i class="fas fa-cog me-1"></i>
+                                Administrative
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" data-filter="event">
+                                <i class="fas fa-calendar me-1"></i>
+                                Events
+                            </button>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        `).join('');
+            
+            <!-- Loading Spinner -->
+            <div class="loading-spinner" id="loadingSpinner">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Loading notifications...</p>
+            </div>
+            
+            <!-- Notifications List -->
+            <div id="notificationsList" class="fade-in"></div>
+            
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <i class="fas fa-bell-slash fa-3x mb-3 text-muted"></i>
+                <h4>No notifications found</h4>
+                <p class="text-muted">You're all caught up! Check back later for new updates.</p>
+            </div>
+        </div>
+    </div>
 
-        logger.info(`Loaded ${notifications.length} notifications`);
-    } catch (error) {
-        logger.error('Failed to load notifications', error);
-        container.innerHTML = '<div class="alert alert-danger">Failed to load notifications. Please try again later.</div>';
-        emptyMsg.style.display = "none";
-    }
-}
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-window.addEventListener('DOMContentLoaded', loadNotifications);
-</script>
+    <script>
+        // Configuration
+        const CONFIG = {
+            API_BASE: '/api',
+            LOG_LEVEL: 'info',
+            AUTO_REFRESH_INTERVAL: 30000, // 30 seconds
+            PAGE_SIZE: 50
+        };
+
+        // State management
+        let notifications = [];
+        let filteredNotifications = [];
+        let currentFilter = 'all';
+        let searchTerm = '';
+        let autoRefreshTimer = null;
+
+        // Logging utility
+        const logger = {
+            log: (level, message, data = null) => {
+                if (['debug', 'info', 'warn', 'error'].indexOf(CONFIG.LOG_LEVEL) <= 
+                    ['debug', 'info', 'warn', 'error'].indexOf(level)) {
+                    console[level](`[${new Date().toISOString()}] ${message}`, data || '');
+                }
+            },
+            debug: (msg, data) => logger.log('debug', msg, data),
+            info: (msg, data) => logger.log('info', msg, data),
+            warn: (msg, data) => logger.log('warn', msg, data),
+            error: (msg, data) => logger.log('error', msg, data)
+        };
+
+        // API Functions
+        async function fetchNotifications() {
+            try {
+                showLoading(true);
+                logger.info('Fetching notifications from API');
+                
+                const response = await fetch(`${CONFIG.API_BASE}/notifications`);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                notifications = await response.json();
+                logger.info(`Loaded ${notifications.length} notifications`);
+                
+                applyFilters();
+                updateStats();
+                showLoading(false);
+                
+            } catch (error) {
+                logger.error('Failed to load notifications', error);
+                showError('Failed to load notifications. Please try again later.');
+                showLoading(false);
+            }
+        }
+
+        async function markAsRead(notificationId) {
+            try {
+                const response = await fetch(`${CONFIG.API_BASE}/notifications/${notificationId}/read`, {
+                    method: 'POST'
+                });
+                
+                if (response.ok) {
+                    const notification = notifications.find(n => n.id === notificationId);
+                    if (notification) {
+                        notification.read = true;
+                        notification.readAt = new Date().toISOString();
+                        renderNotifications();
+                        updateStats();
+                        logger.info(`Marked notification ${notificationId} as read`);
+                    }
+                }
+            } catch (error) {
+                logger.error('Failed to mark as read', error);
+            }
+        }
+
+        async function deleteNotification(notificationId) {
+            try {
+                const response = await fetch(`${CONFIG.API_BASE}/notifications/${notificationId}`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    notifications = notifications.filter(n => n.id !== notificationId);
+                    applyFilters();
+                    updateStats();
+                    logger.info(`Deleted notification ${notificationId}`);
+                }
+            } catch (error) {
+                logger.error('Failed to delete notification', error);
+            }
+        }
+
+        async function markAllAsRead() {
+            try {
+                const unreadNotifications = notifications.filter(n => !n.read);
+                const promises = unreadNotifications.map(n => markAsRead(n.id));
+                await Promise.all(promises);
+                logger.info('Marked all notifications as read');
+            } catch (error) {
+                logger.error('Failed to mark all as read', error);
+            }
+        }
+
+        // UI Functions
+        function showLoading(show) {
+            const spinner = document.getElementById('loadingSpinner');
+            const list = document.getElementById('notificationsList');
+            
+            if (show) {
+                spinner.style.display = 'block';
+                list.style.display = 'none';
+            } else {
+                spinner.style.display = 'none';
+                list.style.display = 'block';
+            }
+        }
+
+        function showError(message) {
+            const list = document.getElementById('notificationsList');
+            list.innerHTML = `
+                <div class="alert alert-danger" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    ${message}
+                </div>
+            `;
+        }
+
+        function updateStats() {
+            const unreadCount = notifications.filter(n => !n.read).length;
+            document.getElementById('unreadCount').textContent = unreadCount;
+        }
+
+        function applyFilters() {
+            filteredNotifications = notifications.filter(notification => {
+                // Search filter
+                if (searchTerm) {
+                    const searchFields = [
+                        notification.title,
+                        notification.message,
+                        notification.type,
+                        notification.category
+                    ].join(' ').toLowerCase();
+                    
+                    if (!searchFields.includes(searchTerm.toLowerCase())) {
+                        return false;
+                    }
+                }
+
+                // Category filter
+                switch (currentFilter) {
+                    case 'unread':
+                        return !notification.read;
+                    case 'academic':
+                        return notification.category === 'academic';
+                    case 'administrative':
+                        return notification.category === 'administrative';
+                    case 'event':
+                        return notification.category === 'event';
+                    default:
+                        return true;
+                }
+            });
+
+            renderNotifications();
+        }
+
+        function renderNotifications() {
+            const container = document.getElementById('notificationsList');
+            const emptyState = document.getElementById('emptyState');
+
+            if (filteredNotifications.length === 0) {
+                container.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            container.style.display = 'block';
+            emptyState.style.display = 'none';
+
+            container.innerHTML = filteredNotifications.map(notification => `
+                <div class="notification-item ${notification.read ? '' : 'unread'} ${notification.priority || 'low'}-priority" 
+                     data-id="${notification.id}">
+                    <div class="d-flex align-items-start">
+                        <div class="notification-icon ${notification.type || 'administrative'}">
+                            <i class="fas ${notification.icon || 'fa-bell'}"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-start mb-1">
+                                <h5 class="mb-0">${notification.title || 'Notification'}</h5>
+                                <div class="d-flex align-items-center gap-2">
+                                    ${notification.priority ? `
+                                        <span class="priority-badge priority-${notification.priority}">
+                                            ${notification.priority}
+                                        </span>
+                                    ` : ''}
+                                    <small class="text-muted">${formatTime(notification.createdAt || notification.time)}</small>
+                                </div>
+                            </div>
+                            <p class="mb-2 text-muted">${notification.message || ''}</p>
+                            ${notification.category ? `
+                                <span class="badge bg-secondary mb-2">${notification.category}</span>
+                            ` : ''}
+                            <div class="notification-actions">
+                                ${!notification.read ? `
+                                    <button class="btn-action btn-mark-read" onclick="markAsRead('${notification.id}')">
+                                        <i class="fas fa-check me-1"></i>Mark Read
+                                    </button>
+                                ` : ''}
+                                <button class="btn-action btn-delete" onclick="deleteNotification('${notification.id}')">
+                                    <i class="fas fa-trash me-1"></i>Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function formatTime(timestamp) {
+            if (!timestamp) return '';
+            
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diffMs = now - date;
+            const diffMins = Math.floor(diffMs / 60000);
+            const diffHours = Math.floor(diffMins / 60);
+            const diffDays = Math.floor(diffHours / 24);
+
+            if (diffMins < 1) return 'Just now';
+            if (diffMins < 60) return `${diffMins}m ago`;
+            if (diffHours < 24) return `${diffHours}h ago`;
+            if (diffDays < 7) return `${diffDays}d ago`;
+            
+            return date.toLocaleDateString();
+        }
+
+        // Event Listeners
+        function setupEventListeners() {
+            // Search
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                searchTerm = e.target.value;
+                applyFilters();
+            });
+
+            // Filter tabs
+            document.querySelectorAll('[data-filter]').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Update active tab
+                    document.querySelectorAll('[data-filter]').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Apply filter
+                    currentFilter = tab.dataset.filter;
+                    applyFilters();
+                });
+            });
+
+            // Mark all read
+            document.getElementById('markAllRead').addEventListener('click', markAllAsRead);
+
+            // Refresh
+            document.getElementById('refreshBtn').addEventListener('click', fetchNotifications);
+
+            // Auto-refresh
+            autoRefreshTimer = setInterval(fetchNotifications, CONFIG.AUTO_REFRESH_INTERVAL);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async () => {
+            logger.info('Initializing notifications system');
+            setupEventListeners();
+            await fetchNotifications();
+            
+            // Set up real-time updates using Server-Sent Events if available
+            setupRealTimeUpdates();
+        });
+
+        function setupRealTimeUpdates() {
+            try {
+                const eventSource = new EventSource(`${CONFIG.API_BASE}/notifications/stream`);
+                eventSource.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    if (data.type === 'new_notification') {
+                        notifications.unshift(data.notification);
+                        applyFilters();
+                        updateStats();
+                        logger.info('New notification received via SSE');
+                    }
+                };
+                eventSource.onerror = () => {
+                    logger.warn('SSE connection failed, falling back to polling');
+                    eventSource.close();
+                };
+            } catch (error) {
+                logger.debug('SSE not supported, using polling only');
+            }
+        }
+
+        // Cleanup
+        window.addEventListener('beforeunload', () => {
+            if (autoRefreshTimer) {
+                clearInterval(autoRefreshTimer);
+            }
+        });
+    </script>
 </body>
 </html>

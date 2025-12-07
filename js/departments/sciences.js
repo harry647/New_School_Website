@@ -9,12 +9,12 @@ let currentSession = "";
 // ==================== AUTH ====================
 async function isLoggedIn() {
   try {
-    const response = await fetch('/auth/check', {
+    const response = await fetch('/api/profile', {
       method: 'GET',
       credentials: 'include' // Include session cookies
     });
     const data = await response.json();
-    return data.loggedIn === true;
+    return data.success === true;
   } catch (error) {
     console.error('Auth check failed:', error);
     return false;
@@ -101,10 +101,13 @@ function renderTeachers() {
       <div class="col-md-6 col-lg-4 mb-4">
         <div class="teacher-card text-center p-5 glass-card shadow-sm">
           <img src="${t.photo || '/assets/images/defaults/teacher.png'}" 
-               class="rounded-circle mb-4 shadow" width="140" height="140" alt="${t.name}">
-          <h4 class="fw-bold mb-2">${t.name}</h4>
-          <p class="text-muted mb-1">${t.subject}</p>
-          <p class="small text-primary">${t.email}</p>
+               class="teacher-image mb-4 shadow" width="140" height="140" alt="${t.name}">
+          <h4 class="teacher-name mb-2">${t.name}</h4>
+          <p class="teacher-subject mb-2">${t.subject}</p>
+          <div class="dept-badge ${t.dept} mb-3">${t.dept}</div>
+          <p class="small text-muted mb-1"><i class="fas fa-envelope"></i> ${t.email || 'N/A'}</p>
+          <p class="small text-muted mb-1"><i class="fas fa-graduation-cap"></i> ${t.qualification || 'N/A'}</p>
+          <p class="small text-muted"><i class="fas fa-clock"></i> ${t.experience || 'N/A'} experience</p>
         </div>
       </div>
     `).join("");
@@ -125,15 +128,19 @@ function renderAchievements() {
     : filtered.map((a, i) => `
       <div class="carousel-item ${i === 0 ? 'active' : ''}">
         <div class="achievement-card p-5 text-center mx-auto" style="max-width:500px;">
-          <i class="fas fa-trophy fa-4x text-warning mb-4"></i>
-          <h3 class="fw-bold">${a.title}</h3>
-          <p class="lead">${a.student}</p>
-          <p class="text-muted">${a.event} • ${a.year || a.session}</p>
-          <p class="mb-4">${a.description}</p>
+          <div class="achievement-icon">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <h3 class="achievement-title">${a.title}</h3>
+          <p class="achievement-student">${a.student}</p>
+          <p class="achievement-event">${a.event} • ${a.year || a.session}</p>
+          <p class="achievement-description mb-4">${a.description || ''}</p>
           ${a.photo ? `
-            <a href="${a.photo}" data-fancybox="achievements">
-              <img src="${a.photo}" class="img-fluid rounded shadow" alt="Achievement">
-            </a>
+            <div class="mt-4">
+              <a href="${a.photo}" data-fancybox="achievements" class="d-inline-block">
+                <img src="${a.photo}" class="img-fluid rounded shadow" alt="Achievement" style="max-height: 200px;">
+              </a>
+            </div>
           ` : ""}
         </div>
       </div>
@@ -157,12 +164,19 @@ function renderResources() {
     ? `<div class="col-12 text-center py-5 text-muted">No resources available.</div>`
     : filtered.map(r => `
       <div class="col-md-6 col-lg-4 mb-4">
-        <div class="resource-card p-5 text-center glass-card shadow-sm">
-          <i class="fas ${getFileIcon(r.type)} fa-4x mb-4 text-primary"></i>
-          <h5 class="fw-bold">${r.title}</h5>
-          <p class="text-muted small mb-3">By: ${r.uploadedBy} • ${formatDate(r.date)}</p>
-          <a href="${r.url}" class="btn btn-outline-success btn-sm w-100" download>
-            Download ${r.type === 'video' ? 'Video' : 'File'}
+        <div class="resource-card p-4 text-center glass-card shadow-sm">
+          <div class="resource-icon">
+            <i class="fas ${getFileIcon(r.type)}"></i>
+          </div>
+          <h5 class="resource-title">${r.title}</h5>
+          <p class="resource-meta">
+            <i class="fas fa-user"></i> ${r.uploadedBy} • 
+            <i class="fas fa-calendar"></i> ${formatDate(r.date)}
+          </p>
+          ${r.size ? `<p class="small text-muted"><i class="fas fa-file"></i> ${r.size}</p>` : ''}
+          <p class="mb-3 small">${r.description}</p>
+          <a href="${r.url}" class="btn btn-success btn-sm w-100" download>
+            <i class="fas fa-download"></i> Download ${r.type ? r.type.toUpperCase() : 'File'}
           </a>
         </div>
       </div>
@@ -179,22 +193,59 @@ function renderCompetitions() {
 
   grid.innerHTML = filtered.length === 0
     ? `<div class="col-12 text-center py-5 text-muted">No competitions scheduled.</div>`
-    : filtered.map(c => `
-      <div class="col-md-6 col-lg-4 mb-4">
-        <div class="competition-card p-5 text-center glass-card shadow-sm">
-          <i class="fas fa-flask fa-4x mb-4 text-info"></i>
-          <h5 class="fw-bold">${c.name}</h5>
-          <p class="mb-2">${new Date(c.date).toLocaleDateString('en-KE', { 
-            weekday: 'long', month: 'long', day: 'numeric' 
-          })}</p>
-          <p class="text-muted small mb-3">${c.location}</p>
-          <p>${c.description}</p>
-          <button class="btn btn-warning btn-sm w-100">
-            Register Now
-          </button>
+    : filtered.map(c => {
+        const eventDate = new Date(c.date);
+        const deadlineDate = c.registration_deadline ? new Date(c.registration_deadline) : null;
+        const isUpcoming = eventDate > new Date();
+        const isRegistrationOpen = deadlineDate ? (deadlineDate > new Date()) : true;
+        
+        return `
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="competition-card p-5 text-center glass-card shadow-sm">
+            <i class="competition-icon fas fa-flask"></i>
+            <h5 class="competition-title">${c.name}</h5>
+            <p class="competition-date mb-2">
+              <i class="fas fa-calendar"></i> ${eventDate.toLocaleDateString('en-KE', { 
+                weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'
+              })}
+            </p>
+            <p class="text-muted small mb-2">
+              <i class="fas fa-map-marker-alt"></i> ${c.location}
+            </p>
+            <p class="mb-3">${c.description}</p>
+            
+            ${c.prizes ? `
+              <div class="mb-3">
+                <small class="text-success fw-bold">
+                  <i class="fas fa-trophy"></i> ${c.prizes}
+                </small>
+              </div>
+            ` : ''}
+            
+            ${c.registration_deadline ? `
+              <div class="mb-3">
+                <small class="text-${isRegistrationOpen ? 'warning' : 'danger'}">
+                  <i class="fas fa-clock"></i> Register by: ${deadlineDate.toLocaleDateString('en-KE')}
+                </small>
+              </div>
+            ` : ''}
+            
+            ${c.requirements ? `
+              <div class="mb-3">
+                <small class="text-muted">
+                  <i class="fas fa-info-circle"></i> ${c.requirements}
+                </small>
+              </div>
+            ` : ''}
+            
+            <button class="btn btn-warning btn-sm w-100 ${!isRegistrationOpen ? 'disabled' : ''}" 
+                    ${!isRegistrationOpen ? 'disabled' : ''}>
+              ${isRegistrationOpen ? 'Register Now' : 'Registration Closed'}
+            </button>
+          </div>
         </div>
-      </div>
-    `).join("");
+        `;
+      }).join("");
 }
 
 // ==================== FILE UPLOADS ====================
@@ -202,10 +253,9 @@ function setupFileUploads() {
   const labUpload = document.getElementById("uploadFile");
   const studentUpload = document.getElementById("studentUpload");
 
-  [labUpload, studentUpload].forEach(input => {
-    if (!input) return;
-
-    input.addEventListener("change", async function () {
+  // Lab photos/reports upload (for teachers/admins)
+  if (labUpload) {
+    labUpload.addEventListener("change", async function () {
       if (this.files.length === 0) return;
 
       const formData = new FormData();
@@ -230,7 +280,51 @@ function setupFileUploads() {
         showAlert("Upload failed.", "danger");
       }
     });
-  });
+  }
+
+  // Student assignment submissions
+  if (studentUpload) {
+    studentUpload.addEventListener("change", async function () {
+      if (this.files.length === 0) return;
+
+      const assignmentTitle = prompt("Enter assignment title:");
+      const subject = prompt("Enter subject (Physics/Chemistry/Biology/Environmental Science):");
+      const description = prompt("Enter assignment description (optional):");
+
+      if (!assignmentTitle || !subject) {
+        showAlert("Assignment title and subject are required.", "warning");
+        this.value = "";
+        return;
+      }
+
+      const formData = new FormData();
+      Array.from(this.files).forEach(file => {
+        formData.append("files", file);
+      });
+      formData.append("assignmentTitle", assignmentTitle);
+      formData.append("subject", subject);
+      formData.append("description", description || "");
+
+      try {
+        const res = await fetch("/api/departments/science/submit", {
+          method: "POST",
+          body: formData
+        });
+
+        const result = await res.json();
+        if (result.success) {
+          showAlert(result.message || "Assignment submitted successfully!", "success");
+          this.value = "";
+          loadScienceData(); // Refresh
+        } else {
+          showAlert(result.message || "Submission failed.", "danger");
+        }
+      } catch (err) {
+        console.error('Submission error:', err);
+        showAlert("Submission failed. Please try again.", "danger");
+      }
+    });
+  }
 }
 
 // ==================== SESSION FILTERING ====================

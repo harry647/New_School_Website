@@ -258,6 +258,70 @@ body.page-clubs {
   border-width: 0.15em;
 }
 
+/* Skeleton Loader Styles */
+.skeleton-text {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 8px;
+  height: 20px;
+  margin-bottom: 10px;
+}
+
+.skeleton-title {
+  height: 28px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.skeleton-subtitle {
+  height: 16px;
+  width: 60%;
+  margin: 0 auto;
+}
+
+.skeleton-text-small {
+  height: 14px;
+  width: 90%;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Enhanced Alert Styles */
+.alert {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
+
+.alert-success {
+  background: linear-gradient(135deg, #d4edda, #c3e6cb);
+  color: #155724;
+}
+
+.alert-danger {
+  background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+  color: #721c24;
+}
+
+.alert-warning {
+  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+  color: #856404;
+}
+
+.alert-info {
+  background: linear-gradient(135deg, #d1ecf1, #bee5eb);
+  color: #0c5460;
+}
+
 /* ==================================
     9. Responsive Adjustments
  ================================== */

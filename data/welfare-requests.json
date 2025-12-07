@@ -1,0 +1,13 @@
+[
+  {
+    "id": "1765123346972",
+    "userType": "Student",
+    "name": "Test User",
+    "email": "test@example.com",
+    "supportType": "Counselling",
+    "description": "Test request",
+    "attachments": [],
+    "submitted_at": "2025-12-07T16:02:26.972Z",
+    "status": "new"
+  }
+]

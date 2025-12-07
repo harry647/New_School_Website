@@ -5,13 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>E-Learning Hub | Bar Union Secondary</title>
   <meta name="description" content="Access online classes, assignments, study materials, live sessions and digital resources anytime, anywhere." />
-
+  <meta name="keywords" content="e-learning, online education, Bar Union Secondary, courses, quizzes, assignments" />
+  <meta name="author" content="Bar Union Secondary School" />
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="E-Learning Hub | Bar Union Secondary" />
+  <meta property="og:description" content="Access online classes, assignments, study materials, live sessions and digital resources anytime, anywhere." />
+  <meta property="og:image" content="/assets/images/common/og-image.jpg" />
+  <meta property="og:type" content="website" />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico" />
+  
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
   <!-- Bootstrap 5 + Font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
   
   <!-- Custom Styles -->
   <link rel="stylesheet" href="/css/portal/portal-elearning.css">
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="/js/portal/e-learning-portal.js" as="script">
 </head>
 <body class="page-learning-portal">
 
@@ -363,6 +385,148 @@
 
   </div>
 
+  <!-- New Discussion Modal -->
+  <div class="modal fade" id="newDiscussionModal" tabindex="-1" aria-labelledby="newDiscussionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="newDiscussionModalLabel">
+            <i class="fas fa-plus-circle me-2"></i>Start New Discussion
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="newDiscussionForm">
+            <div class="mb-3">
+              <label for="discussionTitle" class="form-label fw-bold">Title</label>
+              <input type="text" class="form-control" id="discussionTitle" placeholder="Enter a descriptive title" required>
+            </div>
+            <div class="mb-3">
+              <label for="discussionCategory" class="form-label fw-bold">Category</label>
+              <select class="form-select" id="discussionCategory" required>
+                <option value="">Select a category</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Physics">Physics</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Biology">Biology</option>
+                <option value="English">English</option>
+                <option value="Kiswahili">Kiswahili</option>
+                <option value="History">History</option>
+                <option value="Geography">Geography</option>
+                <option value="Computer Studies">Computer Studies</option>
+                <option value="General">General Discussion</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="discussionContent" class="form-label fw-bold">Content</label>
+              <textarea class="form-control" id="discussionContent" rows="5" placeholder="Describe your question or topic in detail..." required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="discussionTags" class="form-label fw-bold">Tags (comma separated)</label>
+              <input type="text" class="form-control" id="discussionTags" placeholder="e.g., algebra, equations, help">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" onclick="submitNewDiscussion()">
+            <i class="fas fa-paper-plane me-2"></i>Post Discussion
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Modal -->
+  <div class="modal fade" id="quizModal" tabindex="-1" aria-labelledby="quizModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title" id="quizModalLabel">
+            <i class="fas fa-question-circle me-2"></i>Quiz
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="quizContent">
+          <!-- Quiz content will be loaded dynamically -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success" id="submitQuizBtn" onclick="submitQuiz()">
+            <i class="fas fa-check me-2"></i>Submit Quiz
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Assignment Submission Modal -->
+  <div class="modal fade" id="assignmentModal" tabindex="-1" aria-labelledby="assignmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-warning text-dark">
+          <h5 class="modal-title" id="assignmentModalLabel">
+            <i class="fas fa-tasks me-2"></i>Submit Assignment
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="assignmentSubmissionForm" enctype="multipart/form-data">
+            <input type="hidden" id="assignmentId" name="assignmentId">
+            <div class="mb-3">
+              <h6 id="assignmentTitle" class="fw-bold"></h6>
+              <p id="assignmentDescription" class="text-muted"></p>
+            </div>
+            <div class="mb-3">
+              <label for="assignmentFiles" class="form-label fw-bold">Upload Files</label>
+              <input type="file" class="form-control" id="assignmentFiles" name="files" multiple accept=".pdf,.doc,.docx,.jpg,.png,.zip" required>
+              <div class="form-text">Accepted formats: PDF, DOC, DOCX, JPG, PNG, ZIP (Max 10MB each)</div>
+            </div>
+            <div class="mb-3">
+              <label for="assignmentNotes" class="form-label fw-bold">Notes (Optional)</label>
+              <textarea class="form-control" id="assignmentNotes" name="notes" rows="3" placeholder="Add any notes for your teacher..."></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-warning" onclick="submitAssignment()">
+            <i class="fas fa-upload me-2"></i>Submit Assignment
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Live Session Join Modal -->
+  <div class="modal fade" id="liveSessionModal" tabindex="-1" aria-labelledby="liveSessionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title" id="liveSessionModalLabel">
+            <i class="fas fa-video me-2"></i>Join Live Session
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <i class="fas fa-video fa-4x text-success mb-3"></i>
+          <h5 id="sessionTitle" class="fw-bold"></h5>
+          <p id="sessionDetails" class="text-muted"></p>
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>
+            Make sure your camera and microphone are ready before joining.
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <a href="#" id="joinSessionBtn" class="btn btn-success" target="_blank">
+            <i class="fas fa-sign-in-alt me-2"></i>Join Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <div w3-include-html="/includes/footer.html"></div>
 
@@ -413,11 +577,133 @@
       window.location.reload();
     }
 
-    // Start new discussion
+    // Start new discussion - opens modal
     function startNewDiscussion() {
-      // In a real implementation, this would open a modal or redirect to a new discussion page
-      showAlert('Opening new discussion form...', 'info');
-      // Could redirect to: window.location.href = '/forum/new';
+      const modal = new bootstrap.Modal(document.getElementById('newDiscussionModal'));
+      modal.show();
+    }
+
+    // Submit new discussion
+    async function submitNewDiscussion() {
+      const title = document.getElementById('discussionTitle').value.trim();
+      const category = document.getElementById('discussionCategory').value;
+      const content = document.getElementById('discussionContent').value.trim();
+      const tagsInput = document.getElementById('discussionTags').value.trim();
+      const tags = tagsInput ? tagsInput.split(',').map(t => t.trim()) : [];
+
+      if (!title || !category || !content) {
+        showAlert('Please fill in all required fields.', 'warning');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/elearning/forum', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, category, content, tags })
+        });
+        const result = await res.json();
+        
+        if (result.success) {
+          showAlert('Discussion posted successfully!', 'success');
+          bootstrap.Modal.getInstance(document.getElementById('newDiscussionModal')).hide();
+          document.getElementById('newDiscussionForm').reset();
+          // Refresh forum data
+          if (typeof loadPortalData === 'function') loadPortalData(true);
+        } else {
+          showAlert(result.message || 'Failed to post discussion.', 'danger');
+        }
+      } catch (err) {
+        showAlert('Network error. Please try again.', 'danger');
+      }
+    }
+
+    // Submit quiz
+    async function submitQuiz() {
+      const quizId = document.getElementById('quizContent').dataset.quizId;
+      if (!quizId) {
+        showAlert('No quiz loaded.', 'warning');
+        return;
+      }
+      
+      // Collect answers from quiz form
+      const answers = [];
+      const questions = document.querySelectorAll('#quizContent .quiz-question');
+      questions.forEach((q, index) => {
+        const selected = q.querySelector('input:checked');
+        answers.push({
+          questionIndex: index,
+          answer: selected ? selected.value : null
+        });
+      });
+
+      try {
+        const res = await fetch(`/api/elearning/quiz/${quizId}/submit`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ answers })
+        });
+        const result = await res.json();
+        
+        if (result.success) {
+          showAlert('Quiz submitted successfully!', 'success');
+          bootstrap.Modal.getInstance(document.getElementById('quizModal')).hide();
+        } else {
+          showAlert(result.message || 'Failed to submit quiz.', 'danger');
+        }
+      } catch (err) {
+        showAlert('Network error. Please try again.', 'danger');
+      }
+    }
+
+    // Submit assignment
+    async function submitAssignment() {
+      const form = document.getElementById('assignmentSubmissionForm');
+      const formData = new FormData(form);
+      
+      const files = document.getElementById('assignmentFiles').files;
+      if (files.length === 0) {
+        showAlert('Please select at least one file.', 'warning');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/elearning/assignment/submit', {
+          method: 'POST',
+          body: formData
+        });
+        const result = await res.json();
+        
+        if (result.success) {
+          showAlert('Assignment submitted successfully!', 'success');
+          bootstrap.Modal.getInstance(document.getElementById('assignmentModal')).hide();
+          form.reset();
+        } else {
+          showAlert(result.message || 'Failed to submit assignment.', 'danger');
+        }
+      } catch (err) {
+        showAlert('Network error. Please try again.', 'danger');
+      }
+    }
+
+    // Register for live session
+    async function registerForSession(sessionId) {
+      try {
+        const res = await fetch(`/api/elearning/live-session/${sessionId}/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+        });
+        const result = await res.json();
+        
+        if (result.success) {
+          showAlert('Successfully registered for the session!', 'success');
+          document.getElementById('joinSessionBtn').href = result.meetingLink || '#';
+        } else {
+          showAlert(result.message || 'Failed to register.', 'danger');
+        }
+      } catch (err) {
+        showAlert('Network error. Please try again.', 'danger');
+      }
     }
 
     // Check login status on load

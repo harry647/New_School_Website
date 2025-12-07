@@ -1,32 +1,122 @@
 [
   {
+    "id": "notif-001",
     "title": "New Assignment Uploaded",
-    "message": "Your Mathematics teacher has uploaded a new worksheet.",
+    "message": "Your Mathematics teacher has uploaded a new worksheet on quadratic equations. Please complete it by Friday.",
     "icon": "fa-file-alt",
-    "time": "2 hours ago"
+    "type": "assignment",
+    "category": "academic",
+    "priority": "high",
+    "userId": "user-123",
+    "read": true,
+    "createdAt": "2025-12-07T14:23:12.952Z",
+    "readAt": "2025-12-07T16:30:57.932Z",
+    "actions": [
+      {
+        "label": "View Assignment",
+        "url": "/portal/e-learning-portal.html#assignments",
+        "type": "link"
+      }
+    ]
   },
   {
+    "id": "notif-002",
     "title": "Fee Reminder",
-    "message": "Term 2 fee balance is due.",
+    "message": "Term 2 fee balance of Ksh 45,000 is due. Please make payment to avoid late fees.",
     "icon": "fa-wallet",
-    "time": "Yesterday"
+    "type": "fee",
+    "category": "administrative",
+    "priority": "high",
+    "userId": "user-123",
+    "read": false,
+    "createdAt": "2025-12-06T09:00:00.000Z",
+    "readAt": null,
+    "actions": [
+      {
+        "label": "Pay Now",
+        "url": "/portal/payments.html",
+        "type": "link"
+      }
+    ]
   },
   {
+    "id": "notif-003",
     "title": "Event: Science Fair",
-    "message": "Register for the upcoming school science fair.",
+    "message": "Register for the upcoming school science fair. Project submissions open until December 15th.",
     "icon": "fa-flask",
-    "time": "3 days ago"
+    "type": "event",
+    "category": "event",
+    "priority": "medium",
+    "userId": "user-123",
+    "read": true,
+    "createdAt": "2025-12-04T10:30:00.000Z",
+    "readAt": "2025-12-04T11:15:00.000Z",
+    "actions": [
+      {
+        "label": "Register",
+        "url": "/portal/events.html#science-fair",
+        "type": "link"
+      }
+    ]
   },
   {
+    "id": "notif-004",
     "title": "Exam Schedule Updated",
-    "message": "Final exam schedule has been posted.",
+    "message": "Final exam schedule has been posted. Check your personal timetable for specific dates and times.",
     "icon": "fa-calendar-alt",
-    "time": "1 week ago"
+    "type": "exam",
+    "category": "academic",
+    "priority": "medium",
+    "userId": "user-123",
+    "read": true,
+    "createdAt": "2025-12-01T08:00:00.000Z",
+    "readAt": "2025-12-01T09:30:00.000Z",
+    "actions": [
+      {
+        "label": "View Schedule",
+        "url": "/portal/exams.html",
+        "type": "link"
+      }
+    ]
   },
   {
+    "id": "notif-005",
     "title": "Library Books Due",
-    "message": "You have 3 books due for return.",
+    "message": "You have 3 books due for return: 'Advanced Mathematics', 'Physics Principles', and 'Chemistry Lab Manual'.",
     "icon": "fa-book",
-    "time": "5 days ago"
+    "type": "library",
+    "category": "administrative",
+    "priority": "low",
+    "userId": "user-123",
+    "read": false,
+    "createdAt": "2025-12-02T16:45:00.000Z",
+    "readAt": null,
+    "actions": [
+      {
+        "label": "Renew Books",
+        "url": "/portal/library.html",
+        "type": "link"
+      }
+    ]
+  },
+  {
+    "id": "notif-006",
+    "title": "Parent-Teacher Conference",
+    "message": "Your parent-teacher conference is scheduled for December 12th at 2:00 PM. Please confirm attendance.",
+    "icon": "fa-users",
+    "type": "administrative",
+    "category": "administrative",
+    "priority": "medium",
+    "userId": "user-123",
+    "read": false,
+    "createdAt": "2025-12-07T12:00:00.000Z",
+    "readAt": null,
+    "actions": [
+      {
+        "label": "Confirm",
+        "url": "/portal/conferences.html",
+        "type": "link"
+      }
+    ]
   }
 ]

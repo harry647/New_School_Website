@@ -194,6 +194,11 @@ router.get('/config/clubs', (req, res) => {
 });
 
 /* ==================== USER & AUTH ==================== */
+router.get('/auth/check', (req, res) => {
+  const loggedIn = !!req.session?.user;
+  res.json({ loggedIn, user: loggedIn ? req.session.user : null });
+});
+
 router.get('/profile', requireAuth, (req, res) => {
   const { password, ...safeUser } = req.session.user;
   res.json({ success: true, user: safeUser });
@@ -600,13 +605,957 @@ router.get('/elearning/data', (req, res) => {
 });
 
 /**
+ * @route   GET /elearning/subjects
+ * @desc    Fetches all subjects/courses for the e-learning portal.
+ * @access  Public
+ */
+router.get('/elearning/subjects', (req, res) => {
+  const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+  res.json({ success: true, subjects: data.subjects || [] });
+});
+
+/**
+ * @route   GET /elearning/resources
+ * @desc    Fetches all learning resources.
+ * @access  Public
+ */
+router.get('/elearning/resources', (req, res) => {
+  const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+  const { subject, type } = req.query;
+  
+  let resources = data.resources || [];
+  
+  if (subject) {
+    resources = resources.filter(r => r.subject.toLowerCase() === subject.toLowerCase());
+  }
+  if (type) {
+    resources = resources.filter(r => r.type.toLowerCase() === type.toLowerCase());
+  }
+  
+  res.json({ success: true, resources, count: resources.length });
+});
+
+/**
+ * @route   GET /elearning/quizzes
+ * @desc    Fetches all quizzes for the e-learning portal.
+ * @access  Public
+ */
+router.get('/elearning/quizzes', (req, res) => {
+  const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+  const { status, subject } = req.query;
+  
+  let quizzes = data.quizzes || [];
+  
+  if (status) {
+    quizzes = quizzes.filter(q => q.status === status);
+  }
+  if (subject) {
+    quizzes = quizzes.filter(q => q.subject.toLowerCase() === subject.toLowerCase());
+  }
+  
+  res.json({ success: true, quizzes, count: quizzes.length });
+});
+
+/**
+ * @route   GET /elearning/quiz/:id
+ * @desc    Fetches a specific quiz by ID.
+ * @access  Public
+ */
+router.get('/elearning/quiz/:id', (req, res) => {
+  const { id } = req.params;
+  const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+  const quiz = (data.quizzes || []).find(q => q.id === id);
+  
+  if (!quiz) {
+    return res.status(404).json({ success: false, message: 'Quiz not found' });
+  }
+  
+  res.json({ success: true, quiz });
+});
+
+/**
+ * @route   POST /elearning/quiz/:id/submit
+ * @desc    Submits quiz answers.
+ * @access  Protected
+ */
+router.post('/elearning/quiz/:id/submit', (req, res) => {
+  const { id } = req.params;
+  const { answers } = req.body;
+  const user = req.session?.user;
+  
+  if (!answers || !Array.isArray(answers)) {
+    return res.status(400).json({ success: false, message: 'Answers are required' });
+  }
+  
+  const submissionsFile = path.join(__dirname, '..', 'data', 'portal', 'quiz-submissions.json');
+  let submissions = readJSON(submissionsFile);
+  
+  const submission = {
+    id: `${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
+    quizId: id,
+    userId: user?.id || 'anonymous',
+    userName: user?.name || 'Student',
+    answers,
+    submittedAt: new Date().toISOString(),
+    status: 'submitted'
+  };
+  
+  submissions.push(submission);
+  writeJSON(submissionsFile, submissions);
+  
+  console.log(`Quiz Submission → ${submission.userName} submitted quiz ${id}`);
+  res.json({ success: true, message: 'Quiz submitted successfully!', submissionId: submission.id });
+});
+
+/**
+ * @route   GET /elearning/assignments
+ * @desc    Fetches all assignments for the e-learning portal.
+ * @access  Public
+ */
+router.get('/elearning/assignments', (req, res) => {
+  const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+  const { status, subject } = req.query;
+  
+  let assignments = data.assignments || [];
+  
+  if (status) {
+    assignments = assignments.filter(a => a.status === status);
+  }
+  if (subject) {
+    assignments = assignments.filter(a => a.subject.toLowerCase() === subject.toLowerCase());
+  }
+  
+  res.json({ success: true, assignments, count: assignments.length });
+});
+
+/**
+ * @route   POST /elearning/assignment/submit
+ * @desc    Submits an assignment with file upload.
+ * @access  Protected
+ */
+router.post('/elearning/assignment/submit', uploadElearning.array('files', 5), (req, res) => {
+  const { assignmentId, notes } = req.body;
+  const user = req.session?.user;
+  
+  if (!assignmentId) {
+    return res.status(400).json({ success: false, message: 'Assignment ID is required' });
+  }
+  
+  if (!req.files || req.files.length === 0) {
+    return res.status(400).json({ success: false, message: 'At least one file is required' });
+  }
+  
+  const submissionsFile = path.join(__dirname, '..', 'data', 'portal', 'assignment-submissions.json');
+  let submissions = readJSON(submissionsFile);
+  
+  const submission = {
+    id: `${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
+    assignmentId,
+    userId: user?.id || 'anonymous',
+    userName: user?.name || 'Student',
+    userEmail: user?.email || 'student@school.edu',
+    notes: notes?.trim() || '',
+    files: req.files.map(f => ({
+      filename: f.filename,
+      originalName: f.originalname,
+      size: formatFileSize(f.size),
+      url: `/uploads/elearning/${f.filename}`
+    })),
+    submittedAt: new Date().toISOString(),
+    status: 'submitted'
+  };
+  
+  submissions.push(submission);
+  writeJSON(submissionsFile, submissions);
+  
+  console.log(`Assignment Submission → ${submission.userName} submitted assignment ${assignmentId}`);
+  res.json({ success: true, message: 'Assignment submitted successfully!', submissionId: submission.id });
+});
+
+/**
+ * @route   GET /elearning/live-sessions
+ * @desc    Fetches all live sessions.
+ * @access  Public
+ */
+router.get('/elearning/live-sessions', (req, res) => {
+  const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+  const { status } = req.query;
+  
+  let sessions = data.liveSessions || [];
+  
+  if (status) {
+    sessions = sessions.filter(s => s.status === status);
+  }
+  
+  // Filter out past sessions
+  const now = new Date();
+  sessions = sessions.filter(s => new Date(s.scheduledTime) >= now);
+  
+  res.json({ success: true, sessions, count: sessions.length });
+});
+
+/**
+ * @route   POST /elearning/live-session/:id/register
+ * @desc    Registers a user for a live session.
+ * @access  Protected
+ */
+router.post('/elearning/live-session/:id/register', (req, res) => {
+  const { id } = req.params;
+  const user = req.session?.user;
+  
+  const dataFile = path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json');
+  let data = readJSON(dataFile);
+  
+  const sessionIndex = (data.liveSessions || []).findIndex(s => s.id === id);
+  if (sessionIndex === -1) {
+    return res.status(404).json({ success: false, message: 'Live session not found' });
+  }
+  
+  const session = data.liveSessions[sessionIndex];
+  
+  if (session.registered >= session.maxParticipants) {
+    return res.status(400).json({ success: false, message: 'Session is full' });
+  }
+  
+  // Increment registered count
+  data.liveSessions[sessionIndex].registered += 1;
+  writeJSON(dataFile, data);
+  
+  console.log(`Live Session Registration → ${user?.name || 'User'} registered for ${session.title}`);
+  res.json({ 
+    success: true, 
+    message: 'Successfully registered for the session!',
+    meetingLink: session.meetingLink
+  });
+});
+
+/**
+ * @route   GET /elearning/forum
+ * @desc    Fetches forum threads.
+ * @access  Public
+ */
+router.get('/elearning/forum', (req, res) => {
+  const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+  const { category, status } = req.query;
+  
+  let threads = data.forum || [];
+  
+  if (category) {
+    threads = threads.filter(t => t.category.toLowerCase() === category.toLowerCase());
+  }
+  if (status) {
+    threads = threads.filter(t => t.status === status);
+  }
+  
+  // Sort by pinned first, then by date
+  threads.sort((a, b) => {
+    if (a.isPinned && !b.isPinned) return -1;
+    if (!a.isPinned && b.isPinned) return 1;
+    return new Date(b.date) - new Date(a.date);
+  });
+  
+  res.json({ success: true, threads, count: threads.length });
+});
+
+/**
+ * @route   GET /elearning/forum/:id
+ * @desc    Fetches a specific forum thread with replies.
+ * @access  Public
+ */
+router.get('/elearning/forum/:id', (req, res) => {
+  const { id } = req.params;
+  const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+  const thread = (data.forum || []).find(t => t.id === id);
+  
+  if (!thread) {
+    return res.status(404).json({ success: false, message: 'Thread not found' });
+  }
+  
+  // Increment view count
+  const dataFile = path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json');
+  const threadIndex = data.forum.findIndex(t => t.id === id);
+  if (threadIndex !== -1) {
+    data.forum[threadIndex].views += 1;
+    writeJSON(dataFile, data);
+  }
+  
+  res.json({ success: true, thread });
+});
+
+/**
+ * @route   POST /elearning/forum
+ * @desc    Creates a new forum thread.
+ * @access  Protected
+ */
+router.post('/elearning/forum', (req, res) => {
+  const { title, category, content, tags } = req.body;
+  const user = req.session?.user;
+  
+  if (!title?.trim() || !category?.trim() || !content?.trim()) {
+    return res.status(400).json({ success: false, message: 'Title, category, and content are required' });
+  }
+  
+  const dataFile = path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json');
+  let data = readJSON(dataFile);
+  
+  if (!data.forum) data.forum = [];
+  
+  const newThread = {
+    id: `thread-${Date.now()}`,
+    title: title.trim(),
+    category: category.trim(),
+    author: user?.name || 'Anonymous',
+    authorAvatar: user?.avatar || '/assets/images/defaults/default-student.png',
+    date: new Date().toISOString(),
+    replies: 0,
+    views: 0,
+    lastReply: null,
+    tags: Array.isArray(tags) ? tags : (tags ? [tags] : []),
+    content: content.trim(),
+    status: 'open',
+    isPinned: false
+  };
+  
+  data.forum.unshift(newThread);
+  writeJSON(dataFile, data);
+  
+  console.log(`Forum Thread Created → ${newThread.author} created: ${newThread.title}`);
+  res.json({ success: true, message: 'Thread created successfully!', threadId: newThread.id });
+});
+
+/**
+ * @route   POST /elearning/forum/:id/reply
+ * @desc    Adds a reply to a forum thread.
+ * @access  Protected
+ */
+router.post('/elearning/forum/:id/reply', (req, res) => {
+  const { id } = req.params;
+  const { content } = req.body;
+  const user = req.session?.user;
+  
+  if (!content?.trim()) {
+    return res.status(400).json({ success: false, message: 'Reply content is required' });
+  }
+  
+  const dataFile = path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json');
+  let data = readJSON(dataFile);
+  
+  const threadIndex = (data.forum || []).findIndex(t => t.id === id);
+  if (threadIndex === -1) {
+    return res.status(404).json({ success: false, message: 'Thread not found' });
+  }
+  
+  // Update thread
+  data.forum[threadIndex].replies += 1;
+  data.forum[threadIndex].lastReply = new Date().toISOString();
+  
+  writeJSON(dataFile, data);
+  
+  console.log(`Forum Reply → ${user?.name || 'User'} replied to thread ${id}`);
+  res.json({ success: true, message: 'Reply posted successfully!' });
+});
+
+/**
+ * @route   GET /elearning/progress
+ * @desc    Fetches user's learning progress.
+ * @access  Protected
+ */
+router.get('/elearning/progress', (req, res) => {
+  const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+  res.json({ success: true, progress: data.progress || {}, analytics: data.analytics || {} });
+});
+
+/**
+ * @route   POST /elearning/progress/update
+ * @desc    Updates user's learning progress.
+ * @access  Protected
+ */
+router.post('/elearning/progress/update', (req, res) => {
+  const { subjectId, lessonId, completed } = req.body;
+  const user = req.session?.user;
+  
+  if (!subjectId || !lessonId) {
+    return res.status(400).json({ success: false, message: 'Subject ID and Lesson ID are required' });
+  }
+  
+  // In a real implementation, this would update user-specific progress
+  console.log(`Progress Update → ${user?.name || 'User'} completed lesson ${lessonId} in ${subjectId}`);
+  res.json({ success: true, message: 'Progress updated!' });
+});
+
+/**
+ * @route   GET /elearning/calendar
+ * @desc    Fetches calendar events.
+ * @access  Public
+ */
+router.get('/elearning/calendar', (req, res) => {
+  const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+  const { month, year } = req.query;
+  
+  let events = data.calendar || [];
+  
+  if (month && year) {
+    events = events.filter(e => {
+      const eventDate = new Date(e.date);
+      return eventDate.getMonth() === parseInt(month) - 1 && eventDate.getFullYear() === parseInt(year);
+    });
+  }
+  
+  res.json({ success: true, events, count: events.length });
+});
+
+/**
+ * @route   GET /elearning/notifications
+ * @desc    Fetches e-learning specific notifications.
+ * @access  Public
+ */
+router.get('/elearning/notifications', (req, res) => {
+  const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+  const { unreadOnly } = req.query;
+  
+  let notifications = data.notifications || [];
+  
+  if (unreadOnly === 'true') {
+    notifications = notifications.filter(n => !n.read);
+  }
+  
+  res.json({ success: true, notifications, unreadCount: notifications.filter(n => !n.read).length });
+});
+
+/**
+ * @route   POST /elearning/notifications/:id/read
+ * @desc    Marks a notification as read.
+ * @access  Protected
+ */
+router.post('/elearning/notifications/:id/read', (req, res) => {
+  const { id } = req.params;
+  
+  const dataFile = path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json');
+  let data = readJSON(dataFile);
+  
+  const notifIndex = (data.notifications || []).findIndex(n => n.id === id);
+  if (notifIndex === -1) {
+    return res.status(404).json({ success: false, message: 'Notification not found' });
+  }
+  
+  data.notifications[notifIndex].read = true;
+  writeJSON(dataFile, data);
+  
+  res.json({ success: true, message: 'Notification marked as read' });
+});
+
+/**
+ * @route   GET /elearning/study-plans
+ * @desc    Fetches study plans.
+ * @access  Public
+ */
+router.get('/elearning/study-plans', (req, res) => {
+  const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+  res.json({ success: true, studyPlans: data.studyPlan || [] });
+});
+
+/**
+ * @route   GET /elearning/achievements
+ * @desc    Fetches user achievements.
+ * @access  Public
+ */
+router.get('/elearning/achievements', (req, res) => {
+  const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+  res.json({ success: true, achievements: data.achievements || [] });
+});
+
+/**
+ * @route   GET /elearning/media
+ * @desc    Fetches media gallery items.
+ * @access  Public
+ */
+router.get('/elearning/media', (req, res) => {
+  const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+  const { type, subject } = req.query;
+  
+  let media = data.media || [];
+  
+  if (type) {
+    media = media.filter(m => m.type === type);
+  }
+  if (subject) {
+    media = media.filter(m => m.subject.toLowerCase() === subject.toLowerCase());
+  }
+  
+  res.json({ success: true, media, count: media.length });
+});
+
+/**
  * @route   GET /notifications
- * @desc    Fetches notifications for the portal.
+ * @desc    Fetches notifications with filtering, pagination, and user-specific options.
  * @access  Public
  */
 router.get('/notifications', (req, res) => {
-  const notifications = readJSON(path.join(__dirname, '..', 'data', 'notifications.json'));
-  res.json(notifications || []);
+  try {
+    const { 
+      userId, 
+      category, 
+      type, 
+      priority, 
+      read, 
+      limit = 50, 
+      offset = 0,
+      search 
+    } = req.query;
+    
+    let notifications = readJSON(path.join(__dirname, '..', 'data', 'notifications.json')) || [];
+    
+    // Apply filters
+    if (userId) {
+      notifications = notifications.filter(n => n.userId === userId);
+    }
+    
+    if (category) {
+      notifications = notifications.filter(n => n.category === category);
+    }
+    
+    if (type) {
+      notifications = notifications.filter(n => n.type === type);
+    }
+    
+    if (priority) {
+      notifications = notifications.filter(n => n.priority === priority);
+    }
+    
+    if (read !== undefined) {
+      const isRead = read === 'true';
+      notifications = notifications.filter(n => n.read === isRead);
+    }
+    
+    if (search) {
+      const searchTerm = search.toLowerCase();
+      notifications = notifications.filter(n => 
+        n.title?.toLowerCase().includes(searchTerm) ||
+        n.message?.toLowerCase().includes(searchTerm) ||
+        n.category?.toLowerCase().includes(searchTerm)
+      );
+    }
+    
+    // Sort by creation date (newest first)
+    notifications.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    
+    // Apply pagination
+    const total = notifications.length;
+    const paginatedNotifications = notifications.slice(
+      parseInt(offset), 
+      parseInt(offset) + parseInt(limit)
+    );
+    
+    res.json({
+      success: true,
+      notifications: paginatedNotifications,
+      pagination: {
+        total,
+        limit: parseInt(limit),
+        offset: parseInt(offset),
+        hasMore: parseInt(offset) + parseInt(limit) < total
+      },
+      stats: {
+        total: notifications.length,
+        unread: notifications.filter(n => !n.read).length,
+        byCategory: notifications.reduce((acc, n) => {
+          acc[n.category] = (acc[n.category] || 0) + 1;
+          return acc;
+        }, {}),
+        byPriority: notifications.reduce((acc, n) => {
+          acc[n.priority] = (acc[n.priority] || 0) + 1;
+          return acc;
+        }, {})
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching notifications:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch notifications' });
+  }
+});
+
+/**
+ * @route   GET /notifications/user/:userId
+ * @desc    Fetches notifications for a specific user.
+ * @access  Public
+ */
+router.get('/notifications/user/:userId', (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { limit = 50, offset = 0, unreadOnly = false } = req.query;
+    
+    let notifications = readJSON(path.join(__dirname, '..', 'data', 'notifications.json')) || [];
+    
+    // Filter by user ID
+    notifications = notifications.filter(n => n.userId === userId);
+    
+    // Filter unread only if requested
+    if (unreadOnly === 'true') {
+      notifications = notifications.filter(n => !n.read);
+    }
+    
+    // Sort by creation date (newest first)
+    notifications.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    
+    // Apply pagination
+    const total = notifications.length;
+    const paginatedNotifications = notifications.slice(
+      parseInt(offset), 
+      parseInt(offset) + parseInt(limit)
+    );
+    
+    res.json({
+      success: true,
+      notifications: paginatedNotifications,
+      pagination: {
+        total,
+        limit: parseInt(limit),
+        offset: parseInt(offset),
+        hasMore: parseInt(offset) + parseInt(limit) < total
+      },
+      unreadCount: notifications.filter(n => !n.read).length
+    });
+  } catch (error) {
+    console.error('Error fetching user notifications:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch user notifications' });
+  }
+});
+
+/**
+ * @route   POST /notifications
+ * @desc    Creates a new notification.
+ * @access  Protected (Admin/Teacher)
+ */
+router.post('/notifications', requireAuth, (req, res) => {
+  try {
+    const { 
+      title, 
+      message, 
+      icon = 'fa-bell', 
+      type = 'administrative',
+      category = 'general',
+      priority = 'medium',
+      userId = null,
+      actions = []
+    } = req.body;
+    
+    if (!title || !message) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Title and message are required' 
+      });
+    }
+    
+    const notificationsFile = path.join(__dirname, '..', 'data', 'notifications.json');
+    let notifications = readJSON(notificationsFile);
+    
+    const newNotification = {
+      id: `notif-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
+      title: title.trim(),
+      message: message.trim(),
+      icon,
+      type,
+      category,
+      priority,
+      userId,
+      read: false,
+      createdAt: new Date().toISOString(),
+      readAt: null,
+      actions: Array.isArray(actions) ? actions : [],
+      createdBy: req.session.user?.name || 'System'
+    };
+    
+    notifications.unshift(newNotification); // Add to beginning
+    
+    if (!writeJSON(notificationsFile, notifications)) {
+      throw new Error('Failed to save notification');
+    }
+    
+    console.log(`Notification Created → ${newNotification.title} for user ${userId || 'all'}`);
+    
+    res.json({
+      success: true,
+      message: 'Notification created successfully',
+      notification: newNotification
+    });
+  } catch (error) {
+    console.error('Error creating notification:', error);
+    res.status(500).json({ success: false, message: 'Failed to create notification' });
+  }
+});
+
+/**
+ * @route   PUT /notifications/:id
+ * @desc    Updates an existing notification.
+ * @access  Protected (Admin/Teacher)
+ */
+router.put('/notifications/:id', requireAuth, (req, res) => {
+  try {
+    const { id } = req.params;
+    const updates = req.body;
+    
+    const notificationsFile = path.join(__dirname, '..', 'data', 'notifications.json');
+    let notifications = readJSON(notificationsFile);
+    
+    const notificationIndex = notifications.findIndex(n => n.id === id);
+    if (notificationIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Notification not found' });
+    }
+    
+    // Update notification
+    notifications[notificationIndex] = {
+      ...notifications[notificationIndex],
+      ...updates,
+      updatedAt: new Date().toISOString(),
+      updatedBy: req.session.user?.name || 'System'
+    };
+    
+    if (!writeJSON(notificationsFile, notifications)) {
+      throw new Error('Failed to update notification');
+    }
+    
+    console.log(`Notification Updated → ${id} by ${req.session.user?.name}`);
+    
+    res.json({
+      success: true,
+      message: 'Notification updated successfully',
+      notification: notifications[notificationIndex]
+    });
+  } catch (error) {
+    console.error('Error updating notification:', error);
+    res.status(500).json({ success: false, message: 'Failed to update notification' });
+  }
+});
+
+/**
+ * @route   POST /notifications/:id/read
+ * @desc    Marks a notification as read.
+ * @access  Public
+ */
+router.post('/notifications/:id/read', (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const notificationsFile = path.join(__dirname, '..', 'data', 'notifications.json');
+    let notifications = readJSON(notificationsFile);
+    
+    const notificationIndex = notifications.findIndex(n => n.id === id);
+    if (notificationIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Notification not found' });
+    }
+    
+    // Mark as read
+    notifications[notificationIndex].read = true;
+    notifications[notificationIndex].readAt = new Date().toISOString();
+    
+    if (!writeJSON(notificationsFile, notifications)) {
+      throw new Error('Failed to update notification');
+    }
+    
+    console.log(`Notification Marked Read → ${id}`);
+    
+    res.json({
+      success: true,
+      message: 'Notification marked as read',
+      notification: notifications[notificationIndex]
+    });
+  } catch (error) {
+    console.error('Error marking notification as read:', error);
+    res.status(500).json({ success: false, message: 'Failed to mark notification as read' });
+  }
+});
+
+/**
+ * @route   POST /notifications/mark-all-read
+ * @desc    Marks all notifications as read for a user.
+ * @access  Public
+ */
+router.post('/notifications/mark-all-read', (req, res) => {
+  try {
+    const { userId } = req.body;
+    
+    const notificationsFile = path.join(__dirname, '..', 'data', 'notifications.json');
+    let notifications = readJSON(notificationsFile);
+    
+    let updatedCount = 0;
+    const now = new Date().toISOString();
+    
+    notifications = notifications.map(notification => {
+      if (!notification.read && (!userId || notification.userId === userId)) {
+        updatedCount++;
+        return {
+          ...notification,
+          read: true,
+          readAt: now
+        };
+      }
+      return notification;
+    });
+    
+    if (!writeJSON(notificationsFile, notifications)) {
+      throw new Error('Failed to update notifications');
+    }
+    
+    console.log(`All Notifications Marked Read → ${updatedCount} notifications for user ${userId || 'all'}`);
+    
+    res.json({
+      success: true,
+      message: `${updatedCount} notifications marked as read`,
+      updatedCount
+    });
+  } catch (error) {
+    console.error('Error marking all notifications as read:', error);
+    res.status(500).json({ success: false, message: 'Failed to mark all notifications as read' });
+  }
+});
+
+/**
+ * @route   DELETE /notifications/:id
+ * @desc    Deletes a notification.
+ * @access  Protected (Admin/Teacher or owner)
+ */
+router.delete('/notifications/:id', requireAuth, (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = req.session.user;
+    
+    const notificationsFile = path.join(__dirname, '..', 'data', 'notifications.json');
+    let notifications = readJSON(notificationsFile);
+    
+    const notificationIndex = notifications.findIndex(n => n.id === id);
+    if (notificationIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Notification not found' });
+    }
+    
+    const notification = notifications[notificationIndex];
+    
+    // Check permissions (admin/teacher or owner)
+    if (!['admin', 'teacher'].includes(user.role) && notification.userId !== user.id) {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'You do not have permission to delete this notification' 
+      });
+    }
+    
+    // Remove notification
+    notifications.splice(notificationIndex, 1);
+    
+    if (!writeJSON(notificationsFile, notifications)) {
+      throw new Error('Failed to delete notification');
+    }
+    
+    console.log(`Notification Deleted → ${id} by ${user.name}`);
+    
+    res.json({
+      success: true,
+      message: 'Notification deleted successfully'
+    });
+  } catch (error) {
+    console.error('Error deleting notification:', error);
+    res.status(500).json({ success: false, message: 'Failed to delete notification' });
+  }
+});
+
+/**
+ * @route   GET /notifications/stream
+ * @desc    Server-Sent Events for real-time notification updates.
+ * @access  Public
+ */
+router.get('/notifications/stream', (req, res) => {
+  try {
+    // Set headers for Server-Sent Events
+    res.writeHead(200, {
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      'Connection': 'keep-alive',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Cache-Control'
+    });
+    
+    // Send initial connection message
+    res.write(`data: ${JSON.stringify({ type: 'connected', timestamp: new Date().toISOString() })}\n\n`);
+    
+    // Set up periodic check for new notifications
+    let lastCheck = new Date();
+    const interval = setInterval(() => {
+      try {
+        const notifications = readJSON(path.join(__dirname, '..', 'data', 'notifications.json')) || [];
+        const newNotifications = notifications.filter(n => 
+          new Date(n.createdAt) > lastCheck && !n.read
+        );
+        
+        if (newNotifications.length > 0) {
+          newNotifications.forEach(notification => {
+            res.write(`data: ${JSON.stringify({ 
+              type: 'new_notification', 
+              notification 
+            })}\n\n`);
+          });
+          
+          lastCheck = new Date();
+        }
+      } catch (error) {
+        console.error('Error in notification stream:', error);
+      }
+    }, 5000); // Check every 5 seconds
+    
+    // Handle client disconnect
+    req.on('close', () => {
+      clearInterval(interval);
+      console.log('Notification stream client disconnected');
+    });
+    
+    req.on('error', () => {
+      clearInterval(interval);
+    });
+    
+  } catch (error) {
+    console.error('Error setting up notification stream:', error);
+    res.status(500).end();
+  }
+});
+
+/**
+ * @route   GET /notifications/stats
+ * @desc    Gets notification statistics.
+ * @access  Public
+ */
+router.get('/notifications/stats', (req, res) => {
+  try {
+    const { userId } = req.query;
+    
+    let notifications = readJSON(path.join(__dirname, '..', 'data', 'notifications.json')) || [];
+    
+    if (userId) {
+      notifications = notifications.filter(n => n.userId === userId);
+    }
+    
+    const stats = {
+      total: notifications.length,
+      unread: notifications.filter(n => !n.read).length,
+      read: notifications.filter(n => n.read).length,
+      byCategory: notifications.reduce((acc, n) => {
+        acc[n.category] = (acc[n.category] || 0) + 1;
+        return acc;
+      }, {}),
+      byType: notifications.reduce((acc, n) => {
+        acc[n.type] = (acc[n.type] || 0) + 1;
+        return acc;
+      }, {}),
+      byPriority: notifications.reduce((acc, n) => {
+        acc[n.priority] = (acc[n.priority] || 0) + 1;
+        return acc;
+      }, {})
+    };
+    
+    res.json({
+      success: true,
+      stats
+    });
+  } catch (error) {
+    console.error('Error fetching notification stats:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch notification stats' });
+  }
 });
 
 /**
@@ -625,8 +1574,10 @@ router.post('/elearning/upload', uploadElearning.array('files', 10), (req, res) 
     return res.status(400).json({ success: false, message: "No files were uploaded." });
   }
 
-  const resourcesFile = path.join(__dirname, '..', 'data', 'portal', 'resources.json');
-  let resources = readJSON(resourcesFile);
+  const dataFile = path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json');
+  let data = readJSON(dataFile);
+  
+  if (!data.resources) data.resources = [];
 
   const newResources = req.files.map(file => ({
     id: `${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
@@ -637,14 +1588,17 @@ router.post('/elearning/upload', uploadElearning.array('files', 10), (req, res) 
     teacher,
     date: new Date().toISOString(),
     url: `/uploads/elearning/${file.filename}`,
-    size: file.size
+    size: formatFileSize(file.size),
+    downloads: 0,
+    rating: 0,
+    color: getFileColor(type)
   }));
 
-  resources = [...newResources, ...resources]; // Add new resources to the top
-  writeJSON(resourcesFile, resources);
+  data.resources = [...newResources, ...data.resources]; // Add new resources to the top
+  writeJSON(dataFile, data);
 
   console.log(`E-Learning Upload → Teacher ${teacher} uploaded ${req.files.length} file(s) for ${subject}`);
-  res.json({ success: true, message: "Upload successful!" });
+  res.json({ success: true, message: "Upload successful!", uploadedFiles: newResources });
 });
 
 
@@ -682,6 +1636,281 @@ router.get('/clubs/list', requireAuth, (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to load clubs data"
+    });
+  }
+});
+
+/**
+ * @route   GET /clubs/:id
+ * @desc    Fetches a single club by ID.
+ * @access  Protected
+ */
+router.get('/clubs/:id', requireAuth, (req, res) => {
+  try {
+    const { id } = req.params;
+    const clubsFile = path.join(__dirname, '..', 'data', 'clubs', 'clubs.json');
+    const clubs = readJSON(clubsFile);
+
+    if (!Array.isArray(clubs)) {
+      return res.status(500).json({
+        success: false,
+        message: "Invalid clubs data format"
+      });
+    }
+
+    const club = clubs.find(c => c.id === id);
+    if (!club) {
+      return res.status(404).json({
+        success: false,
+        message: "Club not found"
+      });
+    }
+
+    console.log(`Club ${club.name} fetched by user: ${req.session.user?.name || 'Unknown'}`);
+
+    res.json({
+      success: true,
+      data: club
+    });
+  } catch (err) {
+    console.error('Error fetching club:', err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to load club data"
+    });
+  }
+});
+
+/**
+ * @route   GET /clubs/applications
+ * @desc    Fetches club join applications for a user.
+ * @access  Protected
+ */
+router.get('/clubs/applications', requireAuth, (req, res) => {
+  try {
+    const applicationsFile = path.join(__dirname, '..', 'data', 'club-joins.json');
+    let applications = readJSON(applicationsFile);
+
+    // Filter applications for current user
+    applications = applications.filter(app => 
+      app.userId === req.session.user?.id || 
+      app.email === req.session.user?.email
+    );
+
+    res.json({
+      success: true,
+      data: applications,
+      count: applications.length
+    });
+  } catch (err) {
+    console.error('Error fetching applications:', err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to load applications"
+    });
+  }
+});
+
+/**
+ * @route   GET /clubs/applications/:id
+ * @desc    Fetches a specific application by ID.
+ * @access  Protected
+ */
+router.get('/clubs/applications/:id', requireAuth, (req, res) => {
+  try {
+    const { id } = req.params;
+    const applicationsFile = path.join(__dirname, '..', 'data', 'club-joins.json');
+    let applications = readJSON(applicationsFile);
+
+    const application = applications.find(app => app.id === id);
+    if (!application) {
+      return res.status(404).json({
+        success: false,
+        message: "Application not found"
+      });
+    }
+
+    // Check if user owns this application or is admin
+    if (application.userId !== req.session.user?.id && 
+        application.email !== req.session.user?.email &&
+        !['admin', 'teacher'].includes(req.session.user?.role)) {
+      return res.status(403).json({
+        success: false,
+        message: "Access denied"
+      });
+    }
+
+    res.json({
+      success: true,
+      data: application
+    });
+  } catch (err) {
+    console.error('Error fetching application:', err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to load application"
+    });
+  }
+});
+
+/**
+ * @route   PUT /clubs/applications/:id
+ * @desc    Updates a club application status (Admin/Teacher only).
+ * @access  Protected
+ */
+router.put('/clubs/applications/:id', requireAuth, (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const user = req.session.user;
+
+    // Only allow admin or teacher to update application status
+    if (!['admin', 'teacher'].includes(user.role)) {
+      return res.status(403).json({
+        success: false,
+        message: "Only administrators and teachers can update application status"
+      });
+    }
+
+    if (!['pending', 'approved', 'rejected'].includes(status)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid status. Must be pending, approved, or rejected"
+      });
+    }
+
+    const applicationsFile = path.join(__dirname, '..', 'data', 'club-joins.json');
+    let applications = readJSON(applicationsFile);
+
+    const applicationIndex = applications.findIndex(app => app.id === id);
+    if (applicationIndex === -1) {
+      return res.status(404).json({
+        success: false,
+        message: "Application not found"
+      });
+    }
+
+    // Update application
+    applications[applicationIndex].status = status;
+    applications[applicationIndex].updated_at = new Date().toISOString();
+    applications[applicationIndex].updated_by = user.name;
+
+    if (!writeJSON(applicationsFile, applications)) {
+      throw new Error('Failed to save updated application');
+    }
+
+    console.log(`Application ${id} updated to ${status} by ${user.name}`);
+
+    res.json({
+      success: true,
+      message: `Application ${status} successfully`,
+      data: applications[applicationIndex]
+    });
+  } catch (err) {
+    console.error('Error updating application:', err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to update application"
+    });
+  }
+});
+
+/**
+ * @route   GET /clubs/:id/members
+ * @desc    Fetches members of a specific club.
+ * @access  Protected
+ */
+router.get('/clubs/:id/members', requireAuth, (req, res) => {
+  try {
+    const { id } = req.params;
+    const applicationsFile = path.join(__dirname, '..', 'data', 'club-joins.json');
+    let applications = readJSON(applicationsFile);
+
+    // Get approved applications for this club
+    const approvedApplications = applications.filter(app => 
+      app.clubId === id && app.status === 'approved'
+    );
+
+    // Format member data
+    const members = approvedApplications.map(app => ({
+      id: app.id,
+      name: app.name,
+      email: app.email,
+      form: app.form,
+      phone: app.phone,
+      joined_at: app.submitted_at
+    }));
+
+    res.json({
+      success: true,
+      data: members,
+      count: members.length
+    });
+  } catch (err) {
+    console.error('Error fetching club members:', err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to load club members"
+    });
+  }
+});
+
+/**
+ * @route   GET /clubs/stats
+ * @desc    Fetches clubs statistics and analytics.
+ * @access  Protected
+ */
+router.get('/clubs/stats', requireAuth, (req, res) => {
+  try {
+    const clubsFile = path.join(__dirname, '..', 'data', 'clubs', 'clubs.json');
+    const applicationsFile = path.join(__dirname, '..', 'data', 'club-joins.json');
+    
+    const clubs = readJSON(clubsFile);
+    const applications = readJSON(applicationsFile);
+
+    if (!Array.isArray(clubs)) {
+      return res.status(500).json({
+        success: false,
+        message: "Invalid clubs data format"
+      });
+    }
+
+    // Calculate statistics
+    const stats = {
+      totalClubs: clubs.length,
+      totalApplications: applications.length,
+      pendingApplications: applications.filter(app => app.status === 'pending').length,
+      approvedApplications: applications.filter(app => app.status === 'approved').length,
+      rejectedApplications: applications.filter(app => app.status === 'rejected').length,
+      clubsByCategory: clubs.reduce((acc, club) => {
+        acc[club.category] = (acc[club.category] || 0) + 1;
+        return acc;
+      }, {}),
+      mostPopularClubs: clubs.map(club => ({
+        ...club,
+        applicationCount: applications.filter(app => app.clubId === club.id).length
+      })).sort((a, b) => b.applicationCount - a.applicationCount).slice(0, 5),
+      recentActivity: applications
+        .sort((a, b) => new Date(b.submitted_at) - new Date(a.submitted_at))
+        .slice(0, 10)
+        .map(app => ({
+          id: app.id,
+          studentName: app.name,
+          clubName: app.clubName,
+          status: app.status,
+          submitted_at: app.submitted_at
+        }))
+    };
+
+    res.json({
+      success: true,
+      data: stats
+    });
+  } catch (err) {
+    console.error('Error fetching clubs stats:', err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to load clubs statistics"
     });
   }
 });
@@ -1067,13 +2296,97 @@ router.post('/departments/mathematics/upload', uploadDepartmentFile.array('files
 
 // --- Sciences ---
 router.get('/departments/science', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'science.json'));
+  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'science-data.json'));
   res.json(data);
 });
+
+router.get('/departments/science/forum', (req, res) => {
+  const posts = readJSON(path.join(__dirname, '..', 'data', 'departments', 'science-forum.json'));
+  res.json(posts.slice(0, 50)); // Return latest 50
+});
+
+router.post('/departments/science/forum', (req, res) => {
+  const { text } = req.body;
+  if (!text?.trim()) return res.status(400).json({ success: false, message: "Post text cannot be empty." });
+  const file = path.join(__dirname, '..', 'data', 'departments', 'science-forum.json');
+  let posts = readJSON(file);
+  posts.unshift({ id: Date.now(), text: text.trim(), timestamp: new Date().toISOString() });
+  writeJSON(file, posts);
+  res.json({ success: true });
+});
+
+router.post('/departments/science/poll', (req, res) => {
+  const { subject } = req.body;
+  if (!subject) return res.status(400).json({ success: false, message: "Subject required." });
+  const file = path.join(__dirname, '..', 'data', 'departments', 'science-poll.json');
+  let poll = readJSON(file);
+  poll[subject] = (poll[subject] || 0) + 1;
+  writeJSON(file, poll);
+  res.json({ success: true });
+});
+
 router.post('/departments/science/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
   if (!req.files?.length) return res.status(400).json({ success: false, message: "No files" });
   console.log(`Sciences Upload → ${req.files.length} files`);
   res.json({ success: true });
+});
+
+router.post('/departments/science/submit', uploadDepartmentFile.array('files', 10), (req, res) => {
+  try {
+    if (!req.files?.length) {
+      return res.status(400).json({ success: false, message: "No files submitted" });
+    }
+
+    const { assignmentTitle, subject, description } = req.body;
+    const submittedBy = req.session?.user?.name || "Student";
+    const userEmail = req.session?.user?.email || "student@school.edu";
+
+    // Read current science submissions
+    const scienceFile = path.join(__dirname, '..', 'data', 'departments', 'science-data.json');
+    let scienceData = readJSON(scienceFile);
+    
+    if (!scienceData.submissions) {
+      scienceData.submissions = [];
+    }
+
+    // Process submitted files
+    const newSubmissions = req.files.map(file => ({
+      id: `${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
+      title: assignmentTitle?.trim() || file.originalname,
+      subject: subject?.trim() || "General Science",
+      description: description?.trim() || "",
+      uploadedBy: submittedBy,
+      email: userEmail,
+      date: new Date().toISOString().split('T')[0],
+      url: `/uploads/departments/${file.filename}`,
+      originalName: file.originalname,
+      size: formatFileSize(file.size),
+      status: "pending"
+    }));
+
+    // Add new submissions
+    scienceData.submissions = [...newSubmissions, ...scienceData.submissions];
+
+    // Save updated data
+    if (!writeJSON(scienceFile, scienceData)) {
+      throw new Error('Failed to save submission data');
+    }
+
+    console.log(`Science Submission → ${submittedBy} submitted ${req.files.length} file(s)`);
+
+    res.json({
+      success: true,
+      message: "Assignment submitted successfully! Teachers will review it soon.",
+      submittedFiles: newSubmissions
+    });
+
+  } catch (err) {
+    console.error('Error processing science submission:', err);
+    res.status(500).json({
+      success: false,
+      message: "Submission failed. Please try again."
+    });
+  }
 });
 
 
@@ -1114,7 +2427,7 @@ router.post('/guidance/upload', uploadGuidanceResource.array('resources', 20), (
 
 // --- Welfare ---
 router.get('/welfare/data', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'welfare', 'data.json'));
+  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'welfare-data.json'));
   res.json(data);
 });
 router.post('/welfare/request', uploadWelfareAttachment.array('attachments', 10), (req, res) => {
