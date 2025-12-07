@@ -1299,41 +1299,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     createCustomCursor();
 
-    // ========================================
-    // INITIALIZE ALL API LOADS & EFFECTS
-    // ========================================
-    const initializeAcademicsPage = async () => {
-        try {
-            // Show initial loading notification
-            showNotification('Loading academic data...', 'info');
-            
-            // Load all data concurrently for better performance
-            await Promise.allSettled([
-                loadDepartmentData(),
-                loadAcademicCalendar(),
-                loadKCSEResults(),
-                loadLearningResources(),
-                checkElearningStatus(),
-                loadAcademicStats()
-            ]);
-            
-            // Initialize visual effects after data loading
-            initParallax();
-            initPageAnimations();
-            
-            // Final success notification
-            showNotification('All academic data loaded successfully!', 'success');
-            
-            console.log('✅ Academics page fully initialized with API data');
-        } catch (error) {
-            console.error('❌ Failed to initialize academics page:', error);
-            showNotification('Some data failed to load. Please refresh the page.', 'error');
-            
-            // Still initialize visual effects even if API calls fail
-            initParallax();
-            initPageAnimations();
-        }
-    };
 
     // ========================================
     // INITIALIZE ALL API LOADS & EFFECTS
