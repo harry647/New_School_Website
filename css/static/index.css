@@ -180,7 +180,6 @@ a:hover {
 
 /* Enhanced Section Styling */
 .section {
-    padding: var(--space-3xl) 0;
     position: relative;
     overflow: hidden;
 }
@@ -1513,7 +1512,7 @@ a:hover {
 
 @media (max-width: 768px) {
     .section {
-        padding: var(--space-xl) 0;
+        padding: 70px 0;
     }
     
     .section-title h2 {
@@ -1561,7 +1560,7 @@ a:hover {
 
 @media (max-width: 640px) {
     .container {
-        padding: 0 var(--space-sm);
+        padding: 0 1rem;
     }
     
     .section-title h2 {
@@ -1616,7 +1615,7 @@ a:hover {
 
 @media (max-width: 480px) {
     .section {
-        padding: var(--space-lg) 0;
+        padding: 50px 0;
     }
     
     .section-title h2 {

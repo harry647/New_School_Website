@@ -1475,6 +1475,301 @@ html {
    .download-card {
       padding: 1.2rem 0.8rem;
    }
+}
+
+/* ==================================================
+   STUDENT BLOGS & FORM SECTIONS
+   Styles for the student-submitted blog content and form.
+================================================== */
+
+/* --- General Section Styling for Blogs --- */
+#studentBlogs .section-title h2,
+#submitBlog .section-title h2 {
+   font-family: var(--font-heading);
+   font-size: clamp(2.5rem, 6vw, 3.5rem);
+   font-weight: 700;
+   color: var(--blue-dark);
+   margin-bottom: 1.5rem;
+   background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   background-clip: text;
+}
+
+#studentBlogs .section-title p,
+#submitBlog .section-title p {
+   font-size: 1.2rem;
+   color: var(--gray);
+   max-width: 700px;
+   margin: 0 auto 2rem auto;
+}
+
+/* =============================================
+   Student Blogs Section (#studentBlogs)
+============================================= */
+
+/* --- Submission Info & CTA --- */
+.blog-info {
+    background-color: #fdfdfd;
+    border: 1px solid #eee;
+    padding: 1.5rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.blog-info p {
+    margin-bottom: 1rem;
+    font-size: 1.05rem;
+}
+
+/* --- Blog Controls: Search & Filters --- */
+.blog-controls {
+    max-width: 800px;
+    margin: 0 auto 2.5rem auto;
+}
+
+#blogSearch {
+    padding: 0.8rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    width: 100%;
+    box-shadow: var(--shadow-xs);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#blogSearch:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
+    outline: none;
+}
+
+.filter-btns {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.filter-btns .filter-btn {
+    background-color: #f1f1f1;
+    color: #555;
+    border: 1px solid transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.filter-btns .filter-btn:hover {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.filter-btns .filter-btn.active {
+    background-color: var(--blue);
+    color: #fff;
+    border-color: var(--blue);
+    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+}
+
+/* --- Blog Grid & Cards --- */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.blog-card {
+    background-color: #fff;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.blog-card .img-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.blog-card .img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.blog-card:hover .img-container img {
+    transform: scale(1.05);
+}
+
+.blog-card .content {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.blog-card .topic-badge {
+    align-self: flex-start;
+    background-color: rgba(0, 102, 204, 0.1);
+    color: var(--blue);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    text-transform: capitalize;
+}
+
+.blog-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+    font-family: var(--font-heading);
+    color: var(--blue-dark);
+}
+
+.blog-card .meta {
+    font-size: 0.85rem;
+    color: var(--gray-light);
+    margin-bottom: 1rem;
+}
+
+.blog-card .excerpt {
+    font-size: 0.95rem;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.blog-card .read-more {
+    font-weight: 600;
+    color: var(--blue);
+    text-decoration: none;
+}
+
+.blog-card .read-more:hover {
+    text-decoration: underline;
+}
+
+/* --- Blog Stats Banner --- */
+.blog-stats {
+    background: linear-gradient(45deg, var(--blue-dark), var(--purple));
+    color: #fff;
+    padding: 2.5rem 1.5rem;
+    border-radius: var(--radius);
+    text-align: center;
+}
+
+.blog-stats .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.blog-stats .stat strong {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--gold-light);
+}
+
+.blog-stats .stat p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.9;
+    color: var(--white);
+}
+
+/* =============================================
+   Blog Submission Form (#submitBlog)
+============================================= */
+
+.form-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 2.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+}
+
+.blog-form .form-instructions {
+    border-left: 4px solid var(--blue);
+    background-color: #f8f9fa !important;
+}
+
+.blog-form .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.blog-form .form-group.full {
+    grid-column: 1 / -1;
+}
+
+.blog-form .form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--blue-dark);
+}
+
+.blog-form input[type="text"],
+.blog-form select,
+.blog-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.blog-form input[type="text"]:focus,
+.blog-form select:focus,
+.blog-form textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
+    outline: none;
+}
+
+.blog-form input[type="file"] {
+    padding: 0.5rem;
+    border: 1px dashed #ccc;
+    cursor: pointer;
+}
+
+.blog-form .note {
+    line-height: 1.7;
+    font-size: 0.9rem;
+}
+
+/* --- Responsive Adjustments for Blogs --- */
+@media (max-width: 768px) {
+    .blog-stats .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .blog-form .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
 /* ==================================================
    STUDENT BLOGS & FORM SECTIONS - ALIGNMENT FIXES
    Fixed alignment and responsive design for blog components
