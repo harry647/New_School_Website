@@ -27,20 +27,28 @@ async function isLoggedIn() {
 // ==================== DOM READY ====================
 document.addEventListener("DOMContentLoaded", async () => {
   w3.includeHTML(async () => {
+    // Show loading state
+    showLoadingState();
+    
     const loggedIn = await isLoggedIn();
 
     if (!loggedIn) {
       document.getElementById("loginCheck").classList.remove("d-none");
+      hideLoadingState();
       return;
     }
 
     document.getElementById("mainContent").classList.remove("d-none");
+    hideLoadingState();
 
     // Load all data from backend
     loadCoCurriculumData();
 
     // Setup file upload
     setupPhotoUpload();
+
+    // Populate form/class dropdown with Kenyan secondary school forms
+    populateFormClass();
 
     // Session filter
     document.getElementById("sessionFilter")?.addEventListener("change", (e) => {
@@ -221,6 +229,21 @@ function loadCoordinators() {
 }
 
 // ==================== JOIN FORM ====================
+function populateFormClass() {
+  const select = document.getElementById("formClass");
+  if (!select) return;
+
+  const kenyanForms = [
+    { value: "Form 1", label: "Form 1" },
+    { value: "Form 2", label: "Form 2" },
+    { value: "Form 3", label: "Form 3" },
+    { value: "Form 4", label: "Form 4" }
+  ];
+
+  select.innerHTML = `<option value="">Select Form/Class</option>` +
+    kenyanForms.map(form => `<option value="${form.value}">${form.label}</option>`).join("");
+}
+
 function populateActivitySelect() {
   const select = document.getElementById("activitySelect");
   if (!select) return;
@@ -303,14 +326,42 @@ function filterBySession(session) {
 }
 
 // ==================== UTILITIES ====================
+function showLoadingState() {
+  const loadingHTML = `
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-3 text-muted">Loading co-curricular activities...</p>
+    </div>
+  `;
+  
+  const grids = ['activitiesGrid', 'achievementsGrid', 'eventsGrid', 'photoGallery', 'coordinatorsGrid'];
+  grids.forEach(id => {
+    const element = document.getElementById(id);
+    if (element) element.innerHTML = loadingHTML;
+  });
+}
+
+function hideLoadingState() {
+  // Loading will be hidden when data is loaded
+}
+
 function showAlert(msg, type = "info") {
   const alert = document.createElement("div");
   alert.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
-  alert.style.cssText = "top:20px; right:20px; z-index:9999;";
+  alert.style.cssText = "top:20px; right:20px; z-index:9999; max-width: 400px;";
   alert.innerHTML = `
     ${msg}
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
   `;
   document.body.appendChild(alert);
   setTimeout(() => alert.remove(), 5000);
+}
+
+function scrollToSection(sectionId) {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }

@@ -1,319 +1,847 @@
-// =======================================================
-// applied-sciences.js – Applied Sciences Department (2026+)
-// Fully backend-powered, mobile-responsive, secure uploads
-// =======================================================
+/**
+ * Applied Sciences Department JavaScript Module
+ * Professional, accessible, and efficient frontend integration
+ * @version 2.0.0
+ * @author Bar Union Secondary School
+ */
 
-let DATA = {};
-let currentSession = "";
-
-// ==================== AUTH & LOGIN CHECK ====================
-async function isLoggedIn() {
-  try {
-    const response = await fetch('/auth/check', {
-      method: 'GET',
-      credentials: 'include' // Include session cookies
-    });
-    const data = await response.json();
-    return data.loggedIn === true;
-  } catch (error) {
-    console.error('Auth check failed:', error);
-    return false;
+class AppliedSciencesDepartment {
+  constructor() {
+    this.DATA = {};
+    this.currentSession = "";
+    this.currentSearchTerm = "";
+    this.currentContentType = "all";
+    this.isLoading = false;
+    this.retryCount = 0;
+    this.maxRetries = 3;
+    
+    // Configuration
+    this.config = {
+      api: {
+        timeout: 10000,
+        baseURL: '/api/departments/applied-sciences'
+      },
+      upload: {
+        maxSize: 50 * 1024 * 1024, // 50MB
+        maxFiles: 20,
+        allowedTypes: [
+          'image/jpeg', 'image/png', 'image/gif', 'image/webp',
+          'application/pdf', 'application/msword', 
+          'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+          'video/mp4', 'video/mov', 'audio/mp3', 'audio/wav'
+        ]
+      },
+      ui: {
+        searchDebounce: 300,
+        animationDuration: 300
+      }
+    };
   }
-}
 
-// ==================== DOM READY ====================
-document.addEventListener("DOMContentLoaded", async () => {
-  w3.includeHTML(async () => {
-    const loggedIn = await isLoggedIn();
+  // ==================== INITIALIZATION ====================
+  async init() {
+    try {
+      const loggedIn = await this.isLoggedIn();
+      
+      if (!loggedIn) {
+        this.showLoginPrompt();
+        return;
+      }
 
-    if (!loggedIn) {
-      document.getElementById("loginCheck").classList.remove("d-none");
+      this.showLoadingState();
+      await this.loadDepartmentData();
+      this.initializeEventListeners();
+      this.showMainContent();
+      
+    } catch (error) {
+      console.error('Initialization error:', error);
+      this.showErrorState('Failed to initialize Applied Sciences page');
+    }
+  }
+
+  // ==================== AUTHENTICATION ====================
+  async isLoggedIn() {
+    try {
+      const response = await fetch('/auth/check', {
+        method: 'GET',
+        credentials: 'include'
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Auth check failed: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      return data.loggedIn === true;
+    } catch (error) {
+      console.error('Authentication check failed:', error);
+      this.showAlert('Authentication service temporarily unavailable', 'warning');
+      return false;
+    }
+  }
+
+  // ==================== UI STATE MANAGEMENT ====================
+  showLoginPrompt() {
+    document.getElementById('loginCheck').classList.remove('d-none');
+  }
+
+  showLoadingState() {
+    document.getElementById('loadingState').classList.remove('d-none');
+  }
+
+  showMainContent() {
+    document.getElementById('mainContent').classList.remove('d-none');
+  }
+
+  // ==================== DATA LOADING ====================
+  async loadDepartmentData() {
+    try {
+      this.setLoadingState(true);
+      
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), this.config.api.timeout);
+      
+      const response = await fetch(this.config.api.baseURL, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        signal: controller.signal
+      });
+      
+      clearTimeout(timeoutId);
+      
+      if (!response.ok) {
+        throw new Error(`API Error: ${response.status} - ${response.statusText}`);
+      }
+
+      this.DATA = await response.json();
+      
+      if (!this.DATA || typeof this.DATA !== 'object') {
+        throw new Error('Invalid data format received from API');
+      }
+
+      this.renderAll();
+      this.populateSessionFilter();
+      this.retryCount = 0; // Reset retry count on success
+      
+    } catch (error) {
+      console.error('Data loading error:', error);
+      this.handleLoadError(error);
+    } finally {
+      this.setLoadingState(false);
+    }
+  }
+
+  async handleLoadError(error) {
+    if (this.retryCount < this.maxRetries) {
+      this.retryCount++;
+      this.showAlert(`Retrying... (${this.retryCount}/${this.maxRetries})`, 'info');
+      
+      setTimeout(() => {
+        this.loadDepartmentData();
+      }, 2000 * this.retryCount); // Exponential backoff
+    } else {
+      this.showErrorInSections();
+      this.showAlert('Unable to load Applied Sciences content after multiple attempts. Please refresh the page.', 'danger');
+    }
+  }
+
+  setLoadingState(isLoading) {
+    this.isLoading = isLoading;
+    const sections = ['subjectsGrid', 'teachersGrid', 'resourcesGrid', 'eventsGrid', 'mediaGrid'];
+    
+    sections.forEach(sectionId => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.setAttribute('aria-busy', isLoading ? 'true' : 'false');
+      }
+    });
+  }
+
+  // ==================== EVENT LISTENERS ====================
+  initializeEventListeners() {
+    // Session filter
+    const sessionFilter = document.getElementById('sessionFilter');
+    if (sessionFilter) {
+      sessionFilter.addEventListener('change', (e) => {
+        this.currentSession = e.target.value;
+        this.applyAllFilters();
+      });
+    }
+
+    // Content type filters
+    const contentTypeRadios = document.querySelectorAll('input[name="contentType"]');
+    contentTypeRadios.forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        this.currentContentType = e.target.value;
+        this.applyAllFilters();
+      });
+    });
+
+    // Initialize search with debouncing
+    this.initializeSearch();
+    
+    // Setup drag and drop upload
+    this.setupDragAndDropUpload();
+  }
+
+  initializeSearch() {
+    const searchInput = document.getElementById('searchInput');
+    if (!searchInput) return;
+
+    let searchTimeout;
+    searchInput.addEventListener('input', () => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        this.currentSearchTerm = searchInput.value.trim().toLowerCase();
+        this.applyAllFilters();
+      }, this.config.ui.searchDebounce);
+    });
+  }
+
+  // ==================== FILTERING ====================
+  applyAllFilters() {
+    let filtered = {
+      subjects: this.DATA.subjects || [],
+      teachers: this.DATA.teachers || [],
+      resources: this.DATA.resources || [],
+      events: this.DATA.events || [],
+      media: this.DATA.media || []
+    };
+
+    // Apply search filter
+    if (this.currentSearchTerm) {
+      filtered = this.applySearchFilter(filtered);
+    }
+
+    // Apply session filter
+    if (this.currentSession) {
+      filtered = this.applySessionFilter(filtered);
+    }
+
+    // Apply content type filter
+    if (this.currentContentType !== 'all') {
+      filtered = this.applyContentTypeFilter(filtered);
+    }
+
+    this.renderAll(filtered);
+  }
+
+  applySearchFilter(filtered) {
+    const searchTerm = this.currentSearchTerm;
+    
+    filtered.subjects = filtered.subjects.filter(item => 
+      item.name.toLowerCase().includes(searchTerm) ||
+      item.teacher.toLowerCase().includes(searchTerm) ||
+      item.description.toLowerCase().includes(searchTerm)
+    );
+    
+    filtered.resources = filtered.resources.filter(item => 
+      item.title.toLowerCase().includes(searchTerm) ||
+      item.uploadedBy.toLowerCase().includes(searchTerm)
+    );
+    
+    filtered.events = filtered.events.filter(item => 
+      item.title.toLowerCase().includes(searchTerm) ||
+      item.description.toLowerCase().includes(searchTerm) ||
+      (item.location && item.location.toLowerCase().includes(searchTerm))
+    );
+    
+    filtered.media = filtered.media.filter(item => 
+      item.title.toLowerCase().includes(searchTerm) ||
+      item.uploadedBy.toLowerCase().includes(searchTerm)
+    );
+
+    return filtered;
+  }
+
+  applySessionFilter(filtered) {
+    const session = this.currentSession;
+    
+    filtered.subjects = filtered.subjects.filter(s => !s.session || s.session === session);
+    filtered.resources = filtered.resources.filter(r => !r.session || r.session === session);
+    filtered.events = filtered.events.filter(e => !e.session || e.session === session);
+    filtered.media = filtered.media.filter(m => !m.session || m.session === session);
+
+    return filtered;
+  }
+
+  applyContentTypeFilter(filtered) {
+    const keys = Object.keys(filtered);
+    keys.forEach(key => {
+      if (key !== this.currentContentType) {
+        filtered[key] = [];
+      }
+    });
+
+    return filtered;
+  }
+
+  // ==================== RENDERING ====================
+  renderAll(filteredData = this.DATA) {
+    this.renderSubjects(filteredData.subjects);
+    this.renderTeachers(filteredData.teachers);
+    this.renderResources(filteredData.resources);
+    this.renderEvents(filteredData.events);
+    this.renderMedia(filteredData.media);
+  }
+
+  renderSubjects(subjects) {
+    const grid = document.getElementById('subjectsGrid');
+    if (!grid) return;
+
+    const subjectData = subjects || [];
+    
+    if (subjectData.length === 0) {
+      grid.innerHTML = this.createEmptyState('subjects');
       return;
     }
 
-    document.getElementById("mainContent").classList.remove("d-none");
-
-    // Load all department data from backend
-    loadDepartmentData();
-
-    // Setup file upload
-    setupFileUpload();
-
-    // Session filter
-    document.getElementById("sessionFilter")?.addEventListener("change", (e) => {
-      currentSession = e.target.value;
-      filterBySession(currentSession);
-    });
-  });
-});
-
-// ==================== LOAD DATA FROM BACKEND ====================
-async function loadDepartmentData() {
-  try {
-    const res = await fetch("/api/departments/applied-sciences", { cache: "no-store" });
-    if (!res.ok) throw new Error("Failed to load");
-
-    DATA = await res.json();
-
-    renderAll();
-    populateSessionFilter();
-  } catch (err) {
-    console.error("Load error:", err);
-    showAlert("Unable to load Applied Sciences content. Please try again.", "danger");
+    grid.innerHTML = subjectData.map(subject => this.createSubjectCard(subject)).join('');
   }
-}
 
-// Populate session dropdown
-function populateSessionFilter() {
-  const filter = document.getElementById("sessionFilter");
-  if (!filter) return;
+  renderTeachers(teachers) {
+    const grid = document.getElementById('teachersGrid');
+    if (!grid) return;
 
-  const sessions = [...new Set([
-    ...DATA.subjects?.map(s => s.session).filter(Boolean) || [],
-    ...DATA.resources?.map(r => r.session).filter(Boolean) || [],
-    ...DATA.events?.map(e => e.session).filter(Boolean) || []
-  ])].sort().reverse();
+    const teacherData = teachers || [];
+    
+    if (teacherData.length === 0) {
+      grid.innerHTML = this.createEmptyState('teachers');
+      return;
+    }
 
-  sessions.forEach(sess => {
-    const opt = document.createElement("option");
-    opt.value = sess;
-    opt.textContent = sess;
-    filter.appendChild(opt);
-  });
-}
+    grid.innerHTML = teacherData.map(teacher => this.createTeacherCard(teacher)).join('');
+    this.initializeLazyLoading();
+  }
 
-// ==================== RENDER ALL SECTIONS ====================
-function renderAll(filteredData = DATA) {
-  loadSubjects(filteredData.subjects);
-  loadTeachers(filteredData.teachers);
-  loadResources(filteredData.resources);
-  loadEvents(filteredData.events);
-  loadMedia(filteredData.media);
-}
+  renderResources(resources) {
+    const grid = document.getElementById('resourcesGrid');
+    if (!grid) return;
 
-// ==================== RENDER FUNCTIONS ====================
-function loadSubjects(data) {
-  const grid = document.getElementById("subjectsGrid");
-  if (!grid) return;
+    const resourceData = resources || [];
+    
+    if (resourceData.length === 0) {
+      grid.innerHTML = this.createEmptyState('resources');
+      return;
+    }
 
-  const subjects = data || [];
-  grid.innerHTML = subjects.length === 0
-    ? `<div class="col-12 text-center py-5 text-muted">No subjects found for this session.</div>`
-    : subjects.map(s => `
+    grid.innerHTML = resourceData.map(resource => this.createResourceCard(resource)).join('');
+  }
+
+  renderEvents(events) {
+    const grid = document.getElementById('eventsGrid');
+    if (!grid) return;
+
+    const eventData = events || [];
+    
+    if (eventData.length === 0) {
+      grid.innerHTML = this.createEmptyState('events');
+      return;
+    }
+
+    grid.innerHTML = eventData.map(event => this.createEventCard(event)).join('');
+  }
+
+  renderMedia(media) {
+    const grid = document.getElementById('mediaGrid');
+    if (!grid) return;
+
+    const mediaData = media || [];
+    
+    if (mediaData.length === 0) {
+      grid.innerHTML = this.createEmptyState('media');
+      return;
+    }
+
+    grid.innerHTML = mediaData.map(item => this.createMediaCard(item)).join('');
+  }
+
+  // ==================== CARD CREATION ====================
+  createSubjectCard(subject) {
+    return `
       <div class="col-md-6 col-lg-4 mb-4">
-        <div class="subject-card p-5 text-center h-100 glass-card shadow-sm">
-          <i class="fas ${s.icon || 'fa-flask'} fa-4x mb-4 text-success"></i>
-          <h3 class="h5 fw-bold">${s.name}</h3>
-          <p class="text-muted small mb-2">Teacher: ${s.teacher}</p>
-          <p class="mb-3">${s.description}</p>
-          <span class="badge bg-info">${s.session || 'All Years'}</span>
-        </div>
+        <article class="subject-card p-5 text-center h-100 glass-card shadow-sm" 
+                 role="article" 
+                 aria-labelledby="subject-${subject.name.replace(/\s+/g, '-').toLowerCase()}">
+          <div class="subject-icon mb-3">
+            <i class="fas ${subject.icon || 'fa-flask'} fa-3x text-white"></i>
+          </div>
+          <h3 id="subject-${subject.name.replace(/\s+/g, '-').toLowerCase()}" class="subject-title">
+            ${this.highlightSearchTerm(subject.name)}
+          </h3>
+          <p class="subject-teacher">
+            <strong>Teacher:</strong> ${this.highlightSearchTerm(subject.teacher)}
+          </p>
+          <p class="subject-description">
+            ${this.highlightSearchTerm(subject.description)}
+          </p>
+          <span class="badge bg-info" aria-label="Academic year ${subject.session || 'All Years'}">
+            ${subject.session || 'All Years'}
+          </span>
+        </article>
       </div>
-    `).join("");
-}
+    `;
+  }
 
-function loadTeachers(data) {
-  const grid = document.getElementById("teachersGrid");
-  if (!grid) return;
-
-  const teachers = data || [];
-  grid.innerHTML = teachers.length === 0
-    ? `<div class="col-12 text-center py-5 text-muted">No teachers listed.</div>`
-    : teachers.map(t => `
+  createTeacherCard(teacher) {
+    return `
       <div class="col-md-6 col-lg-4 mb-4">
-        <div class="teacher-card text-center p-4 glass-card">
-          <img src="${t.photo || '/assets/images/defaults/teacher.png'}"
-               class="rounded-circle mb-3 shadow lazy"
-               width="140" height="140" alt="${t.name}"
+        <article class="teacher-card text-center p-4 glass-card" 
+                 role="article"
+                 aria-labelledby="teacher-${teacher.name.replace(/\s+/g, '-').toLowerCase()}">
+          <img src="${teacher.photo || '/assets/images/defaults/teacher.png'}"
+               class="teacher-image lazy rounded-circle mb-3 shadow"
+               width="120" height="120" 
+               alt="Photo of ${teacher.name}"
                loading="lazy"
-               data-src="${t.photo || '/assets/images/defaults/teacher.png'}">
-          <h4 class="fw-bold">${t.name}</h4>
-          <p class="text-muted mb-1">${t.subjects?.join(" • ") || "Applied Sciences"}</p>
-          <p class="small text-primary">${t.email}</p>
-        </div>
-      </div>
-    `).join("");
-
-  // Initialize lazy loading
-  initializeLazyLoading();
-}
-
-function loadResources(data) {
-  const grid = document.getElementById("resourcesGrid");
-  if (!grid) return;
-
-  const resources = data || [];
-  grid.innerHTML = resources.length === 0
-    ? `<div class="col-12 text-center py-5 text-muted">No resources uploaded yet.</div>`
-    : resources.map(r => `
-      <div class="col-md-6 col-lg-4 mb-4">
-        <div class="resource-card p-4 glass-card h-100">
-          <i class="fas ${getFileIcon(r.type)} fa-3x mb-3" style="color:${r.color || '#28a745'}"></i>
-          <h5 class="fw-bold">${r.title}</h5>
-          <p class="text-muted small">By: ${r.uploadedBy} • ${formatDate(r.date)}</p>
-          <a href="${r.url}" class="btn btn-outline-success btn-sm w-100 mt-2" download>
-            Download ${r.type === 'video' ? 'Video' : 'File'}
+               data-src="${teacher.photo || '/assets/images/defaults/teacher.png'}">
+          <h4 id="teacher-${teacher.name.replace(/\s+/g, '-').toLowerCase()}" class="teacher-name">
+            ${teacher.name}
+          </h4>
+          <p class="teacher-subjects">
+            ${teacher.subjects?.join(" • ") || "Applied Sciences"}
+          </p>
+          <a href="mailto:${teacher.email}" 
+             class="btn btn-outline-primary btn-sm"
+             aria-label="Email ${teacher.name}">
+            <i class="fas fa-envelope me-1" aria-hidden="true"></i>
+            Contact
           </a>
-        </div>
+        </article>
       </div>
-    `).join("");
-}
+    `;
+  }
 
-function loadEvents(data) {
-  const grid = document.getElementById("eventsGrid");
-  if (!grid) return;
-
-  const events = data || [];
-  grid.innerHTML = events.length === 0
-    ? `<div class="col-12 text-center py-5 text-muted">No upcoming events.</div>`
-    : events.map(e => `
+  createResourceCard(resource) {
+    return `
       <div class="col-md-6 col-lg-4 mb-4">
-        <div class="event-card p-4 glass-card text-white" style="background:#1a5d57;">
-          <h5 class="fw-bold">${e.title}</h5>
+        <article class="resource-card p-4 glass-card h-100" 
+                 role="article"
+                 aria-labelledby="resource-${resource.title.replace(/\s+/g, '-').toLowerCase()}">
+          <div class="resource-icon">
+            <i class="fas ${this.getFileIcon(resource.type)} fa-2x" style="color: ${resource.color || '#28a745'}"></i>
+          </div>
+          <h5 id="resource-${resource.title.replace(/\s+/g, '-').toLowerCase()}" class="resource-title">
+            ${this.highlightSearchTerm(resource.title)}
+          </h5>
+          <p class="resource-meta">
+            <strong>By:</strong> ${this.highlightSearchTerm(resource.uploadedBy)} • 
+            <strong>Date:</strong> ${this.formatDate(resource.date)}
+          </p>
+          <a href="${resource.url}" 
+             class="btn btn-outline-success btn-sm w-100 mt-auto" 
+             download
+             aria-label="Download ${resource.title}">
+            <i class="fas fa-download me-1" aria-hidden="true"></i>
+            Download ${resource.type === 'video' ? 'Video' : 'File'}
+          </a>
+        </article>
+      </div>
+    `;
+  }
+
+  createEventCard(event) {
+    return `
+      <div class="col-md-6 col-lg-4 mb-4">
+        <article class="event-card p-4 glass-card text-white" 
+                 style="background: ${event.color || '#1a5d57'};" 
+                 role="article"
+                 aria-labelledby="event-${event.title.replace(/\s+/g, '-').toLowerCase()}">
+          <h5 id="event-${event.title.replace(/\s+/g, '-').toLowerCase()}" class="fw-bold">
+            ${this.highlightSearchTerm(event.title)}
+          </h5>
           <p class="small opacity-90 mb-2">
-            ${new Date(e.date).toLocaleDateString('en-KE', { 
+            <i class="fas fa-calendar me-1" aria-hidden="true"></i>
+            ${new Date(event.date).toLocaleDateString('en-KE', { 
               weekday: 'long', month: 'long', day: 'numeric' 
             })}
           </p>
-          ${e.time ? `<p class="small opacity-90"><i class="far fa-clock"></i> ${e.time}</p>` : ''}
-          ${e.location ? `<p class="small opacity-90"><i class="fas fa-map-marker-alt"></i> ${e.location}</p>` : ''}
-          <p class="mt-3">${e.description}</p>
-        </div>
+          ${event.time ? `
+            <p class="small opacity-90">
+              <i class="fas fa-clock me-1" aria-hidden="true"></i>
+              ${event.time}
+            </p>
+          ` : ''}
+          ${event.location ? `
+            <p class="small opacity-90">
+              <i class="fas fa-map-marker-alt me-1" aria-hidden="true"></i>
+              ${this.highlightSearchTerm(event.location)}
+            </p>
+          ` : ''}
+          <p class="mt-3">${this.highlightSearchTerm(event.description)}</p>
+        </article>
       </div>
-    `).join("");
-}
+    `;
+  }
 
-function loadMedia(data) {
-  const grid = document.getElementById("mediaGrid");
-  if (!grid) return;
-
-  const media = data || [];
-  grid.innerHTML = media.length === 0
-    ? `<div class="col-12 text-center py-5 text-muted">No media uploaded yet.</div>`
-    : media.map(m => `
+  createMediaCard(media) {
+    const mediaId = media.title.replace(/\s+/g, '-').toLowerCase();
+    
+    return `
       <div class="col-md-6 col-lg-4 mb-4">
-        <div class="media-card glass-card overflow-hidden">
-          ${m.type === 'video'
-            ? `<video controls class="w-100" poster="${m.thumbnail || ''}">
-                 <source src="${m.url}" type="video/mp4">
+        <article class="media-card glass-card overflow-hidden" 
+                 role="article"
+                 aria-labelledby="media-${mediaId}">
+          ${media.type === 'video'
+            ? `<video controls class="w-100" poster="${media.thumbnail || ''}">
+                 <source src="${media.url}" type="video/mp4">
                  Your browser does not support video.
                </video>`
-            : `<img src="${m.url}" class="img-fluid" alt="${m.title}" loading="lazy">`
+            : `<img src="${media.url}" 
+                    class="img-fluid" 
+                    alt="${this.highlightSearchTerm(media.title)}" 
+                    loading="lazy">`
           }
           <div class="p-3">
-            <h5>${m.title}</h5>
-            <p class="text-muted small mb-0">By: ${m.uploadedBy} • ${formatDate(m.date)}</p>
+            <h5 id="media-${mediaId}">${this.highlightSearchTerm(media.title)}</h5>
+            <p class="text-muted small mb-0">
+              <strong>By:</strong> ${this.highlightSearchTerm(media.uploadedBy)} • 
+              <strong>Date:</strong> ${this.formatDate(media.date)}
+            </p>
           </div>
-        </div>
+        </article>
       </div>
-    `).join("");
-}
-
-// ==================== SESSION FILTERING ====================
-function filterBySession(session) {
-  if (!session) {
-    renderAll();
-    return;
+    `;
   }
 
-  const filtered = {
-    subjects: DATA.subjects?.filter(s => !s.session || s.session === session) || [],
-    teachers: DATA.teachers || [],
-    resources: DATA.resources?.filter(r => !r.session || r.session === session) || [],
-    events: DATA.events?.filter(e => !e.session || e.session === session) || [],
-    media: DATA.media?.filter(m => !m.session || m.session === session) || []
-  };
+  // ==================== EMPTY STATES ====================
+  createEmptyState(type) {
+    const messages = {
+      subjects: {
+        icon: 'fa-book',
+        title: 'No Subjects Found',
+        message: 'No subjects match your current search criteria.'
+      },
+      teachers: {
+        icon: 'fa-users',
+        title: 'No Teachers Listed',
+        message: 'Teacher information will be displayed here when available.'
+      },
+      resources: {
+        icon: 'fa-file-alt',
+        title: 'No Resources Available',
+        message: 'Upload resources using the button above to get started.'
+      },
+      events: {
+        icon: 'fa-calendar',
+        title: 'No Upcoming Events',
+        message: 'Events and competitions will be announced here.'
+      },
+      media: {
+        icon: 'fa-photo-video',
+        title: 'No Media Available',
+        message: 'Photos and videos will be displayed here when available.'
+      }
+    };
 
-  renderAll(filtered);
-}
+    const config = messages[type] || messages.subjects;
 
-// ==================== FILE UPLOAD (Lab Reports, Projects) ====================
-function setupFileUpload() {
-  const input = document.getElementById("fileUpload");
-  if (!input) return;
+    return `
+      <div class="col-12 text-center py-5">
+        <i class="fas ${config.icon} fa-3x text-muted mb-3" aria-hidden="true"></i>
+        <h4 class="text-muted">${config.title}</h4>
+        <p class="text-muted">${config.message}</p>
+      </div>
+    `;
+  }
 
-  input.addEventListener("change", async function () {
-    if (this.files.length === 0) return;
+  // ==================== SESSION FILTER ====================
+  populateSessionFilter() {
+    const filter = document.getElementById('sessionFilter');
+    if (!filter) return;
+
+    const sessions = [...new Set([
+      ...this.DATA.subjects?.map(s => s.session).filter(Boolean) || [],
+      ...this.DATA.resources?.map(r => r.session).filter(Boolean) || [],
+      ...this.DATA.events?.map(e => e.session).filter(Boolean) || [],
+      ...this.DATA.media?.map(m => m.session).filter(Boolean) || []
+    ])].sort().reverse();
+
+    // Clear existing options except the first one
+    while (filter.children.length > 1) {
+      filter.removeChild(filter.lastChild);
+    }
+
+    sessions.forEach(session => {
+      const option = document.createElement('option');
+      option.value = session;
+      option.textContent = session;
+      filter.appendChild(option);
+    });
+  }
+
+  // ==================== FILE UPLOAD ====================
+  setupDragAndDropUpload() {
+    const fileInput = document.getElementById('fileUpload');
+    const dropZone = document.getElementById('dropZone');
+    
+    if (!fileInput || !dropZone) return;
+
+    // Drag and drop events
+    fileInput.parentElement.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('d-none');
+      dropZone.classList.add('border-primary', 'bg-primary', 'bg-opacity-10');
+    });
+
+    fileInput.parentElement.addEventListener('dragleave', (e) => {
+      e.preventDefault();
+      if (!dropZone.contains(e.relatedTarget)) {
+        dropZone.classList.add('d-none');
+        dropZone.classList.remove('border-primary', 'bg-primary', 'bg-opacity-10');
+      }
+    });
+
+    fileInput.parentElement.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('d-none');
+      dropZone.classList.remove('border-primary', 'bg-primary', 'bg-opacity-10');
+      
+      const files = e.dataTransfer.files;
+      if (files.length > 0) {
+        fileInput.files = files;
+        this.uploadFilesWithProgress(files);
+      }
+    });
+
+    // File input change
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        this.uploadFilesWithProgress(e.target.files);
+      }
+    });
+  }
+
+  async uploadFilesWithProgress(files) {
+    if (files.length === 0) return;
+
+    // Validate files
+    const validation = this.validateFiles(files);
+    if (!validation.valid) {
+      this.showAlert(validation.message, 'danger');
+      return;
+    }
 
     const formData = new FormData();
-    Array.from(this.files).forEach(file => {
-      formData.append("files", file);
+    Array.from(files).forEach(file => {
+      formData.append('files', file);
     });
+
+    // Show progress UI
+    this.showUploadProgress();
+    this.updateUploadProgress(0, `Uploading ${files.length} file(s)...`);
 
     try {
-      const res = await fetch("/api/departments/applied-sciences/upload", {
-        method: "POST",
-        body: formData
-      });
-
-      const result = await res.json();
-      if (result.success) {
-        showAlert(`Uploaded ${this.files.length} file(s) successfully!`, "success");
-        this.value = "";
-        loadDepartmentData(); // Refresh resources
-      } else {
-        throw new Error();
-      }
-    } catch (err) {
-      showAlert("Upload failed. Please try again.", "danger");
-    }
-  });
-}
-
-// ==================== UTILITIES ====================
-function getFileIcon(type) {
-  const icons = {
-    pdf: "fa-file-pdf",
-    doc: "fa-file-word",
-    video: "fa-file-video",
-    image: "fa-file-image",
-    ppt: "fa-file-powerpoint"
-  };
-  return icons[type] || "fa-file-alt";
-}
-
-function formatDate(dateStr) {
-  return new Date(dateStr).toLocaleDateString('en-KE', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric'
-  });
-}
-
-function showAlert(message, type = "info") {
-  const alert = document.createElement("div");
-  alert.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
-  alert.style.cssText = "top:20px; right:20px; z-index:9999;";
-  alert.innerHTML = `
-    ${message}
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-  `;
-  document.body.appendChild(alert);
-  setTimeout(() => alert.remove(), 5000);
-}
-
-// ==================== LAZY LOADING ====================
-function initializeLazyLoading() {
-  const lazyImages = document.querySelectorAll('img.lazy');
-
-  if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          img.src = img.dataset.src;
-          img.classList.remove('lazy');
-          observer.unobserve(img);
+      const xhr = new XMLHttpRequest();
+      
+      // Progress tracking
+      xhr.upload.addEventListener('progress', (e) => {
+        if (e.lengthComputable) {
+          const percentComplete = (e.loaded / e.total) * 100;
+          this.updateUploadProgress(percentComplete, `Uploading ${files.length} file(s)...`);
         }
       });
-    });
 
-    lazyImages.forEach(img => imageObserver.observe(img));
-  } else {
-    // Fallback for browsers without IntersectionObserver
-    lazyImages.forEach(img => {
-      img.src = img.dataset.src;
-      img.classList.remove('lazy');
+      // Completion
+      xhr.addEventListener('load', () => {
+        if (xhr.status === 200) {
+          const result = JSON.parse(xhr.responseText);
+          if (result.success) {
+            this.showAlert(`Successfully uploaded ${files.length} file(s)!`, 'success');
+            this.hideUploadProgress();
+            this.loadDepartmentData(); // Refresh resources
+          } else {
+            throw new Error(result.message || 'Upload failed');
+          }
+        } else {
+          throw new Error(`Upload failed with status ${xhr.status}`);
+        }
+      });
+
+      // Error handling
+      xhr.addEventListener('error', () => {
+        this.showAlert('Network error during upload. Please try again.', 'danger');
+        this.hideUploadProgress();
+      });
+
+      xhr.open('POST', '/api/departments/applied-sciences/upload');
+      xhr.send(formData);
+
+    } catch (err) {
+      console.error('Upload error:', err);
+      this.showAlert('Upload failed. Please try again.', 'danger');
+      this.hideUploadProgress();
+    }
+  }
+
+  validateFiles(files) {
+    if (files.length > this.config.upload.maxFiles) {
+      return {
+        valid: false,
+        message: `Maximum ${this.config.upload.maxFiles} files allowed`
+      };
+    }
+
+    for (const file of files) {
+      if (file.size > this.config.upload.maxSize) {
+        return {
+          valid: false,
+          message: `File ${file.name} is too large. Maximum size is ${this.config.upload.maxSize / (1024 * 1024)}MB`
+        };
+      }
+      if (!this.config.upload.allowedTypes.includes(file.type)) {
+        return {
+          valid: false,
+          message: `File ${file.name} has an unsupported format`
+        };
+      }
+    }
+
+    return { valid: true };
+  }
+
+  showUploadProgress() {
+    document.getElementById('uploadProgress').classList.remove('d-none');
+  }
+
+  hideUploadProgress() {
+    setTimeout(() => {
+      document.getElementById('uploadProgress').classList.add('d-none');
+    }, 2000);
+  }
+
+  updateUploadProgress(percent, message) {
+    const progressBar = document.getElementById('progressBar');
+    const uploadStatus = document.getElementById('uploadStatus');
+    
+    if (progressBar) {
+      progressBar.style.width = percent + '%';
+      progressBar.textContent = Math.round(percent) + '%';
+      progressBar.setAttribute('aria-valuenow', Math.round(percent));
+    }
+    
+    if (uploadStatus) {
+      uploadStatus.textContent = message;
+    }
+  }
+
+  // ==================== UTILITIES ====================
+  getFileIcon(type) {
+    const icons = {
+      pdf: 'fa-file-pdf',
+      doc: 'fa-file-word',
+      video: 'fa-file-video',
+      image: 'fa-file-image',
+      ppt: 'fa-file-powerpoint'
+    };
+    return icons[type] || 'fa-file-alt';
+  }
+
+  formatDate(dateStr) {
+    return new Date(dateStr).toLocaleDateString('en-KE', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
     });
   }
+
+  highlightSearchTerm(text) {
+    if (!this.currentSearchTerm || !text) return text;
+    
+    const regex = new RegExp(`(${this.currentSearchTerm})`, 'gi');
+    return text.replace(regex, '<mark class="bg-warning">$1</mark>');
+  }
+
+  showAlert(message, type = 'info') {
+    const alert = document.createElement('div');
+    alert.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+    alert.style.cssText = 'top:20px; right:20px; z-index:9999; max-width: 400px;';
+    alert.innerHTML = `
+      ${message}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close alert"></button>
+    `;
+    
+    document.body.appendChild(alert);
+    
+    // Auto-remove after 5 seconds
+    setTimeout(() => {
+      if (alert.parentNode) {
+        alert.remove();
+      }
+    }, 5000);
+  }
+
+  showErrorInSections() {
+    const sections = ['subjectsGrid', 'teachersGrid', 'resourcesGrid', 'eventsGrid', 'mediaGrid'];
+    sections.forEach(sectionId => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.innerHTML = `
+          <div class="col-12 text-center py-5">
+            <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3" aria-hidden="true"></i>
+            <p class="text-muted">Failed to load content. Please try refreshing the page.</p>
+            <button class="btn btn-outline-primary btn-sm" onclick="appliedSciences.loadDepartmentData()">
+              <i class="fas fa-refresh me-1" aria-hidden="true"></i>
+              Retry
+            </button>
+          </div>
+        `;
+      }
+    });
+  }
+
+  // ==================== LAZY LOADING ====================
+  initializeLazyLoading() {
+    const lazyImages = document.querySelectorAll('img.lazy');
+
+    if ('IntersectionObserver' in window) {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.classList.remove('lazy');
+            observer.unobserve(img);
+          }
+        });
+      });
+
+      lazyImages.forEach(img => imageObserver.observe(img));
+    } else {
+      // Fallback for browsers without IntersectionObserver
+      lazyImages.forEach(img => {
+        img.src = img.dataset.src;
+        img.classList.remove('lazy');
+      });
+    }
+  }
 }
+
+// ==================== GLOBAL INSTANCE & INITIALIZATION ====================
+let appliedSciences;
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', async () => {
+  appliedSciences = new AppliedSciencesDepartment();
+  await appliedSciences.init();
+});
+
+// Make global functions available for HTML onclick handlers
+window.scrollToSection = function(sectionId) {
+  if (appliedSciences) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+      
+      // Focus management for accessibility
+      element.setAttribute('tabindex', '-1');
+      element.focus();
+    }
+  }
+};

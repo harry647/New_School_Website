@@ -52,90 +52,117 @@
     <div class="container my-5">
 
       <!-- Counsellors -->
-      <h2 class="section-title text-center mb-5">Meet Our Counsellors</h2>
-      <div id="counsellorsGrid" class="row g-4 mb-5"></div>
+      <section id="counsellors-section" class="mb-5">
+        <h2 class="section-title text-center mb-5">Meet Our Counsellors</h2>
+        <div id="counsellorsGrid" class="row g-4 mb-5" role="region" aria-label="School Counsellors"></div>
+      </section>
 
       <!-- Resources -->
-      <h2 class="section-title text-center mb-5">Helpful Resources</h2>
-      <div class="row mb-4">
-        <div class="col-12 text-center">
-          <label class="btn btn-success btn-lg px-5">
-            Upload Resource
-            <input type="file" id="resourceUpload" multiple hidden>
-          </label>
+      <section id="resources-section" class="mb-5">
+        <h2 class="section-title text-center mb-5">Helpful Resources</h2>
+        <div class="row mb-4">
+          <div class="col-12 text-center">
+            <label class="btn btn-success btn-lg px-5" for="resourceUpload">
+              <i class="fas fa-upload me-2"></i>Upload Resource
+              <input type="file" id="resourceUpload" multiple hidden aria-label="Upload resources">
+            </label>
+          </div>
         </div>
-      </div>
-      <div id="resourcesGrid" class="row g-4 mb-5"></div>
+        <div id="resourcesGrid" class="row g-4 mb-5" role="region" aria-label="Available Resources"></div>
+      </section>
 
       <!-- Anonymous Support Forum -->
-      <h2 class="section-title text-center mb-5">Anonymous Support Forum</h2>
-      <div class="glass-card p-5 mb-4">
-        <textarea id="anonymousPost" class="form-control mb-3" rows="4" placeholder="Share your thoughts anonymously... You're safe here."></textarea>
-        <button onclick="postAnonymously()" class="btn btn-outline-light btn-lg px-5 mb-3">Post Anonymously</button>
-      </div>
-      <div id="anonymousPosts" class="mb-5"></div>
+      <section id="forum-section" class="mb-5">
+        <h2 class="section-title text-center mb-5">Anonymous Support Forum</h2>
+        <div class="glass-card p-5 mb-4">
+          <div class="mb-3">
+            <label for="anonymousPost" class="form-label text-white">Share your thoughts anonymously...</label>
+            <textarea id="anonymousPost" class="form-control" rows="4" placeholder="You're safe here. What's on your mind?" aria-label="Anonymous post content"></textarea>
+          </div>
+          <div class="text-center">
+            <button onclick="postAnonymously()" class="btn btn-outline-light btn-lg px-5" id="postBtn">
+              <i class="fas fa-paper-plane me-2"></i>Post Anonymously
+            </button>
+          </div>
+        </div>
+        <div id="anonymousPosts" class="mb-5" role="region" aria-label="Anonymous posts"></div>
+      </section>
 
       <!-- Hotlines / Quick Help -->
-      <h2 class="section-title text-center mb-5">Quick Help & Hotlines</h2>
-      <div class="row text-center mb-5">
-        <div class="col-md-4 mb-3">
-          <div class="glass-card p-4">
-            <i class="fas fa-phone fa-2x text-success mb-2"></i>
-            <h5>Emergency Hotline</h5>
-            <p>+254 700 123 456</p>
+      <section id="hotlines-section" class="mb-5">
+        <h2 class="section-title text-center mb-5">Quick Help & Hotlines</h2>
+        <div class="row text-center mb-5">
+          <div class="col-md-4 mb-3">
+            <div class="glass-card p-4 h-100">
+              <i class="fas fa-phone fa-2x text-success mb-2" aria-hidden="true"></i>
+              <h5>Emergency Hotline</h5>
+              <p><a href="tel:+254700123456" class="text-white text-decoration-none">+254 700 123 456</a></p>
+              <small class="text-white-50">Available 24/7</small>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="glass-card p-4 h-100">
+              <i class="fas fa-comments fa-2x text-warning mb-2" aria-hidden="true"></i>
+              <h5>Peer Support</h5>
+              <p><a href="tel:+254700654321" class="text-white text-decoration-none">+254 700 654 321</a></p>
+              <small class="text-white-50">Mon-Fri 8AM-6PM</small>
+            </div>
+          </div>
+          <div class="col-md-4 mb-3">
+            <div class="glass-card p-4 h-100">
+              <i class="fas fa-user-shield fa-2x text-primary mb-2" aria-hidden="true"></i>
+              <h5>School Counsellor</h5>
+              <p><a href="mailto:counsellor@school.ac.ke" class="text-white text-decoration-none">counsellor@school.ac.ke</a></p>
+              <small class="text-white-50">Response within 24hrs</small>
+            </div>
           </div>
         </div>
-        <div class="col-md-4 mb-3">
-          <div class="glass-card p-4">
-            <i class="fas fa-comments fa-2x text-warning mb-2"></i>
-            <h5>Peer Support</h5>
-            <p>+254 700 654 321</p>
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <div class="glass-card p-4">
-            <i class="fas fa-user-shield fa-2x text-primary mb-2"></i>
-            <h5>School Counsellor</h5>
-            <p>counsellor@school.ac.ke</p>
-          </div>
-        </div>
-      </div>
+      </section>
 
       <!-- Book Appointment -->
-      <h2 class="section-title text-center my-5" id="appointment">Book a Counselling Session</h2>
-      <div class="glass-card p-5 max-w-900 mx-auto">
-        <form id="appointmentForm">
-          <div class="row g-4">
-            <div class="col-md-6"><input type="text" class="form-control form-control-lg" placeholder="Your Name (optional for anonymity)"></div>
-            <div class="col-md-6"><input type="email" class="form-control form-control-lg" placeholder="Email (confidential)" required></div>
-            <div class="col-md-6">
-              <label for="formClass" class="visually-hidden">Select Form/Class</label>
-              <select id="formClass" class="form-select form-select-lg" required aria-label="Select your form/class">
-                <option value="">Select Form/Class</option>
-                <option>Form 1</option>
-                <option>Form 2</option>
-                <option>Form 3</option>
-                <option>Form 4</option>
-              </select>
+      <section id="appointment-section" class="mb-5">
+        <h2 class="section-title text-center my-5" id="appointment">Book a Counselling Session</h2>
+        <div class="glass-card p-5 max-w-900 mx-auto">
+          <form id="appointmentForm" novalidate>
+            <div class="row g-4">
+              <div class="col-md-6">
+                <label for="name" class="form-label text-white">Your Name (optional for anonymity)</label>
+                <input type="text" id="name" name="name" class="form-control form-control-lg" placeholder="Enter your name">
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="form-label text-white">Email (confidential) <span class="text-danger">*</span></label>
+                <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="Enter your email" required>
+              </div>
+              <div class="col-md-6">
+                <label for="formClass" class="form-label text-white">Select Form/Class <span class="text-danger">*</span></label>
+                <select id="formClass" name="class" class="form-select form-select-lg" required aria-label="Select your form/class">
+                  <option value="">Select Form/Class</option>
+                  <option value="Form 1">Form 1</option>
+                  <option value="Form 2">Form 2</option>
+                  <option value="Form 3">Form 3</option>
+                  <option value="Form 4">Form 4</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="appointmentDate" class="form-label text-white">Preferred Appointment Date <span class="text-danger">*</span></label>
+                <input type="date" id="appointmentDate" name="date" class="form-control form-control-lg" required aria-label="Select preferred appointment date">
+              </div>
+              <div class="col-12">
+                <label for="reason" class="form-label text-white">Brief reason for session (optional but helpful)</label>
+                <textarea id="reason" name="reason" class="form-control form-control-lg" rows="4" placeholder="Tell us how we can help you..."></textarea>
+              </div>
+              <div class="col-12 text-center">
+                <button type="submit" class="btn btn-success btn-lg px-5 shadow" id="submitBtn">
+                  <i class="fas fa-calendar-plus me-2"></i>Request Appointment
+                </button>
+              </div>
             </div>
-            <div class="col-md-6">
-              <label for="appointmentDate" class="visually-hidden">Preferred Appointment Date</label>
-              <input type="date" id="appointmentDate" class="form-control form-control-lg" required aria-label="Select preferred appointment date">
-            </div>
-            <div class="col-12">
-              <textarea class="form-control form-control-lg" rows="4" placeholder="Brief reason for session (optional but helpful)"></textarea>
-            </div>
-            <div class="col-12 text-center">
-              <button type="submit" class="btn btn-success btn-lg px-5 shadow">
-                Request Appointment
-              </button>
-            </div>
-          </div>
-        </form>
-        <p class="text-center mt-4 text-white-50">
-          <i class="fas fa-lock me-2"></i>All information is 100% confidential
-        </p>
-      </div>
+          </form>
+          <p class="text-center mt-4 text-white-50">
+            <i class="fas fa-lock me-2" aria-hidden="true"></i>All information is 100% confidential
+          </p>
+        </div>
+      </section>
 
     </div>
   </div>

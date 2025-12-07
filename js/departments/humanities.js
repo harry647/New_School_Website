@@ -10,12 +10,12 @@ let currentSession = "";
 // ==================== AUTH ====================
 async function isLoggedIn() {
   try {
-    const response = await fetch('/auth/check', {
+    const response = await fetch('/api/profile', {
       method: 'GET',
       credentials: 'include' // Include session cookies
     });
     const data = await response.json();
-    return data.loggedIn === true;
+    return data.success === true;
   } catch (error) {
     console.error('Auth check failed:', error);
     return false;
@@ -25,50 +25,160 @@ async function isLoggedIn() {
 // ==================== DOM READY ====================
 document.addEventListener("DOMContentLoaded", async () => {
   w3.includeHTML(async () => {
-    const loggedIn = await isLoggedIn();
+    try {
+      showLoadingState();
+      const loggedIn = await isLoggedIn();
 
-    if (!loggedIn) {
-      document.getElementById("loginCheck").classList.remove("d-none");
-      return;
+      if (!loggedIn) {
+        hideLoadingState();
+        document.getElementById("loginCheck").classList.remove("d-none");
+        return;
+      }
+
+      hideLoadingState();
+      document.getElementById("mainContent").classList.remove("d-none");
+
+      // Load all data from backend
+      await loadHumanitiesData();
+
+      // Setup file upload
+      setupFileUpload();
+
+      // Setup forum
+      setupForum();
+
+      // Session filter
+      document.getElementById("sessionFilter")?.addEventListener("change", (e) => {
+        currentSession = e.target.value;
+        filterBySession(currentSession);
+      });
+    } catch (error) {
+      console.error('Initialization error:', error);
+      hideLoadingState();
+      showAlert("Failed to initialize page. Please refresh.", "danger");
     }
-
-    document.getElementById("mainContent").classList.remove("d-none");
-
-    // Load all data from backend
-    loadHumanitiesData();
-
-    // Setup file upload
-    setupFileUpload();
-
-    // Setup forum
-    setupForum();
-
-    // Session filter
-    document.getElementById("sessionFilter")?.addEventListener("change", (e) => {
-      currentSession = e.target.value;
-      filterBySession(currentSession);
-    });
   });
 });
+
+// ==================== LOADING STATES ====================
+function showLoadingState() {
+  const mainContent = document.getElementById("mainContent");
+  if (mainContent) {
+    mainContent.innerHTML = `
+      <div class="container py-5">
+        <div class="text-center">
+          <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <h3 class="mt-3 text-muted">Loading Humanities Department...</h3>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function hideLoadingState() {
+  // Remove loading spinner when content is ready
+  const spinner = document.querySelector('.spinner-border');
+  if (spinner) {
+    spinner.closest('.text-center')?.remove();
+  }
+}
 
 // ==================== LOAD DATA FROM BACKEND ====================
 async function loadHumanitiesData() {
   try {
-    const res = await fetch("/api/departments/humanities", { cache: "no-store" });
-    if (!res.ok) throw new Error("Failed");
+    showContentLoading(true);
+    
+    const res = await fetch("/api/departments/humanities", { 
+      cache: "no-store",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(`HTTP ${res.status}: ${errorText}`);
+    }
 
-    DATA = await res.json();
+    const data = await res.json();
+    
+    // Validate data structure
+    if (!data || typeof data !== 'object') {
+      throw new Error('Invalid data format received');
+    }
 
-    // Initialize poll
-    POLL = {};
-    DATA.subjects.forEach(s => POLL[s.name] = 0);
+    DATA = {
+      subjects: data.subjects || [],
+      teachers: data.teachers || [],
+      resources: data.resources || [],
+      announcements: data.announcements || []
+    };
+
+    // Initialize poll from server data if available
+    try {
+      const pollRes = await fetch("/api/departments/humanities/poll", { method: "GET" });
+      if (pollRes.ok) {
+        POLL = await pollRes.json();
+      } else {
+        POLL = {};
+        DATA.subjects.forEach(s => POLL[s.name] = 0);
+      }
+    } catch (pollErr) {
+      console.warn('Could not load poll data:', pollErr);
+      POLL = {};
+      DATA.subjects.forEach(s => POLL[s.name] = 0);
+    }
 
     renderAll();
     populateSessionFilter();
+    showContentLoading(false);
+    
   } catch (err) {
     console.error("Load error:", err);
-    showAlert("Unable to load Humanities content. Please try again.", "danger");
+    showContentLoading(false);
+    showErrorState("Unable to load Humanities content. Please check your connection and try again.");
   }
+}
+
+function showContentLoading(isLoading) {
+  const grids = ['subjectsGrid', 'teachersGrid', 'resourcesGrid'];
+  grids.forEach(gridId => {
+    const grid = document.getElementById(gridId);
+    if (grid) {
+      if (isLoading) {
+        grid.innerHTML = `
+          <div class="col-12 text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2 text-muted">Loading content...</p>
+          </div>
+        `;
+      }
+    }
+  });
+}
+
+function showErrorState(message) {
+  const grids = ['subjectsGrid', 'teachersGrid', 'resourcesGrid'];
+  grids.forEach(gridId => {
+    const grid = document.getElementById(gridId);
+    if (grid) {
+      grid.innerHTML = `
+        <div class="col-12 text-center py-5">
+          <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+          <h4 class="text-muted">Oops! Something went wrong</h4>
+          <p class="text-muted">${message}</p>
+          <button class="btn btn-primary" onclick="loadHumanitiesData()">
+            <i class="fas fa-redo me-2"></i>Try Again
+          </button>
+        </div>
+      `;
+    }
+  });
 }
 
 // Populate session dropdown
@@ -208,22 +318,49 @@ async function setupForum() {
 async function postForum() {
   const textarea = document.getElementById("forumPost");
   const text = textarea.value.trim();
-  if (!text) return showAlert("Please write something first.", "warning");
+  if (!text) {
+    showAlert("Please write something first.", "warning");
+    return;
+  }
 
+  const submitBtn = document.querySelector('button[onclick="postForum()"]');
+  const originalText = submitBtn?.innerHTML;
+  
   try {
+    // Show loading state
+    if (submitBtn) {
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
+      submitBtn.disabled = true;
+    }
+
     const res = await fetch("/api/departments/humanities/forum", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text })
+      headers: { 
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({ text }),
+      credentials: 'include'
     });
 
-    if (res.ok) {
+    const result = await res.json();
+
+    if (res.ok && result.success) {
       textarea.value = "";
       showAlert("Posted successfully!", "success");
-      loadForumPosts();
+      await loadForumPosts();
+    } else {
+      throw new Error(result.message || 'Failed to post');
     }
   } catch (err) {
-    showAlert("Failed to post.", "danger");
+    console.error('Forum post error:', err);
+    showAlert(`Failed to post: ${err.message}`, "danger");
+  } finally {
+    // Restore button state
+    if (submitBtn) {
+      submitBtn.innerHTML = originalText;
+      submitBtn.disabled = false;
+    }
   }
 }
 
@@ -256,15 +393,46 @@ function votePoll(subject) {
   if (!POLL[subject]) POLL[subject] = 0;
   POLL[subject]++;
 
+  // Disable all poll buttons temporarily
+  const pollButtons = document.querySelectorAll('#pollOptions button');
+  pollButtons.forEach(btn => {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Voting...';
+  });
+
   // Save vote to backend
   fetch("/api/departments/humanities/poll", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ subject })
-  }).catch(() => {});
-
-  renderPollResults();
-  showAlert(`Voted for ${subject}!`, "success");
+    headers: { 
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({ subject }),
+    credentials: 'include'
+  })
+  .then(res => res.json())
+  .then(result => {
+    if (result.success) {
+      renderPollResults();
+      showAlert(`Voted for ${subject}!`, "success");
+    } else {
+      throw new Error(result.message || 'Vote failed');
+    }
+  })
+  .catch(err => {
+    console.error('Vote error:', err);
+    showAlert(`Failed to record vote: ${err.message}`, "danger");
+    // Revert the vote on error
+    POLL[subject]--;
+  })
+  .finally(() => {
+    // Re-enable poll buttons
+    pollButtons.forEach(btn => {
+      btn.disabled = false;
+      const subjectName = btn.getAttribute('onclick')?.match(/'([^']+)'/)?.[1];
+      btn.innerHTML = subjectName || 'Vote';
+    });
+  });
 }
 
 function renderPollResults() {
@@ -298,23 +466,59 @@ function setupFileUpload() {
   input.addEventListener("change", async function () {
     if (this.files.length === 0) return;
 
+    // Validate file sizes and types
+    const maxSize = 50 * 1024 * 1024; // 50MB
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 
+                         'application/pdf', 'application/msword', 
+                         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                         'video/mp4', 'video/mov', 'audio/mp3', 'audio/wav'];
+
+    for (let file of this.files) {
+      if (file.size > maxSize) {
+        showAlert(`File "${file.name}" is too large. Maximum size is 50MB.`, "warning");
+        this.value = "";
+        return;
+      }
+      if (!allowedTypes.includes(file.type)) {
+        showAlert(`File "${file.name}" has an unsupported format.`, "warning");
+        this.value = "";
+        return;
+      }
+    }
+
     const formData = new FormData();
     Array.from(this.files).forEach(file => formData.append("files", file));
+
+    // Show upload progress
+    const uploadLabel = document.querySelector('label[for="fileUpload"]');
+    const originalText = uploadLabel.innerHTML;
+    uploadLabel.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+    uploadLabel.classList.add('disabled');
 
     try {
       const res = await fetch("/api/departments/humanities/upload", {
         method: "POST",
-        body: formData
+        body: formData,
+        credentials: 'include'
       });
 
       const result = await res.json();
-      if (result.success) {
-        showAlert(`Uploaded ${this.files.length} file(s)!`, "success");
+      
+      if (res.ok && result.success) {
+        showAlert(`Successfully uploaded ${this.files.length} file(s)!`, "success");
         this.value = "";
-        loadHumanitiesData(); // Refresh resources
+        // Refresh resources to show new uploads
+        setTimeout(() => loadHumanitiesData(), 1000);
+      } else {
+        throw new Error(result.message || 'Upload failed');
       }
     } catch (err) {
-      showAlert("Upload failed.", "danger");
+      console.error('Upload error:', err);
+      showAlert(`Upload failed: ${err.message}`, "danger");
+    } finally {
+      // Restore upload button
+      uploadLabel.innerHTML = originalText;
+      uploadLabel.classList.remove('disabled');
     }
   });
 }
@@ -327,17 +531,64 @@ function filterBySession(session) {
 
 // ==================== UTILITIES ====================
 function scrollToSection(id) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth", block: "center" });
+    // Set focus for accessibility
+    element.setAttribute('tabindex', '-1');
+    element.focus();
+  }
+}
+
+function formatDate(dateString) {
+  if (!dateString) return 'Unknown date';
+  
+  try {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return dateString;
+    
+    return date.toLocaleDateString('en-GB', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  } catch (error) {
+    return dateString;
+  }
 }
 
 function showAlert(message, type = "info") {
+  // Remove existing alerts to prevent clutter
+  const existingAlerts = document.querySelectorAll('.custom-alert');
+  existingAlerts.forEach(alert => alert.remove());
+
   const alert = document.createElement("div");
-  alert.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
-  alert.style.cssText = "top:20px; right:20px; z-index:9999;";
+  alert.className = `alert alert-${type} alert-dismissible fade show position-fixed custom-alert`;
+  alert.style.cssText = "top:20px; right:20px; z-index:9999; max-width: 400px;";
+  alert.setAttribute('role', 'alert');
+  alert.setAttribute('aria-live', 'assertive');
+  
+  const iconMap = {
+    'success': 'fas fa-check-circle',
+    'danger': 'fas fa-exclamation-circle',
+    'warning': 'fas fa-exclamation-triangle',
+    'info': 'fas fa-info-circle'
+  };
+
   alert.innerHTML = `
-    ${message}
-    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <div class="d-flex align-items-center">
+      <i class="${iconMap[type] || iconMap.info} me-2" aria-hidden="true"></i>
+      <span>${message}</span>
+      <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert" aria-label="Close alert"></button>
+    </div>
   `;
+  
   document.body.appendChild(alert);
-  setTimeout(() => alert.remove(), 5000);
+  
+  // Auto remove after 5 seconds
+  setTimeout(() => {
+    if (alert.parentNode) {
+      alert.remove();
+    }
+  }, 5000);
 }

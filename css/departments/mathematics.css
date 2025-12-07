@@ -775,6 +775,42 @@ body {
   }
 }
 
+/* ===== DARK THEME ===== */
+body.dark-theme {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  color: var(--text-primary);
+}
+
+body.dark-theme .glass-card {
+  background: rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme .subject-card,
+body.dark-theme .teacher-card,
+body.dark-theme .resource-card,
+body.dark-theme .competition-card {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+body.dark-theme .subject-title,
+body.dark-theme .teacher-name,
+body.dark-theme .resource-title,
+body.dark-theme .competition-title,
+body.dark-theme .section-title {
+  color: var(--text-primary);
+}
+
+body.dark-theme .subject-description,
+body.dark-theme .teacher-subjects,
+body.dark-theme .resource-meta,
+body.dark-theme .competition-date,
+body.dark-theme .student-score {
+  color: var(--text-secondary);
+}
+
 /* ===== ACCESSIBILITY ===== */
 @media (prefers-reduced-motion: reduce) {
   *,

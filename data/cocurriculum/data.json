@@ -1,0 +1,316 @@
+{
+  "activities": [
+    {
+      "id": 1,
+      "name": "Debate Club",
+      "description": "Develop critical thinking and public speaking skills through competitive debates on current affairs and academic topics.",
+      "category": "Leadership & Academic",
+      "icon": "fa-comments",
+      "color": "#6366f1",
+      "session": "2025-2026",
+      "achievements": [
+        {
+          "title": "National Champions",
+          "description": "Won the Kenya National Schools Debate Championship 2024",
+          "year": "2024"
+        },
+        {
+          "title": "Regional Winners",
+          "description": "Eastern Region debate champions for 3 consecutive years",
+          "year": "2023"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Drama & Theatre",
+      "description": "Express creativity through dramatic performances, script writing, and stagecraft.",
+      "category": "Arts & Culture",
+      "icon": "fa-theater-masks",
+      "color": "#ec4899",
+      "session": "2025-2026",
+      "achievements": [
+        {
+          "title": "Best Production Award",
+          "description": "Outstanding performance at the Kenya Schools Drama Festival",
+          "year": "2024"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Football Team",
+      "description": "Build teamwork and physical fitness through competitive football at district and national levels.",
+      "category": "Sports",
+      "icon": "fa-futbol",
+      "color": "#10b981",
+      "session": "2025-2026",
+      "achievements": [
+        {
+          "title": "District Champions",
+          "description": "Won the District Secondary Schools Football Tournament",
+          "year": "2024"
+        },
+        {
+          "title": "Regional Finalists",
+          "description": "Reached the finals of the Regional Sports Championships",
+          "year": "2023"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Music & Choir",
+      "description": "Explore vocal and instrumental music, perform at school events and competitions.",
+      "category": "Arts & Culture",
+      "icon": "fa-music",
+      "color": "#f59e0b",
+      "session": "2025-2026",
+      "achievements": [
+        {
+          "title": "Best Choir Award",
+          "description": "Outstanding performance at the Music Festival of Kenya",
+          "year": "2024"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Science Club",
+      "description": "Conduct experiments, participate in science fairs, and explore STEM fields.",
+      "category": "Academic",
+      "icon": "fa-flask",
+      "color": "#06b6d4",
+      "session": "2025-2026",
+      "achievements": [
+        {
+          "title": "Science Fair Winners",
+          "description": "First place in the County Science and Technology Exhibition",
+          "year": "2024"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Environmental Club",
+      "description": "Promote environmental awareness through tree planting, conservation projects, and sustainability initiatives.",
+      "category": "Community Service",
+      "icon": "fa-leaf",
+      "color": "#059669",
+      "session": "2025-2026",
+      "achievements": [
+        {
+          "title": "Green School Award",
+          "description": "Certified as an Eco-Friendly School by the Ministry of Environment",
+          "year": "2024"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Mathematics Club",
+      "description": "Enhance mathematical skills through competitions, problem-solving sessions, and mathematical exploration.",
+      "category": "Academic",
+      "icon": "fa-calculator",
+      "color": "#8b5cf6",
+      "session": "2025-2026",
+      "achievements": [
+        {
+          "title": "Mathematics Olympiad",
+          "description": "Students qualified for the National Mathematics Olympiad",
+          "year": "2024"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Student Leadership Council",
+      "description": "Develop leadership skills through student government, event organization, and community service.",
+      "category": "Leadership",
+      "icon": "fa-users",
+      "color": "#f97316",
+      "session": "2025-2026",
+      "achievements": [
+        {
+          "title": "Outstanding Leadership",
+          "description": "Recognized for exemplary student leadership and community service",
+          "year": "2024"
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": 1,
+      "title": "Inter-House Sports Competition",
+      "date": "2025-03-15",
+      "time": "08:00 AM",
+      "location": "School Sports Ground",
+      "description": "Annual sports competition between all houses featuring athletics, football, volleyball, and traditional games.",
+      "session": "2025-2026"
+    },
+    {
+      "id": 2,
+      "title": "Drama Festival",
+      "date": "2025-04-20",
+      "time": "02:00 PM",
+      "location": "School Auditorium",
+      "description": "Showcase of student theatrical performances including plays, skits, and musical dramas.",
+      "session": "2025-2026"
+    },
+    {
+      "id": 3,
+      "title": "Debate Tournament",
+      "date": "2025-05-10",
+      "time": "09:00 AM",
+      "location": "School Hall",
+      "description": "Inter-class debate competition focusing on current affairs and social issues.",
+      "session": "2025-2026"
+    },
+    {
+      "id": 4,
+      "title": "Music Concert",
+      "date": "2025-06-15",
+      "time": "06:00 PM",
+      "location": "School Amphitheater",
+      "description": "Annual music concert featuring choir performances, solo artists, and instrumental ensembles.",
+      "session": "2025-2026"
+    },
+    {
+      "id": 5,
+      "title": "Science Exhibition",
+      "date": "2025-07-08",
+      "time": "10:00 AM",
+      "location": "School Laboratory Complex",
+      "description": "Student-led science projects and experiments showcasing innovation and creativity.",
+      "session": "2025-2026"
+    },
+    {
+      "id": 6,
+      "title": "Environmental Awareness Day",
+      "date": "2025-08-22",
+      "time": "08:30 AM",
+      "location": "School Grounds",
+      "description": "Tree planting ceremony, waste management workshop, and environmental conservation activities.",
+      "session": "2025-2026"
+    }
+  ],
+  "gallery": [
+    {
+      "id": 1,
+      "url": "/assets/images/student-life/football.jpg",
+      "caption": "Football team celebrating district championship victory",
+      "session": "2024-2025"
+    },
+    {
+      "id": 2,
+      "url": "/assets/images/blogs/debate.jpg",
+      "caption": "Debate club during national competition",
+      "session": "2024-2025"
+    },
+    {
+      "id": 3,
+      "url": "/assets/images/student-life/volleyball.jpg",
+      "caption": "Inter-house volleyball finals",
+      "session": "2024-2025"
+    },
+    {
+      "id": 4,
+      "url": "/assets/images/blogs/drama.jpg",
+      "caption": "Drama club performance at the Kenya Schools Drama Festival",
+      "session": "2024-2025"
+    },
+    {
+      "id": 5,
+      "url": "/assets/images/student-life/basketball.jpg",
+      "caption": "Basketball team training session",
+      "session": "2025-2026"
+    },
+    {
+      "id": 6,
+      "url": "/assets/images/student-life/hockey.jpg",
+      "caption": "Field hockey practice",
+      "session": "2025-2026"
+    },
+    {
+      "id": 7,
+      "url": "/assets/images/student-life/netball.png",
+      "caption": "Netball team during regional competition",
+      "session": "2025-2026"
+    },
+    {
+      "id": 8,
+      "url": "/assets/images/student-life/rugby.jpg",
+      "caption": "Rugby sevens tournament",
+      "session": "2025-2026"
+    },
+    {
+      "id": 9,
+      "url": "/assets/images/student-life/IMG-20251127-WA0009.jpg",
+      "caption": "Music and choir performance",
+      "session": "2025-2026"
+    },
+    {
+      "id": 10,
+      "url": "/assets/images/student-life/IMG-20251127-WA0010.jpg",
+      "caption": "Environmental club tree planting activity",
+      "session": "2025-2026"
+    },
+    {
+      "id": 11,
+      "url": "/assets/images/student-life/IMG-20251127-WA0012.jpg",
+      "caption": "Science club laboratory session",
+      "session": "2025-2026"
+    },
+    {
+      "id": 12,
+      "url": "/assets/images/student-life/IMG-20251127-WA0016.jpg",
+      "caption": "Mathematics club competition",
+      "session": "2025-2026"
+    }
+  ],
+  "coordinators": [
+    {
+      "id": 1,
+      "name": "Ms. Sarah Wanjiku",
+      "role": "Head of Co-Curricular Activities",
+      "email": "s.wanjiku@barunion.ac.ke",
+      "photo": "/assets/images/leadership/hod-cocurriculum.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Mr. Peter Kamau",
+      "role": "Sports Coordinator",
+      "email": "p.kamau@barunion.ac.ke",
+      "photo": "/assets/images/defaults/teacher.png"
+    },
+    {
+      "id": 3,
+      "name": "Ms. Grace Nyambura",
+      "role": "Arts & Culture Coordinator",
+      "email": "g.nyambura@barunion.ac.ke",
+      "photo": "/assets/images/defaults/teacher.png"
+    },
+    {
+      "id": 4,
+      "name": "Mr. David Kiprotich",
+      "role": "Academic Clubs Coordinator",
+      "email": "d.kiprotich@barunion.ac.ke",
+      "photo": "/assets/images/defaults/teacher.png"
+    },
+    {
+      "id": 5,
+      "name": "Ms. Elizabeth Achieng",
+      "role": "Leadership Development Coordinator",
+      "email": "e.achieng@barunion.ac.ke",
+      "photo": "/assets/images/defaults/teacher.png"
+    },
+    {
+      "id": 6,
+      "name": "Mr. Joseph Mwangi",
+      "role": "Community Service Coordinator",
+      "email": "j.mwangi@barunion.ac.ke",
+      "photo": "/assets/images/defaults/teacher.png"
+    }
+  ]
+}

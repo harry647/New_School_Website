@@ -3,124 +3,349 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Applied Sciences | Bar Union Secondary</title>
+  <meta name="description" content="Explore Bar Union Secondary's Applied Sciences Department - Agriculture, Computer Studies, Home Science, Business Studies, Technical Drawing & Building & Construction"/>
+  <meta name="keywords" content="Applied Sciences, Agriculture, Computer Studies, Home Science, Business Studies, Technical Drawing, Building Construction, Bar Union School"/>
+  <meta name="author" content="Bar Union Secondary School"/>
+  <meta property="og:title" content="Applied Sciences Department | Bar Union Secondary"/>
+  <meta property="og:description" content="Discover hands-on learning in Applied Sciences with innovative programs and expert teachers."/>
+  <meta property="og:image" content="/assets/images/applied-sciences-hero.jpg"/>
+  <meta property="og:type" content="website"/>
+  <title>Applied Sciences Department | Bar Union Secondary School</title>
 
   <!-- Bootstrap & Font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="/css/departments/applied-sciences.css"/>
+  
+  <!-- Preload critical resources -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style">
+  <link rel="preload" href="/js/departments/applied-sciences.js" as="script">
 
   <style>
+    /* Critical CSS for above-the-fold content */
     :root {
-      --primary: #1e40af;
-      --accent: #60a5fa;
-      --glass: rgba(255,255,255,0.15);
-      --border: rgba(255,255,255,0.2);
+      --primary: #0a4d4a;
+      --accent: #00d4aa;
+      --glass: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.15);
     }
+    
     .hero {
-      background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%), url('/assets/images/applied-sciences-hero.jpg') center/cover;
-      min-height: 90vh;
+      background: linear-gradient(135deg, #0a4d4a 0%, #1a5d57 100%), url('/assets/images/applied-sciences-hero.jpg') center/cover;
+      min-height: 100vh;
       position: relative;
       color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+    
     .hero::before {
-      content: ''; position: absolute; inset: 0;
-      background: rgba(0,0,0,0.5);
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.05) 100%);
     }
-    .glass-card {
-      background: var(--glass);
-      backdrop-filter: blur(18px);
-      border-radius: 24px;
-      padding: 2rem;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-      transition: transform 0.5s ease;
+    
+    .login-prompt { 
+      min-height: 100vh; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      text-align: center; 
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     }
-    .glass-card:hover { transform: translateY(-10px); }
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-weight: 900;
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      background: linear-gradient(90deg, #7c3aed, #ec4899, #3b82f6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 2rem;
-      display: inline-block;
-      position: relative;
+    
+    /* Accessibility improvements */
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
     }
-    .login-prompt { min-height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; }
-    .subject-card, .resource-card, .teacher-card, .event-card { transition: all 0.4s ease; }
-    .subject-card:hover, .resource-card:hover, .teacher-card:hover, .event-card:hover { transform: translateY(-8px); }
+    
+    /* Skip to content link for keyboard navigation */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 6px;
+      background: var(--primary);
+      color: white;
+      padding: 8px;
+      text-decoration: none;
+      border-radius: 4px;
+      z-index: 9999;
+      transition: top 0.3s;
+    }
+    
+    .skip-link:focus {
+      top: 6px;
+    }
   </style>
 </head>
 <body>
+  <!-- Skip to content for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <!-- Header -->
   <div w3-include-html="/includes/header.html"></div>
 
   <!-- Login Prompt -->
-  <div id="loginCheck" class="login-prompt d-none">
-    <div>
-      <i class="fas fa-microscope fa-5x text-primary mb-4"></i>
-      <h1 class="display-4 fw-bold">Access Restricted</h1>
-      <p class="lead">Please log in to access Applied Sciences resources.</p>
-      <a href="/user/login.html" class="btn btn-primary btn-lg px-5">Login Now</a>
+  <div id="loginCheck" class="login-prompt d-none" role="alert" aria-labelledby="loginTitle">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+          <div class="glass-card p-5">
+            <i class="fas fa-microscope fa-5x text-primary mb-4" aria-hidden="true"></i>
+            <h1 id="loginTitle" class="display-4 fw-bold mb-3">Access Restricted</h1>
+            <p class="lead mb-4">Please log in to access Applied Sciences resources.</p>
+            <a href="/user/login.html" class="btn btn-primary btn-lg px-5" role="button">
+              <i class="fas fa-sign-in-alt me-2" aria-hidden="true"></i>
+              Login Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div id="loadingState" class="d-none" role="status" aria-live="polite">
+    <div class="hero d-flex align-items-center justify-content-center">
+      <div class="text-center">
+        <div class="spinner-border text-light mb-3" role="status" aria-label="Loading content">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <h2 class="text-light">Loading Applied Sciences...</h2>
+      </div>
     </div>
   </div>
 
   <!-- Main Content -->
   <div id="mainContent" class="d-none">
 
-    <!-- Hero -->
-    <section class="hero text-center d-flex align-items-center position-relative">
+    <!-- Hero Section -->
+    <section class="hero text-center position-relative" role="banner" aria-label="Applied Sciences Department Hero">
       <div class="container position-relative z-2">
-        <h1 class="display-2 fw-bold mb-4">Applied Sciences</h1>
-        <p class="lead fs-3 mb-4">Hands-On Learning • Innovation • Real-World Impact</p>
-        <p class="col-lg-8 mx-auto fs-5 opacity-90">
-          Agriculture • Computer Studies • Home Science • Business Studies • Technical Drawing • Building & Construction
-        </p>
-        <button onclick="scrollToSection('subjectsGrid')" class="btn btn-warning btn-lg px-5 mt-4 fw-bold shadow-lg">
-          Explore Our Subjects
-        </button>
+        <div class="hero-content animate-fade-in-up">
+          <h1 class="hero-title mb-4">Applied Sciences</h1>
+          <p class="hero-subtitle mb-4">Hands-On Learning • Innovation • Real-World Impact</p>
+          <p class="col-lg-8 mx-auto fs-5 opacity-90 mb-4">
+            Agriculture • Computer Studies • Home Science • Business Studies • Technical Drawing • Building & Construction
+          </p>
+          <div class="hero-cta">
+            <button onclick="scrollToSection('subjectsGrid')" 
+                    class="btn btn-warning btn-lg px-5 fw-bold shadow-lg"
+                    aria-describedby="exploreSubjectsDesc">
+              <i class="fas fa-microscope me-2" aria-hidden="true"></i>
+              Explore Our Subjects
+            </button>
+            <span id="exploreSubjectsDesc" class="visually-hidden">
+              Navigate to subjects section to learn about our applied sciences programs
+            </span>
+          </div>
+        </div>
       </div>
     </section>
-    
 
-    <div class="container my-5">
+    <!-- Main Content Area -->
+    <main id="main-content" class="container my-5" role="main">
 
-      <!-- Session Filter -->
-      <div class="text-center mb-5">
-        <label for="sessionFilter" class="visually-hidden">Filter by Academic Year</label>
-        <select id="sessionFilter" class="form-select form-select-lg w-auto d-inline-block" onchange="filterBySession(this.value)" aria-label="Filter content by academic year">
-          <option value="">All Academic Years</option>
-          <!-- Options will be populated dynamically by JavaScript -->
-        </select>
-      </div>
+      <!-- Search and Filter Controls -->
+      <section class="mb-5" aria-labelledby="filtersHeading">
+        <h2 id="filtersHeading" class="visually-hidden">Search and Filter Options</h2>
+        
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="searchInput" class="form-label">
+                <i class="fas fa-search me-2" aria-hidden="true"></i>
+                Search Content
+              </label>
+              <div class="input-group">
+                <span class="input-group-text" aria-hidden="true">
+                  <i class="fas fa-search"></i>
+                </span>
+                <input type="text" 
+                       id="searchInput" 
+                       class="form-control form-control-lg" 
+                       placeholder="Search subjects, teachers, resources, events..."
+                       aria-describedby="searchHelp"
+                       autocomplete="off">
+              </div>
+              <div id="searchHelp" class="form-text">
+                Type to search across all department content
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="sessionFilter" class="form-label">
+                <i class="fas fa-calendar-alt me-2" aria-hidden="true"></i>
+                Academic Year
+              </label>
+              <select id="sessionFilter" 
+                      class="form-select form-select-lg" 
+                      aria-describedby="sessionHelp">
+                <option value="">All Academic Years</option>
+                <!-- Options will be populated dynamically by JavaScript -->
+              </select>
+              <div id="sessionHelp" class="form-text">
+                Filter content by specific academic year
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Content Type Filter -->
+        <div class="text-center">
+          <fieldset>
+            <legend class="h5 mb-3">Content Type</legend>
+            <div class="btn-group" role="radiogroup" aria-label="Filter content by type">
+              <input type="radio" 
+                     class="btn-check" 
+                     name="contentType" 
+                     id="all" 
+                     value="all" 
+                     checked
+                     aria-describedby="allHelp">
+              <label class="btn btn-outline-primary" for="all">
+                <i class="fas fa-th-large me-1" aria-hidden="true"></i>
+                All
+              </label>
+              <span id="allHelp" class="visually-hidden">Show all content types</span>
+              
+              <input type="radio" 
+                     class="btn-check" 
+                     name="contentType" 
+                     id="subjects" 
+                     value="subjects"
+                     aria-describedby="subjectsHelp">
+              <label class="btn btn-outline-primary" for="subjects">
+                <i class="fas fa-book me-1" aria-hidden="true"></i>
+                Subjects
+              </label>
+              <span id="subjectsHelp" class="visually-hidden">Show only subjects</span>
+              
+              <input type="radio" 
+                     class="btn-check" 
+                     name="contentType" 
+                     id="resources" 
+                     value="resources"
+                     aria-describedby="resourcesHelp">
+              <label class="btn btn-outline-primary" for="resources">
+                <i class="fas fa-file-alt me-1" aria-hidden="true"></i>
+                Resources
+              </label>
+              <span id="resourcesHelp" class="visually-hidden">Show only resources</span>
+              
+              <input type="radio" 
+                     class="btn-check" 
+                     name="contentType" 
+                     id="events" 
+                     value="events"
+                     aria-describedby="eventsHelp">
+              <label class="btn btn-outline-primary" for="events">
+                <i class="fas fa-calendar me-1" aria-hidden="true"></i>
+                Events
+              </label>
+              <span id="eventsHelp" class="visually-hidden">Show only events</span>
+              
+              <input type="radio" 
+                     class="btn-check" 
+                     name="contentType" 
+                     id="media" 
+                     value="media"
+                     aria-describedby="mediaHelp">
+              <label class="btn btn-outline-primary" for="media">
+                <i class="fas fa-photo-video me-1" aria-hidden="true"></i>
+                Media
+              </label>
+              <span id="mediaHelp" class="visually-hidden">Show only media content</span>
+            </div>
+          </fieldset>
+        </div>
+      </section>
 
-      <!-- Subjects -->
-      <h2 class="section-title text-center mb-5">Our Subjects</h2>
-      <div id="subjectsGrid" class="row g-4 mb-5"></div>
+      <!-- Subjects Section -->
+      <section id="subjects-section" class="section mb-5" aria-labelledby="subjectsHeading">
+        <h2 id="subjectsHeading" class="section-title text-center mb-4">Our Subjects</h2>
+        <div id="subjectsGrid" class="grid grid-3" aria-live="polite" aria-busy="false"></div>
+      </section>
 
-      <!-- Teachers -->
-      <h2 class="section-title text-center mb-5">Our Teachers</h2>
-      <div id="teachersGrid" class="row g-4 mb-5"></div>
+      <!-- Teachers Section -->
+      <section id="teachers-section" class="section mb-5" aria-labelledby="teachersHeading">
+        <h2 id="teachersHeading" class="section-title text-center mb-4">Our Teachers</h2>
+        <div id="teachersGrid" class="grid grid-3" aria-live="polite" aria-busy="false"></div>
+      </section>
 
-      <!-- Resources -->
-      <h2 class="section-title text-center mb-5">Lab Manuals & Resources</h2>
-      <div class="text-center mb-4">
-        <label class="btn btn-success btn-lg px-5">
-          Upload Lab Report / Project
-          <input type="file" id="fileUpload" multiple hidden>
-        </label>
-      </div>
-      <div id="resourcesGrid" class="row g-4 mb-5"></div>
+      <!-- Resources Section -->
+      <section id="resources-section" class="section mb-5" aria-labelledby="resourcesHeading">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 id="resourcesHeading" class="section-title mb-0">Lab Manuals & Resources</h2>
+          <div class="upload-controls">
+            <label class="btn btn-success btn-lg px-4" role="button" aria-describedby="uploadHelp">
+              <i class="fas fa-upload me-2" aria-hidden="true"></i>
+              Upload Lab Report / Project
+              <input type="file" id="fileUpload" multiple hidden aria-label="Select files to upload">
+            </label>
+            <div id="uploadHelp" class="visually-hidden">
+              Click to select files or drag and drop files to upload to the department
+            </div>
+          </div>
+        </div>
+        
+        <!-- Drag & Drop Upload Area -->
+        <div id="dropZone" 
+             class="border border-dashed border-3 border-success rounded-3 p-5 text-center mb-4 bg-light d-none" 
+             role="region" 
+             aria-label="File upload area"
+             tabindex="0">
+          <i class="fas fa-cloud-upload-alt fa-3x text-success mb-3" aria-hidden="true"></i>
+          <h4 class="text-success">Drop files here or click to upload</h4>
+          <p class="text-muted mb-0">Supports PDF, DOC, images, videos (Max 50MB per file)</p>
+        </div>
+        
+        <!-- Upload Progress -->
+        <div id="uploadProgress" class="d-none mb-4" role="region" aria-live="polite" aria-label="Upload progress">
+          <div class="card">
+            <div class="card-body">
+              <h6 class="card-title">
+                <i class="fas fa-spinner fa-spin me-2" aria-hidden="true"></i>
+                Upload Progress
+              </h6>
+              <div class="progress mb-2" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Upload progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                     style="width: 0%" 
+                     id="progressBar">
+                  0%
+                </div>
+              </div>
+              <div id="uploadStatus" class="small text-muted" aria-live="polite"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="resourcesGrid" class="grid grid-3" aria-live="polite" aria-busy="false"></div>
+      </section>
 
-      <!-- Events & Announcements -->
-      <h2 class="section-title text-center mb-5">Upcoming Events & Competitions</h2>
-      <div id="eventsGrid" class="row g-4 mb-5"></div>
+      <!-- Events Section -->
+      <section id="events-section" class="section mb-5" aria-labelledby="eventsHeading">
+        <h2 id="eventsHeading" class="section-title text-center mb-4">Upcoming Events & Competitions</h2>
+        <div id="eventsGrid" class="grid grid-3" aria-live="polite" aria-busy="false"></div>
+      </section>
 
-      <!-- Media / Gallery -->
-      <h2 class="section-title text-center mb-5">Media Gallery</h2>
-      <div id="mediaGrid" class="row g-4 mb-5"></div>
+      <!-- Media Gallery Section -->
+      <section id="media-section" class="section mb-5" aria-labelledby="mediaHeading">
+        <h2 id="mediaHeading" class="section-title text-center mb-4">Media Gallery</h2>
+        <div id="mediaGrid" class="grid grid-3" aria-live="polite" aria-busy="false"></div>
+      </section>
 
     </div>
   </div>
@@ -129,22 +354,58 @@
   <div w3-include-html="/includes/footer.html"></div>
 
   <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
-  <script src="/js/departments/applied-sciences.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="https://www.w3schools.com/lib/w3.js" defer></script>
+  <script src="/js/departments/applied-sciences.js" defer></script>
 
+  <!-- Inline critical JavaScript for immediate functionality -->
   <script>
-    function scrollToSection(id){
-      document.getElementById(id).scrollIntoView({behavior:'smooth'});
+    // Smooth scroll to section with accessibility support
+    function scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+        
+        // Focus management for accessibility
+        element.setAttribute('tabindex', '-1');
+        element.focus();
+        
+        // Announce to screen readers
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.className = 'visually-hidden';
+        announcement.textContent = `Navigated to ${element.querySelector('h2')?.textContent || sectionId} section`;
+        document.body.appendChild(announcement);
+        setTimeout(() => document.body.removeChild(announcement), 1000);
+      }
     }
 
-    // Filter subjects/resources by session
-    function filterBySession(session){
-      console.log('Filter session:', session);
-      // Implement filtering logic using JS/JSON data
-    }
-
-    // Authentication is now handled securely in the JavaScript file
+    // Initialize accessibility features when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add keyboard navigation support for the drop zone
+      const dropZone = document.getElementById('dropZone');
+      if (dropZone) {
+        dropZone.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            document.getElementById('fileUpload').click();
+          }
+        });
+      }
+      
+      // Add aria-labels for dynamic content
+      const sections = ['subjectsGrid', 'teachersGrid', 'resourcesGrid', 'eventsGrid', 'mediaGrid'];
+      sections.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.setAttribute('aria-label', `Loading ${id.replace('Grid', '').replace(/([A-Z])/g, ' $1').toLowerCase()}`);
+        }
+      });
+    });
   </script>
 </body>
 </html>

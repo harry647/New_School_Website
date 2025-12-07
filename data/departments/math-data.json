@@ -3,8 +3,8 @@
     {
       "name": "Mr. Owino",
       "role": "HOD Mathematics",
-      "subject": "Pure & Applied Math",
-      "photo": "/assets/staff/owino.jpg",
+      "subjects": ["Pure Mathematics", "Applied Mathematics", "Statistics"],
+      "photo": "/assets/leadership/seniorteacher1.jpg",
       "email": "owino@barunion.sc.ke",
       "philosophy": "Mathematics is the language of logical thinking, and every learner can master it with proper guidance.",
       "experience": "12 years teaching Mathematics at high school and competition level."
@@ -12,8 +12,8 @@
     {
       "name": "Ms. Atieno",
       "role": "Senior Teacher",
-      "subject": "Form 3 & 4 Mathematics",
-      "photo": "/assets/staff/atieno.jpg",
+      "subjects": ["Form 3 Mathematics", "Form 4 Mathematics", "Statistics"],
+      "photo": "/assets/leadership/seniorteacher2.jpg",
       "email": "atieno@barunion.sc.ke",
       "philosophy": "Students learn best when mathematics is connected to real-life applications.",
       "experience": "9 years teaching upper school mathematics."
@@ -21,11 +21,127 @@
     {
       "name": "Mr. Omondi",
       "role": "Teacher",
-      "subject": "Form 1 & 2 Mathematics",
-      "photo": "/assets/staff/omondi.jpg",
+      "subjects": ["Form 1 Mathematics", "Form 2 Mathematics"],
+      "photo": "/assets/leadership/deputy1.jpg",
       "email": "omondi@barunion.sc.ke",
       "philosophy": "Building strong foundational skills shapes successful mathematicians.",
       "experience": "5 years teaching lower secondary mathematics."
+    }
+  ],
+
+  "subjects": [
+    {
+      "name": "Algebra",
+      "form": "Form 1",
+      "description": "Basic algebraic operations, linear equations, and problem-solving techniques",
+      "topics": ["Linear Equations", "Quadratic Equations", "Simultaneous Equations", "Factorization"],
+      "icon": "fa-square-root-alt",
+      "color": "primary"
+    },
+    {
+      "name": "Geometry",
+      "form": "Form 2",
+      "description": "Plane and solid geometry, properties of shapes, and measurement",
+      "topics": ["Triangles", "Circles", "Polygons", "Transformations"],
+      "icon": "fa-drafting-compass",
+      "color": "success"
+    },
+    {
+      "name": "Trigonometry",
+      "form": "Form 3",
+      "description": "Trigonometric functions, identities, and their applications",
+      "topics": ["Sine and Cosine", "Tangent", "Unit Circle", "Identities"],
+      "icon": "fa-wave-square",
+      "color": "warning"
+    },
+    {
+      "name": "Calculus",
+      "form": "Form 4",
+      "description": "Introduction to differential and integral calculus with applications",
+      "topics": ["Differentiation", "Integration", "Applications", "Optimization"],
+      "icon": "fa-chart-line",
+      "color": "danger"
+    },
+    {
+      "name": "Statistics",
+      "form": "Form 4",
+      "description": "Data analysis, probability, and statistical inference",
+      "topics": ["Data Collection", "Probability", "Hypothesis Testing", "Correlation"],
+      "icon": "fa-chart-bar",
+      "color": "info"
+    }
+  ],
+
+  "resources": [
+    {
+      "title": "Form 4 Revision Pack 2025",
+      "uploadedBy": "Mr. Owino",
+      "date": "2025-11-15",
+      "session": "2025/2026",
+      "type": "pdf",
+      "url": "/downloads/math-form4-2025.pdf",
+      "preview": "/downloads/previews/math-form4-2025-preview.jpg",
+      "size": "2.5 MB"
+    },
+    {
+      "title": "Algebra Notes",
+      "uploadedBy": "Ms. Atieno",
+      "date": "2025-10-20",
+      "session": "2024/2025",
+      "type": "pdf",
+      "url": "/downloads/algebra-notes.pdf",
+      "preview": "/downloads/previews/algebra-preview.jpg",
+      "size": "1.8 MB"
+    },
+    {
+      "title": "Geometry Formulas",
+      "uploadedBy": "Mr. Omondi",
+      "date": "2025-09-10",
+      "session": "2024/2025",
+      "type": "pdf",
+      "url": "/downloads/geometry-formulas.pdf",
+      "preview": "/downloads/previews/geometry-preview.jpg",
+      "size": "900 KB"
+    },
+    {
+      "title": "Trigonometry Video Series",
+      "uploadedBy": "Ms. Atieno",
+      "date": "2025-08-05",
+      "session": "2024/2025",
+      "type": "video",
+      "url": "/downloads/trigonometry-videos.zip",
+      "preview": "/downloads/previews/trig-video-preview.jpg",
+      "size": "150 MB"
+    }
+  ],
+
+  "competitions": [
+    {
+      "name": "Kenya National Math Olympiad",
+      "year": "2025",
+      "description": "An elite-level mathematics competition bringing together the best students nationwide.",
+      "date": "2025-03-15",
+      "venue": "Nairobi",
+      "registration_deadline": "2025-02-28",
+      "poster": "/assets/images/common/hero-bg.jpg"
+    },
+    {
+      "name": "Math Kangaroo Challenge",
+      "year": "2025",
+      "description": "Fun and logical mathematics contest open to all learners.",
+      "date": "2025-04-20",
+      "venue": "School",
+      "registration_deadline": "2025-04-10",
+      "poster": "/assets/images/common/hero-bg.jpg"
+    },
+    {
+      "name": "Inter-School Mathematics Contest",
+      "year": "2024",
+      "description": "Compete with top schools in the county and win awards.",
+      "date": "2024-11-12",
+      "venue": "County School",
+      "registration_deadline": "2024-11-01",
+      "poster": "/assets/images/common/hero-bg.jpg"
     }
   ],
 
@@ -35,54 +151,41 @@
       "student": "John Ochieng",
       "year": "2025",
       "event": "Kenya Math Olympiad",
-      "photo": "/assets/achievements/olympiad-gold.jpg"
+      "photo": "/assets/images/alumni/alumni1.png"
     },
     {
       "title": "KCSE A Plain",
       "student": "Mary Achieng",
       "year": "2024",
       "event": "National Exams",
-      "photo": "/assets/achievements/kcse-top.jpg"
-    }
-  ],
-
-  "resources": [
-    {
-      "title": "Form 4 Revision Pack 2025",
-      "uploadedBy": "Mr. Owino",
-      "date": "Nov 2025",
-      "session": "2025/2026",
-      "url": "/downloads/math-form4-2025.pdf",
-      "preview": "/downloads/previews/math-form4-2025-preview.jpg"
+      "photo": "/assets/images/alumni/alumni2.png"
     },
     {
-      "title": "Algebra Notes",
-      "uploadedBy": "Ms. Atieno",
-      "date": "Oct 2025",
-      "session": "2024/2025",
-      "url": "/downloads/algebra-notes.pdf",
-      "preview": "/downloads/previews/algebra-preview.jpg"
-    }
-  ],
-
-  "competitions": [
-    {
-      "name": "Kenya National Math Olympiad",
-      "year": "2025",
-      "description": "An elite-level mathematics competition bringing together the best students nationwide.",
-      "poster": "/assets/competitions/olympiad-2025.jpg"
-    },
-    {
-      "name": "Math Kangaroo Challenge",
-      "year": "2025",
-      "description": "Fun and logical mathematics contest open to all learners.",
-      "poster": "/assets/competitions/kangaroo.jpg"
-    },
-    {
-      "name": "Inter-School Mathematics Contest",
+      "title": "County Mathematics Champion",
+      "student": "Peter Mwangi",
       "year": "2024",
-      "description": "Compete with top schools in the county and win awards.",
-      "poster": "/assets/competitions/interschool-2024.jpg"
+      "event": "County Mathematics Contest",
+      "photo": "/assets/images/alumni/alumni3.png"
     }
-  ]
+  ],
+
+  "kcseTrend": {
+    "years": ["2020", "2021", "2022", "2023", "2024", "2025"],
+    "scores": [6.8, 7.2, 7.5, 7.8, 8.1, 8.4]
+  },
+
+  "topStudents": [
+    { "name": "Mary Achieng", "score": 98, "year": "2024" },
+    { "name": "John Ochieng", "score": 96, "year": "2024" },
+    { "name": "Sarah Wanjiku", "score": 94, "year": "2023" },
+    { "name": "Peter Mwangi", "score": 93, "year": "2023" },
+    { "name": "Grace Akinyi", "score": 92, "year": "2024" }
+  ],
+
+  "progress": {
+    "overall": 75,
+    "topicsMastered": 24,
+    "weeklyGoal": 3,
+    "currentStreak": 5
+  }
 }

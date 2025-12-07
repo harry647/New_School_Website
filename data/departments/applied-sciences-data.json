@@ -4,37 +4,43 @@
       "name": "Agriculture",
       "icon": "fa-seedling",
       "teacher": "Mr. Odhiambo",
-      "description": "Practical farming skills, crop management, and animal husbandry."
+      "description": "Practical farming skills, crop management, and animal husbandry.",
+      "session": "2025-2026"
     },
     {
       "name": "Computer Studies",
       "icon": "fa-laptop-code",
       "teacher": "Ms. Achieng",
-      "description": "Programming, databases, networking, and IT skills."
+      "description": "Programming, databases, networking, and IT skills.",
+      "session": "2025-2026"
     },
     {
       "name": "Home Science",
       "icon": "fa-utensils",
       "teacher": "Mrs. Kamau",
-      "description": "Nutrition, cooking, sewing, and household management."
+      "description": "Nutrition, cooking, sewing, and household management.",
+      "session": "2025-2026"
     },
     {
       "name": "Business Studies",
       "icon": "fa-briefcase",
       "teacher": "Mr. Mwangi",
-      "description": "Accounting, entrepreneurship, and financial literacy."
+      "description": "Accounting, entrepreneurship, and financial literacy.",
+      "session": "2025-2026"
     },
     {
       "name": "Technical Drawing",
       "icon": "fa-ruler-combined",
       "teacher": "Ms. Wanjiru",
-      "description": "Blueprint reading, CAD, and design principles."
+      "description": "Blueprint reading, CAD, and design principles.",
+      "session": "2024-2025"
     },
     {
       "name": "Building & Construction",
       "icon": "fa-hard-hat",
       "teacher": "Mr. Mutua",
-      "description": "Construction skills, project planning, and safety practices."
+      "description": "Construction skills, project planning, and safety practices.",
+      "session": "2024-2025"
     }
   ],
   "teachers": [
@@ -79,52 +85,65 @@
     {
       "title": "Agriculture Lab Manual",
       "uploadedBy": "Mr. Odhiambo",
-      "date": "Nov 2025",
+      "date": "2025-11-15",
+      "session": "2025-2026",
       "url": "/assets/resources/agriculture-lab.pdf",
-      "icon": "fa-file-pdf",
+      "type": "pdf",
       "color": "#28a745"
     },
     {
       "title": "Computer Programming Notes",
       "uploadedBy": "Ms. Achieng",
-      "date": "Oct 2025",
+      "date": "2025-10-20",
+      "session": "2025-2026",
       "url": "/assets/resources/programming-notes.pdf",
-      "icon": "fa-file-pdf",
+      "type": "pdf",
       "color": "#007bff"
     },
     {
       "title": "Home Science Recipe Guide",
       "uploadedBy": "Mrs. Kamau",
-      "date": "Sep 2025",
+      "date": "2025-09-15",
+      "session": "2025-2026",
       "url": "/assets/resources/recipe-guide.pdf",
-      "icon": "fa-file-pdf",
+      "type": "pdf",
       "color": "#ffc107"
     },
     {
       "title": "Business Case Studies",
       "uploadedBy": "Mr. Mwangi",
-      "date": "Nov 2025",
+      "date": "2025-11-10",
+      "session": "2024-2025",
       "url": "/assets/resources/business-case.pdf",
-      "icon": "fa-file-pdf",
+      "type": "pdf",
       "color": "#fd7e14"
     }
   ],
   "events": [
     {
       "title": "Agriculture Exhibition",
-      "date": "18th Dec 2025",
+      "date": "2025-12-18",
+      "time": "09:00 AM",
+      "location": "School Field",
+      "session": "2025-2026",
       "description": "Showcase of student farming projects and innovations.",
       "color": "#28a745"
     },
     {
       "title": "Coding Bootcamp",
-      "date": "Every Saturday",
+      "date": "2025-12-14",
+      "time": "10:00 AM",
+      "location": "Computer Lab",
+      "session": "2025-2026",
       "description": "Hands-on programming workshops for students.",
       "color": "#007bff"
     },
     {
       "title": "Construction Project Showcase",
-      "date": "Jan 2026",
+      "date": "2026-01-15",
+      "time": "02:00 PM",
+      "location": "Workshop Area",
+      "session": "2024-2025",
       "description": "Demonstration of student building and construction projects.",
       "color": "#fd7e14"
     }
@@ -133,20 +152,26 @@
     {
       "title": "Agriculture Project Photos",
       "uploadedBy": "Mr. Odhiambo",
-      "date": "Nov 2025",
-      "url": "/assets/media/agriculture-project.jpg"
+      "date": "2025-11-20",
+      "session": "2025-2026",
+      "url": "/assets/media/agriculture-project.jpg",
+      "type": "image"
     },
     {
       "title": "Coding Workshop Screenshots",
       "uploadedBy": "Ms. Achieng",
-      "date": "Oct 2025",
-      "url": "/assets/media/coding-workshop.jpg"
+      "date": "2025-10-25",
+      "session": "2025-2026",
+      "url": "/assets/media/coding-workshop.jpg",
+      "type": "image"
     },
     {
       "title": "Home Science Cooking Session",
       "uploadedBy": "Mrs. Kamau",
-      "date": "Sep 2025",
-      "url": "/assets/media/cooking-session.jpg"
+      "date": "2025-09-20",
+      "session": "2025-2026",
+      "url": "/assets/media/cooking-session.jpg",
+      "type": "image"
     }
   ]
 }

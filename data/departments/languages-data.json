@@ -67,18 +67,34 @@
     {
       "title": "English Grammar Workbook 2025",
       "uploadedBy": "Ms. Akinyi",
-      "date": "Nov 2025",
-      "url": "/downloads/english-grammar.pdf",
-      "icon": "fa-file-pdf",
-      "color": "#e74c3c"
+      "date": "2025-11-15",
+      "session": "2025/2026",
+      "type": "pdf",
+      "url": "/downloads/english-grammar.pdf"
     },
     {
       "title": "French Listening Practice",
       "uploadedBy": "Ms. Claire",
-      "date": "Oct 2025",
-      "url": "/downloads/french-audio.zip",
-      "icon": "fa-file-audio",
-      "color": "#3498db"
+      "date": "2025-10-20",
+      "session": "2025/2026",
+      "type": "audio",
+      "url": "/downloads/french-audio.zip"
+    },
+    {
+      "title": "Kiswahili Fasihi Notes",
+      "uploadedBy": "Ms. Akinyi",
+      "date": "2025-09-10",
+      "session": "2024/2025",
+      "type": "pdf",
+      "url": "/downloads/kiswahili-fasihi.pdf"
+    },
+    {
+      "title": "Arabic Calligraphy Guide",
+      "uploadedBy": "Mr. Hassan",
+      "date": "2025-08-05",
+      "session": "2023/2024",
+      "type": "document",
+      "url": "/downloads/arabic-calligraphy.pdf"
     }
   ],
 

@@ -900,15 +900,63 @@ router.get('/cocurriculum/data', (req, res) => {
 /**
  * @route   POST /cocurriculum/join
  * @desc    Handles a student's application to join a co-curricular activity.
- * @access  Protected
+ * @access  Public
  */
 router.post('/cocurriculum/join', (req, res) => {
-  const data = req.body;
-  const file = path.join(__dirname, '..', 'data', 'cocurriculum-joins.json');
-  let joins = readJSON(file);
-  joins.push({ ...data, submitted_at: new Date().toISOString() });
-  writeJSON(file, joins);
-  res.json({ success: true });
+  try {
+    const { name, email, formClass, activitySelect, message } = req.body;
+
+    // Validation
+    if (!name?.trim() || !email?.trim() || !activitySelect?.trim()) {
+      return res.status(400).json({
+        success: false,
+        message: "Name, email, and activity selection are required."
+      });
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid email format."
+      });
+    }
+
+    const file = path.join(__dirname, '..', 'data', 'cocurriculum-joins.json');
+    let joins = readJSON(file);
+
+    const application = {
+      id: Date.now().toString(),
+      name: name.trim(),
+      email: email.toLowerCase().trim(),
+      formClass: formClass || null,
+      activity: activitySelect.trim(),
+      message: message?.trim() || null,
+      submitted_at: new Date().toISOString(),
+      status: 'pending'
+    };
+
+    joins.push(application);
+
+    if (!writeJSON(file, joins)) {
+      throw new Error('Failed to save application');
+    }
+
+    console.log(`Co-curricular Join Application → ${name} for ${activitySelect}`);
+
+    res.json({
+      success: true,
+      message: "Application submitted successfully! We'll contact you soon.",
+      applicationId: application.id
+    });
+  } catch (err) {
+    console.error('Error processing co-curricular join:', err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to submit application. Please try again."
+    });
+  }
 });
 
 /**
@@ -1035,7 +1083,7 @@ router.post('/departments/science/upload', uploadDepartmentFile.array('files', 2
 
 // --- Guidance & Counseling ---
 router.get('/guidance/data', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'guidance', 'data.json'));
+  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'guidance-data.json'));
   res.json(data);
 });
 router.get('/guidance/anonymous', (req, res) => {
@@ -1106,24 +1154,369 @@ router.post('/welfare/request', uploadWelfareAttachment.array('attachments', 10)
  * @desc    Fetches all data for the main resources hub.
  * @access  Protected
  */
-router.get('/resources/all', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'resources', 'data.json'));
-  res.json(data);
+router.get('/resources/all', requireAuth, (req, res) => {
+  try {
+    const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'resources-data.json'));
+    console.log(`Resources data fetched by user: ${req.session.user?.name || 'Unknown'}`);
+    res.json(data);
+  } catch (err) {
+    console.error('Error fetching resources:', err);
+    res.status(500).json({ success: false, message: "Failed to load resources data" });
+  }
 });
 
 /**
  * @route   POST /resources/upload
- * @desc    Handles uploads for the main resources hub.
+ * @desc    Handles uploads for the main resources hub with metadata storage.
+ * @access  Protected (Teacher/Admin)
+ */
+router.post('/resources/upload', uploadMixed.array('files', 20), (req, res) => {
+  try {
+    if (!req.files?.length) {
+      return res.status(400).json({ success: false, message: "No files uploaded" });
+    }
+
+    const { title, category, type, description } = req.body;
+    const uploadedBy = req.session?.user?.name || "Unknown User";
+    
+    if (!title || !category || !type) {
+      return res.status(400).json({ 
+        success: false, 
+        message: "Title, category, and type are required fields." 
+      });
+    }
+
+    // Read current resources data
+    const resourcesFile = path.join(__dirname, '..', 'data', 'departments', 'resources-data.json');
+    let resourcesData = readJSON(resourcesFile);
+    
+    if (!resourcesData.resources) {
+      resourcesData = { resources: [], submissions: [], featured: [], tags: [] };
+    }
+
+    // Process uploaded files
+    const newResources = req.files.map(file => {
+      const fileExt = path.extname(file.originalname).toLowerCase();
+      const fileType = type.toLowerCase() || getFileTypeFromExtension(fileExt);
+      
+      return {
+        id: `${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
+        title: title.trim(),
+        category: category.trim(),
+        type: fileType,
+        uploadedBy: uploadedBy,
+        date: new Date().toISOString().split('T')[0], // Format as "YYYY-MM-DD"
+        url: `/uploads/mixed/${file.filename}`,
+        description: description?.trim() || "",
+        icon: getFileIcon(fileType),
+        color: getFileColor(fileType),
+        size: formatFileSize(file.size),
+        originalName: file.originalname,
+        mimeType: file.mimetype
+      };
+    });
+
+    // Add new resources to the top of the list
+    resourcesData.resources = [...newResources, ...resourcesData.resources];
+    
+    // Update tags
+    const newTags = new Set([...resourcesData.tags, category]);
+    resourcesData.tags = Array.from(newTags);
+
+    // Save updated data
+    if (!writeJSON(resourcesFile, resourcesData)) {
+      throw new Error('Failed to save resources data');
+    }
+
+    console.log(`Resource Upload → ${uploadedBy} uploaded ${req.files.length} file(s) for ${category}`);
+
+    res.json({
+      success: true,
+      message: `${req.files.length} file(s) uploaded successfully!`,
+      uploadedFiles: newResources.map(r => ({
+        title: r.title,
+        url: r.url,
+        type: r.type,
+        size: r.size
+      }))
+    });
+
+  } catch (err) {
+    console.error('Error processing resource upload:', err);
+    res.status(500).json({
+      success: false,
+      message: "Upload failed. Please try again."
+    });
+  }
+});
+
+/**
+ * @route   POST /resources/submit
+ * @desc    Handles student assignment submissions.
  * @access  Protected
  */
-router.post('/resources/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
-  if (!req.files?.length) {
-    return res.status(400).json({ success: false, message: "No files" });
+router.post('/resources/submit', uploadMixed.array('files', 5), (req, res) => {
+  try {
+    if (!req.files?.length) {
+      return res.status(400).json({ success: false, message: "No files submitted" });
+    }
+
+    const { assignmentTitle, subject } = req.body;
+    const submittedBy = req.session?.user?.name || "Student";
+    const userEmail = req.session?.user?.email || "student@school.edu";
+
+    // Read current submissions
+    const resourcesFile = path.join(__dirname, '..', 'data', 'departments', 'resources-data.json');
+    let resourcesData = readJSON(resourcesFile);
+    
+    if (!resourcesData.submissions) {
+      resourcesData.submissions = [];
+    }
+
+    // Process submitted files
+    const newSubmissions = req.files.map(file => ({
+      id: `${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
+      title: assignmentTitle?.trim() || file.originalname,
+      subject: subject?.trim() || "General",
+      uploadedBy: submittedBy,
+      email: userEmail,
+      date: new Date().toISOString().split('T')[0],
+      url: `/uploads/mixed/${file.filename}`,
+      originalName: file.originalname,
+      size: formatFileSize(file.size),
+      status: "pending"
+    }));
+
+    // Add new submissions
+    resourcesData.submissions = [...newSubmissions, ...resourcesData.submissions];
+
+    // Save updated data
+    if (!writeJSON(resourcesFile, resourcesData)) {
+      throw new Error('Failed to save submission data');
+    }
+
+    console.log(`Student Submission → ${submittedBy} submitted ${req.files.length} file(s)`);
+
+    res.json({
+      success: true,
+      message: "Assignment submitted successfully! Teachers will review it soon.",
+      submittedFiles: newSubmissions
+    });
+
+  } catch (err) {
+    console.error('Error processing submission:', err);
+    res.status(500).json({
+      success: false,
+      message: "Submission failed. Please try again."
+    });
   }
-  // In a real app, you would save file metadata to a JSON file or database here.
-  console.log(`Resource Hub Upload → ${req.files.length} files received.`);
-  res.json({ success: true });
 });
+
+/**
+ * @route   DELETE /resources/:id
+ * @desc    Deletes a resource (Admin/Teacher only).
+ * @access  Protected
+ */
+router.delete('/resources/:id', requireAuth, (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = req.session?.user;
+    
+    // Only allow admin or teacher to delete resources
+    if (!['admin', 'teacher'].includes(user?.role)) {
+      return res.status(403).json({ 
+        success: false, 
+        message: "Only administrators and teachers can delete resources." 
+      });
+    }
+
+    const resourcesFile = path.join(__dirname, '..', 'data', 'departments', 'resources-data.json');
+    let resourcesData = readJSON(resourcesFile);
+
+    const resourceIndex = resourcesData.resources.findIndex(r => r.id === id);
+    if (resourceIndex === -1) {
+      return res.status(404).json({ success: false, message: "Resource not found" });
+    }
+
+    const deletedResource = resourcesData.resources.splice(resourceIndex, 1)[0];
+
+    // Save updated data
+    if (!writeJSON(resourcesFile, resourcesData)) {
+      throw new Error('Failed to save updated resources data');
+    }
+
+    console.log(`Resource Deleted → ${user.name} deleted: ${deletedResource.title}`);
+
+    res.json({
+      success: true,
+      message: "Resource deleted successfully"
+    });
+
+  } catch (err) {
+    console.error('Error deleting resource:', err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete resource"
+    });
+  }
+});
+
+/**
+ * @route   POST /resources/submissions/:id/approve
+ * @desc    Approves a student submission (Teacher/Admin only).
+ * @access  Protected
+ */
+router.post('/resources/submissions/:id/approve', requireAuth, (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = req.session?.user;
+    
+    // Only allow admin or teacher to approve submissions
+    if (!['admin', 'teacher'].includes(user?.role)) {
+      return res.status(403).json({ 
+        success: false, 
+        message: "Only administrators and teachers can approve submissions." 
+      });
+    }
+
+    const resourcesFile = path.join(__dirname, '..', 'data', 'departments', 'resources-data.json');
+    let resourcesData = readJSON(resourcesFile);
+
+    const submissionIndex = (resourcesData.submissions || []).findIndex(s => s.id === id);
+    if (submissionIndex === -1) {
+      return res.status(404).json({ success: false, message: "Submission not found" });
+    }
+
+    // Update submission status
+    resourcesData.submissions[submissionIndex].status = "approved";
+    resourcesData.submissions[submissionIndex].approvedBy = user.name;
+    resourcesData.submissions[submissionIndex].approvedAt = new Date().toISOString();
+
+    // Save updated data
+    if (!writeJSON(resourcesFile, resourcesData)) {
+      throw new Error('Failed to save updated submission data');
+    }
+
+    console.log(`Submission Approved → ${user.name} approved submission: ${id}`);
+
+    res.json({
+      success: true,
+      message: "Submission approved successfully"
+    });
+
+  } catch (err) {
+    console.error('Error approving submission:', err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to approve submission"
+    });
+  }
+});
+
+/**
+ * @route   DELETE /resources/submissions/:id
+ * @desc    Deletes a student submission (Teacher/Admin only).
+ * @access  Protected
+ */
+router.delete('/resources/submissions/:id', requireAuth, (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = req.session?.user;
+    
+    // Only allow admin or teacher to delete submissions
+    if (!['admin', 'teacher'].includes(user?.role)) {
+      return res.status(403).json({ 
+        success: false, 
+        message: "Only administrators and teachers can delete submissions." 
+      });
+    }
+
+    const resourcesFile = path.join(__dirname, '..', 'data', 'departments', 'resources-data.json');
+    let resourcesData = readJSON(resourcesFile);
+
+    const submissionIndex = (resourcesData.submissions || []).findIndex(s => s.id === id);
+    if (submissionIndex === -1) {
+      return res.status(404).json({ success: false, message: "Submission not found" });
+    }
+
+    const deletedSubmission = resourcesData.submissions.splice(submissionIndex, 1)[0];
+
+    // Save updated data
+    if (!writeJSON(resourcesFile, resourcesData)) {
+      throw new Error('Failed to save updated submission data');
+    }
+
+    console.log(`Submission Deleted → ${user.name} deleted submission: ${deletedSubmission.title}`);
+
+    res.json({
+      success: true,
+      message: "Submission deleted successfully"
+    });
+
+  } catch (err) {
+    console.error('Error deleting submission:', err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to delete submission"
+    });
+  }
+});
+
+// Helper functions for file type detection
+function getFileTypeFromExtension(ext) {
+  const typeMap = {
+    '.pdf': 'pdf',
+    '.doc': 'doc',
+    '.docx': 'doc',
+    '.txt': 'text',
+    '.jpg': 'image',
+    '.jpeg': 'image',
+    '.png': 'image',
+    '.gif': 'image',
+    '.webp': 'image',
+    '.mp4': 'video',
+    '.mov': 'video',
+    '.avi': 'video',
+    '.mp3': 'audio',
+    '.wav': 'audio',
+    '.ogg': 'audio'
+  };
+  return typeMap[ext] || 'file';
+}
+
+function getFileIcon(type) {
+  const iconMap = {
+    pdf: 'fa-file-pdf',
+    doc: 'fa-file-word',
+    text: 'fa-file-alt',
+    image: 'fa-file-image',
+    video: 'fa-file-video',
+    audio: 'fa-file-audio',
+    file: 'fa-file'
+  };
+  return iconMap[type] || 'fa-file';
+}
+
+function getFileColor(type) {
+  const colorMap = {
+    pdf: '#dc3545',
+    doc: '#0d6efd',
+    text: '#6c757d',
+    image: '#fd7e14',
+    video: '#198754',
+    audio: '#6610f2',
+    file: '#6c757d'
+  };
+  return colorMap[type] || '#6c757d';
+}
+
+function formatFileSize(bytes) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
 
 
 export default router;
