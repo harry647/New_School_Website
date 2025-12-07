@@ -33,21 +33,128 @@
   <!-- Main Portal Content (hidden until logged in) -->
   <div id="mainContent" class="d-none">
     
+    <!-- Navigation Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold" href="#">
+          <i class="fas fa-graduation-cap me-2"></i>E-Learning Hub
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#dashboard">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#subjects">Subjects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#resources">Resources</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#quizzes">Quizzes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#live">Live Sessions</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#forum">Forum</a>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center">
+            <div class="search-box me-3">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search..." id="globalSearch">
+                <button class="btn btn-outline-light" type="button">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+            <div class="user-profile dropdown">
+              <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                <img src="/assets/images/defaults/default-student.png" alt="Profile" class="rounded-circle me-2" width="32" height="32">
+                <span id="userName">Student</span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#profile"><i class="fas fa-user me-2"></i>Profile</a></li>
+                <li><a class="dropdown-item" href="#achievements"><i class="fas fa-trophy me-2"></i>Achievements</a></li>
+                <li><a class="dropdown-item" href="#settings"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
     <!-- Hero Section -->
     <section class="hero text-white text-center py-5 position-relative overflow-hidden">
       <div class="container py-5 position-relative z-2">
-        <h1 class="display-3 fw-bold mb-4">Interactive E-Learning Hub</h1>
-        <p class="lead fs-4 mb-4">Learn • Practice • Excel</p>
+        <h1 class="display-3 fw-bold mb-4">Welcome back, <span id="heroUserName">Student</span>!</h1>
+        <p class="lead fs-4 mb-4">Continue Your Learning Journey</p>
         <p class="col-lg-8 mx-auto fs-5 opacity-90 mb-5">
-          Access lessons, assignments, quizzes, live classes, and interactive resources — anytime, anywhere.
+          You have <span class="text-warning fw-bold" id="pendingTasks">3 tasks</span> pending and a <span class="text-success fw-bold" id="currentStreak">15-day</span> study streak!
         </p>
-        <button onclick="scrollToSection('subjectsGrid')" class="btn btn-warning btn-lg px-5 fw-bold shadow">
-          Start Learning Now
-        </button>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <button onclick="scrollToSection('subjectsGrid')" class="btn btn-warning btn-lg px-5 fw-bold shadow">
+            Continue Learning
+          </button>
+          <button onclick="scrollToSection('quizGrid')" class="btn btn-success btn-lg px-5 fw-bold shadow">
+            Take Quiz
+          </button>
+        </div>
       </div>
     </section>
 
     <div class="container my-5">
+
+      <!-- Quick Stats Dashboard -->
+      <section id="dashboard" class="mb-5">
+        <h2 class="section-title text-center mb-5">Your Learning Dashboard</h2>
+        <div class="row g-4 mb-4">
+          <div class="col-md-3">
+            <div class="stat-card glass-card text-center p-4">
+              <i class="fas fa-book-open fa-3x text-primary mb-3"></i>
+              <h3 class="fw-bold" id="totalLessons">0</h3>
+              <p class="text-muted mb-0">Lessons Completed</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card glass-card text-center p-4">
+              <i class="fas fa-percentage fa-3x text-success mb-3"></i>
+              <h3 class="fw-bold" id="overallProgress">0%</h3>
+              <p class="text-muted mb-0">Overall Progress</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card glass-card text-center p-4">
+              <i class="fas fa-fire fa-3x text-warning mb-3"></i>
+              <h3 class="fw-bold" id="studyStreak">0</h3>
+              <p class="text-muted mb-0">Day Streak</p>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card glass-card text-center p-4">
+              <i class="fas fa-trophy fa-3x text-info mb-3"></i>
+              <h3 class="fw-bold" id="totalPoints">0</h3>
+              <p class="text-muted mb-0">Total Points</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Achievements -->
+        <div class="row">
+          <div class="col-12">
+            <div class="glass-card p-4">
+              <h4 class="mb-3">Recent Achievements</h4>
+              <div id="achievementsGrid" class="row g-3"></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- Role Switcher -->
       <div class="text-center mb-5">
@@ -62,8 +169,34 @@
       </div>
 
       <!-- Subjects & Courses Grid -->
-      <h2 class="section-title text-center mb-5">Subjects & Courses</h2>
-      <div id="subjectsGrid" class="row g-4 mb-5"></div>
+      <section id="subjects" class="mb-5">
+        <h2 class="section-title text-center mb-5">Subjects & Courses</h2>
+        <div id="subjectsGrid" class="row g-4 mb-5"></div>
+      </section>
+
+      <!-- Live Sessions -->
+      <section id="live" class="mb-5">
+        <h2 class="section-title text-center mb-5">Live Sessions & Classes</h2>
+        <div id="liveSessionsGrid" class="row g-4 mb-5"></div>
+      </section>
+
+      <!-- Calendar & Schedule -->
+      <section id="calendar" class="mb-5">
+        <h2 class="section-title text-center mb-5">Your Schedule</h2>
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="glass-card p-4">
+              <div id="calendarGrid" class="calendar-grid"></div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="glass-card p-4">
+              <h4 class="mb-3">Upcoming Events</h4>
+              <div id="upcomingEvents"></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- Teacher Upload Panel -->
       <div id="teacherPanel" class="card border-0 shadow-lg p-4 p-md-5 mb-5 d-none" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);">
@@ -121,29 +254,111 @@
         </form>
       </div>
 
-      <!-- All Resources Grid -->
-      <h2 class="section-title text-center mb-5">All Learning Resources</h2>
-      <div id="resourcesGrid" class="row g-4 mb-5"></div>
+      <!-- Resources Section -->
+      <section id="resources" class="mb-5">
+        <h2 class="section-title text-center mb-5">Learning Resources</h2>
+        <div class="row g-4 mb-4">
+          <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-primary active" data-filter="all">All</button>
+                <button type="button" class="btn btn-outline-primary" data-filter="pdf">PDFs</button>
+                <button type="button" class="btn btn-outline-primary" data-filter="video">Videos</button>
+                <button type="button" class="btn btn-outline-primary" data-filter="interactive">Interactive</button>
+              </div>
+              <select class="form-select w-auto" id="subjectFilter">
+                <option value="">All Subjects</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div id="resourcesGrid" class="row g-4 mb-5"></div>
+      </section>
 
       <!-- Quizzes & Assignments -->
-      <h2 class="section-title text-center mb-5">Quizzes & Assignments</h2>
-      <div id="quizGrid" class="row g-4 mb-5"></div>
+      <section id="quizzes" class="mb-5">
+        <h2 class="section-title text-center mb-5">Quizzes & Assignments</h2>
+        <div class="row g-4 mb-4">
+          <div class="col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">Pending Quizzes</h5>
+                <div id="pendingQuizzes"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">Active Assignments</h5>
+                <div id="activeAssignments"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="quizGrid" class="row g-4 mb-5"></div>
+      </section>
 
       <!-- Discussion Forum -->
-      <h2 class="section-title text-center mb-5">Discussion & Q&A Forum</h2>
-      <div id="forumGrid" class="row g-4 mb-5"></div>
+      <section id="forum" class="mb-5">
+        <h2 class="section-title text-center mb-5">Discussion & Q&A Forum</h2>
+        <div class="row">
+          <div class="col-lg-8">
+            <div class="glass-card p-4">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>Recent Discussions</h4>
+                <button class="btn btn-primary" onclick="startNewDiscussion()">
+                  <i class="fas fa-plus me-2"></i>New Discussion
+                </button>
+              </div>
+              <div id="forumGrid" class="row g-4 mb-5"></div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="glass-card p-4">
+              <h4 class="mb-3">Forum Categories</h4>
+              <div id="forumCategories"></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <!-- Progress Dashboard -->
-      <h2 class="section-title text-center mb-5">Your Learning Progress</h2>
-      <div id="progressGrid" class="row g-4 mb-5"></div>
-
-      <!-- Notifications -->
-      <h2 class="section-title text-center mb-5">Notifications & Announcements</h2>
-      <div id="notificationList" class="list-group mb-5"></div>
+      <!-- Progress Analytics -->
+      <section id="analytics" class="mb-5">
+        <h2 class="section-title text-center mb-5">Learning Analytics</h2>
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="glass-card p-4">
+              <h4 class="mb-3">Subject Performance</h4>
+              <div id="subjectProgressChart"></div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="glass-card p-4">
+              <h4 class="mb-3">Study Time This Week</h4>
+              <div id="studyTimeChart"></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- Media Gallery -->
-      <h2 class="section-title text-center mb-5">Media & Lesson Gallery</h2>
-      <div id="mediaGrid" class="row g-4 mb-5"></div>
+      <section id="media" class="mb-5">
+        <h2 class="section-title text-center mb-5">Media & Lesson Gallery</h2>
+        <div id="mediaGrid" class="row g-4 mb-5"></div>
+      </section>
+
+      <!-- Notifications -->
+      <section id="notifications" class="mb-5">
+        <h2 class="section-title text-center mb-5">Notifications & Announcements</h2>
+        <div id="notificationList" class="list-group mb-5"></div>
+      </section>
+
+      <!-- Study Plans -->
+      <section id="study-plans" class="mb-5">
+        <h2 class="section-title text-center mb-5">Your Study Plans</h2>
+        <div id="studyPlansGrid" class="row g-4 mb-5"></div>
+      </section>
     </div>
 
   </div>
@@ -177,12 +392,32 @@
       }
     }
 
-    // Simple role switcher (student/teacher view)
+    // Role switcher (student/teacher view)
     function setRole(role) {
       document.getElementById('roleStudent').classList.toggle('active', role === 'student');
       document.getElementById('roleTeacher').classList.toggle('active', role === 'teacher');
       document.getElementById('teacherPanel').classList.toggle('d-none', role !== 'teacher');
       localStorage.setItem('portalRole', role);
+      
+      // Update global search placeholder based on role
+      const searchInput = document.getElementById('globalSearch');
+      if (searchInput) {
+        searchInput.placeholder = role === 'teacher' ? 'Search lessons, students...' : 'Search courses, topics...';
+      }
+    }
+
+    // Logout function
+    function logout() {
+      localStorage.removeItem('userLoggedIn');
+      localStorage.removeItem('portalRole');
+      window.location.reload();
+    }
+
+    // Start new discussion
+    function startNewDiscussion() {
+      // In a real implementation, this would open a modal or redirect to a new discussion page
+      showAlert('Opening new discussion form...', 'info');
+      // Could redirect to: window.location.href = '/forum/new';
     }
 
     // Check login status on load
@@ -195,12 +430,56 @@
           document.getElementById('loginCheck').classList.add('d-none');
           document.getElementById('mainContent').classList.remove('d-none');
           setRole(savedRole);
+          updateUserInfo();
         } else {
           document.getElementById('loginCheck').classList.remove('d-none');
           document.getElementById('mainContent').classList.add('d-none');
         }
       });
     });
+
+    // Update user information in the UI
+    function updateUserInfo() {
+      // In a real implementation, this would fetch user data from the backend
+      const userName = localStorage.getItem('userName') || 'Student';
+      const userElement = document.getElementById('userName');
+      const heroUserElement = document.getElementById('heroUserName');
+      
+      if (userElement) userElement.textContent = userName;
+      if (heroUserElement) heroUserElement.textContent = userName;
+    }
+
+    // Global search functionality
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('globalSearch');
+      if (searchInput) {
+        searchInput.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') {
+            performGlobalSearch(searchInput.value);
+          }
+        });
+      }
+    });
+
+    function performGlobalSearch(query) {
+      if (query.trim()) {
+        showAlert(`Searching for: "${query}"`, 'info');
+        // In a real implementation, this would perform a comprehensive search
+      }
+    }
+
+    // Utility function to show alerts (fallback if not available from main JS)
+    function showAlert(message, type = 'info') {
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+      alert.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
+      alert.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      `;
+      document.body.appendChild(alert);
+      setTimeout(() => alert.remove(), 5000);
+    }
   </script>
 </body>
 </html>

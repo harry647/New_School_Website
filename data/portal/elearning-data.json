@@ -1,56 +1,135 @@
 {
+  "user": {
+    "id": "student001",
+    "name": "John Doe",
+    "email": "john.doe@barunion.ac.ke",
+    "role": "student",
+    "class": "Form 4A",
+    "avatar": "/assets/images/defaults/default-student.png",
+    "lastLogin": "2025-12-07T10:30:00Z",
+    "streak": 15,
+    "totalPoints": 2450,
+    "badges": ["Quick Learner", "Quiz Master", "Forum Helper"]
+  },
+
   "subjects": [
-    { "id": "mathematics", "name": "Mathematics", "icon": "fa-square-root-alt", "lessons": 48, "quizzes": 12 },
-    { "id": "physics", "name": "Physics", "icon": "fa-atom", "lessons": 42, "quizzes": 10 },
-    { "id": "chemistry", "name": "Chemistry", "icon": "fa-flask", "lessons": 40, "quizzes": 15 },
-    { "id": "biology", "name": "Biology", "icon": "fa-dna", "lessons": 38, "quizzes": 8 },
-    { "id": "english", "name": "English", "icon": "fa-book", "lessons": 50, "quizzes": 20 },
-    { "id": "kiswahili", "name": "Kiswahili", "icon": "fa-language", "lessons": 45, "quizzes": 12 },
-    { "id": "humanities", "name": "Humanities", "icon": "fa-landmark", "lessons": 36, "quizzes": 9 },
-    { "id": "applied-sciences", "name": "Applied Sciences", "icon": "fa-microscope", "lessons": 30, "quizzes": 7 },
-    { "id": "clubs-co-curriculum", "name": "Clubs & Co-Curriculum", "icon": "fa-users", "lessons": 25, "quizzes": 5 },
-    { "id": "guidance-counselling", "name": "Guidance & Counselling", "icon": "fa-comments", "lessons": 20, "quizzes": 4 },
-    { "id": "languages", "name": "Languages", "icon": "fa-language", "lessons": 40, "quizzes": 10 },
-    { "id": "welfare", "name": "Welfare", "icon": "fa-heart", "lessons": 15, "quizzes": 2 },
-    { "id": "teachers-welfare", "name": "Teachers Welfare", "icon": "fa-chalkboard-teacher", "lessons": 12, "quizzes": 2 },
-    { "id": "interactive-e-learning", "name": "Interactive E-Learning", "icon": "fa-laptop-code", "lessons": 60, "quizzes": 18 }
+    { "id": "mathematics", "name": "Mathematics", "icon": "fa-square-root-alt", "lessons": 48, "quizzes": 12, "completed": 34, "color": "#e74c3c", "teacher": "Ms. Achieng", "nextLesson": "Quadratic Equations" },
+    { "id": "physics", "name": "Physics", "icon": "fa-atom", "lessons": 42, "quizzes": 10, "completed": 21, "color": "#3498db", "teacher": "Mr. Odhiambo", "nextLesson": "Waves and Sound" },
+    { "id": "chemistry", "name": "Chemistry", "icon": "fa-flask", "lessons": 40, "quizzes": 15, "completed": 28, "color": "#2ecc71", "teacher": "Dr. Wanjiru", "nextLesson": "Organic Chemistry" },
+    { "id": "biology", "name": "Biology", "icon": "fa-dna", "lessons": 38, "quizzes": 8, "completed": 25, "color": "#9b59b6", "teacher": "Mr. Kamau", "nextLesson": "Cell Division" },
+    { "id": "english", "name": "English", "icon": "fa-book", "lessons": 50, "quizzes": 20, "completed": 40, "color": "#f39c12", "teacher": "Ms. Wanjiku", "nextLesson": "Essay Writing" },
+    { "id": "kiswahili", "name": "Kiswahili", "icon": "fa-language", "lessons": 45, "quizzes": 12, "completed": 30, "color": "#e67e22", "teacher": "Mzee Hassan", "nextLesson": "Uandishi wa Insha" },
+    { "id": "humanities", "name": "History & Geography", "icon": "fa-landmark", "lessons": 36, "quizzes": 9, "completed": 20, "color": "#34495e", "teacher": "Ms. Muthoni", "nextLesson": "World War II" },
+    { "id": "computer-studies", "name": "Computer Studies", "icon": "fa-laptop-code", "lessons": 35, "quizzes": 12, "completed": 15, "color": "#3498db", "teacher": "Mr. Njoroge", "nextLesson": "Database Design" },
+    { "id": "business-studies", "name": "Business Studies", "icon": "fa-chart-line", "lessons": 32, "quizzes": 8, "completed": 18, "color": "#27ae60", "teacher": "Ms. Chepkemoi", "nextLesson": "Marketing" },
+    { "id": "applied-sciences", "name": "Applied Sciences", "icon": "fa-microscope", "lessons": 30, "quizzes": 7, "completed": 22, "color": "#8e44ad", "teacher": "Dr. Kiplagat", "nextLesson": "Electronics" },
+    { "id": "clubs-co-curriculum", "name": "Clubs & Co-Curriculum", "icon": "fa-users", "lessons": 25, "quizzes": 5, "completed": 15, "color": "#f1c40f", "teacher": "Mr. Rotich", "nextLesson": "Leadership Skills" },
+    { "id": "guidance-counselling", "name": "Guidance & Counselling", "icon": "fa-comments", "lessons": 20, "quizzes": 4, "completed": 12, "color": "#e74c3c", "teacher": "Ms. Akinyi", "nextLesson": "Career Guidance" },
+    { "id": "languages", "name": "Foreign Languages", "icon": "fa-language", "lessons": 40, "quizzes": 10, "completed": 25, "color": "#9b59b6", "teacher": "Mme. Dubois", "nextLesson": "French Conversation" },
+    { "id": "welfare", "name": "Student Welfare", "icon": "fa-heart", "lessons": 15, "quizzes": 2, "completed": 8, "color": "#e91e63", "teacher": "Ms. Adhiambo", "nextLesson": "Mental Health" }
   ],
 
   "resources": [
-    { "title": "Form 4 Physics Notes", "teacher": "Mr. Odhiambo", "date": "Nov 2025", "url": "/elearning/physics-f4.pdf", "icon": "fa-file-pdf", "color": "#e74c3c" },
-    { "title": "Algebra Video Series", "teacher": "Ms. Achieng", "date": "Oct 2025", "url": "/elearning/algebra-videos/", "icon": "fa-video", "color": "#3498db" },
-    { "title": "English Grammar Notes", "teacher": "Ms. Wanjiku", "date": "Nov 2025", "url": "/elearning/english-grammar.pdf", "icon": "fa-file-pdf", "color": "#2ecc71" },
-    { "title": "Biology Lab Experiments", "teacher": "Mr. Kamau", "date": "Sep 2025", "url": "/elearning/biology-lab/", "icon": "fa-flask", "color": "#9b59b6" }
+    { "id": "math-notes-001", "title": "Form 4 Algebra Notes - Complete Guide", "teacher": "Ms. Achieng", "date": "2025-12-05T14:30:00Z", "type": "pdf", "subject": "Mathematics", "url": "/elearning/resources/math-algebra-f4.pdf", "size": "2.5 MB", "downloads": 156, "rating": 4.8, "description": "Comprehensive notes covering all algebraic concepts for Form 4 students." },
+    { "id": "physics-video-001", "title": "Waves and Sound - Interactive Video Series", "teacher": "Mr. Odhiambo", "date": "2025-12-04T09:15:00Z", "type": "video", "subject": "Physics", "url": "/elearning/resources/waves-sound-videos/", "duration": "45 mins", "views": 89, "rating": 4.9, "description": "Three-part video series explaining wave mechanics and sound propagation." },
+    { "id": "chem-lab-001", "title": "Organic Chemistry Lab Manual", "teacher": "Dr. Wanjiru", "date": "2025-12-03T16:45:00Z", "type": "pdf", "subject": "Chemistry", "url": "/elearning/resources/organic-chem-lab.pdf", "size": "1.8 MB", "downloads": 203, "rating": 4.7, "description": "Step-by-step guide for organic chemistry experiments and safety procedures." },
+    { "id": "bio-microscope-001", "title": "Cell Structure - Microscopic Images", "teacher": "Mr. Kamau", "date": "2025-12-02T11:20:00Z", "type": "gallery", "subject": "Biology", "url": "/elearning/resources/cell-structure-gallery/", "images": 15, "views": 134, "rating": 4.6, "description": "High-resolution microscopic images of various cell types and structures." },
+    { "id": "english-essay-001", "title": "Essay Writing Techniques - Video Tutorial", "teacher": "Ms. Wanjiku", "date": "2025-12-01T13:10:00Z", "type": "video", "subject": "English", "url": "/elearning/resources/essay-writing/", "duration": "38 mins", "views": 167, "rating": 4.8, "description": "Learn effective essay writing techniques with practical examples and exercises." },
+    { "id": "kiswahili-insha-001", "title": "Mbinu za Kuandika Insha", "teacher": "Mzee Hassan", "date": "2025-11-30T15:30:00Z", "type": "pdf", "subject": "Kiswahili", "url": "/elearning/resources/kuandika-insha.pdf", "size": "1.2 MB", "downloads": 98, "rating": 4.5, "description": "Mbinu na misingi ya kuandika insha bora kwa wanafunzi wa Kidato cha Nne." },
+    { "id": "history-maps-001", "title": "World War II Interactive Maps", "teacher": "Ms. Muthoni", "date": "2025-11-29T10:45:00Z", "type": "interactive", "subject": "History", "url": "/elearning/resources/ww2-maps/", "interactiveElements": 8, "views": 76, "rating": 4.7, "description": "Interactive maps showing key battles and events during World War II." },
+    { "id": "computer-database-001", "title": "Database Design Tutorial", "teacher": "Mr. Njoroge", "date": "2025-11-28T14:20:00Z", "type": "video", "subject": "Computer Studies", "url": "/elearning/resources/database-design/", "duration": "52 mins", "views": 112, "rating": 4.9, "description": "Complete tutorial on database design principles and SQL basics." }
   ],
 
   "quizzes": [
-    { "id": "algebra-quiz-1", "title": "Algebra Quiz 1", "subject": "Mathematics", "dueDate": "Dec 5, 2025" },
-    { "id": "chemistry-midterm", "title": "Chemistry Midterm", "subject": "Chemistry", "dueDate": "Dec 10, 2025" },
-    { "id": "biology-practical", "title": "Biology Practical Test", "subject": "Biology", "dueDate": "Dec 12, 2025" },
-    { "id": "physics-assignment", "title": "Physics Assignment", "subject": "Physics", "dueDate": "Dec 15, 2025" }
+    { "id": "math-quiz-001", "title": "Algebra Assessment - Linear Equations", "subject": "Mathematics", "type": "quiz", "dueDate": "2025-12-10T23:59:00Z", "duration": 45, "attempts": 3, "questions": 20, "status": "available", "difficulty": "medium", "topics": ["Linear Equations", "Inequalities", "Graphs"], "instructions": "Answer all questions. Show your working for calculation-based questions." },
+    { "id": "physics-quiz-002", "title": "Waves and Sound Test", "subject": "Physics", "type": "test", "dueDate": "2025-12-12T15:30:00Z", "duration": 60, "attempts": 2, "questions": 25, "status": "available", "difficulty": "hard", "topics": ["Wave Properties", "Sound Propagation", "Doppler Effect"], "instructions": "This test covers wave mechanics. Use diagrams where appropriate." },
+    { "id": "chem-quiz-003", "title": "Organic Chemistry Quiz", "subject": "Chemistry", "type": "quiz", "dueDate": "2025-12-15T10:00:00Z", "duration": 30, "attempts": 2, "questions": 15, "status": "upcoming", "difficulty": "medium", "topics": ["Functional Groups", "Isomerism", "Reactions"], "instructions": "Focus on molecular structures and reaction mechanisms." },
+    { "id": "bio-quiz-004", "title": "Cell Biology Practical", "subject": "Biology", "type": "practical", "dueDate": "2025-12-18T12:00:00Z", "duration": 90, "attempts": 1, "questions": 10, "status": "upcoming", "difficulty": "hard", "topics": ["Cell Structure", "Cell Division", "Microscopy"], "instructions": "Practical examination with microscope work and diagram drawing." },
+    { "id": "english-quiz-005", "title": "Essay Writing Assignment", "subject": "English", "type": "assignment", "dueDate": "2025-12-20T16:00:00Z", "duration": 120, "attempts": 1, "questions": 1, "status": "upcoming", "difficulty": "medium", "topics": ["Essay Structure", "Argumentation", "Grammar"], "instructions": "Write a 500-word persuasive essay on a given topic. Use proper grammar and structure." }
+  ],
+
+  "assignments": [
+    { "id": "math-assign-001", "title": "Calculus Problem Set", "subject": "Mathematics", "assignedDate": "2025-12-01T00:00:00Z", "dueDate": "2025-12-15T23:59:00Z", "status": "submitted", "grade": 85, "feedback": "Good work on differentiation. Review integration techniques.", "points": 100, "attachments": ["solutions.pdf"] },
+    { "id": "physics-assign-002", "title": "Motion Project", "subject": "Physics", "assignedDate": "2025-11-25T00:00:00Z", "dueDate": "2025-12-20T23:59:00Z", "status": "in-progress", "progress": 60, "points": 150, "description": "Design an experiment to demonstrate Newton's laws of motion." },
+    { "id": "chem-assign-003", "title": "Lab Report - Acid-Base Titration", "subject": "Chemistry", "assignedDate": "2025-11-20T00:00:00Z", "dueDate": "2025-12-18T23:59:00Z", "status": "pending", "points": 120, "description": "Complete lab report including calculations and conclusions." }
+  ],
+
+  "liveSessions": [
+    { "id": "live-001", "title": "Mathematics Live Q&A Session", "subject": "Mathematics", "teacher": "Ms. Achieng", "scheduledTime": "2025-12-08T14:00:00Z", "duration": 60, "status": "scheduled", "maxParticipants": 50, "registered": 32, "description": "Interactive session for algebra revision and doubt clearing.", "meetingLink": "/elearning/live/math-qa-001" },
+    { "id": "live-002", "title": "Physics Lab Demo", "subject": "Physics", "teacher": "Mr. Odhiambo", "scheduledTime": "2025-12-09T10:00:00Z", "duration": 90, "status": "scheduled", "maxParticipants": 30, "registered": 28, "description": "Virtual demonstration of wave experiments using lab equipment.", "meetingLink": "/elearning/live/physics-lab-002" },
+    { "id": "live-003", "title": "Chemistry Study Group", "subject": "Chemistry", "teacher": "Dr. Wanjiru", "scheduledTime": "2025-12-10T15:30:00Z", "duration": 45, "status": "scheduled", "maxParticipants": 25, "registered": 18, "description": "Collaborative study session for organic chemistry concepts.", "meetingLink": "/elearning/live/chem-study-003" }
+  ],
+
+  "calendar": [
+    { "id": "event-001", "title": "Mathematics Quiz - Linear Equations", "date": "2025-12-10T00:00:00Z", "time": "14:00", "type": "quiz", "subject": "Mathematics", "color": "#e74c3c", "reminder": true },
+    { "id": "event-002", "title": "Physics Live Q&A", "date": "2025-12-08T00:00:00Z", "time": "14:00", "type": "live", "subject": "Physics", "color": "#3498db", "reminder": true },
+    { "id": "event-003", "title": "Chemistry Assignment Due", "date": "2025-12-18T00:00:00Z", "time": "23:59", "type": "assignment", "subject": "Chemistry", "color": "#2ecc71", "reminder": true },
+    { "id": "event-004", "title": "English Essay Submission", "date": "2025-12-20T00:00:00Z", "time": "16:00", "type": "assignment", "subject": "English", "color": "#f39c12", "reminder": true }
   ],
 
   "forum": [
-    { "id": "algebra-doubt", "topic": "Doubt in Algebra", "user": "Jane W.", "date": "Nov 20, 2025", "replies": 5, "category": "Mathematics", "preview": "I'm having trouble understanding quadratic equations..." },
-    { "id": "chemistry-lab-question", "topic": "Chemistry Lab Question", "user": "Mark T.", "date": "Nov 22, 2025", "replies": 3, "category": "Chemistry", "preview": "What safety precautions should we take during the acid-base titration?" },
-    { "id": "biology-revision-tips", "topic": "Biology Revision Tips", "user": "Alice N.", "date": "Nov 24, 2025", "replies": 8, "category": "Biology", "preview": "Here are some effective revision techniques for biology exams..." }
+    { "id": "thread-001", "title": "Help with Quadratic Equations", "category": "Mathematics", "author": "Jane Wanjiku", "authorAvatar": "/assets/images/defaults/default-student.png", "date": "2025-12-06T10:30:00Z", "replies": 8, "views": 45, "lastReply": "2025-12-07T08:15:00Z", "tags": ["algebra", "equations", "help"], "content": "I'm struggling with solving quadratic equations using the quadratic formula. Can someone explain the steps clearly?", "status": "answered", "isPinned": false },
+    { "id": "thread-002", "title": "Chemistry Lab Safety Tips", "category": "Chemistry", "author": "Mark Otieno", "authorAvatar": "/assets/images/defaults/default-student.png", "date": "2025-12-05T14:20:00Z", "replies": 12, "views": 78, "lastReply": "2025-12-07T09:45:00Z", "tags": ["safety", "lab", "tips"], "content": "What are the most important safety precautions when working with acids and bases in the lab?", "status": "answered", "isPinned": true },
+    { "id": "thread-003", "title": "Physics Wave Problem Discussion", "category": "Physics", "author": "Alice Akinyi", "authorAvatar": "/assets/images/defaults/default-student.png", "date": "2025-12-04T16:45:00Z", "replies": 5, "views": 32, "lastReply": "2025-12-06T11:30:00Z", "tags": ["waves", "physics", "problem"], "content": "Can someone help me understand how to calculate wavelength from frequency and speed?", "status": "answered", "isPinned": false },
+    { "id": "thread-004", "title": "Study Group for Biology", "category": "Biology", "author": "David Kiprop", "authorAvatar": "/assets/images/defaults/default-student.png", "date": "2025-12-03T09:15:00Z", "replies": 15, "views": 67, "lastReply": "2025-12-07T07:20:00Z", "tags": ["study-group", "biology", "collaboration"], "content": "Looking for study partners for biology exam preparation. Anyone interested in forming a study group?", "status": "open", "isPinned": false }
   ],
 
-  "progress": [
-    { "course": "Mathematics", "percent": 72, "lessonsCompleted": 34, "totalLessons": 48 },
-    { "course": "Physics", "percent": 50, "lessonsCompleted": 21, "totalLessons": 42 },
-    { "course": "English", "percent": 80, "lessonsCompleted": 40, "totalLessons": 50 }
+  "progress": {
+    "overallCompletion": 68,
+    "weeklyGoal": 85,
+    "currentStreak": 15,
+    "totalStudyTime": 2450,
+    "averageScore": 82,
+    "subjects": [
+      { "course": "Mathematics", "percent": 72, "lessonsCompleted": 34, "totalLessons": 48, "quizScore": 78, "timeSpent": 18.5, "lastActivity": "2025-12-07T09:30:00Z" },
+      { "course": "Physics", "percent": 50, "lessonsCompleted": 21, "totalLessons": 42, "quizScore": 85, "timeSpent": 12.3, "lastActivity": "2025-12-06T14:20:00Z" },
+      { "course": "Chemistry", "percent": 70, "lessonsCompleted": 28, "totalLessons": 40, "quizScore": 88, "timeSpent": 15.7, "lastActivity": "2025-12-05T16:45:00Z" },
+      { "course": "Biology", "percent": 66, "lessonsCompleted": 25, "totalLessons": 38, "quizScore": 80, "timeSpent": 14.2, "lastActivity": "2025-12-04T11:15:00Z" },
+      { "course": "English", "percent": 80, "lessonsCompleted": 40, "totalLessons": 50, "quizScore": 86, "timeSpent": 22.1, "lastActivity": "2025-12-07T08:45:00Z" }
+    ]
+  },
+
+  "achievements": [
+    { "id": "streak-7", "title": "Week Warrior", "description": "Studied for 7 consecutive days", "icon": "fa-fire", "color": "#ff6b35", "earnedDate": "2025-11-30T00:00:00Z", "points": 100 },
+    { "id": "quiz-master", "title": "Quiz Master", "description": "Scored 90%+ on 5 quizzes", "icon": "fa-trophy", "color": "#ffd700", "earnedDate": "2025-12-05T00:00:00Z", "points": 250 },
+    { "id": "early-bird", "title": "Early Bird", "description": "Completed 10 lessons before 8 AM", "icon": "fa-sun", "color": "#f39c12", "earnedDate": "2025-12-02T00:00:00Z", "points": 150 },
+    { "id": "forum-helper", "title": "Forum Helper", "description": "Helped 20 classmates in discussions", "icon": "fa-hands-helping", "color": "#3498db", "earnedDate": "2025-12-04T00:00:00Z", "points": 200 }
   ],
 
   "media": [
-    { "title": "Physics Experiment Video", "teacher": "Mr. Odhiambo", "date": "Nov 5, 2025", "url": "/elearning/media/physics-exp.mp4" },
-    { "title": "Algebra Lecture Screenshot", "teacher": "Ms. Achieng", "date": "Nov 2, 2025", "url": "/elearning/media/algebra1.png" },
-    { "title": "Biology Lab Photo", "teacher": "Mr. Kamau", "date": "Oct 28, 2025", "url": "/elearning/media/biology-lab.jpg" }
+    { "id": "media-001", "title": "Physics Experiment: Wave Propagation", "type": "video", "teacher": "Mr. Odhiambo", "date": "2025-12-05T10:30:00Z", "url": "/elearning/media/wave-propagation.mp4", "thumbnail": "/elearning/media/thumbnails/wave-prop.jpg", "duration": "12:45", "views": 234, "subject": "Physics", "description": "Demonstration of wave propagation using a slinky and rope." },
+    { "id": "media-002", "title": "Chemistry: Molecular Models", "type": "gallery", "teacher": "Dr. Wanjiru", "date": "2025-12-04T14:15:00Z", "url": "/elearning/media/molecular-models/", "images": 25, "subject": "Chemistry", "description": "3D molecular models showing different organic compounds and their structures." },
+    { "id": "media-003", "title": "Mathematics: Graph Plotting Tutorial", "type": "interactive", "teacher": "Ms. Achieng", "date": "2025-12-03T16:20:00Z", "url": "/elearning/media/graph-plotting/", "interactions": 156, "subject": "Mathematics", "description": "Interactive tool for learning to plot different types of mathematical graphs." },
+    { "id": "media-004", "title": "Biology: Cell Division Timelapse", "type": "video", "teacher": "Mr. Kamau", "date": "2025-12-02T09:45:00Z", "url": "/elearning/media/cell-division.mp4", "thumbnail": "/elearning/media/thumbnails/cell-div.jpg", "duration": "8:30", "views": 189, "subject": "Biology", "description": "Time-lapse video showing the stages of mitosis in plant cells." }
   ],
 
   "notifications": [
-    { "title": "New Resource Added", "message": "Physics Form 4 notes are now available.", "date": "Nov 25, 2025", "link": "/elearning/resources/physics-f4" },
-    { "title": "Upcoming Quiz", "message": "Algebra Quiz 1 will be available from Dec 1, 2025.", "date": "Nov 24, 2025", "link": "/elearning/quizzes/algebra-1" },
-    { "title": "Maintenance Alert", "message": "E-Learning platform will be down for maintenance on Dec 2, 2025.", "date": "Nov 23, 2025", "link": "/elearning/alerts/maintenance" }
-  ]
+    { "id": "notif-001", "title": "New Assignment Available", "message": "Mathematics: Calculus Problem Set is now available for submission.", "date": "2025-12-07T06:00:00Z", "type": "assignment", "priority": "high", "subject": "Mathematics", "link": "/elearning/assignments/math-calculus", "read": false },
+    { "id": "notif-002", "title": "Quiz Reminder", "message": "Physics Waves and Sound Test is due in 2 days.", "date": "2025-12-06T18:00:00Z", "type": "quiz", "priority": "high", "subject": "Physics", "link": "/elearning/quizzes/physics-waves", "read": false },
+    { "id": "notif-003", "title": "Live Session Starting Soon", "message": "Mathematics Live Q&A starts in 15 minutes.", "date": "2025-12-08T13:45:00Z", "type": "live", "priority": "urgent", "subject": "Mathematics", "link": "/elearning/live/math-qa", "read": false },
+    { "id": "notif-004", "title": "Achievement Unlocked", "message": "Congratulations! You've earned the 'Quiz Master' badge.", "date": "2025-12-05T12:30:00Z", "type": "achievement", "priority": "low", "subject": "General", "link": "/elearning/profile/achievements", "read": true },
+    { "id": "notif-005", "title": "New Discussion Reply", "message": "Someone replied to your question about quadratic equations.", "date": "2025-12-06T15:20:00Z", "type": "forum", "priority": "medium", "subject": "Mathematics", "link": "/elearning/forum/thread-quadratic", "read": false }
+  ],
+
+  "studyPlan": [
+    { "id": "plan-001", "title": "Daily Study Routine", "subjects": ["Mathematics", "Physics", "Chemistry"], "duration": 120, "timeSlots": ["08:00-10:00", "14:00-15:00", "19:00-20:00"], "goals": ["Complete 2 lessons", "Solve 10 practice problems", "Review previous notes"] },
+    { "id": "plan-002", "title": "Exam Preparation", "subjects": ["All Subjects"], "duration": 180, "timeSlots": ["07:00-10:00", "15:00-17:00", "19:00-21:00"], "goals": ["Practice past papers", "Review weak topics", "Take mock quizzes"] }
+  ],
+
+  "analytics": {
+    "studyTimeToday": 145,
+    "studyTimeWeek": 892,
+    "studyTimeMonth": 3245,
+    "quizzesTaken": 23,
+    "averageScore": 82,
+    "improvementRate": 12,
+    "mostActiveTime": "14:00-16:00",
+    "preferredSubjects": ["Mathematics", "Physics"],
+    "weeklyProgress": [75, 82, 68, 89, 76, 91, 85],
+    "subjectPerformance": {
+      "Mathematics": { "score": 78, "trend": "up", "timeSpent": 18.5 },
+      "Physics": { "score": 85, "trend": "stable", "timeSpent": 12.3 },
+      "Chemistry": { "score": 88, "trend": "up", "timeSpent": 15.7 }
+    }
+  }
 }
