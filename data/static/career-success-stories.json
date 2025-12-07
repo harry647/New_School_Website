@@ -3,44 +3,44 @@
     {
       "name": "Joseph Ageng'o",
       "batch": "2024",
-      "photo": "/assets/images/career/student1.jpg",
       "achievement": "Electrical Engineering • Technical University of Kenya",
-      "story": "With consistent mentoring from the Career Guidance, Joseph focused on core STEM subjects, participated in county Olympiads, and developed analytical skills that secured him a top rank."
+      "story": "With consistent mentoring from the Career Guidance Cell, Joseph focused on core STEM subjects, participated in county Olympiads, and developed analytical skills that secured him a top rank.",
+      "photo": "/assets/images/career/student1.jpg"
     },
     {
-      "name": "Jim Luvisia",
+      "name": "Isha Verma",
+      "batch": "2025",
+      "achievement": "AIIMS Delhi • NEET Rank 42",
+      "story": "Through tailored guidance in biology and chemistry, Isha received structured support for competitive exams and gained confidence via mock tests, workshops, and mentorship programs.",
+      "photo": "/assets/images/career/student2.jpg"
+    },
+    {
+      "name": "Rohan Malhotra",
       "batch": "2023",
-      "photo": "/assets/images/career/student2.jpg",
-      "achievement": "Bachelor Of Education Science At JOOUST",
-      "story": "Through tailored guidance in biology and chemistry, Jim received structured support for competitive exams and gained confidence via mock tests, workshops, and mentorship programs."
+      "achievement": "NLSIU Bangalore • CLAT Rank 12",
+      "story": "Rohan honed his legal aptitude, critical thinking, and interview skills under the mentorship of alumni lawyers, ultimately excelling in the national law entrance examination.",
+      "photo": "/assets/images/career/student3.jpg"
     },
     {
-      "name": "Alphonce Ageng'o",
-      "batch": "2020",
-      "photo": "/assets/images/career/student3.jpg",
-      "achievement": "Proffessional Teacher",
-      "story": "Alphonce honed his legal aptitude, critical thinking, and interview skills under the mentorship of teachers, ultimately excelling in the national examination."
+      "name": "Ananya Singh",
+      "batch": "2024",
+      "achievement": "University of Oxford • Rhodes Scholar",
+      "story": "Ananya's academic excellence and global exposure were nurtured through leadership programs, essay-writing workshops, and college application guidance, leading to a prestigious international scholarship.",
+      "photo": "/assets/images/career/student4.jpg"
     },
     {
-      "name": "Mary Adoyo",
-      "batch": "2020",
-      "photo": "/assets/images/career/student4.jpg",
-      "achievement": "Loading Soon",
-      "story": "Mary academic excellence and global exposure were nurtured through leadership programs, essay-writing workshops, and college application guidance."
+      "name": "Michael Ochieng",
+      "batch": "2023",
+      "achievement": "Software Engineering • Google Kenya",
+      "story": "Michael's passion for technology was discovered through our career assessment tools. He was guided through programming fundamentals, internships, and portfolio development, leading to his dream job.",
+      "photo": "/assets/images/career/student5.jpg"
     },
     {
-      "name": "Michael Omondi",
-      "batch": "2022",
-      "photo": "/assets/images/career/student5.jpg",
-      "achievement": "Loading Soon",
-      "story": "Michael's passion for computer science was identified early. With SAT prep, essay coaching, and guidance, he earned a full ride to one of the top universities."
-    },
-    {
-      "name": "Nyadida",
-      "batch": "2022",
-      "photo": "/assets/images/career/student6.jpg",
-      "achievement": "Kenyatta University Student Leader",
-      "story": "Nyadida received intensive support in leadership skills and professional exam preparation."
+      "name": "Grace Wanjiku",
+      "batch": "2024",
+      "achievement": "Medicine • University of Nairobi",
+      "story": "Grace received comprehensive guidance on medical school preparation, volunteer work in healthcare settings, and maintained excellent grades with our study support programs.",
+      "photo": "/assets/images/career/student6.jpg"
     }
   ]
 }

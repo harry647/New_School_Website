@@ -251,12 +251,20 @@ document.addEventListener("DOMContentLoaded", function () {
       submitBtn.style.background = '#64748b';
 
       try {
+        // Collect form data as JSON
+        const formData = {
+          studentName: form.querySelector('#studentName').value.trim(),
+          parentPhone: form.querySelector('#parentPhone').value.trim(),
+          email: form.querySelector('#email').value.trim() || null
+        };
+
         const response = await fetch("/api/submit-enquiry", {
           method: "POST",
-          body: new FormData(form),
           headers: {
+            "Content-Type": "application/json",
             "Accept": "application/json",
           },
+          body: JSON.stringify(formData)
         });
 
         const result = await response.json();

@@ -17,18 +17,28 @@
     },
     {
       "icon": "fas fa-globe",
-      "value": "15+",
+      "value": "20+",
       "label": "Countries Represented"
     },
     {
-      "icon": "fas fa-briefcase",
-      "value": "65%",
-      "label": "Students in Dream Careers"
+      "icon": "fas fa-handshake",
+      "value": "95%",
+      "label": "Success Rate"
     },
     {
-      "icon": "fas fa-trophy",
-      "value": "3*",
-      "label": "National Music Rounds"
+      "icon": "fas fa-chart-line",
+      "value": "85%",
+      "label": "Career Growth"
+    },
+    {
+      "icon": "fas fa-users",
+      "value": "500+",
+      "label": "Alumni Network"
+    },
+    {
+      "icon": "fas fa-briefcase",
+      "value": "200+",
+      "label": "Industry Partners"
     }
   ]
 }

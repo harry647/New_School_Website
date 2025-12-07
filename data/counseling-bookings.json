@@ -1,0 +1,15 @@
+[
+  {
+    "id": "1765133312679",
+    "student_name": "Test Student",
+    "grade": "Form 4",
+    "parent_name": "Test Parent",
+    "phone": "0712345678",
+    "email": "test@example.com",
+    "preferred_date": "2025-12-10",
+    "query": "I need guidance on choosing between Medicine and Engineering",
+    "resume_path": null,
+    "submitted_at": "2025-12-07T18:48:32.679Z",
+    "status": "pending"
+  }
+]

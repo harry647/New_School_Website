@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 import session from 'express-session';
 import SQLiteStore from 'connect-sqlite3';
 import fs from 'fs';
+import multer from 'multer';
 
 import authRoutes from './routes/auth.js';
 import portalRoutes from './routes/portal.js';
@@ -61,8 +62,41 @@ app.use(
 // ================================================
 // 2. Middleware
 // ================================================
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Configure multer for contact form file uploads
+const contactUpload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      const uploadPath = path.join(__dirname, 'public', 'uploads', 'contact');
+      fs.mkdirSync(uploadPath, { recursive: true });
+      cb(null, uploadPath);
+    },
+    filename: (req, file, cb) => {
+      const unique = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
+      const ext = path.extname(file.originalname).toLowerCase();
+      cb(null, `contact-attachment-${unique}${ext}`);
+    }
+  }),
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = [
+      'application/pdf', 
+      'application/msword', 
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 
+      'image/jpeg', 
+      'image/jpg', 
+      'image/png'
+    ];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type. Only PDF, Word documents, and images are allowed.'), false);
+    }
+  }
+});
+
 app.use(logger);
 
 // ================================================

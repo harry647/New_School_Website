@@ -1,0 +1,36 @@
+[
+  {
+    "id": "blog-1765132561036-1m8ekd",
+    "student_name": "Jane Smith",
+    "grade": "Form 2",
+    "email": null,
+    "blog_title": "My Experience with School Events",
+    "topic": "school events & activities",
+    "blog_content": "This blog is about my amazing experience participating in various school events throughout this term. I really enjoyed the sports day and cultural festival.",
+    "featured_image": null,
+    "submitted_at": "2025-12-07T18:36:01.036Z",
+    "status": "pending",
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "published_at": null,
+    "ip_address": "::1",
+    "user_agent": "curl/8.13.0"
+  },
+  {
+    "id": "blog-1765132545212-eezf5q",
+    "student_name": "John Doe Test",
+    "grade": "Form 3",
+    "email": null,
+    "blog_title": "Testing Blog Submission API",
+    "topic": "academics & study tips",
+    "blog_content": "This is a test blog submission to verify that the blog submission API endpoint is working correctly. The form submission process seems to be functioning as expected.",
+    "featured_image": null,
+    "submitted_at": "2025-12-07T18:35:45.242Z",
+    "status": "pending",
+    "reviewed_at": null,
+    "reviewed_by": null,
+    "published_at": null,
+    "ip_address": "::1",
+    "user_agent": "curl/8.13.0"
+  }
+]

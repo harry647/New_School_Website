@@ -13,6 +13,38 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import multer from 'multer';
 
+// Configure multer for contact form uploads
+const contactUpload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      const uploadPath = path.join(__dirname, '..', 'public', 'uploads', 'contact');
+      fs.mkdirSync(uploadPath, { recursive: true });
+      cb(null, uploadPath);
+    },
+    filename: (req, file, cb) => {
+      const unique = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
+      const ext = path.extname(file.originalname).toLowerCase();
+      cb(null, `contact-attachment-${unique}${ext}`);
+    }
+  }),
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = [
+      'application/pdf', 
+      'application/msword', 
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 
+      'image/jpeg', 
+      'image/jpg', 
+      'image/png'
+    ];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type. Only PDF, Word documents, and images are allowed.'), false);
+    }
+  }
+});
+
 const router = express.Router();
 
 // Fix __dirname in ES modules
@@ -304,35 +336,216 @@ router.post('/submit-application', (req, res) => {
 
 /**
  * @route   POST /contact
- * @desc    Handles the main contact form.
+ * @desc    Handles the main contact form with file upload support.
  * @access  Public
  */
 router.post('/contact', (req, res) => {
-  const { name, _replyto: email, phone, subject, department, message, followup } = req.body;
+  try {
+    // Extract form data from req.body (multipart form data)
+    const name = req.body.name;
+    const email = req.body._replyto;
+    const phone = req.body.phone;
+    const subject = req.body.subject;
+    const department = req.body.department || "General";
+    const message = req.body.message;
+    const followup = req.body.followup || "No preference";
 
-  if (!name || !email || !phone || !subject || !message) {
-    return res.status(400).json({ success: false, message: 'Required fields missing.' });
+    console.log('Contact form data:', { name, email, phone, subject, department, message, followup });
+
+    if (!name || !email || !phone || !subject || !message) {
+      console.log('Missing required fields:', { name: !!name, email: !!email, phone: !!phone, subject: !!subject, message: !!message });
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Required fields missing. Please check name, email, phone, subject, and message.',
+        received: { name, email, phone, subject, department, message, followup }
+      });
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ success: false, message: 'Invalid email format.' });
+    }
+
+    // Phone validation (Kenyan format)
+    if (!/^(\+254|0)[71]\d{8}$/.test(phone.replace(/\s/g, ''))) {
+      return res.status(400).json({ success: false, message: 'Invalid Kenyan phone number.' });
+    }
+
+    const file = path.join(__dirname, '..', 'data', 'contacts.json');
+    const contacts = readJSON(file);
+
+    const contactEntry = {
+      id: Date.now().toString(),
+      name: name.trim(),
+      email: email.toLowerCase().trim(),
+      phone: phone.trim(),
+      subject,
+      department: department || "General",
+      message: message.trim(),
+      preferred_contact: followup || "No preference",
+      attachment: null, // File upload support to be implemented
+      submitted_at: new Date().toISOString(),
+      status: "new",
+      ip_address: req.ip,
+      user_agent: req.get('User-Agent')
+    };
+
+    contacts.push(contactEntry);
+
+    if (!writeJSON(file, contacts)) {
+      throw new Error('Failed to save contact data');
+    }
+
+    console.log(`Contact Form Submission → ${name} | ${subject} | Email: ${email}`);
+    
+    res.json({ 
+      success: true, 
+      message: "Thank you for your message! We'll get back to you within 24 hours.",
+      contactId: contactEntry.id
+    });
+
+  } catch (error) {
+    console.error('Contact form error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to process your message. Please try again or contact us directly.' 
+    });
   }
+});
 
-  const file = path.join(__dirname, '..', 'data', 'contacts.json');
-  const contacts = readJSON(file);
+/**
+ * @route   GET /contact/stats
+ * @desc    Get contact form submission statistics.
+ * @access  Public
+ */
+router.get('/contact/stats', (req, res) => {
+  try {
+    const file = path.join(__dirname, '..', 'data', 'contacts.json');
+    const contacts = readJSON(file);
+    
+    const stats = {
+      total: contacts.length,
+      new: contacts.filter(c => c.status === 'new').length,
+      read: contacts.filter(c => c.status === 'read').length,
+      replied: contacts.filter(c => c.status === 'replied').length,
+      thisWeek: contacts.filter(c => {
+        const submissionDate = new Date(c.submitted_at);
+        const weekAgo = new Date();
+        weekAgo.setDate(weekAgo.getDate() - 7);
+        return submissionDate >= weekAgo;
+      }).length,
+      bySubject: contacts.reduce((acc, contact) => {
+        acc[contact.subject] = (acc[contact.subject] || 0) + 1;
+        return acc;
+      }, {}),
+      byDepartment: contacts.reduce((acc, contact) => {
+        const dept = contact.department || 'General';
+        acc[dept] = (acc[dept] || 0) + 1;
+        return acc;
+      }, {})
+    };
+    
+    res.json({ success: true, stats });
+  } catch (error) {
+    console.error('Error fetching contact stats:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch statistics' });
+  }
+});
 
-  contacts.push({
-    id: Date.now().toString(),
-    name: name.trim(),
-    email: email.toLowerCase().trim(),
-    phone: phone.trim(),
-    subject,
-    department: department || "General",
-    message: message.trim(),
-    preferred_contact: followup || "Any",
-    submitted_at: new Date().toISOString(),
-    status: "new"
-  });
+/**
+ * @route   GET /contact/submissions
+ * @desc    Get all contact form submissions (for admin purposes).
+ * @access  Protected (Admin/Teacher)
+ */
+router.get('/contact/submissions', requireAuth, (req, res) => {
+  try {
+    const user = req.session.user;
+    
+    // Only allow admin or teacher to view submissions
+    if (!['admin', 'teacher'].includes(user.role)) {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Access denied. Admin or teacher privileges required.' 
+      });
+    }
+    
+    const file = path.join(__dirname, '..', 'data', 'contacts.json');
+    const contacts = readJSON(file);
+    
+    // Sort by submission date (newest first)
+    const sortedContacts = contacts.sort((a, b) => 
+      new Date(b.submitted_at) - new Date(a.submitted_at)
+    );
+    
+    res.json({ 
+      success: true, 
+      submissions: sortedContacts,
+      count: sortedContacts.length 
+    });
+  } catch (error) {
+    console.error('Error fetching contact submissions:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch submissions' });
+  }
+});
 
-  writeJSON(file, contacts);
-  console.log(`Contact → ${name} | ${subject}`);
-  res.json({ success: true, message: "Message received!" });
+/**
+ * @route   PUT /contact/submissions/:id
+ * @desc    Update contact submission status (Admin/Teacher only).
+ * @access  Protected
+ */
+router.put('/contact/submissions/:id', requireAuth, (req, res) => {
+  try {
+    const user = req.session.user;
+    const { id } = req.params;
+    const { status, notes } = req.body;
+    
+    // Only allow admin or teacher to update submissions
+    if (!['admin', 'teacher'].includes(user.role)) {
+      return res.status(403).json({ 
+        success: false, 
+        message: 'Access denied. Admin or teacher privileges required.' 
+      });
+    }
+    
+    if (!['new', 'read', 'replied', 'archived'].includes(status)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Invalid status. Must be new, read, replied, or archived.' 
+      });
+    }
+    
+    const file = path.join(__dirname, '..', 'data', 'contacts.json');
+    const contacts = readJSON(file);
+    
+    const contactIndex = contacts.findIndex(c => c.id === id);
+    if (contactIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Submission not found' });
+    }
+    
+    // Update the submission
+    contacts[contactIndex].status = status;
+    contacts[contactIndex].updated_at = new Date().toISOString();
+    contacts[contactIndex].updated_by = user.name;
+    if (notes) {
+      contacts[contactIndex].admin_notes = notes;
+    }
+    
+    if (!writeJSON(file, contacts)) {
+      throw new Error('Failed to save updated submission');
+    }
+    
+    console.log(`Contact Submission ${id} updated to ${status} by ${user.name}`);
+    
+    res.json({ 
+      success: true, 
+      message: `Submission marked as ${status}`,
+      submission: contacts[contactIndex]
+    });
+  } catch (error) {
+    console.error('Error updating contact submission:', error);
+    res.status(500).json({ success: false, message: 'Failed to update submission' });
+  }
 });
 
 /**
@@ -411,38 +624,92 @@ router.post('/book-counseling', uploadResume.single('resume'), (req, res) => {
  * @desc    Handles donation form submissions with optional document upload.
  * @access  Public
  */
-router.post('/donate', uploadDonationDoc.single('attachment'), (req, res) => {
-  const { donor_name, _replyto: email, phone, amount, purpose, organization, message } = req.body;
-
-  if (!donor_name || !email || !amount || !purpose) {
-    return res.status(400).json({ success: false, message: "Required fields missing." });
+// Dedicated donation uploader with explicit configuration
+const donationUpload = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => {
+      const uploadPath = path.join(__dirname, '..', 'public', 'uploads', 'donations');
+      fs.mkdirSync(uploadPath, { recursive: true });
+      cb(null, uploadPath);
+    },
+    filename: (req, file, cb) => {
+      const unique = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
+      const ext = path.extname(file.originalname).toLowerCase();
+      cb(null, `donation-${unique}${ext}`);
+    }
+  }),
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = [
+      'application/pdf', 
+      'application/msword', 
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 
+      'image/jpeg', 
+      'image/jpg', 
+      'image/png'
+    ];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type. Only PDF, Word documents, and images are allowed.'), false);
+    }
   }
+});
 
-  const amountNum = parseInt(amount);
-  if (isNaN(amountNum) || amountNum < 50) {
-    return res.status(400).json({ success: false, message: "Minimum donation is Ksh 50." });
+router.post('/donate', donationUpload.single('attachment'), (req, res) => {
+  try {
+    console.log('=== DONATION REQUEST DEBUG ===');
+    console.log('Request body:', req.body);
+    console.log('Request files:', req.files);
+    console.log('Content-Type:', req.get('Content-Type'));
+    console.log('================================');
+    
+    const { donor_name, _replyto: email, phone, amount, purpose, organization, message } = req.body;
+
+    console.log('Extracted fields:', { donor_name, email, amount, purpose });
+    
+    if (!donor_name || !email || !amount || !purpose) {
+      console.log('Validation failed - missing fields:', { 
+        hasDonorName: !!donor_name, 
+        hasEmail: !!email, 
+        hasAmount: !!amount, 
+        hasPurpose: !!purpose 
+      });
+      return res.status(400).json({ success: false, message: "Required fields missing." });
+    }
+
+    const amountNum = parseInt(amount);
+    if (isNaN(amountNum) || amountNum < 50) {
+      return res.status(400).json({ success: false, message: "Minimum donation is Ksh 50." });
+    }
+
+    const file = path.join(__dirname, '..', 'data', 'donations.json');
+    const donations = readJSON(file);
+
+    donations.unshift({
+      id: Date.now().toString(),
+      donor_name: donor_name.trim(),
+      email: email.toLowerCase().trim(),
+      phone: phone?.trim() || null,
+      amount: amountNum,
+      purpose: purpose.trim(),
+      organization: organization?.trim() || null,
+      message: message?.trim() || null,
+      attachment: req.file ? `/uploads/donations/${req.file.filename}` : null,
+      submitted_at: new Date().toISOString(),
+      payment_status: "pending"
+    });
+
+    if (!writeJSON(file, donations)) {
+      throw new Error('Failed to save donation data');
+    }
+
+    console.log(`Donation → ${donor_name} | Ksh ${amountNum}`);
+    res.json({ success: true, message: "Donation recorded! Thank you for your generosity." });
+  } catch (error) {
+    console.error('Error processing donation:', error);
+    res.status(500).json({ success: false, message: "Failed to process donation. Please try again." });
   }
-
-  const file = path.join(__dirname, '..', 'data', 'donations.json');
-  const donations = readJSON(file);
-
-  donations.unshift({
-    id: Date.now().toString(),
-    donor_name: donor_name.trim(),
-    email: email.toLowerCase().trim(),
-    phone: phone?.trim() || null,
-    amount: amountNum,
-    purpose: purpose.trim(),
-    organization: organization?.trim() || null,
-    message: message?.trim() || null,
-    attachment: req.file ? `/uploads/donations/${req.file.filename}` : null,
-    submitted_at: new Date().toISOString(),
-    payment_status: "pending"
-  });
-
-  writeJSON(file, donations);
-  console.log(`Donation → ${donor_name} | Ksh ${amountNum}`);
-  res.json({ success: true, message: "Donation recorded! Thank you for your generosity." });
 });
 
 /**
@@ -2831,5 +3098,409 @@ function formatFileSize(bytes) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
+
+// =================================================================
+// NEWS & EVENTS API ROUTES
+// =================================================================
+
+/**
+ * @route   GET /news/data
+ * @desc    Fetches all news data for the news & events page.
+ * @access  Public
+ */
+router.get('/news/data', (req, res) => {
+  try {
+    const newsData = readJSON(path.join(__dirname, '..', 'data', 'static', 'news-data.json'));
+    console.log('📰 News data fetched successfully');
+    res.json({ 
+      success: true, 
+      data: newsData,
+      count: newsData.length 
+    });
+  } catch (error) {
+    console.error('Error fetching news data:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch news data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /news/blogs
+ * @desc    Fetches all blog data for the news & events page.
+ * @access  Public
+ */
+router.get('/news/blogs', (req, res) => {
+  try {
+    const blogsData = readJSON(path.join(__dirname, '..', 'data', 'static', 'blogs.json'));
+    console.log('📝 Blogs data fetched successfully');
+    res.json({ 
+      success: true, 
+      data: blogsData,
+      count: blogsData.length 
+    });
+  } catch (error) {
+    console.error('Error fetching blogs data:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch blogs data' 
+    });
+  }
+});
+
+/**
+ * @route   POST /news/blog-submit
+ * @desc    Handles student blog submissions (replaces Formspree).
+ * @access  Public
+ */
+router.post('/news/blog-submit', uploadBlogImage.single('featured_image'), (req, res) => {
+  try {
+    const { 
+      student_name, 
+      grade, 
+      blog_title, 
+      topic, 
+      blog_content,
+      _gotcha // honeypot field
+    } = req.body;
+
+    // Honeypot check - if filled, likely a bot
+    if (_gotcha) {
+      console.log('🚫 Bot submission detected and rejected');
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Invalid submission' 
+      });
+    }
+
+    // Validation
+    if (!student_name?.trim() || !grade?.trim() || !blog_title?.trim() || !topic?.trim() || !blog_content?.trim()) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'All required fields must be filled out.' 
+      });
+    }
+
+    // Email validation (if provided)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (req.body.email && !emailRegex.test(req.body.email)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Invalid email format.' 
+      });
+    }
+
+    // Check submission limits (2 blogs per student per month)
+    const pendingBlogsFile = path.join(__dirname, '..', 'data', 'pending-blogs.json');
+    const pendingBlogs = readJSON(pendingBlogsFile);
+    
+    const currentMonth = new Date().toISOString().slice(0, 7); // YYYY-MM format
+    const studentSubmissionsThisMonth = pendingBlogs.filter(blog => 
+      blog.student_name.toLowerCase() === student_name.toLowerCase() &&
+      blog.submitted_at.slice(0, 7) === currentMonth
+    );
+
+    if (studentSubmissionsThisMonth.length >= 2) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'You have reached the maximum of 2 blog submissions for this month. Please try again next month.' 
+      });
+    }
+
+    const blogSubmission = {
+      id: `blog-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
+      student_name: student_name.trim(),
+      grade: grade.trim(),
+      email: req.body.email?.toLowerCase().trim() || null,
+      blog_title: blog_title.trim(),
+      topic: topic.trim().toLowerCase(),
+      blog_content: blog_content.trim(),
+      featured_image: req.file ? `/uploads/blogs/${req.file.filename}` : null,
+      submitted_at: new Date().toISOString(),
+      status: 'pending',
+      reviewed_at: null,
+      reviewed_by: null,
+      published_at: null,
+      ip_address: req.ip,
+      user_agent: req.get('User-Agent')
+    };
+
+    pendingBlogs.unshift(blogSubmission);
+
+    if (!writeJSON(pendingBlogsFile, pendingBlogs)) {
+      throw new Error('Failed to save blog submission');
+    }
+
+    console.log(`📝 New Blog Submission → ${student_name} | ${blog_title} | Grade: ${grade}`);
+    
+    res.json({ 
+      success: true, 
+      message: 'Blog submitted successfully! Your submission will be reviewed within 3-5 business days.',
+      submissionId: blogSubmission.id
+    });
+
+  } catch (error) {
+    console.error('Error processing blog submission:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to process blog submission. Please try again.' 
+    });
+  }
+});
+
+/**
+ * @route   GET /news/events
+ * @desc    Fetches upcoming events data.
+ * @access  Public
+ */
+router.get('/news/events', (req, res) => {
+  try {
+    const eventsData = readJSON(path.join(__dirname, '..', 'data', 'static', 'upcoming-events.json'));
+    
+    // Filter out past events and sort by date
+    const now = new Date();
+    const upcomingEvents = eventsData
+      .filter(event => new Date(event.date) >= now)
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    console.log(`📅 Events data fetched: ${upcomingEvents.length} upcoming events`);
+    
+    res.json({ 
+      success: true, 
+      data: upcomingEvents,
+      count: upcomingEvents.length 
+    });
+  } catch (error) {
+    console.error('Error fetching events data:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch events data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /news/photos
+ * @desc    Fetches event photos data.
+ * @access  Public
+ */
+router.get('/news/photos', (req, res) => {
+  try {
+    const photosData = readJSON(path.join(__dirname, '..', 'data', 'static', 'event-photos.json'));
+    console.log('📸 Event photos data fetched successfully');
+    res.json({ 
+      success: true, 
+      data: photosData,
+      count: photosData.length 
+    });
+  } catch (error) {
+    console.error('Error fetching photos data:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch photos data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /news/spotlight
+ * @desc    Fetches spotlight profiles data.
+ * @access  Public
+ */
+router.get('/news/spotlight', (req, res) => {
+  try {
+    const spotlightData = readJSON(path.join(__dirname, '..', 'data', 'static', 'spotlight.json'));
+    console.log('⭐ Spotlight profiles data fetched successfully');
+    res.json({ 
+      success: true, 
+      data: spotlightData,
+      count: spotlightData.length 
+    });
+  } catch (error) {
+    console.error('Error fetching spotlight data:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch spotlight data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /news/media
+ * @desc    Fetches media coverage data.
+ * @access  Public
+ */
+router.get('/news/media', (req, res) => {
+  try {
+    const mediaData = readJSON(path.join(__dirname, '..', 'data', 'static', 'media-coverage.json'));
+    console.log('📰 Media coverage data fetched successfully');
+    res.json({ 
+      success: true, 
+      data: mediaData,
+      count: mediaData.length 
+    });
+  } catch (error) {
+    console.error('Error fetching media data:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch media data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /news/downloads
+ * @desc    Fetches downloads/resources data.
+ * @access  Public
+ */
+router.get('/news/downloads', (req, res) => {
+  try {
+    const downloadsData = readJSON(path.join(__dirname, '..', 'data', 'static', 'downloads.json'));
+    console.log('📁 Downloads data fetched successfully');
+    res.json({ 
+      success: true, 
+      data: downloadsData,
+      count: downloadsData.length 
+    });
+  } catch (error) {
+    console.error('Error fetching downloads data:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch downloads data' 
+    });
+  }
+});
+
+/**
+ * @route   GET /news/stats
+ * @desc    Fetches news and blog statistics.
+ * @access  Public
+ */
+router.get('/news/stats', (req, res) => {
+  try {
+    const newsData = readJSON(path.join(__dirname, '..', 'data', 'static', 'news-data.json'));
+    const blogsData = readJSON(path.join(__dirname, '..', 'data', 'static', 'blogs.json'));
+    const eventsData = readJSON(path.join(__dirname, '..', 'data', 'static', 'upcoming-events.json'));
+    
+    const now = new Date();
+    const upcomingEvents = eventsData.filter(event => new Date(event.date) >= now);
+    const achievements = newsData.filter(item => item.category === 'achievements');
+    
+    // Calculate blog statistics
+    const authors = [...new Set(blogsData.map(blog => blog.author))].filter(Boolean);
+    const topics = blogsData.reduce((acc, blog) => {
+      const topic = (blog.topic || "general").toLowerCase();
+      acc[topic] = (acc[topic] || 0) + 1;
+      return acc;
+    }, {});
+    
+    const popularTopic = Object.keys(topics).length > 0 
+      ? Object.keys(topics).reduce((a, b) => topics[a] > topics[b] ? a : b)
+      : 'general';
+
+    const stats = {
+      totalNews: newsData.length,
+      totalEvents: upcomingEvents.length,
+      totalAchievements: achievements.length,
+      totalBlogs: blogsData.length,
+      activeBloggers: authors.length,
+      mostPopularTopic: popularTopic,
+      categories: {
+        achievements: achievements.length,
+        events: newsData.filter(item => item.category === 'events').length,
+        announcements: newsData.filter(item => item.category === 'announcements').length,
+        holidays: newsData.filter(item => item.category === 'holidays').length
+      }
+    };
+
+    console.log('📊 News statistics calculated successfully');
+    res.json({ 
+      success: true, 
+      data: stats 
+    });
+  } catch (error) {
+    console.error('Error calculating news stats:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to fetch statistics' 
+    });
+  }
+});
+
+/**
+ * @route   POST /news/event-register
+ * @desc    Handles event registration.
+ * @access  Public
+ */
+router.post('/news/event-register', (req, res) => {
+  try {
+    const { event_id, student_name, email, phone, grade } = req.body;
+
+    if (!event_id || !student_name?.trim() || !email?.trim()) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Event ID, name, and email are required.' 
+      });
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Invalid email format.' 
+      });
+    }
+
+    const eventRegistrationsFile = path.join(__dirname, '..', 'data', 'event-registrations.json');
+    let registrations = readJSON(eventRegistrationsFile);
+
+    // Check for duplicate registrations
+    const existingRegistration = registrations.find(reg => 
+      reg.event_id === event_id && 
+      reg.email.toLowerCase() === email.toLowerCase()
+    );
+
+    if (existingRegistration) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'You have already registered for this event.' 
+      });
+    }
+
+    const registration = {
+      id: `reg-${Date.now()}-${Math.random().toString(36).substring(2, 8)}`,
+      event_id: event_id.trim(),
+      student_name: student_name.trim(),
+      email: email.toLowerCase().trim(),
+      phone: phone?.trim() || null,
+      grade: grade?.trim() || null,
+      registered_at: new Date().toISOString(),
+      status: 'confirmed'
+    };
+
+    registrations.unshift(registration);
+
+    if (!writeJSON(eventRegistrationsFile, registrations)) {
+      throw new Error('Failed to save event registration');
+    }
+
+    console.log(`🎫 Event Registration → ${student_name} registered for event ${event_id}`);
+    
+    res.json({ 
+      success: true, 
+      message: 'Successfully registered for the event! You will receive confirmation details via email.',
+      registrationId: registration.id
+    });
+
+  } catch (error) {
+    console.error('Error processing event registration:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Failed to process registration. Please try again.' 
+    });
+  }
+});
 
 export default router;

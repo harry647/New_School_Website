@@ -150,12 +150,27 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
       if (!res.ok) throw new Error(`Failed to fetch ${path}: ${res.status}`);
       const data = await res.json();
-      console.log(`✅ Successfully loaded ${path}:`, data.length, 'items');
-      return data;
+      
+      // Handle API response format
+      const resultData = data.data || data;
+      console.log(`✅ Successfully loaded ${path}:`, resultData.length, 'items');
+      return resultData;
     } catch (e) {
       console.warn(`❌ Failed to load ${path}:`, e);
       return fallback;
     }
+  };
+
+  // ===================== API ENDPOINTS =====================
+  const API_ENDPOINTS = {
+    news: '/api/news/data',
+    blogs: '/api/news/blogs',
+    events: '/api/news/events',
+    photos: '/api/news/photos',
+    spotlight: '/api/news/spotlight',
+    media: '/api/news/media',
+    downloads: '/api/news/downloads',
+    stats: '/api/news/stats'
   };
 
   // ===================== ENHANCED NEWS RENDERING =====================
@@ -754,7 +769,49 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   // ===================== ENHANCED STATISTICS UPDATES =====================
-  const updateStatistics = () => {
+  const updateStatistics = async () => {
+    try {
+      const statsResponse = await fetch(API_ENDPOINTS.stats);
+      const statsData = await statsResponse.json();
+      
+      if (statsData.success && statsData.data) {
+        const stats = statsData.data;
+        
+        if (statsElements.totalNewsEl) {
+          animateCounter(statsElements.totalNewsEl, stats.totalNews, 2000);
+        }
+        
+        if (statsElements.totalEventsEl) {
+          animateCounter(statsElements.totalEventsEl, stats.totalEvents, 2000);
+        }
+        
+        if (statsElements.totalAchievementsEl) {
+          animateCounter(statsElements.totalAchievementsEl, stats.totalAchievements, 2000);
+        }
+        
+        if (statsElements.totalBlogsEl) {
+          animateCounter(statsElements.totalBlogsEl, stats.totalBlogs, 2000);
+        }
+        
+        if (statsElements.activeBloggersEl) {
+          animateCounter(statsElements.activeBloggersEl, stats.activeBloggers, 2000);
+        }
+        
+        if (statsElements.popularTopicEl) {
+          statsElements.popularTopicEl.textContent = stats.mostPopularTopic.charAt(0).toUpperCase() + stats.mostPopularTopic.slice(1);
+        }
+      } else {
+        // Fallback to client-side calculation if API fails
+        updateStatisticsFallback();
+      }
+    } catch (error) {
+      console.warn('Failed to fetch statistics from API, using fallback:', error);
+      updateStatisticsFallback();
+    }
+  };
+
+  // Fallback statistics calculation
+  const updateStatisticsFallback = () => {
     if (statsElements.totalNewsEl) {
       animateCounter(statsElements.totalNewsEl, allNews.length, 2000);
     }
@@ -818,13 +875,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       media,
       downloads
     ] = await Promise.all([
-      fetchJSON("/data/static/news-data.json", []),
-      fetchJSON("/data/static/blogs.json", []),
-      fetchJSON("/data/static/upcoming-events.json", []),
-      fetchJSON("/data/static/event-photos.json", []),
-      fetchJSON("/data/static/spotlight.json", []),
-      fetchJSON("/data/static/media-coverage.json", []),
-      fetchJSON("/data/static/downloads.json", [])
+      fetchJSON(API_ENDPOINTS.news, []),
+      fetchJSON(API_ENDPOINTS.blogs, []),
+      fetchJSON(API_ENDPOINTS.events, []),
+      fetchJSON(API_ENDPOINTS.photos, []),
+      fetchJSON(API_ENDPOINTS.spotlight, []),
+      fetchJSON(API_ENDPOINTS.media, []),
+      fetchJSON(API_ENDPOINTS.downloads, [])
     ]);
 
     // Sort newest first
