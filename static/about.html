@@ -14,156 +14,295 @@
     <meta property="og:url" content="https://yourschool.edu/about.html">
     <meta name="twitter:card" content="summary_large_image">
 
-    <!-- Styles -->
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'display': ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        'primary': {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#0175C2',
+                            600: '#015a99',
+                            700: '#0b2d5e',
+                            900: '#0a1e3a',
+                        },
+                        'accent': {
+                            400: '#ffed4e',
+                            500: '#ffd700',
+                            600: '#e6c200',
+                        },
+                        'neutral': {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Additional Fonts and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    <link rel="stylesheet" href="/css/static/about.css" />
+    
     <!-- Favicons -->
     <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/common/apple-touch-icon.png">
+    
+    <style>
+        .bg-gradient-primary { background: linear-gradient(135deg, #0b2d5e 0%, #0175C2 100%); }
+        .bg-gradient-hero { background: linear-gradient(135deg, rgba(11, 45, 94, 0.95) 0%, rgba(1, 117, 194, 0.90) 100%); }
+        .bg-gradient-card { background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.90) 100%); }
+        .bg-gradient-accent { background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); }
+        .text-gradient { background: linear-gradient(135deg, #0b2d5e 0%, #0175C2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .shadow-glow { box-shadow: 0 0 40px rgba(1, 117, 194, 0.3); }
+        .backdrop-blur-glass { backdrop-filter: blur(20px); background: rgba(255, 255, 255, 0.1); }
+    </style>
 </head>
-<body class="page-about">
+<body class="font-sans text-neutral-700 antialiased">
     <!-- Header -->
     <div w3-include-html="/includes/header.html"></div>
 
     <!-- Page Hero -->
-    <section class="page-hero" role="banner" aria-label="About Us Hero">
-        <div class="container">
-            <h1>About Us</h1>
-            <p>Building Futures with Knowledge, Character & Excellence</p>
+    <section class="relative min-h-[85vh] bg-gradient-hero bg-cover bg-center bg-no-repeat flex items-center justify-center text-center text-white overflow-hidden" role="banner" aria-label="About Us Hero">
+        <!-- Background Image -->
+        <div class="absolute inset-0 bg-[url('/assets/images/common/hero-about.jpg')] bg-cover bg-center"></div>
+        
+        <!-- Overlay Gradients -->
+        <div class="absolute inset-0 bg-gradient-to-br from-primary-700/20 via-transparent to-primary-500/20"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+        
+        <!-- Floating Elements -->
+        <div class="absolute top-20 left-10 w-20 h-20 bg-accent-500/10 rounded-full animate-float"></div>
+        <div class="absolute bottom-32 right-16 w-16 h-16 bg-primary-500/10 rounded-full animate-float" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/3 right-1/4 w-12 h-12 bg-accent-500/10 rounded-full animate-float" style="animation-delay: 4s;"></div>
+        
+        <!-- Content -->
+        <div class="relative z-10 max-w-6xl mx-auto px-6 lg:px-8">
+            <h1 class="font-display text-5xl md:text-7xl lg:text-8xl font-black mb-6 animate-slide-up tracking-tight">
+                About Us
+            </h1>
+            <p class="text-xl md:text-2xl lg:text-3xl font-medium max-w-4xl mx-auto leading-relaxed animate-slide-up opacity-95" style="animation-delay: 0.3s;">
+                Building Futures with Knowledge, Character & Excellence
+            </p>
         </div>
     </section>
 
     <!-- Our History -->
-    <section class="section" aria-labelledby="history-title">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-text">
-                    <h2 id="history-title">Our Journey Since 1983</h2>
+    <section class="py-24 lg:py-32" aria-labelledby="history-title">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-16 items-start">
+                <!-- Content -->
+                <div class="lg:col-span-7">
+                    <div class="mb-12">
+                        <h2 id="history-title" class="font-display text-4xl lg:text-6xl font-bold text-primary-700 mb-8 relative">
+                            Our Journey Since 1983
+                            <div class="absolute -bottom-4 left-0 w-24 h-2 bg-gradient-accent rounded-full"></div>
+                        </h2>
+                    </div>
 
-                    <p>
-                        Bar Union Mixed Secondary School derived its name from "Bar," a Luo word meaning 'a region with plenty of grass and scattered trees.'
-                        The school was established in <strong>1983</strong> and provisionally registered as a one-day school in 1984 as a union of three churches —
-                        Anglican Church of Kenya, African Inland Church, and Seventh Day Adventist — under the stewardship of their church elders,
-                        Mr. Daniel Ollo, Mr. Jacob Otiende, and Mr. Ibrahim Ahoya.
-                    </p>
-                    <p>
-                        The school was named <strong>Bar Union Mixed Secondary School</strong> to reflect its founding churches and its scenic location amidst
-                        abundant grass and scattered trees.
-                    </p>
-                    <p>
-                        Since its inception, the school has undergone significant transformations in infrastructure, enrollment, staff establishment,
-                        and management support. Starting as a single-streamed school in 1984, it became fully registered as a two-streamed school in 2001
-                        with 320 students. By 2010, enrollment increased to 480 students, prompting registration as a four-streamed school. Currently,
-                        the school serves <strong>953 students</strong>, projected to reach approximately 1000+ by 2026.
-                    </p>
-                    <p>
-                        Leadership has been overseen by seven principals: Mr. Peter Ochuka (1983–1986), Mr. Ochieng Ogony (1987–1990), Mr. Aoro Ochieng (1991–1992),
-                        Mr. Malak Akolo (1993–2003), Mrs. Roselyne Ochieng (2003–2009), Mrs. Betty A. Oyuga (2010–2023) and Mr. George Achilla (2023-Present).
-                    </p>
+                    <div class="space-y-8 text-lg leading-relaxed">
+                        <p>
+                            Bar Union Mixed Secondary School derived its name from "Bar," a Luo word meaning 'a region with plenty of grass and scattered trees.' 
+                            The school was established in <strong class="text-primary-700">1983</strong> and provisionally registered as a one-day school in 1984 as a union of three churches — 
+                            Anglican Church of Kenya, African Inland Church, and Seventh Day Adventist — under the stewardship of their church elders, 
+                            Mr. Daniel Ollo, Mr. Jacob Otiende, and Mr. Ibrahim Ahoya.
+                        </p>
+                        
+                        <p>
+                            The school was named <strong class="text-primary-700">Bar Union Mixed Secondary School</strong> to reflect its founding churches and its scenic location amidst 
+                            abundant grass and scattered trees.
+                        </p>
+                        
+                        <p>
+                            Since its inception, the school has undergone significant transformations in infrastructure, enrollment, staff establishment, 
+                            and management support. Starting as a single-streamed school in 1984, it became fully registered as a two-streamed school in 2001 
+                            with 320 students. By 2010, enrollment increased to 480 students, prompting registration as a four-streamed school. Currently, 
+                            the school serves <strong class="text-primary-700">953 students</strong>, projected to reach approximately 1000+ by 2026.
+                        </p>
+                        
+                        <p>
+                            Leadership has been overseen by seven principals: Mr. Peter Ochuka (1983–1986), Mr. Ochieng Ogony (1987–1990), Mr. Aoro Ochieng (1991–1992), 
+                            Mr. Malak Akolo (1993–2003), Mrs. Roselyne Ochieng (2003–2009), Mrs. Betty A. Oyuga (2010–2023) and Mr. George Achilla (2023-Present).
+                        </p>
+                    </div>
 
-                    <h3>Location</h3>
-                    <p>
-                        The school occupies 2.8 hectares in BAR "A" Sub-location, North Kisumu Location, Nyahera Division, Kisumu North Sub-county.
-                        It is 6km from Kiboswa Shopping Centre and 4km from Daraja Mbili junction off Kisumu-Busia Road. Bar Union Mixed Secondary School
-                        is registered with the Government of Kenya as a five-streamed County Mixed Day Public School.
-                    </p>
-
-                    <h3>Catchment Area</h3>
-                    <p>
-                        Bar Union is situated in a competitive educational region, surrounded by 10 other mixed day schools within a 5km radius.
-                    </p>
-
-                    <h3>Population & Streams</h3>
-                    <p>
-                        Currently, the school enrolls 953 students (471 boys and 480 girls) across six streams: Green, White, Red, Orange, Yellow and Blue.
-                        Only Form One has operationalized the seventh stream (Purple) at the moment. Expansion of the seventh stream to Forms Two, Three,
-                        and eventually Form Four is expected by 2027.
-                    </p>
-
-                    <h3>Staff</h3>
-                    <p>
-                        The school has 41 teachers (26 TSC, 15 BOM) — 18 males and 23 females — against a curriculum establishment of approximately 50 teachers.
-                        Support staff numbers 10 (6 males, 4 females).
-                    </p>
-
-                    <!-- Stats Section with Dynamic Counters -->
-                    <div class="stats">
-                        <div class="stat counter" data-target="41">
-                            <h3>41</h3>
-                            <p>Years of Excellence</p>
+                    <!-- Stats Section -->
+                    <div class="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-gradient-card backdrop-blur-glass rounded-2xl p-6 text-center border border-white/20 shadow-lg hover:shadow-glow transition-all duration-500 hover:-translate-y-2">
+                            <div class="counter text-4xl lg:text-5xl font-black text-gradient mb-2" data-target="41">0</div>
+                            <p class="text-sm font-semibold text-neutral-500 uppercase tracking-wider">Years of Excellence</p>
                         </div>
-                        <div class="stat counter" data-target="953">
-                            <h3>953</h3>
-                            <p>Current Students</p>
+                        <div class="bg-gradient-card backdrop-blur-glass rounded-2xl p-6 text-center border border-white/20 shadow-lg hover:shadow-glow transition-all duration-500 hover:-translate-y-2">
+                            <div class="counter text-4xl lg:text-5xl font-black text-gradient mb-2" data-target="953">0</div>
+                            <p class="text-sm font-semibold text-neutral-500 uppercase tracking-wider">Current Students</p>
                         </div>
-                        <div class="stat counter" data-target="1000">
-                            <h3>1000+</h3>
-                            <p>Projected by 2026</p>
+                        <div class="bg-gradient-card backdrop-blur-glass rounded-2xl p-6 text-center border border-white/20 shadow-lg hover:shadow-glow transition-all duration-500 hover:-translate-y-2">
+                            <div class="counter text-4xl lg:text-5xl font-black text-gradient mb-2" data-target="1000">0</div>
+                            <p class="text-sm font-semibold text-neutral-500 uppercase tracking-wider">Projected by 2026</p>
                         </div>
-                        <div class="stat counter" data-target="7">
-                            <h3>7</h3>
-                            <p>Principals Since 1983</p>
+                        <div class="bg-gradient-card backdrop-blur-glass rounded-2xl p-6 text-center border border-white/20 shadow-lg hover:shadow-glow transition-all duration-500 hover:-translate-y-2">
+                            <div class="counter text-4xl lg:text-5xl font-black text-gradient mb-2" data-target="7">0</div>
+                            <p class="text-sm font-semibold text-neutral-500 uppercase tracking-wider">Principals Since 1983</p>
                         </div>
                     </div>
 
-                    <!-- Enrollment Growth Timeline -->
-                    <div class="timeline">
-                        <h4>Enrollment Growth Over the Years</h4>
-                        <ul>
-                            <li><strong>1984:</strong> 50 students (1 stream)</li>
-                            <li><strong>2001:</strong> 320 students (2 streams)</li>
-                            <li><strong>2010:</strong> 480 students (4 streams)</li>
-                             <li><strong>2010-2025:</strong> 600+ students (5 streams)</li>
-                            <li><strong>2026:</strong> Projected 1000+ students (7 streams)</li>
-                        </ul>
+                    <!-- Timeline -->
+                    <div class="mt-16 bg-gradient-card backdrop-blur-glass rounded-2xl p-8 shadow-lg border border-white/20">
+                        <h4 class="font-display text-2xl font-bold text-primary-700 mb-8">Enrollment Growth Over the Years</h4>
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-4 h-4 bg-accent-500 rounded-full border-4 border-white shadow-md mt-1 flex-shrink-0"></div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-primary-700">1984:</p>
+                                    <p class="text-neutral-600">50 students (1 stream)</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-4 h-4 bg-accent-500 rounded-full border-4 border-white shadow-md mt-1 flex-shrink-0"></div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-primary-700">2001:</p>
+                                    <p class="text-neutral-600">320 students (2 streams)</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-4 h-4 bg-accent-500 rounded-full border-4 border-white shadow-md mt-1 flex-shrink-0"></div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-primary-700">2010:</p>
+                                    <p class="text-neutral-600">480 students (4 streams)</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-4 h-4 bg-accent-500 rounded-full border-4 border-white shadow-md mt-1 flex-shrink-0"></div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-primary-700">2010-2025:</p>
+                                    <p class="text-neutral-600">600+ students (5 streams)</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-4 h-4 bg-accent-500 rounded-full border-4 border-white shadow-md mt-1 flex-shrink-0"></div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-primary-700">2026:</p>
+                                    <p class="text-neutral-600">Projected 1000+ students (7 streams)</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Growth Chart -->
-                    <div class="chart-container">
-                        <canvas id="growthChart"></canvas>
+                    <!-- Additional Info -->
+                    <div class="mt-12 space-y-8">
+                        <div>
+                            <h3 class="font-display text-2xl font-bold text-primary-700 mb-4">Location</h3>
+                            <p class="text-lg leading-relaxed text-neutral-600">
+                                The school occupies 2.8 hectares in BAR "A" Sub-location, North Kisumu Location, Nyahera Division, Kisumu North Sub-county. 
+                                It is 6km from Kiboswa Shopping Centre and 4km from Daraja Mbili junction off Kisumu-Busia Road. Bar Union Mixed Secondary School 
+                                is registered with the Government of Kenya as a five-streamed County Mixed Day Public School.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="font-display text-2xl font-bold text-primary-700 mb-4">Staff</h3>
+                            <p class="text-lg leading-relaxed text-neutral-600">
+                                The school has 41 teachers (26 TSC, 15 BOM) — 18 males and 23 females — against a curriculum establishment of approximately 50 teachers. 
+                                Support staff numbers 10 (6 males, 4 females).
+                            </p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Historical Image -->
-                <div class="about-image">
-                    <img src="/assets/images/common/about-history1.png" alt="Historical photo of Bar Union Mixed Secondary School and students over the decades">
+                <div class="lg:col-span-5">
+                    <div class="relative group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-accent-500/20 to-primary-500/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
+                        <img 
+                            src="/assets/images/common/about-history1.png" 
+                            alt="Historical photo of Bar Union Mixed Secondary School and students over the decades"
+                            class="relative w-full h-auto rounded-3xl shadow-2xl group-hover:shadow-glow transition-all duration-500 group-hover:-translate-y-2 transform"
+                        >
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Vision, Mission, Motto & Philosophy -->
-    <section class="section bg-light" aria-labelledby="vm-title">
-        <div class="container">
-            <div class="section-title">
-                <h2 id="vm-title">Vision, Mission, Motto & Philosophy</h2>
+    <section class="py-24 lg:py-32 bg-neutral-50" aria-labelledby="vm-title">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 id="vm-title" class="font-display text-4xl lg:text-6xl font-bold text-gradient mb-6">
+                    Vision, Mission, Motto & Philosophy
+                </h2>
+                <div class="w-24 h-1 bg-gradient-accent rounded-full mx-auto"></div>
             </div>
 
-            <!-- Fixed: Added wrapper + proper class for animation -->
-            <div class="vision-mission">
-                <div class="vm-card">
-                    <div class="icon"><i class="fas fa-eye fa-3x" aria-hidden="true"></i></div>
-                    <h3>Our Vision</h3>
-                    <p>To be a model school</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-gradient-card backdrop-blur-glass rounded-3xl p-8 text-center shadow-lg border border-white/20 hover:shadow-glow transition-all duration-500 hover:-translate-y-3 group">
+                    <div class="w-24 h-24 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-eye text-3xl text-white" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold text-primary-700 mb-4">Our Vision</h3>
+                    <p class="text-neutral-600 leading-relaxed">To be a model school</p>
                 </div>
-                <div class="vm-card">
-                    <div class="icon"><i class="fas fa-compass fa-3x" aria-hidden="true"></i></div>
-                    <h3>Our Mission</h3>
-                    <p>Moulding holistic citizens for self and national development</p>
+
+                <div class="bg-gradient-card backdrop-blur-glass rounded-3xl p-8 text-center shadow-lg border border-white/20 hover:shadow-glow transition-all duration-500 hover:-translate-y-3 group">
+                    <div class="w-24 h-24 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-compass text-3xl text-white" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold text-primary-700 mb-4">Our Mission</h3>
+                    <p class="text-neutral-600 leading-relaxed">Moulding holistic citizens for self and national development</p>
                 </div>
-                <div class="vm-card">
-                    <div class="icon"><i class="fas fa-flag fa-3x" aria-hidden="true"></i></div>
-                    <h3>Our Motto</h3>
-                    <p>Forward ever</p>
+
+                <div class="bg-gradient-card backdrop-blur-glass rounded-3xl p-8 text-center shadow-lg border border-white/20 hover:shadow-glow transition-all duration-500 hover:-translate-y-3 group">
+                    <div class="w-24 h-24 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-flag text-3xl text-white" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold text-primary-700 mb-4">Our Motto</h3>
+                    <p class="text-neutral-600 leading-relaxed">Forward ever</p>
                 </div>
-                <div class="vm-card">
-                    <div class="icon"><i class="fas fa-lightbulb fa-3x" aria-hidden="true"></i></div>
-                    <h3>Our Philosophy</h3>
-                    <p>
-                        Bar Union Mixed Secondary School regards all students and staff as equal and gives equal opportunity
+
+                <div class="bg-gradient-card backdrop-blur-glass rounded-3xl p-8 text-center shadow-lg border border-white/20 hover:shadow-glow transition-all duration-500 hover:-translate-y-3 group">
+                    <div class="w-24 h-24 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <i class="fas fa-lightbulb text-3xl text-white" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="font-display text-2xl font-bold text-primary-700 mb-4">Our Philosophy</h3>
+                    <p class="text-neutral-600 leading-relaxed">
+                        Bar Union Mixed Secondary School regards all students and staff as equal and gives equal opportunity 
                         to all to learn and work regardless of their tribe, sex, race, religion, economic background, or political affiliations.
                     </p>
                 </div>
@@ -172,76 +311,183 @@
     </section>
 
     <!-- Core Values -->
-    <section class="section" aria-labelledby="values-title">
-        <div class="container">
-            <div class="section-title">
-                <h2 id="values-title">Our Core Values</h2>
-                <p>The principles that guide everything we do</p>
+    <section class="py-24 lg:py-32" aria-labelledby="values-title">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 id="values-title" class="font-display text-4xl lg:text-6xl font-bold text-gradient mb-6">
+                    Our Core Values
+                </h2>
+                <p class="text-xl text-neutral-500 max-w-2xl mx-auto">The principles that guide everything we do</p>
+                <div class="w-24 h-1 bg-gradient-accent rounded-full mx-auto mt-6"></div>
             </div>
-            <div class="values-grid">
-                <div class="value-card"><i class="fas fa-pray fa-3x" aria-hidden="true"></i><h4>Godliness</h4><p>We are committed to providing spiritual nourishment alongside curriculum delivery and implementation.</p></div>
-                <div class="value-card"><i class="fas fa-smile fa-3x" aria-hidden="true"></i><h4>Self-esteem</h4><p>We are committed to building confidence in our students and instilling the drive to achieve.</p></div>
-                <div class="value-card"><i class="fas fa-handshake fa-3x" aria-hidden="true"></i><h4>Integrity</h4><p>We are committed to acting in an honest, accountable, and transparent manner in all our undertakings.</p></div>
-                <div class="value-card"><i class="fas fa-chalkboard-teacher fa-3x" aria-hidden="true"></i><h4>Professionalism</h4><p>We are dedicated to achieving high levels of performance through competence and pertinent skills.</p></div>
-                <div class="value-card"><i class="fas fa-users-cog fa-3x" aria-hidden="true"></i><h4>Teamwork</h4><p>We embrace collaboration within the school and with all stakeholders and partners in achieving our mandates.</p></div>
-                <div class="value-card"><i class="fas fa-handshake-alt fa-3x" aria-hidden="true"></i><h4>Courtesy</h4><p>We endeavor to be courteous to all our colleagues and stakeholders at all times.</p></div>
-                <div class="value-card"><i class="fas fa-bolt fa-3x" aria-hidden="true"></i><h4>Efficiency</h4><p>We strive to achieve the highest value from resources, particularly for the benefit of students.</p></div>
-                <div class="value-card"><i class="fas fa-balance-scale fa-3x" aria-hidden="true"></i><h4>Equity</h4><p>We ensure that education is provided to all, including those with special needs.</p></div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-gradient-card backdrop-blur-glass rounded-3xl p-8 text-center shadow-lg border border-white/20 hover:shadow-glow transition-all duration-500 hover:-translate-y-3 group relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <i class="fas fa-pray text-5xl text-gradient mb-6 group-hover:scale-110 transition-transform duration-300" aria-hidden="true"></i>
+                    <h4 class="font-display text-xl font-bold text-primary-700 mb-4">Godliness</h4>
+                    <p class="text-neutral-600 leading-relaxed">We are committed to providing spiritual nourishment alongside curriculum delivery and implementation.</p>
+                </div>
+
+                <div class="bg-gradient-card backdrop-blur-glass rounded-3xl p-8 text-center shadow-lg border border-white/20 hover:shadow-glow transition-all duration-500 hover:-translate-y-3 group relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <i class="fas fa-smile text-5xl text-gradient mb-6 group-hover:scale-110 transition-transform duration-300" aria-hidden="true"></i>
+                    <h4 class="font-display text-xl font-bold text-primary-700 mb-4">Self-esteem</h4>
+                    <p class="text-neutral-600 leading-relaxed">We are committed to building confidence in our students and instilling the drive to achieve.</p>
+                </div>
+
+                <div class="bg-gradient-card backdrop-blur-glass rounded-3xl p-8 text-center shadow-lg border border-white/20 hover:shadow-glow transition-all duration-500 hover:-translate-y-3 group relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <i class="fas fa-handshake text-5xl text-gradient mb-6 group-hover:scale-110 transition-transform duration-300" aria-hidden="true"></i>
+                    <h4 class="font-display text-xl font-bold text-primary-700 mb-4">Integrity</h4>
+                    <p class="text-neutral-600 leading-relaxed">We are committed to acting in an honest, accountable, and transparent manner in all our undertakings.</p>
+                </div>
+
+                <div class="bg-gradient-card backdrop-blur-glass rounded-3xl p-8 text-center shadow-lg border border-white/20 hover:shadow-glow transition-all duration-500 hover:-translate-y-3 group relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <i class="fas fa-chalkboard-teacher text-5xl text-gradient mb-6 group-hover:scale-110 transition-transform duration-300" aria-hidden="true"></i>
+                    <h4 class="font-display text-xl font-bold text-primary-700 mb-4">Professionalism</h4>
+                    <p class="text-neutral-600 leading-relaxed">We are dedicated to achieving high levels of performance through competence and pertinent skills.</p>
+                </div>
+
+                <div class="bg-gradient-card backdrop-blur-glass rounded-3xl p-8 text-center shadow-lg border border-white/20 hover:shadow-glow transition-all duration-500 hover:-translate-y-3 group relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <i class="fas fa-users-cog text-5xl text-gradient mb-6 group-hover:scale-110 transition-transform duration-300" aria-hidden="true"></i>
+                    <h4 class="font-display text-xl font-bold text-primary-700 mb-4">Teamwork</h4>
+                    <p class="text-neutral-600 leading-relaxed">We embrace collaboration within the school and with all stakeholders and partners in achieving our mandates.</p>
+                </div>
+
+                <div class="bg-gradient-card backdrop-blur-glass rounded-3xl p-8 text-center shadow-lg border border-white/20 hover:shadow-glow transition-all duration-500 hover:-translate-y-3 group relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <i class="fas fa-handshake-alt text-5xl text-gradient mb-6 group-hover:scale-110 transition-transform duration-300" aria-hidden="true"></i>
+                    <h4 class="font-display text-xl font-bold text-primary-700 mb-4">Courtesy</h4>
+                    <p class="text-neutral-600 leading-relaxed">We endeavor to be courteous to all our colleagues and stakeholders at all times.</p>
+                </div>
+
+                <div class="bg-gradient-card backdrop-blur-glass rounded-3xl p-8 text-center shadow-lg border border-white/20 hover:shadow-glow transition-all duration-500 hover:-translate-y-3 group relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <i class="fas fa-bolt text-5xl text-gradient mb-6 group-hover:scale-110 transition-transform duration-300" aria-hidden="true"></i>
+                    <h4 class="font-display text-xl font-bold text-primary-700 mb-4">Efficiency</h4>
+                    <p class="text-neutral-600 leading-relaxed">We strive to achieve the highest value from resources, particularly for the benefit of students.</p>
+                </div>
+
+                <div class="bg-gradient-card backdrop-blur-glass rounded-3xl p-8 text-center shadow-lg border border-white/20 hover:shadow-glow transition-all duration-500 hover:-translate-y-3 group relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-primary-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <i class="fas fa-balance-scale text-5xl text-gradient mb-6 group-hover:scale-110 transition-transform duration-300" aria-hidden="true"></i>
+                    <h4 class="font-display text-xl font-bold text-primary-700 mb-4">Equity</h4>
+                    <p class="text-neutral-600 leading-relaxed">We ensure that education is provided to all, including those with special needs.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Principal's Message with Photo on Right -->
-    <section class="section bg-light" aria-labelledby="principal-title">
-        <div class="container">
-            <div class="section-title">
-                <h2 id="principal-title">Message from the Principal</h2>
+    <!-- Principal's Message -->
+    <section class="py-24 lg:py-32 bg-neutral-50" aria-labelledby="principal-title">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 id="principal-title" class="font-display text-4xl lg:text-6xl font-bold text-gradient mb-6">
+                    Message from the Principal
+                </h2>
+                <div class="w-24 h-1 bg-gradient-accent rounded-full mx-auto"></div>
             </div>
 
-            <div class="principal-message-grid">
+            <div class="grid lg:grid-cols-12 gap-16 items-start">
                 <!-- Message Content -->
-                <div class="message-content">
-                    <blockquote cite="#">
-                        “Since its establishment in <strong>1983</strong>, Bar Union Mixed Secondary School has grown from a modest single-streamed school
-                        into a thriving six-streamed institution serving over <strong>953 students</strong>. Our journey has been guided by a steadfast commitment
-                        to academic excellence, holistic development, and the cultivation of values that shape responsible, ethical, and confident citizens.
-                    </blockquote>
-                    <blockquote cite="#">
-                        At Bar Union, education goes beyond books and exams — it is about nurturing character, creativity, leadership, and a sense of social responsibility.
-                        We strive to provide an inclusive environment where every student, regardless of their background, has the opportunity to realize their full potential.
-                    </blockquote>
-                    <blockquote cite="#">
-                        Our vision to be a model school, guided by our motto <strong>‘Forward Ever’</strong>, is reflected in our dedication to Godliness, Self-esteem, Integrity,
-                        Professionalism, Teamwork, Courtesy, Efficiency, and Equity. These core values are embedded in every aspect of school life, ensuring that our students
-                        graduate as well-rounded, morally upright, and capable leaders ready to contribute meaningfully to society.
-                    </blockquote>
-                    <blockquote cite="#">
-                        I am proud of our passionate faculty, committed support staff, and our vibrant student community. Together, we continue to build on our rich history,
-                        expand our streams and facilities, and embrace innovations that enhance learning. I warmly welcome parents, guardians, and stakeholders to join us
-                        in shaping the future of Bar Union Mixed Secondary School.”
-                    </blockquote>
+                <div class="lg:col-span-8">
+                    <div class="space-y-8">
+                        <blockquote class="text-lg leading-relaxed text-neutral-600 pl-8 border-l-4 border-primary-500 bg-primary-50/50 rounded-r-2xl p-6 hover:bg-primary-50/80 transition-colors duration-300">
+                            <p class="italic mb-4">
+                                "Since its establishment in <strong class="text-primary-700">1983</strong>, Bar Union Mixed Secondary School has grown from a modest single-streamed school 
+                                into a thriving six-streamed institution serving over <strong class="text-primary-700">953 students</strong>. Our journey has been guided by a steadfast commitment 
+                                to academic excellence, holistic development, and the cultivation of values that shape responsible, ethical, and confident citizens."
+                            </p>
+                        </blockquote>
 
-                    <div class="signature">
-                        <strong>Mr. George Achilla</strong><br>
-                        <span>Principal & Director</span>
+                        <blockquote class="text-lg leading-relaxed text-neutral-600 pl-8 border-l-4 border-primary-500 bg-primary-50/50 rounded-r-2xl p-6 hover:bg-primary-50/80 transition-colors duration-300">
+                            <p class="italic mb-4">
+                                At Bar Union, education goes beyond books and exams — it is about nurturing character, creativity, leadership, and a sense of social responsibility. 
+                                We strive to provide an inclusive environment where every student, regardless of their background, has the opportunity to realize their full potential.
+                            </p>
+                        </blockquote>
+
+                        <blockquote class="text-lg leading-relaxed text-neutral-600 pl-8 border-l-4 border-primary-500 bg-primary-50/50 rounded-r-2xl p-6 hover:bg-primary-50/80 transition-colors duration-300">
+                            <p class="italic mb-4">
+                                Our vision to be a model school, guided by our motto <strong class="text-primary-700">'Forward Ever'</strong>, is reflected in our dedication to Godliness, Self-esteem, Integrity, 
+                                Professionalism, Teamwork, Courtesy, Efficiency, and Equity. These core values are embedded in every aspect of school life, ensuring that our students 
+                                graduate as well-rounded, morally upright, and capable leaders ready to contribute meaningfully to society.
+                            </p>
+                        </blockquote>
+
+                        <blockquote class="text-lg leading-relaxed text-neutral-600 pl-8 border-l-4 border-primary-500 bg-primary-50/50 rounded-r-2xl p-6 hover:bg-primary-50/80 transition-colors duration-300">
+                            <p class="italic mb-4">
+                                I am proud of our passionate faculty, committed support staff, and our vibrant student community. Together, we continue to build on our rich history, 
+                                expand our streams and facilities, and embrace innovations that enhance learning. I warmly welcome parents, guardians, and stakeholders to join us 
+                                in shaping the future of Bar Union Mixed Secondary School."
+                            </p>
+                        </blockquote>
+
+                        <div class="bg-gradient-to-r from-accent-500/10 to-transparent border-l-4 border-accent-500 p-6 rounded-r-2xl">
+                            <div class="font-semibold text-primary-700 text-xl mb-1">Mr. George Achilla</div>
+                            <div class="text-neutral-500">Principal & Director</div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Principal Photo + Mini Timeline -->
-                <div class="principal-sidebar">
-                    <div class="principal-photo">
-                        <img src="/assets/images/admin/principal.jpg" alt="Mr. George Achilla - Principal, Bar Union Mixed Secondary School" loading="lazy">
-                    </div>
-                    <div class="principal-timeline">
-                        <h3>Our Journey at a Glance</h3>
-                        <ul>
-                            <li><strong>1983:</strong> School established as Bar Union Mixed Secondary School.</li>
-                            <li><strong>1984:</strong> Provisionally registered as a one-day school; single stream with 50 students.</li>
-                            <li><strong>2001:</strong> Fully registered as a two-streamed school with 320 students.</li>
-                            <li><strong>2010:</strong> Registered as a four-streamed school with 480 students.</li>
-                            <li><strong>2025:</strong> Current enrollment at 953 students, projected to reach 1000+ students.</li>
-                            <li><strong>Leadership:</strong> Seven principals have led the school, fostering growth, academic excellence, and holistic education.</li>
-                        </ul>
+                <!-- Principal Photo + Timeline -->
+                <div class="lg:col-span-4">
+                    <div class="space-y-8">
+                        <!-- Principal Photo -->
+                        <div class="relative group">
+                            <div class="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-accent-500/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500"></div>
+                            <img 
+                                src="/assets/images/admin/principal.jpg" 
+                                alt="Mr. George Achilla - Principal, Bar Union Mixed Secondary School"
+                                class="relative w-full h-auto rounded-3xl shadow-2xl group-hover:shadow-glow transition-all duration-500 group-hover:-translate-y-2"
+                                loading="lazy"
+                            >
+                        </div>
+
+                        <!-- Timeline -->
+                        <div class="bg-gradient-card backdrop-blur-glass rounded-2xl p-6 shadow-lg border border-white/20">
+                            <h3 class="font-display text-xl font-bold text-primary-700 mb-6">Our Journey at a Glance</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-3 h-3 bg-accent-500 rounded-full border-2 border-white shadow-sm mt-2 flex-shrink-0"></div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-primary-700 text-sm">1983:</p>
+                                        <p class="text-neutral-600 text-sm">School established as Bar Union Mixed Secondary School.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-3 h-3 bg-accent-500 rounded-full border-2 border-white shadow-sm mt-2 flex-shrink-0"></div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-primary-700 text-sm">1984:</p>
+                                        <p class="text-neutral-600 text-sm">Provisionally registered as a one-day school; single stream with 50 students.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-3 h-3 bg-accent-500 rounded-full border-2 border-white shadow-sm mt-2 flex-shrink-0"></div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-primary-700 text-sm">2001:</p>
+                                        <p class="text-neutral-600 text-sm">Fully registered as a two-streamed school with 320 students.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-3 h-3 bg-accent-500 rounded-full border-2 border-white shadow-sm mt-2 flex-shrink-0"></div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-primary-700 text-sm">2010:</p>
+                                        <p class="text-neutral-600 text-sm">Registered as a four-streamed school with 480 students.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-3 h-3 bg-accent-500 rounded-full border-2 border-white shadow-sm mt-2 flex-shrink-0"></div>
+                                    <div class="flex-1">
+                                        <p class="font-semibold text-primary-700 text-sm">2025:</p>
+                                        <p class="text-neutral-600 text-sm">Current enrollment at 953 students, projected to reach 1000+ students.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -249,104 +495,90 @@
     </section>
 
     <!-- Contact & Feedback Section -->
-    <section class="section contact-feedback-section" aria-labelledby="contact-title">
-        <div class="container">
-            <div class="section-title">
-                <h2 id="contact-title">Get in Touch</h2>
-                <p>Have questions about our school? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+    <section class="py-24 lg:py-32 bg-gradient-to-br from-primary-50 to-neutral-50" aria-labelledby="contact-title">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 id="contact-title" class="font-display text-4xl lg:text-6xl font-bold text-gradient mb-6">
+                    Get in Touch
+                </h2>
+                <p class="text-xl text-neutral-500 max-w-3xl mx-auto">Have questions about our school? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+                <div class="w-24 h-1 bg-gradient-accent rounded-full mx-auto mt-6"></div>
             </div>
 
-            <div class="contact-feedback-grid">
+            <div class="grid lg:grid-cols-2 gap-12">
                 <!-- Contact Form -->
-                <div class="contact-form-container">
-                    <h3>Contact Us</h3>
-                    <form id="contactForm" class="contact-form" novalidate>
-                        <div class="form-group">
-                            <label for="contactName">Full Name *</label>
-                            <input type="text" id="contactName" name="name" required aria-describedby="contactName-error">
-                            <span class="error-message" id="contactName-error" role="alert"></span>
+                <div class="bg-white rounded-3xl p-8 shadow-xl border border-neutral-200 hover:shadow-glow transition-all duration-500 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-accent"></div>
+                    <h3 class="font-display text-2xl font-bold text-primary-700 mb-6">Contact Us</h3>
+                    
+                    <form id="contactForm" class="space-y-6" novalidate>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="contactName" class="block text-sm font-semibold text-neutral-700 mb-2">Full Name *</label>
+                                <input type="text" id="contactName" name="name" required class="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all duration-300 outline-none">
+                                <span class="error-message text-red-500 text-sm mt-1 hidden" id="contactName-error"></span>
+                            </div>
+                            <div>
+                                <label for="contactEmail" class="block text-sm font-semibold text-neutral-700 mb-2">Email Address *</label>
+                                <input type="email" id="contactEmail" name="_replyto" required class="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all duration-300 outline-none">
+                                <span class="error-message text-red-500 text-sm mt-1 hidden" id="contactEmail-error"></span>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="contactEmail">Email Address *</label>
-                            <input type="email" id="contactEmail" name="_replyto" required aria-describedby="contactEmail-error">
-                            <span class="error-message" id="contactEmail-error" role="alert"></span>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="contactPhone" class="block text-sm font-semibold text-neutral-700 mb-2">Phone Number</label>
+                                <input type="tel" id="contactPhone" name="phone" class="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all duration-300 outline-none">
+                                <span class="error-message text-red-500 text-sm mt-1 hidden" id="contactPhone-error"></span>
+                            </div>
+                            <div>
+                                <label for="contactSubject" class="block text-sm font-semibold text-neutral-700 mb-2">Subject *</label>
+                                <select id="contactSubject" name="subject" required class="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all duration-300 outline-none">
+                                    <option value="">Select a subject</option>
+                                    <option value="admissions">Admissions Information</option>
+                                    <option value="academics">Academic Programs</option>
+                                    <option value="fees">School Fees & Payments</option>
+                                    <option value="activities">Co-curricular Activities</option>
+                                    <option value="transport">Transport & Facilities</option>
+                                    <option value="general">General Inquiry</option>
+                                </select>
+                                <span class="error-message text-red-500 text-sm mt-1 hidden" id="contactSubject-error"></span>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="contactPhone">Phone Number</label>
-                            <input type="tel" id="contactPhone" name="phone" aria-describedby="contactPhone-error">
-                            <span class="error-message" id="contactPhone-error" role="alert"></span>
+                        <div>
+                            <label for="contactMessage" class="block text-sm font-semibold text-neutral-700 mb-2">Message *</label>
+                            <textarea id="contactMessage" name="message" rows="5" required placeholder="Please describe your inquiry in detail..." class="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all duration-300 outline-none resize-vertical"></textarea>
+                            <span class="error-message text-red-500 text-sm mt-1 hidden" id="contactMessage-error"></span>
                         </div>
 
-                        <div class="form-group">
-                            <label for="contactSubject">Subject *</label>
-                            <select id="contactSubject" name="subject" required aria-describedby="contactSubject-error">
-                                <option value="">Select a subject</option>
-                                <option value="admissions">Admissions Information</option>
-                                <option value="academics">Academic Programs</option>
-                                <option value="fees">School Fees & Payments</option>
-                                <option value="activities">Co-curricular Activities</option>
-                                <option value="transport">Transport & Facilities</option>
-                                <option value="general">General Inquiry</option>
-                            </select>
-                            <span class="error-message" id="contactSubject-error" role="alert"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="contactDepartment">Department</label>
-                            <select id="contactDepartment" name="department">
-                                <option value="General">General</option>
-                                <option value="Admissions">Admissions</option>
-                                <option value="Academic">Academic Affairs</option>
-                                <option value="Student Affairs">Student Affairs</option>
-                                <option value="Finance">Finance</option>
-                                <option value="Administration">Administration</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="contactMessage">Message *</label>
-                            <textarea id="contactMessage" name="message" rows="5" required aria-describedby="contactMessage-error" placeholder="Please describe your inquiry in detail..."></textarea>
-                            <span class="error-message" id="contactMessage-error" role="alert"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="contactFollowup">Preferred Contact Method</label>
-                            <select id="contactFollowup" name="followup">
-                                <option value="No preference">No preference</option>
-                                <option value="Email">Email</option>
-                                <option value="Phone">Phone call</option>
-                                <option value="SMS">SMS</option>
-                            </select>
-                        </div>
-
-                        <button type="submit" class="submit-btn" id="contactSubmitBtn">
+                        <button type="submit" class="w-full bg-gradient-primary text-white py-4 px-8 rounded-xl font-semibold text-lg hover:shadow-lg hover:-translate-y-1 transition-all duration-300 uppercase tracking-wider">
                             <span class="btn-text">Send Message</span>
-                            <span class="btn-loading" style="display: none;">
-                                <i class="fas fa-spinner fa-spin"></i> Sending...
+                            <span class="btn-loading hidden">
+                                <i class="fas fa-spinner fa-spin mr-2"></i> Sending...
                             </span>
                         </button>
 
-                        <div class="form-status" id="contactFormStatus" role="alert" aria-live="polite"></div>
+                        <div class="form-status hidden" id="contactFormStatus" role="alert" aria-live="polite"></div>
                     </form>
                 </div>
 
                 <!-- Feedback Form -->
-                <div class="feedback-form-container">
-                    <h3>Share Your Feedback</h3>
-                    <p>Help us improve by sharing your thoughts about our school and programs.</p>
+                <div class="bg-white rounded-3xl p-8 shadow-xl border border-neutral-200 hover:shadow-glow transition-all duration-500 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-primary"></div>
+                    <h3 class="font-display text-2xl font-bold text-primary-700 mb-4">Share Your Feedback</h3>
+                    <p class="text-neutral-500 mb-8">Help us improve by sharing your thoughts about our school and programs.</p>
                     
-                    <form id="feedbackForm" class="feedback-form" novalidate>
-                        <div class="form-group">
-                            <label for="feedbackEmail">Email Address *</label>
-                            <input type="email" id="feedbackEmail" name="email" required aria-describedby="feedbackEmail-error">
-                            <span class="error-message" id="feedbackEmail-error" role="alert"></span>
+                    <form id="feedbackForm" class="space-y-6" novalidate>
+                        <div>
+                            <label for="feedbackEmail" class="block text-sm font-semibold text-neutral-700 mb-2">Email Address *</label>
+                            <input type="email" id="feedbackEmail" name="email" required class="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all duration-300 outline-none">
+                            <span class="error-message text-red-500 text-sm mt-1 hidden" id="feedbackEmail-error"></span>
                         </div>
 
-                        <div class="form-group">
-                            <label for="feedbackCategory">Feedback Category *</label>
-                            <select id="feedbackCategory" name="category" required aria-describedby="feedbackCategory-error">
+                        <div>
+                            <label for="feedbackCategory" class="block text-sm font-semibold text-neutral-700 mb-2">Feedback Category *</label>
+                            <select id="feedbackCategory" name="category" required class="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all duration-300 outline-none">
                                 <option value="">Select category</option>
                                 <option value="school facilities">School Facilities</option>
                                 <option value="academic programs">Academic Programs</option>
@@ -356,50 +588,49 @@
                                 <option value="communication">Communication</option>
                                 <option value="overall experience">Overall Experience</option>
                             </select>
-                            <span class="error-message" id="feedbackCategory-error" role="alert"></span>
+                            <span class="error-message text-red-500 text-sm mt-1 hidden" id="feedbackCategory-error"></span>
                         </div>
 
-                        <div class="form-group">
-                            <label for="feedbackRating">Rating *</label>
-                            <div class="rating-container" role="radiogroup" aria-labelledby="feedbackRating-label">
-                                <span id="feedbackRating-label" class="sr-only">Rate your experience</span>
-                                <input type="radio" id="rating5" name="rating" value="5" required>
-                                <label for="rating5" aria-label="5 stars"><i class="fas fa-star"></i></label>
+                        <div>
+                            <label class="block text-sm font-semibold text-neutral-700 mb-3">Rating *</label>
+                            <div class="rating-container flex flex-row-reverse gap-2 justify-end">
+                                <input type="radio" id="rating5" name="rating" value="5" required class="hidden">
+                                <label for="rating5" class="text-2xl text-neutral-300 cursor-pointer hover:text-yellow-400 transition-colors duration-200"><i class="fas fa-star"></i></label>
                                 
-                                <input type="radio" id="rating4" name="rating" value="4" required>
-                                <label for="rating4" aria-label="4 stars"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="rating4" name="rating" value="4" required class="hidden">
+                                <label for="rating4" class="text-2xl text-neutral-300 cursor-pointer hover:text-yellow-400 transition-colors duration-200"><i class="fas fa-star"></i></label>
                                 
-                                <input type="radio" id="rating3" name="rating" value="3" required>
-                                <label for="rating3" aria-label="3 stars"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="rating3" name="rating" value="3" required class="hidden">
+                                <label for="rating3" class="text-2xl text-neutral-300 cursor-pointer hover:text-yellow-400 transition-colors duration-200"><i class="fas fa-star"></i></label>
                                 
-                                <input type="radio" id="rating2" name="rating" value="2" required>
-                                <label for="rating2" aria-label="2 stars"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="rating2" name="rating" value="2" required class="hidden">
+                                <label for="rating2" class="text-2xl text-neutral-300 cursor-pointer hover:text-yellow-400 transition-colors duration-200"><i class="fas fa-star"></i></label>
                                 
-                                <input type="radio" id="rating1" name="rating" value="1" required>
-                                <label for="rating1" aria-label="1 star"><i class="fas fa-star"></i></label>
+                                <input type="radio" id="rating1" name="rating" value="1" required class="hidden">
+                                <label for="rating1" class="text-2xl text-neutral-300 cursor-pointer hover:text-yellow-400 transition-colors duration-200"><i class="fas fa-star"></i></label>
                             </div>
-                            <span class="error-message" id="feedbackRating-error" role="alert"></span>
+                            <span class="error-message text-red-500 text-sm mt-1 hidden" id="feedbackRating-error"></span>
                         </div>
 
-                        <div class="form-group">
-                            <label for="feedbackContent">Your Feedback *</label>
-                            <textarea id="feedbackContent" name="feedback" rows="4" required aria-describedby="feedbackContent-error" placeholder="Tell us about your experience..."></textarea>
-                            <span class="error-message" id="feedbackContent-error" role="alert"></span>
+                        <div>
+                            <label for="feedbackContent" class="block text-sm font-semibold text-neutral-700 mb-2">Your Feedback *</label>
+                            <textarea id="feedbackContent" name="feedback" rows="4" required placeholder="Tell us about your experience..." class="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all duration-300 outline-none resize-vertical"></textarea>
+                            <span class="error-message text-red-500 text-sm mt-1 hidden" id="feedbackContent-error"></span>
                         </div>
 
-                        <div class="form-group">
-                            <label for="feedbackSuggestions">Suggestions for Improvement</label>
-                            <textarea id="feedbackSuggestions" name="suggestions" rows="3" placeholder="How can we do better? (Optional)"></textarea>
+                        <div>
+                            <label for="feedbackSuggestions" class="block text-sm font-semibold text-neutral-700 mb-2">Suggestions for Improvement</label>
+                            <textarea id="feedbackSuggestions" name="suggestions" rows="3" placeholder="How can we do better? (Optional)" class="w-full px-4 py-3 border-2 border-neutral-200 rounded-xl focus:border-primary-500 focus:ring-4 focus:ring-primary-500/10 transition-all duration-300 outline-none resize-vertical"></textarea>
                         </div>
 
-                        <button type="submit" class="submit-btn secondary" id="feedbackSubmitBtn">
+                        <button type="submit" class="w-full bg-gradient-accent text-primary-700 py-4 px-8 rounded-xl font-semibold text-lg hover:shadow-lg hover:-translate-y-1 transition-all duration-300 uppercase tracking-wider">
                             <span class="btn-text">Submit Feedback</span>
-                            <span class="btn-loading" style="display: none;">
-                                <i class="fas fa-spinner fa-spin"></i> Submitting...
+                            <span class="btn-loading hidden">
+                                <i class="fas fa-spinner fa-spin mr-2"></i> Submitting...
                             </span>
                         </button>
 
-                        <div class="form-status" id="feedbackFormStatus" role="alert" aria-live="polite"></div>
+                        <div class="form-status hidden" id="feedbackFormStatus" role="alert" aria-live="polite"></div>
                     </form>
                 </div>
             </div>
@@ -408,25 +639,72 @@
 
     <div w3-include-html="/includes/footer.html"></div>
 
-    <!-- Scripts – Order matters! -->
+    <!-- Scripts -->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script>w3.includeHTML();</script>
 
-    <!-- AOS Animation Library (if you use it) -->
+    <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>AOS.init();</script>
 
-    <!-- Our Mobile Menu – This makes the hamburger work -->
+    <!-- Mobile Menu -->
     <script src="/js/static/mobile-menu.js"></script>
 
-    <!-- Preloader hide (optional but nice) -->
+    <!-- Preloader hide -->
     <script>
         window.addEventListener('load', function () {
             document.getElementById('preloader').style.display = 'none';
         });
     </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/js/static/about.js"></script>
+    
+    <!-- Counter Animation Script -->
+    <script>
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+                
+                const updateCounter = () => {
+                    current += step;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+        
+        // Start counter animation when section comes into view
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        // Observe the stats section
+        const statsSection = document.querySelector('.grid.grid-cols-2.lg\\:grid-cols-4');
+        if (statsSection) {
+            observer.observe(statsSection);
+        }
+    </script>
     
     <!-- Contact & Feedback Forms JavaScript -->
     <script>
@@ -447,12 +725,13 @@
                     const statusEl = document.getElementById(`${formId}Status`);
                     if (statusEl) {
                         statusEl.textContent = message;
-                        statusEl.className = `form-status ${type} show`;
+                        statusEl.className = `form-status p-4 rounded-xl font-medium text-center mt-4 ${type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'} show`;
                         
                         // Auto-hide after 5 seconds for success messages
                         if (type === 'success') {
                             setTimeout(() => {
                                 statusEl.classList.remove('show');
+                                statusEl.classList.add('hidden');
                             }, 5000);
                         }
                     }
@@ -463,6 +742,7 @@
                     const statusEl = document.getElementById(`${formId}Status`);
                     if (statusEl) {
                         statusEl.classList.remove('show');
+                        statusEl.classList.add('hidden');
                     }
                 },
                 
@@ -475,12 +755,12 @@
                         
                         if (isLoading) {
                             submitBtn.disabled = true;
-                            btnText.style.display = 'none';
-                            btnLoading.style.display = 'inline-flex';
+                            btnText.classList.add('hidden');
+                            btnLoading.classList.remove('hidden');
                         } else {
                             submitBtn.disabled = false;
-                            btnText.style.display = 'inline';
-                            btnLoading.style.display = 'none';
+                            btnText.classList.remove('hidden');
+                            btnLoading.classList.add('hidden');
                         }
                     }
                 },
@@ -502,11 +782,11 @@
                 clearErrors(formId) {
                     const form = document.getElementById(`${formId}Form`);
                     if (form) {
-                        const errorElements = form.querySelectorAll('.error');
+                        const errorElements = form.querySelectorAll('.border-red-500');
                         const errorMessages = form.querySelectorAll('.error-message');
                         
-                        errorElements.forEach(el => el.classList.remove('error'));
-                        errorMessages.forEach(el => el.classList.remove('show'));
+                        errorElements.forEach(el => el.classList.remove('border-red-500'));
+                        errorMessages.forEach(el => el.classList.add('hidden'));
                     }
                 },
                 
@@ -515,10 +795,10 @@
                     const field = document.getElementById(fieldId);
                     const errorEl = document.getElementById(`${fieldId}-error`);
                     
-                    if (field) field.classList.add('error');
+                    if (field) field.classList.add('border-red-500');
                     if (errorEl) {
                         errorEl.textContent = message;
-                        errorEl.classList.add('show');
+                        errorEl.classList.remove('hidden');
                     }
                 },
                 
@@ -706,19 +986,18 @@
                 }
                 
                 updateRatingDisplay(rating) {
-                    const ratingLabel = document.getElementById('feedbackRating-label');
-                    if (ratingLabel) {
-                        const ratingText = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'][rating] || '';
-                        ratingLabel.textContent = `Rate your experience: ${rating} star${rating !== 1 ? 's' : ''} (${ratingText})`;
+                    const ratingText = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'][rating] || '';
+                    if (rating > 0) {
+                        ratingContainer.setAttribute('data-rating', `${rating} star${rating !== 1 ? 's' : ''} (${ratingText})`);
                     }
                 }
                 
                 highlightStars(stars, rating) {
                     stars.forEach((star, index) => {
                         if (index >= stars.length - rating) {
-                            star.style.color = 'var(--accent-gold)';
+                            star.style.color = '#fbbf24';
                         } else {
-                            star.style.color = 'var(--neutral-300)';
+                            star.style.color = '#d1d5db';
                         }
                     });
                 }
@@ -729,7 +1008,7 @@
                         this.updateRatingDisplay(parseInt(checkedRating.value));
                     } else {
                         stars.forEach(star => {
-                            star.style.color = 'var(--neutral-300)';
+                            star.style.color = '#d1d5db';
                         });
                     }
                 }
@@ -812,7 +1091,6 @@
                             form.reset();
                             // Clear rating display
                             this.clearStarHighlights(document.querySelectorAll('.rating-container label'));
-                            this.updateRatingDisplay(0);
                         } else {
                             throw new Error(result.message || 'Failed to submit feedback');
                         }

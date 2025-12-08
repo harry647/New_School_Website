@@ -17,145 +17,269 @@
     
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    <link rel="stylesheet" href="/css/static/staff.css" />
-
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        'school-blue': '#1e40af',
+                        'school-green': '#059669',
+                        'school-gold': '#f59e0b',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Custom CSS for any additional styles -->
+    <style>
+        .staff-hero {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(5, 150, 105, 0.9) 100%),
+                        url('/assets/images/common/hero-bg.jpg') center/cover;
+        }
+        
+        .staff-card {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .staff-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .filter-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1e40af 0%, #059669 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .modal-content {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
-<body class="page-staff">
+<body class="font-inter bg-gray-50">
     <!-- Header -->
     <div w3-include-html="/includes/header.html"></div>
 
-    <!-- Hero -->
-    <section class="page-hero staff-hero">
-        <div class="container">
-            <h1>Our Dedicated Staff</h1>
-            <p>Experienced • Passionate • Committed to Excellence</p>
-            <p>Our team of qualified educators, administrators, and support staff work together to provide a holistic, student-first learning environment. From visionary leadership to classroom teaching, counseling, and extracurricular guidance, each staff member plays a vital role in nurturing academic growth, character development, and global readiness. With years of experience and continuous professional development, our staff ensures every student thrives both academically and personally.</p>
+    <!-- Hero Section -->
+    <section class="staff-hero min-h-screen flex items-center text-white relative overflow-hidden">
+        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="font-playfair text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                    Our Dedicated Staff
+                </h1>
+                <div class="flex flex-wrap justify-center gap-4 mb-8 text-lg md:text-xl">
+                    <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full backdrop-blur-sm">
+                        <i class="fas fa-star text-yellow-400 mr-2"></i>Experienced
+                    </span>
+                    <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full backdrop-blur-sm">
+                        <i class="fas fa-heart text-red-400 mr-2"></i>Passionate
+                    </span>
+                    <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full backdrop-blur-sm">
+                        <i class="fas fa-trophy text-yellow-400 mr-2"></i>Committed to Excellence
+                    </span>
+                </div>
+                <p class="text-xl md:text-2xl leading-relaxed mb-8 max-w-3xl mx-auto text-gray-100">
+                    Our team of qualified educators, administrators, and support staff work together to provide a holistic, student-first learning environment.
+                </p>
+                <div class="grid md:grid-cols-3 gap-6 mt-12">
+                    <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-6 text-center">
+                        <div class="text-3xl font-bold text-yellow-400 mb-2">50+</div>
+                        <div class="text-lg">Qualified Teachers</div>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-6 text-center">
+                        <div class="text-3xl font-bold text-yellow-400 mb-2">15+</div>
+                        <div class="text-lg">Support Staff</div>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-6 text-center">
+                        <div class="text-3xl font-bold text-yellow-400 mb-2">20+</div>
+                        <div class="text-lg">Years Experience</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-3xl text-white"></i>
         </div>
     </section>
 
-    <!-- Staff Section — Dynamic Ready -->
-    <section class="section staff-section">
-        <div class="container">
+    <!-- Staff Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
             <!-- Section Intro -->
-            <div class="section-intro">
-                <h2>Meet Our Dedicated Staff</h2>
-                <p>
+            <div class="text-center mb-16 max-w-4xl mx-auto">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                    Meet Our Dedicated Staff
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-school-blue to-school-green mx-auto mb-8"></div>
+                <p class="text-lg text-gray-600 leading-relaxed mb-4">
                     Our school is powered by a diverse team of professionals committed to academic excellence, student wellbeing,
                     administrative efficiency, and strong leadership. This section provides a complete, transparent overview of
                     our staff—including teaching faculty, leadership team, administrative personnel, and support staff.
                 </p>
-                <p>
+                <p class="text-lg text-gray-600 leading-relaxed">
                     All staff information displayed here is dynamically loaded from our central database to ensure accuracy,
                     easy updating, and consistency across all systems. You can search by name, department, role, or category to
                     quickly find any staff member.
                 </p>
             </div>
 
-            <!-- Search -->
-            <div class="staff-search">
-                <input type="text" id="staffSearch" placeholder="Search by name, subject, or department..." aria-label="Search staff">
-                <button aria-label="Search"><i class="fas fa-search"></i></button>
-            </div>
-
-            <!-- Filters Explanation -->
-            <div class="filter-explainer">
-                <h3>How to Use Filters</h3>
-                <p>
-                    You can refine the staff listing using the filters below. Filter by category to view leadership,
-                    teachers, administrative staff, or support personnel. You can also filter by department to explore
-                    subject-based or service-based team members. These filters can be combined with search for even
-                    more precise results.
-                </p>
-            </div>
-
-            <!-- Filters: Categories — Added ID for dynamic use -->
-            <h3 class="filter-title">Filter By Category</h3>
-            <div class="staff-controls" id="staffCategories">
-                <button class="filter-btn active" data-filter="all">All Staff</button>
-                <button class="filter-btn" data-filter="leadership">Leadership</button>
-                <button class="filter-btn" data-filter="teaching">Teaching Faculty</button>
-                <button class="filter-btn" data-filter="admin">Administration</button>
-                <button class="filter-btn" data-filter="support">Support Staff</button>
-            </div>
-
-            <!-- Category Description -->
-            <div class="category-descriptions">
-                <p><strong>Leadership:</strong> Includes the principal, deputy principals, heads of departments, and senior management responsible for vision, governance, and strategic direction.</p>
-                <p><strong>Teaching Faculty:</strong> All classroom teachers across subjects—responsible for academic delivery, assessments, mentorship, and student performance.</p>
-                <p><strong>Administration:</strong> Officers who handle admissions, records, accounts, communication, exams management, and daily operations.</p>
-                <p><strong>Support Staff:</strong> Includes boarding staff, librarians, technicians, ICT officers, cooks, cleaners, security, and others who ensure smooth daily operations.</p>
-            </div>
-
-            <!-- Departments — Already has correct ID -->
-            <h3 class="filter-title">Filter By Department</h3>
-            <p class="dept-info">
-                Departments help organize staff by their primary area of responsibility.
-                This allows students, parents, and visitors to quickly identify specialists in specific subjects or services.
-                These are also populated dynamically from the staff JSON file.
-            </p>
-            <div class="department-controls" id="departmentControls">
-                <!-- Will be populated dynamically from JSON -->
-                <div class="text-center py-3">
-                    <p><em>Loading departments...</em></p>
+            <!-- Search Section -->
+            <div class="max-w-2xl mx-auto mb-12">
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        id="staffSearch" 
+                        placeholder="Search by name, subject, or department..." 
+                        aria-label="Search staff"
+                        class="w-full px-6 py-4 text-lg border-2 border-gray-200 rounded-full focus:border-school-blue focus:outline-none transition-colors duration-300"
+                    >
+                    <button 
+                        aria-label="Search"
+                        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-school-blue hover:text-school-green transition-colors duration-300"
+                    >
+                        <i class="fas fa-search text-2xl"></i>
+                    </button>
                 </div>
             </div>
 
-            <!-- Departments Description -->
-            <div class="dept-descriptions">
-                <p><strong>Mathematics:</strong> Covers teachers handling algebra, geometry, calculus, and related subjects.</p>
-                <p><strong>Languages:</strong> English, Kiswahili, and other language instructors.</p>
-                <p><strong>Sciences:</strong> Chemistry, Biology, Physics teachers and laboratory technicians.</p>
-                <p><strong>Humanities:</strong> History, Geography, CRE, Social Studies specialists.</p>
-                <p><strong>Technicals:</strong> Business, Agriculture, Home Science, Music, and Art teachers.</p>
-                <p><strong>ICT:</strong> ICT instructors and system maintenance personnel.</p>
-                <p><strong>Games & Sports:</strong> Coaches and sports coordinators.</p>
-                <p><strong>Boarding:</strong> Matrons, patrons, and boarding operations.</p>
-                <p><strong>Library:</strong> Library teachers and assistants.</p>
-                <p><strong>Guidance & Counselling:</strong> Counselors supporting student wellbeing.</p>
-                <p><strong>Exams Office:</strong> Officers responsible for internal exams and assessments.</p>
-            </div>
+            <!-- Filters Section -->
+            <div class="bg-gray-50 rounded-2xl p-8 mb-12">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Filter Staff by Category</h3>
+                
+                <!-- Category Filters -->
+                <div class="flex flex-wrap justify-center gap-3 mb-8" id="staffCategories">
+                    <button class="filter-btn active px-6 py-3 rounded-full bg-white border-2 border-gray-200 hover:border-school-blue font-semibold transition-all duration-300" data-filter="all">
+                        <i class="fas fa-users mr-2"></i>All Staff
+                    </button>
+                    <button class="filter-btn px-6 py-3 rounded-full bg-white border-2 border-gray-200 hover:border-school-blue font-semibold transition-all duration-300" data-filter="leadership">
+                        <i class="fas fa-crown mr-2"></i>Leadership
+                    </button>
+                    <button class="filter-btn px-6 py-3 rounded-full bg-white border-2 border-gray-200 hover:border-school-blue font-semibold transition-all duration-300" data-filter="teaching">
+                        <i class="fas fa-chalkboard-teacher mr-2"></i>Teaching Faculty
+                    </button>
+                    <button class="filter-btn px-6 py-3 rounded-full bg-white border-2 border-gray-200 hover:border-school-blue font-semibold transition-all duration-300" data-filter="admin">
+                        <i class="fas fa-briefcase mr-2"></i>Administration
+                    </button>
+                    <button class="filter-btn px-6 py-3 rounded-full bg-white border-2 border-gray-200 hover:border-school-blue font-semibold transition-all duration-300" data-filter="support">
+                        <i class="fas fa-hands-helping mr-2"></i>Support Staff
+                    </button>
+                </div>
 
-            <!-- Staff Grid — Enhanced with modern accessibility -->
-            <div class="staff-grid" id="staffGrid" role="list" aria-live="polite" aria-busy="true">
-                <div role="listitem">
-                    <div class="loader text-center">
-                        <i class="fas fa-spinner fa-spin fa-4x mb-4"></i>
+                <!-- Category Descriptions -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg p-6 shadow-sm">
+                        <h4 class="font-bold text-school-blue mb-2 flex items-center">
+                            <i class="fas fa-crown mr-2"></i>Leadership
+                        </h4>
+                        <p class="text-gray-600">Includes the principal, deputy principals, heads of departments, and senior management responsible for vision, governance, and strategic direction.</p>
                     </div>
-                    <p>Loading our dedicated team...</p>
+                    <div class="bg-white rounded-lg p-6 shadow-sm">
+                        <h4 class="font-bold text-school-blue mb-2 flex items-center">
+                            <i class="fas fa-chalkboard-teacher mr-2"></i>Teaching Faculty
+                        </h4>
+                        <p class="text-gray-600">All classroom teachers across subjects—responsible for academic delivery, assessments, mentorship, and student performance.</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-6 shadow-sm">
+                        <h4 class="font-bold text-school-blue mb-2 flex items-center">
+                            <i class="fas fa-briefcase mr-2"></i>Administration
+                        </h4>
+                        <p class="text-gray-600">Officers who handle admissions, records, accounts, communication, exams management, and daily operations.</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-6 shadow-sm">
+                        <h4 class="font-bold text-school-blue mb-2 flex items-center">
+                            <i class="fas fa-hands-helping mr-2"></i>Support Staff
+                        </h4>
+                        <p class="text-gray-600">Includes boarding staff, librarians, technicians, ICT officers, cooks, cleaners, security, and others who ensure smooth daily operations.</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- No Results — Already perfect -->
-            <div id="noResults" class="text-center py-5" style="display:none;">
-                <i class="fas fa-users-slash fa-3x mb-3 text-muted"></i>
-                <p>No staff members found matching your search.</p>
+            <!-- Department Filters -->
+            <div class="bg-white rounded-2xl p-8 shadow-lg mb-12">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4 text-center">Filter by Department</h3>
+                <p class="text-gray-600 text-center mb-8 max-w-3xl mx-auto">
+                    Departments help organize staff by their primary area of responsibility.
+                    This allows students, parents, and visitors to quickly identify specialists in specific subjects or services.
+                </p>
+                <div class="department-controls grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3" id="departmentControls">
+                    <!-- Will be populated dynamically from JSON -->
+                    <div class="col-span-full text-center py-8">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-school-blue mx-auto mb-4"></div>
+                        <p class="text-gray-500"><em>Loading departments...</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Staff Grid -->
+            <div class="staff-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="staffGrid" role="list" aria-live="polite" aria-busy="true">
+                <div role="listitem" class="col-span-full">
+                    <div class="text-center py-16">
+                        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-school-blue mx-auto mb-6"></div>
+                        <p class="text-xl text-gray-600">Loading our dedicated team...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- No Results -->
+            <div id="noResults" class="text-center py-16 hidden">
+                <div class="bg-gray-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-users-slash text-4xl text-gray-400"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">No Staff Members Found</h3>
+                <p class="text-gray-600 text-lg">No staff members match your current search criteria.</p>
             </div>
         </div>
     </section>
 
-    <!-- Staff Modal Popup — Already perfect -->
-    <div id="staffModal" class="staff-modal">
-        <div class="staff-modal-content">
-            <span class="close-modal">×</span>
-            <div id="modalDetails"></div>
+    <!-- Staff Modal -->
+    <div id="staffModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="modal-content bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
+            <button class="close-modal absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-3xl w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors duration-300 z-10">
+                ×
+            </button>
+            <div id="modalDetails" class="p-8"></div>
         </div>
     </div>
 
     <!-- Footer -->
     <div w3-include-html="/includes/footer.html"></div>
 
-    <!-- Scripts – Order matters! -->
+    <!-- Scripts -->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script>w3.includeHTML();</script>
-
-    <!-- AOS Animation Library (if you use it) -->
+    
+    <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>AOS.init();</script>
-
-    <!-- Our Mobile Menu – This makes the hamburger work -->
+    
+    <!-- Mobile Menu -->
     <script src="/js/static/mobile-menu.js"></script>
-
-    <!-- Scripts — Fixed path -->
+    
+    <!-- Staff Script -->
     <script src="/js/static/staff.js" defer></script>
 </body>
 </html>

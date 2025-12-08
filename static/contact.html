@@ -11,405 +11,505 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
-    <!-- Styles -->
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'display': ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    <link rel="stylesheet" href="/css/static/contact.css" />
 </head>
 
-<body class="page-contact">
+<body class="bg-gray-50 font-sans text-gray-900">
     <!-- Header -->
     <div w3-include-html="/includes/header.html"></div>
 
     <!-- Page Hero -->
-    <section class="page-hero contact-hero">
-        <div class="container text-center">
-            <h1>Contact Us</h1>
-            <p>Bar Union Mixed Secondary School – Where Excellence Meets Opportunity</p>
-            <p>We are here to assist you with admissions, academic inquiries, alumni connections, career guidance, or any questions about student life, co-curricular activities, and school programs.</p>
-            <p><strong>Our school is open to visitors:</strong> Schedule a tour, meet our Principal, or explore the vibrant learning environment that nurtures students in academics, sports, arts, and leadership.</p>
-            <a href="#contactForm" class="btn btn-primary large mt-3">Get in Touch</a>
+    <section class="relative bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-10"></div>
+        <div class="relative container mx-auto px-4 py-20 lg:py-32">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl md:text-6xl font-display font-bold mb-6 leading-tight">
+                    Contact Us
+                </h1>
+                <p class="text-xl md:text-2xl font-medium mb-4 text-primary-100">
+                    Bar Union Mixed Secondary School – Where Excellence Meets Opportunity
+                </p>
+                <p class="text-lg mb-6 text-primary-200 max-w-3xl mx-auto leading-relaxed">
+                    We are here to assist you with admissions, academic inquiries, alumni connections, career guidance, or any questions about student life, co-curricular activities, and school programs.
+                </p>
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-8 max-w-2xl mx-auto">
+                    <p class="text-primary-100">
+                        <strong class="text-white">Our school is open to visitors:</strong> Schedule a tour, meet our Principal, or explore the vibrant learning environment that nurtures students in academics, sports, arts, and leadership.
+                    </p>
+                </div>
+                <a href="#contactForm" class="inline-flex items-center px-8 py-4 bg-white text-primary-700 font-semibold rounded-xl hover:bg-primary-50 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                    Get in Touch
+                    <i class="fas fa-arrow-down ml-2"></i>
+                </a>
+            </div>
         </div>
+        
+        <!-- Decorative elements -->
+        <div class="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+        <div class="absolute bottom-10 right-10 w-32 h-32 bg-primary-400/20 rounded-full blur-2xl"></div>
     </section>
 
     <!-- Contact Info + Map -->
-    <section class="section" id="contact">
-        <div class="container">
-            <div class="contact-grid" id="contactInfo">
+    <section class="py-20 bg-white" id="contact">
+        <div class="container mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
                 <!-- Contact Details -->
-                <div class="contact-info">
-                    <h2>Get in Touch with Bar Union Mixed Secondary School</h2>
-                    <p>Our administration, admissions, alumni office, and career guidance team are here to assist you. Reach out to us for any queries, tours, or collaboration opportunities.</p>
+                <div class="space-y-8">
+                    <div class="text-center lg:text-left">
+                        <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
+                            Get in Touch with Bar Union Mixed Secondary School
+                        </h2>
+                        <p class="text-lg text-gray-600 leading-relaxed">
+                            Our administration, admissions, alumni office, and career guidance team are here to assist you. Reach out to us for any queries, tours, or collaboration opportunities.
+                        </p>
+                    </div>
                     
-                    <!-- School Address -->
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h4>School Address</h4>
-                            <p>
-                                Bar Union Mixed Secondary School,<br>
-                                40112-8021-Dago,<br>
-                                Kisumu City,<br>
-                                Kenya.
-                            </p>
+                    <!-- Contact Items -->
+                    <div class="space-y-6">
+                        <!-- School Address -->
+                        <div class="flex items-start space-x-4 p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-300">
+                            <div class="flex-shrink-0 w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-primary-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-900 mb-2">School Address</h4>
+                                <p class="text-gray-600 leading-relaxed">
+                                    Bar Union Mixed Secondary School,<br>
+                                    40112-8021-Dago,<br>
+                                    Kisumu City,<br>
+                                    Kenya.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Phone Numbers -->
+                        <div class="flex items-start space-x-4 p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-300">
+                            <div class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-phone text-green-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-900 mb-2">Phone</h4>
+                                <div class="space-y-1">
+                                    <p><a href="tel:+254700735472" class="text-primary-600 hover:text-primary-700 font-medium transition-colors">+2547 00735472</a> (General Inquiries)</p>
+                                    <p><a href="tel:+254700735472" class="text-primary-600 hover:text-primary-700 font-medium transition-colors">+2547 00735472</a> (Admissions Office)</p>
+                                    <p><a href="tel:+254700735472" class="text-primary-600 hover:text-primary-700 font-medium transition-colors">+2547 00735472</a> (Alumni & Career Guidance)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Email Addresses -->
+                        <div class="flex items-start space-x-4 p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-300">
+                            <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-envelope text-blue-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-900 mb-2">Email</h4>
+                                <div class="space-y-1">
+                                    <p><a href="mailto:barunionsecondary@gmail.com" class="text-primary-600 hover:text-primary-700 font-medium transition-colors">barunionsecondary@gmail.com</a> (General)</p>
+                                    <p><a href="mailto:barunionsecondary@gmail.com" class="text-primary-600 hover:text-primary-700 font-medium transition-colors">barunionsecondary@gmail.com</a> (Admissions)</p>
+                                    <p><a href="mailto:barunionsecondary@gmail.com" class="text-primary-600 hover:text-primary-700 font-medium transition-colors">barunionsecondary@gmail.com</a> (Alumni & Mentorship)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Office Hours -->
+                        <div class="flex items-start space-x-4 p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors duration-300">
+                            <div class="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-clock text-purple-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-semibold text-gray-900 mb-2">Office Hours</h4>
+                                <p class="text-gray-600 leading-relaxed">
+                                    Monday – Friday: 8:00 AM – 4:00 PM<br>
+                                    Saturday: 9:00 AM – 1:00 PM<br>
+                                    Sunday & Public Holidays: Closed
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    <!-- Phone Numbers -->
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h4>Phone</h4>
-                            <p>
-                                <a href="tel:+254700735472">+2547 00735472</a> (General Inquiries)<br>
-                                <a href="tel:+254700735472">+2547 00735472</a> (Admissions Office)<br>
-                                <a href="tel:+254700735472">+2547 00735472</a> (Alumni & Career Guidance)
-                            </p>
-                        </div>
-                        
-                    </div>
-                    <!-- Email Addresses -->
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h4>Email</h4>
-                            <p>
-                                <a href="mailto:barunionsecondary@gmail.com">barunionsecondary@gmail.com</a> (General)<br>
-                                <a href="mailto:barunionsecondary@gmail.com">barunionsecondary@gmail.com</a> (Admissions)<br>
-                                <a href="mailto:barunionsecondary@gmail.com">barunionsecondary@gmail.com</a> (Alumni & Mentorship)
-                            </p>
-                        </div>
-                    </div>
-                    <!-- Office Hours -->
-                    <div class="contact-item">
-                        <i class="fas fa-clock"></i>
-                        <div>
-                            <h4>Office Hours</h4>
-                            <p>
-                                Monday – Friday: 8:00 AM – 4:00 PM<br>
-                                Saturday: 9:00 AM – 1:00 PM<br>
-                                Sunday & Public Holidays: Closed
-                            </p>
-                        </div>
-                    </div>
+
                     <!-- Social Media -->
-                    <div class="social-links-contact">
-                        <a href="https://web.facebook.com/groups/466873166757176" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://web.facebook.com/groups/barunion" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://web.facebook.com/groups/466873166757176" target="_blank" rel="noopener" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="https://web.facebook.com/groups/barunion" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <div class="flex justify-center lg:justify-start space-x-4 pt-6">
+                        <a href="https://web.facebook.com/groups/466873166757176" target="_blank" rel="noopener" aria-label="Facebook" class="w-12 h-12 bg-blue-600 text-white rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://web.facebook.com/groups/barunion" target="_blank" rel="noopener" aria-label="Instagram" class="w-12 h-12 bg-pink-600 text-white rounded-lg flex items-center justify-center hover:bg-pink-700 transition-colors duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://web.facebook.com/groups/466873166757176" target="_blank" rel="noopener" aria-label="Twitter" class="w-12 h-12 bg-sky-500 text-white rounded-lg flex items-center justify-center hover:bg-sky-600 transition-colors duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://web.facebook.com/groups/barunion" target="_blank" rel="noopener" aria-label="YouTube" class="w-12 h-12 bg-red-600 text-white rounded-lg flex items-center justify-center hover:bg-red-700 transition-colors duration-300">
+                            <i class="fab fa-youtube"></i>
+                        </a>
                     </div>
                 </div>
 
                 <!-- Google Map -->
-                <div class="contact-map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d31918.54207473996!2d34.651857932471515!3d-0.03038384691084749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x182aa7553dbcdcbb%3A0xe63af825af5d1825!2sBAR%20-UNION%20S.U!3m2!1d-0.04!2d34.69!4m5!1s0x182aa7553dbcdcbb%3A0xe63af825af5d1825!2sKISUMU%20NORTH%20Location%20WINAM%20Division%20KISUMU%20TOWN%20WEST%20Constituency%20Nyanza!3m2!1d-0.04!2d34.69!5e0!3m2!1sen!2ske!4v1764159860505!5m2!1sen!2ske" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">   
-                    </iframe>
+                <div class="lg:sticky lg:top-8">
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+                        <div class="p-6 bg-primary-50 border-b">
+                            <h3 class="text-xl font-semibold text-gray-900 flex items-center">
+                                <i class="fas fa-map text-primary-600 mr-3"></i>
+                                Find Us on Map
+                            </h3>
+                        </div>
+                        <div class="aspect-video">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d31918.54207473996!2d34.651857932471515!3d-0.03038384691084749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x182aa7553dbcdcbb%3A0xe63af825af5d1825!2sBAR%20-UNION%20S.U!3m2!1d-0.04!2d34.69!4m5!1s0x182aa7553dbcdcbb%3A0xe63af825af5d1825!2sKISUMU%20NORTH%20Location%20WINAM%20Division%20KISUMU%20TOWN%20WEST%20Constituency%20Nyanza!3m2!1d-0.04!2d34.69!5e0!3m2!1sen!2ske!4v1764159860505!5m2!1sen!2ske" 
+                                width="100%" 
+                                height="100%" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                class="w-full h-full">
+                            </iframe>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Form -->
-    <section class="section bg-light" id="contactForm">
-        <div class="container">
-            <div class="section-title text-center">
-                <h2>Send Us a Message</h2>
-                <p>We typically reply within a few hours during working days. Please provide complete information for faster assistance.</p>
-            </div>
-            <div class="form-wrapper">
-                <!-- FORMSPREE REMOVED – Now uses YOUR backend -->
-                <form class="contact-form" enctype="multipart/form-data" novalidate>
-                    <!-- Invisible honeypot (anti-spam) – kept for protection -->
-                    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+    <section class="py-20 bg-gradient-to-br from-gray-50 to-gray-100" id="contactForm">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
+                        Send Us a Message
+                    </h2>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                        We typically reply within a few hours during working days. Please provide complete information for faster assistance.
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+                    <form class="space-y-6" enctype="multipart/form-data" novalidate>
+                        <!-- Invisible honeypot -->
+                        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
-                    <div class="form-grid">
-                        <!-- Personal Information -->
-                        <div class="form-group">
-                            <label for="name">Your Full Name *</label>
-                            <input type="text" id="name" name="name" placeholder="Alice Akinyi" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="_replyto">Email Address *</label>
-                            <input type="email" id="_replyto" name="_replyto" placeholder="alice@example.com" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number *</label>
-                            <input type="tel" id="phone" name="phone" placeholder="+254798654326" required />
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <!-- Personal Information -->
+                            <div>
+                                <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Your Full Name *</label>
+                                <input type="text" id="name" name="name" placeholder="Alice Akinyi" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200" />
+                            </div>
+                            
+                            <div>
+                                <label for="_replyto" class="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
+                                <input type="email" id="_replyto" name="_replyto" placeholder="alice@example.com" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200" />
+                            </div>
+                            
+                            <div>
+                                <label for="phone" class="block text-sm font-semibold text-gray-700 mb-2">Phone Number *</label>
+                                <input type="tel" id="phone" name="phone" placeholder="+254798654326" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200" />
+                            </div>
+
+                            <!-- Inquiry Details -->
+                            <div>
+                                <label for="subject" class="block text-sm font-semibold text-gray-700 mb-2">Subject of Inquiry *</label>
+                                <select id="subject" name="subject" required 
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200">
+                                    <option value="">Select a topic...</option>
+                                    <option>Admission Inquiry</option>
+                                    <option>School Tour Request</option>
+                                    <option>Fee Information</option>
+                                    <option>Academic Query</option>
+                                    <option>Career/Job Opportunity</option>
+                                    <option>Alumni/Mentorship</option>
+                                    <option>Extracurricular Activities</option>
+                                    <option>General Feedback</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <!-- Inquiry Details -->
-                        <div class="form-group">
-                            <label for="subject">Subject of Inquiry *</label>
-                            <select id="subject" name="subject" required>
-                                <option value="">Select a topic...</option>
-                                <option>Admission Inquiry</option>
-                                <option>School Tour Request</option>
-                                <option>Fee Information</option>
-                                <option>Academic Query</option>
-                                <option>Career/Job Opportunity</option>
-                                <option>Alumni/Mentorship</option>
-                                <option>Extracurricular Activities</option>
-                                <option>General Feedback</option>
-                                <option>Other</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="department">Preferred Department (Optional)</label>
-                            <select id="department" name="department">
-                                <option value="">Select Department</option>
-                                <option>Admissions</option>
-                                <option>Finance</option>
-                                <option>Academic Office</option>
-                                <option>Career Guidance Cell</option>
-                                <option>Alumni & Mentorship</option>
-                                <option>Extracurricular Activities</option>
-                            </select>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="department" class="block text-sm font-semibold text-gray-700 mb-2">Preferred Department (Optional)</label>
+                                <select id="department" name="department" 
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200">
+                                    <option value="">Select Department</option>
+                                    <option>Admissions</option>
+                                    <option>Finance</option>
+                                    <option>Academic Office</option>
+                                    <option>Career Guidance Cell</option>
+                                    <option>Alumni & Mentorship</option>
+                                    <option>Extracurricular Activities</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="followup" class="block text-sm font-semibold text-gray-700 mb-2">Preferred Response Method</label>
+                                <select id="followup" name="followup" 
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200">
+                                    <option value="No preference">No preference</option>
+                                    <option>Email</option>
+                                    <option>Phone Call</option>
+                                    <option>WhatsApp</option>
+                                </select>
+                            </div>
                         </div>
 
                         <!-- Message -->
-                        <div class="form-group full">
-                            <label for="message">Your Message *</label>
+                        <div>
+                            <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">Your Message *</label>
                             <textarea id="message" name="message" rows="6" required
-                                      placeholder="Please provide detailed information about your query or request..."></textarea>
+                                      placeholder="Please provide detailed information about your query or request..."
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 resize-none"></textarea>
                         </div>
 
-                        <!-- File Upload (now supported by your backend) -->
-                        <div class="form-group full">
-                            <label for="attachment">Upload Supporting Document (Optional)</label>
-                            <input type="file" id="attachment" name="attachment" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" />
-                            <small class="form-note">PDF, Word, or images only • Max 10MB</small>
+                        <!-- File Upload -->
+                        <div>
+                            <label for="attachment" class="block text-sm font-semibold text-gray-700 mb-2">Upload Supporting Document (Optional)</label>
+                            <input type="file" id="attachment" name="attachment" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200" />
+                            <p class="text-sm text-gray-500 mt-1">PDF, Word, or images only • Max 10MB</p>
                             <div id="filePreview" class="file-preview mt-2"></div>
                         </div>
 
-                        <!-- Preferred Response Method -->
-                        <div class="form-group full">
-                            <label for="followup">Preferred Response Method</label>
-                            <select id="followup" name="followup">
-                                <option value="No preference">No preference</option>
-                                <option>Email</option>
-                                <option>Phone Call</option>
-                                <option>WhatsApp</option>
-                            </select>
+                        <!-- Submit Button -->
+                        <div class="text-center pt-6">
+                            <button type="submit" class="inline-flex items-center px-8 py-4 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                                Send Message 
+                                <i class="fas fa-paper-plane ml-2"></i>
+                            </button>
+                        </div>
+
+                        <p class="text-center text-gray-500 mt-4">
+                            We'll get back to you within 24 hours. Thank you for reaching out!
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-white" id="faq">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
+                        Frequently Asked Questions
+                    </h2>
+                    <p class="text-lg text-gray-600">
+                        Find answers to common queries about admissions, academics, alumni, and more
+                    </p>
+                </div>
+
+                <!-- FAQ Items -->
+                <div class="space-y-4" id="faqList">
+                    <!-- Admissions -->
+                    <div class="faq-item bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors duration-300">
+                        <h4 class="faq-question text-xl font-semibold text-gray-900 mb-3 cursor-pointer flex items-center justify-between">
+                            How can I schedule a school visit?
+                            <i class="fas fa-chevron-down text-primary-600 transition-transform duration-300"></i>
+                        </h4>
+                        <div class="faq-answer text-gray-600 leading-relaxed hidden">
+                            <p>You can schedule a visit by filling out the <a href="#contactForm" class="text-primary-600 hover:text-primary-700 font-medium">contact form</a> or calling our admissions office directly. Visits are guided and provide insight into classrooms, labs, and co-curricular facilities.</p>
                         </div>
                     </div>
 
-                    <!-- Submit Button -->
-                    <div class="text-center mt-4">
-                        <button type="submit" class="btn btn-primary large">
-                            Send Message <i class="fas fa-paper-plane"></i>
-                        </button>
+                    <div class="faq-item bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors duration-300">
+                        <h4 class="faq-question text-xl font-semibold text-gray-900 mb-3 cursor-pointer flex items-center justify-between">
+                            What are the admission deadlines?
+                            <i class="fas fa-chevron-down text-primary-600 transition-transform duration-300"></i>
+                        </h4>
+                        <div class="faq-answer text-gray-600 leading-relaxed hidden">
+                            <p>Deadlines vary by grade. For Academic Year 2026–2027, registration opens November 1, 2025, and closes March 31, 2026. Entrance tests for higher grades are in early April. Please check the <a href="admissions.html#fees" class="text-primary-600 hover:text-primary-700 font-medium">Admissions page</a> for detailed timelines.</p>
+                        </div>
                     </div>
 
-                    <p class="form-note text-center mt-3">
-                        We’ll get back to you within 24 hours. Thank you for reaching out!
-                    </p>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section — Dynamic Ready -->
-    <section class="section" id="faq">
-        <div class="container">
-            <div class="section-title">
-                <h2>Frequently Asked Questions</h2>
-                <p>Find answers to common queries about admissions, academics, alumni, and more</p>
-            </div>
-
-            <!-- Loader -->
-            <div class="loader text-center"><i class="fas fa-spinner fa-spin fa-3x"></i></div>
-
-            <!-- Dynamic FAQ List -->
-            <div id="faqList" class="faq-grid">
-                <!-- All original FAQ items remain here as fallback -->
-                <!-- (JS will replace or enhance them) -->
-                <!-- Admissions -->
-                <div class="faq-item">
-                    <h4 class="faq-question">How can I schedule a school visit?</h4>
-                    <div class="faq-answer">
-                        <p>You can schedule a visit by filling out the <a href="#contactForm">contact form</a> or calling our admissions office directly. Visits are guided and provide insight into classrooms, labs, and co-curricular facilities.</p>
+                    <div class="faq-item bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors duration-300">
+                        <h4 class="faq-question text-xl font-semibold text-gray-900 mb-3 cursor-pointer flex items-center justify-between">
+                            What documents are required for admission?
+                            <i class="fas fa-chevron-down text-primary-600 transition-transform duration-300"></i>
+                        </h4>
+                        <div class="faq-answer text-gray-600 leading-relaxed hidden">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>Birth Certificate / Age Proof</li>
+                                <li>Previous School Report Card / Transcript</li>
+                                <li>Passport-size Photo(s)</li>
+                                <li>Identity documents of parent/guardian</li>
+                                <li>Application form (online or printed)</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="faq-item">
-                    <h4 class="faq-question">What are the admission deadlines?</h4>
-                    <div class="faq-answer">
-                        <p>Deadlines vary by grade. For Academic Year 2026–2027, registration opens November 1, 2025, and closes March 31, 2026. Entrance tests for higher grades are in early April. Please check the <a href="admissions.html#fees">Admissions page</a> for detailed timelines.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <h4 class="faq-question">What documents are required for admission?</h4>
-                    <div class="faq-answer">
-                        <ul>
-                            <li>Birth Certificate / Age Proof</li>
-                            <li>Previous School Report Card / Transcript</li>
-                            <li>Passport-size Photo(s)</li>
-                            <li>Identity documents of parent/guardian</li>
-                            <li>Application form (online or printed)</li>
-                        </ul>
-                    </div>
-                </div>
 
-                <div class="faq-item">
-                    <h4 class="faq-question">Can I submit documents online?</h4>
-                    <div class="faq-answer">
-                        <p>Yes. Our <a href="#apply">online application form</a> allows uploading scanned copies of required documents in PDF, DOC, JPG, or PNG formats.</p>
+                    <!-- Academics & Curriculum -->
+                    <div class="faq-item bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors duration-300">
+                        <h4 class="faq-question text-xl font-semibold text-gray-900 mb-3 cursor-pointer flex items-center justify-between">
+                            What curriculum does the school follow?
+                            <i class="fas fa-chevron-down text-primary-600 transition-transform duration-300"></i>
+                        </h4>
+                        <div class="faq-answer text-gray-600 leading-relaxed hidden">
+                            <p>Bar Union Mixed Secondary School follows the national curriculum under the CBSE/State Board guidelines, emphasizing holistic development and examination readiness for national and international standards.</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="faq-item">
-                    <h4 class="faq-question">Is there a dress code for students?</h4>
-                    <div class="faq-answer">
-                        <p>Yes. Students are expected to wear the prescribed uniform. Specific guidelines for formal, PE, and sports uniforms are provided upon admission.</p>
+                    <div class="faq-item bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors duration-300">
+                        <h4 class="faq-question text-xl font-semibold text-gray-900 mb-3 cursor-pointer flex items-center justify-between">
+                            What co-curricular and extracurricular activities are available?
+                            <i class="fas fa-chevron-down text-primary-600 transition-transform duration-300"></i>
+                        </h4>
+                        <div class="faq-answer text-gray-600 leading-relaxed hidden">
+                            <p>Students can participate in Robotics & AI, Drama & Theatre, Music & Dance, Art & Craft, sports teams, and club activities. We encourage participation for holistic development.</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="faq-item">
-                    <h4 class="faq-question">Are there scholarships or fee concessions?</h4>
-                    <div class="faq-answer">
-                        <p>Yes. Scholarships are offered for academic excellence, sports, and co-curricular achievements. Sibling discounts and need-based concessions are also available. Details can be obtained from the admissions office.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h4 class="faq-question">How long does it take to get a reply after submitting the application?</h4>
-                    <div class="faq-answer">
-                        <p>Applications are reviewed promptly. We typically respond within 24–48 hours during working days with further instructions or interview schedules.</p>
-                    </div>
-                </div>
-
-                <!-- Academics & Curriculum -->
-                <div class="faq-item">
-                    <h4 class="faq-question">What curriculum does the school follow?</h4>
-                    <div class="faq-answer">
-                        <p>Bar Union Mixed Secondary School follows the national curriculum under the CBSE/State Board guidelines (adjust depending on school), emphasizing holistic development and examination readiness for national and international standards.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h4 class="faq-question">Are extra coaching or competitive exam preparations offered?</h4>
-                    <div class="faq-answer">
-                        <p>Yes. Our Career Guidance Cell provides preparation for competitive exams such as JEE, NEET, CLAT, CUET, and SAT, along with psychometric assessments and career counseling.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h4 class="faq-question">What co-curricular and extracurricular activities are available?</h4>
-                    <div class="faq-answer">
-                        <p>Students can participate in Robotics & AI, Drama & Theatre, Music & Dance, Art & Craft, sports teams, and club activities. We encourage participation for holistic development.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h4 class="faq-question">How does the school handle student counseling and career guidance?</h4>
-                    <div class="faq-answer">
-                        <p>Our dedicated Career Guidance & Counseling Cell helps students make informed decisions regarding streams, college applications, scholarships, internships, and career pathways. Sessions are personalized and free for students.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h4 class="faq-question">What safety measures are in place?</h4>
-                    <div class="faq-answer">
-                        <p>We prioritize student safety through security staff, CCTV surveillance, emergency drills, first aid facilities, and a well-defined discipline policy monitored by the BOM and staff.</p>
-                    </div>
-                </div>
-
-                <!-- Alumni & Community -->
-                <div class="faq-item">
-                    <h4 class="faq-question">Can alumni stay connected with the school?</h4>
-                    <div class="faq-answer">
-                        <p>Yes. Alumni can register through our <a href="#register">Alumni Network</a> form, participate in reunions, mentorship programs, and engage with current students.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h4 class="faq-question">Are parents involved in school decisions?</h4>
-                    <div class="faq-answer">
-                        <p>Parents participate through the Parents’ Association (PA), which collaborates with the BOM and SMC on policy implementation, events, and school programs.</p>
-                    </div>
-                </div>
-
-                <!-- General -->
-                <div class="faq-item">
-                    <h4 class="faq-question">How can I contact the school directly?</h4>
-                    <div class="faq-answer">
-                        <p>You can reach us via the <a href="#contactForm">contact form</a>, email, phone, or visit during office hours. See our <a href="#contact-info">Contact Info & Map</a> for full details.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h4 class="faq-question">What are the office hours?</h4>
-                    <div class="faq-answer">
-                        <p>Monday – Friday: 8:00 AM – 4:00 PM<br>
-                           Saturday: 9:00 AM – 1:00 PM<br>
-                           Sunday & Public Holidays: Closed</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <h4 class="faq-question">Where can I find fee details and important academic dates?</h4>
-                    <div class="faq-answer">
-                        <p>Fee structures and timelines are available in the <a href="#fees">Fees & Key Dates</a> section and downloadable fee brochure.</p>
+                    <!-- General -->
+                    <div class="faq-item bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors duration-300">
+                        <h4 class="faq-question text-xl font-semibold text-gray-900 mb-3 cursor-pointer flex items-center justify-between">
+                            How can I contact the school directly?
+                            <i class="fas fa-chevron-down text-primary-600 transition-transform duration-300"></i>
+                        </h4>
+                        <div class="faq-answer text-gray-600 leading-relaxed hidden">
+                            <p>You can reach us via the <a href="#contactForm" class="text-primary-600 hover:text-primary-700 font-medium">contact form</a>, email, phone, or visit during office hours. See our <a href="#contact" class="text-primary-600 hover:text-primary-700 font-medium">Contact Info & Map</a> for full details.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Quick Stats Banner — Dynamic Ready -->
-    <section class="section bg-primary text-white">
-        <div class="container">
-            <div id="contactStats" class="stats-grid">
-                <!-- Static fallback (will be replaced by JS) -->
-                <div class="stat text-center fade-in">
-                    <h3>1,250+</h3>
-                    <p>Inquiries Received</p>
+    <!-- Quick Stats Banner -->
+    <section class="py-16 bg-gradient-to-r from-primary-600 to-primary-800 text-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 text-center">
+                <div class="stat">
+                    <h3 class="text-3xl md:text-4xl font-bold mb-2">1,250+</h3>
+                    <p class="text-primary-200">Inquiries Received</p>
                 </div>
-                <div class="stat text-center fade-in">
-                    <h3>850+</h3>
-                    <p>Applications Processed</p>
+                <div class="stat">
+                    <h3 class="text-3xl md:text-4xl font-bold mb-2">850+</h3>
+                    <p class="text-primary-200">Applications Processed</p>
                 </div>
-                <div class="stat text-center fade-in">
-                    <h3>500+</h3>
-                    <p>Students Admitted</p>
+                <div class="stat">
+                    <h3 class="text-3xl md:text-4xl font-bold mb-2">500+</h3>
+                    <p class="text-primary-200">Students Admitted</p>
                 </div>
-                <div class="stat text-center fade-in">
-                    <h3>200+</h3>
-                    <p>Career Counseling Sessions</p>
+                <div class="stat">
+                    <h3 class="text-3xl md:text-4xl font-bold mb-2">200+</h3>
+                    <p class="text-primary-200">Career Counseling Sessions</p>
                 </div>
-                <div class="stat text-center fade-in">
-                    <h3>1,000+</h3>
-                    <p>Active Alumni</p>
+                <div class="stat col-span-2 md:col-span-1">
+                    <h3 class="text-3xl md:text-4xl font-bold mb-2">1,000+</h3>
+                    <p class="text-primary-200">Active Alumni</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Back to Top Button -->
-    <button id="backToTop" aria-label="Back to top">
+    <button id="backToTop" aria-label="Back to top" class="fixed bottom-8 right-8 w-12 h-12 bg-primary-600 text-white rounded-full shadow-lg hover:bg-primary-700 transition-all duration-300 transform hover:scale-110 z-50">
         <i class="fas fa-chevron-up"></i>
     </button>
 
     <!-- Footer -->
     <div w3-include-html="/includes/footer.html"></div>
 
-    <!-- Scripts – Order matters! -->
+    <!-- Scripts -->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script>w3.includeHTML();</script>
 
-    <!-- AOS Animation Library (if you use it) -->
+    <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>AOS.init();</script>
 
-    <!-- Our Mobile Menu – This makes the hamburger work -->
+    <!-- Our Mobile Menu -->
     <script src="/js/static/mobile-menu.js"></script>
 
-    <!-- Preloader hide (optional but nice) -->
+    <!-- Preloader hide -->
     <script>
         window.addEventListener('load', function () {
-            document.getElementById('preloader').style.display = 'none';
+            const preloader = document.getElementById('preloader');
+            if (preloader) preloader.style.display = 'none';
         });
     </script>
 
-    <!-- Scripts -->
+    <!-- Contact Scripts -->
     <script src="/js/static/contact.js" defer></script>
+
+    <!-- FAQ Toggle Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                const answer = item.querySelector('.faq-answer');
+                const icon = question.querySelector('i');
+                
+                question.addEventListener('click', function() {
+                    const isOpen = !answer.classList.contains('hidden');
+                    
+                    // Close all other FAQs
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.querySelector('.faq-answer').classList.add('hidden');
+                            otherItem.querySelector('.faq-question i').style.transform = 'rotate(0deg)';
+                        }
+                    });
+                    
+                    // Toggle current FAQ
+                    if (isOpen) {
+                        answer.classList.add('hidden');
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        answer.classList.remove('hidden');
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

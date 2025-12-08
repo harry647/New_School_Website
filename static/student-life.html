@@ -10,480 +10,606 @@
     <meta property="og:description" content="Where learning meets joy, leadership, talent, and lifelong memories.">
     <meta property="og:image" content="/assets/images/og-image.jpg">
    
-   
     <!-- Preconnect for Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-   
-    <!-- Styles -->
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'ui-sans-serif', 'system-ui'],
+                        'serif': ['Playfair Display', 'ui-serif', 'Georgia'],
+                    },
+                    colors: {
+                        'school-red': '#dc2626',
+                        'school-blue': '#2563eb',
+                        'school-green': '#16a34a',
+                        'school-yellow': '#ca8a04',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    <link rel="stylesheet" href="/css/static/student-life.css" />
+    <!-- Lightbox -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" />
-
+    
+    <style>
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .gradient-overlay {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(147, 51, 234, 0.9));
+        }
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 
-<body class="page-student">
+<body class="bg-gray-50 text-gray-900 font-sans">
     <!-- Header -->
     <div w3-include-html="/includes/header.html"></div>
 
-
-    <!-- Hero -->
-    <section class="page-hero parallax fade-in">
-        <div class="container">
-            <h1 class="animate-pop">Student Life at Bar Union Mixed Secondary School</h1>
-            <p class="animate-fade">
-                At Bar Union Mixed Secondary School, student life is a rich blend of academic excellence,
-                character development, and meaningful social interaction. Our vibrant community provides
-                a nurturing space where learners discover their strengths, build lifelong friendships,
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center parallax" style="background-image: linear-gradient(135deg, rgba(59, 130, 246, 0.8), rgba(147, 51, 234, 0.8)), url('/assets/images/student-life/group-happy.jpg');">
+        <div class="absolute inset-0 bg-black opacity-40"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center text-white">
+            <h1 class="text-5xl md:text-7xl font-serif font-bold mb-6 animate-fade-in">
+                Student Life at Bar Union Mixed Secondary School
+            </h1>
+            <p class="text-xl md:text-2xl leading-relaxed mb-8 animate-fade-in" style="animation-delay: 0.2s;">
+                At Bar Union Mixed Secondary School, student life is a rich blend of academic excellence, 
+                character development, and meaningful social interaction. Our vibrant community provides 
+                a nurturing space where learners discover their strengths, build lifelong friendships, 
                 and grow into responsible leaders.
-                <br><br>
-                From dynamic classroom learning and innovative academic programs to engaging co-curricular
-                activities such as sports, performing arts, clubs, mentorship, and community outreach,
-                every student is encouraged to pursue their passions and unlock their full potential.
-                Here, education goes beyond books—it's an experience that shapes confident, well-rounded
-                individuals ready to excel in the world.
             </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in" style="animation-delay: 0.4s;">
+                <a href="#houses" class="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition duration-300 shadow-lg hover:shadow-xl">
+                    Explore Our Houses
+                </a>
+                <a href="/clubs/clubs.html" class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition duration-300">
+                    Join Clubs & Activities
+                </a>
+            </div>
         </div>
     </section>
 
     <!-- Sticky Quick Navigation -->
-    <div class="quick-nav">
-        <a href="#houses">Houses & Spirit</a>
-        <a href="#clubs">Clubs & Societies</a>
-        <a href="#sports">Sports & Fitness</a>
-        <a href="#events">Events & Celebrations</a>
+    <div class="sticky top-0 z-50 bg-white shadow-lg border-b">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-wrap justify-center gap-2 py-4">
+                <a href="#houses" class="px-4 py-2 rounded-full bg-blue-100 text-blue-700 hover:bg-blue-200 transition duration-300 text-sm font-medium">Houses & Spirit</a>
+                <a href="#clubs" class="px-4 py-2 rounded-full bg-green-100 text-green-700 hover:bg-green-200 transition duration-300 text-sm font-medium">Clubs & Societies</a>
+                <a href="#sports" class="px-4 py-2 rounded-full bg-purple-100 text-purple-700 hover:bg-purple-200 transition duration-300 text-sm font-medium">Sports & Fitness</a>
+                <a href="#events" class="px-4 py-2 rounded-full bg-orange-100 text-orange-700 hover:bg-orange-200 transition duration-300 text-sm font-medium">Events & Celebrations</a>
+            </div>
+        </div>
     </div>
 
-
-    <!-- Intro -->
-    <section class="section fade-in">
-        <div class="container">
-            <div class="intro-grid">
+    <!-- Intro Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div>
-                    <h2>A Vibrant and Holistic School Experience</h2>
-                    <p>At Bar Union Mixed Secondary School, education goes beyond textbooks. We provide a nurturing environment where students excel academically while exploring their passions in sports, arts, leadership, and community service.</p>
-                    <p>Our students thrive in a balanced environment that encourages personal growth, critical thinking, creativity, and teamwork. Daily activities and events allow learners to discover talents, develop skills, and build lasting friendships.</p>
-                    <p>We focus on holistic development—preparing students not only for examinations, but for life. Our programs foster moral integrity, discipline, responsibility, and social consciousness, creating confident and well-rounded young adults.</p>
-                    <p>From engaging co-curricular clubs to competitive sports and cultural activities, every student finds opportunities to shine, participate, and lead.</p>
-                    <a href="gallery.html" class="btn btn-primary">Explore Our School & Gallery</a>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gradient">A Vibrant and Holistic School Experience</h2>
+                    <div class="space-y-4 text-lg leading-relaxed">
+                        <p>At Bar Union Mixed Secondary School, education goes beyond textbooks. We provide a nurturing environment where students excel academically while exploring their passions in sports, arts, leadership, and community service.</p>
+                        <p>Our students thrive in a balanced environment that encourages personal growth, critical thinking, creativity, and teamwork. Daily activities and events allow learners to discover talents, develop skills, and build lasting friendships.</p>
+                        <p>We focus on holistic development—preparing students not only for examinations, but for life. Our programs foster moral integrity, discipline, responsibility, and social consciousness, creating confident and well-rounded young adults.</p>
+                        <p>From engaging co-curricular clubs to competitive sports and cultural activities, every student finds opportunities to shine, participate, and lead.</p>
+                    </div>
+                    <a href="gallery.html" class="inline-block mt-8 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:from-blue-700 hover:to-purple-700 transition duration-300 shadow-lg hover:shadow-xl">
+                        Explore Our School & Gallery
+                    </a>
                 </div>
-                <div class="intro-image">
-                    <img
-                        src="/assets/images/student-life/group-happy-small.jpg"
-                        data-full="/assets/images/student-life/group-happy.jpg"
-                        class="lazy-blur"
-                        alt="Happy students enjoying school life"
-                    >
+                <div class="relative">
+                    <div class="relative overflow-hidden rounded-2xl shadow-2xl hover-lift">
+                        <img src="/assets/images/student-life/group-happy-small.jpg" 
+                             data-full="/assets/images/student-life/group-happy.jpg"
+                             class="w-full h-96 object-cover" 
+                             alt="Happy students enjoying school life">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- House System -->
-    <section class="section bg-light fade-in" id="houses">
-        <div class="container">
-            <div class="section-title">
-                <h2>House System</h2>
-                <p>Fostering Teamwork, Discipline, Leadership & School Spirit</p>
+    <section id="houses" class="py-20 bg-gray-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">House System</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Fostering Teamwork, Discipline, Leadership & School Spirit</p>
             </div>
-            <p class="section-intro">
-                The House System at Bar Union Mixed Secondary School is an integral part of student life, designed
-                to promote unity, healthy competition, and a strong sense of belonging. From the moment students
-                join the school, they are welcomed into one of our four vibrant houses—each with its own unique
-                identity, colors, values, and spirit.
-                <br><br>
-                The houses serve as platforms for leadership development, academic motivation, co-curricular engagement,
-                and character building. Inter-house activities—ranging from sports and debates to academics, arts,
-                and community service—encourage teamwork, personal growth, responsibility, and resilience.
-                <br><br>
-                Through mentorship from house patrons and collaboration with peers, students learn discipline,
-                cooperation, confidence, and fair play. The strong bond within houses helps nurture positive values
-                and lifelong friendships, shaping learners into responsible and well-rounded individuals.
-            </p>
-            <div class="houses-grid">
+            
+            <div class="mb-12 text-center">
+                <p class="text-lg leading-relaxed max-w-4xl mx-auto">
+                    The House System at Bar Union Mixed Secondary School is an integral part of student life, designed to promote unity, healthy competition, and a strong sense of belonging. From the moment students join the school, they are welcomed into one of our four vibrant houses—each with its own unique identity, colors, values, and spirit.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <!-- Red House -->
-                <div class="house-card hover-zoom" style="--house-color:#dc2626">
-                    <div class="house-emblem"><i class="fas fa-fire fa-2x"></i></div>
-                    <h3>Red Hawks</h3>
-                    <p><strong>Motto:</strong> Courage & Passion</p>
-                    <p><i class="fas fa-bolt"></i> Known for boldness, resilience, and relentless drive.</p>
-                    <p><i class="fas fa-heart"></i> Inspires others through enthusiasm, teamwork, and determination.</p>
-                    <p><i class="fas fa-trophy"></i> Excels in athletics, drama, and high-energy competitions.</p>
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift border-t-4 border-school-red">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-school-red text-white flex items-center justify-center">
+                            <i class="fas fa-fire fa-2x"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-school-red">Red Hawks</h3>
+                        <p class="font-semibold text-gray-700">Courage & Passion</p>
+                    </div>
+                    <div class="space-y-3">
+                        <p class="flex items-start"><i class="fas fa-bolt text-school-red mr-3 mt-1"></i> Known for boldness, resilience, and relentless drive.</p>
+                        <p class="flex items-start"><i class="fas fa-heart text-school-red mr-3 mt-1"></i> Inspires others through enthusiasm, teamwork, and determination.</p>
+                        <p class="flex items-start"><i class="fas fa-trophy text-school-red mr-3 mt-1"></i> Excels in athletics, drama, and high-energy competitions.</p>
+                    </div>
                 </div>
+
                 <!-- Blue House -->
-                <div class="house-card hover-zoom" style="--house-color:#2563eb">
-                    <div class="house-emblem"><i class="fas fa-shield-alt fa-2x"></i></div>
-                    <h3>Blue Panthers</h3>
-                    <p><strong>Motto:</strong> Strength & Loyalty</p>
-                    <p><i class="fas fa-users"></i> Fosters unity, trust, and teamwork.</p>
-                    <p><i class="fas fa-handshake"></i> Steadfast commitment to discipline and good conduct.</p>
-                    <p><i class="fas fa-crown"></i> Strong performers in academics, leadership roles, and debates.</p>
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift border-t-4 border-school-blue">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-school-blue text-white flex items-center justify-center">
+                            <i class="fas fa-shield-alt fa-2x"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-school-blue">Blue Panthers</h3>
+                        <p class="font-semibold text-gray-700">Strength & Loyalty</p>
+                    </div>
+                    <div class="space-y-3">
+                        <p class="flex items-start"><i class="fas fa-users text-school-blue mr-3 mt-1"></i> Fosters unity, trust, and teamwork.</p>
+                        <p class="flex items-start"><i class="fas fa-handshake text-school-blue mr-3 mt-1"></i> Steadfast commitment to discipline and good conduct.</p>
+                        <p class="flex items-start"><i class="fas fa-crown text-school-blue mr-3 mt-1"></i> Strong performers in academics, leadership roles, and debates.</p>
+                    </div>
                 </div>
+
                 <!-- Green House -->
-                <div class="house-card hover-zoom" style="--house-color:#16a34a">
-                    <div class="house-emblem"><i class="fas fa-leaf fa-2x"></i></div>
-                    <h3>Green Tigers</h3>
-                    <p><strong>Motto:</strong> Growth & Harmony</p>
-                    <p><i class="fas fa-brain"></i> Encourages intellectual curiosity and creativity.</p>
-                    <p><i class="fas fa-globe"></i> Promotes environmental awareness and responsibility.</p>
-                    <p><i class="fas fa-seedling"></i> Known for excellence in science, innovation, and cultural activities.</p>
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift border-t-4 border-school-green">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-school-green text-white flex items-center justify-center">
+                            <i class="fas fa-leaf fa-2x"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-school-green">Green Tigers</h3>
+                        <p class="font-semibold text-gray-700">Growth & Harmony</p>
+                    </div>
+                    <div class="space-y-3">
+                        <p class="flex items-start"><i class="fas fa-brain text-school-green mr-3 mt-1"></i> Encourages intellectual curiosity and creativity.</p>
+                        <p class="flex items-start"><i class="fas fa-globe text-school-green mr-3 mt-1"></i> Promotes environmental awareness and responsibility.</p>
+                        <p class="flex items-start"><i class="fas fa-seedling text-school-green mr-3 mt-1"></i> Known for excellence in science, innovation, and cultural activities.</p>
+                    </div>
                 </div>
+
                 <!-- Yellow House -->
-                <div class="house-card hover-zoom" style="--house-color:#ca8a04">
-                    <div class="house-emblem"><i class="fas fa-sun fa-2x"></i></div>
-                    <h3>Yellow Lions</h3>
-                    <p><strong>Motto:</strong> Wisdom & Bravery</p>
-                    <p><i class="fas fa-book"></i> Champions of academic strength and disciplined study habits.</p>
-                    <p><i class="fas fa-fist-raised"></i> Show courage and excellence in both academics and athletics.</p>
-                    <p><i class="fas fa-lightbulb"></i> Highly recognized for leadership, mentorship, and strategic thinking.</p>
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift border-t-4 border-school-yellow">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-school-yellow text-white flex items-center justify-center">
+                            <i class="fas fa-sun fa-2x"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-school-yellow">Yellow Lions</h3>
+                        <p class="font-semibold text-gray-700">Wisdom & Bravery</p>
+                    </div>
+                    <div class="space-y-3">
+                        <p class="flex items-start"><i class="fas fa-book text-school-yellow mr-3 mt-1"></i> Champions of academic strength and disciplined study habits.</p>
+                        <p class="flex items-start"><i class="fas fa-fist-raised text-school-yellow mr-3 mt-1"></i> Show courage and excellence in both academics and athletics.</p>
+                        <p class="flex items-start"><i class="fas fa-lightbulb text-school-yellow mr-3 mt-1"></i> Highly recognized for leadership, mentorship, and strategic thinking.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Clubs & Activities — Dynamic Ready -->
-    <section class="section fade-in" id="clubs">
-        <div class="container">
-            <div class="section-title">
-                <h2>Clubs & Activities</h2>
-                <p>Discover Your Talents, Develop Skills, and Build Leadership</p>
+    <!-- Clubs & Activities -->
+    <section id="clubs" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Clubs & Activities</h2>
+                <p class="-600 max-w-3xl mx-auto">Discover Yourtext-xl text-gray Talents, Develop Skills, and Build Leadership</p>
             </div>
-            <p class="section-intro">
-                At Bar Union Mixed Secondary School, we believe that education goes beyond the classroom.
-                Our vibrant co-curricular programs are designed to nurture well-rounded learners by giving
-                students opportunities to explore their interests, sharpen their skills, and develop values
-                that prepare them for life beyond school.
-                <br><br>
-                Through diverse clubs, movements, and specialized activities, learners build confidence,
-                creativity, teamwork, leadership, responsibility, and a strong sense of community.
-                Every student is encouraged to join at least one club to fully enjoy the holistic learning
-                experience that defines our school.
-            </p>
+            
+            <div class="mb-12 text-center">
+                <p class="text-lg leading-relaxed max-w-4xl mx-auto">
+                    At Bar Union Mixed Secondary School, we believe that education goes beyond the classroom. Our vibrant co-curricular programs are designed to nurture well-rounded learners by giving students opportunities to explore their interests, sharpen their skills, and develop values that prepare them for life beyond school.
+                </p>
+            </div>
 
-            <!-- Dynamic Clubs Grid — Added ID -->
-            <div class="activities-grid" id="clubsGrid">
-                <!-- Loader -->
-                <div class="loader text-center">
-                    <i class="fas fa-spinner fa-spin fa-3x"></i>
-                    <p>Loading clubs & activities...</p>
-                </div>
-
+            <!-- Dynamic Clubs Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-16" id="clubsGrid">
                 <!-- Static fallback clubs (will be replaced by JS) -->
-                <div class="activity-card">
-                    <i class="fas fa-theater-masks fa-3x"></i>
-                    <h4>Drama & Theatre</h4>
-                    <p>Develop expression, creativity, confidence, and storytelling skills through acting, script writing, and stage performance.</p>
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 shadow-lg hover-lift">
+                    <div class="text-purple-600 mb-4">
+                        <i class="fas fa-theater-masks fa-3x"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">Drama & Theatre</h4>
+                    <p class="text-gray-700">Develop expression, creativity, confidence, and storytelling skills through acting, script writing, and stage performance.</p>
                 </div>
-                <div class="activity-card">
-                    <i class="fas fa-music fa-3x"></i>
-                    <h4>Music & Choir</h4>
-                    <p>Participate in choir, instrumental training, cultural singing, and school performances that celebrate talent and culture.</p>
+                
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 shadow-lg hover-lift">
+                    <div class="text-blue-600 mb-4">
+                        <i class="fas fa-music fa-3x"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">Music & Choir</h4>
+                    <p class="text-gray-700">Participate in choir, instrumental training, cultural singing, and school performances that celebrate talent and culture.</p>
                 </div>
-                <div class="activity-card">
-                    <i class="fas fa-book fa-3x"></i>
-                    <h4>Debating & Public Speaking</h4>
-                    <p>Sharpen communication, critical thinking, research, and leadership skills through competitions and school debates.</p>
+                
+                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 shadow-lg hover-lift">
+                    <div class="text-green-600 mb-4">
+                        <i class="fas fa-book fa-3x"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">Debating & Public Speaking</h4>
+                    <p class="text-gray-700">Sharpen communication, critical thinking, research, and leadership skills through competitions and school debates.</p>
                 </div>
-                <div class="activity-card">
-                    <i class="fas fa-flask fa-3x"></i>
-                    <h4>Science & Engineering Club</h4>
-                    <p>Engage in experiments, innovation projects, robotics, and STEM problem-solving to inspire future scientists and engineers.</p>
+                
+                <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-6 shadow-lg hover-lift">
+                    <div class="text-red-600 mb-4">
+                        <i class="fas fa-flask fa-3x"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">Science & Engineering Club</h4>
+                    <p class="text-gray-700">Engage in experiments, innovation projects, robotics, and STEM problem-solving to inspire future scientists and engineers.</p>
                 </div>
-                <div class="activity-card">
-                    <i class="fas fa-hand-holding-heart fa-3x"></i>
-                    <h4>Amani (Peace & Justice)</h4>
-                    <p>Promote unity, conflict resolution, moral values, mentorship, and positive behavior within the school community.</p>
+                
+                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-6 shadow-lg hover-lift">
+                    <div class="text-yellow-600 mb-4">
+                        <i class="fas fa-hand-holding-heart fa-3x"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">Amani (Peace & Justice)</h4>
+                    <p class="text-gray-700">Promote unity, conflict resolution, moral values, mentorship, and positive behavior within the school community.</p>
                 </div>
-                <div class="activity-card">
-                    <i class="fas fa-hands-helping fa-3x"></i>
-                    <h4>World Starts With Me</h4>
-                    <p>Empowering students with knowledge on health, personal growth, social awareness, and community development initiatives.</p>
+                
+                <div class="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-2xl p-6 shadow-lg hover-lift">
+                    <div class="text-indigo-600 mb-4">
+                        <i class="fas fa-hands-helping fa-3x"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">World Starts With Me</h4>
+                    <p class="text-gray-700">Empowering students with knowledge on health, personal growth, social awareness, and community development initiatives.</p>
                 </div>
-                <div class="activity-card">
-                    <i class="fas fa-pray fa-3x"></i>
-                    <h4>Christian Union</h4>
-                    <p>Fosters spiritual growth, Bible study, mentorship, moral support, and community service among students.</p>
+                
+                <div class="bg-gradient-to-br from-pink-50 to-pink-100 rounded-2xl p-6 shadow-lg hover-lift">
+                    <div class="text-pink-600 mb-4">
+                        <i class="fas fa-pray fa-3x"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">Christian Union</h4>
+                    <p class="text-gray-700">Fosters spiritual growth, Bible study, mentorship, moral support, and community service among students.</p>
                 </div>
-                <div class="activity-card">
-                    <i class="fas fa-compass fa-3x"></i>
-                    <h4>Scouting</h4>
-                    <p>Builds discipline, resilience, leadership, and outdoor survival skills through adventure and community activities.</p>
+                
+                <div class="bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl p-6 shadow-lg hover-lift">
+                    <div class="text-teal-600 mb-4">
+                        <i class="fas fa-compass fa-3x"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">Scouting</h4>
+                    <p class="text-gray-700">Builds discipline, resilience, leadership, and outdoor survival skills through adventure and community activities.</p>
                 </div>
             </div>
 
-            <h3 class="subsection-title">Student Movements</h3>
-            <p class="section-intro">
-                Student leadership is a core part of school life at Bar Union Mixed Secondary School.
-                Our student movements empower learners to take responsibility, lead peers, and participate
-                actively in school management. These groups nurture confidence, discipline, teamwork,
-                and organizational skills that shape future leaders.
-            </p>
-            <div class="clubs-grid" id="featuredClubs">
-                <div class="activity-card">
-                    <i class="fas fa-star fa-2x"></i>
-                    <h4>Prefect Council</h4>
-                    <p>The highest student leadership body responsible for guiding fellow learners,
-                    enforcing discipline, organizing events, and serving as role models across the school.</p>
-                </div>
-                <div class="activity-card">
-                    <i class="fas fa-users fa-2x"></i>
-                    <h4>Club Officials</h4>
-                    <p>Dedicated student leaders who coordinate club meetings, oversee activities, mentor new members,
-                    and ensure smooth functioning of all school clubs.</p>
+            <!-- Student Movements -->
+            <div class="mt-16">
+                <h3 class="text-3xl font-bold text-center mb-8">Student Movements</h3>
+                <p class="text-lg leading-relaxed max-w-4xl mx-auto text-center mb-12">
+                    Student leadership is a core part of school life at Bar Union Mixed Secondary School. Our student movements empower learners to take responsibility, lead peers, and participate actively in school management. These groups nurture confidence, discipline, teamwork, and organizational skills that shape future leaders.
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-8" id="featuredClubs">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 shadow-lg hover-lift">
+                        <div class="text-blue-600 mb-4">
+                            <i class="fas fa-star fa-2x"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold mb-4">Prefect Council</h4>
+                        <p>The highest student leadership body responsible for guiding fellow learners, enforcing discipline, organizing events, and serving as role models across the school.</p>
+                    </div>
+                    
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 shadow-lg hover-lift">
+                        <div class="text-green-600 mb-4">
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold mb-4">Club Officials</h4>
+                        <p>Dedicated student leaders who coordinate club meetings, oversee activities, mentor new members, and ensure smooth functioning of all school clubs.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
 
     <!-- Sports & Co-Curricular Activities -->
-    <section class="section bg-light fade-in" id="sports">
-        <div class="container">
-
-            <!-- Intro -->
-            <div class="section-title">
-                <h2>Sports & Co-Curricular Activities</h2>
-                <p>
-                    At Bar Union Mixed Secondary School, learning extends far beyond the four walls of the classroom. 
-                    We believe in nurturing well-rounded individuals through programs that promote academic excellence, 
-                    character formation, teamwork, discipline, talent development, and spiritual growth. Our sports and 
-                    co-curricular activities give students the opportunity to explore their abilities, strengthen their 
-                    leadership qualities, and express creativity while building lifelong values.
+    <section id="sports" class="py-20 bg-gray-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Sports & Co-Curricular Activities</h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    At Bar Union Mixed Secondary School, learning extends far beyond the four walls of the classroom. We believe in nurturing well-rounded individuals through programs that promote academic excellence, character formation, teamwork, discipline, talent development, and spiritual growth.
                 </p>
             </div>
 
             <!-- Overview Cards -->
-            <div class="info-cards-grid">
-
-                <!-- Achievements -->
-                <div class="info-card">
-                    <i class="fas fa-trophy fa-3x" style="color: #f39c12;"></i>
-                    <h3>Achievements & Excellence</h3>
-                    <p>
-                        Over the years, our students have proudly represented the school at zonal and county levels 
-                        in <strong>Music Festivals</strong>, <strong>Drama</strong>, <strong>Athletics</strong>, 
-                        and emerging <strong>STEM competitions</strong>. Their outstanding performances reflect 
-                        the hard work, dedication, and teamwork instilled in them through our structured programs.
-                    </p>
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift">
+                    <div class="text-orange-500 mb-4">
+                        <i class="fas fa-trophy fa-3x"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Achievements & Excellence</h3>
+                    <p>Over the years, our students have proudly represented the school at zonal and county levels in <strong>Music Festivals</strong>, <strong>Drama</strong>, <strong>Athletics</strong>, and emerging <strong>STEM competitions</strong>. Their outstanding performances reflect the hard work, dedication, and teamwork instilled in them through our structured programs.</p>
                 </div>
 
-                <!-- Clubs -->
-                <div class="info-card">
-                    <i class="fas fa-users fa-3x" style="color: #3498db;"></i>
-                    <h3>Vibrant Clubs & Societies</h3>
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift">
+                    <div class="text-blue-500 mb-4">
+                        <i class="fas fa-users fa-3x"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Vibrant Clubs & Societies</h3>
                     <p>Students participate actively in a diverse range of clubs designed to nurture talent, creativity, leadership, and personal growth.</p>
-                    <ul>
-                        <li>Drama Club</li>
-                        <li>Music Team</li>
-                        <li>Scouting Movement</li>
-                        <li>Debate & Public Speaking</li>
-                        <li>World Starts With Me (WSWM)</li>
-                        <li>Amani Club (Peace, Justice & Leadership)</li>
-                        <li>Science & Engineering Club</li>
-                        <li>Christian Union (AIC-Chaplaincy Guided)</li>
+                    <ul class="mt-4 space-y-2">
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Drama Club</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Music Team</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Scouting Movement</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Debate & Public Speaking</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>World Starts With Me (WSWM)</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Amani Club</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Science & Engineering Club</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Christian Union</li>
                     </ul>
                 </div>
 
-                <!-- Growth -->
-                <div class="info-card">
-                    <i class="fas fa-chart-line fa-3x" style="color: #e74c3c;"></i>
-                    <h3>Growth & Competitiveness</h3>
-                    <p>
-                        The school is steadily expanding its participation in inter-school tournaments and regional competitions. 
-                        While we continue strengthening Football, Handball, Netball, and Volleyball, we are also developing 
-                        new competitive areas such as <strong>Basketball</strong>, <strong>Hockey</strong>, <strong>Rugby</strong>, 
-                        <strong>Science Congress</strong>, and <strong>Indoor Games</strong> to enhance student exposure 
-                        and sharpen competitive spirit.
-                    </p>
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift">
+                    <div class="text-red-500 mb-4">
+                        <i class="fas fa-chart-line fa-3x"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Growth & Competitiveness</h3>
+                    <p>The school is steadily expanding its participation in inter-school tournaments and regional competitions. While we continue strengthening Football, Handball, Netball, and Volleyball, we are also developing new competitive areas such as <strong>Basketball</strong>, <strong>Hockey</strong>, <strong>Rugby</strong>, <strong>Science Congress</strong>, and <strong>Indoor Games</strong> to enhance student exposure and sharpen competitive spirit.</p>
                 </div>
             </div>
 
             <!-- Sports Programs -->
-            <div class="section-subtitle">
-                <h3>Our Sports Programs</h3>
-                <p>
-                    Our sports department offers a wide range of activities where students build physical fitness, 
-                    teamwork, discipline, resilience, and strategic thinking. Each program is supported by trained coaches 
-                    and dedicated teachers.
+            <div class="mb-16">
+                <h3 class="text-3xl font-bold text-center mb-8">Our Sports Programs</h3>
+                <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto mb-12">
+                    Our sports department offers a wide range of activities where students build physical fitness, teamwork, discipline, resilience, and strategic thinking. Each program is supported by trained coaches and dedicated teachers.
                 </p>
-            </div>
 
-            <div class="sports-grid">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-lift cursor-pointer">
+                        <img src="/assets/images/student-life/athletics.jpg" alt="Athletics" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold mb-2 flex items-center">
+                                <i class="fas fa-running text-orange-500 mr-3"></i>Athletics
+                            </h4>
+                            <p class="text-gray-600">Track and field events that build endurance, speed, and strength.</p>
+                        </div>
+                    </div>
 
-                <div class="sport-item lightbox-open">
-                    <img src="/assets/images/student-life/athletics.jpg" alt="Athletics">
-                    <h4><i class="fas fa-running" style="color: #e67e22;"></i> Athletics</h4>
-                    <p class="sport-desc">Track and field events that build endurance, speed, and strength.</p>
-                </div>
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-lift cursor-pointer">
+                        <img src="/assets/images/student-life/football.jpg" alt="Football" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold mb-2 flex items-center">
+                                <i class="fas fa-futbol text-green-500 mr-3"></i>Football
+                            </h4>
+                            <p class="text-gray-600">One of our most popular sports fostering strategy, teamwork, and unity.</p>
+                        </div>
+                    </div>
 
-                <div class="sport-item lightbox-open">
-                    <img src="/assets/images/student-life/football.jpg" alt="Football">
-                    <h4><i class="fas fa-futbol" style="color: #2ecc71;"></i> Football</h4>
-                    <p class="sport-desc">One of our most popular sports fostering strategy, teamwork, and unity.</p>
-                </div>
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-lift cursor-pointer">
+                        <img src="/assets/images/student-life/handball.jpg" alt="Handball" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold mb-2 flex items-center">
+                                <i class="fas fa-hand-paper text-blue-500 mr-3"></i>Handball
+                            </h4>
+                            <p class="text-gray-600">Fast-paced game that builds agility, precision, and high coordination.</p>
+                        </div>
+                    </div>
 
-                <div class="sport-item lightbox-open">
-                    <img src="/assets/images/student-life/handball.jpg" alt="Handball">
-                    <h4><i class="fas fa-hand-paper" style="color: #3498db;"></i> Handball</h4>
-                    <p class="sport-desc">Fast-paced game that builds agility, precision, and high coordination.</p>
-                </div>
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-lift cursor-pointer">
+                        <img src="/assets/images/student-life/netball.png" alt="Netball" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold mb-2 flex items-center">
+                                <i class="fas fa-basketball-ball text-yellow-500 mr-3"></i>Netball
+                            </h4>
+                            <p class="text-gray-600">A key sport for girls promoting teamwork, discipline, and focus.</p>
+                        </div>
+                    </div>
 
-                <div class="sport-item lightbox-open">
-                    <img src="/assets/images/student-life/netball.png" alt="Netball">
-                    <h4><i class="fas fa-basketball-ball" style="color: #f1c40f;"></i> Netball</h4>
-                    <p class="sport-desc">A key sport for girls promoting teamwork, discipline, and focus.</p>
-                </div>
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-lift cursor-pointer">
+                        <img src="/assets/images/student-life/volleyball.jpg" alt="Volleyball" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold mb-2 flex items-center">
+                                <i class="fas fa-volleyball-ball text-red-500 mr-3"></i>Volleyball
+                            </h4>
+                            <p class="text-gray-600">A highly engaging sport enhancing speed, coordination, and power.</p>
+                        </div>
+                    </div>
 
-                <div class="sport-item lightbox-open">
-                    <img src="/assets/images/student-life/volleyball.jpg" alt="Volleyball">
-                    <h4><i class="fas fa-volleyball-ball" style="color: #e74c3c;"></i> Volleyball</h4>
-                    <p class="sport-desc">A highly engaging sport enhancing speed, coordination, and power.</p>
-                </div>
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-lift cursor-pointer">
+                        <img src="/assets/images/student-life/basketball.jpg" alt="Basketball" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold mb-2 flex items-center">
+                                <i class="fas fa-basketball-ball text-orange-500 mr-3"></i>Basketball
+                            </h4>
+                            <p class="text-gray-600">Growing rapidly in popularity, improving reflexes and team strategy.</p>
+                        </div>
+                    </div>
 
-                <div class="sport-item lightbox-open">
-                    <img src="/assets/images/student-life/basketball.jpg" alt="Basketball">
-                    <h4><i class="fas fa-basketball-ball" style="color: #f39c12;"></i> Basketball</h4>
-                    <p class="sport-desc">Growing rapidly in popularity, improving reflexes and team strategy.</p>
-                </div>
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-lift cursor-pointer">
+                        <img src="/assets/images/student-life/hockey.jpg" alt="Hockey" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold mb-2 flex items-center">
+                                <i class="fas fa-hockey-puck text-purple-500 mr-3"></i>Hockey
+                            </h4>
+                            <p class="text-gray-600">Recently introduced, developing skill, precision, and tactical discipline.</p>
+                        </div>
+                    </div>
 
-                <div class="sport-item lightbox-open">
-                    <img src="/assets/images/student-life/hockey.jpg" alt="Hockey">
-                    <h4><i class="fas fa-hockey-puck" style="color: #8e44ad;"></i> Hockey</h4>
-                    <p class="sport-desc">Recently introduced, developing skill, precision, and tactical discipline.</p>
-                </div>
-
-                <div class="sport-item lightbox-open">
-                    <img src="/assets/images/student-life/rugby.jpg" alt="Rugby">
-                    <h4><i class="fas fa-football-ball" style="color: #c0392b;"></i> Rugby</h4>
-                    <p class="sport-desc">A strength-building sport that nurtures courage, resilience, and teamwork.</p>
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg hover-lift cursor-pointer">
+                        <img src="/assets/images/student-life/rugby.jpg" alt="Rugby" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h4 class="text-xl font-bold mb-2 flex items-center">
+                                <i class="fas fa-football-ball text-red-600 mr-3"></i>Rugby
+                            </h4>
+                            <p class="text-gray-600">A strength-building sport that nurtures courage, resilience, and teamwork.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Organizational Structure -->
-            <div class="info-cards-grid mt-4">
-
-                <div class="info-card">
-                    <i class="fas fa-user-tie fa-3x" style="color: #2ecc71;"></i>
-                    <h3>Leadership & Support Structure</h3>
-                    <p>
-                        The Co-Curricular Department is led by a committed <strong>Head of Department (H.O.D)</strong> 
-                        working closely with trainers, coaches, patrons, and student leaders. This structured 
-                        leadership ensures accountability, mentorship, and effective organization of activities 
-                        throughout the year.
-                    </p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift">
+                    <div class="text-green-500 mb-4">
+                        <i class="fas fa-user-tie fa-3x"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Leadership & Support Structure</h3>
+                    <p>The Co-Curricular Department is led by a committed <strong>Head of Department (H.O.D)</strong> working closely with trainers, coaches, patrons, and student leaders. This structured leadership ensures accountability, mentorship, and effective organization of activities throughout the year.</p>
                 </div>
 
-                <div class="info-card">
-                    <i class="fas fa-heart fa-3x" style="color: #e67e22;"></i>
-                    <h3>Our Co-Curricular Philosophy</h3>
-                    <p>
-                        We believe that every student deserves an opportunity to discover and develop their talents. 
-                        Our programs are rooted in values of <strong>integrity</strong>, <strong>discipline</strong>, 
-                        <strong>respect</strong>, <strong>professionalism</strong>, and <strong>spiritual formation</strong>, 
-                        guided by the ethos of the African Inland Church (AIC). Participation is open, inclusive, and 
-                        designed to build character, confidence, and leadership.
-                    </p>
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift">
+                    <div class="text-orange-500 mb-4">
+                        <i class="fas fa-heart fa-3x"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Our Co-Curricular Philosophy</h3>
+                    <p>We believe that every student deserves an opportunity to discover and develop their talents. Our programs are rooted in values of <strong>integrity</strong>, <strong>discipline</strong>, <strong>respect</strong>, <strong>professionalism</strong>, and <strong>spiritual formation</strong>, guided by the ethos of the African Inland Church (AIC). Participation is open, inclusive, and designed to build character, confidence, and leadership.</p>
                 </div>
             </div>
-
         </div>
     </section>
 
-
-
     <!-- Events -->
-    <section class="section fade-in" id="events">
-        <div class="container">
-
-            <!-- Section Title & Intro -->
-            <div class="section-title">
-                <h2>Major Annual Events</h2>
-                <p class="section-subtitle">
-                    Our school calendar is filled with vibrant academic, cultural, leadership, and co-curricular activities 
-                    that enrich our students’ growth. Each event is designed to build confidence, strengthen values, 
-                    celebrate achievements, and promote holistic development. Below is a highlight of our key annual events 
-                    that bring our school community together.
+    <section id="events" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Major Annual Events</h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    Our school calendar is filled with vibrant academic, cultural, leadership, and co-curricular activities that enrich our students' growth. Each event is designed to build confidence, strengthen values, celebrate achievements, and promote holistic development. Below is a highlight of our key annual events that bring our school community together.
                 </p>
             </div>
 
             <!-- Events Timeline -->
-            <div class="events-timeline">
-
-                <!-- July – Investiture Ceremony -->
-                <div class="event-month slide-left">
-                    October 
-                    <span>Inauguration Ceremony</span>
-                    <p class="event-details">
-                        This is one of the most important leadership events of the year, where new student leaders such as 
-                        prefects, captains, and committee heads are formally sworn in. The ceremony symbolizes responsibility, 
-                        integrity, and the trust placed on students by the school community.
-                    </p>
+            <div class="space-y-8">
+                <!-- October – Inauguration Ceremony -->
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="md:w-1/3">
+                        <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-2xl p-8 text-center">
+                            <div class="text-4xl font-bold mb-2">October</div>
+                            <div class="text-xl font-semibold">Inauguration Ceremony</div>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3">
+                        <div class="bg-gray-50 rounded-2xl p-8">
+                            <p class="text-lg leading-relaxed">
+                                This is one of the most important leadership events of the year, where new student leaders such as prefects, captains, and committee heads are formally sworn in. The ceremony symbolizes responsibility, integrity, and the trust placed on students by the school community.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- August – Independence Day -->
-                <div class="event-month slide-right">
-                    August 
-                    <span>Labour Day Celebration</span>
-                    <p class="event-details">
-                        A patriotic celebration highlighting the nation’s journey, heritage, and freedom. Students participate 
-                        in presentations, dances, speeches, debates, and exhibitions that showcase cultural pride and unity. 
-                    </p>
+                <!-- August – Labour Day -->
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="md:w-1/3 order-2 md:order-1">
+                        <div class="bg-gray-50 rounded-2xl p-8">
+                            <p class="text-lg leading-relaxed">
+                                A patriotic celebration highlighting the nation's journey, heritage, and freedom. Students participate in presentations, dances, speeches, debates, and exhibitions that showcase cultural pride and unity.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/3 order-1 md:order-2">
+                        <div class="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-2xl p-8 text-center">
+                            <div class="text-4xl font-bold mb-2">August</div>
+                            <div class="text-xl font-semibold">Labour Day Celebration</div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- October – Cultural Fest -->
-                <div class="event-month slide-left">
-                    October 
-                    <span>Cultural Day Celebration</span>
-                    <p class="event-details">
-                        One of the most anticipated events, the Cultural Day brings together students of all backgrounds 
-                        to showcase music, drama, traditional dances, fashion shows, and creative arts. The day nurtures 
-                        expression, diversity, and talent discovery.
-                    </p>
+                <!-- October – Cultural Day -->
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="md:w-1/3">
+                        <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-2xl p-8 text-center">
+                            <div class="text-4xl font-bold mb-2">October</div>
+                            <div class="text-xl font-semibold">Cultural Day Celebration</div>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3">
+                        <div class="bg-gray-50 rounded-2xl p-8">
+                            <p class="text-lg leading-relaxed">
+                                One of the most anticipated events, the Cultural Day brings together students of all backgrounds to showcase music, drama, traditional dances, fashion shows, and creative arts. The day nurtures expression, diversity, and talent discovery.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- December – Annual Day -->
-                <div class="event-month slide-right">
-                   January  
-                    <span>Annual Celebration Day</span>
-                    <p class="event-details">
-                        A grand celebration marking the achievement of the school year. Academic awards, sports trophies, 
-                        innovation showcases, and special performances make this a memorable event for parents, teachers, 
-                        and students alike.
-                    </p>
+                <!-- January – Annual Celebration -->
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="md:w-1/3 order-2 md:order-1">
+                        <div class="bg-gray-50 rounded-2xl p-8">
+                            <p class="text-lg leading-relaxed">
+                                A grand celebration marking the achievement of the school year. Academic awards, sports trophies, innovation showcases, and special performances make this a memorable event for parents, teachers, and students alike.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/3 order-1 md:order-2">
+                        <div class="bg-gradient-to-br from-red-500 to-red-600 text-white rounded-2xl p-8 text-center">
+                            <div class="text-4xl font-bold mb-2">January</div>
+                            <div class="text-xl font-semibold">Annual Celebration Day</div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- January – Sports Week -->
-                <div class="event-month slide-left">
-                    January 
-                    <span>Sports Week</span>
-                    <p class="event-details">
-                        A full week of athletic competitions including track events, football, volleyball, basketball, 
-                        netball, indoor games, and house competitions. This event fosters teamwork, discipline, and 
-                        physical fitness—cornerstones of student wellbeing.
-                    </p>
+                <div class="flex flex-col md:flex-row gap-8 items-center">
+                    <div class="md:w-1/3">
+                        <div class="bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-2xl p-8 text-center">
+                            <div class="text-4xl font-bold mb-2">January</div>
+                            <div class="text-xl font-semibold">Sports Week</div>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3">
+                        <div class="bg-gray-50 rounded-2xl p-8">
+                            <p class="text-lg leading-relaxed">
+                                A full week of athletic competitions including track events, football, volleyball, basketball, netball, indoor games, and house competitions. This event fosters teamwork, discipline, and physical fitness—cornerstones of student wellbeing.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Extra Notes Section -->
-            <div class="events-notice">
-                <p>
-                    <strong>Note:</strong> Additional events such as academic clinics, prize-giving day, science congress, 
-                    educational tours, motivational talks, and inter-school competitions are scheduled throughout the year 
-                    and communicated through official school channels.
+            <div class="mt-16 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8 text-center">
+                <h3 class="text-2xl font-bold mb-4">Additional Events</h3>
+                <p class="text-lg leading-relaxed">
+                    <strong>Note:</strong> Additional events such as academic clinics, prize-giving day, science congress, educational tours, motivational talks, and inter-school competitions are scheduled throughout the year and communicated through official school channels.
                 </p>
             </div>
-
         </div>
     </section>
 
-
     <!-- Lightbox Modal -->
-    <div id="lightboxModal" class="lightbox-modal">
-        <span class="close-lightbox">&times;</span>
-        <img id="lightboxImage" src="" alt="">
+    <div id="lightboxModal" class="lightbox-modal fixed inset-0 bg-black bg-opacity-75 hidden z-50 flex items-center justify-center p-4">
+        <span class="absolute top-4 right-8 text-white text-4xl cursor-pointer hover:text-gray-300">&times;</span>
+        <img id="lightboxImage" src="" alt="" class="max-w-full max-h-full object-contain">
     </div>
-
 
     <!-- Footer -->
     <div w3-include-html="/includes/footer.html"></div>
@@ -492,22 +618,47 @@
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script>w3.includeHTML();</script>
 
-    <!-- AOS Animation Library (if you use it) -->
+    <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init();</script>
-
-    <!-- Our Mobile Menu – This makes the hamburger work -->
-    <script src="/js/static/mobile-menu.js"></script>
-
-    <!-- Preloader hide (optional but nice) -->
     <script>
-        window.addEventListener('load', function () {
-            document.getElementById('preloader').style.display = 'none';
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
         });
     </script>
 
-    <!-- Scripts — Fixed path -->
+    <!-- Our Mobile Menu -->
+    <script src="/js/static/mobile-menu.js"></script>
+
+    <!-- Preloader hide -->
+    <script>
+        window.addEventListener('load', function () {
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.display = 'none';
+            }
+        });
+    </script>
+
+    <!-- Lightbox Script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js" defer></script>
     <script src="/js/static/student-life.js" defer></script>
+
+    <!-- Smooth Scrolling -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Gallery | Bar Union Mixed Secondary School</title>
     <meta name="description" content="Explore memorable moments from campus life, events, academics, sports, and celebrations." />
+    
     <!-- SEO & Social -->
     <meta property="og:title" content="Photo Gallery | Bar Union Mixed Secondary School">
     <meta property="og:description" content="Relive the best moments of school life through our photo gallery.">
@@ -16,132 +17,359 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
 
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif']
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     
-    <!-- Styles -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <!-- Lightbox CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" />
-    <link rel="stylesheet" href="/css/static/gallery.css" />
-
+    
+    <!-- Custom Styles -->
+    <style>
+        .gallery-item {
+            transition: all 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+        .filter-btn.active {
+            @apply bg-primary-600 text-white;
+        }
+        .video-item {
+            transition: all 0.3s ease;
+        }
+        .video-item:hover {
+            transform: translateY(-3px);
+        }
+    </style>
 </head>
 
-<body class="page-gallery">
+<body class="font-inter bg-gray-50">
     <!-- Header -->
     <div w3-include-html="/includes/header.html"></div>
 
-    <!-- Hero -->
-    <section class="page-hero gallery-hero" aria-label="Gallery Hero">
-        <div class="container text-center">
-            <h1>Gallery</h1>
-            <p>Step into the world of Bar Union Mixed Secondary School, where education meets excellence, character is nurtured, and every student is empowered to reach their full potential. Our gallery captures the essence of a school that values academic rigor, cultural diversity, sporting achievements, and moral integrity.</p>
-            <p>From innovative classroom learning, science and technology projects, and leadership programs, to vibrant cultural festivals, music and drama performances, inter-school competitions, and community outreach initiatives, we celebrate every milestone that shapes our students into responsible, confident, and globally-minded citizens.</p>
-            <p>Our gallery also showcases alumni reunions, mentoring programs, and moments of joy and camaraderie, reflecting a school culture that is inclusive, dynamic, and deeply connected across generations. Experience the spirit, energy, and pride of a school committed to holistic development and lifelong learning.</p>
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 text-white py-20 lg:py-32">
+        <div class="absolute inset-0 bg-black opacity-40"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-playfair font-bold mb-6">
+                    Gallery
+                </h1>
+                <div class="max-w-4xl mx-auto space-y-4 text-lg lg:text-xl leading-relaxed">
+                    <p class="text-primary-100">
+                        Step into the world of Bar Union Mixed Secondary School, where education meets excellence, character is nurtured, and every student is empowered to reach their full potential. Our gallery captures the essence of a school that values academic rigor, cultural diversity, sporting achievements, and moral integrity.
+                    </p>
+                    <p class="text-primary-100">
+                        From innovative classroom learning, science and technology projects, and leadership programs, to vibrant cultural festivals, music and drama performances, inter-school competitions, and community outreach initiatives, we celebrate every milestone that shapes our students into responsible, confident, and globally-minded citizens.
+                    </p>
+                    <p class="text-primary-100">
+                        Our gallery also showcases alumni reunions, mentoring programs, and moments of joy and camaraderie, reflecting a school culture that is inclusive, dynamic, and deeply connected across generations. Experience the spirit, energy, and pride of a school committed to holistic development and lifelong learning.
+                    </p>
+                </div>
+            </div>
         </div>
     </section>
 
-
     <!-- Gallery Section -->
-    <section class="section" aria-labelledby="gallery-title">
-        <div class="container">
-            <div class="section-title text-center">
-                <h2 id="gallery-title">School Gallery</h2>
-                <p>Explore the vibrant life at Bar Union Mixed Secondary School — where learning, culture, sports, and community come alive.</p>
-            </div>
-
-            <!-- Gallery Filters -->
-            <div class="gallery-filters text-center" role="tablist" aria-label="Gallery Filters">
-                <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All Photos</button>
-                <button class="filter-btn" data-filter="campus" role="tab">Campus & Infrastructure</button>
-                <button class="filter-btn" data-filter="academics" role="tab">Academic Excellence</button>
-                <button class="filter-btn" data-filter="sports" role="tab">Sports Achievements</button>
-                <button class="filter-btn" data-filter="events" role="tab">Cultural & Community Events</button>
-                <button class="filter-btn" data-filter="celebrations" role="tab">Celebrations & Festivals</button>
-                <button class="filter-btn" data-filter="alumni" role="tab">Alumni Moments</button>
-            </div>
-
-            <!-- Gallery Grid — Dynamic Ready -->
-            <div class="gallery-grid" id="galleryGrid" role="region" aria-label="Photo Gallery">
-                <div class="loader text-center">
-                    <i class="fas fa-spinner fa-spin fa-3x"></i>
-                    <p>Loading memorable moments of school life...</p>
-                </div>
-            </div>
-
-            <!-- More Photos Note -->
-            <div class="text-center mt-5">
-                <p id="morePhotos" class="text-muted" style="display:none;">
-                    More memories are coming soon! Check back regularly to relive our students’ achievements, cultural celebrations, sporting victories, and alumni gatherings.
+    <section class="py-16 lg:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-playfair font-bold text-gray-900 mb-4">
+                    School Gallery
+                </h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Explore the vibrant life at Bar Union Mixed Secondary School — where learning, culture, sports, and community come alive.
                 </p>
             </div>
 
+            <!-- Gallery Filters -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12" role="tablist" aria-label="Gallery Filters">
+                <button class="filter-btn active px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 bg-gray-100 text-gray-700 hover:bg-primary-50 hover:text-primary-700 border border-gray-200" 
+                        data-filter="all" role="tab" aria-selected="true">
+                    All Photos
+                </button>
+                <button class="filter-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 bg-gray-100 text-gray-700 hover:bg-primary-50 hover:text-primary-700 border border-gray-200" 
+                        data-filter="campus" role="tab">
+                    Campus & Infrastructure
+                </button>
+                <button class="filter-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 bg-gray-100 text-gray-700 hover:bg-primary-50 hover:text-primary-700 border border-gray-200" 
+                        data-filter="academics" role="tab">
+                    Academic Excellence
+                </button>
+                <button class="filter-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 bg-gray-100 text-gray-700 hover:bg-primary-50 hover:text-primary-700 border border-gray-200" 
+                        data-filter="sports" role="tab">
+                    Sports Achievements
+                </button>
+                <button class="filter-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 bg-gray-100 text-gray-700 hover:bg-primary-50 hover:text-primary-700 border border-gray-200" 
+                        data-filter="events" role="tab">
+                    Cultural & Community Events
+                </button>
+                <button class="filter-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 bg-gray-100 text-gray-700 hover:bg-primary-50 hover:text-primary-700 border border-gray-200" 
+                        data-filter="celebrations" role="tab">
+                    Celebrations & Festivals
+                </button>
+                <button class="filter-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 bg-gray-100 text-gray-700 hover:bg-primary-50 hover:text-primary-700 border border-gray-200" 
+                        data-filter="alumni" role="tab">
+                    Alumni Moments
+                </button>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="galleryGrid" role="region" aria-label="Photo Gallery">
+                <!-- Loading State -->
+                <div class="col-span-full flex flex-col items-center justify-center py-16 text-gray-500">
+                    <i class="fas fa-spinner fa-spin fa-3x mb-4 text-primary-500"></i>
+                    <p class="text-lg">Loading memorable moments of school life...</p>
+                </div>
+            </div>
+
+            <!-- More Photos Notice -->
+            <div class="text-center mt-12">
+                <div id="morePhotos" class="hidden bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-4xl mx-auto">
+                    <div class="flex items-center justify-center mb-2">
+                        <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                        <p class="text-blue-800 font-medium">More memories coming soon!</p>
+                    </div>
+                    <p class="text-blue-700">
+                        Check back regularly to relive our students' achievements, cultural celebrations, sporting victories, and alumni gatherings.
+                    </p>
+                </div>
+            </div>
+
             <!-- Gallery Description -->
-            <div class="gallery-description mt-5">
-                <p>Our gallery captures the full spectrum of life at Bar Union Mixed Secondary School:</p>
-                <ul>
-                    <li><strong>Campus & Infrastructure:</strong> Modern classrooms, science and computer labs, library, auditoriums, playgrounds, and eco-friendly spaces.</li>
-                    <li><strong>Academic Excellence:</strong> Classroom sessions, interactive labs, project work, competitions, and students’ outstanding achievements.</li>
-                    <li><strong>Sports & Athletics:</strong> Inter-school tournaments, athletics meets, football, basketball, volleyball, and swimming highlights.</li>
-                    <li><strong>Cultural & Community Events:</strong> Music, dance, drama, annual day, inter-house competitions, community service, and outreach programs.</li>
-                    <li><strong>Celebrations & Festivals:</strong> National holidays, cultural festivals, award ceremonies, and milestone celebrations that reflect our inclusive school culture.</li>
-                    <li><strong>Alumni Engagement:</strong> Reunions, mentoring programs, notable alumni achievements, and networking events.</li>
-                </ul>
-                <p>This gallery reflects the holistic development, vibrant community, and lifelong memories that define our school. Each photo tells a story of excellence, creativity, collaboration, and the spirit of Bar Union Mixed Secondary School.</p>
+            <div class="mt-16 bg-white rounded-xl shadow-sm p-8 lg:p-12">
+                <h3 class="text-2xl font-playfair font-bold text-gray-900 mb-6 text-center">Our Gallery Highlights</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            Our gallery captures the full spectrum of life at Bar Union Mixed Secondary School:
+                        </p>
+                        <ul class="space-y-4 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary-500 mr-3 mt-1 flex-shrink-0"></i>
+                                <span><strong>Campus & Infrastructure:</strong> Modern classrooms, science and computer labs, library, auditoriums, playgrounds, and eco-friendly spaces.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary-500 mr-3 mt-1 flex-shrink-0"></i>
+                                <span><strong>Academic Excellence:</strong> Classroom sessions, interactive labs, project work, competitions, and students' outstanding achievements.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary-500 mr-3 mt-1 flex-shrink-0"></i>
+                                <span><strong>Sports & Athletics:</strong> Inter-school tournaments, athletics meets, football, basketball, volleyball, and swimming highlights.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="space-y-4 text-gray-600 mb-6">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary-500 mr-3 mt-1 flex-shrink-0"></i>
+                                <span><strong>Cultural & Community Events:</strong> Music, dance, drama, annual day, inter-house competitions, community service, and outreach programs.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary-500 mr-3 mt-1 flex-shrink-0"></i>
+                                <span><strong>Celebrations & Festivals:</strong> National holidays, cultural festivals, award ceremonies, and milestone celebrations that reflect our inclusive school culture.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary-500 mr-3 mt-1 flex-shrink-0"></i>
+                                <span><strong>Alumni Engagement:</strong> Reunions, mentoring programs, notable alumni achievements, and networking events.</span>
+                            </li>
+                        </ul>
+                        <p class="text-gray-600 leading-relaxed italic">
+                            This gallery reflects the holistic development, vibrant community, and lifelong memories that define our school. Each photo tells a story of excellence, creativity, collaboration, and the spirit of Bar Union Mixed Secondary School.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- 360° Virtual Tour -->
-    <section class="section" aria-labelledby="virtual-tour-title">
-        <div class="container">
-            <div class="section-title text-center">
-                <h2 id="virtual-tour-title">360° Virtual School Tour</h2>
-                <p>Experience the vibrant campus life and facilities of Bar Union Mixed Secondary School from anywhere in the world</p>
+    <!-- 360° Virtual Tour Section -->
+    <section class="py-16 lg:py-24 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-playfair font-bold text-gray-900 mb-4">
+                    360° Virtual School Tour
+                </h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Experience the vibrant campus life and facilities of Bar Union Mixed Secondary School from anywhere in the world
+                </p>
             </div>
-            <div class="tour-container" id="panorama" aria-label="Interactive 360-degree virtual tour of school campus"></div>
-            <div class="text-center mt-4">
-                <p><em>Navigate with your mouse or swipe on mobile devices to explore classrooms, science and computer labs, library, sports facilities, auditoriums, and eco-friendly campus areas.</em></p>
-                <p><em>Click on highlighted hotspots to learn more about each facility, academic block, or cultural space, including details of programs, student activities, and special amenities.</em></p>
+
+            <!-- Virtual Tour Container -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+                <div class="tour-container" id="panorama" style="height: 500px;" aria-label="Interactive 360-degree virtual tour of school campus"></div>
             </div>
-            <div class="tour-highlights mt-5">
-                <h4>Key Features You Can Explore:</h4>
-                <ul>
-                    <li><strong>Academic Blocks:</strong> Modern classrooms, interactive labs, library, and resource centers.</li>
-                    <li><strong>Sports & Athletics:</strong> Football field, basketball court, volleyball, and athletics track.</li>
-                    <li><strong>Cultural Spaces:</strong> Auditorium, music and dance rooms, art studios, and event halls.</li>
-                    <li><strong>Eco-friendly Campus:</strong> Gardens, open-air learning zones, and sustainable architecture.</li>
-                    <li><strong>Special Programs:</strong> Science fairs, robotics labs, and extracurricular clubs highlighted via hotspots.</li>
-                </ul>
+
+            <!-- Tour Instructions -->
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold text-blue-900 mb-2">
+                            <i class="fas fa-mouse-pointer mr-2"></i>How to Navigate
+                        </h4>
+                        <p class="text-blue-700 text-sm">
+                            Navigate with your mouse or swipe on mobile devices to explore classrooms, science and computer labs, library, sports facilities, auditoriums, and eco-friendly campus areas.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-blue-900 mb-2">
+                            <i class="fas fa-map-marker-alt mr-2"></i>Interactive Hotspots
+                        </h4>
+                        <p class="text-blue-700 text-sm">
+                            Click on highlighted hotspots to learn more about each facility, academic block, or cultural space, including details of programs, student activities, and special amenities.
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div class="text-center mt-4">
-                <p>Interested in experiencing the campus in person? <a href="contact.html">Contact us</a> to schedule a visit or join our admission process.</p>
+
+            <!-- Tour Highlights -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-primary-100 p-2 rounded-lg mr-3">
+                            <i class="fas fa-graduation-cap text-primary-600"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-900">Academic Blocks</h4>
+                    </div>
+                    <p class="text-gray-600 text-sm">Modern classrooms, interactive labs, library, and resource centers.</p>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-green-100 p-2 rounded-lg mr-3">
+                            <i class="fas fa-futbol text-green-600"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-900">Sports & Athletics</h4>
+                    </div>
+                    <p class="text-gray-600 text-sm">Football field, basketball court, volleyball, and athletics track.</p>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-purple-100 p-2 rounded-lg mr-3">
+                            <i class="fas fa-theater-masks text-purple-600"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-900">Cultural Spaces</h4>
+                    </div>
+                    <p class="text-gray-600 text-sm">Auditorium, music and dance rooms, art studios, and event halls.</p>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-emerald-100 p-2 rounded-lg mr-3">
+                            <i class="fas fa-leaf text-emerald-600"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-900">Eco-friendly Campus</h4>
+                    </div>
+                    <p class="text-gray-600 text-sm">Gardens, open-air learning zones, and sustainable architecture.</p>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-orange-100 p-2 rounded-lg mr-3">
+                            <i class="fas fa-microscope text-orange-600"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-900">Special Programs</h4>
+                    </div>
+                    <p class="text-gray-600 text-sm">Science fairs, robotics labs, and extracurricular clubs highlighted via hotspots.</p>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center">
+                <div class="bg-primary-600 text-white rounded-xl p-8 max-w-2xl mx-auto">
+                    <h4 class="text-xl font-semibold mb-3">Ready to Visit Our Campus?</h4>
+                    <p class="mb-4 text-primary-100">
+                        Interested in experiencing the campus in person? Contact us to schedule a visit or join our admission process.
+                    </p>
+                    <a href="contact.html" class="inline-flex items-center bg-white text-primary-600 px-6 py-3 rounded-lg font-medium hover:bg-primary-50 transition-colors duration-200">
+                        <i class="fas fa-phone mr-2"></i>
+                        Contact Us
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Video Gallery -->
-    <section class="section bg-light" aria-labelledby="video-gallery-title">
-        <div class="container">
-            <div class="section-title text-center">
-                <h2 id="video-gallery-title">Video Gallery</h2>
-                <p>Relive the moments that celebrate learning, achievements, and the vibrant culture of our school</p>
+    <!-- Video Gallery Section -->
+    <section class="py-16 lg:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-playfair font-bold text-gray-900 mb-4">
+                    Video Gallery
+                </h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    Relive the moments that celebrate learning, achievements, and the vibrant culture of our school
+                </p>
             </div>
 
-            <!-- Video Category Tabs — Dynamic Ready -->
-            <div class="video-tabs text-center" id="videoCategories">
-                <button class="tab-btn active" data-tab="all">All Videos</button>
-                <button class="tab-btn" data-tab="school-life">School Life</button>
-                <button class="tab-btn" data-tab="events">Events & Festivals</button>
-                <button class="tab-btn" data-tab="academics">Academic Highlights</button>
-                <button class="tab-btn" data-tab="sports">Sports & Competitions</button>
-                <button class="tab-btn" data-tab="messages">Messages & Greetings</button>
+            <!-- Video Category Tabs -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12" id="videoCategories">
+                <button class="tab-btn active px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 bg-primary-600 text-white hover:bg-primary-700" 
+                        data-tab="all">
+                    All Videos
+                </button>
+                <button class="tab-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 bg-gray-100 text-gray-700 hover:bg-primary-50 hover:text-primary-700 border border-gray-200" 
+                        data-tab="school-life">
+                    School Life
+                </button>
+                <button class="tab-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 bg-gray-100 text-gray-700 hover:bg-primary-50 hover:text-primary-700 border border-gray-200" 
+                        data-tab="events">
+                    Events & Festivals
+                </button>
+                <button class="tab-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 bg-gray-100 text-gray-700 hover:bg-primary-50 hover:text-primary-700 border border-gray-200" 
+                        data-tab="academics">
+                    Academic Highlights
+                </button>
+                <button class="tab-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 bg-gray-100 text-gray-700 hover:bg-primary-50 hover:text-primary-700 border border-gray-200" 
+                        data-tab="sports">
+                    Sports & Competitions
+                </button>
+                <button class="tab-btn px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 bg-gray-100 text-gray-700 hover:bg-primary-50 hover:text-primary-700 border border-gray-200" 
+                        data-tab="messages">
+                    Messages & Greetings
+                </button>
             </div>
 
             <!-- Video Grid -->
-            <div class="video-grid" id="videoGrid" role="region" aria-label="Video gallery">
-                <!-- Static Video 1 - Guests Visit -->
-                <div class="video-item" data-category="events">
-                    <div class="video-wrapper">
+            <div class="grid md:grid-cols-2 gap-8" id="videoGrid" role="region" aria-label="Video gallery">
+                <!-- Video 1 - Guests Visit -->
+                <div class="video-item bg-white rounded-xl shadow-sm overflow-hidden" data-category="events">
+                    <div class="relative">
                         <iframe 
                             src="https://www.facebook.com/plugins/video.php?height=280&href=https%3A%2F%2Fweb.facebook.com%2FABAETV%2Fvideos%2F449467996545623%2F&show_text=false&width=560&t=0"
+                            class="w-full h-64"
                             style="border:none;overflow:hidden"
                             scrolling="no"
                             frameborder="0"
@@ -149,18 +377,31 @@
                             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                             loading="lazy">
                         </iframe>
+                        <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-medium">
+                            <i class="fas fa-play mr-1"></i> Featured
+                        </div>
                     </div>
-                    <h3 class="video-title">Guests Visit</h3>
-                    <p class="video-description">
-                        This video captures a special visit by a prominent politician to our school. During the visit, the guest donated funds to support student welfare and recommended teachers for their dedication and service.
-                    </p>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Guests Visit</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            This video captures a special visit by a prominent politician to our school. During the visit, the guest donated funds to support student welfare and recommended teachers for their dedication and service.
+                        </p>
+                        <div class="flex items-center mt-4 text-sm text-gray-500">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            <span>Recent Event</span>
+                            <span class="mx-2">•</span>
+                            <i class="fas fa-eye mr-1"></i>
+                            <span>Community Engagement</span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Static Video 2 - Student Moments -->
-                <div class="video-item" data-category="school-life">
-                    <div class="video-wrapper">
+                <!-- Video 2 - Student Moments -->
+                <div class="video-item bg-white rounded-xl shadow-sm overflow-hidden" data-category="school-life">
+                    <div class="relative">
                         <iframe 
                             src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2Fsoulhunter010%2Fvideos%2F1143422126903805%2F%3Fidorvanity%3D466873166757176&show_text=false&width=560&t=0"
+                            class="w-full h-64"
                             style="border:none;overflow:hidden"
                             scrolling="no"
                             frameborder="0"
@@ -168,68 +409,99 @@
                             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                             loading="lazy">
                         </iframe>
+                        <div class="absolute top-4 left-4 bg-green-600 text-white px-3 py-1 rounded-full text-xs font-medium">
+                            <i class="fas fa-running mr-1"></i> Sports
+                        </div>
                     </div>
-                    <h3 class="video-title">Student Moments</h3>
-                    <p class="video-description">
-                        This video showcases our students in action during football training sessions, highlighting teamwork, discipline, and sportsmanship as they prepare for inter-school competitions.
-                    </p>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-3">Student Moments</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            This video showcases our students in action during football training sessions, highlighting teamwork, discipline, and sportsmanship as they prepare for inter-school competitions.
+                        </p>
+                        <div class="flex items-center mt-4 text-sm text-gray-500">
+                            <i class="fas fa-calendar-alt mr-2"></i>
+                            <span>Training Session</span>
+                            <span class="mx-2">•</span>
+                            <i class="fas fa-users mr-1"></i>
+                            <span>Team Building</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="video-info mt-4 text-center">
-                <p><em>Browse by category to watch videos of classroom activities, cultural events, sports competitions, academic achievements, alumni messages, and special programs.</em></p>
-                <p><em>Click on any video thumbnail to play in full-screen mode. You can also share videos with friends and family to showcase our school's vibrant community.</em></p>
-            </div>
+            <!-- Video Info -->
+            <div class="mt-12 text-center">
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-4xl mx-auto mb-6">
+                    <div class="flex items-center justify-center mb-3">
+                        <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                        <h4 class="font-semibold text-blue-900">Video Gallery Features</h4>
+                    </div>
+                    <p class="text-blue-700 mb-2">
+                        Browse by category to watch videos of classroom activities, cultural events, sports competitions, academic achievements, alumni messages, and special programs.
+                    </p>
+                    <p class="text-blue-700">
+                        Click on any video thumbnail to play in full-screen mode. You can also share videos with friends and family to showcase our school's vibrant community.
+                    </p>
+                </div>
 
-            <div class="text-center mt-4">
-                <p>Want to contribute a video or highlight an event? <a href="contact.html">Contact us</a> and share your memories with the community!</p>
+                <!-- Contribution CTA -->
+                <div class="bg-primary-600 text-white rounded-xl p-8 max-w-2xl mx-auto">
+                    <h4 class="text-xl font-semibold mb-3">Share Your Memories!</h4>
+                    <p class="mb-4 text-primary-100">
+                        Want to contribute a video or highlight an event? Contact us and share your memories with the community!
+                    </p>
+                    <a href="contact.html" class="inline-flex items-center bg-white text-primary-600 px-6 py-3 rounded-lg font-medium hover:bg-primary-50 transition-colors duration-200">
+                        <i class="fas fa-upload mr-2"></i>
+                        Submit Your Video
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Quick Stats Banner — Dynamic Ready -->
-    <section class="section bg-primary text-white py-4" aria-label="Gallery Quick Stats">
-        <div class="container">
-            <div class="quick-stats-grid text-center" id="galleryStats">
+    <!-- Quick Stats Banner -->
+    <section class="bg-primary-600 text-white py-12" aria-label="Gallery Quick Stats">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center" id="galleryStats">
                 <div class="stat">
-                    <h3>500+</h3>
-                    <p>Videos Uploaded</p>
+                    <div class="text-3xl lg:text-4xl font-bold mb-2">500+</div>
+                    <div class="text-primary-100 text-sm lg:text-base">Videos Uploaded</div>
                 </div>
                 <div class="stat">
-                    <h3>50+</h3>
-                    <p>Events Covered</p>
+                    <div class="text-3xl lg:text-4xl font-bold mb-2">50+</div>
+                    <div class="text-primary-100 text-sm lg:text-base">Events Covered</div>
                 </div>
                 <div class="stat">
-                    <h3>100%</h3>
-                    <p>Student & Staff Participation</p>
+                    <div class="text-3xl lg:text-4xl font-bold mb-2">100%</div>
+                    <div class="text-primary-100 text-sm lg:text-base">Student & Staff Participation</div>
                 </div>
                 <div class="stat">
-                    <h3>10+</h3>
-                    <p>Years of School Memories</p>
+                    <div class="text-3xl lg:text-4xl font-bold mb-2">10+</div>
+                    <div class="text-primary-100 text-sm lg:text-base">Years of School Memories</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Back to Top Button -->
-    <button id="backToTop" aria-label="Back to top">
+    <button id="backToTop" class="fixed bottom-6 right-6 bg-primary-600 text-white p-3 rounded-full shadow-lg hover:bg-primary-700 transition-all duration-200 z-50" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <!-- Footer -->
     <div w3-include-html="/includes/footer.html"></div>
 
-    <!-- Scripts – Order matters! -->
+    <!-- Scripts -->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script>w3.includeHTML();</script>
-
-    <!-- AOS Animation Library (if you use it) -->
+    
+    <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>AOS.init();</script>
-
-    <!-- Our Mobile Menu – This makes the hamburger work -->
+    
+    <!-- Mobile Menu -->
     <script src="/js/static/mobile-menu.js"></script>
-
+    
     <!-- Page load handler -->
     <script>
         window.addEventListener('load', function () {
@@ -238,9 +510,50 @@
         });
     </script>
 
-    <!-- Scripts -->
+    <!-- Lightbox and Gallery Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
     <script src="/js/static/gallery.js" defer></script>
+
+    <!-- Custom JavaScript for enhanced interactions -->
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Filter functionality enhancement
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                });
+            });
+
+            // Video tab functionality
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
