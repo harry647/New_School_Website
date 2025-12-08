@@ -86,6 +86,12 @@ document.addEventListener('DOMContentLoaded', function() {
             this.startTime = null;
             this.easing = this.easeOutCubic;
             this.isAnimating = false;
+            
+            // Validate element exists
+            if (!this.element) {
+                console.warn('AnimatedCounter: No element provided');
+                return;
+            }
         }
         
         easeOutCubic(t) {
@@ -93,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         animate() {
-            if (this.isAnimating) return;
+            if (this.isAnimating || !this.element) return;
             this.isAnimating = true;
             this.startTime = performance.now();
             
@@ -118,10 +124,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         updateDisplay() {
-            if (this.target >= 1000) {
-                this.element.textContent = this.current.toLocaleString() + '+';
-            } else {
-                this.element.textContent = this.current.toLocaleString();
+            if (this.element) {
+                if (this.target >= 1000) {
+                    this.element.textContent = this.current.toLocaleString() + '+';
+                } else {
+                    this.element.textContent = this.current.toLocaleString();
+                }
             }
         }
     }
@@ -133,10 +141,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const counters = document.querySelectorAll('.counter');
         const counterInstances = [];
         
+        // Check if any counter elements exist
+        if (counters.length === 0) {
+            console.log('No counter elements found, skipping counter initialization');
+            return;
+        }
+        
         counters.forEach(counter => {
             const target = counter.getAttribute('data-target');
+            // Use the counter element directly, not a child h3
             const counterInstance = new AnimatedCounter(
-                counter.querySelector('h3'),
+                counter,
                 target,
                 2500
             );
@@ -147,7 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const index = Array.from(counterObserver.targets).indexOf(entry.target);
+                    const index = counterObserver.targets.indexOf(entry.target);
                     if (index !== -1 && !counterInstances[index].isAnimating) {
                         counterInstances[index].animate();
                     }
@@ -157,6 +172,9 @@ document.addEventListener('DOMContentLoaded', function() {
             threshold: 0.5,
             rootMargin: '0px 0px -50px 0px'
         });
+        
+        // Initialize targets array
+        counterObserver.targets = [];
         
         counters.forEach(counter => {
             counterObserver.observe(counter);

@@ -972,7 +972,18 @@ document.addEventListener("DOMContentLoaded", async () => {
           body: formData
         });
 
-        const result = await response.json();
+        // Check content type before parsing
+        const contentType = response.headers.get('content-type');
+        let result;
+        
+        if (contentType && contentType.includes('application/json')) {
+          result = await response.json();
+        } else {
+          // If not JSON, treat as error
+          const text = await response.text();
+          console.error('Non-JSON response:', text.substring(0, 200));
+          throw new Error('Server returned an invalid response. Please try again.');
+        }
 
         if (response.ok && result.success) {
           blogForm.innerHTML = `

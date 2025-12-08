@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom gradient utilities for Bar Union School */
+@layer utilities {
+  .bg-gradient-primary { 
+    background: linear-gradient(135deg, #0b2d5e 0%, #0175C2 100%); 
+  }
+  
+  .bg-gradient-hero { 
+    background: linear-gradient(135deg, rgba(11, 45, 94, 0.95) 0%, rgba(1, 117, 194, 0.90) 100%); 
+  }
+  
+  .bg-gradient-card { 
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.90) 100%); 
+  }
+  
+  .bg-gradient-accent { 
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); 
+  }
+  
+  .text-gradient { 
+    background: linear-gradient(135deg, #0b2d5e 0%, #0175C2 100%); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    background-clip: text; 
+  }
+  
+  .shadow-glow { 
+    box-shadow: 0 0 40px rgba(1, 117, 194, 0.3); 
+  }
+  
+  .backdrop-blur-glass { 
+    backdrop-filter: blur(20px); 
+    background: rgba(255, 255, 255, 0.1); 
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .btn-primary {
+    @apply bg-gradient-primary text-white py-3 px-6 rounded-xl font-semibold hover:shadow-lg hover:-translate-y-1 transition-all duration-300;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-primary-700 border-2 border-primary-700 py-3 px-6 rounded-xl font-semibold hover:bg-primary-700 hover:text-white transition-all duration-300;
+  }
+  
+  .card {
+    @apply bg-white rounded-2xl p-6 shadow-lg border border-neutral-200 hover:shadow-glow transition-all duration-500;
+  }
+  
+  .card-glass {
+    @apply bg-gradient-card backdrop-blur-glass rounded-2xl p-6 shadow-lg border border-white/20 hover:shadow-glow transition-all duration-500;
+  }
+}

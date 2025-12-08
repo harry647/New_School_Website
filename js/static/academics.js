@@ -480,10 +480,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 `;
                 
-                // Insert before the learning resources section
-                const learningResourcesSection = document.querySelector('.resource-card').closest('.section');
-                if (learningResourcesSection) {
+                // Insert before the learning resources section (safer DOM traversal)
+                const learningResourcesSection = document.querySelector('.resource-card')?.closest('.section') || 
+                                                 document.querySelector('section') || 
+                                                 document.body;
+                if (learningResourcesSection && learningResourcesSection !== document.body) {
                     learningResourcesSection.parentNode.insertBefore(statsSection, learningResourcesSection);
+                } else {
+                    // Fallback: append to body or a main container
+                    const mainContainer = document.querySelector('main') || document.body;
+                    mainContainer.appendChild(statsSection);
                 }
             }
 

@@ -542,11 +542,13 @@
     <!-- Our Mobile Menu -->
     <script src="/js/static/mobile-menu.js"></script>
 
-    <!-- Preloader hide -->
+    <!-- Preloader hide (only if preloader exists) -->
     <script>
         window.addEventListener('load', function () {
             const preloader = document.getElementById('preloader');
-            if (preloader) preloader.style.display = 'none';
+            if (preloader) {
+                preloader.style.display = 'none';
+            }
         });
     </script>
     

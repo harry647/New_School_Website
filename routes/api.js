@@ -2570,9 +2570,9 @@ router.get('/clubs/:id/members', requireAuth, (req, res) => {
 /**
  * @route   GET /clubs/stats
  * @desc    Fetches clubs statistics and analytics.
- * @access  Protected
+ * @access  Public (for academics page stats display)
  */
-router.get('/clubs/stats', requireAuth, (req, res) => {
+router.get('/clubs/stats', (req, res) => {
   try {
     const clubsFile = path.join(__dirname, '..', 'data', 'clubs', 'clubs.json');
     const applicationsFile = path.join(__dirname, '..', 'data', 'club-joins.json');

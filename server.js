@@ -10,6 +10,7 @@ import session from 'express-session';
 import SQLiteStore from 'connect-sqlite3';
 import fs from 'fs';
 import multer from 'multer';
+import cors from 'cors';
 
 import authRoutes from './routes/auth.js';
 import portalRoutes from './routes/portal.js';
@@ -60,7 +61,17 @@ app.use(
 );
 
 // ================================================
-// 2. Middleware
+// 2. CORS Configuration
+// ================================================
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+}));
+
+// ================================================
+// 4. Middleware
 // ================================================
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -100,7 +111,7 @@ const contactUpload = multer({
 app.use(logger);
 
 // ================================================
-// 3. Static Files
+// 5. Static Files
 // ================================================
 const staticPaths = [
   'css', 'js', 'assets', 'includes', 'data', 'downloads',
@@ -113,14 +124,14 @@ staticPaths.forEach(folder => {
 });
 
 // ================================================
-// 4. Routes
+// 6. Routes
 // ================================================
 app.use('/auth', authRoutes);
 app.use('/portal', portalRoutes);
 app.use('/api', apiRoutes);
 
 // ================================================
-// 5. HTML Pages (Root Routes)
+// 7. HTML Pages (Root Routes)
 // ================================================
 const pages = [
   '', 'about', 'academics', 'admissions', 'gallery', 'news',
@@ -152,12 +163,12 @@ app.get('*', (req, res) => {
 });
 
 // ================================================
-// 6. Error Handler
+// 8. Error Handler
 // ================================================
 app.use(errorHandler);
 
 // ================================================
-// 7. Start Server
+// 9. Start Server
 // ================================================
 app.listen(PORT, () => {
   console.log(`Bar Union School Website LIVE at http://localhost:${PORT}`);

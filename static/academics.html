@@ -13,51 +13,8 @@
     <meta property="og:image" content="/assets/images/common/og-image.jpg">
     <meta property="og:url" content="https://barunionschool.ac.ke/academics.html">
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'sans': ['Inter', 'system-ui', 'sans-serif'],
-                        'serif': ['Playfair Display', 'serif'],
-                    },
-                    colors: {
-                        primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
-                        },
-                        secondary: {
-                            50: '#fefbf3',
-                            100: '#fef7ed',
-                            200: '#fdedd6',
-                            300: '#fcddb3',
-                            400: '#fac985',
-                            500: '#f8b048',
-                            600: '#ed9505',
-                            700: '#c77303',
-                            800: '#a05b0a',
-                            900: '#7f460b',
-                        }
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.6s ease-out',
-                        'slide-up': 'slideUp 0.8s ease-out',
-                        'float': 'float 6s ease-in-out infinite',
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Tailwind CSS - Production Build -->
+    <link rel="stylesheet" href="/css/app.css">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -721,7 +678,10 @@
     <!-- Preloader hide (optional but nice) -->
     <script>
         window.addEventListener('load', function () {
-            document.getElementById('preloader').style.display = 'none';
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.display = 'none';
+            }
         });
     </script>
 

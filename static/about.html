@@ -656,58 +656,15 @@
     <!-- Preloader hide -->
     <script>
         window.addEventListener('load', function () {
-            document.getElementById('preloader').style.display = 'none';
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.style.display = 'none';
+            }
         });
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/js/static/about.js"></script>
-    
-    <!-- Counter Animation Script -->
-    <script>
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            counters.forEach(counter => {
-                const target = parseInt(counter.getAttribute('data-target'));
-                const duration = 2000;
-                const step = target / (duration / 16);
-                let current = 0;
-                
-                const updateCounter = () => {
-                    current += step;
-                    if (current < target) {
-                        counter.textContent = Math.floor(current);
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.textContent = target;
-                    }
-                };
-                
-                updateCounter();
-            });
-        }
-        
-        // Start counter animation when section comes into view
-        const observerOptions = {
-            threshold: 0.5,
-            rootMargin: '0px 0px -100px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCounters();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-        
-        // Observe the stats section
-        const statsSection = document.querySelector('.grid.grid-cols-2.lg\\:grid-cols-4');
-        if (statsSection) {
-            observer.observe(statsSection);
-        }
-    </script>
     
     <!-- Contact & Feedback Forms JavaScript -->
     <script>
@@ -751,19 +708,20 @@
                 
                 // Show/hide loading state
                 setLoading(formId, isLoading) {
-                    const submitBtn = document.getElementById(`${formId}SubmitBtn`);
+                    const form = document.getElementById(`${formId}Form`);
+                    const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
                     if (submitBtn) {
                         const btnText = submitBtn.querySelector('.btn-text');
                         const btnLoading = submitBtn.querySelector('.btn-loading');
                         
                         if (isLoading) {
                             submitBtn.disabled = true;
-                            btnText.classList.add('hidden');
-                            btnLoading.classList.remove('hidden');
+                            if (btnText) btnText.classList.add('hidden');
+                            if (btnLoading) btnLoading.classList.remove('hidden');
                         } else {
                             submitBtn.disabled = false;
-                            btnText.classList.remove('hidden');
-                            btnLoading.classList.add('hidden');
+                            if (btnText) btnText.classList.remove('hidden');
+                            if (btnLoading) btnLoading.classList.add('hidden');
                         }
                     }
                 },
@@ -990,7 +948,8 @@
                 
                 updateRatingDisplay(rating) {
                     const ratingText = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'][rating] || '';
-                    if (rating > 0) {
+                    const ratingContainer = document.querySelector('.rating-container');
+                    if (rating > 0 && ratingContainer) {
                         ratingContainer.setAttribute('data-rating', `${rating} star${rating !== 1 ? 's' : ''} (${ratingText})`);
                     }
                 }
