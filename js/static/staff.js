@@ -162,9 +162,9 @@ document.addEventListener("DOMContentLoaded", () => {
         )].sort();
 
         const departmentButtons = [
-            '<button class="dept-btn active" data-dept="all">All Departments</button>',
-            ...departments.map(dept => 
-                `<button class="dept-btn" data-dept="${dept.toLowerCase()}">${escapeHtml(dept)}</button>`
+            '<button class="dept-btn active px-4 py-2 rounded-full bg-white text-primary-800 border-2 border-white hover:bg-gray-100 font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg" data-dept="all">All Departments</button>',
+            ...departments.map(dept =>
+                `<button class="dept-btn px-4 py-2 rounded-full bg-white text-primary-800 border-2 border-white hover:bg-gray-100 font-semibold transition-all duration-300 shadow-md hover:shadow-lg" data-dept="${dept.toLowerCase()}">${escapeHtml(dept)}</button>`
             )
         ];
 
@@ -207,28 +207,31 @@ document.addEventListener("DOMContentLoaded", () => {
      */
     const createStaffCard = (member, index) => {
         const card = document.createElement("div");
-        card.className = "staff-card reveal";
+        card.className = "staff-card reveal bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2 group";
         card.style.animationDelay = `${index * CONFIG.ANIMATION_DELAY}ms`;
         card.dataset.category = member.category || "teaching";
         card.dataset.department = (member.department || "").toLowerCase();
 
         card.innerHTML = `
-            <div class="staff-photo">
+            <div class="staff-photo relative overflow-hidden rounded-t-2xl">
                 <img data-src="${escapeHtml(member.photo || CONFIG.DEFAULT_PHOTO)}"
                      alt="${escapeHtml(member.name)}"
-                     class="lazy blur"
+                     class="lazy blur w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                      loading="lazy"
                      onerror="this.src='${CONFIG.DEFAULT_PHOTO}'; this.onerror=null;">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
-            <div class="staff-info">
-                <h3>${escapeHtml(member.name)}</h3>
-                <p class="designation">${escapeHtml(member.designation || '')}</p>
-                ${member.qualification ? `<p class="qualification">${escapeHtml(member.qualification)}</p>` : ''}
-                ${member.department ? `<p class="dept"><strong>Dept:</strong> ${escapeHtml(member.department)}</p>` : ''}
+            <div class="staff-info p-6">
+                <h3 class="font-bold text-xl text-primary-800 mb-2">${escapeHtml(member.name)}</h3>
+                <p class="designation text-primary-600 font-semibold mb-2">${escapeHtml(member.designation || '')}</p>
+                ${member.qualification ? `<p class="qualification text-gray-600 text-sm mb-2">${escapeHtml(member.qualification)}</p>` : ''}
+                ${member.department ? `<p class="dept text-gray-500 text-sm"><strong>Dept:</strong> ${escapeHtml(member.department)}</p>` : ''}
             </div>
-            <div class="card-overlay">
-                <i class="fas fa-user-graduate"></i>
-                <span>View Details</span>
+            <div class="card-overlay absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="text-center text-white">
+                    <i class="fas fa-user-graduate text-3xl mb-2"></i>
+                    <span class="font-semibold">View Details</span>
+                </div>
             </div>
         `;
 

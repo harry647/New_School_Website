@@ -47,18 +47,18 @@ class ContentLoader {
         this.grids = {
             bom: document.getElementById('bomGrid'),
             leadership: document.getElementById('leadershipGrid'),
-            departments: document.getElementById('departmentsGrid'),
-            dynamicDepartments: document.getElementById('dynamicDepartmentsGrid')
+            departments: document.getElementById('departmentsGrid')
         };
-        
-        this.targetDeptGrid = this.grids.dynamicDepartments || this.grids.departments;
+         
+        // Use departments grid directly since dynamicDepartmentsGrid doesn't exist
+        this.targetDeptGrid = this.grids.departments;
         this.cache = new Map();
         this.loadingStates = new Map();
-        
+         
         console.log("📊 Grids found →", {
             bom: !!this.grids.bom,
             leadership: !!this.grids.leadership,
-            dynamicDepts: !!this.grids.dynamicDepartments,
+            departments: !!this.grids.departments,
             target: this.targetDeptGrid?.id
         });
     }
@@ -219,6 +219,16 @@ class ContentLoader {
         try {
             const data = await this.loadData();
             
+            console.log("📋 Received data:", data);
+            
+            // Debug: Check if grids exist
+            console.log("🔍 Grid elements check:", {
+                bomGridExists: !!this.grids.bom,
+                leadershipGridExists: !!this.grids.leadership,
+                departmentsGridExists: !!this.grids.departments,
+                targetDeptGridId: this.targetDeptGrid?.id
+            });
+            
             // Enhanced BOM rendering
             if (data.bom?.length && this.grids.bom) {
                 console.log(`🏛️ Rendering ${data.bom.length} BOM members`);
@@ -228,6 +238,8 @@ class ContentLoader {
                     this.grids.bom.appendChild(card);
                 });
                 this.removeLoader(this.grids.bom);
+            } else {
+                console.warn("⚠️ BOM data or grid not available", { bomData: data.bom, bomGrid: this.grids.bom });
             }
             
             // Enhanced Leadership rendering
@@ -239,6 +251,8 @@ class ContentLoader {
                     this.grids.leadership.appendChild(card);
                 });
                 this.removeLoader(this.grids.leadership);
+            } else {
+                console.warn("⚠️ Leadership data or grid not available", { leadershipData: data.leadership, leadershipGrid: this.grids.leadership });
             }
             
             // Enhanced Departments rendering
@@ -250,6 +264,8 @@ class ContentLoader {
                     this.targetDeptGrid.appendChild(card);
                 });
                 this.removeLoader(this.targetDeptGrid);
+            } else {
+                console.warn("⚠️ Departments data or grid not available", { departmentsData: data.departments, targetDeptGrid: this.targetDeptGrid });
             }
             
             console.log("%c🎉 SUCCESS → All cards rendered with enhanced animations!", "color:#2ecc71;font-size:18px;font-weight:bold;background:#000;padding:8px;border-radius:6px;");

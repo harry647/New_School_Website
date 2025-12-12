@@ -378,6 +378,295 @@
 
             <!-- Dynamic JSON Loaded Grid -->
             <div id="bomGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+            
+            <style>
+            /* Enhanced Card Styles for JSON-loaded content */
+            .bom-card {
+                background: white;
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                transition: all 0.3s ease;
+                border: 1px solid #e5e7eb;
+            }
+            
+            .bom-card:hover {
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                transform: translateY(-4px);
+                border-color: #0175C2;
+            }
+            
+            .bom-card .card-inner {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem;
+                text-align: center;
+            }
+            
+            .bom-card img {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin-bottom: 1.5rem;
+                border: 4px solid #0175C2;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            }
+            
+            .bom-card h4 {
+                font-size: 1.25rem;
+                font-weight: 600;
+                color: #1f2937;
+                margin-bottom: 0.5rem;
+            }
+            
+            .bom-card .role {
+                font-size: 0.875rem;
+                color: #6b7280;
+                margin-bottom: 0.5rem;
+                font-style: normal;
+            }
+            
+            .bom-card em {
+                font-size: 0.875rem;
+                color: #9ca3af;
+                font-style: italic;
+            }
+            
+            /* Leadership Card Styles */
+            .leader-card {
+                background: white;
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                transition: all 0.3s ease;
+                border: 1px solid #e5e7eb;
+            }
+            
+            .leader-card:hover {
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                transform: translateY(-4px);
+                border-color: #0175C2;
+            }
+            
+            .leader-card.featured {
+                border: 2px solid #ffd700;
+            }
+            
+            .leader-card .card-inner {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem;
+                text-align: center;
+            }
+            
+            .leader-card img {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin-bottom: 1.5rem;
+                border: 4px solid #0175C2;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            }
+            
+            .leader-card h4 {
+                font-size: 1.25rem;
+                font-weight: 600;
+                color: #1f2937;
+                margin-bottom: 0.5rem;
+            }
+            
+            .leader-card strong {
+                font-size: 0.875rem;
+                color: #6b7280;
+                display: block;
+                margin-bottom: 1rem;
+            }
+            
+            .leader-card p {
+                font-size: 0.875rem;
+                color: #6b7280;
+                line-height: 1.5;
+                margin-bottom: 1.5rem;
+            }
+            
+            .leader-card .view-more-btn {
+                background: #0175C2;
+                color: white;
+                border: none;
+                padding: 0.5rem 1.5rem;
+                border-radius: 25px;
+                font-size: 0.875rem;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .leader-card .view-more-btn:hover {
+                background: #0b2d5e;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            }
+            
+            .leader-card .view-more-btn .btn-icon {
+                margin-left: 0.5rem;
+            }
+            
+            /* Department Card Styles */
+            .dept-card {
+                background: white;
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                transition: all 0.3s ease;
+                border: 1px solid #e5e7eb;
+                padding: 2rem;
+                text-align: center;
+            }
+            
+            .dept-card:hover {
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                transform: translateY(-4px);
+                border-color: #0175C2;
+            }
+            
+            .dept-card .card-inner {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .dept-card i {
+                font-size: 2.5rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .dept-card h4 {
+                font-size: 1.25rem;
+                font-weight: 600;
+                color: #1f2937;
+                margin-bottom: 1rem;
+            }
+            
+            .dept-card strong {
+                font-size: 0.875rem;
+                color: #6b7280;
+                display: block;
+                margin-bottom: 0.25rem;
+            }
+            
+            .dept-card small {
+                font-size: 0.75rem;
+                color: #9ca3af;
+                display: block;
+                margin-bottom: 1rem;
+            }
+            
+            .dept-card .contact {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                font-size: 0.875rem;
+                color: #6b7280;
+            }
+            
+            .dept-card .contact span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .dept-card .contact i {
+                margin-right: 0.5rem;
+                font-size: 1rem;
+            }
+            
+            .dept-card .contact a {
+                color: #0175C2;
+                text-decoration: underline;
+            }
+            
+            /* Animation classes */
+            .fade-in {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 0.6s ease, transform 0.6s ease;
+            }
+            
+            .fade-in.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            /* Error message styling */
+            .error-message {
+                text-align: center;
+                padding: 3rem;
+                background: linear-gradient(135deg, #fee 0%, #fff5f5 100%);
+                border: 1px solid #fcc;
+                border-radius: 16px;
+                color: #c33;
+                margin: 2rem 0;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            }
+            
+            .error-message i {
+                font-size: 3rem;
+                margin-bottom: 1rem;
+                color: #e74c3c;
+            }
+            
+            .error-message h3 {
+                color: #c33;
+                margin-bottom: 1rem;
+            }
+            
+            .error-message p {
+                margin-bottom: 1.5rem;
+                color: #666;
+            }
+            
+            .error-message button {
+                padding: 0.8rem 2rem;
+                background: #e74c3c;
+                color: white;
+                border: none;
+                border-radius: 25px;
+                cursor: pointer;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                margin: 0 0.5rem;
+            }
+            
+            .error-message button:hover {
+                background: #c0392b;
+            }
+            
+            .error-message details {
+                margin-top: 1rem;
+                text-align: left;
+            }
+            
+            .error-message summary {
+                cursor: pointer;
+                color: #666;
+            }
+            
+            .error-message pre {
+                background: #f8f9fa;
+                padding: 1rem;
+                border-radius: 8px;
+                font-size: 0.8rem;
+                color: #666;
+                overflow-x: auto;
+            }
+            </style>
         </div>
     </section>
 
@@ -387,7 +676,11 @@
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 id="leadership-title" class="font-heading text-4xl lg:text-5xl font-bold text-primary-800 mb-6">Leadership Team</h2>
                 <div class="w-20 h-1 bg-gradient-to-r from-primary-600 to-purple-600 rounded-full mx-auto mb-6"></div>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Principal, Deputy Principals & Senior Staff Driving Excellence</p>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    <span class="block">Principal</span>
+                    <span class="block">Deputy Principals</span>
+                    <span class="block">Senior Staff Driving Excellence</span>
+                </p>
             </div>
             
             <p class="text-lg text-gray-700 leading-relaxed text-center max-w-4xl mx-auto mb-16" data-aos="fade-up" data-aos-delay="100">
@@ -629,128 +922,152 @@
             </div>
 
             <!-- Department Heads & Contact Info -->
-            <div class="bg-white rounded-3xl p-8 lg:p-12 shadow-lg" data-aos="fade-up" data-aos-delay="200">
+            <div class="bg-gradient-to-br from-primary-800 via-primary-700 to-purple-700 rounded-3xl p-8 lg:p-12 shadow-2xl text-white" data-aos="fade-up" data-aos-delay="200">
                 <div class="text-center mb-12">
-                    <h3 class="font-heading text-3xl lg:text-4xl font-bold text-primary-800 mb-4">Department Heads & Contact Information</h3>
-                    <div class="w-20 h-1 bg-gradient-to-r from-primary-600 to-purple-600 rounded-full mx-auto mb-6"></div>
-                    <p class="text-lg text-gray-600">For inquiries, assistance, or guidance, you may reach the respective department heads directly.</p>
+                    <h3 class="font-heading text-3xl lg:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-4">Department Heads & Contact Information</h3>
+                    <div class="w-20 h-1 bg-gradient-to-r from-gold-400 to-gold-200 rounded-full mx-auto mb-6"></div>
+                    <p class="text-lg text-white/90">For inquiries, assistance, or guidance, you may reach the respective department heads directly.</p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-gradient-to-br from-primary-50 to-purple-50 rounded-2xl p-6 border border-primary-100 hover:shadow-lg transition-all duration-300">
-                        <h4 class="font-bold text-blue-700 mb-3">Academic Department</h4>
-                        <p class="text-gray-800 font-medium mb-3">Mr. Benedict Ochieng</p>
-                        <div class="space-y-2 text-sm text-gray-600">
-                            <div class="flex items-center">
-                                <i class="fas fa-envelope text-blue-500 mr-2"></i>
-                                <a href="mailto:academic@barunion.ac.ke" class="hover:text-blue-600 transition-colors">academic@barunion.ac.ke</a>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-user-tie text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200 mb-2 text-center">Academic Department</h4>
+                        <p class="text-white/90 font-medium mb-4 text-center">Mr. Benedict Ochieng</p>
+                        <div class="space-y-3 text-sm text-white/80">
+                            <div class="flex items-center justify-center">
+                                <i class="fas fa-envelope text-blue-400 mr-2"></i>
+                                <a href="mailto:academic@barunion.ac.ke" class="hover:text-blue-300 transition-colors">academic@barunion.ac.ke</a>
                             </div>
-                            <div class="flex items-center">
-                                <i class="fas fa-phone text-green-500 mr-2"></i>
+                            <div class="flex items-center justify-center">
+                                <i class="fas fa-phone text-green-400 mr-2"></i>
                                 <span>+254 712 345 678</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-gradient-to-br from-primary-50 to-purple-50 rounded-2xl p-6 border border-primary-100 hover:shadow-lg transition-all duration-300">
-                        <h4 class="font-bold text-red-700 mb-3">Finance & Accounts</h4>
-                        <p class="text-gray-800 font-medium mb-3">Ms. Jackline</p>
-                        <div class="space-y-2 text-sm text-gray-600">
-                            <div class="flex items-center">
-                                <i class="fas fa-envelope text-red-500 mr-2"></i>
-                                <a href="mailto:finance@barunion.ac.ke" class="hover:text-red-600 transition-colors">finance@barunion.ac.ke</a>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-calculator text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-200 mb-2 text-center">Finance & Accounts</h4>
+                        <p class="text-white/90 font-medium mb-4 text-center">Ms. Jackline</p>
+                        <div class="space-y-3 text-sm text-white/80">
+                            <div class="flex items-center justify-center">
+                                <i class="fas fa-envelope text-red-400 mr-2"></i>
+                                <a href="mailto:finance@barunion.ac.ke" class="hover:text-red-300 transition-colors">finance@barunion.ac.ke</a>
                             </div>
-                            <div class="flex items-center">
-                                <i class="fas fa-phone text-green-500 mr-2"></i>
+                            <div class="flex items-center justify-center">
+                                <i class="fas fa-phone text-green-400 mr-2"></i>
                                 <span>+254 712 876 543</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-gradient-to-br from-primary-50 to-purple-50 rounded-2xl p-6 border border-primary-100 hover:shadow-lg transition-all duration-300">
-                        <h4 class="font-bold text-green-700 mb-3">Administration & Operations</h4>
-                        <p class="text-gray-800 font-medium mb-3">Mr. Paul Were</p>
-                        <div class="space-y-2 text-sm text-gray-600">
-                            <div class="flex items-center">
-                                <i class="fas fa-envelope text-green-500 mr-2"></i>
-                                <a href="mailto:admin@barunion.ac.ke" class="hover:text-green-600 transition-colors">admin@barunion.ac.ke</a>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-cogs text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-200 mb-2 text-center">Administration & Operations</h4>
+                        <p class="text-white/90 font-medium mb-4 text-center">Mr. Paul Were</p>
+                        <div class="space-y-3 text-sm text-white/80">
+                            <div class="flex items-center justify-center">
+                                <i class="fas fa-envelope text-green-400 mr-2"></i>
+                                <a href="mailto:admin@barunion.ac.ke" class="hover:text-green-300 transition-colors">admin@barunion.ac.ke</a>
                             </div>
-                            <div class="flex items-center">
-                                <i class="fas fa-phone text-green-500 mr-2"></i>
+                            <div class="flex items-center justify-center">
+                                <i class="fas fa-phone text-green-400 mr-2"></i>
                                 <span>+254 711 234 567</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-gradient-to-br from-primary-50 to-purple-50 rounded-2xl p-6 border border-primary-100 hover:shadow-lg transition-all duration-300">
-                        <h4 class="font-bold text-orange-700 mb-3">Sports & Physical Education</h4>
-                        <p class="text-gray-800 font-medium mb-3">Mr. Norman Origa</p>
-                        <div class="space-y-2 text-sm text-gray-600">
-                            <div class="flex items-center">
-                                <i class="fas fa-envelope text-orange-500 mr-2"></i>
-                                <a href="mailto:sports@barunion.ac.ke" class="hover:text-orange-600 transition-colors">sports@barunion.ac.ke</a>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-running text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-200 mb-2 text-center">Sports & Physical Education</h4>
+                        <p class="text-white/90 font-medium mb-4 text-center">Mr. Norman Origa</p>
+                        <div class="space-y-3 text-sm text-white/80">
+                            <div class="flex items-center justify-center">
+                                <i class="fas fa-envelope text-orange-400 mr-2"></i>
+                                <a href="mailto:sports@barunion.ac.ke" class="hover:text-orange-300 transition-colors">sports@barunion.ac.ke</a>
                             </div>
-                            <div class="flex items-center">
-                                <i class="fas fa-phone text-green-500 mr-2"></i>
+                            <div class="flex items-center justify-center">
+                                <i class="fas fa-phone text-green-400 mr-2"></i>
                                 <span>+254 713 987 654</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-gradient-to-br from-primary-50 to-purple-50 rounded-2xl p-6 border border-primary-100 hover:shadow-lg transition-all duration-300">
-                        <h4 class="font-bold text-purple-700 mb-3">Arts & Culture</h4>
-                        <p class="text-gray-800 font-medium mb-3">Ms. Sharlene Omonya</p>
-                        <div class="space-y-2 text-sm text-gray-600">
-                            <div class="flex items-center">
-                                <i class="fas fa-envelope text-purple-500 mr-2"></i>
-                                <a href="mailto:arts@barunion.ac.ke" class="hover:text-purple-600 transition-colors">arts@barunion.ac.ke</a>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-paint-brush text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200 mb-2 text-center">Arts & Culture</h4>
+                        <p class="text-white/90 font-medium mb-4 text-center">Ms. Sharlene Omonya</p>
+                        <div class="space-y-3 text-sm text-white/80">
+                            <div class="flex items-center justify-center">
+                                <i class="fas fa-envelope text-purple-400 mr-2"></i>
+                                <a href="mailto:arts@barunion.ac.ke" class="hover:text-purple-300 transition-colors">arts@barunion.ac.ke</a>
                             </div>
-                            <div class="flex items-center">
-                                <i class="fas fa-phone text-green-500 mr-2"></i>
+                            <div class="flex items-center justify-center">
+                                <i class="fas fa-phone text-green-400 mr-2"></i>
                                 <span>+254 714 321 098</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-gradient-to-br from-primary-50 to-purple-50 rounded-2xl p-6 border border-primary-100 hover:shadow-lg transition-all duration-300">
-                        <h4 class="font-bold text-indigo-700 mb-3">Student Welfare & Guidance</h4>
-                        <p class="text-gray-800 font-medium mb-3">Ms. Isdora and Mr. Fredrick Otae</p>
-                        <div class="space-y-2 text-sm text-gray-600">
-                            <div class="flex items-center">
-                                <i class="fas fa-envelope text-indigo-500 mr-2"></i>
-                                <a href="mailto:guidance@barunion.ac.ke" class="hover:text-indigo-600 transition-colors">guidance@barunion.ac.ke</a>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-users text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-200 mb-2 text-center">Student Welfare & Guidance</h4>
+                        <p class="text-white/90 font-medium mb-4 text-center">Ms. Isdora and Mr. Fredrick Otae</p>
+                        <div class="space-y-3 text-sm text-white/80">
+                            <div class="flex items-center justify-center">
+                                <i class="fas fa-envelope text-indigo-400 mr-2"></i>
+                                <a href="mailto:guidance@barunion.ac.ke" class="hover:text-indigo-300 transition-colors">guidance@barunion.ac.ke</a>
                             </div>
-                            <div class="flex items-center">
-                                <i class="fas fa-phone text-green-500 mr-2"></i>
+                            <div class="flex items-center justify-center">
+                                <i class="fas fa-phone text-green-400 mr-2"></i>
                                 <span>+254 715 654 321</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-gradient-to-br from-primary-50 to-purple-50 rounded-2xl p-6 border border-primary-100 hover:shadow-lg transition-all duration-300">
-                        <h4 class="font-bold text-pink-700 mb-3">Library & Resource Centre</h4>
-                        <p class="text-gray-800 font-medium mb-3">Ms. Mary Tago</p>
-                        <div class="space-y-2 text-sm text-gray-600">
-                            <div class="flex items-center">
-                                <i class="fas fa-envelope text-pink-500 mr-2"></i>
-                                <a href="mailto:library@barunion.ac.ke" class="hover:text-pink-600 transition-colors">library@barunion.ac.ke</a>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-book text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-200 mb-2 text-center">Library & Resource Centre</h4>
+                        <p class="text-white/90 font-medium mb-4 text-center">Ms. Mary Tago</p>
+                        <div class="space-y-3 text-sm text-white/80">
+                            <div class="flex items-center justify-center">
+                                <i class="fas fa-envelope text-pink-400 mr-2"></i>
+                                <a href="mailto:library@barunion.ac.ke" class="hover:text-pink-300 transition-colors">library@barunion.ac.ke</a>
                             </div>
-                            <div class="flex items-center">
-                                <i class="fas fa-phone text-green-500 mr-2"></i>
+                            <div class="flex items-center justify-center">
+                                <i class="fas fa-phone text-green-400 mr-2"></i>
                                 <span>+254 716 234 567</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-gradient-to-br from-primary-50 to-purple-50 rounded-2xl p-6 border border-primary-100 hover:shadow-lg transition-all duration-300">
-                        <h4 class="font-bold text-cyan-700 mb-3">ICT & Innovation</h4>
-                        <p class="text-gray-800 font-medium mb-3">Mr. Fredrick Aboge</p>
-                        <div class="space-y-2 text-sm text-gray-600">
-                            <div class="flex items-center">
-                                <i class="fas fa-envelope text-cyan-500 mr-2"></i>
-                                <a href="mailto:ict@barunion.ac.ke" class="hover:text-cyan-600 transition-colors">ict@barunion.ac.ke</a>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
+                        <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
+                            <i class="fas fa-network-wired text-white text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-cyan-200 mb-2 text-center">ICT & Innovation</h4>
+                        <p class="text-white/90 font-medium mb-4 text-center">Mr. Fredrick Aboge</p>
+                        <div class="space-y-3 text-sm text-white/80">
+                            <div class="flex items-center justify-center">
+                                <i class="fas fa-envelope text-cyan-400 mr-2"></i>
+                                <a href="mailto:ict@barunion.ac.ke" class="hover:text-cyan-300 transition-colors">ict@barunion.ac.ke</a>
                             </div>
-                            <div class="flex items-center">
-                                <i class="fas fa-phone text-green-500 mr-2"></i>
+                            <div class="flex items-center justify-center">
+                                <i class="fas fa-phone text-green-400 mr-2"></i>
                                 <span>+254 717 890 123</span>
                             </div>
                         </div>

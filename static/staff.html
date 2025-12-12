@@ -81,15 +81,16 @@
     <div w3-include-html="/includes/header.html"></div>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center text-white bg-gradient-to-br from-primary-700 via-primary-600 to-purple-600 overflow-hidden">
+    <section class="relative min-h-screen flex items-center justify-center text-white bg-gradient-to-br from-primary-800 via-primary-700 to-purple-700 overflow-hidden">
         <!-- Background Image with Overlay -->
-        <div class="absolute inset-0 bg-black/30"></div>
+        <div class="absolute inset-0 bg-black/40"></div>
         <div class="absolute inset-0 bg-[url('/assets/images/common/hero-bg.jpg')] bg-cover bg-center bg-no-repeat"></div>
         
-        <!-- Floating Elements -->
-        <div class="absolute top-20 left-10 w-20 h-20 bg-gold-500/20 rounded-full blur-xl animate-pulse-slow"></div>
-        <div class="absolute bottom-20 right-10 w-32 h-32 bg-purple-400/20 rounded-full blur-xl animate-pulse-slow" style="animation-delay: 1s;"></div>
-        <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-primary-400/20 rounded-full blur-xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+        <!-- Animated Background Elements -->
+        <div class="absolute top-10 left-10 w-24 h-24 bg-gold-400/10 rounded-full blur-2xl animate-pulse-slow"></div>
+        <div class="absolute top-20 right-20 w-32 h-32 bg-purple-400/10 rounded-full blur-2xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+        <div class="absolute bottom-20 left-20 w-20 h-20 bg-primary-400/10 rounded-full blur-2xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-10 right-10 w-28 h-28 bg-gold-400/10 rounded-full blur-2xl animate-pulse-slow" style="animation-delay: 3s;"></div>
         
         <div class="relative z-10 text-center max-w-6xl mx-auto px-6">
             <div class="animate-fade-in">
@@ -100,13 +101,13 @@
                     </span> Staff
                 </h1>
                 <div class="flex flex-wrap justify-center gap-4 mb-8 text-lg md:text-xl">
-                    <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm">
+                    <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm border border-white/30 hover:bg-white/30 transition-all duration-300">
                         <i class="fas fa-star text-gold-400 mr-2"></i>Experienced
                     </span>
-                    <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm">
+                    <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm border border-white/30 hover:bg-white/30 transition-all duration-300">
                         <i class="fas fa-heart text-gold-400 mr-2"></i>Passionate
                     </span>
-                    <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm">
+                    <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm border border-white/30 hover:bg-white/30 transition-all duration-300">
                         <i class="fas fa-trophy text-gold-400 mr-2"></i>Committed to Excellence
                     </span>
                 </div>
@@ -114,15 +115,15 @@
                     Our team of qualified educators, administrators, and support staff work together to provide a holistic, student-first learning environment.
                 </p>
                 <div class="grid md:grid-cols-3 gap-6 mt-12">
-                    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20 hover:shadow-2xl transition-all duration-300">
+                    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
                         <div class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-2">50+</div>
                         <div class="text-sm font-semibold text-white/90 uppercase tracking-wide">Qualified Teachers</div>
                     </div>
-                    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20 hover:shadow-2xl transition-all duration-300">
+                    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
                         <div class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-2">15+</div>
                         <div class="text-sm font-semibold text-white/90 uppercase tracking-wide">Support Staff</div>
                     </div>
-                    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20 hover:shadow-2xl transition-all duration-300">
+                    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
                         <div class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-2">20+</div>
                         <div class="text-sm font-semibold text-white/90 uppercase tracking-wide">Years Experience</div>
                     </div>
@@ -232,17 +233,20 @@
             </div>
 
             <!-- Department Filters -->
-            <div class="bg-white rounded-3xl p-8 lg:p-12 shadow-lg border border-gray-100 mb-12" data-aos="fade-up" data-aos-delay="300">
-                <h3 class="text-2xl lg:text-3xl font-bold text-primary-800 mb-4 text-center">Filter by Department</h3>
-                <p class="text-gray-600 text-center mb-8 max-w-4xl mx-auto leading-relaxed text-lg">
-                    Departments help organize staff by their primary area of responsibility.
-                    This allows students, parents, and visitors to quickly identify specialists in specific subjects or services.
-                </p>
+            <div class="bg-gradient-to-br from-primary-800 via-primary-700 to-purple-700 rounded-3xl p-8 lg:p-12 shadow-2xl text-white mb-12" data-aos="fade-up" data-aos-delay="300">
+                <div class="text-center mb-12">
+                    <h3 class="font-heading text-3xl lg:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-4">Filter by Department</h3>
+                    <div class="w-20 h-1 bg-gradient-to-r from-gold-400 to-gold-200 rounded-full mx-auto mb-6"></div>
+                    <p class="text-lg text-white/90 max-w-4xl mx-auto leading-relaxed">
+                        Departments help organize staff by their primary area of responsibility.
+                        This allows students, parents, and visitors to quickly identify specialists in specific subjects or services.
+                    </p>
+                </div>
                 <div class="department-controls grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3" id="departmentControls">
                     <!-- Will be populated dynamically from JSON -->
                     <div class="col-span-full text-center py-8">
-                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-4"></div>
-                        <p class="text-gray-500"><em>Loading departments...</em></p>
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gold-400 mx-auto mb-4"></div>
+                        <p class="text-white/80"><em>Loading departments...</em></p>
                     </div>
                 </div>
             </div>
