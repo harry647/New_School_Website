@@ -1,0 +1,27 @@
+[
+  {
+    "date": "2025-12-20",
+    "title": "Term Ends",
+    "type": "academic"
+  },
+  {
+    "date": "2025-12-25",
+    "title": "Christmas Day",
+    "type": "holiday"
+  },
+  {
+    "date": "2026-01-05",
+    "title": "School Reopens",
+    "type": "academic"
+  },
+  {
+    "date": "2026-01-15",
+    "title": "Annual Sports Day",
+    "type": "sports"
+  },
+  {
+    "date": "2026-02-10",
+    "title": "Cultural Festival",
+    "type": "cultural"
+  }
+]

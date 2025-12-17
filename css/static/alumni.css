@@ -1,2078 +1,359 @@
-/* ================================================================
-   BAR UNION MIXED SECONDARY — ALUMNI PAGE (ENHANCED)
-   2025 • Premium UI • Stunning Animations • Professional Design
-   Ultra-modern, smooth animations • perfected layouts
-============================================================ */
+/* /css/static/alumni.css - Page-specific styles for Alumni Network
+   Builds on top of /css/global/styles.css - no duplicates! */
 
-/* -------------------------------------------------------------
-   Root Variables
-------------------------------------------------------------- */
-:root {
-  --blue: #0175C2;
-  --blue-dark: #0b2d5e;
-  --gold: #ffd700;
-  --gold-light: #ffed4e;
-  --purple: #8b5cf6;
-  --orange: #f97316;
-  --green: #10b981;
-  --red: #ef4444;
-
-  --text-dark: #333;
-  --text-gray: #555;
-  --text-light: #f8fafc;
-
-  --radius: 32px;
-  --radius-lg: 48px;
-
-  --shadow-xs: 0 6px 18px rgba(0,0,0,0.08);
-  --shadow-sm: 0 12px 35px rgba(0,0,0,0.12);
-  --shadow-md: 0 20px 55px rgba(0,0,0,0.15);
-  --shadow-lg: 0 35px 90px rgba(0,0,0,0.22);
-  --shadow-xl: 0 50px 120px rgba(0,0,0,0.25);
-
-  --transition: all .55s cubic-bezier(.4, 0, .2, 1);
-  --transition-fast: all .25s cubic-bezier(.4, 0, .2, 1);
-  --transition-slow: all .85s cubic-bezier(.4, 0, .2, 1);
-
-  /* Dark mode variables */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8fafc;
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
-  --card-bg: #ffffff;
-  --border-color: rgba(0,0,0,0.1);
-}
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-primary: #0f172a;
-    --bg-secondary: #1e293b;
-    --text-primary: #f1f5f9;
-    --text-secondary: #cbd5e1;
-    --card-bg: #1e293b;
-    --border-color: rgba(255,255,255,0.1);
-    --shadow-xs: 0 6px 18px rgba(0,0,0,0.3);
-    --shadow-sm: 0 12px 35px rgba(0,0,0,0.4);
-    --shadow-md: 0 20px 55px rgba(0,0,0,0.5);
-    --shadow-lg: 0 35px 90px rgba(0,0,0,0.6);
-  }
-  body { background: var(--bg-primary); color: var(--text-primary); }
-  .alumni-hero { 
-    background: linear-gradient(135deg, rgba(11,45,94,0.97), rgba(139,92,246,0.91)), 
-    url('/assets/images/alumni-hero.jpg') center/cover no-repeat fixed; 
-  }
-  .alumni-card, .engagement-card, .stat, .alumni-event-card, .form-wrapper { 
-    background: var(--card-bg); border-color: var(--border-color); color: var(--text-primary); 
-  }
-  .welcome-text h2, .engagement-card h4, .alumni-card h4, .alumni-event-card h4 { color: var(--text-primary); }
-  .welcome-text p, .engagement-card p, .alumni-card p, .alumni-event-card p, .stat p { color: var(--text-secondary); }
-}
-
-/* -------------------------------------------------------------
-   Enhanced Animations
-------------------------------------------------------------- */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(1,117,194,0.3); }
-  50% { box-shadow: 0 0 40px rgba(1,117,194,0.6); }
-}
-
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-/* -------------------------------------------------------------
-   Body & Typography
-------------------------------------------------------------- */
-body.page-alumni {
-  margin: 0;
-  font-family: "Inter", system-ui, sans-serif;
-  line-height: 1.75;
-  color: var(--text-dark);
-  background: #ffffff;
-  overflow-x: hidden;
-}
-
-body.page-alumni * {
-  box-sizing: border-box;
-}
-
-.container {
-  max-width: 1380px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-/* Enhanced Typography */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  line-height: 1.2;
-  margin: 0;
-}
-
-p {
-  margin: 0;
-  line-height: 1.7;
-}
-
-/* =========================================================================
-   1. ENHANCED HERO SECTION
-======================================================================== */
-.alumni-hero {
-  min-height: calc(100vh - 90px);
-  margin-top: 90px;
-  background: linear-gradient(135deg, rgba(11,45,94,0.97), rgba(139,92,246,0.91), rgba(1,117,194,0.88)),
-              url('/assets/images/alumni-hero.jpg') center/cover no-repeat fixed;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  color: #fff;
+.page-hero {
   position: relative;
-  overflow: hidden;
-}
-
-.alumni-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, transparent 38%, rgba(0,0,0,0.65));
-}
-
-.alumni-hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="%23ffffff" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-  animation: float 6s ease-in-out infinite;
-}
-
-.alumni-hero h1 {
-  font-family: "Playfair Display", serif;
-  font-size: clamp(3.6rem, 9vw, 7rem);
-  font-weight: 900;
-  margin-bottom: 1.6rem;
-  background: linear-gradient(135deg, #fff, #eef7ff, #ffd700);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 20px 50px rgba(0,0,0,0.65);
-  animation: slideInUp 1s ease-out;
-}
-
-.alumni-hero p {
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
-  max-width: 960px;
-  margin: 1.2rem auto 2rem;
-  line-height: 1.9;
-  opacity: .96;
-  animation: slideInUp 1s ease-out 0.2s both;
-}
-
-/* Enhanced Hero Stats */
-#heroStats.hero-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2.5rem;
-  margin-top: 4.2rem;
-  padding: 3.5rem 3rem;
-  background: rgba(255,255,255,0.14);
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-  border-radius: var(--radius-lg);
-  border: 1px solid rgba(255,255,255,0.3);
-  max-width: 1100px;
-  animation: slideInUp 1s ease-out 0.4s both;
-  position: relative;
-  overflow: hidden;
-}
-
-#heroStats.hero-stats::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-  animation: shimmer 3s infinite;
-}
-
-#heroStats .stat {
-  position: relative;
-  z-index: 1;
-  animation: float 3s ease-in-out infinite;
-}
-
-#heroStats .stat:nth-child(2) {
-  animation-delay: 0.5s;
-}
-
-#heroStats .stat:nth-child(3) {
-  animation-delay: 1s;
-}
-
-#heroStats .stat h3 {
-  font-size: 4rem;
-  font-weight: 900;
-  color: var(--gold);
-  margin: 0;
-  text-shadow: 0 6px 20px rgba(0,0,0,0.6);
-  transition: var(--transition);
-}
-
-#heroStats .stat:hover h3 {
-  transform: scale(1.1);
-  text-shadow: 0 10px 30px rgba(255,215,0,0.8);
-}
-
-#heroStats .stat p {
-  margin-top: .8rem;
-  font-size: 1.12rem;
-  opacity: .95;
-}
-
-/* =========================================================================
-   2. ENHANCED WELCOME SECTION
-======================================================================== */
-#welcome,
-#alumniWelcome {
-  display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 6rem;
-  margin-top: 4rem;
+  min-height: 90vh;
+  display: flex;
   align-items: center;
-  padding: 4rem 0;
+  background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.65)), url('/assets/images/alumni/hero-bg.jpg') center/cover no-repeat;
+  color: white;
+  text-align: center;
 }
 
-.welcome-text h2 {
-  font-family: "Playfair Display", serif;
-  font-weight: 900;
-  font-size: clamp(2.8rem, 6vw, 4.2rem);
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue), var(--purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 1.8rem;
-  position: relative;
-}
-
-.welcome-text h2::after {
-  content: "";
-  width: 140px;
-  height: 8px;
-  background: linear-gradient(90deg, var(--blue-dark), var(--blue), var(--purple));
-  border-radius: 6px;
+.hero-floating-elements {
   position: absolute;
-  bottom: -16px;
-  left: 0;
-  animation: slideInUp 1s ease-out;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 
-.welcome-text p {
-  font-size: 1.15rem;
-  color: var(--text-gray);
-  line-height: 1.92;
-  margin-top: 1rem;
+.floating-blob {
+  position: absolute;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  animation: float 24s infinite ease-in-out;
 }
 
-.welcome-image {
-  position: relative;
+.blob-1 { width: 350px; height: 350px; top: 12%; left: 10%; animation-delay: 0s; }
+.blob-2 { width: 450px; height: 450px; top: 55%; right: 15%; animation-delay: 8s; }
+.blob-3 { width: 300px; height: 300px; bottom: 18%; left: 25%; animation-delay: 16s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-40px) rotate(15deg); }
+}
+
+/* Hero Stats */
+.hero-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.hero-stats-grid .stat-card {
+  background: rgba(255,255,255,0.15);
+  padding: 2rem;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+
+.hero-stats-grid .stat-card h3 {
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Welcome Section */
+.welcome-section {
+  background: var(--light);
+}
+
+.welcome-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
 }
 
 .welcome-image img {
-  width: 100%;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-xl);
-  transition: var(--transition-slow);
-  position: relative;
-  z-index: 1;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
-.welcome-image::before {
-  content: '';
-  position: absolute;
-  inset: -20px;
-  background: linear-gradient(45deg, var(--blue), var(--purple), var(--gold));
-  border-radius: var(--radius-lg);
-  z-index: 0;
-  animation: pulse 3s ease-in-out infinite;
+/* Notable Alumni */
+.notable-section {
+  background: white;
 }
 
-.welcome-image img:hover {
-  transform: scale(1.05) rotate(2deg);
-  box-shadow: var(--shadow-xl), 0 0 50px rgba(139,92,246,0.3);
-}
-
-/* =========================================================================
-   3. ENHANCED NOTABLE ALUMNI
-======================================================================== */
-#notableAlumni .notable-grid {
+.alumni-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 3.4rem;
-  margin-top: 5rem;
-  max-width: 1400px;
-  margin-inline: auto;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 3rem;
+  margin-top: 3rem;
 }
 
 .alumni-card {
-  background: linear-gradient(145deg, #ffffff, #f8fafc);
-  border-radius: var(--radius-lg);
+  background: white;
+  border-radius: 20px;
   overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  transition: transform 0.4s ease;
   text-align: center;
-  border: 1px solid rgba(1,117,194,0.12);
-  box-shadow: var(--shadow-md);
-  transition: var(--transition-slow);
-  position: relative;
-  transform: perspective(1000px) rotateX(0deg);
 }
 
-.alumni-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--blue-dark), var(--blue), var(--purple), var(--gold));
-  opacity: 0;
-  transition: var(--transition);
-}
-
-.alumni-card:hover::before {
-  opacity: 1;
+.alumni-card:hover {
+  transform: translateY(-15px);
 }
 
 .alumni-card img {
   width: 100%;
-  height: 400px;
+  height: 320px;
   object-fit: cover;
-  transition: transform 0.9s ease;
-  filter: saturate(1.1) contrast(1.1);
 }
 
-.alumni-card:hover img {
-  transform: scale(1.12) rotate(2deg);
-  filter: saturate(1.3) contrast(1.2);
-}
-
-.alumni-card h4 {
-  font-size: 1.85rem;
-  font-weight: 900;
-  margin-top: 2rem;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: var(--transition);
-}
-
-.alumni-card:hover h4 {
-  background: linear-gradient(135deg, var(--blue-dark), var(--purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.alumni-card h3 {
+  font-size: 1.6rem;
+  margin: 1.5rem 0 1rem;
 }
 
 .alumni-card p {
-  padding: 0 2.2rem 2.8rem;
-  font-size: 1.05rem;
-  color: var(--text-gray);
-  line-height: 1.9;
+  padding: 0 1.5rem 2rem;
+  color: var(--secondary);
+  line-height: 1.7;
 }
 
-.alumni-card:hover {
-  transform: translateY(-18px) rotateX(5deg);
-  box-shadow: var(--shadow-lg), 0 0 40px rgba(1,117,194,0.2);
-  border-color: var(--purple);
+/* Success Timeline */
+.timeline-section {
+  background: var(--light);
 }
 
-/* =========================================================================
-   4. ENHANCED ENGAGEMENT OPPORTUNITIES
-======================================================================== */
-#engagement {
-  background: linear-gradient(135deg, #f0f5ff 0%, #e0eaff 50%, #f0f5ff 100%);
-  padding: 130px 0;
+.timeline-container {
   position: relative;
-}
-
-#engagement::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%230175C2" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
-}
-
-#engagement .engagement-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 4rem;
-  margin: 5rem auto 0;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-}
-
-.engagement-card {
-  background: linear-gradient(145deg, #ffffff, #f8fafc);
-  border-radius: var(--radius-lg);
-  padding: 4.5rem 3.2rem;
-  text-align: center;
-  box-shadow: var(--shadow-md);
-  border: 1px solid rgba(1,117,194,0.12);
-  transition: var(--transition-slow);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  transform: perspective(1000px) rotateX(0deg);
-}
-
-.engagement-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 8px;
-  background: linear-gradient(90deg, var(--blue-dark), var(--blue), var(--gold));
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  transform: scaleX(0);
-  transition: var(--transition);
-}
-
-.engagement-card:hover::before {
-  transform: scaleX(1);
-}
-
-.engagement-card:hover {
-  transform: translateY(-28px) scale(1.03) rotateX(5deg);
-  box-shadow: var(--shadow-lg), 0 0 40px rgba(1,117,194,0.3);
-  border-color: var(--blue);
-}
-
-.engagement-card i {
-  width: 130px;
-  height: 130px;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue), var(--purple));
-  color: white;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 3.8rem;
-  margin: 0 auto 2.2rem;
-  box-shadow: 0 15px 40px rgba(1,117,194,0.3);
-  transition: var(--transition-slow);
-  position: relative;
-  z-index: 1;
-}
-
-.engagement-card:hover i {
-  transform: scale(1.2) rotate(12deg);
-  box-shadow: 0 20px 50px rgba(1,117,194,0.45);
-  background: linear-gradient(135deg, var(--purple), var(--blue), var(--gold));
-}
-
-.engagement-card h4 {
-  font-size: 1.95rem;
-  font-weight: 800;
-  color: var(--blue-dark);
-  margin: 1.2rem 0;
-  transition: var(--transition);
-}
-
-.engagement-card:hover h4 {
-  color: var(--purple);
-}
-
-.engagement-card p {
-  color: var(--text-gray);
-  line-height: 1.95;
-  flex-grow: 1;
-  font-size: 1.12rem;
-  padding: 0 1rem;
-}
-
-/* =========================================================================
-   5. ENHANCED ALUMNI STATS GRID
-======================================================================== */
-#alumniStats .stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 3rem;
-  margin-top: 5rem;
-  max-width: 1200px;
-  margin-inline: auto;
-}
-
-#alumniStats .stat {
-  background: linear-gradient(145deg, #ffffff, #f8fafc);
-  padding: 3rem 2rem;
-  border-radius: var(--radius-lg);
-  text-align: center;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition-slow);
-  border: 1px solid rgba(1,117,194,0.12);
-  position: relative;
-  overflow: hidden;
-}
-
-#alumniStats .stat::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(45deg, rgba(1,117,194,0.1), rgba(139,92,246,0.1));
-  opacity: 0;
-  transition: var(--transition);
-}
-
-#alumniStats .stat:hover::before {
-  opacity: 1;
-}
-
-#alumniStats .stat:hover {
-  transform: translateY(-12px) scale(1.05);
-  box-shadow: var(--shadow-lg), 0 0 30px rgba(1,117,194,0.2);
-}
-
-#alumniStats .stat i {
-  font-size: 3.2rem;
-  margin-bottom: 1.4rem;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue), var(--purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: var(--transition);
-}
-
-#alumniStats .stat:hover i {
-  background: linear-gradient(135deg, var(--purple), var(--gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-#alumniStats .stat h3 {
-  font-size: 4rem;
-  font-weight: 900;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: var(--transition);
-}
-
-#alumniStats .stat:hover h3 {
-  background: linear-gradient(135deg, var(--purple), var(--gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-#alumniStats .stat p {
-  color: var(--text-gray);
-  font-size: 1.15rem;
-  line-height: 1.8;
-}
-
-/* =========================================================================
-   6. ENHANCED REGISTRATION FORM
-======================================================================== */
-#register .form-wrapper {
-  background: linear-gradient(145deg, #ffffff, #f8fafc);
-  padding: 4.5rem;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  max-width: 1180px;
-  margin: 5rem auto;
-  border: 1px solid rgba(1,117,194,0.12);
-  position: relative;
-  overflow: hidden;
-}
-
-#register .form-wrapper::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--blue-dark), var(--blue), var(--purple), var(--gold));
-}
-
-.alumni-form .form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 2.4rem;
-}
-
-.form-group {
-  position: relative;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  color: var(--blue-dark);
-  transition: var(--transition);
-}
-
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 1.25rem 1.6rem;
-  border-radius: 18px;
-  border: 2px solid #e2e8f0;
-  background: linear-gradient(145deg, #f8fafc, #ffffff);
-  font-size: 1.05rem;
-  transition: var(--transition);
-  position: relative;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 6px rgba(1,117,194,0.18), var(--shadow-sm);
-  background: #ffffff;
-  transform: translateY(-2px);
-}
-
-.form-group input:focus + label,
-.form-group textarea:focus + label {
-  color: var(--purple);
-}
-
-.alumni-form button {
-  padding: 1.45rem 4.8rem;
-  font-size: 1.25rem;
-  color: #fff;
-  border-radius: 60px;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue), var(--purple));
-  box-shadow: 0 18px 55px rgba(1,117,194,0.45);
-  transition: var(--transition);
-  border: none;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-
-.alumni-form button::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--purple), var(--gold));
-  opacity: 0;
-  transition: var(--transition);
-}
-
-.alumni-form button:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 28px 85px rgba(1,117,194,0.6);
-}
-
-.alumni-form button:hover::before {
-  opacity: 1;
-}
-
-.alumni-form button span {
-  position: relative;
-  z-index: 1;
-}
-
-/* ==================================
-   ENHANCED MENTORSHIP STATS
-================================= */
-section[aria-label="Alumni Engagement & Mentorship Stats"] {
-  background: linear-gradient(135deg, #f0f5ff 0%, #e0eaff 50%, #f0f5ff 100%);
-  padding: 130px 0;
-  position: relative;
-}
-
-section[aria-label="Alumni Engagement & Mentorship Stats"]::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hexagons" width="20" height="20" patternUnits="userSpaceOnUse"><polygon points="10,2 18,6 18,14 10,18 2,14 2,6" fill="%230175C2" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23hexagons)"/></svg>');
-}
-
-section[aria-label="Alumni Engagement & Mentorship Stats"] .stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 3.8rem;
-  margin: 5rem auto;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-}
-
-section[aria-label="Alumni Engagement & Mentorship Stats"] .stat {
-  background: rgba(255,255,255,0.94);
-  padding: 4.2rem 3rem;
-  border-radius: var(--radius-lg);
-  text-align: center;
-  box-shadow: var(--shadow-md);
-  border: 1px solid rgba(1,117,194,0.18);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  transition: var(--transition-slow);
-  position: relative;
-  overflow: hidden;
-  transform: perspective(1000px) rotateX(0deg);
-}
-
-section[aria-label="Alumni Engagement & Mentorship Stats"] .stat::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 10px;
-  background: linear-gradient(90deg, var(--gold), var(--gold-light));
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-  transform: scaleX(0);
-  transition: var(--transition);
-}
-
-section[aria-label="Alumni Engagement & Mentorship Stats"] .stat:hover::before {
-  transform: scaleX(1);
-}
-
-section[aria-label="Alumni Engagement & Mentorship Stats"] .stat:hover {
-  transform: translateY(-24px) scale(1.04) rotateX(5deg);
-  box-shadow: var(--shadow-lg), 0 0 40px rgba(255,215,0,0.3);
-}
-
-section[aria-label="Alumni Engagement & Mentorship Stats"] .stat i {
-  font-size: 4rem;
-  margin-bottom: 1.8rem;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: var(--transition);
-}
-
-section[aria-label="Alumni Engagement & Mentorship Stats"] .stat:hover i {
-  background: linear-gradient(135deg, var(--purple), var(--gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-section[aria-label="Alumni Engagement & Mentorship Stats"] .stat h3 {
-  font-size: 5.2rem;
-  font-weight: 900;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 1rem 0;
-  text-shadow: 0 6px 20px rgba(0,0,0,0.1);
-  transition: var(--transition);
-}
-
-section[aria-label="Alumni Engagement & Mentorship Stats"] .stat:hover h3 {
-  background: linear-gradient(135deg, var(--gold), var(--orange));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-section[aria-label="Alumni Engagement & Mentorship Stats"] .stat p {
-  color: var(--text-gray);
-  font-size: 1.2rem;
-  line-height: 1.8;
-  margin: 0;
-}
-
-/* ==================================================
-   ENHANCED ALUMNI EVENTS GRID
-================================================== */
-#alumniEvents {
-  margin-top: 5rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-  gap: 3.8rem;
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.alumni-event-card {
-  background: linear-gradient(145deg, #ffffff, #f8fafc);
-  border-radius: var(--radius-lg);
-  padding: 3.2rem 2.6rem;
-  box-shadow: var(--shadow-md);
-  border: 1px solid rgba(1,117,194,0.12);
-  transition: var(--transition-slow);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  transform: perspective(1000px) rotateX(0deg);
-}
-
-.alumni-event-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--blue-dark), var(--blue), var(--purple));
-  transform: scaleX(0);
-  transition: var(--transition);
-}
-
-.alumni-event-card:hover::before {
-  transform: scaleX(1);
-}
-
-.alumni-event-card:hover {
-  transform: translateY(-24px) rotateX(5deg);
-  box-shadow: var(--shadow-lg), 0 0 40px rgba(1,117,194,0.2);
-  border-color: var(--purple);
-}
-
-.alumni-event-card .event-tag {
-  position: absolute;
-  top: 18px;
-  right: -50px;
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  color: var(--blue-dark);
-  font-weight: 800;
-  padding: 0.7rem 3rem;
-  transform: rotate(45deg);
-  font-size: 0.95rem;
-  box-shadow: 0 10px 25px rgba(255,215,0,0.45);
-  letter-spacing: 0.5px;
-}
-
-.alumni-event-card i {
-  font-size: 4.5rem;
-  margin-bottom: 1.8rem;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: var(--transition);
-}
-
-.alumni-event-card:hover i {
-  background: linear-gradient(135deg, var(--purple), var(--gold));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.alumni-event-card h4 {
-  font-size: 1.8rem;
-  font-weight: 900;
-  color: var(--blue-dark);
-  margin-bottom: 1rem;
-  line-height: 1.3;
-  transition: var(--transition);
-}
-
-.alumni-event-card:hover h4 {
-  color: var(--purple);
-}
-
-.alumni-event-card p {
-  font-size: 1.07rem;
-  line-height: 1.85;
-  color: var(--text-gray);
-  margin-bottom: 2rem;
-  flex-grow: 1;
-}
-
-.alumni-event-card .event-date {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--blue-dark);
-  margin-top: auto;
-  opacity: 0.9;
-  transition: var(--transition);
-}
-
-.alumni-event-card:hover .event-date {
-  color: var(--purple);
-}
-
-.alumni-event-card .event-btn {
-  margin-top: 2rem;
-  padding: 1rem 2.5rem;
-  border-radius: 50px;
-  border: none;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 700;
-  box-shadow: 0 12px 40px rgba(1,117,194,0.4);
-  transition: var(--transition);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-
-.alumni-event-card .event-btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--purple), var(--gold));
-  opacity: 0;
-  transition: var(--transition);
-}
-
-.alumni-event-card .event-btn:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 22px 60px rgba(1,117,194,0.55);
-}
-
-.alumni-event-card .event-btn:hover::before {
-  opacity: 1;
-}
-
-.alumni-event-card .event-btn span {
-  position: relative;
-  z-index: 1;
-}
-
-.event-meta {
-  display: grid;
-  gap: 0.5rem;
-  margin: 1.5rem 0;
-  padding: 1.5rem;
-  background: linear-gradient(145deg, #f8fafc, #e2e8f0);
-  border-radius: var(--radius);
-  border-left: 4px solid var(--blue);
-}
-
-.event-meta p {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin: 0;
-  color: var(--text-dark);
-  font-size: 0.95rem;
-}
-
-.event-meta i {
-  color: var(--blue);
-  width: 16px;
-  text-align: center;
-}
-
-/* Enhanced Event Section Background */
-#alumniEvents {
-  background: linear-gradient(135deg, #f0f5ff 0%, #e0eaff 50%, #f0f5ff 100%);
-  padding: 4rem 0;
-  border-radius: var(--radius-lg);
-  margin-top: 3rem;
-}
-
-/* Event Description Styling */
-.event-description {
-  font-size: 1.05rem;
-  line-height: 1.8;
-  color: var(--text-gray);
-  margin-bottom: 1.5rem;
-  position: relative;
-}
-
-.event-description::after {
-  content: '';
-  position: absolute;
-  bottom: -1rem;
-  left: 0;
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--blue), var(--purple));
-  border-radius: 2px;
-}
-
-/* Enhanced Event Date Styling */
-.event-date {
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  color: var(--blue-dark);
-  padding: 1rem 1.5rem;
-  border-radius: var(--radius);
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 1.5rem;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
-}
-
-.event-date:hover {
-  transform: scale(1.05);
-  box-shadow: var(--shadow-md);
-}
-
-/* ==================================
-   SEARCH & FILTER ENHANCEMENTS
-================================= */
-.alumni-search {
-  width: 100%;
-  max-width: 500px;
-  margin: 2rem auto 4rem;
-  padding: 1rem 1.5rem;
-  border-radius: 50px;
-  border: 2px solid rgba(1,117,194,0.2);
-  background: linear-gradient(145deg, #ffffff, #f8fafc);
-  font-size: 1.1rem;
-  transition: var(--transition);
-  display: block;
-}
-
-.alumni-search:focus {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 6px rgba(1,117,194,0.18);
-  background: #ffffff;
-  outline: none;
-}
-
-.alumni-search::placeholder {
-  color: var(--text-secondary);
-}
-
-/* ==================================
-   LOADING STATES & ANIMATIONS
-================================= */
-.loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 200px;
-}
-
-.fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(.4, 0, .2, 1);
-}
-
-.fade-in.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.hover-zoom {
-  transition: var(--transition-slow);
-}
-
-.hover-zoom:hover {
-  transform: scale(1.02);
-}
-
-/* ==================================
-   ENHANCED SECTION STYLES
-================================= */
-.section {
-  padding: 80px 0;
-  position: relative;
-}
-
-.section.bg-light {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-}
-
-.section-title {
-  text-align: center;
-  margin-bottom: 4rem;
-}
-
-.section-title h2 {
-  font-family: "Playfair Display", serif;
-  font-size: clamp(2.5rem, 6vw, 3.8rem);
-  font-weight: 900;
-  color: var(--blue-dark);
-  margin-bottom: 1rem;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.section-title p {
-  font-size: 1.2rem;
-  color: var(--text-gray);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.section-intro {
-  font-size: 1.1rem;
-  color: var(--text-gray);
-  line-height: 1.8;
-  max-width: 800px;
-  margin: 0 auto 3rem;
-}
-
-/* ==================================
-   TIMELINE COMPONENT
-================================= */
-.timeline {
-  position: relative;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 4rem auto;
-  padding: 2rem 0;
 }
 
-.timeline::before {
-  content: '';
+.timeline-line {
   position: absolute;
-  left: 50%;
+  width: 6px;
+  background: var(--primary);
   top: 0;
   bottom: 0;
-  width: 4px;
-  background: linear-gradient(to bottom, var(--blue-dark), var(--blue), var(--purple));
+  left: 50%;
   transform: translateX(-50%);
-  border-radius: 2px;
+  border-radius: 3px;
+}
+
+.timeline-items {
+  position: relative;
 }
 
 .timeline-item {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 55%;
+  margin-bottom: 5rem;
   position: relative;
-  width: 50%;
-  padding: 2rem 3rem;
-  box-sizing: border-box;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.8s ease-out;
 }
 
-.timeline-item.in-view {
-  opacity: 1;
-  transform: translateY(0);
+.timeline-item.reverse {
+  justify-content: flex-start;
+  padding-right: 0;
+  padding-left: 55%;
 }
 
-.timeline-item:nth-child(odd) {
-  left: 0;
-  text-align: right;
-}
-
-.timeline-item:nth-child(even) {
-  left: 50%;
-  text-align: left;
-}
-
-.timeline-item::before {
-  content: '';
+.timeline-marker {
   position: absolute;
-  top: 2rem;
-  width: 20px;
-  height: 20px;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  border: 4px solid #fff;
-  border-radius: 50%;
-  box-shadow: var(--shadow-md);
-  z-index: 2;
-}
-
-.timeline-item:nth-child(odd)::before {
-  right: -10px;
-}
-
-.timeline-item:nth-child(even)::before {
-  left: -10px;
-}
-
-.timeline-year {
-  display: inline-block;
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 60px;
+  background: var(--primary);
   color: white;
-  padding: 0.8rem 1.5rem;
-  border-radius: 25px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: 700;
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
-}
-
-.timeline-year:hover {
-  transform: scale(1.05);
-  box-shadow: var(--shadow-md);
+  font-size: 1.3rem;
+  box-shadow: 0 10px 25px rgba(0,86,179,0.3);
+  z-index: 10;
 }
 
 .timeline-content {
-  background: linear-gradient(145deg, #ffffff, #f8fafc);
-  padding: 2rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-md);
-  border: 1px solid rgba(1,117,194,0.12);
-  transition: var(--transition);
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  max-width: 500px;
   position: relative;
 }
 
 .timeline-content::before {
   content: '';
   position: absolute;
-  top: 1.5rem;
   width: 0;
   height: 0;
-  border-style: solid;
-}
-
-.timeline-item:nth-child(odd) .timeline-content::before {
-  right: -15px;
-  border-width: 15px 0 15px 15px;
-  border-color: transparent transparent transparent #ffffff;
-}
-
-.timeline-item:nth-child(even) .timeline-content::before {
-  left: -15px;
-  border-width: 15px 15px 15px 0;
-  border-color: transparent #ffffff transparent transparent;
-}
-
-.timeline-content:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
-}
-
-.timeline-content h4 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--blue-dark);
-  margin-bottom: 0.8rem;
-}
-
-.timeline-content p {
-  color: var(--text-gray);
-  line-height: 1.7;
-  font-size: 1.05rem;
-}
-
-/* ==================================
-   ENHANCED CARD COMPONENTS
-================================= */
-.card-image-wrapper {
-  position: relative;
-  overflow: hidden;
-}
-
-.card-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(11,45,94,0.8), rgba(139,92,246,0.8));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: var(--transition);
-}
-
-.alumni-card:hover .card-overlay {
-  opacity: 1;
-}
-
-.view-profile-btn {
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  color: var(--blue-dark);
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  transform: translateY(20px);
-}
-
-.alumni-card:hover .view-profile-btn {
-  transform: translateY(0);
-}
-
-.view-profile-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 10px 25px rgba(255,215,0,0.4);
-}
-
-.card-content {
-  padding: 1.5rem;
-}
-
-.card-content h4 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--blue-dark);
-  margin-bottom: 0.5rem;
-}
-
-.card-content .batch {
-  color: var(--blue);
-  font-weight: 600;
-  margin-bottom: 0.8rem;
-}
-
-.card-content .achievement {
-  font-size: 1.1rem;
-  color: var(--text-dark);
-  margin-bottom: 0.8rem;
-}
-
-.card-content .current {
-  color: var(--text-gray);
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-/* ==================================
-   SEARCH COMPONENT ENHANCEMENTS
-================================= */
-.search-container {
-  margin: 3rem 0;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.search-wrapper {
-  background: linear-gradient(145deg, #ffffff, #f8fafc);
-  padding: 2rem;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  border: 1px solid rgba(1,117,194,0.12);
-}
-
-.search-input-group {
-  position: relative;
-  margin-bottom: 1.5rem;
-}
-
-.search-icon {
-  position: absolute;
-  left: 1.5rem;
+  border: 18px solid transparent;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--text-secondary);
-  font-size: 1.1rem;
 }
 
-.alumni-search {
-  width: 100%;
-  padding: 1.2rem 1.5rem 1.2rem 3rem;
-  border-radius: 50px;
-  border: 2px solid rgba(1,117,194,0.2);
-  background: linear-gradient(145deg, #f8fafc, #ffffff);
-  font-size: 1.1rem;
-  transition: var(--transition);
-  outline: none;
+.timeline-item:not(.reverse) .timeline-content::before {
+  border-left-color: white;
+  right: -36px;
 }
 
-.alumni-search:focus {
-  border-color: var(--blue);
-  box-shadow: 0 0 0 6px rgba(1,117,194,0.18);
-  background: #ffffff;
+.timeline-item.reverse .timeline-content::before {
+  border-right-color: white;
+  left: -36px;
 }
 
-.clear-search {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 50%;
-  transition: var(--transition);
+/* Upcoming Events */
+.events-section {
+  background: white;
 }
 
-.clear-search:hover {
-  background: rgba(1,117,194,0.1);
-  color: var(--blue);
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 3rem;
+  margin-top: 3rem;
 }
 
-.filter-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-  justify-content: center;
-}
-
-.filter-tag {
-  background: linear-gradient(145deg, #f8fafc, #e2e8f0);
-  border: 2px solid transparent;
-  padding: 0.8rem 1.5rem;
-  border-radius: 25px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: var(--transition);
-  color: var(--text-secondary);
-}
-
-.filter-tag:hover {
-  background: linear-gradient(145deg, var(--blue), var(--purple));
-  color: white;
-  transform: translateY(-2px);
-}
-
-.filter-tag.active {
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  color: white;
-  border-color: var(--purple);
-}
-
-/* ==================================
-   NOTIFICATION SYSTEM
-================================= */
-.notification {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  background: linear-gradient(145deg, #ffffff, #f8fafc);
-  padding: 1.5rem 2rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-lg);
-  border-left: 4px solid var(--blue);
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  z-index: 1000;
-  animation: slideInRight 0.5s ease-out;
-  max-width: 400px;
-}
-
-.notification-success {
-  border-left-color: var(--green);
-}
-
-.notification-error {
-  border-left-color: var(--red);
-}
-
-.notification-info {
-  border-left-color: var(--purple);
-}
-
-@keyframes slideInRight {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-.notification i {
-  font-size: 1.5rem;
-}
-
-.notification-success i {
-  color: var(--green);
-}
-
-.notification-error i {
-  color: var(--red);
-}
-
-.notification-info i {
-  color: var(--purple);
-}
-
-.close-notification {
-  background: none;
-  border: none;
-  color: var(--text-secondary);
-  cursor: pointer;
-  padding: 0.5rem;
-  margin-left: auto;
-}
-
-.close-notification:hover {
-  color: var(--blue);
-}
-
-/* ==================================
-   FILE UPLOAD ENHANCEMENTS
-================================= */
-.file-preview {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.image-preview {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  border-radius: var(--radius);
+.event-card {
+  background: white;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  transition: transform 0.4s ease;
 }
 
-.image-preview img {
+.event-card:hover {
+  transform: translateY(-12px);
+}
+
+.event-image img {
   width: 100%;
-  height: 100%;
+  height: 220px;
   object-fit: cover;
 }
 
-.remove-image {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background: rgba(0,0,0,0.7);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.event-info {
+  padding: 2rem;
 }
 
-.form-group.dragover {
-  border-color: var(--blue);
-  background: linear-gradient(145deg, #f0f5ff, #e0eaff);
-}
-
-/* ==================================
-   LOADING STATES
-================================= */
-.loading-animation {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid rgba(1,117,194,0.2);
-  border-left: 4px solid var(--blue);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.error-state,
-.no-events-state,
-.no-results {
-  text-align: center;
-  padding: 4rem 2rem;
-  color: var(--text-gray);
-}
-
-.error-state i,
-.no-events-state i,
-.no-results i {
-  font-size: 4rem;
-  margin-bottom: 1.5rem;
-  color: var(--blue);
-}
-
-.error-state h3,
-.no-events-state h3,
-.no-results h3 {
-  color: var(--blue-dark);
+.event-date {
+  display: block;
+  color: var(--primary);
+  font-weight: 600;
   margin-bottom: 1rem;
 }
 
-.retry-btn {
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  color: white;
-  border: none;
-  padding: 1rem 2rem;
-  border-radius: 25px;
-  cursor: pointer;
-  margin-top: 1rem;
-  transition: var(--transition);
+.event-info h3 {
+  margin-bottom: 1rem;
 }
 
-.retry-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+/* Registration Form */
+.register-section {
+  background: var(--light);
 }
 
-/* ==================================
-   COUNTDOWN ENHANCEMENTS
-================================= */
-.countdown {
-  display: flex;
-  gap: 1rem;
-  margin: 1.5rem 0;
-  justify-content: center;
+.register-form-card {
+  background: white;
+  padding: 4rem;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.countdown-timer {
-  background: linear-gradient(145deg, var(--blue-dark), var(--blue));
-  color: white;
-  padding: 1rem;
-  border-radius: var(--radius);
+/* Engagement Opportunities */
+.engagement-section {
+  background: white;
+}
+
+.engagement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 3rem;
+  margin: 3rem 0;
+}
+
+.engagement-card {
   text-align: center;
-  min-width: 70px;
+  padding: 3rem 2rem;
+  background: var(--primary-light);
+  border-radius: 20px;
+  transition: transform 0.4s ease;
 }
 
-.countdown-timer span {
-  display: block;
+.engagement-card:hover {
+  transform: translateY(-12px);
+  background: white;
+  box-shadow: 0 20px 40px rgba(0,86,179,0.15);
 }
 
-.countdown-timer .label {
-  font-size: 0.8rem;
-  opacity: 0.8;
-  margin-top: 0.5rem;
-}
-
-.event-happening {
-  background: linear-gradient(135deg, var(--green), #10b981);
-  color: white;
-  padding: 1rem;
-  border-radius: var(--radius);
+.engagement-cta {
   text-align: center;
-  font-weight: 600;
+  margin-top: 4rem;
 }
 
-/* ==================================
-   ENHANCED BUTTONS
-================================= */
-.btn {
-  display: inline-block;
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: var(--transition);
-  border: none;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
+/* Alumni Mentorship Stats */
+.stats-section {
+  background: var(--primary-light);
 }
 
-.btn-primary {
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  color: white;
-  box-shadow: 0 8px 25px rgba(1,117,194,0.3);
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
+  margin-top: 4rem;
 }
 
-.btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 40px rgba(1,117,194,0.4);
-  background: linear-gradient(135deg, var(--blue), var(--purple));
+.stats-cta {
+  text-align: center;
+  margin-top: 4rem;
 }
 
-.btn.large {
-  padding: 1.25rem 2.5rem;
-  font-size: 1.1rem;
-}
-
-/* =========================================================================
-   ENHANCED MOBILE RESPONSIVE DESIGN
-======================================================================== */
-@media (max-width: 1200px) {
-  #notableAlumni .notable-grid,
-  .engagement-grid,
-  #alumniStats .stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .alumni-hero h1 {
-    font-size: clamp(3rem, 8vw, 6rem);
-  }
-  
-  #heroStats.hero-stats {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    padding: 3rem 2rem;
-  }
-}
-
+/* Responsive */
 @media (max-width: 992px) {
-  .alumni-hero { 
-    margin-top: 80px; 
-    min-height: calc(100vh - 80px);
-  }
-  
-  #alumniWelcome {
+  .welcome-grid {
     grid-template-columns: 1fr;
+  }
+
+  .welcome-image {
+    order: -1;
+    margin-bottom: 3rem;
+  }
+
+  .timeline-item,
+  .timeline-item.reverse {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    justify-content: center;
+    margin-bottom: 6rem;
+  }
+
+  .timeline-marker {
+    position: static;
+    transform: none;
+    margin-bottom: 1.5rem;
+  }
+
+  .timeline-content {
+    max-width: 600px;
     text-align: center;
-    gap: 4rem;
   }
-  
-  .welcome-image::before {
-    inset: -10px;
+
+  .timeline-content::before {
+    display: none;
   }
-  
-  #register .form-wrapper {
-    padding: 3.5rem 2.5rem;
-  }
-  
-  section[aria-label="Alumni Engagement & Mentorship Stats"] .stat,
-  .engagement-card {
-    padding: 3.5rem 2.5rem;
-  }
-  
-  .engagement-card i {
-    width: 110px;
-    height: 110px;
-    font-size: 3.2rem;
+
+  .timeline-line {
+    display: none;
   }
 }
 
 @media (max-width: 768px) {
-  .alumni-hero h1 {
-    font-size: clamp(2.5rem, 7vw, 5rem);
+  .register-form-card {
+    padding: 2.5rem;
   }
-  
-  .alumni-hero p {
-    font-size: clamp(1.1rem, 4vw, 1.5rem);
-  }
-  
-  #heroStats.hero-stats {
+
+  .events-grid,
+  .alumni-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
-    padding: 2.8rem;
-    margin-top: 3rem;
-  }
-  
-  #heroStats .stat h3 {
-    font-size: 3.5rem;
-  }
-  
-  .notable-grid,
-  .engagement-grid,
-  .stats {
-    grid-template-columns: 1fr !important;
-    gap: 3rem;
-  }
-  
-  #alumniEvents {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-  
-  .alumni-card img,
-  .welcome-image img {
-    height: 320px;
-  }
-  
-  .section {
-    padding: 60px 0;
-  }
-  
-  .container {
-    padding: 0 1rem;
-  }
-}
-
-@media (max-width: 640px) {
-  .alumni-card,
-  .engagement-card,
-  .alumni-event-card {
-    padding: 3rem 2rem;
-  }
-  
-  .engagement-card i {
-    width: 90px;
-    height: 90px;
-    font-size: 2.8rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  section[aria-label="Alumni Engagement & Mentorship Stats"] .stat h3 {
-    font-size: 4.4rem;
-  }
-  
-  .alumni-form .form-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-  
-  .form-wrapper {
-    padding: 3rem 2rem;
-  }
-  
-  .alumni-form button {
-    padding: 1.3rem 4rem;
-    font-size: 1.2rem;
-    width: 100%;
-  }
-  
-  .section-title h2 {
-    font-size: clamp(2rem, 6vw, 3rem);
-  }
-  
-  .welcome-text h2 {
-    font-size: clamp(2.2rem, 6vw, 3.2rem);
-  }
-  
-  /* Timeline responsive */
-  .timeline::before {
-    left: 30px;
-  }
-  
-  .timeline-item {
-    width: 100%;
-    left: 0 !important;
-    padding: 2rem 2rem 2rem 6rem;
-    text-align: left;
-  }
-  
-  .timeline-item::before {
-    left: 20px !important;
-    right: auto !important;
-  }
-  
-  .timeline-item .timeline-content::before {
-    left: -15px !important;
-    right: auto !important;
-    border-width: 15px 15px 15px 0 !important;
-    border-color: transparent #ffffff transparent transparent !important;
-  }
-  
-  /* Countdown responsive */
-  .countdown {
-    flex-wrap: wrap;
-    gap: 0.8rem;
-  }
-  
-  .countdown-timer {
-    min-width: 60px;
-    padding: 0.8rem;
-  }
-  
-  /* Search responsive */
-  .filter-tags {
-    justify-content: flex-start;
-  }
-  
-  .filter-tag {
-    font-size: 0.9rem;
-    padding: 0.6rem 1.2rem;
-  }
-  
-  /* Notification responsive */
-  .notification {
-    right: 1rem;
-    left: 1rem;
-    max-width: none;
-  }
-}
-
-/* ==================================
-   ACCESSIBILITY ENHANCEMENTS
-================================= */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* Focus styles for better accessibility */
-button:focus,
-input:focus,
-textarea:focus,
-a:focus {
-  outline: 2px solid var(--blue);
-  outline-offset: 2px;
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  :root {
-    --shadow-xs: 0 6px 18px rgba(0,0,0,0.3);
-    --shadow-sm: 0 12px 35px rgba(0,0,0,0.4);
-    --shadow-md: 0 20px 55px rgba(0,0,0,0.5);
-    --shadow-lg: 0 35px 90px rgba(0,0,0,0.6);
-  }
-  
-  .alumni-card,
-  .engagement-card,
-  .stat,
-  .alumni-event-card {
-    border: 2px solid #000;
-  }
-}
-
-/* ==================================
-   UTILITY CLASSES
-================================= */
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
-
-.mt-1 { margin-top: 0.5rem; }
-.mt-2 { margin-top: 1rem; }
-.mt-3 { margin-top: 1.5rem; }
-.mt-4 { margin-top: 2rem; }
-.mt-5 { margin-top: 3rem; }
-
-.mb-1 { margin-bottom: 0.5rem; }
-.mb-2 { margin-bottom: 1rem; }
-.mb-3 { margin-bottom: 1.5rem; }
-.mb-4 { margin-bottom: 2rem; }
-.mb-5 { margin-bottom: 3rem; }
-
-.p-1 { padding: 0.5rem; }
-.p-2 { padding: 1rem; }
-.p-3 { padding: 1.5rem; }
-.p-4 { padding: 2rem; }
-.p-5 { padding: 3rem; }
-
-.w-full { width: 100%; }
-.h-full { height: 100%; }
-
-.grid-1 { grid-template-columns: repeat(1, 1fr); }
-.grid-2 { grid-template-columns: repeat(2, 1fr); }
-.grid-3 { grid-template-columns: repeat(3, 1fr); }
-.grid-4 { grid-template-columns: repeat(4, 1fr); }
-
-.align-center { align-items: center; }
-.justify-center { justify-content: center; }
-.justify-between { justify-content: space-between; }
-
-.flex { display: flex; }
-.flex-col { flex-direction: column; }
-.flex-wrap { flex-wrap: wrap; }
-
-.relative { position: relative; }
-.absolute { position: absolute; }
-.fixed { position: fixed; }
-
-.z-10 { z-index: 10; }
-.z-20 { z-index: 20; }
-.z-30 { z-index: 30; }
-
-.opacity-0 { opacity: 0; }
-.opacity-50 { opacity: 0.5; }
-.opacity-100 { opacity: 1; }
-
-.transition { transition: var(--transition); }
-.transition-fast { transition: var(--transition-fast); }
-.transition-slow { transition: var(--transition-slow); }
-
-.rounded { border-radius: var(--radius); }
-.rounded-lg { border-radius: var(--radius-lg); }
-
-.shadow { box-shadow: var(--shadow-sm); }
-.shadow-md { box-shadow: var(--shadow-md); }
-.shadow-lg { box-shadow: var(--shadow-lg); }
-.shadow-xl { box-shadow: var(--shadow-xl); }
-
-.border { border: 1px solid rgba(0,0,0,0.1); }
-.border-blue { border-color: var(--blue); }
-.border-gold { border-color: var(--gold); }
-
-.bg-primary { background-color: var(--bg-primary); }
-.bg-secondary { background-color: var(--bg-secondary); }
-.bg-light { background-color: #f8fafc; }
-.bg-blue { background-color: var(--blue); }
-.bg-gold { background-color: var(--gold); }
-
-.text-primary { color: var(--text-primary); }
-.text-secondary { color: var(--text-secondary); }
-.text-blue { color: var(--blue); }
-.text-gold { color: var(--gold); }
-
-.font-light { font-weight: 300; }
-.font-normal { font-weight: 400; }
-.font-medium { font-weight: 500; }
-.font-semibold { font-weight: 600; }
-.font-bold { font-weight: 700; }
-.font-extrabold { font-weight: 900; }
-
-.text-xs { font-size: 0.75rem; }
-.text-sm { font-size: 0.875rem; }
-.text-base { font-size: 1rem; }
-.text-lg { font-size: 1.125rem; }
-.text-xl { font-size: 1.25rem; }
-.text-2xl { font-size: 1.5rem; }
-.text-3xl { font-size: 1.875rem; }
-.text-4xl { font-size: 2.25rem; }
-.text-5xl { font-size: 3rem; }
-
-.leading-tight { line-height: 1.25; }
-.leading-normal { line-height: 1.5; }
-.leading-relaxed { line-height: 1.625; }
-.leading-loose { line-height: 2; }
-
-/* ==================================
-   ENHANCED HOVER EFFECTS
-================================= */
-.hover-lift {
-  transition: var(--transition);
-}
-
-.hover-lift:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
-}
-
-.hover-scale {
-  transition: var(--transition);
-}
-
-.hover-scale:hover {
-  transform: scale(1.05);
-}
-
-.hover-glow {
-  transition: var(--transition);
-}
-
-.hover-glow:hover {
-  box-shadow: 0 0 30px rgba(1,117,194,0.5);
-}
-
-/* ==================================
-   CUSTOM SCROLLBAR
-================================= */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, var(--blue), var(--purple));
-}
-
-/* ==================================
-   PRINT STYLES
-================================= */
-@media print {
-  .alumni-hero,
-  #heroStats,
-  .card-overlay,
-  .search-container,
-  .notification,
-  .btn,
-  .engagement-card,
-  .alumni-event-card {
-    display: none !important;
-  }
-  
-  body {
-    font-size: 12pt;
-    line-height: 1.4;
-  }
-  
-  .alumni-card,
-  .stat {
-    break-inside: avoid;
-    margin-bottom: 1rem;
   }
 }

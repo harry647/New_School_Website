@@ -1,0 +1,59 @@
+[
+  {
+    "title": "Outstanding KCSE 2024 Results Announced",
+    "excerpt": "Bar Union Mixed Secondary School celebrates improved KCSE performance with several students qualifying for university placement. Congratulations to all candidates and dedicated teachers!",
+    "image": "/assets/images/news/kcse-results-2024.jpg",
+    "date": "2025-01-10",
+    "category": "achievements",
+    "link": "#",
+    "linkText": "View Highlights",
+    "featured": true
+  },
+  {
+    "title": "Annual Sports Day 2025 – Thrilling Competitions!",
+    "excerpt": "Students showcased remarkable talent in athletics, football, and team games. Green House emerged as overall champions amid cheers and sportsmanship.",
+    "image": "/assets/images/news/sports-day-2025.jpg",
+    "date": "2025-03-15",
+    "category": "events",
+    "link": "gallery.html",
+    "linkText": "View Photos & Videos",
+    "featured": true
+  },
+  {
+    "title": "Admissions Open for Form 1 2026 Intake",
+    "excerpt": "We welcome applications for the 2026 Form 1 class. Limited seats available – secure your child's place in our nurturing and excellence-driven environment.",
+    "image": "/assets/images/news/admissions-2026.jpg",
+    "date": "2025-11-20",
+    "category": "announcements",
+    "link": "admissions.html",
+    "linkText": "Apply Now",
+    "featured": true
+  },
+  {
+    "title": "Success at County Science Congress",
+    "excerpt": "Our students presented innovative projects on environmental conservation and won awards at the Kisumu County Science Congress.",
+    "image": "/assets/images/news/science-congress.jpg",
+    "date": "2025-02-25",
+    "category": "achievements",
+    "link": "#",
+    "linkText": "Read More"
+  },
+  {
+    "title": "Christmas Holidays: Dec 20, 2025 – Jan 5, 2026",
+    "excerpt": "School closes for Christmas break on December 20. Classes resume on Monday, January 5, 2026. Wishing everyone a joyful and safe holiday season!",
+    "image": "/assets/images/news/christmas-holidays.jpg",
+    "date": "2025-12-17",
+    "category": "holidays",
+    "link": "#",
+    "linkText": "View Full Calendar"
+  },
+  {
+    "title": "Cultural Day & Drama Festival 2025",
+    "excerpt": "Vibrant performances celebrating Kenyan diversity through music, dance, poetry, and drama. A day filled with creativity and unity.",
+    "image": "/assets/images/news/cultural-day-2025.jpg",
+    "date": "2025-11-08",
+    "category": "events",
+    "link": "gallery.html",
+    "linkText": "View Gallery"
+  }
+]

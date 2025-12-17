@@ -1,1103 +1,358 @@
-/* ==================================================
-   STAFF PAGE – BAR UNION MIXED SECONDARY SCHOOL
-   ULTRA-PREMIUM STUNNING EDITION 2025
-   Professional • Modern • Mobile-First • Accessible
-================================================== */
+/* /css/static/staff.css - Page-specific styles for Our Staff
+   Builds on top of /css/global/styles.css - no duplicates! */
 
-/* CSS Custom Properties - Enhanced Color System */
-:root {
-  /* Primary Colors */
-  --primary-blue: #1e40af;
-  --primary-blue-light: #3b82f6;
-  --primary-blue-dark: #1e3a8a;
-  --primary-blue-gradient: linear-gradient(135deg, #1e40af, #3b82f6);
-  
-  /* Accent Colors */
-  --gold: #f59e0b;
-  --gold-light: #fbbf24;
-  --gold-dark: #d97706;
-  --gold-gradient: linear-gradient(135deg, #f59e0b, #fbbf24);
-  
-  /* Neutral Colors */
-  --white: #ffffff;
-  --gray-50: #f9fafb;
-  --gray-100: #f3f4f6;
-  --gray-200: #e5e7eb;
-  --gray-300: #d1d5db;
-  --gray-400: #9ca3af;
-  --gray-500: #6b7280;
-  --gray-600: #4b5563;
-  --gray-700: #374151;
-  --gray-800: #1f2937;
-  --gray-900: #111827;
-  
-  /* Typography */
-  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Playfair Display', Georgia, serif;
-  
-  /* Spacing */
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 1.5rem;
-  --space-lg: 2rem;
-  --space-xl: 3rem;
-  --space-2xl: 4rem;
-  --space-3xl: 6rem;
-  
-  /* Border Radius */
-  --radius-sm: 0.5rem;
-  --radius-md: 1rem;
-  --radius-lg: 1.5rem;
-  --radius-xl: 2rem;
-  --radius-2xl: 3rem;
-  --radius-full: 9999px;
-  
-  /* Shadows */
-  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  --shadow-glow: 0 0 30px rgba(59, 130, 246, 0.15);
-  
-  /* Transitions */
-  --transition-fast: 0.15s ease-in-out;
-  --transition-normal: 0.3s ease-in-out;
-  --transition-slow: 0.5s ease-in-out;
-  --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  
-  /* Z-index */
-  --z-dropdown: 1000;
-  --z-sticky: 1020;
-  --z-fixed: 1030;
-  --z-modal-backdrop: 1040;
-  --z-modal: 1050;
-  --z-popover: 1060;
-  --z-tooltip: 1070;
-  --z-toast: 1080;
-}
-
-/* ==========================================
-   GLOBAL STYLES & RESET
-========================================== */
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-  font-size: 16px;
-}
-
-body.page-staff {
-  font-family: var(--font-primary);
-  line-height: 1.6;
-  color: var(--gray-800);
-  background: var(--gray-50);
-  overflow-x: hidden;
-}
-
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 var(--space-md);
-}
-
-@media (min-width: 768px) {
-  .container {
-    padding: 0 var(--space-xl);
-  }
-}
-
-/* ==========================================
-   ACCESSIBILITY & FOCUS STYLES
-========================================== */
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-:focus-visible {
-  outline: 2px solid var(--primary-blue);
-  outline-offset: 2px;
-  border-radius: var(--radius-sm);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  
-  html {
-    scroll-behavior: auto;
-  }
-}
-
-/* ==========================================
-   1. HERO SECTION - STUNNING DESIGN
-========================================== */
-
-.page-hero.staff-hero {
+.page-hero {
   position: relative;
-  min-height: 100vh;
-  margin-top: 0;
+  min-height: 85vh;
   display: flex;
   align-items: center;
+  background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.65)), url('/assets/images/staff/hero-bg.jpg') center/cover no-repeat;
+  color: white;
+  text-align: center;
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  text-align: center;
-  color: var(--white);
-  overflow: hidden;
-  background: var(--primary-blue-gradient);
+  gap: 2rem;
+  margin: 2.5rem 0;
 }
 
-.page-hero.staff-hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(59, 130, 246, 0.8) 100%),
-    url('/assets/images/common/hero-bg.jpg') center/cover no-repeat;
-  z-index: 1;
-}
-
-.page-hero.staff-hero::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    radial-gradient(circle at 30% 20%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
-  z-index: 2;
-}
-
-.page-hero.staff-hero .container {
-  position: relative;
-  z-index: 3;
-  max-width: 1200px;
-}
-
-.page-hero.staff-hero h1 {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 8vw, 5rem);
-  font-weight: 900;
-  margin-bottom: var(--space-lg);
-  background: linear-gradient(135deg, var(--white) 0%, rgba(255, 255, 255, 0.8) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  animation: fadeInUp 1s ease-out 0.2s both;
-}
-
-.page-hero.staff-hero .subtitle {
-  font-size: clamp(1.25rem, 3vw, 1.5rem);
+.hero-badges span {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.3rem;
   font-weight: 600;
-  margin-bottom: var(--space-xl);
-  color: var(--gold-light);
-  animation: fadeInUp 1s ease-out 0.4s both;
+  background: rgba(255,255,255,0.15);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
 }
 
-.page-hero.staff-hero .description {
-  font-size: clamp(1.1rem, 2.5vw, 1.25rem);
-  line-height: 1.8;
-  max-width: 900px;
-  margin: 0 auto;
-  opacity: 0.95;
-  animation: fadeInUp 1s ease-out 0.6s both;
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.hero-stats .stat-card {
+  background: rgba(255,255,255,0.15);
+  padding: 2.5rem;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
 }
 
-/* ==========================================
-   2. SECTION INTRO - MODERN DESIGN
-========================================== */
-
-.section {
-  padding: var(--space-3xl) 0;
+.hero-stats .stat-card h3 {
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.staff-section .section-intro {
-  text-align: center;
-  margin-bottom: var(--space-3xl);
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
+/* Staff Section */
+.staff-section {
+  background: var(--light);
 }
-
-.section-intro h2 {
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 6vw, 3.5rem);
-  font-weight: 900;
-  color: var(--gray-900);
-  margin-bottom: var(--space-lg);
-  position: relative;
-  display: inline-block;
-}
-
-.section-intro h2::after {
-  content: '';
-  position: absolute;
-  bottom: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
-  background: var(--gold-gradient);
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow-glow);
-}
-
-.section-intro p {
-  font-size: 1.125rem;
-  color: var(--gray-600);
-  line-height: 1.8;
-  margin-bottom: var(--space-md);
-}
-
-/* ==========================================
-   3. SEARCH BAR - PREMIUM STYLING
-========================================== */
 
 .staff-search {
-  position: relative;
-  max-width: 600px;
-  margin: var(--space-2xl) auto var(--space-3xl);
-  display: flex;
-  background: var(--white);
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow-xl);
-  overflow: hidden;
-  transition: var(--transition-normal);
-}
-
-.staff-search:focus-within {
-  box-shadow: var(--shadow-2xl), var(--shadow-glow);
-  transform: translateY(-2px);
+  margin: 3rem 0;
 }
 
 .staff-search input {
-  flex: 1;
-  border: none;
-  padding: 1.25rem 2rem;
-  font-size: 1.125rem;
-  background: transparent;
-  outline: none;
-  color: var(--gray-700);
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: block;
+  padding: 1.2rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
-.staff-search input::placeholder {
-  color: var(--gray-400);
+/* Category Filters */
+.staff-categories h3 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
 }
 
-.staff-search button {
-  background: var(--primary-blue-gradient);
-  color: var(--white);
-  border: none;
-  padding: 1.25rem 2rem;
-  cursor: pointer;
-  transition: var(--transition-normal);
-  font-size: 1.125rem;
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
 }
 
-.staff-search button:hover {
-  background: var(--primary-blue-dark);
-  transform: scale(1.05);
-}
-
-/* ==========================================
-   4. FILTER SECTIONS - MODERN UI
-========================================== */
-
-.filter-explainer,
 .category-descriptions {
-  background: var(--white);
-  border-radius: var(--radius-xl);
-  padding: var(--space-2xl);
-  margin: var(--space-2xl) 0;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--gray-200);
-  transition: var(--transition-normal);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
 }
 
-.filter-explainer:hover,
-.category-descriptions:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-xl);
-}
-
-.filter-explainer h3,
-.category-descriptions h3 {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 2.5rem);
-  font-weight: 700;
-  color: var(--gray-900);
-  margin-bottom: var(--space-lg);
+.description-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
   text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: transform 0.4s ease;
 }
 
-.filter-explainer p,
-.category-descriptions p {
-  font-size: 1.125rem;
-  color: var(--gray-600);
-  line-height: 1.8;
-  margin-bottom: var(--space-md);
+.description-card:hover {
+  transform: translateY(-10px);
 }
 
-.filter-title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 2.5rem);
-  font-weight: 700;
+.description-card h4 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}
+
+/* Department Filters */
+.department-filters h3 {
   text-align: center;
-  margin: var(--space-3xl) 0 var(--space-lg);
-  color: var(--gray-900);
-  position: relative;
+  margin: 4rem 0 2rem;
+  font-size: 1.8rem;
 }
 
-.filter-title::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
-  background: var(--primary-blue-gradient);
-  border-radius: var(--radius-full);
-}
-
-/* ==========================================
-   5. FILTER BUTTONS - PREMIUM STYLING
-========================================== */
-
-.staff-controls,
 .department-controls {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--space-md);
-  margin: var(--space-2xl) 0 var(--space-3xl);
+  gap: 1rem;
+  margin-bottom: 4rem;
 }
 
-.filter-btn,
-.dept-btn {
-  padding: 0.875rem 2rem;
-  border: 2px solid var(--primary-blue);
-  background: var(--white);
-  color: var(--primary-blue);
-  font-weight: 600;
-  font-size: 1rem;
-  border-radius: var(--radius-full);
-  cursor: pointer;
-  transition: var(--transition-normal);
-  position: relative;
-  overflow: hidden;
-}
-
-.filter-btn::before,
-.dept-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: var(--primary-blue-gradient);
-  transition: var(--transition-normal);
-  z-index: -1;
-}
-
-.filter-btn:hover::before,
-.dept-btn:hover::before {
-  left: 0;
-}
-
-.filter-btn:hover,
-.dept-btn:hover {
-  color: var(--white);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-}
-
-.filter-btn.active,
-.dept-btn.active {
-  background: var(--primary-blue-gradient);
-  color: var(--white);
-  box-shadow: var(--shadow-glow);
-}
-
-/* ==========================================
-   6. STAFF GRID - STUNNING CARDS
-========================================== */
-
+/* Staff Grid */
 .staff-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: var(--space-2xl);
-  margin-top: var(--space-3xl);
-  padding: var(--space-lg) 0;
+  gap: 3rem;
+  margin-top: 3rem;
 }
 
 .staff-card {
-  background: var(--white);
-  border-radius: var(--radius-xl);
+  background: white;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  transition: var(--transition-normal);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  transition: transform 0.4s ease;
   cursor: pointer;
-  position: relative;
-  border: 1px solid var(--gray-200);
-}
-
-.staff-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: var(--gold-gradient);
-  transform: scaleX(0);
-  transition: var(--transition-normal);
-}
-
-.staff-card:hover::before {
-  transform: scaleX(1);
 }
 
 .staff-card:hover {
-  transform: translateY(-10px);
-  box-shadow: var(--shadow-2xl);
+  transform: translateY(-15px);
 }
 
 .staff-photo {
-  position: relative;
+  height: 320px;
   overflow: hidden;
-  aspect-ratio: 4/5;
 }
 
 .staff-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
-  transition: var(--transition-slow);
+  transition: transform 0.6s ease;
 }
 
 .staff-card:hover .staff-photo img {
   transform: scale(1.1);
 }
 
-.staff-photo::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
-  opacity: 0;
-  transition: var(--transition-normal);
-}
-
-.staff-card:hover .staff-photo::after {
-  opacity: 1;
-}
-
-.card-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(30, 64, 175, 0.9);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: var(--white);
-  opacity: 0;
-  transition: var(--transition-normal);
-  z-index: 2;
-}
-
-.card-overlay i {
-  font-size: 3rem;
-  margin-bottom: var(--space-md);
-  transform: translateY(10px);
-  transition: var(--transition-normal);
-}
-
-.card-overlay span {
-  font-size: 1.125rem;
-  font-weight: 600;
-  transform: translateY(10px);
-  transition: var(--transition-normal);
-}
-
-.staff-card:hover .card-overlay {
-  opacity: 1;
-}
-
-.staff-card:hover .card-overlay i,
-.staff-card:hover .card-overlay span {
-  transform: translateY(0);
-}
-
 .staff-info {
-  padding: var(--space-xl);
+  padding: 2.5rem;
   text-align: center;
 }
 
-.staff-info h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--gray-900);
-  margin-bottom: var(--space-sm);
-  line-height: 1.3;
+.staff-name {
+  font-size: 1.8rem;
+  margin-bottom: 0.8rem;
 }
 
-.staff-info .designation {
-  font-size: 1.125rem;
+.staff-role {
+  font-size: 1.3rem;
+  color: var(--primary);
   font-weight: 600;
-  color: var(--primary-blue);
-  margin-bottom: var(--space-sm);
+  margin-bottom: 1rem;
 }
 
-.staff-info .qualification {
+.staff-dept,
+.staff-subjects {
+  color: var(--secondary);
+  margin: 1rem 0;
   font-size: 1rem;
-  color: var(--gray-600);
-  margin-bottom: var(--space-md);
-  line-height: 1.5;
 }
 
-.staff-info .dept {
-  font-size: 0.875rem;
-  color: var(--gray-500);
-  font-weight: 500;
+.btn-view-profile {
+  margin-top: 2rem;
+  padding: 1rem 2.5rem;
+  background: var(--primary);
+  color: white;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
-.staff-info .dept strong {
-  color: var(--gray-700);
+.btn-view-profile:hover {
+  background: var(--primary-dark);
+  transform: translateY(-5px);
 }
 
-/* ==========================================
-   7. LOADING STATES - SMOOTH ANIMATIONS
-========================================== */
-
-.loader {
-  grid-column: 1 / -1;
+/* No Results */
+.no-results {
   text-align: center;
-  padding: var(--space-3xl) 0;
+  padding: 6rem 0;
+  color: var(--secondary);
+  font-size: 1.4rem;
+  display: none;
 }
 
-.loader i {
-  font-size: 3rem;
-  color: var(--primary-blue);
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-#noResults {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: var(--space-3xl) 0;
-  color: var(--gray-500);
-}
-
-#noResults i {
-  font-size: 4rem;
-  margin-bottom: var(--space-lg);
-  color: var(--gray-400);
-}
-
-/* ==========================================
-   8. MODAL - PREMIUM DESIGN
-========================================== */
-
-#staffModal {
+/* Modal */
+.modal-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  z-index: var(--z-modal);
-  padding: var(--space-lg);
+  background: rgba(0,0,0,0.85);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-card {
+  background: white;
+  border-radius: 24px;
+  max-width: 1000px;
+  width: 100%;
+  max-height: 90vh;
   overflow-y: auto;
-  animation: fadeIn 0.3s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.staff-modal-content {
-  max-width: 800px;
-  margin: 2% auto;
-  background: var(--white);
-  border-radius: var(--radius-2xl);
-  padding: var(--space-2xl);
-  box-shadow: var(--shadow-2xl);
   position: relative;
-  animation: slideUp 0.3s ease-out;
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(50px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  box-shadow: 0 30px 80px rgba(0,0,0,0.3);
 }
 
 .close-modal {
   position: absolute;
-  top: var(--space-lg);
-  right: var(--space-lg);
-  font-size: 2rem;
-  color: var(--gray-400);
+  top: 1.5rem;
+  right: 2rem;
+  font-size: 3rem;
+  background: none;
+  color: #666;
   cursor: pointer;
-  transition: var(--transition-fast);
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-full);
+  z-index: 10;
+  transition: color 0.3s ease;
 }
 
 .close-modal:hover {
-  color: var(--gray-600);
-  background: var(--gray-100);
+  color: var(--danger);
+}
+
+#modalDetails {
+  padding: 5rem;
 }
 
 .modal-profile {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: var(--space-2xl);
+  gap: 4rem;
   align-items: start;
 }
 
+.modal-photo {
+  text-align: center;
+}
+
 .modal-photo img {
-  width: 100%;
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 8px solid var(--primary-light);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
 }
 
 .modal-info h2 {
-  font-size: 2.25rem;
-  font-weight: 700;
-  color: var(--gray-900);
-  margin-bottom: var(--space-md);
-  line-height: 1.2;
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
 }
 
-.modal-info .designation {
-  font-size: 1.25rem;
+.modal-role {
+  font-size: 1.6rem;
+  color: var(--primary);
   font-weight: 600;
-  color: var(--primary-blue);
-  margin-bottom: var(--space-sm);
+  margin-bottom: 2rem;
 }
 
-.modal-info .qualification {
-  font-size: 1.125rem;
-  color: var(--gray-600);
-  margin-bottom: var(--space-lg);
-  line-height: 1.6;
+.modal-info p {
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  font-size: 1.1rem;
 }
 
-.modal-info .bio {
-  margin: var(--space-xl) 0;
+.modal-info i {
+  color: var(--primary);
+  margin-right: 1rem;
+  width: 20px;
 }
 
-.modal-info .bio h4 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--gray-900);
-  margin-bottom: var(--space-md);
+.modal-bio {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--gray);
 }
 
-.modal-info .bio p {
-  color: var(--gray-700);
-  line-height: 1.7;
-  font-size: 1.125rem;
+.modal-bio h4 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
 }
 
-.modal-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-md);
-  margin: var(--space-xl) 0;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-sm);
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: var(--radius-full);
-  font-weight: 600;
-  text-decoration: none;
-  transition: var(--transition-normal);
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.btn-primary {
-  background: var(--primary-blue-gradient);
-  color: var(--white);
-}
-
-.btn-primary:hover {
-  background: var(--primary-blue-dark);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-}
-
-.btn-outline {
-  background: transparent;
-  color: var(--primary-blue);
-  border: 2px solid var(--primary-blue);
-}
-
-.btn-outline:hover {
-  background: var(--primary-blue);
-  color: var(--white);
-}
-
-.btn-secondary {
-  background: var(--gray-600);
-  color: var(--white);
-}
-
-.btn-secondary:hover {
-  background: var(--gray-700);
-}
-
-.btn-success {
-  background: #10b981;
-  color: var(--white);
-}
-
-.btn-success:hover {
-  background: #059669;
-}
-
-.modal-qr {
-  text-align: center;
-  margin-top: var(--space-xl);
-  padding: var(--space-xl);
-  background: var(--gray-50);
-  border-radius: var(--radius-xl);
-}
-
-.modal-qr h4 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--gray-900);
-  margin-bottom: var(--space-lg);
-}
-
-.modal-qr img {
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
-  margin-bottom: var(--space-md);
-}
-
-.modal-qr p {
-  color: var(--gray-600);
-  font-size: 0.875rem;
-}
-
-/* ==========================================
-   9. RESPONSIVE DESIGN - MOBILE FIRST
-========================================== */
-
-/* Tablet */
-@media (max-width: 1024px) {
+/* Responsive */
+@media (max-width: 992px) {
   .staff-grid {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: var(--space-xl);
   }
-  
+
   .modal-profile {
     grid-template-columns: 1fr;
-    gap: var(--space-xl);
     text-align: center;
   }
+
+  .modal-photo {
+    margin-bottom: 3rem;
+  }
+
+  .modal-photo img {
+    width: 220px;
+    height: 220px;
+  }
 }
 
-/* Mobile Landscape */
 @media (max-width: 768px) {
-  .section {
-    padding: var(--space-2xl) 0;
-  }
-  
-  .page-hero.staff-hero {
-    min-height: 80vh;
-    padding: var(--space-2xl) 0;
-  }
-  
-  .staff-search {
-    flex-direction: column;
-    border-radius: var(--radius-xl);
-  }
-  
-  .staff-search input {
-    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-    padding: 1rem 1.5rem;
-  }
-  
-  .staff-search button {
-    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
-    padding: 1rem 1.5rem;
-  }
-  
-  .staff-controls,
+  .category-filters,
   .department-controls {
-    gap: var(--space-sm);
-  }
-  
-  .filter-btn,
-  .dept-btn {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.875rem;
-  }
-  
-  .filter-explainer,
-  .category-descriptions {
-    padding: var(--space-xl);
-    margin: var(--space-xl) 0;
-  }
-  
-  .staff-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-lg);
-  }
-  
-  .staff-card {
-    max-width: none;
-  }
-  
-  .staff-info {
-    padding: var(--space-lg);
-  }
-  
-  .staff-modal-content {
-    margin: 1% auto;
-    padding: var(--space-xl);
-  }
-  
-  .modal-actions {
-    justify-content: center;
-  }
-  
-  .btn {
-    flex: 1;
-    justify-content: center;
-    min-width: 120px;
-  }
-}
-
-/* Mobile Portrait */
-@media (max-width: 480px) {
-  .container {
-    padding: 0 var(--space-sm);
-  }
-  
-  .page-hero.staff-hero h1 {
-    font-size: 2.5rem;
-  }
-  
-  .section-intro h2 {
-    font-size: 2rem;
-  }
-  
-  .filter-title {
-    font-size: 1.75rem;
-  }
-  
-  .staff-search {
-    margin: var(--space-xl) auto;
-  }
-  
-  .filter-explainer,
-  .category-descriptions {
-    padding: var(--space-lg);
-  }
-  
-  .modal-info h2 {
-    font-size: 1.75rem;
-  }
-  
-  .modal-actions {
     flex-direction: column;
+    align-items: center;
   }
-  
-  .btn {
+
+  .filter-btn {
     width: 100%;
+    max-width: 400px;
+    justify-content: center;
   }
-}
 
-/* ==========================================
-   10. ANIMATIONS & INTERACTIONS
-========================================== */
-
-/* Intersection Observer Animations */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease-out;
-}
-
-.reveal.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Image Loading Animation */
-.blur {
-  filter: blur(5px);
-  transition: var(--transition-slow);
-}
-
-.loaded {
-  filter: blur(0);
-}
-
-/* Hover Effects */
-.staff-card .staff-info {
-  position: relative;
-}
-
-.staff-card .staff-info::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 3px;
-  background: var(--gold-gradient);
-  transition: var(--transition-normal);
-}
-
-.staff-card:hover .staff-info::before {
-  width: 60px;
-}
-
-/* ==========================================
-   11. ACCESSIBILITY ENHANCEMENTS
-========================================== */
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .staff-card,
-  .filter-btn,
-  .dept-btn {
-    transition: none;
+  .staff-search input {
+    padding: 1rem 1.5rem;
   }
-  
-  .reveal {
-    opacity: 1;
-    transform: none;
-  }
-}
 
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  :root {
-    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
-    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.5);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.5);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
-  }
-}
-
-/* ==========================================
-   12. PRINT STYLES
-========================================== */
-
-@media print {
-  .page-hero.staff-hero {
-    background: var(--white) !important;
-    color: var(--gray-900) !important;
-    min-height: auto;
-    page-break-after: always;
-  }
-  
-  .staff-search,
-  .staff-controls,
-  .department-controls,
-  .filter-explainer,
-  .category-descriptions {
-    display: none;
-  }
-  
-  .staff-grid {
-    display: block;
-    column-count: 2;
-    column-gap: var(--space-xl);
-  }
-  
   .staff-card {
-    break-inside: avoid;
-    margin-bottom: var(--space-lg);
-    box-shadow: none;
-    border: 1px solid var(--gray-300);
+    text-align: center;
   }
-  
-  .modal-actions {
-    display: none;
+
+  .staff-photo {
+    height: 280px;
   }
 }

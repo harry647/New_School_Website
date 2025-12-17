@@ -6,655 +6,476 @@
     <title>Academics | Bar Union Mixed Secondary School</title>
     <meta name="description" content="Explore our rigorous 8-4-4 curriculum, subject departments, KCSE results, academic calendar, and learning resources at Bar Union Mixed Secondary School." />
     <meta name="keywords" content="KCSE, 8-4-4, academics, departments, exam results, past papers, academic calendar" />
-
     <!-- Open Graph -->
     <meta property="og:title" content="Academics | Bar Union Mixed Secondary School">
     <meta property="og:description" content="Excellence in Education | 8-4-4 Curriculum | Top KCSE Performance | Subject Departments & Resources">
     <meta property="og:image" content="/assets/images/common/og-image.jpg">
     <meta property="og:url" content="https://barunionschool.ac.ke/academics.html">
 
-    <!-- Tailwind CSS - Production Build -->
-    <link rel="stylesheet" href="/css/app.css">
-
-    <!-- Google Fonts -->
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
-    <!-- Custom styles for animations -->
-    <style>
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes slideUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(30px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        .animate-delay-200 { animation-delay: 0.2s; }
-        .animate-delay-400 { animation-delay: 0.4s; }
-        .animate-delay-600 { animation-delay: 0.6s; }
-    </style>
+    <!-- Custom Pure CSS -->
+    <link rel="stylesheet" href="/css/global/styles.css">
+    <link rel="stylesheet" href="/css/static/academics.css">
 </head>
-<body class="font-sans antialiased bg-gray-50 text-gray-900">
+<body>
     <!-- Header -->
     <div w3-include-html="/includes/header.html"></div>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white overflow-hidden">
-        <!-- Background overlay with animation -->
-        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
-        <div class="absolute inset-0 bg-gradient-to-r from-blue-900/90 to-transparent"></div>
-        
-        <!-- Floating decorative elements -->
-        <div class="absolute top-20 left-10 w-20 h-20 bg-yellow-400 rounded-full opacity-20 animate-float"></div>
-        <div class="absolute bottom-20 right-20 w-16 h-16 bg-yellow-300 rounded-full opacity-20 animate-float" style="animation-delay: 2s;"></div>
-        <div class="absolute top-1/2 left-1/4 w-12 h-12 bg-yellow-500 rounded-full opacity-20 animate-float" style="animation-delay: 4s;"></div>
-
-        <div class="relative z-10 text-center max-w-6xl mx-auto px-6">
-            <h1 class="text-6xl md:text-7xl lg:text-8xl font-bold font-serif mb-8 animate-slide-up">
-                Academics
-            </h1>
-            <p class="text-xl md:text-2xl lg:text-3xl mb-8 font-light leading-relaxed animate-slide-up animate-delay-200">
-                Empowering Learners Through Rigorous Instruction, Innovative Teaching, and a Commitment to Excellence in Every Subject Area.
-            </p>
-            <div class="text-lg md:text-xl leading-relaxed opacity-90 max-w-5xl mx-auto space-y-4 animate-slide-up animate-delay-400">
-                <p>
+    <section class="page-hero">
+        <div class="hero-background"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-floating-elements">
+            <div class="floating-blob blob-1"></div>
+            <div class="floating-blob blob-2"></div>
+            <div class="floating-blob blob-3"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Academics</h1>
+                <p class="hero-subtitle">
+                    Empowering Learners Through Rigorous Instruction, Innovative Teaching, and a Commitment to Excellence in Every Subject Area.
+                </p>
+                <p class="hero-description">
                     At Bar Union Mixed Secondary School, our academic program is designed to nurture intellectual curiosity, build strong foundational skills, and prepare students for success in national examinations and real-world careers. Through disciplined study, modern resources, and supportive mentorship, we equip every learner to discover their potential and achieve outstanding results.
                 </p>
             </div>
         </div>
-
-        <!-- Scroll indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <i class="fas fa-chevron-down text-2xl opacity-70"></i>
+        <div class="hero-scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
         </div>
     </section>
 
-    <!-- Core Business, Mandate & Core Functions Section -->
-    <section class="py-20 bg-gradient-to-b from-gray-50 to-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <!-- Core Business -->
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-serif">Our Core Business</h2>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+    <!-- Core Business, Mandate & Core Functions -->
+    <section class="section core-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Core Business</h2>
+                <p class="section-subtitle">
                     At Bar Union Mixed Secondary School, our primary focus is to invest resources—time, finances, expertise, and modern teaching tools—into our students. We aim to nurture knowledge, practical skills, and values essential for personal success, professional readiness, and responsible citizenship.
                 </p>
             </div>
-
-            <div class="grid md:grid-cols-3 gap-8 mb-20">
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-lightbulb text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Knowledge & Skills</h3>
-                        <p class="text-gray-600 leading-relaxed">Delivering a high-quality, interactive curriculum to equip students with academic knowledge and practical skills for lifelong success.</p>
-                    </div>
+            <div class="cards-grid">
+                <div class="feature-card">
+                    <div class="card-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h3>Knowledge & Skills</h3>
+                    <p>Delivering a high-quality, interactive curriculum to equip students with academic knowledge and practical skills for lifelong success.</p>
                 </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-heart text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Values & Character</h3>
-                        <p class="text-gray-600 leading-relaxed">Instilling moral, ethical, and social values to develop responsible, compassionate, and principled individuals.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="card-icon"><i class="fas fa-heart"></i></div>
+                    <h3>Values & Character</h3>
+                    <p>Instilling moral, ethical, and social values to develop responsible, compassionate, and principled individuals.</p>
                 </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-users text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Holistic Growth</h3>
-                        <p class="text-gray-600 leading-relaxed">Fostering intellectual, social, physical, emotional, and spiritual development through academics, sports, arts, and leadership opportunities.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="card-icon"><i class="fas fa-users"></i></div>
+                    <h3>Holistic Growth</h3>
+                    <p>Fostering intellectual, social, physical, emotional, and spiritual development through academics, sports, arts, and leadership opportunities.</p>
                 </div>
             </div>
 
-            <!-- Mandate -->
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-serif">Our Mandate</h2>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                    As a leading educational institution, the school is accountable to the Ministry of Education, the Parents Association, Board of Management, students, staff, and the wider community. Our mandate encompasses the following responsibilities:
+            <div class="section-header">
+                <h2 class="section-title">Our Mandate</h2>
+                <p class="section-subtitle">
+                    As a leading educational institution, the school is accountable to the Ministry of Education, the Parents Association, Board of Management, students, staff, and the wider community.
                 </p>
             </div>
-
-            <div class="grid md:grid-cols-3 gap-8 mb-20">
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-cogs text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Education Programs</h3>
-                        <p class="text-gray-600 leading-relaxed">Implementing and managing curriculum delivery, ensuring effective teaching, learning, and continuous academic improvement.</p>
-                    </div>
+            <div class="cards-grid">
+                <div class="feature-card">
+                    <div class="card-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>Education Programs</h3>
+                    <p>Implementing and managing curriculum delivery, ensuring effective teaching, learning, and continuous academic improvement.</p>
                 </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-file-invoice-dollar text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Financial Management</h3>
-                        <p class="text-gray-600 leading-relaxed">Responsible management of school funds, collection of fees, resource mobilization, budgeting, and financial accountability.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="card-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                    <h3>Financial Management</h3>
+                    <p>Responsible management of school funds, collection of fees, resource mobilization, budgeting, and financial accountability.</p>
                 </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-user-tie text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Staff & Student Welfare</h3>
-                        <p class="text-gray-600 leading-relaxed">Ensuring recruitment, development, appraisal, and welfare of staff while providing guidance, counselling, and support services for students.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="card-icon"><i class="fas fa-user-tie"></i></div>
+                    <h3>Staff & Student Welfare</h3>
+                    <p>Ensuring recruitment, development, appraisal, and welfare of staff while providing guidance, counselling, and support services for students.</p>
                 </div>
             </div>
 
-            <!-- Core Functions -->
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-serif">Core Functions</h2>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            <div class="section-header">
+                <h2 class="section-title">Core Functions</h2>
+                <p class="section-subtitle">
                     We are committed to executing the following core functions to maintain excellence in education and overall student development:
                 </p>
             </div>
-
-            <div class="grid md:grid-cols-3 gap-8 mb-16">
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-book text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Curriculum Implementation</h3>
-                        <p class="text-gray-600 leading-relaxed">Delivering structured, modern, and high-quality curriculum content with emphasis on practical application and critical thinking.</p>
-                    </div>
+            <div class="cards-grid large">
+                <div class="feature-card">
+                    <div class="card-icon"><i class="fas fa-book"></i></div>
+                    <h3>Curriculum Implementation</h3>
+                    <p>Delivering structured, modern, and high-quality curriculum content with emphasis on practical application and critical thinking.</p>
                 </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-chart-line text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Evaluation & Assessment</h3>
-                        <p class="text-gray-600 leading-relaxed">Monitoring student performance and school outcomes through exams, continuous assessments, and progress tracking.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Evaluation & Assessment</h3>
+                    <p>Monitoring student performance and school outcomes through exams, continuous assessments, and progress tracking.</p>
                 </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-star text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Talent Development</h3>
-                        <p class="text-gray-600 leading-relaxed">Promoting student excellence in academics, sports, arts, leadership, and co-curricular activities to nurture well-rounded individuals.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="card-icon"><i class="fas fa-star"></i></div>
+                    <h3>Talent Development</h3>
+                    <p>Promoting student excellence in academics, sports, arts, leadership, and co-curricular activities to nurture well-rounded individuals.</p>
                 </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-hands-helping text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Guidance & Counselling</h3>
-                        <p class="text-gray-600 leading-relaxed">Providing emotional, academic, and career guidance, ensuring students' mental well-being and personal growth.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="card-icon"><i class="fas fa-hands-helping"></i></div>
+                    <h3>Guidance & Counselling</h3>
+                    <p>Providing emotional, academic, and career guidance, ensuring students' mental well-being and personal growth.</p>
                 </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-shield-alt text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Discipline & Conduct</h3>
-                        <p class="text-gray-600 leading-relaxed">Upholding high standards of behaviour, responsibility, and ethical conduct among students and staff.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Discipline & Conduct</h3>
+                    <p>Upholding high standards of behaviour, responsibility, and ethical conduct among students and staff.</p>
                 </div>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-praying-hands text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Moral & Spiritual Development</h3>
-                        <p class="text-gray-600 leading-relaxed">Instilling values, ethics, and spiritual guidance to nurture responsible and morally grounded citizens.</p>
-                    </div>
+                <div class="feature-card">
+                    <div class="card-icon"><i class="fas fa-praying-hands"></i></div>
+                    <h3>Moral & Spiritual Development</h3>
+                    <p>Instilling values, ethics, and spiritual guidance to nurture responsible and morally grounded citizens.</p>
                 </div>
             </div>
 
-            <!-- Key Stakeholders -->
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-serif">Our Key Stakeholders</h2>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto mb-12 leading-relaxed">We serve a broad range of stakeholders who are integral to our mission and accountability:</p>
-                
-                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
-                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
-                        <ul class="space-y-3 text-gray-600">
-                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Ministry of Education (CDE, SCDE, DEOs)</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Teachers Service Commission</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Students and Parents</li>
-                        </ul>
-                        <ul class="space-y-3 text-gray-600">
-                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Universities, Colleges, and Training Institutions</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Development Partners and NGOs</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Government Ministries</li>
-                        </ul>
-                        <ul class="space-y-3 text-gray-600">
-                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Media and Public Relations</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Alumni Community</li>
-                            <li class="flex items-center"><i class="fas fa-check-circle text-green-500 mr-3"></i>Public and private sector agencies</li>
-                        </ul>
-                    </div>
+            <div class="section-header">
+                <h2 class="section-title">Our Key Stakeholders</h2>
+                <p class="section-subtitle">We serve a broad range of stakeholders who are integral to our mission and accountability:</p>
+            </div>
+            <div class="stakeholders-card">
+                <div class="stakeholders-grid">
+                    <ul class="stakeholder-list">
+                        <li><i class="fas fa-check-circle"></i> Ministry of Education (CDE, SCDE, DEOs)</li>
+                        <li><i class="fas fa-check-circle"></i> Teachers Service Commission</li>
+                        <li><i class="fas fa-check-circle"></i> Students and Parents</li>
+                    </ul>
+                    <ul class="stakeholder-list">
+                        <li><i class="fas fa-check-circle"></i> Universities, Colleges, and Training Institutions</li>
+                        <li><i class="fas fa-check-circle"></i> Development Partners and NGOs</li>
+                        <li><i class="fas fa-check-circle"></i> Government Ministries</li>
+                    </ul>
+                    <ul class="stakeholder-list">
+                        <li><i class="fas fa-check-circle"></i> Media and Public Relations</li>
+                        <li><i class="fas fa-check-circle"></i> Alumni Community</li>
+                        <li><i class="fas fa-check-circle"></i> Public and private sector agencies</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Senior School Pathways Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-serif">Senior School (Grades 10–12)</h2>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                    At Bar Union Senior School, we are committed to nurturing well-rounded students equipped with the knowledge, skills, and values to thrive in life, higher education, and careers. Our Senior School program emphasizes academic excellence, practical skills, creativity, and moral development, ensuring each student discovers their potential and passion.
+    <!-- Senior School Pathways -->
+    <section class="section pathways-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Senior School (Grades 10–12)</h2>
+                <p class="section-subtitle">
+                    At Bar Union Senior School, we are committed to nurturing well-rounded students equipped with the knowledge, skills, and values to thrive in life, higher education, and careers.
                 </p>
             </div>
-
-            <div class="grid lg:grid-cols-3 gap-8 mb-16">
-                <!-- Core Subjects -->
-                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-blue-200">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-book text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Our Core Focus</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">Every student, regardless of their chosen pathway, builds a strong foundation through four essential subjects:</p>
-                        <ul class="text-left space-y-3 text-gray-600">
-                            <li class="flex items-center"><i class="fas fa-pencil-alt text-blue-500 mr-3"></i>English – mastering communication and expression</li>
-                            <li class="flex items-center"><i class="fas fa-sign-language text-blue-500 mr-3"></i>Kiswahili / Kenya Sign Language – promoting language skills and inclusivity</li>
-                            <li class="flex items-center"><i class="fas fa-hands-helping text-blue-500 mr-3"></i>Community Service Learning – fostering empathy, responsibility, and leadership</li>
-                            <li class="flex items-center"><i class="fas fa-running text-blue-500 mr-3"></i>Physical Education – developing fitness, teamwork, and perseverance</li>
-                        </ul>
-                    </div>
+            <div class="pathways-grid">
+                <div class="pathway-card core">
+                    <div class="card-icon"><i class="fas fa-book"></i></div>
+                    <h3>Our Core Focus</h3>
+                    <p>Every student builds a strong foundation through four essential subjects:</p>
+                    <ul class="pathway-list">
+                        <li>English – mastering communication and expression</li>
+                        <li>Kiswahili / Kenya Sign Language – promoting language skills and inclusivity</li>
+                        <li>Community Service Learning – fostering empathy, responsibility, and leadership</li>
+                        <li>Physical Education – developing fitness, teamwork, and perseverance</li>
+                    </ul>
                 </div>
-
-                <!-- STEM Pathway -->
-                <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-red-200">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-flask text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">STEM Pathway</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">For students passionate about Science, Technology, Engineering, and Mathematics:</p>
-                        <ul class="text-left space-y-2 text-gray-600 text-sm">
-                            <li class="flex items-center"><i class="fas fa-square-root-alt text-red-500 mr-2"></i>Mathematics</li>
-                            <li class="flex items-center"><i class="fas fa-atom text-red-500 mr-2"></i>Physics</li>
-                            <li class="flex items-center"><i class="fas fa-vials text-red-500 mr-2"></i>Chemistry</li>
-                            <li class="flex items-center"><i class="fas fa-dna text-red-500 mr-2"></i>Biology</li>
-                            <li class="flex items-center"><i class="fas fa-laptop-code text-red-500 mr-2"></i>Computer Science</li>
-                            <li class="flex items-center"><i class="fas fa-plane text-red-500 mr-2"></i>Aviation Technology</li>
-                            <li class="flex items-center"><i class="fas fa-map-marked-alt text-red-500 mr-2"></i>Geospatial Technology</li>
-                            <li class="flex items-center"><i class="fas fa-seedling text-red-500 mr-2"></i>Agriculture</li>
-                        </ul>
-                    </div>
+                <div class="pathway-card stem">
+                    <div class="card-icon"><i class="fas fa-flask"></i></div>
+                    <h3>STEM Pathway</h3>
+                    <p>For students passionate about Science, Technology, Engineering, and Mathematics:</p>
+                    <ul class="pathway-list">
+                        <li>Mathematics</li>
+                        <li>Physics</li>
+                        <li>Chemistry</li>
+                        <li>Biology</li>
+                        <li>Computer Science</li>
+                        <li>Aviation Technology</li>
+                        <li>Geospatial Technology</li>
+                        <li>Agriculture</li>
+                    </ul>
                 </div>
-
-                <!-- Humanities Pathway -->
-                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-yellow-200">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-users text-3xl text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Humanities & Social Sciences</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">Understanding society, culture, and human interaction:</p>
-                        <ul class="text-left space-y-2 text-gray-600 text-sm">
-                            <li class="flex items-center"><i class="fas fa-landmark text-yellow-500 mr-2"></i>History & Citizenship</li>
-                            <li class="flex items-center"><i class="fas fa-map text-yellow-500 mr-2"></i>Geography</li>
-                            <li class="flex items-center"><i class="fas fa-pray text-yellow-500 mr-2"></i>Religious Studies</li>
-                            <li class="flex items-center"><i class="fas fa-briefcase text-yellow-500 mr-2"></i>Business Studies</li>
-                            <li class="flex items-center"><i class="fas fa-user-friends text-yellow-500 mr-2"></i>Sociology & Philosophy</li>
-                            <li class="flex items-center"><i class="fas fa-language text-yellow-500 mr-2"></i>Languages</li>
-                            <li class="flex items-center"><i class="fas fa-book text-yellow-500 mr-2"></i>Literature</li>
-                        </ul>
-                    </div>
+                <div class="pathway-card humanities">
+                    <div class="card-icon"><i class="fas fa-users"></i></div>
+                    <h3>Humanities & Social Sciences</h3>
+                    <p>Understanding society, culture, and human interaction:</p>
+                    <ul class="pathway-list">
+                        <li>History & Citizenship</li>
+                        <li>Geography</li>
+                        <li>Religious Studies</li>
+                        <li>Business Studies</li>
+                        <li>Sociology & Philosophy</li>
+                        <li>Languages</li>
+                        <li>Literature</li>
+                    </ul>
                 </div>
             </div>
-
-            <div class="bg-gradient-to-r from-blue-900 to-blue-800 rounded-2xl p-8 text-center text-white">
-                <p class="text-lg leading-relaxed">
+            <div class="pathways-summary">
+                <p>
                     At Bar Union Senior School, we focus on holistic student development – academically, socially, and morally. Our pathways provide flexibility and choice, allowing each learner to excel in areas they are passionate about while building a strong foundation for future success.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Academic Departments Section -->
-    <section class="py-20 bg-gradient-to-b from-gray-50 to-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-serif">Academic Departments & Student Movements</h2>
-                <p class="text-2xl text-blue-600 font-semibold mb-4">Excellence in Learning • Character Building • Leadership Development • Spiritual Growth</p>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                    At Bar Union Mixed Secondary School, our academic departments are designed to provide a balanced, rigorous, and holistic education, nurturing intellectual curiosity, critical thinking, and practical skills. Student movements and leadership initiatives complement academics, fostering discipline, teamwork, and social responsibility.
+    <!-- Academic Departments -->
+    <section class="section departments-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Academic Departments & Student Movements</h2>
+                <p class="section-subtitle">Excellence in Learning • Character Building • Leadership Development • Spiritual Growth</p>
+                <p class="section-description">
+                    Our academic departments cater to diverse interests and talents, ensuring students excel in both theoretical and applied knowledge.
                 </p>
             </div>
 
-            <!-- Academic Departments -->
-            <h3 class="text-3xl font-bold text-gray-900 text-center mb-8 font-serif">Academic Departments</h3>
-            <p class="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto leading-relaxed">
-                Our academic departments cater to diverse interests and talents, ensuring students excel in both theoretical and applied knowledge.
-            </p>
+            <h3 class="subsection-title">Academic Departments</h3>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                <a href="/departments/mathematics.html" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 block">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-square-root-alt text-3xl text-white"></i>
-                        </div>
-                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Mathematics</h4>
-                        <p class="text-gray-600 leading-relaxed">From basic arithmetic to advanced calculus, we nurture logical reasoning, problem‑solving skills, and analytical thinking.</p>
-                    </div>
-                </a>
+            <!-- Department Tabs -->
+            <div class="department-tabs-container">
+                <div class="department-tabs">
+                    <button class="tab-btn active" data-dept="mathematics">Mathematics</button>
+                    <button class="tab-btn" data-dept="sciences">Sciences</button>
+                    <button class="tab-btn" data-dept="humanities">Humanities</button>
+                    <button class="tab-btn" data-dept="applied">Applied Sciences</button>
+                    <button class="tab-btn" data-dept="languages">Languages</button>
+                    <button class="tab-btn" data-dept="guidance">Guidance & Counselling</button>
+                    <button class="tab-btn" data-dept="cocurricular">Co-Curricular</button>
+                    <button class="tab-btn" data-dept="resources">Resources</button>
+                    <button class="tab-btn" data-dept="welfare">Welfare</button>
+                </div>
 
-                <a href="/departments/sciences.html" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 block">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-microscope text-3xl text-white"></i>
+                <!-- Tab Content Panels -->
+                <div class="department-content">
+                    <div class="dept-panel active" id="mathematics">
+                        <div class="dept-header">
+                            <i class="fas fa-square-root-alt dept-icon"></i>
+                            <h3>Mathematics</h3>
                         </div>
-                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Sciences</h4>
-                        <p class="text-gray-600 leading-relaxed">Comprehensive study of Biology, Chemistry, and Physics to build scientific inquiry, experimentation, and innovation.</p>
+                        <p>From basic arithmetic to advanced calculus, we nurture logical reasoning, problem-solving skills, and analytical thinking.</p>
+                        <a href="/departments/mathematics.html" class="btn-outline">Explore Department →</a>
                     </div>
-                </a>
 
-                <a href="/departments/humanities.html" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 block">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-landmark text-3xl text-white"></i>
+                    <div class="dept-panel" id="sciences">
+                        <div class="dept-header">
+                            <i class="fas fa-microscope dept-icon"></i>
+                            <h3>Sciences</h3>
                         </div>
-                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Humanities</h4>
-                        <p class="text-gray-600 leading-relaxed">Includes History and Government, Geography, and CRE. Focus on critical thinking, creativity, and cultural understanding.</p>
+                        <p>Comprehensive study of Biology, Chemistry, and Physics to build scientific inquiry, experimentation, and innovation.</p>
+                        <a href="/departments/sciences.html" class="btn-outline">Explore Department →</a>
                     </div>
-                </a>
 
-                <a href="/departments/applied-sciences.html" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 block">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-tools text-3xl text-white"></i>
+                    <div class="dept-panel" id="humanities">
+                        <div class="dept-header">
+                            <i class="fas fa-landmark dept-icon"></i>
+                            <h3>Humanities</h3>
                         </div>
-                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Applied Sciences</h4>
-                        <p class="text-gray-600 leading-relaxed">Includes Business Studies, Agriculture, Computer Studies, Home Science, and Art & Design. Emphasis on practical skills, creativity, and real‑world application.</p>
+                        <p>Includes History and Government, Geography, and CRE. Focus on critical thinking, creativity, and cultural understanding.</p>
+                        <a href="/departments/humanities.html" class="btn-outline">Explore Department →</a>
                     </div>
-                </a>
 
-                <a href="/departments/languages.html" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 block">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-pink-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-language text-3xl text-white"></i>
+                    <div class="dept-panel" id="applied">
+                        <div class="dept-header">
+                            <i class="fas fa-tools dept-icon"></i>
+                            <h3>Applied Sciences</h3>
                         </div>
-                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Languages</h4>
-                        <p class="text-gray-600 leading-relaxed">Enhancing communication skills and global awareness through English, Kiswahili, French, and German.</p>
+                        <p>Includes Business Studies, Agriculture, Computer Studies, Home Science, and Art & Design. Emphasis on practical skills, creativity, and real-world application.</p>
+                        <a href="/departments/applied-sciences.html" class="btn-outline">Explore Department →</a>
                     </div>
-                </a>
 
-                <a href="/departments/guidance.html" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 block">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-user-friends text-3xl text-white"></i>
+                    <div class="dept-panel" id="languages">
+                        <div class="dept-header">
+                            <i class="fas fa-language dept-icon"></i>
+                            <h3>Languages</h3>
                         </div>
-                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Guidance & Counselling</h4>
-                        <p class="text-gray-600 leading-relaxed">Providing mentorship, emotional support, life skills training, and career counselling to promote holistic student development.</p>
+                        <p>Enhancing communication skills and global awareness through English, Kiswahili, French, and German.</p>
+                        <a href="/departments/languages.html" class="btn-outline">Explore Department →</a>
                     </div>
-                </a>
 
-                <a href="/departments/co-curricular.html" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 block">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-futbol text-3xl text-white"></i>
+                    <div class="dept-panel" id="guidance">
+                        <div class="dept-header">
+                            <i class="fas fa-user-friends dept-icon"></i>
+                            <h3>Guidance & Counselling</h3>
                         </div>
-                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Co‑Curricular Activities</h4>
-                        <p class="text-gray-600 leading-relaxed">Promoting talent, teamwork, discipline and physical development through sports, clubs, and creative arts.</p>
+                        <p>Providing mentorship, emotional support, life skills training, and career counselling to promote holistic student development.</p>
+                        <a href="/departments/guidance.html" class="btn-outline">Explore Department →</a>
                     </div>
-                </a>
 
-                <a href="/departments/resources.html" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 block">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-book text-3xl text-white"></i>
+                    <div class="dept-panel" id="cocurricular">
+                        <div class="dept-header">
+                            <i class="fas fa-futbol dept-icon"></i>
+                            <h3>Co-Curricular Activities</h3>
                         </div>
-                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Resources</h4>
-                        <p class="text-gray-600 leading-relaxed">Access to academic and institutional resources, including library services, digital tools, and learning materials.</p>
+                        <p>Promoting talent, teamwork, discipline and physical development through sports, clubs, and creative arts.</p>
+                        <a href="/departments/co-curricular.html" class="btn-outline">Explore Department →</a>
                     </div>
-                </a>
 
-                <a href="/departments/welfare.html" class="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 block">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-hands-helping text-3xl text-white"></i>
+                    <div class="dept-panel" id="resources">
+                        <div class="dept-header">
+                            <i class="fas fa-book dept-icon"></i>
+                            <h3>Resources</h3>
                         </div>
-                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Welfare</h4>
-                        <p class="text-gray-600 leading-relaxed">Supporting student well‑being through health services, social support programs, and general welfare initiatives.</p>
+                        <p>Access to academic and institutional resources, including library services, digital tools, and learning materials.</p>
+                        <a href="/departments/resources.html" class="btn-outline">Explore Department →</a>
                     </div>
-                </a>
+
+                    <div class="dept-panel" id="welfare">
+                        <div class="dept-header">
+                            <i class="fas fa-hands-helping dept-icon"></i>
+                            <h3>Welfare</h3>
+                        </div>
+                        <p>Supporting student well-being through health services, social support programs, and general welfare initiatives.</p>
+                        <a href="/departments/welfare.html" class="btn-outline">Explore Department →</a>
+                    </div>
+                </div>
             </div>
 
-            <!-- Key Student Movements -->
-            <h3 class="text-3xl font-bold text-gray-900 text-center mb-8 font-serif">Key Student Movements & Leadership</h3>
-            <p class="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto leading-relaxed">
-                Student movements promote leadership, responsibility, and active engagement in school life. Through prefect councils, club leadership, and peer mentoring, students develop skills in governance, decision-making, and community service.
+            <h3 class="subsection-title">Key Student Movements & Leadership</h3>
+            <p class="section-description">
+                Student movements promote leadership, responsibility, and active engagement in school life.
             </p>
-
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-star text-3xl text-white"></i>
-                        </div>
-                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Prefect Council</h4>
-                        <p class="text-gray-600 leading-relaxed">Leads the student body, enforces school rules, and organizes inter-house and school-wide events.</p>
-                    </div>
+            <div class="movements-grid">
+                <div class="movement-card">
+                    <div class="card-icon"><i class="fas fa-star"></i></div>
+                    <h4>Prefect Council</h4>
+                    <p>Leads the student body, enforces school rules, and organizes inter-house and school-wide events.</p>
                 </div>
-
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-users text-3xl text-white"></i>
-                        </div>
-                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Club Officials</h4>
-                        <p class="text-gray-600 leading-relaxed">Coordinate activities across academic, cultural, and co-curricular clubs, mentor members, and ensure smooth execution of competitions and events.</p>
-                    </div>
+                <div class="movement-card">
+                    <div class="card-icon"><i class="fas fa-users"></i></div>
+                    <h4>Club Officials</h4>
+                    <p>Coordinate activities across academic, cultural, and co-curricular clubs, mentor members, and ensure smooth execution of competitions and events.</p>
                 </div>
-
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-20 h-20 bg-gradient-to-br from-pink-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-hand-holding-heart text-3xl text-white"></i>
-                        </div>
-                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Social & Community Movements</h4>
-                        <p class="text-gray-600 leading-relaxed">Promote social responsibility, peace, justice, environmental awareness, and outreach programs through initiatives like Amanl and World Starts With Me.</p>
-                    </div>
+                <div class="movement-card">
+                    <div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    <h4>Social & Community Movements</h4>
+                    <p>Promote social responsibility, peace, justice, environmental awareness, and outreach programs.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- KCSE Exam Results Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-serif">KCSE Exam Results</h2>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                    Bar Union Mixed Secondary School consistently ranks among the top-performing schools in the subcounty, demonstrating excellence academically while preparing students for higher education, technical colleges, and career paths.
+    <!-- KCSE Exam Results -->
+    <section class="section results-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">KCSE Exam Results</h2>
+                <p class="section-subtitle">
+                    Bar Union Mixed Secondary School consistently ranks among the top-performing schools in the subcounty.
                 </p>
             </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 text-center shadow-lg border border-blue-200">
-                    <div class="text-5xl font-bold text-blue-600 mb-4">4.96</div>
-                    <p class="text-lg font-semibold text-gray-700">Mean Score 2024</p>
+            <div class="results-stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">4.96</div>
+                    <p>Mean Score 2024</p>
                 </div>
-                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 text-center shadow-lg border border-green-200">
-                    <div class="text-5xl font-bold text-green-600 mb-4">46%</div>
-                    <p class="text-lg font-semibold text-gray-700">Direct University Admission Rate</p>
+                <div class="stat-card">
+                    <div class="stat-number">46%</div>
+                    <p>Direct University Admission Rate</p>
                 </div>
-                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-8 text-center shadow-lg border border-yellow-200">
-                    <div class="text-5xl font-bold text-yellow-600 mb-4">38%</div>
-                    <p class="text-lg font-semibold text-gray-700">Progression to Technical & Vocational Colleges</p>
+                <div class="stat-card">
+                    <div class="stat-number">38%</div>
+                    <p>Progression to Technical & Vocational Colleges</p>
                 </div>
-                <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-8 text-center shadow-lg border border-purple-200">
-                    <div class="text-5xl font-bold text-purple-600 mb-4">16%</div>
-                    <p class="text-lg font-semibold text-gray-700">Students Entering Private Colleges, Gap Year Programs, or Employment</p>
+                <div class="stat-card">
+                    <div class="stat-number">16%</div>
+                    <p>Students Entering Private Colleges, Gap Year Programs, or Employment</p>
                 </div>
             </div>
-
-            <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8 text-center mb-8">
-                <p class="text-xl text-gray-600 leading-relaxed max-w-4xl mx-auto">
-                    Our graduates excel not only in academics but also in practical and technical skills. Those who join technical colleges often prosper in fields such as engineering, ICT, applied sciences, and vocational trades, making meaningful contributions to industry and community development.
+            <div class="results-summary">
+                <p>
+                    Our graduates excel not only in academics but also in practical and technical skills. Those who join technical colleges often prosper in fields such as engineering, ICT, applied sciences, and vocational trades.
                 </p>
             </div>
-
-            <div class="text-center">
-                <a href="https://www.knec-portal.ac.ke/KCPESLIP/" target="_blank" rel="noopener" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-full hover:from-blue-700 hover:to-blue-800 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-                    <i class="fas fa-external-link-alt mr-3"></i>
+            <div class="results-cta">
+                <a href="https://www.knec-portal.ac.ke/KCPESLIP/" target="_blank" rel="noopener" class="btn-primary">
+                    <i class="fas fa-external-link-alt"></i>
                     Check KCSE Results (KNEC Portal)
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Learning Resources Section -->
-    <section class="py-20 bg-gradient-to-b from-gray-50 to-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-serif">Learning Resources</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">Access a variety of materials to enhance learning, prepare for exams, and strengthen your understanding</p>
-                <p class="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                    At Bar Union Mixed Secondary School, we provide students with diverse resources to support their academic journey. Our digital and physical learning materials empower students to revise effectively, practice past papers, and engage with interactive e-learning content.
-                </p>
+    <!-- Learning Resources -->
+    <section class="section resources-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Learning Resources</h2>
+                <p class="section-subtitle">Access a variety of materials to enhance learning, prepare for exams, and strengthen your understanding</p>
             </div>
-
-            <div class="grid md:grid-cols-3 gap-8 mb-12">
-                <!-- Past KCSE Papers -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-24 h-24 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-file-pdf text-4xl text-white"></i>
-                        </div>
-                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Past KCSE Papers</h4>
-                        <p class="text-gray-600 leading-relaxed mb-6">
-                            Complete collection of KCSE past papers (2015–2024) with detailed marking schemes, examiners' reports, and tips for effective revision.
-                        </p>
-                        <a href="/resources/past-papers.html" class="inline-flex items-center px-6 py-3 border-2 border-red-500 text-red-500 font-semibold rounded-full hover:bg-red-500 hover:text-white transition-all duration-300">
-                            Download Papers →
-                        </a>
-                    </div>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="card-icon"><i class="fas fa-file-pdf"></i></div>
+                    <h3>Past KCSE Papers</h3>
+                    <p>Complete collection of KCSE past papers (2015–2024) with detailed marking schemes, examiners' reports, and tips for effective revision.</p>
+                    <a href="/resources/past-papers.html" class="btn-outline">Download Papers →</a>
                 </div>
-
-                <!-- Revision Notes -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-book-open text-4xl text-white"></i>
-                        </div>
-                        <h4 class="text-2xl font-bold text-gray-900 mb-4">Revision Notes</h4>
-                        <p class="text-gray-600 leading-relaxed mb-6">
-                            Simplified, structured notes from Form 1 to Form 4 covering all key subjects. Ideal for classroom revision and self-study, including summaries, diagrams, and practice exercises.
-                        </p>
-                        <a href="/resources/notes.html" class="inline-flex items-center px-6 py-3 border-2 border-blue-500 text-blue-500 font-semibold rounded-full hover:bg-blue-500 hover:text-white transition-all duration-300">
-                            Access Notes →
-                        </a>
-                    </div>
+                <div class="resource-card">
+                    <div class="card-icon"><i class="fas fa-book-open"></i></div>
+                    <h3>Revision Notes</h3>
+                    <p>Simplified, structured notes from Form 1 to Form 4 covering all key subjects. Ideal for classroom revision and self-study.</p>
+                    <a href="/resources/notes.html" class="btn-outline">Access Notes →</a>
                 </div>
-
-                <!-- E-Learning Portal -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-100">
-                    <div class="text-center">
-                        <div class="w-24 h-24 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-laptop text-4xl text-white"></i>
-                        </div>
-                        <h4 class="text-2xl font-bold text-gray-900 mb-4">E-Learning Portal</h4>
-                        <p class="text-gray-600 leading-relaxed mb-6">
-                            Interactive online platform with video lessons, quizzes, and supplementary learning materials. Track progress, revisit challenging topics, and engage in self-paced learning anytime, anywhere.
-                        </p>
-                        <a href="/portal/e-learning-portal.html" class="inline-flex items-center px-6 py-3 border-2 border-green-500 text-green-500 font-semibold rounded-full hover:bg-green-500 hover:text-white transition-all duration-300">
-                            Login →
-                        </a>
-                    </div>
+                <div class="resource-card">
+                    <div class="card-icon"><i class="fas fa-laptop"></i></div>
+                    <h3>E-Learning Portal</h3>
+                    <p>Interactive online platform with video lessons, quizzes, and supplementary learning materials.</p>
+                    <a href="/portal/e-learning-portal.html" class="btn-outline">Login →</a>
                 </div>
             </div>
-
-            <div class="bg-gradient-to-r from-blue-900 to-blue-800 rounded-2xl p-8 text-center text-white">
-                <p class="text-lg leading-relaxed">
-                    Our aim is to ensure that every student has access to quality resources that promote understanding, exam preparedness, and academic excellence.
-                </p>
+            <div class="resources-summary">
+                <p>Our aim is to ensure that every student has access to quality resources that promote understanding, exam preparedness, and academic excellence.</p>
             </div>
         </div>
     </section>
 
-    <!-- Academic Calendar Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6 font-serif">Academic Calendar 2025–2026</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">Stay organized with all key dates: term openings, exams, events, and school activities</p>
-                <p class="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                    At Bar Union Mixed Secondary School, our academic calendar is designed to balance learning, assessments, and co-curricular engagement. This ensures students, parents, and staff are well-informed and prepared for all school activities throughout the year.
-                </p>
+    <!-- Academic Calendar -->
+    <section class="section calendar-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Academic Calendar 2025–2026</h2>
+                <p class="section-subtitle">Stay organized with all key dates: term openings, exams, events, and school activities</p>
             </div>
-
-            <div class="grid lg:grid-cols-3 gap-8 mb-12">
-                <!-- Term 1 -->
-                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 shadow-lg border border-blue-200">
-                    <h4 class="text-2xl font-bold text-blue-900 mb-6 text-center">Term 1: 6th Jan – 4th Apr 2025</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li class="flex items-start"><i class="fas fa-calendar-alt text-blue-500 mr-3 mt-1"></i><span><strong>Mid-Term Break:</strong> 20th – 23rd Feb</span></li>
-                        <li class="flex items-start"><i class="fas fa-calendar-alt text-blue-500 mr-3 mt-1"></i><span><strong>Visiting Day:</strong> 16th Mar</span></li>
-                        <li class="flex items-start"><i class="fas fa-calendar-alt text-blue-500 mr-3 mt-1"></i><span><strong>Parent-Teacher Meetings:</strong> 25th Mar</span></li>
-                        <li class="flex items-start"><i class="fas fa-calendar-alt text-blue-500 mr-3 mt-1"></i><span><strong>Co-Curricular Events:</strong> Drama, Music, and Club Activities throughout term</span></li>
+            <div class="calendar-grid">
+                <div class="term-card term-1">
+                    <h3>Term 1: 6th Jan – 4th Apr 2025</h3>
+                    <ul>
+                        <li><strong>Mid-Term Break:</strong> 20th – 23rd Feb</li>
+                        <li><strong>Visiting Day:</strong> 16th Mar</li>
+                        <li><strong>Parent-Teacher Meetings:</strong> 25th Mar</li>
+                        <li><strong>Co-Curricular Events:</strong> Drama, Music, and Club Activities</li>
                     </ul>
                 </div>
-
-                <!-- Term 2 -->
-                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 shadow-lg border border-green-200">
-                    <h4 class="text-2xl font-bold text-green-900 mb-6 text-center">Term 2: 5th May – 8th Aug 2025</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li class="flex items-start"><i class="fas fa-calendar-alt text-green-500 mr-3 mt-1"></i><span><strong>KCSE Mock Exams:</strong> 14th – 25th Jul</span></li>
-                        <li class="flex items-start"><i class="fas fa-calendar-alt text-green-500 mr-3 mt-1"></i><span><strong>Mid-Term Break:</strong> 18th – 22nd Jun</span></li>
-                        <li class="flex items-start"><i class="fas fa-calendar-alt text-green-500 mr-3 mt-1"></i><span><strong>Sports Week:</strong> 29th Jul – 2nd Aug</span></li>
-                        <li class="flex items-start"><i class="fas fa-calendar-alt text-green-500 mr-3 mt-1"></i><span><strong>Parent-Teacher Meetings:</strong> 5th Aug</span></li>
+                <div class="term-card term-2">
+                    <h3>Term 2: 5th May – 8th Aug 2025</h3>
+                    <ul>
+                        <li><strong>KCSE Mock Exams:</strong> 14th – 25th Jul</li>
+                        <li><strong>Mid-Term Break:</strong> 18th – 22nd Jun</li>
+                        <li><strong>Sports Week:</strong> 29th Jul – 2nd Aug</li>
+                        <li><strong>Parent-Teacher Meetings:</strong> 5th Aug</li>
                     </ul>
                 </div>
-
-                <!-- Term 3 -->
-                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-8 shadow-lg border border-yellow-200">
-                    <h4 class="text-2xl font-bold text-yellow-900 mb-6 text-center">Term 3: 1st Sep – 7th Nov 2025</h4>
-                    <ul class="space-y-4 text-gray-700">
-                        <li class="flex items-start"><i class="fas fa-calendar-alt text-yellow-500 mr-3 mt-1"></i><span><strong>KCSE Practical & Theory Exams:</strong> Oct – Nov 2025</span></li>
-                        <li class="flex items-start"><i class="fas fa-calendar-alt text-yellow-500 mr-3 mt-1"></i><span><strong>Annual Cultural Fest:</strong> 15th Oct</span></li>
-                        <li class="flex items-start"><i class="fas fa-calendar-alt text-yellow-500 mr-3 mt-1"></i><span><strong>Annual Day Celebration:</strong> 28th Nov</span></li>
-                        <li class="flex items-start"><i class="fas fa-calendar-alt text-yellow-500 mr-3 mt-1"></i><span><strong>Closing & Prize Giving:</strong> 7th Nov</span></li>
+                <div class="term-card term-3">
+                    <h3>Term 3: 1st Sep – 7th Nov 2025</h3>
+                    <ul>
+                        <li><strong>KCSE Practical & Theory Exams:</strong> Oct – Nov 2025</li>
+                        <li><strong>Annual Cultural Fest:</strong> 15th Oct</li>
+                        <li><strong>Annual Day Celebration:</strong> 28th Nov</li>
+                        <li><strong>Closing & Prize Giving:</strong> 7th Nov</li>
                     </ul>
                 </div>
             </div>
-
-            <div class="bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl p-8 text-center">
-                <p class="text-lg text-gray-600 leading-relaxed mb-6">
-                    Download the full academic calendar to plan your year, track important dates, and stay ahead in academics and school life.
-                </p>
-                <a href="/downloads/academic-calendar-2025.pdf" download class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-full hover:from-blue-700 hover:to-blue-800 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-                    <i class="fas fa-download mr-3"></i>
+            <div class="calendar-cta">
+                <p>Download the full academic calendar to plan your year.</p>
+                <a href="/downloads/academic-calendar-2025.pdf" download class="btn-primary">
+                    <i class="fas fa-download"></i>
                     Download Full Calendar (PDF)
                 </a>
             </div>
@@ -664,28 +485,12 @@
     <!-- Footer -->
     <div w3-include-html="/includes/footer.html"></div>
 
-    <!-- Scripts – Order matters! -->
+    <!-- Scripts -->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script>w3.includeHTML();</script>
-
-    <!-- AOS Animation Library (if you use it) -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>AOS.init();</script>
-
-    <!-- Our Mobile Menu – This makes the hamburger work -->
     <script src="/js/static/mobile-menu.js"></script>
-
-    <!-- Preloader hide (optional but nice) -->
-    <script>
-        window.addEventListener('load', function () {
-            const preloader = document.getElementById('preloader');
-            if (preloader) {
-                preloader.style.display = 'none';
-            }
-        });
-    </script>
-
-    <!-- Scripts -->
-    <script src="/js/static/academics.js"></script> 
+    <script src="/js/static/academics.js"></script>
 </body>
 </html>

@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Mr. George Ominde",
+    "role": "BOM Chairperson",
+    "tenure": "2017–Present",
+    "bio": "A dedicated community leader with over 20 years in education governance. Passionate about infrastructure development and student welfare.",
+    "photo": "/assets/images/admin/bom-chair.jpg"
+  },
+  {
+    "name": "Mrs. Grace Achieng",
+    "role": "BOM Vice Chairperson",
+    "tenure": "2020–Present",
+    "bio": "Advocate for gender equity and inclusive education. Leads the Discipline and Welfare Committee.",
+    "photo": "/assets/images/admin/bom-vice.jpg"
+  },
+  {
+    "name": "Rev. Peter Omondi",
+    "role": "Church Representative",
+    "tenure": "2018–Present",
+    "bio": "Spiritual guide and liaison with the sponsoring African Inland Church. Oversees moral and spiritual programs.",
+    "photo": "/assets/images/admin/rev-peter.jpg"
+  }
+]

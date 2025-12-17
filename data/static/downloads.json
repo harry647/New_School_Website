@@ -1,22 +1,42 @@
 [
   {
-    "title": "School Newsletter – January 2026",
-    "link": "/downloads/newsletter-jan-2026.pdf"
+    "title": "Academic Calendar 2026–2027",
+    "description": "Complete schedule of terms, exams, holidays, and events.",
+    "file": "/downloads/academic-calendar-2026.pdf",
+    "type": "PDF",
+    "size": "1.2 MB",
+    "icon": "fas fa-calendar-alt"
   },
   {
-    "title": "Annual Day 2025 Program Schedule",
-    "link": "/downloads/annual-day-program-2025.pdf"
+    "title": "School Uniform Guidelines",
+    "description": "Approved uniform designs, suppliers, and ordering information.",
+    "file": "/downloads/uniform-guidelines.pdf",
+    "type": "PDF",
+    "size": "850 KB",
+    "icon": "fas fa-tshirt"
   },
   {
-    "title": "KCSE 2025 Performance Report",
-    "link": "/downloads/kcse-results-analysis-2025.pdf"
+    "title": "Fee Structure 2026",
+    "description": "Detailed breakdown of tuition and other charges.",
+    "file": "/downloads/fee-structure-2026.pdf",
+    "type": "PDF",
+    "size": "620 KB",
+    "icon": "fas fa-file-invoice-dollar"
   },
   {
-    "title": "Term 1 2026 Calendar",
-    "link": "/downloads/calendar-term1-2026.pdf"
+    "title": "Student Code of Conduct",
+    "description": "School rules, expectations, and disciplinary procedures.",
+    "file": "/downloads/code-of-conduct.pdf",
+    "type": "PDF",
+    "size": "1.1 MB",
+    "icon": "fas fa-book"
   },
   {
-    "title": "Sports Day 2025 Results & Photos",
-    "link": "/downloads/sports-day-2026-report.pdf"
+    "title": "Medical & Health Form",
+    "description": "Required for boarding students and medical records.",
+    "file": "/downloads/medical-form.pdf",
+    "type": "PDF",
+    "size": "450 KB",
+    "icon": "fas fa-notes-medical"
   }
 ]

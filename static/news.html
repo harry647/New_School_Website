@@ -5,179 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>News & Events | Bar Union Mixed Secondary School</title>
     <meta name="description" content="Stay updated with the latest school news, events, academic achievements, and official announcements." />
-    
+
     <!-- Open Graph / Social Sharing -->
     <meta property="og:title" content="News & Events | Bar Union Mixed Secondary School">
     <meta property="og:description" content="Latest updates, achievements, and upcoming events from our campus.">
     <meta property="og:image" content="/assets/images/common/og-image.jpg">
     <meta property="og:url" content="https://barunionschool.ac.ke/news-events.html">
-    
-    <!-- Preconnect for Google Fonts -->
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    
-    <!-- Tailwind CSS -->
-    <link rel="stylesheet" href="/css/app.css">
-    <!-- <script src="https://cdn.tailwindcss.com"></script>  -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'sans': ['Inter', 'ui-sans-serif', 'system-ui'],
-                        'display': ['Playfair Display', 'serif'],
-                    },
-                    colors: {
-                        primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-</head>
 
-<body class="bg-gray-50 font-sans">
+    <!-- Custom Pure CSS -->
+    <link rel="stylesheet" href="/css/global/styles.css">
+    <link rel="stylesheet" href="/css/static/news-events.css">
+</head>
+<body>
     <!-- Header -->
     <div w3-include-html="/includes/header.html"></div>
 
     <!-- Hero Section -->
-    <section class="relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white overflow-hidden">
-        <div class="absolute inset-0 bg-black/20"></div>
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-            <div class="text-center">
-                <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
-                    News & Events
-                </h1>
-                <p class="text-xl md:text-2xl text-blue-100 mb-8 max-w-4xl mx-auto leading-relaxed">
+    <section class="page-hero">
+        <div class="hero-background"></div>
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">News & Events</h1>
+                <p class="hero-subtitle">
                     Stay informed and inspired — from school achievements and academic milestones to cultural celebrations, sports events, and community initiatives.
                 </p>
-                <p class="text-lg text-blue-200 mb-12 max-w-3xl mx-auto">
+                <p class="hero-description">
                     Follow the latest stories that showcase the spirit, diversity, and excellence of our students, teachers, and alumni.
                 </p>
-                <a href="#latest-news" class="inline-flex items-center px-8 py-4 bg-white text-blue-900 font-semibold rounded-lg hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                    Explore News
-                    <i class="fas fa-arrow-down ml-2"></i>
+                <a href="#latest-news" class="btn-primary">
+                    Explore News <i class="fas fa-arrow-down"></i>
                 </a>
             </div>
         </div>
-        <!-- Decorative elements -->
-        <div class="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
-        <div class="absolute bottom-20 right-10 w-32 h-32 bg-blue-400/20 rounded-full blur-2xl"></div>
     </section>
 
     <!-- Main News & Events Section -->
-    <section class="py-16 lg:py-24" id="latest-news">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Search Bar -->
-            <div class="max-w-2xl mx-auto mb-12">
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <i class="fas fa-search text-gray-400"></i>
-                    </div>
-                    <input 
-                        type="text" 
-                        id="newsSearch" 
-                        placeholder="Search news, events, achievements, or announcements..." 
-                        aria-label="Search news"
-                        class="block w-full pl-12 pr-12 py-4 border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent text-lg">
-                    <button 
-                        type="button" 
-                        id="searchBtn" 
-                        aria-label="Search News"
-                        class="absolute inset-y-0 right-0 pr-4 flex items-center text-primary-600 hover:text-primary-700">
-                        <i class="fas fa-search text-xl"></i>
-                    </button>
+    <section class="section news-section" id="latest-news">
+        <div class="container">
+            <div class="search-bar">
+                <input type="text" id="newsSearch" placeholder="Search news, events, achievements, or announcements..." aria-label="Search news">
+            </div>
+            <div class="news-filters">
+                <button class="filter-btn active" data-filter="all">All Updates</button>
+                <button class="filter-btn" data-filter="achievements">Achievements</button>
+                <button class="filter-btn" data-filter="events">Events</button>
+                <button class="filter-btn" data-filter="announcements">Announcements</button>
+                <button class="filter-btn" data-filter="holidays">Holidays</button>
+            </div>
+            <div class="news-grid" id="newsGrid">
+                <div class="loader">Loading latest news & events...</div>
+            </div>
+            <div class="no-results" id="noResults">
+                <p>No results found matching your search.</p>
+            </div>
+            <div class="load-more">
+                <button id="loadMoreBtn" class="btn-primary">Load More <i class="fas fa-chevron-down"></i></button>
+            </div>
+            <div class="news-stats">
+                <div class="stat-card">
+                    <h3 id="totalNews">0</h3>
+                    <p>News Articles</p>
                 </div>
-            </div>
-
-            <!-- Filter Controls -->
-            <div class="flex flex-wrap justify-center gap-3 mb-12" role="tablist" aria-label="Filter news by category">
-                <button class="filter-btn active px-6 py-3 bg-primary-600 text-white font-medium rounded-full hover:bg-primary-700 transition-all duration-300 shadow-md hover:shadow-lg" data-filter="all" role="tab" aria-selected="true">
-                    All Updates
-                </button>
-                <button class="filter-btn px-6 py-3 bg-white text-gray-700 font-medium rounded-full border border-gray-300 hover:bg-gray-50 hover:border-primary-300 hover:text-primary-600 transition-all duration-300 shadow-sm hover:shadow-md" data-filter="achievements" role="tab">
-                    Achievements
-                </button>
-                <button class="filter-btn px-6 py-3 bg-white text-gray-700 font-medium rounded-full border border-gray-300 hover:bg-gray-50 hover:border-primary-300 hover:text-primary-600 transition-all duration-300 shadow-sm hover:shadow-md" data-filter="events" role="tab">
-                    Events
-                </button>
-                <button class="filter-btn px-6 py-3 bg-white text-gray-700 font-medium rounded-full border border-gray-300 hover:bg-gray-50 hover:border-primary-300 hover:text-primary-600 transition-all duration-300 shadow-sm hover:shadow-md" data-filter="announcements" role="tab">
-                    Announcements
-                </button>
-                <button class="filter-btn px-6 py-3 bg-white text-gray-700 font-medium rounded-full border border-gray-300 hover:bg-gray-50 hover:border-primary-300 hover:text-primary-600 transition-all duration-300 shadow-sm hover:shadow-md" data-filter="holidays" role="tab">
-                    Holidays
-                </button>
-            </div>
-
-            <!-- Dynamic News Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="newsGrid" role="feed" aria-live="polite">
-                <!-- Loader will be replaced by JS -->
-                <div class="col-span-full flex flex-col items-center justify-center py-16 text-gray-500">
-                    <i class="fas fa-spinner fa-spin text-4xl mb-4 text-primary-600"></i>
-                    <p class="text-lg">Loading latest news & events...</p>
+                <div class="stat-card">
+                    <h3 id="totalEvents">0</h3>
+                    <p>Events</p>
                 </div>
-            </div>
-
-            <!-- No Results -->
-            <div id="noResults" class="text-center py-16" style="display:none;">
-                <i class="fas fa-search fa-4xl mb-6 text-gray-300"></i>
-                <h3 class="text-xl font-semibold text-gray-700 mb-2">No results found</h3>
-                <p class="text-gray-500">No news or events found matching your search.</p>
-            </div>
-
-            <!-- Load More -->
-            <div class="text-center mt-12">
-                <button id="loadMoreBtn" class="inline-flex items-center px-8 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-all duration-300 shadow-md hover:shadow-lg">
-                    Load More
-                    <i class="fas fa-chevron-down ml-2"></i>
-                </button>
-            </div>
-
-            <!-- Quick Stats -->
-            <div class="mt-16 bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    <div class="space-y-2">
-                        <div class="text-3xl font-bold text-primary-600" id="totalNews">0</div>
-                        <div class="text-gray-600 font-medium">News Articles</div>
-                    </div>
-                    <div class="space-y-2">
-                        <div class="text-3xl font-bold text-primary-600" id="totalEvents">0</div>
-                        <div class="text-gray-600 font-medium">Events</div>
-                    </div>
-                    <div class="space-y-2">
-                        <div class="text-3xl font-bold text-primary-600" id="totalAchievements">0</div>
-                        <div class="text-gray-600 font-medium">Achievements</div>
-                    </div>
+                <div class="stat-card">
+                    <h3 id="totalAchievements">0</h3>
+                    <p>Achievements</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Featured News Carousel -->
-    <section class="py-16 lg:py-24 bg-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">Featured News</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Don't miss the latest and most important updates from our school</p>
+    <section class="section featured-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured News</h2>
+                <p class="section-subtitle">Don't miss the latest and most important updates from our school</p>
             </div>
-            <div class="featured-news-carousel swiper" id="featuredCarousel">
+            <div class="swiper featured-carousel" id="featuredCarousel">
                 <div class="swiper-wrapper" id="featuredNews">
-                    <!-- Will be populated by JS -->
+                    <!-- Populated by JS -->
                 </div>
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-next"></div>
@@ -187,263 +104,161 @@
     </section>
 
     <!-- Upcoming Events Calendar -->
-    <section class="py-16 lg:py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">Upcoming Events Calendar</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Plan ahead and join our school events</p>
+    <section class="section calendar-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Upcoming Events Calendar</h2>
+                <p class="section-subtitle">Plan ahead and join our school events</p>
             </div>
-            <div id="eventsCalendar" class="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
-                <!-- Integration with calendar JS or LMS events feed -->
+            <div class="calendar-card" id="eventsCalendar">
+                <!-- Calendar integration -->
             </div>
         </div>
     </section>
 
     <!-- Announcements Banner -->
-    <section class="py-8 bg-gradient-to-r from-amber-500 to-orange-500 text-white" aria-labelledby="announcement-heading">
-        <h2 id="announcement-heading" class="sr-only">Important Announcements</h2>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="overflow-hidden">
-                <div class="announcement-ticker whitespace-nowrap animate-marquee">
-                    <span class="inline-block mx-8 text-lg font-medium">
-                        📢 School closed on Dec 25 for Christmas
-                    </span>
-                    <span class="inline-block mx-8 text-lg font-medium">
-                        🏆 Form 4 results announced today
-                    </span>
-                    <span class="inline-block mx-8 text-lg font-medium">
-                        🎉 Annual Sports Day on Jan 15
-                    </span>
-                </div>
-            </div>
+    <section class="section announcement-section">
+        <div class="announcement-ticker">
+            <span>School closed on Dec 25 for Christmas</span>
+            <span>Form 4 results announced today</span>
+            <span>Annual Sports Day on Jan 15</span>
         </div>
     </section>
 
     <!-- Event Highlights -->
-    <section class="py-16 lg:py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">Event Highlights</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Memorable moments from our recent events</p>
+    <section class="section highlights-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Event Highlights</h2>
+                <p class="section-subtitle">Memorable moments from our recent events</p>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="eventPhotos">
-                <div class="flex flex-col items-center justify-center py-16 text-gray-500">
-                    <i class="fas fa-spinner fa-spin text-4xl mb-4 text-primary-600"></i>
-                    <p>Loading photos...</p>
-                </div>
+            <div class="highlights-grid" id="eventPhotos">
+                <div class="loader">Loading photos...</div>
             </div>
         </div>
     </section>
 
     <!-- Student/Teacher Spotlight -->
-    <section class="py-16 lg:py-24 bg-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">Spotlight</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Celebrating exceptional students and teachers</p>
+    <section class="section spotlight-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Spotlight</h2>
+                <p class="section-subtitle">Celebrating exceptional students and teachers</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="spotlightProfiles">
-                <div class="flex flex-col items-center justify-center py-16 text-gray-500">
-                    <i class="fas fa-spinner fa-spin text-4xl mb-4 text-primary-600"></i>
-                    <p>Loading spotlight profiles...</p>
-                </div>
+            <div class="spotlight-grid" id="spotlightProfiles">
+                <div class="loader">Loading spotlight profiles...</div>
             </div>
         </div>
     </section>
 
     <!-- Media Coverage -->
-    <section class="py-16 lg:py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">Media & Coverage</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">See where our school has been featured in news & media</p>
+    <section class="section media-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Media & Coverage</h2>
+                <p class="section-subtitle">See where our school has been featured in news & media</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="mediaCoverage">
-                <div class="flex flex-col items-center justify-center py-16 text-gray-500">
-                    <i class="fas fa-spinner fa-spin text-4xl mb-4 text-primary-600"></i>
-                    <p>Loading media coverage...</p>
-                </div>
+            <div class="media-grid" id="mediaCoverage">
+                <div class="loader">Loading media coverage...</div>
             </div>
         </div>
     </section>
 
     <!-- Downloads & Resources -->
-    <section class="py-16 lg:py-24 bg-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">Downloads & Resources</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Access circulars, newsletters, and event programs</p>
+    <section class="section downloads-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Downloads & Resources</h2>
+                <p class="section-subtitle">Access circulars, newsletters, and event programs</p>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="downloadsResources">
-                <a href="#" class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-primary-200 group">
-                    <div class="text-center">
-                        <div class="inline-flex items-center justify-center w-16 h-16 bg-red-100 text-red-600 rounded-xl mb-4 group-hover:bg-red-200 transition-colors">
-                            <i class="fas fa-file-pdf text-2xl"></i>
-                        </div>
-                        <h3 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">Newsletter Jan 2026</h3>
-                    </div>
+            <div class="downloads-grid" id="downloadsResources">
+                <a href="#" class="download-card">
+                    <div class="card-icon"><i class="fas fa-file-pdf"></i></div>
+                    <h3>Newsletter Jan 2026</h3>
                 </a>
-                <a href="#" class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-primary-200 group">
-                    <div class="text-center">
-                        <div class="inline-flex items-center justify-center w-16 h-16 bg-red-100 text-red-600 rounded-xl mb-4 group-hover:bg-red-200 transition-colors">
-                            <i class="fas fa-file-pdf text-2xl"></i>
-                        </div>
-                        <h3 class="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">Sports Day Program 2025</h3>
-                    </div>
+                <a href="#" class="download-card">
+                    <div class="card-icon"><i class="fas fa-file-pdf"></i></div>
+                    <h3>Sports Day Program 2025</h3>
                 </a>
             </div>
         </div>
     </section>
 
     <!-- Student Blog Posts -->
-    <section class="py-16 lg:py-24" id="studentBlogs">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">Student Blogs</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Insights, stories, and creative thoughts from our students</p>
+    <section class="section blog-section" id="studentBlogs">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Student Blogs</h2>
+                <p class="section-subtitle">Insights, stories, and creative thoughts from our students</p>
             </div>
-
-            <!-- Submission Info -->
-            <div class="text-center mb-12">
-                <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 max-w-4xl mx-auto">
-                    <p class="text-gray-700 mb-4">
-                        Students can submit up to <strong class="text-blue-700">2 blogs per month</strong>. All submissions are moderated before publishing.
-                    </p>
-                    <a href="#submitBlog" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg">
-                        Submit Your Blog
-                        <i class="fas fa-pen ml-2"></i>
-                    </a>
+            <div class="blog-submission-info">
+                <p>Students can submit up to 2 blogs per month. All submissions are moderated before publishing.</p>
+                <a href="#submitBlog" class="btn-primary">Submit Your Blog <i class="fas fa-pen"></i></a>
+            </div>
+            <div class="blog-search">
+                <input type="text" id="blogSearch" placeholder="Search blogs by title, topic, or author...">
+            </div>
+            <div class="blog-filters">
+                <button class="filter-btn active" data-filter="all">All Topics</button>
+                <button class="filter-btn" data-filter="academics">Academics</button>
+                <button class="filter-btn" data-filter="events">Events</button>
+                <button class="filter-btn" data-filter="creative">Creative Writing</button>
+                <button class="filter-btn" data-filter="sports">Sports & Activities</button>
+            </div>
+            <div class="blog-grid" id="blogGrid">
+                <div class="loader">Loading student blogs...</div>
+            </div>
+            <div class="no-results" id="noBlogResults">
+                <p>No blogs match your current search or filter.</p>
+            </div>
+            <div class="load-more">
+                <button id="loadMoreBlogs" class="btn-primary">Load More Blogs <i class="fas fa-chevron-down"></i></button>
+            </div>
+            <div class="blog-stats">
+                <div class="stat-card">
+                    <h3 id="totalBlogs">—</h3>
+                    <p>Total Blogs Published</p>
                 </div>
-            </div>
-
-            <!-- Search & Filters -->
-            <div class="max-w-2xl mx-auto mb-12">
-                <div class="relative mb-6">
-                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <i class="fas fa-search text-gray-400"></i>
-                    </div>
-                    <input 
-                        type="text" 
-                        id="blogSearch" 
-                        placeholder="Search blogs by title, topic, or author..." 
-                        aria-label="Search blogs"
-                        class="block w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                <div class="stat-card">
+                    <h3 id="activeBloggers">—</h3>
+                    <p>Active Student Contributors</p>
                 </div>
-                <div class="flex flex-wrap justify-center gap-3">
-                    <button class="filter-btn active px-5 py-2 bg-primary-600 text-white font-medium rounded-full hover:bg-primary-700 transition-all duration-300" data-filter="all">All Topics</button>
-                    <button class="filter-btn px-5 py-2 bg-white text-gray-700 font-medium rounded-full border border-gray-300 hover:bg-gray-50 hover:border-primary-300 hover:text-primary-600 transition-all duration-300" data-filter="academics">Academics</button>
-                    <button class="filter-btn px-5 py-2 bg-white text-gray-700 font-medium rounded-full border border-gray-300 hover:bg-gray-50 hover:border-primary-300 hover:text-primary-600 transition-all duration-300" data-filter="events">Events</button>
-                    <button class="filter-btn px-5 py-2 bg-white text-gray-700 font-medium rounded-full border border-gray-300 hover:bg-gray-50 hover:border-primary-300 hover:text-primary-600 transition-all duration-300" data-filter="creative">Creative Writing</button>
-                    <button class="filter-btn px-5 py-2 bg-white text-gray-700 font-medium rounded-full border border-gray-300 hover:bg-gray-50 hover:border-primary-300 hover:text-primary-600 transition-all duration-300" data-filter="sports">Sports & Activities</button>
-                </div>
-            </div>
-
-            <!-- Blog Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="blogGrid">
-                <div class="col-span-full flex flex-col items-center justify-center py-16 text-gray-500">
-                    <i class="fas fa-spinner fa-spin text-4xl mb-4 text-primary-600"></i>
-                    <p class="text-lg">Loading student blogs...</p>
-                </div>
-            </div>
-
-            <!-- No Results Message -->
-            <div id="noBlogResults" class="text-center py-16" style="display:none;">
-                <i class="fas fa-search fa-4xl mb-6 text-gray-300"></i>
-                <h3 class="text-xl font-semibold text-gray-700 mb-2">No blogs found</h3>
-                <p class="text-gray-500">No blogs match your current search or filter.</p>
-            </div>
-
-            <!-- Load More Button -->
-            <div class="text-center mt-12">
-                <button id="loadMoreBlogs" class="inline-flex items-center px-8 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-all duration-300 shadow-md hover:shadow-lg" style="display:none;">
-                    Load More Blogs
-                    <i class="fas fa-chevron-down ml-2"></i>
-                </button>
-            </div>
-
-            <!-- Quick Stats -->
-            <div class="mt-16 bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-                    <div class="space-y-2">
-                        <div class="text-3xl font-bold text-primary-600" id="totalBlogs">—</div>
-                        <div class="text-gray-600 font-medium">Total Blogs Published</div>
-                    </div>
-                    <div class="space-y-2">
-                        <div class="text-3xl font-bold text-primary-600" id="activeBloggers">—</div>
-                        <div class="text-gray-600 font-medium">Active Student Contributors</div>
-                    </div>
-                    <div class="space-y-2">
-                        <div class="text-3xl font-bold text-primary-600" id="mostPopularTopic">—</div>
-                        <div class="text-gray-600 font-medium">Most Popular Topic</div>
-                    </div>
+                <div class="stat-card">
+                    <h3 id="mostPopularTopic">—</h3>
+                    <p>Most Popular Topic</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Blog Submission Form -->
-    <section class="py-16 lg:py-24 bg-gray-100" id="submitBlog">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-4">Submit Your Blog</h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Share your ideas, stories, achievements, or reflections with the entire Bar Union school community.<br>
-                    Inspire, inform, and connect through your writing.
-                </p>
+    <section class="section submission-section" id="submitBlog">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Submit Your Blog</h2>
+                <p class="section-subtitle">Share your ideas, stories, achievements, or reflections with the school community.</p>
             </div>
-
-            <div class="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
-                <form 
-                    action="/api/news/blog-submit" 
-                    method="POST" 
-                    class="blog-form" 
-                    enctype="multipart/form-data">
-
-                    <!-- Anti-spam honeypot -->
+            <div class="submission-guidelines">
+                <h3>Guidelines:</h3>
+                <ul>
+                    <li>Ensure your writing is original and respectful.</li>
+                    <li>You may write about academics, school life, events, creativity, inspiration, or personal experiences.</li>
+                    <li>Avoid sharing personal phone numbers or sensitive information.</li>
+                    <li>Blogs are reviewed for quality, clarity, and safety before publication.</li>
+                </ul>
+            </div>
+            <div class="submission-form-card">
+                <form class="blog-form" enctype="multipart/form-data">
                     <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" />
                     <input type="hidden" name="_subject" value="New Student Blog Submission" />
-
-                    <!-- Guidelines -->
-                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-8">
-                        <h3 class="font-semibold text-blue-900 mb-3">Guidelines:</h3>
-                        <ul class="text-blue-800 space-y-2 text-sm">
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-blue-600 mt-1 mr-2 flex-shrink-0"></i>
-                                Ensure your writing is original and respectful.
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-blue-600 mt-1 mr-2 flex-shrink-0"></i>
-                                You may write about academics, school life, events, creativity, inspiration, or personal experiences.
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-blue-600 mt-1 mr-2 flex-shrink-0"></i>
-                                Avoid sharing personal phone numbers or sensitive information.
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fas fa-check-circle text-blue-600 mt-1 mr-2 flex-shrink-0"></i>
-                                Blogs are reviewed for quality, clarity, and safety before publication.
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 mb-2">Student Name *</label>
-                            <input 
-                                type="text" 
-                                name="student_name" 
-                                placeholder="Enter your full name" 
-                                required 
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Student Name *</label>
+                            <input type="text" name="student_name" required placeholder="Enter your full name">
                         </div>
-
-                        <div>
-                            <label for="grade" class="block text-sm font-semibold text-gray-700 mb-2">Grade / Class *</label>
-                            <select 
-                                name="grade" 
-                                id="grade" 
-                                required 
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                        <div class="form-group">
+                            <label>Grade / Class *</label>
+                            <select name="grade" required>
                                 <option value="">Select Grade or Form</option>
                                 <option>Form 1</option>
                                 <option>Form 2</option>
@@ -455,25 +270,13 @@
                                 <option>Alumni / Passed Out</option>
                             </select>
                         </div>
-
-                        <div>
-                            <label for="blog_title" class="block text-sm font-semibold text-gray-700 mb-2">Blog Title *</label>
-                            <input 
-                                type="text" 
-                                name="blog_title" 
-                                id="blog_title" 
-                                placeholder="Enter a clear, descriptive title" 
-                                required 
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                        <div class="form-group">
+                            <label>Blog Title *</label>
+                            <input type="text" name="blog_title" required placeholder="Enter a clear, descriptive title">
                         </div>
-
-                        <div>
-                            <label for="topic" class="block text-sm font-semibold text-gray-700 mb-2">Blog Category *</label>
-                            <select 
-                                name="topic" 
-                                id="topic" 
-                                required 
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                        <div class="form-group">
+                            <label>Blog Category *</label>
+                            <select name="topic" required>
                                 <option value="">Choose a Category</option>
                                 <option>Academics & Study Tips</option>
                                 <option>School Events & Activities</option>
@@ -484,45 +287,21 @@
                                 <option>Other</option>
                             </select>
                         </div>
-
-                        <div class="md:col-span-2">
-                            <label for="blog_content" class="block text-sm font-semibold text-gray-700 mb-2">Blog Content *</label>
-                            <textarea 
-                                name="blog_content" 
-                                id="blog_content" 
-                                rows="10" 
-                                required
-                                placeholder="Write your blog here... Share your experience, thoughts, creativity, or message."
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"></textarea>
+                        <div class="form-group full-width">
+                            <label>Blog Content *</label>
+                            <textarea name="blog_content" rows="10" required placeholder="Write your blog here..."></textarea>
                         </div>
-
-                        <div class="md:col-span-2">
-                            <label for="featured_image" class="block text-sm font-semibold text-gray-700 mb-2">Featured Image (Optional)</label>
-                            <input 
-                                type="file" 
-                                name="featured_image" 
-                                id="featured_image" 
-                                accept="image/jpeg,image/png,image/gif,image/webp" 
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-                            <p class="text-sm text-gray-500 mt-2">JPG, PNG, GIF, WebP • Max 10 MB • Will be used as the blog thumbnail</p>
+                        <div class="form-group full-width">
+                            <label>Featured Image (Optional)</label>
+                            <input type="file" name="featured_image" accept="image/jpeg,image/png,image/gif,image/webp">
+                            <p>JPG, PNG, GIF, WebP • Max 10 MB</p>
                         </div>
                     </div>
-
-                    <div class="text-center mt-8">
-                        <button 
-                            type="submit" 
-                            class="inline-flex items-center px-8 py-4 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-all duration-300 shadow-md hover:shadow-lg">
-                            Submit Blog 
-                            <i class="fas fa-paper-plane ml-2"></i>
-                        </button>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Submit Blog <i class="fas fa-paper-plane"></i></button>
                     </div>
-
-                    <div class="text-center mt-8 p-6 bg-amber-50 border border-amber-200 rounded-xl">
-                        <p class="text-amber-800 text-sm">
-                            <strong>Note:</strong> All submissions undergo moderation for quality and safety.<br>
-                            <strong>Limit:</strong> Maximum of <strong>2 blogs per student per month</strong> to ensure fairness.<br>
-                            Once approved, your blog will appear in the <strong>Student Blog Section</strong> and may be featured on the homepage.
-                        </p>
+                    <div class="form-note">
+                        <p><strong>Note:</strong> All submissions undergo moderation. Maximum of 2 blogs per student per month.</p>
                     </div>
                 </form>
             </div>
@@ -532,44 +311,12 @@
     <!-- Footer -->
     <div w3-include-html="/includes/footer.html"></div>
 
-    <!-- Scripts – Order matters! -->
+    <!-- Scripts -->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script>w3.includeHTML();</script>
-
-    <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>AOS.init();</script>
-
-    <!-- Our Mobile Menu -->
     <script src="/js/static/mobile-menu.js"></script>
-
-    <!-- Preloader hide (only if preloader exists) -->
-    <script>
-        window.addEventListener('load', function () {
-            const preloader = document.getElementById('preloader');
-            if (preloader) {
-                preloader.style.display = 'none';
-            }
-        });
-    </script>
-    
-    <!-- Scripts -->
     <script src="/js/static/news-events.js" defer></script>
-
-    <!-- Additional CSS for animations -->
-    <style>
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-        .animate-marquee {
-            animation: marquee 30s linear infinite;
-        }
-        .filter-btn.active {
-            background-color: #2563eb !important;
-            color: white !important;
-            border-color: #2563eb !important;
-        }
-    </style>
 </body>
 </html>

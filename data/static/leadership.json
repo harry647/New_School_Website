@@ -1,0 +1,25 @@
+[
+  {
+    "name": "Mr. George Achilla",
+    "role": "Principal & Director",
+    "since": "2023",
+    "bio": "Visionary leader committed to academic excellence, innovation, and holistic student development. Holds a Master's in Education Leadership.",
+    "quote": "Forward Ever – Building character alongside knowledge.",
+    "photo": "/assets/images/admin/principal.jpg"
+  },
+  {
+    "name": "Mrs. Jane Otieno",
+    "role": "Deputy Principal",
+    "since": "2019",
+    "bio": "Oversees curriculum implementation, teacher development, and academic performance. Known for discipline and mentorship.",
+    "quote": "Every student has the potential to excel with the right guidance.",
+    "photo": "/assets/images/admin/deputy.jpg"
+  },
+  {
+    "name": "Mr. Samuel Oduor",
+    "role": "Director of Studies",
+    "since": "2021",
+    "bio": "Manages exam coordination, timetabling, and academic resources. Strong focus on data-driven improvement.",
+    "photo": "/assets/images/admin/dos.jpg"
+  }
+]

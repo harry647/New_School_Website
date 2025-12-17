@@ -1,0 +1,46 @@
+[
+  {
+    "title": "Academic Office",
+    "head": "Director of Studies",
+    "icon": "fas fa-chalkboard-teacher",
+    "description": "Coordinates curriculum delivery, examinations, timetabling, and teacher professional development.",
+    "responsibilities": [
+      "Exam coordination and analysis",
+      "Subject allocation and timetabling",
+      "Teacher appraisal and training"
+    ]
+  },
+  {
+    "title": "Guidance & Counselling",
+    "head": "Senior Counsellor",
+    "icon": "fas fa-user-friends",
+    "description": "Provides emotional, academic, and career guidance to support student well-being and personal growth.",
+    "responsibilities": [
+      "Individual & group counselling",
+      "Career guidance programs",
+      "Peer counselling training"
+    ]
+  },
+  {
+    "title": "Finance & Procurement",
+    "head": "School Bursar",
+    "icon": "fas fa-file-invoice-dollar",
+    "description": "Manages school finances, fee collection, budgeting, and procurement in line with government regulations.",
+    "responsibilities": [
+      "Financial reporting",
+      "Fee management",
+      "Resource mobilization"
+    ]
+  },
+  {
+    "title": "Co-Curricular & Sports",
+    "head": "Games Master",
+    "icon": "fas fa-futbol",
+    "description": "Oversees sports, clubs, drama, music, and scouting to nurture talent and promote teamwork.",
+    "responsibilities": [
+      "Talent identification",
+      "Competition preparation",
+      "Club coordination"
+    ]
+  }
+]

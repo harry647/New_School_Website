@@ -1,0 +1,38 @@
+[
+  {
+    "title": "How I Scored an A in Mathematics",
+    "excerpt": "After struggling in Form 2, I changed my approach completely. Here are the 5 strategies that helped me score A Plain in maths...",
+    "author": "Joshua Ageng'o",
+    "grade": "Form 4 2024",
+    "date": "2025-11-15",
+    "topic": "academics",
+    "featuredImage": "/assets/images/blogs/math-tips.jpg"
+  },
+  {
+    "title": "My First Debate Competition Experience",
+    "excerpt": "I was terrified to speak in front of over 900 people, but something amazing happened when I started...",
+    "author": "Mary Okeyo",
+    "grade": "Form 4 2025",
+    "date": "2025-10-20",
+    "topic": "events",
+    "featuredImage": "/assets/images/blogs/debate.jpg"
+  },
+  {
+    "title": "The Rain That Saved Our Tree Plantation Drive",
+    "excerpt": "A short story about hope, teamwork, and how nature sometimes helps those who help it.",
+    "author": "Mercy Achieng",
+    "grade": "Form 2 Green",
+    "date": "2025-09-10",
+    "topic": "creative",
+    "featuredImage": "/assets/images/blogs/tree-plantation.jpg"
+  },
+  {
+    "title": "Why I Love Morning Preps",
+    "excerpt": "Everyone complains about 5 AM preps. Here’s why I secretly look forward to them every day.",
+    "author": "Clement Ochieng",
+    "grade": "Form 3 Orange",
+    "date": "2025-08-05",
+    "topic": "academics",
+    "featuredImage": "/assets/images/blogs/morning-study.jpg"
+  }
+]

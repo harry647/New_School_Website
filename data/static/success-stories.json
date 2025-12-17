@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Joseph Agengo",
+    "batch": "Batch of 2024",
+    "achievement": "Electrical Engineering • Technical University of Kenya",
+    "story": "With consistent mentoring, Joseph focused on core STEM subjects and developed analytical skills that secured him a top rank.",
+    "photo": "/assets/images/career/student1.jpg"
+  },
+  {
+    "name": "Mercy Atieno",
+    "batch": "Batch of 2023",
+    "achievement": "Medicine • University of Nairobi",
+    "story": "Mercy's passion for biology was nurtured through targeted guidance and NEET-style preparation support.",
+    "photo": "/assets/images/career/student2.jpg"
+  },
+  {
+    "name": "Brian Ochieng",
+    "batch": "Batch of 2024",
+    "achievement": "Computer Science • Strathmore University (Full Scholarship)",
+    "story": "From coding club to full scholarship — Brian credits the alumni mentorship program for his success.",
+    "photo": "/assets/images/career/student3.jpg"
+  },
+  {
+    "name": "Faith Nyaboke",
+    "batch": "Batch of 2022",
+    "achievement": "Law • Kenya School of Law",
+    "story": "Faith excelled in CLAT preparation workshops and now advocates for social justice.",
+    "photo": "/assets/images/career/student4.jpg"
+  }
+]

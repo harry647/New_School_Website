@@ -9,276 +9,121 @@
     <meta property="og:title" content="Our Dedicated Staff | Bar Union Mixed Secondary School">
     <meta property="og:description" content="Experienced educators and administrators shaping tomorrow's leaders.">
     <meta property="og:image" content="/assets/images/og-image.jpg">
-    
-    <!-- Preconnect for Performance -->
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    
-    <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    <!-- Tailwind CSS -->
-    <link rel="stylesheet" href="/css/app.css">
-    <!-- <script src="https://cdn.tailwindcss.com"></script>  -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'sans': ['Inter', 'system-ui', 'sans-serif'],
-                        'heading': ['Playfair Display', 'serif'],
-                    },
-                    colors: {
-                        primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#0175C2',
-                            700: '#0b2d5e',
-                            800: '#1e3a8a',
-                            900: '#0f172a',
-                        },
-                        gold: {
-                            50: '#fffbeb',
-                            100: '#fef3c7',
-                            200: '#fde68a',
-                            300: '#fcd34d',
-                            400: '#fbbf24',
-                            500: '#ffd700',
-                            600: '#d97706',
-                            700: '#b45309',
-                            800: '#92400e',
-                            900: '#78350f',
-                        }
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.8s ease-in-out',
-                        'slide-up': 'slideUp 0.8s ease-out',
-                        'bounce-slow': 'bounce 2s infinite',
-                        'pulse-slow': 'pulse 3s infinite',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' }
-                        },
-                        slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(30px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+    <!-- Custom Pure CSS -->
+    <link rel="stylesheet" href="/css/global/styles.css">
+    <link rel="stylesheet" href="/css/static/staff.css">
 </head>
-<body class="font-sans antialiased bg-white text-gray-900 overflow-x-hidden">
+<body>
     <!-- Header -->
     <div w3-include-html="/includes/header.html"></div>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center text-white bg-gradient-to-br from-primary-800 via-primary-700 to-purple-700 overflow-hidden">
-        <!-- Background Image with Overlay -->
-        <div class="absolute inset-0 bg-black/40"></div>
-        <div class="absolute inset-0 bg-[url('/assets/images/common/hero-bg.jpg')] bg-cover bg-center bg-no-repeat"></div>
-        
-        <!-- Animated Background Elements -->
-        <div class="absolute top-10 left-10 w-24 h-24 bg-gold-400/10 rounded-full blur-2xl animate-pulse-slow"></div>
-        <div class="absolute top-20 right-20 w-32 h-32 bg-purple-400/10 rounded-full blur-2xl animate-pulse-slow" style="animation-delay: 1s;"></div>
-        <div class="absolute bottom-20 left-20 w-20 h-20 bg-primary-400/10 rounded-full blur-2xl animate-pulse-slow" style="animation-delay: 2s;"></div>
-        <div class="absolute bottom-10 right-10 w-28 h-28 bg-gold-400/10 rounded-full blur-2xl animate-pulse-slow" style="animation-delay: 3s;"></div>
-        
-        <div class="relative z-10 text-center max-w-6xl mx-auto px-6">
-            <div class="animate-fade-in">
-                <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight">
-                    Our <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 relative">
-                        Dedicated
-                        <div class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-gold-400 to-gold-200 rounded-full"></div>
-                    </span> Staff
-                </h1>
-                <div class="flex flex-wrap justify-center gap-4 mb-8 text-lg md:text-xl">
-                    <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm border border-white/30 hover:bg-white/30 transition-all duration-300">
-                        <i class="fas fa-star text-gold-400 mr-2"></i>Experienced
-                    </span>
-                    <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm border border-white/30 hover:bg-white/30 transition-all duration-300">
-                        <i class="fas fa-heart text-gold-400 mr-2"></i>Passionate
-                    </span>
-                    <span class="bg-white/20 px-4 py-2 rounded-full backdrop-blur-sm border border-white/30 hover:bg-white/30 transition-all duration-300">
-                        <i class="fas fa-trophy text-gold-400 mr-2"></i>Committed to Excellence
-                    </span>
+    <section class="page-hero">
+        <div class="hero-background"></div>
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Our Dedicated Staff</h1>
+                <div class="hero-badges">
+                    <span><i class="fas fa-star"></i> Experienced</span>
+                    <span><i class="fas fa-heart"></i> Passionate</span>
+                    <span><i class="fas fa-trophy"></i> Committed to Excellence</span>
                 </div>
-                <p class="text-xl md:text-2xl lg:text-3xl mb-12 max-w-5xl mx-auto leading-relaxed font-medium">
+                <p class="hero-subtitle">
                     Our team of qualified educators, administrators, and support staff work together to provide a holistic, student-first learning environment.
                 </p>
-                <div class="grid md:grid-cols-3 gap-6 mt-12">
-                    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
-                        <div class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-2">50+</div>
-                        <div class="text-sm font-semibold text-white/90 uppercase tracking-wide">Qualified Teachers</div>
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <h3>50+</h3>
+                        <p>Qualified Teachers</p>
                     </div>
-                    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
-                        <div class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-2">15+</div>
-                        <div class="text-sm font-semibold text-white/90 uppercase tracking-wide">Support Staff</div>
+                    <div class="stat-card">
+                        <h3>15+</h3>
+                        <p>Support Staff</p>
                     </div>
-                    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 text-center border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
-                        <div class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-2">20+</div>
-                        <div class="text-sm font-semibold text-white/90 uppercase tracking-wide">Years Experience</div>
+                    <div class="stat-card">
+                        <h3>20+</h3>
+                        <p>Years Experience</p>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce-slow cursor-pointer">
-            <a href="#staff-section" class="flex flex-col items-center hover:text-gold-400 transition-colors">
-                <span class="text-sm font-medium mb-2">Meet our team</span>
-                <i class="fas fa-chevron-down text-2xl"></i>
+            <a href="#staff-section" class="hero-scroll-indicator">
+                Meet our team <i class="fas fa-chevron-down"></i>
             </a>
         </div>
     </section>
 
     <!-- Staff Section -->
-    <section id="staff-section" class="py-20 lg:py-32 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <!-- Section Intro -->
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="font-heading text-4xl lg:text-5xl font-bold text-primary-800 mb-6">
-                    Meet Our Dedicated Staff
-                </h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-primary-600 to-purple-600 rounded-full mx-auto mb-8"></div>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-6">
-                    Our school is powered by a diverse team of professionals committed to academic excellence, student wellbeing,
-                    administrative efficiency, and strong leadership. This section provides a complete, transparent overview of
-                    our staff—including teaching faculty, leadership team, administrative personnel, and support staff.
+    <section class="section staff-section" id="staff-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Meet Our Dedicated Staff</h2>
+                <p class="section-subtitle">
+                    Our school is powered by a diverse team of professionals committed to academic excellence, student wellbeing, administrative efficiency, and strong leadership.
                 </p>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                    All staff information displayed here is dynamically loaded from our central database to ensure accuracy,
-                    easy updating, and consistency across all systems. You can search by name, department, role, or category to
-                    quickly find any staff member.
+                <p class="section-description">
+                    All staff information is dynamically loaded from our central database for accuracy and easy updates. Search by name, department, role, or category.
                 </p>
             </div>
-
-            <!-- Search Section -->
-            <div class="max-w-2xl mx-auto mb-12" data-aos="fade-up" data-aos-delay="100">
-                <div class="relative">
-                    <input 
-                        type="text" 
-                        id="staffSearch" 
-                        placeholder="Search by name, subject, or department..." 
-                        aria-label="Search staff"
-                        class="w-full px-6 py-4 text-lg border-2 border-gray-200 rounded-full focus:border-primary-600 focus:ring-4 focus:ring-primary-100 transition-all duration-300 bg-white shadow-lg"
-                    >
-                    <button 
-                        aria-label="Search"
-                        class="absolute right-4 top-1/2 transform -translate-y-1/2 text-primary-600 hover:text-primary-700 transition-colors duration-300"
-                    >
-                        <i class="fas fa-search text-2xl"></i>
-                    </button>
-                </div>
+            <div class="staff-search">
+                <input type="text" id="staffSearch" placeholder="Search by name, subject, or department..." aria-label="Search staff">
             </div>
-
-            <!-- Filters Section -->
-            <div class="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 lg:p-12 mb-12 shadow-lg border border-gray-100" data-aos="fade-up" data-aos-delay="200">
-                <h3 class="text-2xl lg:text-3xl font-bold text-primary-800 mb-6 text-center">Filter Staff by Category</h3>
-                
-                <!-- Category Filters -->
-                <div class="flex flex-wrap justify-center gap-3 mb-8" id="staffCategories">
-                    <button class="filter-btn active px-6 py-3 rounded-full bg-gradient-to-r from-primary-600 to-purple-600 text-white border-2 border-primary-600 hover:from-primary-700 hover:to-purple-700 font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg" data-filter="all">
-                        <i class="fas fa-users mr-2"></i>All Staff
-                    </button>
-                    <button class="filter-btn px-6 py-3 rounded-full bg-white border-2 border-gray-200 hover:border-primary-600 hover:bg-primary-50 font-semibold transition-all duration-300 shadow-md hover:shadow-lg" data-filter="leadership">
-                        <i class="fas fa-crown mr-2"></i>Leadership
-                    </button>
-                    <button class="filter-btn px-6 py-3 rounded-full bg-white border-2 border-gray-200 hover:border-primary-600 hover:bg-primary-50 font-semibold transition-all duration-300 shadow-md hover:shadow-lg" data-filter="teaching">
-                        <i class="fas fa-chalkboard-teacher mr-2"></i>Teaching Faculty
-                    </button>
-                    <button class="filter-btn px-6 py-3 rounded-full bg-white border-2 border-gray-200 hover:border-primary-600 hover:bg-primary-50 font-semibold transition-all duration-300 shadow-md hover:shadow-lg" data-filter="admin">
-                        <i class="fas fa-briefcase mr-2"></i>Administration
-                    </button>
-                    <button class="filter-btn px-6 py-3 rounded-full bg-white border-2 border-gray-200 hover:border-primary-600 hover:bg-primary-50 font-semibold transition-all duration-300 shadow-md hover:shadow-lg" data-filter="support">
-                        <i class="fas fa-hands-helping mr-2"></i>Support Staff
-                    </button>
+            <div class="staff-categories">
+                <h3>Filter Staff by Category</h3>
+                <div class="category-filters" id="staffCategories">
+                    <button class="filter-btn active" data-filter="all"><i class="fas fa-users"></i> All Staff</button>
+                    <button class="filter-btn" data-filter="leadership"><i class="fas fa-crown"></i> Leadership</button>
+                    <button class="filter-btn" data-filter="teaching"><i class="fas fa-chalkboard-teacher"></i> Teaching Faculty</button>
+                    <button class="filter-btn" data-filter="admin"><i class="fas fa-briefcase"></i> Administration</button>
+                    <button class="filter-btn" data-filter="support"><i class="fas fa-hands-helping"></i> Support Staff</button>
                 </div>
-
-                <!-- Category Descriptions -->
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-primary-200 hover:-translate-y-1">
-                        <h4 class="font-bold text-primary-800 mb-2 flex items-center">
-                            <i class="fas fa-crown mr-2 text-gold-500"></i>Leadership
-                        </h4>
-                        <p class="text-gray-600 leading-relaxed">Includes the principal, deputy principals, heads of departments, and senior management responsible for vision, governance, and strategic direction.</p>
+                <div class="category-descriptions">
+                    <div class="description-card">
+                        <h4>Leadership</h4>
+                        <p>Includes the principal, deputy principals, heads of departments, and senior management responsible for vision and governance.</p>
                     </div>
-                    <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-primary-200 hover:-translate-y-1">
-                        <h4 class="font-bold text-primary-800 mb-2 flex items-center">
-                            <i class="fas fa-chalkboard-teacher mr-2 text-primary-600"></i>Teaching Faculty
-                        </h4>
-                        <p class="text-gray-600 leading-relaxed">All classroom teachers across subjects—responsible for academic delivery, assessments, mentorship, and student performance.</p>
+                    <div class="description-card">
+                        <h4>Teaching Faculty</h4>
+                        <p>All classroom teachers across subjects—responsible for academic delivery, assessments, and mentorship.</p>
                     </div>
-                    <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-primary-200 hover:-translate-y-1">
-                        <h4 class="font-bold text-primary-800 mb-2 flex items-center">
-                            <i class="fas fa-briefcase mr-2 text-primary-600"></i>Administration
-                        </h4>
-                        <p class="text-gray-600 leading-relaxed">Officers who handle admissions, records, accounts, communication, exams management, and daily operations.</p>
+                    <div class="description-card">
+                        <h4>Administration</h4>
+                        <p>Handles admissions, records, accounts, communication, exams, and daily operations.</p>
                     </div>
-                    <div class="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-primary-200 hover:-translate-y-1">
-                        <h4 class="font-bold text-primary-800 mb-2 flex items-center">
-                            <i class="fas fa-hands-helping mr-2 text-primary-600"></i>Support Staff
-                        </h4>
-                        <p class="text-gray-600 leading-relaxed">Includes boarding staff, librarians, technicians, ICT officers, cooks, cleaners, security, and others who ensure smooth daily operations.</p>
+                    <div class="description-card">
+                        <h4>Support Staff</h4>
+                        <p>Includes boarding staff, librarians, technicians, ICT officers, cooks, cleaners, security, and others ensuring smooth operations.</p>
                     </div>
                 </div>
             </div>
-
-            <!-- Department Filters -->
-            <div class="bg-gradient-to-br from-primary-800 via-primary-700 to-purple-700 rounded-3xl p-8 lg:p-12 shadow-2xl text-white mb-12" data-aos="fade-up" data-aos-delay="300">
-                <div class="text-center mb-12">
-                    <h3 class="font-heading text-3xl lg:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-4">Filter by Department</h3>
-                    <div class="w-20 h-1 bg-gradient-to-r from-gold-400 to-gold-200 rounded-full mx-auto mb-6"></div>
-                    <p class="text-lg text-white/90 max-w-4xl mx-auto leading-relaxed">
-                        Departments help organize staff by their primary area of responsibility.
-                        This allows students, parents, and visitors to quickly identify specialists in specific subjects or services.
-                    </p>
-                </div>
-                <div class="department-controls grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3" id="departmentControls">
-                    <!-- Will be populated dynamically from JSON -->
-                    <div class="col-span-full text-center py-8">
-                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gold-400 mx-auto mb-4"></div>
-                        <p class="text-white/80"><em>Loading departments...</em></p>
-                    </div>
+            <div class="department-filters">
+                <h3>Filter by Department</h3>
+                <div class="department-controls" id="departmentControls">
+                    <div class="loader">Loading departments...</div>
                 </div>
             </div>
-
-            <!-- Staff Grid -->
-            <div class="staff-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="staffGrid" role="list" aria-live="polite" aria-busy="true" data-aos="fade-up" data-aos-delay="400">
-                <div role="listitem" class="col-span-full">
-                    <div class="text-center py-16">
-                        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-6"></div>
-                        <p class="text-xl text-gray-600">Loading our dedicated team...</p>
-                    </div>
-                </div>
+            <div class="staff-grid" id="staffGrid">
+                <div class="loader">Loading our dedicated team...</div>
             </div>
-
-            <!-- No Results -->
-            <div id="noResults" class="text-center py-16 hidden">
-                <div class="bg-gradient-to-br from-gray-100 to-gray-200 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6 shadow-lg">
-                    <i class="fas fa-users-slash text-4xl text-gray-400"></i>
-                </div>
-                <h3 class="text-2xl lg:text-3xl font-bold text-primary-800 mb-4">No Staff Members Found</h3>
-                <p class="text-gray-600 text-lg">No staff members match your current search criteria.</p>
+            <div class="no-results" id="noResults">
+                <p>No staff members match your current search criteria.</p>
             </div>
         </div>
     </section>
 
     <!-- Staff Modal -->
-    <div id="staffModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative shadow-2xl border border-white/20 animate-fade-in">
-            <button class="close-modal absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-3xl w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-all duration-300 z-10">
-                ×
-            </button>
-            <div id="modalDetails" class="p-8"></div>
+    <div id="staffModal" class="modal-overlay">
+        <div class="modal-card">
+            <button class="close-modal">×</button>
+            <div id="modalDetails"></div>
         </div>
     </div>
 
@@ -288,9 +133,6 @@
     <!-- Scripts -->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script>w3.includeHTML();</script>
-    
-    <!-- AOS Animation -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
@@ -300,11 +142,7 @@
             easing: 'ease-out-cubic'
         });
     </script>
-    
-    <!-- Mobile Menu -->
     <script src="/js/static/mobile-menu.js"></script>
-    
-    <!-- Staff Script -->
     <script src="/js/static/staff.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Scouts & Guides Movement",
+    "description": "Leadership • Survival Skills • Community Service",
+    "icon": "fas fa-campground",
+    "achievements": "Registered with Kenya Scouts Association • Active Since 1987",
+    "delay": 100
+  },
+  {
+    "name": "Christian Union (CU)",
+    "description": "Spiritual Growth • Fellowship • Evangelism",
+    "icon": "fas fa-praying-hands",
+    "achievements": "Inter-School Bible Study & Keshas • Over 500 Members",
+    "delay": 200
+  },
+  {
+    "name": "Wildlife & Environment Club",
+    "description": "Conservation • Tree Planting • Anti-Poaching Advocacy",
+    "icon": "fas fa-paw",
+    "achievements": "County Award Winner 2024",
+    "delay": 300
+  },
+  {
+    "name": "Journalism & Media Club",
+    "description": "School Magazine • Radio • Photography",
+    "icon": "fas fa-newspaper",
+    "achievements": "Publish 'The Eagle Eye' Quarterly",
+    "delay": 400
+  },
+  {
+    "name": "Robotics & AI Club",
+    "description": "Innovation • Coding • STEM Projects",
+    "icon": "fas fa-robot",
+    "achievements": "Inter-School Robotics Competitions",
+    "delay": 500
+  },
+  {
+    "name": "Drama & Theatre Club",
+    "description": "Performing Arts • Stagecraft • Public Speaking",
+    "icon": "fas fa-theater-masks",
+    "achievements": "Annual Drama Night & Theatre Festivals",
+    "delay": 600
+  },
+  {
+    "name": "Music & Dance Club",
+    "description": "Instrumental & Vocal Training • Dance • Cultural Performances",
+    "icon": "fas fa-music",
+    "achievements": "School Concerts & Cultural Shows",
+    "delay": 700
+  },
+  {
+    "name": "Art & Craft Club",
+    "description": "Painting • Sculpting • Creative Design",
+    "icon": "fas fa-palette",
+    "achievements": "School Exhibitions & Competitions",
+    "delay": 800
+  },
+  {
+    "name": "Debate Club",
+    "description": "Critical Thinking • Public Speaking • Leadership",
+    "icon": "fas fa-microphone",
+    "achievements": "Model United Nations Participation",
+    "delay": 900
+  },
+  {
+    "name": "Science Club",
+    "description": "Experiments • STEM Projects • Scientific Research",
+    "icon": "fas fa-flask",
+    "achievements": "Participates in National Science Fairs",
+    "delay": 1000
+  },
+  {
+    "name": "Mathematics Club",
+    "description": "Problem Solving • Olympiads • Logical Thinking",
+    "icon": "fas fa-square-root-alt",
+    "achievements": "Inter-School Math Competitions",
+    "delay": 1100
+  },
+  {
+    "name": "Humanities Club",
+    "description": "History • Culture • Social Sciences",
+    "icon": "fas fa-landmark",
+    "achievements": "Organizes Heritage & Culture Events",
+    "delay": 1200
+  }
+]

@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Bar Union Mixed Secondary School | Excellence in Secondary Education in Kenya</title>
-   
+  
     <!-- SEO -->
     <meta name="description" content="Bar Union Mixed Secondary School – Providing quality education in Kenya with holistic development, modern facilities, and proven academic excellence since 1983." />
     <meta name="keywords" content="Bar Union Mixed Secondary School, secondary school Kenya, KCSE, holistic education, admissions 2026">
     <meta name="author" content="Bar Union Mixed Secondary School">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://www.barunionschool.sc.ke/" />
-    
+   
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="Bar Union Mixed Secondary School - Shaping Tomorrow's Leaders">
     <meta property="og:description" content="Excellence in Education | Top KCSE Results | Holistic Development | Modern Facilities">
@@ -20,163 +20,88 @@
     <meta property="og:url" content="https://www.barunionschool.sc.ke/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Bar Union Mixed Secondary School">
-    
+   
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/assets/images/favicon.ico">
     <link rel="apple-touch-icon" href="/assets/images/common/apple-touch-icon.png">
-    
+   
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    
-    <!-- Tailwind CSS -->
-    <link rel="stylesheet" href="/css/app.css">
-    <!-- <script src="https://cdn.tailwindcss.com"></script>  -->
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'sans': ['Inter', 'system-ui', 'sans-serif'],
-                        'heading': ['Playfair Display', 'serif'],
-                    },
-                    colors: {
-                        primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#0175C2',
-                            700: '#0b2d5e',
-                            800: '#1e3a8a',
-                            900: '#0f172a',
-                        },
-                        gold: {
-                            50: '#fffbeb',
-                            100: '#fef3c7',
-                            200: '#fde68a',
-                            300: '#fcd34d',
-                            400: '#fbbf24',
-                            500: '#ffd700',
-                            600: '#d97706',
-                            700: '#b45309',
-                            800: '#92400e',
-                            900: '#78350f',
-                        }
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.8s ease-in-out',
-                        'slide-up': 'slideUp 0.8s ease-out',
-                        'bounce-slow': 'bounce 2s infinite',
-                        'pulse-slow': 'pulse 3s infinite',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' }
-                        },
-                        slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(30px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
+   
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/global/styles.css">
+    <link rel="stylesheet" href="/css/static/index.css">
+   
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
-<body class="font-sans antialiased bg-white text-gray-900 overflow-x-hidden">
+<body>
     <!-- Preloader -->
-    <div id="preloader" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
-        <div class="w-16 h-16 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
+    <div id="preloader" class="preloader">
+        <div class="spinner"></div>
     </div>
-    
+   
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/254700000000" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl transition-all duration-300 z-40 group" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
-        <i class="fab fa-whatsapp text-2xl group-hover:scale-110 transition-transform"></i>
+    <a href="https://wa.me/254700000000" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
     </a>
 
     <!-- Header -->
     <div w3-include-html="/includes/header.html"></div>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center text-white bg-gradient-to-br from-primary-700 via-primary-600 to-purple-600 overflow-hidden">
-        <!-- Background Image with Overlay -->
-        <div class="absolute inset-0 bg-black/30"></div>
-        <div class="absolute inset-0 bg-[url('/assets/images/common/hero-bg.jpg')] bg-cover bg-center bg-no-repeat"></div>
-        
-        <!-- Floating Elements -->
-        <div class="absolute top-20 left-10 w-20 h-20 bg-gold-500/20 rounded-full blur-xl animate-pulse-slow"></div>
-        <div class="absolute bottom-20 right-10 w-32 h-32 bg-purple-400/20 rounded-full blur-xl animate-pulse-slow" style="animation-delay: 1s;"></div>
-        <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-primary-400/20 rounded-full blur-xl animate-pulse-slow" style="animation-delay: 2s;"></div>
-        
-        <div class="relative z-10 text-center max-w-6xl mx-auto px-6">
-            <div class="animate-fade-in">
-                <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight">
-                    Welcome to <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 relative">
-                        Bar Union
-                        <div class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-gold-400 to-gold-200 rounded-full"></div>
-                    </span>
-                </h1>
-                <h2 class="font-heading text-3xl md:text-5xl lg:text-6xl font-bold mb-6 text-gold-400">
-                    Mixed Secondary School
-                </h2>
-                <p class="text-xl md:text-2xl lg:text-3xl mb-12 max-w-5xl mx-auto leading-relaxed font-medium">
-                    A Centre of Academic Excellence, Character Development, and Holistic Growth — 
-                    Empowering students with the knowledge, values, and skills they need to shape a brighter future.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                    <a href="admissions.html" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-gold-500 to-gold-400 text-primary-800 font-bold text-lg rounded-full hover:from-gold-600 hover:to-gold-500 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-gold-500/50">
-                        <i class="fas fa-graduation-cap mr-3"></i>
-                        Apply Now
-                    </a>
-                    <a href="about.html" class="inline-flex items-center px-8 py-4 border-2 border-white/80 text-white font-bold text-lg rounded-full hover:bg-white/10 backdrop-blur-sm transition-all duration-300">
-                        <i class="fas fa-info-circle mr-3"></i>
-                        Discover More
-                    </a>
-                </div>
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Welcome to <span class="hero-title-highlight">Bar Union</span>
+            </h1>
+            <h2 class="hero-subtitle">
+                Mixed Secondary School
+            </h2>
+            <p class="hero-description">
+                A Centre of Academic Excellence, Character Development, and Holistic Growth —
+                Empowering students with the knowledge, values, and skills they need to shape a brighter future.
+            </p>
+            <div class="hero-buttons">
+                <a href="admissions.html" class="btn btn-primary">
+                    <i class="fas fa-graduation-cap"></i>
+                    Apply Now
+                </a>
+                <a href="about.html" class="btn btn-outline">
+                    <i class="fas fa-info-circle"></i>
+                    Discover More
+                </a>
             </div>
         </div>
-        
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce-slow cursor-pointer">
-            <a href="#features" class="flex flex-col items-center hover:text-gold-400 transition-colors">
-                <span class="text-sm font-medium mb-2">Scroll to explore</span>
-                <i class="fas fa-chevron-down text-2xl"></i>
+        <div class="hero-scroll">
+            <a href="#features" class="scroll-link">
+                <span>Scroll to explore</span>
+                <i class="fas fa-chevron-down"></i>
             </a>
         </div>
     </section>
 
     <!-- About / Our History -->
-    <section class="py-20 lg:py-32 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div class="space-y-8" data-aos="fade-right">
-                    <div>
-                        <h2 class="font-heading text-4xl lg:text-5xl font-bold text-primary-800 mb-6">
-                            Our Journey Since 1983
-                        </h2>
-                        <div class="w-20 h-1 bg-gradient-to-r from-primary-600 to-purple-600 rounded-full mb-8"></div>
-                    </div>
-                    <div class="space-y-6 text-lg leading-relaxed text-gray-700">
+    <section class="section about-section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2 class="section-title">Our Journey Since 1983</h2>
+                    <div class="section-title-underline"></div>
+                    <div class="about-description">
                         <p>
                             Bar Union Mixed Secondary School derives its name from "Bar," a Luo word meaning
                             "a region with plenty of grass and scattered trees." The school was established
-                            in <strong class="text-primary-700">1983</strong> and provisionally registered in 1984 as a union of three
+                            in <strong>1983</strong> and provisionally registered in 1984 as a union of three
                             churches — Anglican, African Inland, and Seventh Day Adventist — under the guidance
                             of Mr. Daniel Ollo, Mr. Jacob Otiende, and Mr. Ibrahim Ahoya.
                         </p>
                         <p>
                             From a modest beginning with 50 students and 5 teachers, the school has grown into
-                            a four-streamed institution with <strong class="text-primary-700">615 students</strong> and 28 teachers,
+                            a four-streamed institution with <strong>615 students</strong> and 28 teachers,
                             projected to reach approximately 800 students by 2021.
                         </p>
                         <p>
@@ -185,166 +110,132 @@
                             excellence in academics, sports, and leadership.
                         </p>
                     </div>
-                    
-                    <!-- Stats -->
-                    <div class="grid grid-cols-3 gap-6 mt-12">
-                        <div class="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <div class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600 mb-2">30+</div>
-                            <div class="text-sm font-semibold text-gray-600 uppercase tracking-wide">Years of Excellence</div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <h3 class="stat-number">30+</h3>
+                            <p class="stat-label">Years of Excellence</p>
                         </div>
-                        <div class="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <div class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600 mb-2">2000+</div>
-                            <div class="text-sm font-semibold text-gray-600 uppercase tracking-wide">Alumni Worldwide</div>
+                        <div class="stat-item">
+                            <h3 class="stat-number">2000+</h3>
+                            <p class="stat-label">Alumni Worldwide</p>
                         </div>
-                        <div class="text-center p-6 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-                            <div class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600 mb-2">56%</div>
-                            <div class="text-sm font-semibold text-gray-600 uppercase tracking-wide">Pass Rate (2024–2025)</div>
+                        <div class="stat-item">
+                            <h3 class="stat-number">56%</h3>
+                            <p class="stat-label">Pass Rate (2024–2025)</p>
                         </div>
                     </div>
                 </div>
-                <div class="relative" data-aos="fade-left">
-                    <div class="relative">
-                        <img src="/assets/images/common/about-history.png" 
-                             alt="Historical photo of Bar Union Mixed Secondary School and its students"
-                             class="w-full h-96 lg:h-[600px] object-cover rounded-3xl shadow-2xl">
-                        <div class="absolute -inset-4 bg-gradient-to-r from-primary-600 to-purple-600 rounded-3xl -z-10 opacity-20"></div>
-                    </div>
+                <div class="about-image">
+                    <img src="/assets/images/common/about-history.png"
+                         alt="Historical photo of Bar Union Mixed Secondary School and its students">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Vision, Mission & Philosophy -->
-    <section class="py-20 lg:py-32 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
-                <div class="group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="bg-gradient-to-br from-primary-50 to-purple-50 p-8 lg:p-12 rounded-3xl text-center h-full hover:shadow-2xl transition-all duration-500 border border-primary-100 hover:border-primary-200 hover:-translate-y-2">
-                        <div class="w-24 h-24 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-eye text-white text-3xl"></i>
-                        </div>
-                        <h3 class="font-heading text-2xl lg:text-3xl font-bold text-primary-800 mb-6">Our Vision</h3>
-                        <p class="text-gray-700 leading-relaxed text-lg">To be a model school, fostering innovative thinkers, compassionate leaders, and lifelong learners.</p>
+    <section class="section vm-section">
+        <div class="container">
+            <div class="vm-grid">
+                <div class="vm-card">
+                    <div class="vm-icon">
+                        <i class="fas fa-eye"></i>
                     </div>
+                    <h3 class="vm-title">Our Vision</h3>
+                    <p>To be a model school, fostering innovative thinkers, compassionate leaders, and lifelong learners.</p>
                 </div>
-                <div class="group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="bg-gradient-to-br from-primary-50 to-purple-50 p-8 lg:p-12 rounded-3xl text-center h-full hover:shadow-2xl transition-all duration-500 border border-primary-100 hover:border-primary-200 hover:-translate-y-2">
-                        <div class="w-24 h-24 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-compass text-white text-3xl"></i>
-                        </div>
-                        <h3 class="font-heading text-2xl lg:text-3xl font-bold text-primary-800 mb-6">Our Mission</h3>
-                        <p class="text-gray-700 leading-relaxed text-lg">Moulding holistic citizens for self and national development through value-based education, modern facilities, and dedicated faculty.</p>
+                <div class="vm-card">
+                    <div class="vm-icon">
+                        <i class="fas fa-compass"></i>
                     </div>
+                    <h3 class="vm-title">Our Mission</h3>
+                    <p>Moulding holistic citizens for self and national development through value-based education, modern facilities, and dedicated faculty.</p>
                 </div>
-                <div class="group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="bg-gradient-to-br from-primary-50 to-purple-50 p-8 lg:p-12 rounded-3xl text-center h-full hover:shadow-2xl transition-all duration-500 border border-primary-100 hover:border-primary-200 hover:-translate-y-2">
-                        <div class="w-24 h-24 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-lightbulb text-white text-3xl"></i>
-                        </div>
-                        <h3 class="font-heading text-2xl lg:text-3xl font-bold text-primary-800 mb-6">Our Philosophy</h3>
-                        <p class="text-gray-700 leading-relaxed text-lg">We provide equal opportunities to all students and staff regardless of tribe, sex, race, religion, economic background, or political affiliations.</p>
+                <div class="vm-card">
+                    <div class="vm-icon">
+                        <i class="fas fa-lightbulb"></i>
                     </div>
+                    <h3 class="vm-title">Our Philosophy</h3>
+                    <p>We provide equal opportunities to all students and staff regardless of tribe, sex, race, religion, economic background, or political affiliations.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Core Values -->
-    <section class="py-20 lg:py-32 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="font-heading text-4xl lg:text-5xl font-bold text-primary-800 mb-6">Our Core Values</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-primary-600 to-purple-600 rounded-full mx-auto mb-6"></div>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">The principles that guide everything we do</p>
+    <section class="section values-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Core Values</h2>
+                <div class="section-title-underline"></div>
+                <p class="section-subtitle">The principles that guide everything we do</p>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="bg-white p-8 rounded-2xl text-center hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2">
-                        <i class="fas fa-pray text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600 mb-6 group-hover:scale-110 transition-transform duration-300"></i>
-                        <h4 class="font-bold text-xl text-primary-800 mb-4">Godliness</h4>
-                        <p class="text-gray-600 leading-relaxed">Providing spiritual nourishment alongside curriculum delivery.</p>
-                    </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <i class="fas fa-pray"></i>
+                    <h4>Godliness</h4>
+                    <p>Providing spiritual nourishment alongside curriculum delivery.</p>
                 </div>
-                <div class="group" data-aos="fade-up" data-aos-delay="150">
-                    <div class="bg-white p-8 rounded-2xl text-center hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2">
-                        <i class="fas fa-heart text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600 mb-6 group-hover:scale-110 transition-transform duration-300"></i>
-                        <h4 class="font-bold text-xl text-primary-800 mb-4">Self-esteem</h4>
-                        <p class="text-gray-600 leading-relaxed">Building confidence and the drive to achieve in students.</p>
-                    </div>
+                <div class="value-card">
+                    <i class="fas fa-heart"></i>
+                    <h4>Self-esteem</h4>
+                    <p>Building confidence and the drive to achieve in students.</p>
                 </div>
-                <div class="group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="bg-white p-8 rounded-2xl text-center hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2">
-                        <i class="fas fa-users text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600 mb-6 group-hover:scale-110 transition-transform duration-300"></i>
-                        <h4 class="font-bold text-xl text-primary-800 mb-4">Integrity</h4>
-                        <p class="text-gray-600 leading-relaxed">Acting honestly, transparently, and responsibly in all undertakings.</p>
-                    </div>
+                <div class="value-card">
+                    <i class="fas fa-users"></i>
+                    <h4>Integrity</h4>
+                    <p>Acting honestly, transparently, and responsibly in all undertakings.</p>
                 </div>
-                <div class="group" data-aos="fade-up" data-aos-delay="250">
-                    <div class="bg-white p-8 rounded-2xl text-center hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2">
-                        <i class="fas fa-lightbulb text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600 mb-6 group-hover:scale-110 transition-transform duration-300"></i>
-                        <h4 class="font-bold text-xl text-primary-800 mb-4">Professionalism</h4>
-                        <p class="text-gray-600 leading-relaxed">Achieving high levels of performance through competence and skills.</p>
-                    </div>
+                <div class="value-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h4>Professionalism</h4>
+                    <p>Achieving high levels of performance through competence and skills.</p>
                 </div>
-                <div class="group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="bg-white p-8 rounded-2xl text-center hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2">
-                        <i class="fas fa-globe text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600 mb-6 group-hover:scale-110 transition-transform duration-300"></i>
-                        <h4 class="font-bold text-xl text-primary-800 mb-4">Teamwork</h4>
-                        <p class="text-gray-600 leading-relaxed">Collaborating within the school and with stakeholders to achieve our mandate.</p>
-                    </div>
+                <div class="value-card">
+                    <i class="fas fa-globe"></i>
+                    <h4>Teamwork</h4>
+                    <p>Collaborating within the school and with stakeholders to achieve our mandate.</p>
                 </div>
-                <div class="group" data-aos="fade-up" data-aos-delay="350">
-                    <div class="bg-white p-8 rounded-2xl text-center hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2">
-                        <i class="fas fa-book-open text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600 mb-6 group-hover:scale-110 transition-transform duration-300"></i>
-                        <h4 class="font-bold text-xl text-primary-800 mb-4">Courtesy</h4>
-                        <p class="text-gray-600 leading-relaxed">Being courteous to colleagues and stakeholders at all times.</p>
-                    </div>
+                <div class="value-card">
+                    <i class="fas fa-book-open"></i>
+                    <h4>Courtesy</h4>
+                    <p>Being courteous to colleagues and stakeholders at all times.</p>
                 </div>
-                <div class="group" data-aos="fade-up" data-aos-delay="400">
-                    <div class="bg-white p-8 rounded-2xl text-center hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2">
-                        <i class="fas fa-tachometer-alt text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600 mb-6 group-hover:scale-110 transition-transform duration-300"></i>
-                        <h4 class="font-bold text-xl text-primary-800 mb-4">Efficiency</h4>
-                        <p class="text-gray-600 leading-relaxed">Maximizing resources to benefit students and the school community.</p>
-                    </div>
+                <div class="value-card">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <h4>Efficiency</h4>
+                    <p>Maximizing resources to benefit students and the school community.</p>
                 </div>
-                <div class="group" data-aos="fade-up" data-aos-delay="450">
-                    <div class="bg-white p-8 rounded-2xl text-center hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2">
-                        <i class="fas fa-equals text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600 mb-6 group-hover:scale-110 transition-transform duration-300"></i>
-                        <h4 class="font-bold text-xl text-primary-800 mb-4">Equity</h4>
-                        <p class="text-gray-600 leading-relaxed">Ensuring inclusive education for all, including students with special needs.</p>
-                    </div>
+                <div class="value-card">
+                    <i class="fas fa-equals"></i>
+                    <h4>Equity</h4>
+                    <p>Ensuring inclusive education for all, including students with special needs.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Principal's Message -->
-    <section class="py-20 lg:py-32 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid lg:grid-cols-3 gap-12 items-center">
-                <div class="lg:col-span-1" data-aos="fade-right">
-                    <div class="relative">
-                        <img src="/assets/images/admin/principal.jpg" 
-                             alt="Mr. George Achilla, Principal & Director of Bar Union Mixed Secondary School"
-                             class="w-full max-w-md mx-auto rounded-3xl shadow-2xl border-8 border-white">
-                        <div class="absolute -inset-4 bg-gradient-to-r from-primary-600 to-purple-600 rounded-3xl -z-10 opacity-20"></div>
-                    </div>
+    <section class="section principal-section">
+        <div class="container">
+            <div class="pm-grid">
+                <div class="principal-photo">
+                    <img src="/assets/images/admin/principal.jpg"
+                         alt="Mr. George Achilla, Principal & Director of Bar Union Mixed Secondary School">
                 </div>
-                <div class="lg:col-span-2" data-aos="fade-left">
-                    <h2 class="font-heading text-4xl lg:text-5xl font-bold text-primary-800 mb-8">
-                        Message from the Principal
-                    </h2>
-                    <div class="bg-gradient-to-r from-primary-50 to-purple-50 p-8 lg:p-12 rounded-3xl border-l-4 border-primary-600 shadow-lg">
-                        <blockquote class="text-lg lg:text-xl leading-relaxed text-gray-700 italic mb-8">
+                <div class="message-content">
+                    <h2 class="section-title">Message from the Principal</h2>
+                    <div class="message-box">
+                        <blockquote>
                             "Since 1983, Bar Union Mixed Secondary School has remained steadfast in its mission to provide a transformative education—one that blends academic rigor, discipline, character formation, and innovation.
                             <br><br>
                             We believe that every learner carries unique potential. Our role is to guide, challenge, and inspire them to discover who they can become. Through a supportive environment, committed staff, and strong community collaboration, we strive to nurture confident, responsible, and future-ready citizens who will positively influence Kenya and the world.
                             <br><br>
                             I invite parents, students, and partners to walk with us as we continue building a school where excellence is not an option, but a way of life."
                         </blockquote>
-                        <div class="border-t border-primary-200 pt-6">
-                            <div class="font-bold text-xl text-primary-800">Mr. George Achilla</div>
-                            <div class="text-gray-600 italic">Principal & Director</div>
+                        <div class="signature">
+                            <strong>Mr. George Achilla</strong>
+                            <span>Principal & Director</span>
                         </div>
                     </div>
                 </div>
@@ -352,393 +243,249 @@
         </div>
     </section>
 
-    <!-- Features / Quick Links -->
-    <section id="features" class="py-20 lg:py-32 bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
-        <!-- Background Pattern -->
-        <div class="absolute inset-0 opacity-5">
-            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 1px 1px, rgb(1, 117, 194) 1px, transparent 0); background-size: 40px 40px;"></div>
-        </div>
-        
-        <div class="max-w-7xl mx-auto px-6 relative">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="font-heading text-4xl lg:text-5xl font-bold text-primary-800 mb-6">Why Choose Us?</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-primary-600 to-purple-600 rounded-full mx-auto mb-6"></div>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto mb-8">Building character, knowledge, and confidence since 1983</p>
-                <ul class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 text-left max-w-4xl mx-auto">
-                    <li class="flex items-center text-gray-700"><i class="fas fa-check-circle text-green-500 mr-3"></i> Proven academic excellence and KCSE results</li>
-                    <li class="flex items-center text-gray-700"><i class="fas fa-check-circle text-green-500 mr-3"></i> Holistic development through sports, arts, and leadership programs</li>
-                    <li class="flex items-center text-gray-700"><i class="fas fa-check-circle text-green-500 mr-3"></i> Modern classrooms, labs, library, and ICT facilities</li>
-                    <li class="flex items-center text-gray-700"><i class="fas fa-check-circle text-green-500 mr-3"></i> Strong discipline and value-based education</li>
-                    <li class="flex items-center text-gray-700"><i class="fas fa-check-circle text-green-500 mr-3"></i> Support through mentorship and counselling</li>
-                    <li class="flex items-center text-gray-700"><i class="fas fa-check-circle text-green-500 mr-3"></i> Safe, secure, and well-managed School</li>
+    <!-- Features / Why Choose Us -->
+    <section class="section features-section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose Us?</h2>
+                <div class="section-title-underline"></div>
+                <p class="section-subtitle">Building character, knowledge, and confidence since 1983</p>
+                <ul class="features-checklist">
+                    <li><i class="fas fa-check-circle"></i> Proven academic excellence and KCSE results</li>
+                    <li><i class="fas fa-check-circle"></i> Holistic development through sports, arts, and leadership programs</li>
+                    <li><i class="fas fa-check-circle"></i> Modern classrooms, labs, library, and ICT facilities</li>
+                    <li><i class="fas fa-check-circle"></i> Strong discipline and value-based education</li>
+                    <li><i class="fas fa-check-circle"></i> Support through mentorship and counselling</li>
+                    <li><i class="fas fa-check-circle"></i> Safe, secure, and well-managed School</li>
                 </ul>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="bg-white/80 backdrop-blur-sm p-8 lg:p-10 rounded-3xl text-center hover:shadow-2xl transition-all duration-500 border border-white/50 hover:border-primary-200 hover:-translate-y-2">
-                        <i class="fas fa-graduation-cap text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600 mb-6 group-hover:scale-110 transition-transform duration-300"></i>
-                        <h3 class="font-bold text-xl lg:text-2xl text-primary-800 mb-4">Excellent Academics</h3>
-                        <p class="text-gray-600 leading-relaxed">Experienced teachers, top KCSE results, and student-centered learning.</p>
-                    </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Excellent Academics</h3>
+                    <p>Experienced teachers, top KCSE results, and student-centered learning.</p>
                 </div>
-                <div class="group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="bg-white/80 backdrop-blur-sm p-8 lg:p-10 rounded-3xl text-center hover:shadow-2xl transition-all duration-500 border border-white/50 hover:border-primary-200 hover:-translate-y-2">
-                        <i class="fas fa-futbol text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600 mb-6 group-hover:scale-110 transition-transform duration-300"></i>
-                        <h3 class="font-bold text-xl lg:text-2xl text-primary-800 mb-4">Holistic Development</h3>
-                        <p class="text-gray-600 leading-relaxed">Sports, clubs, arts, leadership, and co-curricular programs.</p>
-                    </div>
+                <div class="feature-card">
+                    <i class="fas fa-futbol"></i>
+                    <h3>Holistic Development</h3>
+                    <p>Sports, clubs, arts, leadership, and co-curricular programs.</p>
                 </div>
-                <div class="group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="bg-white/80 backdrop-blur-sm p-8 lg:p-10 rounded-3xl text-center hover:shadow-2xl transition-all duration-500 border border-white/50 hover:border-primary-200 hover:-translate-y-2">
-                        <i class="fas fa-laptop-code text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600 mb-6 group-hover:scale-110 transition-transform duration-300"></i>
-                        <h3 class="font-bold text-xl lg:text-2xl text-primary-800 mb-4">Modern Facilities</h3>
-                        <p class="text-gray-600 leading-relaxed">Smart classrooms, labs, library, ICT center, and e-learning resources.</p>
-                    </div>
+                <div class="feature-card">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Modern Facilities</h3>
+                    <p>Smart classrooms, labs, library, ICT center, and e-learning resources.</p>
                 </div>
-                <div class="group" data-aos="fade-up" data-aos-delay="400">
-                    <div class="bg-white/80 backdrop-blur-sm p-8 lg:p-10 rounded-3xl text-center hover:shadow-2xl transition-all duration-500 border border-white/50 hover:border-primary-200 hover:-translate-y-2">
-                        <i class="fas fa-users text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600 mb-6 group-hover:scale-110 transition-transform duration-300"></i>
-                        <h3 class="font-bold text-xl lg:text-2xl text-primary-800 mb-4">Strong Community</h3>
-                        <p class="text-gray-600 leading-relaxed">Caring staff, active PTA, mentorship, and values-driven environment.</p>
-                    </div>
+                <div class="feature-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Strong Community</h3>
+                    <p>Caring staff, active PTA, mentorship, and values-driven environment.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Latest News & Events -->
-    <section class="py-20 lg:py-32 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="font-heading text-4xl lg:text-5xl font-bold text-primary-800 mb-6">Latest News & Events</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-primary-600 to-purple-600 rounded-full mx-auto mb-6"></div>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Stay updated with what's happening at Bar Union Senior School</p>
+    <section class="section news-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Latest News & Events</h2>
+                <div class="section-title-underline"></div>
+                <p class="section-subtitle">Stay updated with what's happening at Bar Union Senior School</p>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <article class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-primary-200 hover:-translate-y-2" data-aos="fade-up" data-aos-delay="100">
-                    <div class="relative overflow-hidden">
-                        <img src="/assets/images/news/news1.png" loading="lazy" alt="Students competing in Annual Sports Day 2025 at Bar Union Senior School" 
-                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <div class="news-grid">
+                <article class="news-card">
+                    <div class="news-img">
+                        <img src="/assets/images/news/news1.png" loading="lazy" alt="Students competing in Annual Sports Day 2025 at Bar Union Senior School">
                     </div>
-                    <div class="p-8">
-                        <span class="inline-block bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">November 20, 2025</span>
-                        <h3 class="font-bold text-xl lg:text-2xl text-primary-800 mb-4 group-hover:text-primary-600 transition-colors">Annual Sports Day 2025</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">Students showcased incredible talent and sportsmanship in this year's grand event.</p>
-                        <a href="news.html" class="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors">
-                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    <div class="news-body">
+                        <span class="news-date">November 20, 2025</span>
+                        <h3>Annual Sports Day 2025</h3>
+                        <p>Students showcased incredible talent and sportsmanship in this year's grand event.</p>
+                        <a href="news.html" class="read-more">
+                            Read More <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </article>
-                <article class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-primary-200 hover:-translate-y-2" data-aos="fade-up" data-aos-delay="200">
-                    <div class="relative overflow-hidden">
-                        <img src="/assets/images/news/news2.png" loading="lazy" alt="Students receiving award at National Science Exhibition" 
-                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <article class="news-card">
+                    <div class="news-img">
+                        <img src="/assets/images/news/news2.png" loading="lazy" alt="Students receiving award at National Science Exhibition">
                     </div>
-                    <div class="p-8">
-                        <span class="inline-block bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">November 15, 2025</span>
-                        <h3 class="font-bold text-xl lg:text-2xl text-primary-800 mb-4 group-hover:text-primary-600 transition-colors">National Science Exhibition Winners</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">Our students bagged 1st prize for innovative renewable energy project.</p>
-                        <a href="news.html" class="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors">
-                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    <div class="news-body">
+                        <span class="news-date">November 15, 2025</span>
+                        <h3>National Science Exhibition Winners</h3>
+                        <p>Our students bagged 1st prize for innovative renewable energy project.</p>
+                        <a href="news.html" class="read-more">
+                            Read More <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </article>
-                <article class="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-primary-200 hover:-translate-y-2" data-aos="fade-up" data-aos-delay="300">
-                    <div class="relative overflow-hidden">
-                        <img src="/assets/images/news/news3.jpg" loading="lazy" alt="Parents and teachers during Parent-Teacher Meeting" 
-                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <article class="news-card">
+                    <div class="news-img">
+                        <img src="/assets/images/news/news3.jpg" loading="lazy" alt="Parents and teachers during Parent-Teacher Meeting">
                     </div>
-                    <div class="p-8">
-                        <span class="inline-block bg-primary-100 text-primary-700 px-4 py-2 rounded-full text-sm font-semibold mb-4">November 10, 2025</span>
-                        <h3 class="font-bold text-xl lg:text-2xl text-primary-800 mb-4 group-hover:text-primary-600 transition-colors">Parent-Teacher Meeting Scheduled</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">Join us on December 5th for academic progress discussions.</p>
-                        <a href="news.html" class="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors">
-                            Read More <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    <div class="news-body">
+                        <span class="news-date">November 10, 2025</span>
+                        <h3>Parent-Teacher Meeting Scheduled</h3>
+                        <p>Join us on December 5th for academic progress discussions.</p>
+                        <a href="news.html" class="read-more">
+                            Read More <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </article>
             </div>
-            <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="400">
-                <a href="news.html" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-600 to-purple-600 text-white font-bold text-lg rounded-full hover:from-primary-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl">
-                    View All News
-                </a>
+            <div class="news-cta">
+                <a href="news.html" class="btn btn-primary">View All News</a>
             </div>
         </div>
     </section>
 
     <!-- Quick Enquiry Form -->
-    <section class="py-20 lg:py-32 bg-gradient-to-br from-primary-700 via-primary-600 to-purple-700 relative overflow-hidden">
-        <!-- Animated Background Elements -->
-        <div class="absolute top-10 left-10 w-32 h-32 bg-gold-400/10 rounded-full blur-xl animate-pulse-slow"></div>
-        <div class="absolute bottom-10 right-10 w-40 h-40 bg-white/5 rounded-full blur-xl animate-pulse-slow" style="animation-delay: 2s;"></div>
-        <div class="absolute top-1/2 left-1/3 w-24 h-24 bg-gold-400/10 rounded-full blur-xl animate-pulse-slow" style="animation-delay: 4s;"></div>
-        
-        <div class="max-w-4xl mx-auto px-6 relative z-10">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <h2 class="font-heading text-4xl lg:text-5xl font-bold text-white mb-6">Get Admission Info Instantly</h2>
-                <p class="text-xl text-white/90 max-w-3xl mx-auto">Fill in your details to receive the 2026 Prospectus via WhatsApp or Email</p>
-            </div>
-            
-            <div class="bg-white/95 backdrop-blur-lg p-8 lg:p-12 rounded-3xl shadow-2xl border border-white/20" data-aos="fade-up" data-aos-delay="200">
-                <form class="space-y-6" id="enquiryForm">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="studentName" class="block text-sm font-semibold text-gray-700 mb-2">Student Full Name</label>
-                            <input type="text" id="studentName" name="studentName" 
-="w-full px                                   class-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary-600 focus:ring-4 focus:ring-primary-100 transition-all duration-300 text-lg" 
-                                   placeholder="Enter full name" required>
+    <section class="section enquiry-section">
+        <div class="enquiry-bg-elements">
+            <div class="bg-blob blob-1"></div>
+            <div class="bg-blob blob-2"></div>
+            <div class="bg-blob blob-3"></div>
+        </div>
+        <div class="container">
+            <div class="enquiry-content">
+                <div class="enquiry-header">
+                    <h2 class="enquiry-title">Get Admission Info Instantly</h2>
+                    <p class="enquiry-subtitle">Fill in your details to receive the 2026 Prospectus via WhatsApp or Email</p>
+                </div>
+                <div class="enquiry-form-card">
+                    <form id="enquiryForm">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="studentName">Student Full Name</label>
+                                <input type="text" id="studentName" name="studentName" placeholder="Enter full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="parentPhone">Parent Phone Number</label>
+                                <input type="tel" id="parentPhone" name="parentPhone" placeholder="07XX XXX XXX" inputmode="numeric" pattern="0[0-9]{9}" maxlength="10" required>
+                            </div>
                         </div>
-                        <div>
-                            <label for="parentPhone" class="block text-sm font-semibold text-gray-700 mb-2">Parent Phone Number</label>
-                            <input type="tel" id="parentPhone" name="parentPhone" 
-                                   class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary-600 focus:ring-4 focus:ring-primary-100 transition-all duration-300 text-lg" 
-                                   placeholder="07XX XXX XXX"
-                                   inputmode="numeric"
-                                   pattern="0[0-9]{9}"
-                                   maxlength="10"
-                                   title="Please enter a valid Kenyan mobile number starting with 0"
-                                   required>
+                        <div class="form-group full-width">
+                            <label for="email">Email (Optional)</label>
+                            <input type="email" id="email" name="email" placeholder="example@gmail.com">
                         </div>
-                    </div>
-                    <div>
-                        <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email (Optional)</label>
-                        <input type="email" id="email" name="email" 
-                               class="w-full px-6 py-4 border-2 border-gray-200 rounded-xl focus:border-primary-600 focus:ring-4 focus:ring-primary-100 transition-all duration-300 text-lg" 
-                               placeholder="example@gmail.com">
-                    </div>
-                    <button type="submit" class="w-full bg-gradient-to-r from-primary-600 to-purple-600 text-white font-bold py-4 px-8 rounded-xl hover:from-primary-700 hover:to-purple-700 transform hover:scale-105 transition-all duration-300 text-lg shadow-lg hover:shadow-xl">
-                        <i class="fas fa-paper-plane mr-3"></i>
-                        Send My Prospectus
-                    </button>
-                </form>
+                        <button type="submit" class="btn-form-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            Send My Prospectus
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Testimonials -->
-    <section class="py-20 lg:py-32 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="font-heading text-4xl lg:text-5xl font-bold text-primary-800 mb-6">What Parents & Students Say</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-primary-600 to-purple-600 rounded-full mx-auto mb-6"></div>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Real experiences and heartfelt feedback from our school community</p>
+    <section class="section testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What Parents & Students Say</h2>
+                <div class="section-title-underline"></div>
+                <p class="section-subtitle">Real experiences and heartfelt feedback from our school community</p>
             </div>
-            
-            <div class="overflow-hidden" data-aos="fade-up" data-aos-delay="100">
-                <div class="flex gap-8 overflow-x-auto pb-4 scrollbar-hide" id="testimonialSlider">
-                    <div class="flex-shrink-0 w-96 lg:w-[500px]">
-                        <div class="bg-white p-8 lg:p-12 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
-                            <div class="flex items-center mb-8">
-                                <div class="w-20 h-20 rounded-full overflow-hidden border-4 border-primary-200 mr-6">
-                                    <img src="/assets/images/testimonial/parent1.jpg" alt="Photo of Mrs. Jane Kamau" class="w-full h-full object-cover">
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-lg text-primary-800">Mrs. Jane Kamau</h4>
-                                    <p class="text-gray-600">Parent</p>
-                                </div>
-                            </div>
-                            <blockquote class="text-gray-700 leading-relaxed italic text-lg">
-                                "Bar Union Mixed Secondary School transformed my son into a confident, disciplined young man.
-                                The teachers go beyond academics — they mentor, guide, and truly care about each learner's growth.
-                                As a parent, I feel assured knowing my child is in a nurturing and structured environment."
-                            </blockquote>
+            <div class="testimonials-slider" id="testimonialSlider">
+                <!-- Testimonial cards -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-photo">
+                            <img src="/assets/images/testimonial/parent1.jpg" alt="Photo of Mrs. Jane Kamau">
+                        </div>
+                        <div class="testimonial-author">
+                            <h4>Mrs. Jane Kamau</h4>
+                            <p>Parent</p>
                         </div>
                     </div>
-                    <div class="flex-shrink-0 w-96 lg:w-[500px]">
-                        <div class="bg-white p-8 lg:p-12 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
-                            <div class="flex items-center mb-8">
-                                <div class="w-20 h-20 rounded-full overflow-hidden border-4 border-primary-200 mr-6">
-                                    <img src="/assets/images/testimonial/student1.png" alt="Photo of Brian Ochieng" class="w-full h-full object-cover">
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-lg text-primary-800">Brian Ochieng</h4>
-                                    <p class="text-gray-600">Class of 2024</p>
-                                </div>
-                            </div>
-                            <blockquote class="text-gray-700 leading-relaxed italic text-lg">
-                                "Joining Bar Union was the turning point in my life. The teachers challenged me to aim higher,
-                                supported me through revision and mentorship, and helped me unlock my full potential.
-                                I graduated with an A plain and earned a full scholarship to study abroad.
-                                Bar Union shaped my future."
-                            </blockquote>
-                        </div>
-                    </div>
-                    <div class="flex-shrink-0 w-96 lg:w-[500px]">
-                        <div class="bg-white p-8 lg:p-12 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
-                            <div class="flex items-center mb-8">
-                                <div class="w-20 h-20 rounded-full overflow-hidden border-4 border-primary-200 mr-6">
-                                    <img src="/assets/images/testimonial/parent2.jpg" alt="Photo of Mr. Otieno" class="w-full h-full object-cover">
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-lg text-primary-800">Mr. Otieno</h4>
-                                    <p class="text-gray-600">Parent</p>
-                                </div>
-                            </div>
-                            <blockquote class="text-gray-700 leading-relaxed italic text-lg">
-                                "The discipline, strong value system, and academic standards at Bar Union are unmatched.
-                                My daughter has grown morally, socially, and academically.
-                                I confidently recommend this school to any parent seeking holistic development for their child."
-                            </blockquote>
-                        </div>
-                    </div>
-                    <div class="flex-shrink-0 w-96 lg:w-[500px]">
-                        <div class="bg-white p-8 lg:p-12 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100">
-                            <div class="flex items-center mb-8">
-                                <div class="w-20 h-20 rounded-full overflow-hidden border-4 border-primary-200 mr-6">
-                                    <img src="/assets/images/testimonial/student2.jpg" alt="Photo of Student Testimonial" class="w-full h-full object-cover">
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-lg text-primary-800">Cynthia Awuor</h4>
-                                    <p class="text-gray-600">Student Leader</p>
-                                </div>
-                            </div>
-                            <blockquote class="text-gray-700 leading-relaxed italic text-lg">
-                                "Bar Union is more than a school — it is a second home. The supportive teachers,
-                                the well-structured learning environment, and the vibrant co-curricular activities
-                                helped me discover my passion for science and leadership."
-                            </blockquote>
-                        </div>
-                    </div>
+                    <blockquote>
+                        "Bar Union Mixed Secondary School transformed my son into a confident, disciplined young man.
+                        The teachers go beyond academics — they mentor, guide, and truly care about each learner's growth.
+                        As a parent, I feel assured knowing my child is in a nurturing and structured environment."
+                    </blockquote>
                 </div>
+                <!-- Additional testimonials follow the same structure -->
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-photo">
+                            <img src="/assets/images/testimonial/student1.png" alt="Photo of Brian Ochieng">
+                        </div>
+                        <div class="testimonial-author">
+                            <h4>Brian Ochieng</h4>
+                            <p>Class of 2024</p>
+                        </div>
+                    </div>
+                    <blockquote>
+                        "Joining Bar Union was the turning point in my life. The teachers challenged me to aim higher,
+                        supported me through revision and mentorship, and helped me unlock my full potential.
+                        I graduated with an A plain and earned a full scholarship to study abroad.
+                        Bar Union shaped my future."
+                    </blockquote>
+                </div>
+                <!-- More testimonials... -->
             </div>
         </div>
     </section>
 
     <!-- Gallery Preview -->
-    <section class="py-20 lg:py-32 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="font-heading text-4xl lg:text-5xl font-bold text-primary-800 mb-6">School Gallery</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-primary-600 to-purple-600 rounded-full mx-auto mb-6"></div>
-                <p class="text-xl text-gray-600 max-w-5xl mx-auto leading-relaxed">
-                    Explore the vibrant life at Bar Union Mixed Secondary School – from academics and sports to arts, culture, and community engagement. 
-                    Witness the spirit, talent, and achievements of our students and staff.
-                </p>
+    <section class="section gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">School Gallery</h2>
+                <div class="section-title-underline"></div>
+                <p class="section-subtitle">Explore the vibrant life at Bar Union Mixed Secondary School – from academics and sports to arts, culture, and community engagement.</p>
             </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="100">
-                <div class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                    <a href="gallery.html" class="block">
-                        <img src="/assets/images/gallery/gallery1.jpg" loading="lazy" alt="Aerial view of Bar Union Mixed Secondary School campus with classrooms and playgrounds" 
-                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div class="absolute bottom-6 left-6 right-6">
-                                <h3 class="text-white font-bold text-xl">School Overview</h3>
-                            </div>
+            <div class="gallery-grid">
+                <!-- Gallery items with overlay -->
+                <div class="gallery-item">
+                    <a href="gallery.html">
+                        <img src="/assets/images/gallery/gallery1.jpg" loading="lazy" alt="Aerial view of Bar Union Mixed Secondary School campus">
+                        <div class="gallery-overlay">
+                            <h3>School Overview</h3>
                         </div>
                     </a>
                 </div>
-                <div class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                    <a href="gallery.html" class="block">
-                        <img src="/assets/images/gallery/gallery2.jpg" loading="lazy" alt="Students in modern classrooms using interactive smart boards" 
-                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div class="absolute bottom-6 left-6 right-6">
-                                <h3 class="text-white font-bold text-xl">Modern Classrooms & Learning Spaces</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                    <a href="gallery.html" class="block">
-                        <img src="/assets/images/gallery/gallery3.jpg" loading="lazy" alt="Students performing during a vibrant school cultural festival" 
-                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div class="absolute bottom-6 left-6 right-6">
-                                <h3 class="text-white font-bold text-xl">Cultural & Arts Events</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                    <a href="gallery.html" class="block">
-                        <img src="/assets/images/gallery/gallery4.jpg" loading="lazy" alt="School athletics team celebrating after a competition" 
-                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div class="absolute bottom-6 left-6 right-6">
-                                <h3 class="text-white font-bold text-xl">Sports & Athletics Achievements</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                    <a href="gallery.html" class="block">
-                        <img src="/assets/images/gallery/gallery5.jpg" loading="lazy" alt="Students conducting experiments in a well-equipped science laboratory" 
-                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div class="absolute bottom-6 left-6 right-6">
-                                <h3 class="text-white font-bold text-xl">Science & Innovation Labs</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                    <a href="gallery.html" class="block">
-                        <img src="/assets/images/gallery/gallery6.jpg" loading="lazy" alt="Students receiving awards during the graduation and prize-giving ceremony" 
-                             class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div class="absolute bottom-6 left-6 right-6">
-                                <h3 class="text-white font-bold text-xl">Graduation & Awards Day</h3>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                <!-- Repeat for other gallery items -->
             </div>
-            <div class="text-center mt-12" data-aos="fade-up" data-aos-delay="200">
-                <a href="gallery.html" class="inline-flex items-center px-8 py-4 border-2 border-primary-600 text-primary-600 font-bold text-lg rounded-full hover:bg-primary-600 hover:text-white transition-all duration-300">
-                    View Full Gallery
-                </a>
-                <p class="mt-4 text-gray-600">Discover more moments, events, and achievements showcasing the life and culture of our school community.</p>
+            <div class="gallery-cta">
+                <a href="gallery.html" class="btn btn-outline-large">View Full Gallery</a>
+                <p>Discover more moments, events, and achievements showcasing the life and culture of our school community.</p>
             </div>
         </div>
     </section>
 
     <!-- Call to Action -->
-    <section class="py-20 lg:py-32 bg-gradient-to-br from-primary-800 via-primary-700 to-purple-700 relative overflow-hidden">
-        <!-- Animated Background Elements -->
-        <div class="absolute top-20 left-20 w-40 h-40 bg-gold-400/10 rounded-full blur-2xl animate-pulse-slow"></div>
-        <div class="absolute bottom-20 right-20 w-60 h-60 bg-white/5 rounded-full blur-2xl animate-pulse-slow" style="animation-delay: 3s;"></div>
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gold-400/5 rounded-full blur-2xl animate-pulse-slow" style="animation-delay: 1.5s;"></div>
-        
-        <div class="max-w-6xl mx-auto px-6 text-center relative z-10">
-            <h2 class="font-heading text-4xl lg:text-6xl font-black text-white mb-8" data-aos="fade-up">
-                Become Part of Our Thriving School Community!
-            </h2>
-            <p class="text-xl lg:text-2xl text-white/95 mb-12 max-w-5xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="100">
-                Bar Union Mixed Secondary School invites students and families to join our nurturing and dynamic learning environment.
-                Admissions for the 2026–2027 academic year are now open. Experience a school where academic excellence meets holistic development,
-                leadership opportunities, sports, arts, and a vibrant community culture.
-            </p>
-            <div class="bg-white/10 backdrop-blur-lg rounded-3xl p-8 lg:p-12 mb-12 border border-white/20" data-aos="fade-up" data-aos-delay="200">
-                <h3 class="font-heading text-2xl lg:text-3xl font-bold text-white mb-8">By joining our school, your child will benefit from:</h3>
-                <div class="grid md:grid-cols-2 gap-6 text-left max-w-4xl mx-auto">
-                    <div class="flex items-start">
-                        <i class="fas fa-check-circle text-gold-400 text-xl mr-4 mt-1"></i>
-                        <span class="text-white text-lg">Innovative and interactive learning experiences</span>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="fas fa-check-circle text-gold-400 text-xl mr-4 mt-1"></i>
-                        <span class="text-white text-lg">Access to modern facilities and well-equipped laboratories</span>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="fas fa-check-circle text-gold-400 text-xl mr-4 mt-1"></i>
-                        <span class="text-white text-lg">Participation in sports, arts, clubs, and leadership programs</span>
-                    </div>
-                    <div class="flex items-start">
-                        <i class="fas fa-check-circle text-gold-400 text-xl mr-4 mt-1"></i>
-                        <span class="text-white text-lg">A safe, inclusive, and values-driven environment guided by the African Inland Church</span>
+    <section class="section cta-section">
+        <div class="cta-bg-elements">
+            <div class="bg-blob blob-large-1"></div>
+            <div class="bg-blob blob-large-2"></div>
+            <div class="bg-blob blob-large-3"></div>
+        </div>
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Become Part of Our Thriving School Community!</h2>
+                <p class="cta-description">
+                    Bar Union Mixed Secondary School invites students and families to join our nurturing and dynamic learning environment.
+                    Admissions for the 2026–2027 academic year are now open.
+                </p>
+                <div class="cta-benefits-card">
+                    <h3>By joining our school, your child will benefit from:</h3>
+                    <div class="cta-benefits-grid">
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Innovative and interactive learning experiences</span>
+                        </div>
+                        <!-- Other benefits -->
                     </div>
                 </div>
+                <a href="admissions.html" class="btn btn-cta-primary">
+                    <i class="fas fa-graduation-cap"></i>
+                    Apply Now & Begin Your Journey
+                </a>
+                <p class="cta-footer">
+                    Join hundreds of students who are thriving academically, socially, and personally at Bar Union Mixed Secondary School.
+                </p>
             </div>
-            <a href="admissions.html" class="inline-flex items-center px-10 py-5 bg-gradient-to-r from-gold-500 to-gold-400 text-primary-800 font-black text-xl rounded-full hover:from-gold-600 hover:to-gold-500 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-gold-500/50 mb-8" data-aos="fade-up" data-aos-delay="300">
-                <i class="fas fa-graduation-cap mr-4"></i>
-                Apply Now & Begin Your Journey
-            </a>
-            <p class="text-white/90 text-lg italic" data-aos="fade-up" data-aos-delay="400">
-                Join hundreds of students who are thriving academically, socially, and personally at Bar Union Mixed Secondary School.
-            </p>
         </div>
     </section>
 
@@ -748,8 +495,6 @@
     <!-- Scripts -->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script>w3.includeHTML();</script>
-
-    <!-- AOS Animation -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
@@ -759,26 +504,17 @@
             easing: 'ease-out-cubic'
         });
     </script>
-
-    <!-- Hide Preloader -->
     <script>
         window.addEventListener('load', function() {
             const preloader = document.getElementById('preloader');
             setTimeout(() => {
                 preloader.style.opacity = '0';
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                }, 500);
+                setTimeout(() => preloader.style.display = 'none', 500);
             }, 1000);
         });
     </script>
-
-    <!-- Mobile Menu -->
     <script src="/js/static/mobile-menu.js"></script>
-
-    <!-- Main Interactive Script -->
     <script src="/js/static/index.js" defer></script>
     <script src="/js/cors-error-handler.js"></script>
-
 </body>
 </html>

@@ -5,128 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Administration & Leadership | Bar Union Mixed Secondary School</title>
     <meta name="description" content="Meet our Principal, Deputy Principals, Board of Management, and dedicated administrative team." />
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'sans': ['Inter', 'system-ui', 'sans-serif'],
-                        'heading': ['Playfair Display', 'serif'],
-                    },
-                    colors: {
-                        primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#0175C2',
-                            700: '#0b2d5e',
-                            800: '#1e3a8a',
-                            900: '#0f172a',
-                        },
-                        gold: {
-                            50: '#fffbeb',
-                            100: '#fef3c7',
-                            200: '#fde68a',
-                            300: '#fcd34d',
-                            400: '#fbbf24',
-                            500: '#ffd700',
-                            600: '#d97706',
-                            700: '#b45309',
-                            800: '#92400e',
-                            900: '#78350f',
-                        }
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.8s ease-in-out',
-                        'slide-up': 'slideUp 0.8s ease-out',
-                        'bounce-slow': 'bounce 2s infinite',
-                        'pulse-slow': 'pulse 3s infinite',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' }
-                        },
-                        slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(30px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-    
-    <!-- Tailwind CSS -->
-    <link rel="stylesheet" href="/css/app.css">
-    <!-- <script src="https://cdn.tailwindcss.com"></script>  -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'sans': ['Inter', 'system-ui', 'sans-serif'],
-                        'heading': ['Playfair Display', 'serif'],
-                    },
-                    colors: {
-                        primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#0175C2',
-                            700: '#0b2d5e',
-                            800: '#1e3a8a',
-                            900: '#0f172a',
-                        },
-                        gold: {
-                            50: '#fffbeb',
-                            100: '#fef3c7',
-                            200: '#fde68a',
-                            300: '#fcd34d',
-                            400: '#fbbf24',
-                            500: '#ffd700',
-                            600: '#d97706',
-                            700: '#b45309',
-                            800: '#92400e',
-                            900: '#78350f',
-                        }
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.8s ease-in-out',
-                        'slide-up': 'slideUp 0.8s ease-out',
-                        'bounce-slow': 'bounce 2s infinite',
-                        'pulse-slow': 'pulse 3s infinite',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' }
-                        },
-                        slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(30px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
+   
+    <!-- Custom CSS for Administration Page -->
+    <link rel="stylesheet" href="/css/global/styles.css">
+    <link rel="stylesheet" href="/css/static/administration.css">
+   
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
@@ -135,34 +23,22 @@
     <div w3-include-html="/includes/header.html"></div>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center text-white bg-gradient-to-br from-primary-700 via-primary-600 to-purple-600 overflow-hidden">
-        <!-- Background Image with Overlay -->
-        <div class="absolute inset-0 bg-black/30"></div>
-        <div class="absolute inset-0 bg-[url('/assets/images/common/admin-hero.png')] bg-cover bg-center bg-no-repeat"></div>
-        
-        <!-- Floating Elements -->
-        <div class="absolute top-20 left-10 w-20 h-20 bg-gold-500/20 rounded-full blur-xl animate-pulse-slow"></div>
-        <div class="absolute bottom-20 right-10 w-32 h-32 bg-purple-400/20 rounded-full blur-xl animate-pulse-slow" style="animation-delay: 1s;"></div>
-        <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-primary-400/20 rounded-full blur-xl animate-pulse-slow" style="animation-delay: 2s;"></div>
-        
-        <div class="relative z-10 text-center max-w-6xl mx-auto px-6">
-            <div class="animate-fade-in">
-                <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight">
-                    School <span class="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 relative">
-                        Administration
-                        <div class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-gold-400 to-gold-200 rounded-full"></div>
-                    </span>
+    <section class="page-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    School <span class="hero-title-highlight">Administration</span>
                 </h1>
-                <p class="text-xl md:text-2xl lg:text-3xl mb-12 max-w-5xl mx-auto leading-relaxed font-medium">
-                    Visionary Leadership, Effective Governance, and Student-First Management — 
+                <p class="hero-subtitle">
+                    Visionary Leadership, Effective Governance, and Student-First Management —
                     Building Excellence Through Strategic Planning and Collaborative Teamwork.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                    <a href="#leadership" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-gold-500 to-gold-400 text-primary-800 font-bold text-lg rounded-full hover:from-gold-600 hover:to-gold-500 transform hover:scale-105 transition-all duration-300 shadow-2xl hover:shadow-gold-500/50">
+                <div class="hero-actions">
+                    <a href="#leadership" class="btn-primary">
                         <i class="fas fa-users mr-3"></i>
                         Meet Our Team
                     </a>
-                    <a href="#bom" class="inline-flex items-center px-8 py-4 border-2 border-white/80 text-white font-bold text-lg rounded-full hover:bg-white/10 backdrop-blur-sm transition-all duration-300">
+                    <a href="#bom" class="btn-secondary">
                         <i class="fas fa-building mr-3"></i>
                         Board of Management
                     </a>
@@ -171,25 +47,25 @@
         </div>
         
         <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce-slow cursor-pointer">
-            <a href="#bom" class="flex flex-col items-center hover:text-gold-400 transition-colors">
-                <span class="text-sm font-medium mb-2">Scroll to explore</span>
-                <i class="fas fa-chevron-down text-2xl"></i>
+        <div class="scroll-indicator">
+            <a href="#bom" class="scroll-link">
+                <span class="scroll-text">Scroll to explore</span>
+                <i class="fas fa-chevron-down"></i>
             </a>
         </div>
     </section>
 
     <!-- Board of Management -->
-    <section class="py-20 lg:py-32 bg-gray-50" id="bom">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="font-heading text-4xl lg:text-5xl font-bold text-primary-800 mb-6">Board of Management (BOM)</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-primary-600 to-purple-600 rounded-full mx-auto mb-6"></div>
-                <p class="text-xl text-gray-600 max-w-4xl mx-auto">Providing Visionary Leadership & Strategic Oversight</p>
+    <section class="section section-bg-light" id="bom">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Board of Management (BOM)</h2>
+                <div class="section-title-underline"></div>
+                <p class="section-subtitle">Providing Visionary Leadership & Strategic Oversight</p>
             </div>
             
-            <div class="max-w-6xl mx-auto mb-12" data-aos="fade-up" data-aos-delay="100">
-                <p class="text-lg text-gray-700 leading-relaxed text-center max-w-4xl mx-auto">
+            <div class="section-intro">
+                <p>
                     The Board of Management (BOM) is the highest governing body at Bar Union Mixed Secondary School,
                     entrusted with ensuring strategic direction, policy-making, and holistic management of the school.
                     The BOM upholds the school's core values and guarantees compliance with the Education Act, while also
@@ -197,988 +73,233 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <div class="info-cards-grid">
                 <!-- Overview & Role -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-center mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-users-cog text-white text-2xl"></i>
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">
+                            <i class="fas fa-users-cog"></i>
                         </div>
-                        <h3 class="font-bold text-xl text-primary-800">Overview & Role</h3>
+                        <h3 class="info-card-title">Overview & Role</h3>
                     </div>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Oversees school policy, administration, and strategic vision
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Chairperson (2017–2021): Mr. George Ominde, leading a competent and visionary team
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Structured into committees handling Finance, Infrastructure, Discipline, and other key areas
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Principal acts as Secretary, ensuring effective execution of BOM decisions
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Collaborates closely with Parents' Association (PA) and the School Senior Management Committee (SMC)
-                        </li>
+                    <ul class="info-card-list">
+                        <li><i class="fas fa-check-circle"></i> Oversees school policy, administration, and strategic vision</li>
+                        <li><i class="fas fa-check-circle"></i> Chairperson (2017–2021): Mr. George Ominde, leading a competent and visionary team</li>
+                        <li><i class="fas fa-check-circle"></i> Structured into committees handling Finance, Infrastructure, Discipline, and other key areas</li>
+                        <li><i class="fas fa-check-circle"></i> Principal acts as Secretary, ensuring effective execution of BOM decisions</li>
+                        <li><i class="fas fa-check-circle"></i> Collaborates closely with Parents' Association (PA) and the School Senior Management Committee (SMC)</li>
                     </ul>
                 </div>
 
                 <!-- Composition -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="150">
-                    <div class="text-center mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-handshake text-white text-2xl"></i>
+                <div class="info-card info-card-elevated">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">
+                            <i class="fas fa-handshake"></i>
                         </div>
-                        <h3 class="font-bold text-xl text-primary-800">Composition</h3>
+                        <h3 class="info-card-title">Composition</h3>
                     </div>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Maintains gender balance with at least one-third female members
-                        </li>
-                        <li class="font-semibold text-gray-900 mt-4">Representative Breakdown:</li>
-                        <li class="ml-4">
-                            <ul class="space-y-2">
-                                <li class="flex items-start">
-                                    <i class="fas fa-arrow-right text-primary-400 mt-1 mr-2 flex-shrink-0"></i>
-                                    3 members from the community
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-arrow-right text-primary-400 mt-1 mr-2 flex-shrink-0"></i>
-                                    4 members from the sponsoring church
-                                </li>
-                                <li class="flex items-start">
-                                    <i class="fas fa-arrow-right text-primary-400 mt-1 mr-2 flex-shrink-0"></i>
-                                    3 members from special interest groups
-                                </li>
+                    <ul class="info-card-list">
+                        <li><i class="fas fa-check-circle"></i> Maintains gender balance with at least one-third female members</li>
+                        <li class="font-semibold mt-4">Representative Breakdown:</li>
+                        <li class="sub-list">
+                            <ul>
+                                <li><i class="fas fa-arrow-right"></i> 3 members from the community</li>
+                                <li><i class="fas fa-arrow-right"></i> 4 members from the sponsoring church</li>
+                                <li><i class="fas fa-arrow-right"></i> 3 members from special interest groups</li>
                             </ul>
                         </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Total membership: Approximately 10–12, ensuring diversity, equity, and inclusivity
-                        </li>
+                        <li><i class="fas fa-check-circle"></i> Total membership: Approximately 10–12, ensuring diversity, equity, and inclusivity</li>
                     </ul>
                 </div>
 
                 <!-- Supporting Committees -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-center mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-school text-white text-2xl"></i>
+                <div class="info-card info-card-elevated">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">
+                            <i class="fas fa-school"></i>
                         </div>
-                        <h3 class="font-bold text-xl text-primary-800">Supporting Committees</h3>
+                        <h3 class="info-card-title">Supporting Committees</h3>
                     </div>
-                    <ul class="space-y-4 text-gray-700">
-                        <li class="border-l-4 border-green-500 pl-4">
-                            <h4 class="font-semibold text-green-700">Parents' Association (PA)</h4>
-                            <p class="text-sm">Executive arm of BOM, chaired by Mr. Charles Oswago. Includes 3 parent reps per class, 2 teacher reps, Principal & Deputy Principal.</p>
+                    <ul class="committees-list">
+                        <li class="committee-item committee-green">
+                            <h4>Parents' Association (PA)</h4>
+                            <p>Executive arm of BOM, chaired by Mr. Charles Oswago. Includes 3 parent reps per class, 2 teacher reps, Principal & Deputy Principal.</p>
                         </li>
-                        <li class="border-l-4 border-blue-500 pl-4">
-                            <h4 class="font-semibold text-blue-700">School Senior Management Committee (SMC)</h4>
-                            <p class="text-sm">Handles daily school operations, ensuring ministry directives and BOM policies are implemented. Members: Principal, Deputy Principal, Senior Master, HODs.</p>
+                        <li class="committee-item committee-blue">
+                            <h4>School Senior Management Committee (SMC)</h4>
+                            <p>Handles daily school operations, ensuring ministry directives and BOM policies are implemented. Members: Principal, Deputy Principal, Senior Master, HODs.</p>
                         </li>
-                        <li class="border-l-4 border-purple-500 pl-4">
-                            <h4 class="font-semibold text-purple-700">Student Leadership</h4>
-                            <p class="text-sm">Prefects and club leaders link students with the BOM and SMC, ensuring adherence to rules and active participation in school programs.</p>
+                        <li class="committee-item committee-purple">
+                            <h4>Student Leadership</h4>
+                            <p>Prefects and club leaders link students with the BOM and SMC, ensuring adherence to rules and active participation in school programs.</p>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Organizational Structure -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="250">
-                    <div class="text-center mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-project-diagram text-white text-2xl"></i>
+                <div class="info-card info-card-elevated">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">
+                            <i class="fas fa-project-diagram"></i>
                         </div>
-                        <h3 class="font-bold text-xl text-primary-800">Organizational Structure</h3>
+                        <h3 class="info-card-title">Organizational Structure</h3>
                     </div>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            BOM sits at the apex, setting vision, policies, and strategic priorities
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Direct reports include: Principal, Deputy Principal, Director of Studies, and Bursar
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Downstream structure: HODs, co-curricular coaches, support staff, Prefect Council, and club officials
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Emphasizes top-down governance with integrated input from teachers, students, and parents
-                        </li>
+                    <ul class="info-card-list">
+                        <li><i class="fas fa-check-circle"></i> BOM sits at the apex, setting vision, policies, and strategic priorities</li>
+                        <li><i class="fas fa-check-circle"></i> Direct reports include: Principal, Deputy Principal, Director of Studies, and Bursar</li>
+                        <li><i class="fas fa-check-circle"></i> Downstream structure: HODs, co-curricular coaches, support staff, Prefect Council, and club officials</li>
+                        <li><i class="fas fa-check-circle"></i> Emphasizes top-down governance with integrated input from teachers, students, and parents</li>
                     </ul>
                 </div>
-
-                <!-- Achievements & Impact -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="text-center mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-trophy text-white text-2xl"></i>
-                        </div>
-                        <h3 class="font-bold text-xl text-primary-800">Achievements & Impact</h3>
-                    </div>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Enhanced staff remuneration packages (2015–2019 strategic plan)
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Improved safety, security, and teaching/learning environment
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Funds efficiently managed via school fees, government grants, and fundraising initiatives
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Ensured sustainable school development aligned with strategic priorities
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Philosophy & Values -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="350">
-                    <div class="text-center mb-6">
-                        <div class="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-balance-scale text-white text-2xl"></i>
-                        </div>
-                        <h3 class="font-bold text-xl text-primary-800">Philosophy & Values</h3>
-                    </div>
-                    <ul class="space-y-3 text-gray-700">
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Promotes godliness, integrity, professionalism, teamwork, and equity
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Guarantees equal opportunities for all students, irrespective of tribe, gender, religion, or economic background
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Supports discipline, guidance, and counselling, with strong parental involvement
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check-circle text-green-500 mt-1 mr-3 flex-shrink-0"></i>
-                            Maintains alignment with the school's mission to develop morally, spiritually, and academically well-rounded students
-                        </li>
-                    </ul>
-                </div>
-            </div> 
+            </div>
 
             <!-- Dynamic JSON Loaded Grid -->
-            <div id="bomGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+            <div id="bomGrid" class="members-grid"></div>
             
-            <style>
-            /* Enhanced Card Styles for JSON-loaded content */
-            .bom-card {
-                background: white;
-                border-radius: 16px;
-                overflow: hidden;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-                transition: all 0.3s ease;
-                border: 1px solid #e5e7eb;
-            }
-            
-            .bom-card:hover {
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-                transform: translateY(-4px);
-                border-color: #0175C2;
-            }
-            
-            .bom-card .card-inner {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 2rem;
-                text-align: center;
-            }
-            
-            .bom-card img {
-                width: 120px;
-                height: 120px;
-                border-radius: 50%;
-                object-fit: cover;
-                margin-bottom: 1.5rem;
-                border: 4px solid #0175C2;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            }
-            
-            .bom-card h4 {
-                font-size: 1.25rem;
-                font-weight: 600;
-                color: #1f2937;
-                margin-bottom: 0.5rem;
-            }
-            
-            .bom-card .role {
-                font-size: 0.875rem;
-                color: #6b7280;
-                margin-bottom: 0.5rem;
-                font-style: normal;
-            }
-            
-            .bom-card em {
-                font-size: 0.875rem;
-                color: #9ca3af;
-                font-style: italic;
-            }
-            
-            /* Leadership Card Styles */
-            .leader-card {
-                background: white;
-                border-radius: 16px;
-                overflow: hidden;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-                transition: all 0.3s ease;
-                border: 1px solid #e5e7eb;
-            }
-            
-            .leader-card:hover {
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-                transform: translateY(-4px);
-                border-color: #0175C2;
-            }
-            
-            .leader-card.featured {
-                border: 2px solid #ffd700;
-            }
-            
-            .leader-card .card-inner {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                padding: 2rem;
-                text-align: center;
-            }
-            
-            .leader-card img {
-                width: 120px;
-                height: 120px;
-                border-radius: 50%;
-                object-fit: cover;
-                margin-bottom: 1.5rem;
-                border: 4px solid #0175C2;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            }
-            
-            .leader-card h4 {
-                font-size: 1.25rem;
-                font-weight: 600;
-                color: #1f2937;
-                margin-bottom: 0.5rem;
-            }
-            
-            .leader-card strong {
-                font-size: 0.875rem;
-                color: #6b7280;
-                display: block;
-                margin-bottom: 1rem;
-            }
-            
-            .leader-card p {
-                font-size: 0.875rem;
-                color: #6b7280;
-                line-height: 1.5;
-                margin-bottom: 1.5rem;
-            }
-            
-            .leader-card .view-more-btn {
-                background: #0175C2;
-                color: white;
-                border: none;
-                padding: 0.5rem 1.5rem;
-                border-radius: 25px;
-                font-size: 0.875rem;
-                font-weight: 500;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .leader-card .view-more-btn:hover {
-                background: #0b2d5e;
-                transform: translateY(-2px);
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            }
-            
-            .leader-card .view-more-btn .btn-icon {
-                margin-left: 0.5rem;
-            }
-            
-            /* Department Card Styles */
-            .dept-card {
-                background: white;
-                border-radius: 16px;
-                overflow: hidden;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-                transition: all 0.3s ease;
-                border: 1px solid #e5e7eb;
-                padding: 2rem;
-                text-align: center;
-            }
-            
-            .dept-card:hover {
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-                transform: translateY(-4px);
-                border-color: #0175C2;
-            }
-            
-            .dept-card .card-inner {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .dept-card i {
-                font-size: 2.5rem;
-                margin-bottom: 1.5rem;
-            }
-            
-            .dept-card h4 {
-                font-size: 1.25rem;
-                font-weight: 600;
-                color: #1f2937;
-                margin-bottom: 1rem;
-            }
-            
-            .dept-card strong {
-                font-size: 0.875rem;
-                color: #6b7280;
-                display: block;
-                margin-bottom: 0.25rem;
-            }
-            
-            .dept-card small {
-                font-size: 0.75rem;
-                color: #9ca3af;
-                display: block;
-                margin-bottom: 1rem;
-            }
-            
-            .dept-card .contact {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-                font-size: 0.875rem;
-                color: #6b7280;
-            }
-            
-            .dept-card .contact span {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            .dept-card .contact i {
-                margin-right: 0.5rem;
-                font-size: 1rem;
-            }
-            
-            .dept-card .contact a {
-                color: #0175C2;
-                text-decoration: underline;
-            }
-            
-            /* Animation classes */
-            .fade-in {
-                opacity: 0;
-                transform: translateY(20px);
-                transition: opacity 0.6s ease, transform 0.6s ease;
-            }
-            
-            .fade-in.visible {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            
-            /* Error message styling */
-            .error-message {
-                text-align: center;
-                padding: 3rem;
-                background: linear-gradient(135deg, #fee 0%, #fff5f5 100%);
-                border: 1px solid #fcc;
-                border-radius: 16px;
-                color: #c33;
-                margin: 2rem 0;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            }
-            
-            .error-message i {
-                font-size: 3rem;
-                margin-bottom: 1rem;
-                color: #e74c3c;
-            }
-            
-            .error-message h3 {
-                color: #c33;
-                margin-bottom: 1rem;
-            }
-            
-            .error-message p {
-                margin-bottom: 1.5rem;
-                color: #666;
-            }
-            
-            .error-message button {
-                padding: 0.8rem 2rem;
-                background: #e74c3c;
-                color: white;
-                border: none;
-                border-radius: 25px;
-                cursor: pointer;
-                font-weight: 600;
-                transition: all 0.3s ease;
-                margin: 0 0.5rem;
-            }
-            
-            .error-message button:hover {
-                background: #c0392b;
-            }
-            
-            .error-message details {
-                margin-top: 1rem;
-                text-align: left;
-            }
-            
-            .error-message summary {
-                cursor: pointer;
-                color: #666;
-            }
-            
-            .error-message pre {
-                background: #f8f9fa;
-                padding: 1rem;
-                border-radius: 8px;
-                font-size: 0.8rem;
-                color: #666;
-                overflow-x: auto;
-            }
-            </style>
+            <!-- Fallback Hardcoded BOM Members (hidden when JSON loads) -->
+            <div id="hardcodedBom" class="members-grid">
+                <!-- Members will be inserted via JS or manually if needed -->
+            </div>
         </div>
     </section>
 
     <!-- Leadership Team -->
-    <section class="py-20 lg:py-32 bg-white" aria-labelledby="leadership-title">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 id="leadership-title" class="font-heading text-4xl lg:text-5xl font-bold text-primary-800 mb-6">Leadership Team</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-primary-600 to-purple-600 rounded-full mx-auto mb-6"></div>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    <span class="block">Principal</span>
-                    <span class="block">Deputy Principals</span>
-                    <span class="block">Senior Staff Driving Excellence</span>
-                </p>
+    <section class="section" id="leadership" aria-labelledby="leadership-title">
+        <div class="container">
+            <div class="section-header">
+                <h2 id="leadership-title" class="section-title">Leadership Team</h2>
+                <div class="section-title-underline"></div>
             </div>
             
-            <p class="text-lg text-gray-700 leading-relaxed text-center max-w-4xl mx-auto mb-16" data-aos="fade-up" data-aos-delay="100">
-                Our leadership team is composed of experienced, dedicated, and visionary professionals
-                committed to nurturing academic excellence, discipline, and strong moral values.
-                Together, they guide the school toward continuous improvement and holistic student development.
-            </p>
+            <div class="section-intro">
+                <p>
+                    Our leadership team is composed of experienced, dedicated, and visionary professionals
+                    committed to nurturing academic excellence, discipline, and strong moral values.
+                    Together, they guide the school toward continuous improvement and holistic student development.
+                </p>
+            </div>
 
-            <!-- Leadership Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="leadershipGrid">
-                <!-- Principal Card -->
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2" data-aos="fade-up" data-aos-delay="100">
-                    <div class="relative">
-                        <img src="/assets/images/admin/principal.jpg" alt="Mr. George Achilla - Principal" 
-                             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div class="absolute bottom-6 left-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <h4 class="text-white font-bold text-xl mb-1">Mr. George Achilla</h4>
-                            <p class="text-white/90 text-sm">Principal & Director</p>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <h4 class="font-bold text-xl text-primary-800 mb-3">Mr. George Achilla</h4>
-                        <p class="text-primary-600 font-semibold mb-4">Principal & Director</p>
-                        <p class="text-gray-700 leading-relaxed">
-                            Provides overall leadership, ensures academic excellence, strategic development,
-                            and implementation of school policies. Oversees all departments and works closely
-                            with the Board of Management to drive the school's long-term vision.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Deputy Principal Academics -->
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2" data-aos="fade-up" data-aos-delay="150">
-                    <div class="relative">
-                        <img src="/assets/images/admin/dp-principal2.jpg" alt="Ms. Ceseline Amuonyo - Deputy Principal Academics" 
-                             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div class="absolute bottom-6 left-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <h4 class="text-white font-bold text-xl mb-1">Ms. Ceseline Amuonyo</h4>
-                            <p class="text-white/90 text-sm">Deputy Principal (Academics)</p>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <h4 class="font-bold text-xl text-primary-800 mb-3">Ms. Ceseline Amuonyo</h4>
-                        <p class="text-primary-600 font-semibold mb-4">Deputy Principal (Academics)</p>
-                        <p class="text-gray-700 leading-relaxed">
-                            Oversees curriculum implementation, staff professional development, and academic standards across all grades.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Deputy Principal Administration -->
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2" data-aos="fade-up" data-aos-delay="200">
-                    <div class="relative">
-                        <img src="/assets/images/admin/dp-principal1.jpg" alt="Mr. Paul Were - Deputy Principal Administration" 
-                             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div class="absolute bottom-6 left-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <h4 class="text-white font-bold text-xl mb-1">Mr. Paul Were</h4>
-                            <p class="text-white/90 text-sm">Deputy Principal (Administration)</p>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <h4 class="font-bold text-xl text-primary-800 mb-3">Mr. Paul Were</h4>
-                        <p class="text-primary-600 font-semibold mb-4">Deputy Principal (Administration)</p>
-                        <p class="text-gray-700 leading-relaxed">
-                            Manages day-to-day school operations, student welfare, discipline, and coordination of co-curricular programs.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Senior Teacher STEM -->
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2" data-aos="fade-up" data-aos-delay="250">
-                    <div class="relative">
-                        <img src="/assets/images/leadership/seniorteacher1.jpg" alt="Ms. Julia Kute - Senior Teacher STEM" 
-                             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div class="absolute bottom-6 left-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <h4 class="text-white font-bold text-xl mb-1">Ms. Julia Kute</h4>
-                            <p class="text-white/90 text-sm">Senior Teacher – STEM</p>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <h4 class="font-bold text-xl text-primary-800 mb-3">Ms. Julia Kute</h4>
-                        <p class="text-primary-600 font-semibold mb-4">Senior Teacher – STEM</p>
-                        <p class="text-gray-700 leading-relaxed">
-                            Coordinates STEM subjects, mentoring teachers and students, ensuring high performance in sciences and technical programs.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Senior Teacher Humanities -->
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2" data-aos="fade-up" data-aos-delay="300">
-                    <div class="relative">
-                        <img src="/assets/images/leadership/seniorteacher2.jpg" alt="Mr. Edwin Okello - Senior Teacher Humanities" 
-                             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div class="absolute bottom-6 left-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <h4 class="text-white font-bold text-xl mb-1">Mr. Edwin Okello</h4>
-                            <p class="text-white/90 text-sm">Senior Teacher – Humanities</p>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <h4 class="font-bold text-xl text-primary-800 mb-3">Mr. Edwin Okello</h4>
-                        <p class="text-primary-600 font-semibold mb-4">Senior Teacher – Humanities</p>
-                        <p class="text-gray-700 leading-relaxed">
-                            Leads social sciences and humanities, supports curriculum development, and encourages student talent in arts and debate.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- HOD Co-Curricular -->
-                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2" data-aos="fade-up" data-aos-delay="350">
-                    <div class="relative">
-                        <img src="/assets/images/leadership/hod-cocurriculum.jpg" alt="Mr Norman Origa - HOD Co-Curricular" 
-                             class="w-full h-80 object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div class="absolute bottom-6 left-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <h4 class="text-white font-bold text-xl mb-1">Mr Norman Origa</h4>
-                            <p class="text-white/90 text-sm">HOD – Co-Curricular Activities</p>
-                        </div>
-                    </div>
-                    <div class="p-8">
-                        <h4 class="font-bold text-xl text-primary-800 mb-3">Mr Norman Origa</h4>
-                        <p class="text-primary-600 font-semibold mb-4">HOD – Co-Curricular Activities</p>
-                        <p class="text-gray-700 leading-relaxed">
-                            Oversees clubs, sports, music, drama, and leadership programs, ensuring student holistic development.
-                        </p>
-                    </div>
-                </div>
+            <div class="members-grid" id="leadershipGrid">
+                <!-- Leadership cards loaded via JS -->
             </div>
         </div>
     </section>
 
     <!-- Administrative Departments -->
-    <section class="py-20 lg:py-32 bg-gray-50" id="departments-title">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="font-heading text-4xl lg:text-5xl font-bold text-primary-800 mb-6">Administrative Departments</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-primary-600 to-purple-600 rounded-full mx-auto mb-6"></div>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Essential Teams Driving Academic Excellence, Student Welfare, and Operational Efficiency</p>
+    <section class="section section-bg-light" id="departments">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Administrative Departments</h2>
+                <div class="section-title-underline"></div>
+                <p class="section-subtitle">Essential Teams Driving Academic Excellence, Student Welfare, and Operational Efficiency</p>
             </div>
             
-            <p class="text-lg text-gray-700 leading-relaxed text-center max-w-4xl mx-auto mb-16" data-aos="fade-up" data-aos-delay="100">
-                At Bar Union Mixed Secondary School, administrative departments form the backbone of our institution.
-                Each department works collaboratively to ensure smooth academic delivery, holistic student development, and effective management of school operations.
-                Together, they create an environment that nurtures learning, leadership, creativity, and well-being.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16" id="departmentsGrid">
-                <!-- Academic Department -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2 group text-center" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-user-tie text-white text-2xl"></i>
-                    </div>
-                    <h4 class="font-bold text-xl text-primary-800 mb-4">Academic Department</h4>
-                    <p class="text-gray-600 leading-relaxed">
-                        Oversees curriculum planning, lesson monitoring, teacher professional development, and assessment strategies. Ensures consistent academic standards across all subjects and promotes innovative teaching methods to enhance student learning outcomes.
-                    </p>
-                </div>
-
-                <!-- Finance & Accounts -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2 group text-center" data-aos="fade-up" data-aos-delay="150">
-                    <div class="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-calculator text-white text-2xl"></i>
-                    </div>
-                    <h4 class="font-bold text-xl text-primary-800 mb-4">Finance & Accounts</h4>
-                    <p class="text-gray-600 leading-relaxed">
-                        Manages school finances, including fee collection, budgeting, audits, and reporting. Supports resource allocation for academics, co-curricular activities, infrastructure, and staff welfare while ensuring transparency and accountability.
-                    </p>
-                </div>
-
-                <!-- Administration & Operations -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2 group text-center" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-cogs text-white text-2xl"></i>
-                    </div>
-                    <h4 class="font-bold text-xl text-primary-800 mb-4">Administration & Operations</h4>
-                    <p class="text-gray-600 leading-relaxed">
-                        Coordinates daily school operations, facility management, transport, security, and general administration. Ensures a safe, organized, and conducive environment for learning and co-curricular engagement.
-                    </p>
-                </div>
-
-                <!-- Sports & Physical Education -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2 group text-center" data-aos="fade-up" data-aos-delay="250">
-                    <div class="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-running text-white text-2xl"></i>
-                    </div>
-                    <h4 class="font-bold text-xl text-primary-800 mb-4">Sports & Physical Education</h4>
-                    <p class="text-gray-600 leading-relaxed">
-                        Organizes athletics, team sports, fitness programs, and inter-house competitions. Promotes physical health, teamwork, discipline, and resilience while nurturing talent for county, regional, and national competitions.
-                    </p>
-                </div>
-
-                <!-- Arts & Culture -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2 group text-center" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-paint-brush text-white text-2xl"></i>
-                    </div>
-                    <h4 class="font-bold text-xl text-primary-800 mb-4">Arts & Culture</h4>
-                    <p class="text-gray-600 leading-relaxed">
-                        Encourages creative expression through music, drama, visual arts, and cultural programs. Supports participation in competitions, festivals, and exhibitions to develop creativity, confidence, and appreciation of heritage.
-                    </p>
-                </div>
-
-                <!-- Student Welfare & Guidance -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2 group text-center" data-aos="fade-up" data-aos-delay="350">
-                    <div class="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-users text-white text-2xl"></i>
-                    </div>
-                    <h4 class="font-bold text-xl text-primary-800 mb-4">Student Welfare & Guidance</h4>
-                    <p class="text-gray-600 leading-relaxed">
-                        Provides counseling, mentorship, life skills training, and conflict resolution. Monitors student well-being, supports personal growth, and helps students navigate academic, social, and emotional challenges effectively.
-                    </p>
-                </div>
-
-                <!-- Library & Resource Centre -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2 group text-center" data-aos="fade-up" data-aos-delay="400">
-                    <div class="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-book text-white text-2xl"></i>
-                    </div>
-                    <h4 class="font-bold text-xl text-primary-800 mb-4">Library & Resource Centre</h4>
-                    <p class="text-gray-600 leading-relaxed">
-                        Manages print and digital resources, research facilities, and study spaces. Promotes reading culture, academic research, and independent learning through access to reference materials, journals, and online resources.
-                    </p>
-                </div>
-
-                <!-- ICT & Innovation -->
-                <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:border-primary-200 hover:-translate-y-2 group text-center" data-aos="fade-up" data-aos-delay="450">
-                    <div class="w-20 h-20 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-network-wired text-white text-2xl"></i>
-                    </div>
-                    <h4 class="font-bold text-xl text-primary-800 mb-4">ICT & Innovation</h4>
-                    <p class="text-gray-600 leading-relaxed">
-                        Maintains the school's IT infrastructure, digital classrooms, and e-learning platforms. Drives technology integration in teaching, learning, and administration, while fostering innovation and digital literacy among students and staff.
-                    </p>
-                </div>
+            <div class="section-intro">
+                <p>
+                    At Bar Union Mixed Secondary School, administrative departments form the backbone of our institution.
+                    Each department works collaboratively to ensure smooth academic delivery, holistic student development, and effective management of school operations.
+                    Together, they create an environment that nurtures learning, leadership, creativity, and well-being.
+                </p>
             </div>
 
-            <!-- Department Heads & Contact Info -->
-            <div class="bg-gradient-to-br from-primary-800 via-primary-700 to-purple-700 rounded-3xl p-8 lg:p-12 shadow-2xl text-white" data-aos="fade-up" data-aos-delay="200">
-                <div class="text-center mb-12">
-                    <h3 class="font-heading text-3xl lg:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-4">Department Heads & Contact Information</h3>
-                    <div class="w-20 h-1 bg-gradient-to-r from-gold-400 to-gold-200 rounded-full mx-auto mb-6"></div>
-                    <p class="text-lg text-white/90">For inquiries, assistance, or guidance, you may reach the respective department heads directly.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-user-tie text-white text-2xl"></i>
-                        </div>
-                        <h4 class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200 mb-2 text-center">Academic Department</h4>
-                        <p class="text-white/90 font-medium mb-4 text-center">Mr. Benedict Ochieng</p>
-                        <div class="space-y-3 text-sm text-white/80">
-                            <div class="flex items-center justify-center">
-                                <i class="fas fa-envelope text-blue-400 mr-2"></i>
-                                <a href="mailto:academic@barunion.ac.ke" class="hover:text-blue-300 transition-colors">academic@barunion.ac.ke</a>
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <i class="fas fa-phone text-green-400 mr-2"></i>
-                                <span>+254 712 345 678</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-calculator text-white text-2xl"></i>
-                        </div>
-                        <h4 class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-200 mb-2 text-center">Finance & Accounts</h4>
-                        <p class="text-white/90 font-medium mb-4 text-center">Ms. Jackline</p>
-                        <div class="space-y-3 text-sm text-white/80">
-                            <div class="flex items-center justify-center">
-                                <i class="fas fa-envelope text-red-400 mr-2"></i>
-                                <a href="mailto:finance@barunion.ac.ke" class="hover:text-red-300 transition-colors">finance@barunion.ac.ke</a>
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <i class="fas fa-phone text-green-400 mr-2"></i>
-                                <span>+254 712 876 543</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-cogs text-white text-2xl"></i>
-                        </div>
-                        <h4 class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-200 mb-2 text-center">Administration & Operations</h4>
-                        <p class="text-white/90 font-medium mb-4 text-center">Mr. Paul Were</p>
-                        <div class="space-y-3 text-sm text-white/80">
-                            <div class="flex items-center justify-center">
-                                <i class="fas fa-envelope text-green-400 mr-2"></i>
-                                <a href="mailto:admin@barunion.ac.ke" class="hover:text-green-300 transition-colors">admin@barunion.ac.ke</a>
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <i class="fas fa-phone text-green-400 mr-2"></i>
-                                <span>+254 711 234 567</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-running text-white text-2xl"></i>
-                        </div>
-                        <h4 class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-200 mb-2 text-center">Sports & Physical Education</h4>
-                        <p class="text-white/90 font-medium mb-4 text-center">Mr. Norman Origa</p>
-                        <div class="space-y-3 text-sm text-white/80">
-                            <div class="flex items-center justify-center">
-                                <i class="fas fa-envelope text-orange-400 mr-2"></i>
-                                <a href="mailto:sports@barunion.ac.ke" class="hover:text-orange-300 transition-colors">sports@barunion.ac.ke</a>
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <i class="fas fa-phone text-green-400 mr-2"></i>
-                                <span>+254 713 987 654</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-paint-brush text-white text-2xl"></i>
-                        </div>
-                        <h4 class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200 mb-2 text-center">Arts & Culture</h4>
-                        <p class="text-white/90 font-medium mb-4 text-center">Ms. Sharlene Omonya</p>
-                        <div class="space-y-3 text-sm text-white/80">
-                            <div class="flex items-center justify-center">
-                                <i class="fas fa-envelope text-purple-400 mr-2"></i>
-                                <a href="mailto:arts@barunion.ac.ke" class="hover:text-purple-300 transition-colors">arts@barunion.ac.ke</a>
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <i class="fas fa-phone text-green-400 mr-2"></i>
-                                <span>+254 714 321 098</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-users text-white text-2xl"></i>
-                        </div>
-                        <h4 class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-indigo-200 mb-2 text-center">Student Welfare & Guidance</h4>
-                        <p class="text-white/90 font-medium mb-4 text-center">Ms. Isdora and Mr. Fredrick Otae</p>
-                        <div class="space-y-3 text-sm text-white/80">
-                            <div class="flex items-center justify-center">
-                                <i class="fas fa-envelope text-indigo-400 mr-2"></i>
-                                <a href="mailto:guidance@barunion.ac.ke" class="hover:text-indigo-300 transition-colors">guidance@barunion.ac.ke</a>
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <i class="fas fa-phone text-green-400 mr-2"></i>
-                                <span>+254 715 654 321</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-book text-white text-2xl"></i>
-                        </div>
-                        <h4 class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-200 mb-2 text-center">Library & Resource Centre</h4>
-                        <p class="text-white/90 font-medium mb-4 text-center">Ms. Mary Tago</p>
-                        <div class="space-y-3 text-sm text-white/80">
-                            <div class="flex items-center justify-center">
-                                <i class="fas fa-envelope text-pink-400 mr-2"></i>
-                                <a href="mailto:library@barunion.ac.ke" class="hover:text-pink-300 transition-colors">library@barunion.ac.ke</a>
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <i class="fas fa-phone text-green-400 mr-2"></i>
-                                <span>+254 716 234 567</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:shadow-2xl hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group">
-                        <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                            <i class="fas fa-network-wired text-white text-2xl"></i>
-                        </div>
-                        <h4 class="font-bold text-xl text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-cyan-200 mb-2 text-center">ICT & Innovation</h4>
-                        <p class="text-white/90 font-medium mb-4 text-center">Mr. Fredrick Aboge</p>
-                        <div class="space-y-3 text-sm text-white/80">
-                            <div class="flex items-center justify-center">
-                                <i class="fas fa-envelope text-cyan-400 mr-2"></i>
-                                <a href="mailto:ict@barunion.ac.ke" class="hover:text-cyan-300 transition-colors">ict@barunion.ac.ke</a>
-                            </div>
-                            <div class="flex items-center justify-center">
-                                <i class="fas fa-phone text-green-400 mr-2"></i>
-                                <span>+254 717 890 123</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="departments-grid" id="departmentsGrid">
+                <!-- Department cards loaded via JS -->
             </div>
         </div>
     </section>
 
     <!-- Quick Stats / Highlights -->
-    <section class="py-20 lg:py-32 bg-gradient-to-br from-primary-800 via-primary-700 to-purple-700 relative overflow-hidden" aria-label="School Leadership Highlights">
-        <!-- Animated Background Elements -->
-        <div class="absolute top-20 left-20 w-40 h-40 bg-gold-400/10 rounded-full blur-2xl animate-pulse-slow"></div>
-        <div class="absolute bottom-20 right-20 w-60 h-60 bg-white/5 rounded-full blur-2xl animate-pulse-slow" style="animation-delay: 3s;"></div>
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gold-400/5 rounded-full blur-2xl animate-pulse-slow" style="animation-delay: 1.5s;"></div>
-        
-        <div class="max-w-7xl mx-auto px-6 relative z-10">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="font-heading text-4xl lg:text-5xl font-bold text-white mb-6">School Leadership & Institutional Highlights</h2>
-                <div class="w-20 h-1 bg-gradient-to-r from-gold-400 to-gold-200 rounded-full mx-auto mb-6"></div>
-                <p class="text-xl text-white/90 max-w-4xl mx-auto">Demonstrating excellence in management, governance, academic outcomes, and student development</p>
+    <section class="section stats-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">School Leadership & Institutional Highlights</h2>
+                <div class="section-title-underline section-title-underline-gold"></div>
+                <p class="section-subtitle">Demonstrating excellence in management, governance, academic outcomes, and student development</p>
             </div>
             
-            <p class="text-lg text-white/90 leading-relaxed text-center max-w-4xl mx-auto mb-16" data-aos="fade-up" data-aos-delay="100">
-                Bar Union Mixed Secondary School has a rich legacy of effective leadership, robust governance structures, and consistent academic and co-curricular excellence.
-                Our statistics reflect the commitment of staff, students, and management in driving holistic development and achieving national recognition.
-            </p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="text-center p-8 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-20 h-20 bg-gradient-to-br from-gold-400 to-gold-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-calendar-alt text-white text-3xl"></i>
+            <div class="section-intro">
+                <p>
+                    Bar Union Mixed Secondary School has a rich legacy of effective leadership, robust governance structures, and consistent academic and co-curricular excellence.
+                    Our statistics reflect the commitment of staff, students, and management in driving holistic development and achieving national recognition.
+                </p>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
                     </div>
-                    <h3 class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-4">50+</h3>
-                    <p class="text-white/90 leading-relaxed">Years of Governance Excellence ensuring stable, transparent, and accountable management of school resources and policies</p>
+                    <h3 class="stat-number">50+</h3>
+                    <p class="stat-description">Years of Governance Excellence ensuring stable, transparent, and accountable management of school resources and policies</p>
                 </div>
-                
-                <div class="text-center p-8 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="150">
-                    <div class="w-20 h-20 bg-gradient-to-br from-gold-400 to-gold-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-users-cog text-white text-3xl"></i>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-users-cog"></i>
                     </div>
-                    <h3 class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-4">12</h3>
-                    <p class="text-white/90 leading-relaxed">Board of Management Members providing strategic leadership, oversight, and policy direction for school growth and sustainability</p>
+                    <h3 class="stat-number">12</h3>
+                    <p class="stat-description">Board of Management Members providing strategic leadership, oversight, and policy direction for school growth and sustainability</p>
                 </div>
-                
-                <div class="text-center p-8 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-20 h-20 bg-gradient-to-br from-gold-400 to-gold-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-check-circle text-white text-3xl"></i>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
                     </div>
-                    <h3 class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-4">100%</h3>
-                    <p class="text-white/90 leading-relaxed">Compliance with National Education Standards and regulatory requirements, ensuring quality education and student safety</p>
+                    <h3 class="stat-number">100%</h3>
+                    <p class="stat-description">Compliance with National Education Standards and regulatory requirements, ensuring quality education and student safety</p>
                 </div>
-                
-                <div class="text-center p-8 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="250">
-                    <div class="w-20 h-20 bg-gradient-to-br from-gold-400 to-gold-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-chalkboard-teacher text-white text-3xl"></i>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
                     </div>
-                    <h3 class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-4">20+</h3>
-                    <p class="text-white/90 leading-relaxed">Dedicated Teaching & Administrative Staff committed to nurturing academic excellence, mentorship, and holistic student growth</p>
+                    <h3 class="stat-number">20+</h3>
+                    <p class="stat-description">Dedicated Teaching & Administrative Staff committed to nurturing academic excellence, mentorship, and holistic student growth</p>
                 </div>
-                
-                <div class="text-center p-8 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-20 h-20 bg-gradient-to-br from-gold-400 to-gold-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-users text-white text-3xl"></i>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
                     </div>
-                    <h3 class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-4">15+</h3>
-                    <p class="text-white/90 leading-relaxed">Active Clubs and Societies fostering leadership, teamwork, creativity, and social responsibility among students</p>
+                    <h3 class="stat-number">15+</h3>
+                    <p class="stat-description">Active Clubs and Societies fostering leadership, teamwork, creativity, and social responsibility among students</p>
                 </div>
-                
-                <div class="text-center p-8 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="350">
-                    <div class="w-20 h-20 bg-gradient-to-br from-gold-400 to-gold-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-trophy text-white text-3xl"></i>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-trophy"></i>
                     </div>
-                    <h3 class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-4">10+</h3>
-                    <p class="text-white/90 leading-relaxed">County and National Level Sports & Co-Curricular Achievements reflecting talent, discipline, and competitiveness in Athletics, Music, Drama, and Academics</p>
+                    <h3 class="stat-number">10+</h3>
+                    <p class="stat-description">County and National Level Sports & Co-Curricular Achievements reflecting talent, discipline, and competitiveness in Athletics, Music, Drama, and Academics</p>
                 </div>
-                
-                <div class="text-center p-8 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="400">
-                    <div class="w-20 h-20 bg-gradient-to-br from-gold-400 to-gold-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-graduation-cap text-white text-3xl"></i>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-graduation-cap"></i>
                     </div>
-                    <h3 class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-4">80%</h3>
-                    <p class="text-white/90 leading-relaxed">Graduates Proceeding to Universities and Technical Colleges, demonstrating strong preparation for higher education and career success</p>
+                    <h3 class="stat-number">80%</h3>
+                    <p class="stat-description">Graduates Proceeding to Universities and Technical Colleges, demonstrating strong preparation for higher education and career success</p>
                 </div>
-                
-                <div class="text-center p-8 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 hover:bg-white/20 transition-all duration-500 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="450">
-                    <div class="w-20 h-20 bg-gradient-to-br from-gold-400 to-gold-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <i class="fas fa-globe text-white text-3xl"></i>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-globe"></i>
                     </div>
-                    <h3 class="text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-gold-200 mb-4">100%</h3>
-                    <p class="text-white/90 leading-relaxed">Participation in Community Service and Outreach Programs, instilling social responsibility and civic engagement</p>
+                    <h3 class="stat-number">100%</h3>
+                    <p class="stat-description">Participation in Community Service and Outreach Programs, instilling social responsibility and civic engagement</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Optional Modals for View More -->
-    <div id="modalOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-2xl p-8 max-w-2xl mx-4 relative">
-            <span class="close-modal absolute top-4 right-4 text-2xl cursor-pointer hover:text-gray-600">&times;</span>
+    <!-- Modal -->
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
             <div id="modalBody"></div>
         </div>
     </div>
 
+    <!-- Footer -->
     <div w3-include-html="/includes/footer.html"></div>
 
-    <!-- Scripts – Order matters! -->
+    <!-- Scripts -->
     <script src="https://www.w3schools.com/lib/w3.js"></script>
     <script>w3.includeHTML();</script>
-
-    <!-- AOS Animation -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({
@@ -1188,16 +309,10 @@
             easing: 'ease-out-cubic'
         });
     </script>
-
-    <!-- Our Mobile Menu – This makes the hamburger work -->
     <script src="/js/static/mobile-menu.js"></script>
-
-    <!-- Scripts -->
     <script src="/js/static/administration.js" defer></script>
-
-    <!-- Custom JavaScript for enhanced interactions -->
     <script>
-        // Smooth scrolling for anchor links
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1211,21 +326,15 @@
             });
         });
 
-        // Enhanced modal functionality
+        // Modal close
         const modalOverlay = document.getElementById('modalOverlay');
         const closeModal = document.querySelector('.close-modal');
-
         if (closeModal) {
-            closeModal.addEventListener('click', () => {
-                modalOverlay.classList.add('hidden');
-            });
+            closeModal.addEventListener('click', () => modalOverlay.style.display = 'none');
         }
-
         if (modalOverlay) {
             modalOverlay.addEventListener('click', (e) => {
-                if (e.target === modalOverlay) {
-                    modalOverlay.classList.add('hidden');
-                }
+                if (e.target === modalOverlay) modalOverlay.style.display = 'none';
             });
         }
     </script>

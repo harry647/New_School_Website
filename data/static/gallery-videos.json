@@ -1,0 +1,38 @@
+[
+  {
+    "title": "Guests Visit",
+    "description": "This video captures a special visit by a prominent politician to our school, inspiring students with words of wisdom and encouragement.",
+    "embedUrl": "https://www.facebook.com/plugins/video.php?height=280&href=https%3A%2F%2Fweb.facebook.com%2FABAETV%2Fvideos%2F449467996545623%2F&show_text=false&width=560&t=0",
+    "category": "events"
+  },
+  {
+    "title": "Football Training Moments",
+    "description": "Our students in action during intense football training sessions, showcasing teamwork, discipline, and passion for sports.",
+    "embedUrl": "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2Fsoulhunter010%2Fvideos%2F1143422126903805%2F%3Fidorvanity%3D466873166757176&show_text=false&width=560&t=0",
+    "category": "school-life"
+  },
+  {
+    "title": "Science Fair 2025",
+    "description": "Students presenting innovative projects at our annual science exhibition, demonstrating creativity and scientific thinking.",
+    "embedUrl": "https://www.youtube.com/embed/dummy-science-fair",
+    "category": "academics"
+  },
+  {
+    "title": "County Sports Championship Win",
+    "description": "Celebrating our victory in the regional athletics and football competitions — a proud moment for Bar Union Mixed!",
+    "embedUrl": "https://www.youtube.com/embed/sports-champions-2025",
+    "category": "sports"
+  },
+  {
+    "title": "Principal's New Year Message 2026",
+    "description": "Warm greetings and vision for the new academic year from our Principal, Mr. George Achilla.",
+    "embedUrl": "https://www.youtube.com/embed/principal-message-2026",
+    "category": "messages"
+  },
+  {
+    "title": "Cultural Day Performance",
+    "description": "Vibrant traditional dances and music performed by our talented students during Cultural Day celebrations.",
+    "embedUrl": "https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fweb.facebook.com%2Fschoolpage%2Fvideos%2Fculturalday2025",
+    "category": "events"
+  }
+]

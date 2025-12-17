@@ -1,0 +1,38 @@
+[
+  {
+    "src": "/assets/images/gallery/campus1.jpg",
+    "thumb": "/assets/images/gallery/thumbs/campus1.jpg",
+    "category": "campus",
+    "title": "Main Academic Building"
+  },
+  {
+    "src": "/assets/images/gallery/science-lab.jpg",
+    "thumb": "/assets/images/gallery/thumbs/science-lab.jpg",
+    "category": "academics",
+    "title": "Advanced Science Laboratory"
+  },
+  {
+    "src": "/assets/images/gallery/football-win.jpg",
+    "thumb": "/assets/images/gallery/thumbs/football-win.jpg",
+    "category": "sports",
+    "title": "County Football Champions 2025"
+  },
+  {
+    "src": "/assets/images/gallery/cultural-day.jpg",
+    "thumb": "/assets/images/gallery/thumbs/cultural-day.jpg",
+    "category": "events",
+    "title": "Annual Cultural Festival"
+  },
+  {
+    "src": "/assets/images/gallery/prize-day.jpg",
+    "thumb": "/assets/images/gallery/thumbs/prize-day.jpg",
+    "category": "celebrations",
+    "title": "Academic Prize Giving Ceremony"
+  },
+  {
+    "src": "/assets/images/gallery/alumni-reunion.jpg",
+    "thumb": "/assets/images/gallery/thumbs/alumni-reunion.jpg",
+    "category": "alumni",
+    "title": "2025 Alumni Reunion"
+  }
+]
