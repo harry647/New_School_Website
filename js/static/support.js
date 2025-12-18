@@ -13,6 +13,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const fileInput = document.getElementById("pledgeDoc");
   const filePreview = document.getElementById("filePreview");
 
+  // ========================================
+  // 1.1. LOAD DOWNLOADS DATA
+  // ========================================
+  loadDownloadsData();
+
   if (donationForm) {
     // Enhanced file preview with drag & drop
     setupFileUpload();
@@ -28,6 +33,59 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Amount suggestions
     setupAmountSuggestions();
+  }
+
+  // ========================================
+  // 1.2. LOAD DOWNLOADS DATA FUNCTION
+  // ========================================
+  function loadDownloadsData() {
+    const downloadsGrid = document.getElementById("downloadsGrid");
+    if (!downloadsGrid) return;
+
+    fetch("/data/static/downloads.json")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Failed to load downloads data");
+        }
+        return response.json();
+      })
+      .then(data => {
+        populateDownloadsGrid(downloadsGrid, data);
+      })
+      .catch(error => {
+        console.error("Error loading downloads data:", error);
+        showNotification("Failed to load downloads. Please refresh the page.", "error");
+      });
+  }
+
+  function populateDownloadsGrid(grid, downloads) {
+    grid.innerHTML = "";
+
+    downloads.forEach(download => {
+      const card = document.createElement("a");
+      card.href = download.file;
+      card.className = "download-card";
+      card.innerHTML = `
+        <div class="card-icon"><i class="fas fa-file-pdf"></i></div>
+        <h3>${download.title}</h3>
+        <p>${download.type} • ${download.size}</p>
+        <p>${download.description}</p>
+      `;
+      grid.appendChild(card);
+    });
+
+    // Add animation to the cards
+    const cards = grid.querySelectorAll(".download-card");
+    cards.forEach((card, index) => {
+      card.style.opacity = "0";
+      card.style.transform = "translateY(20px)";
+      card.style.transition = `all 0.5s ease ${index * 0.1}s`;
+
+      setTimeout(() => {
+        card.style.opacity = "1";
+        card.style.transform = "translateY(0)";
+      }, 100);
+    });
   }
 
   function setupFileUpload() {

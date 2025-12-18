@@ -1,42 +1,72 @@
 [
   {
     "title": "Academic Calendar 2026–2027",
-    "description": "Complete schedule of terms, exams, holidays, and events.",
     "file": "/downloads/academic-calendar-2026.pdf",
     "type": "PDF",
     "size": "1.2 MB",
-    "icon": "fas fa-calendar-alt"
+    "description": "Complete schedule of terms, exams, holidays, and events."
   },
   {
-    "title": "School Uniform Guidelines",
-    "description": "Approved uniform designs, suppliers, and ordering information.",
-    "file": "/downloads/uniform-guidelines.pdf",
+    "title": "Admission Form 2026",
+    "file": "/downloads/admission-form-2026.pdf",
     "type": "PDF",
-    "size": "850 KB",
-    "icon": "fas fa-tshirt"
+    "size": "800 KB",
+    "description": "Application form for new student admissions."
+  },
+  {
+    "title": "School Prospectus",
+    "file": "/downloads/school-prospectus.pdf",
+    "type": "PDF",
+    "size": "2.5 MB",
+    "description": "Detailed information about the school, facilities, and programs."
   },
   {
     "title": "Fee Structure 2026",
-    "description": "Detailed breakdown of tuition and other charges.",
     "file": "/downloads/fee-structure-2026.pdf",
     "type": "PDF",
-    "size": "620 KB",
-    "icon": "fas fa-file-invoice-dollar"
+    "size": "600 KB",
+    "description": "Breakdown of tuition fees and other charges."
   },
   {
-    "title": "Student Code of Conduct",
-    "description": "School rules, expectations, and disciplinary procedures.",
-    "file": "/downloads/code-of-conduct.pdf",
+    "title": "Student Handbook",
+    "file": "/downloads/student-handbook.pdf",
     "type": "PDF",
-    "size": "1.1 MB",
-    "icon": "fas fa-book"
+    "size": "1.8 MB",
+    "description": "Rules, regulations, and guidelines for students."
   },
   {
-    "title": "Medical & Health Form",
-    "description": "Required for boarding students and medical records.",
-    "file": "/downloads/medical-form.pdf",
+    "title": "Uniform Policy",
+    "file": "/downloads/uniform-policy.pdf",
     "type": "PDF",
-    "size": "450 KB",
-    "icon": "fas fa-notes-medical"
+    "size": "400 KB",
+    "description": "Dress code and uniform requirements."
+  },
+  {
+    "title": "Transport Routes",
+    "file": "/downloads/transport-routes.pdf",
+    "type": "PDF",
+    "size": "500 KB",
+    "description": "School bus routes and schedules."
+  },
+  {
+    "title": "Examination Timetable",
+    "file": "/downloads/examination-timetable.pdf",
+    "type": "PDF",
+    "size": "300 KB",
+    "description": "Schedule for upcoming examinations."
+  },
+  {
+    "title": "Parent-Teacher Meeting Schedule",
+    "file": "/downloads/ptm-schedule.pdf",
+    "type": "PDF",
+    "size": "200 KB",
+    "description": "Dates and times for parent-teacher meetings."
+  },
+  {
+    "title": "School Policies",
+    "file": "/downloads/school-policies.pdf",
+    "type": "PDF",
+    "size": "1.5 MB",
+    "description": "Comprehensive guide to school policies and procedures."
   }
 ]
