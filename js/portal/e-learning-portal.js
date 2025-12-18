@@ -76,15 +76,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setupTeacherUpload();
     setupBackToTop();
+    setupSideNavigation();
   });
 });
 
 // ==================== BACK TO TOP FUNCTIONALITY ====================
 function setupBackToTop() {
   const backToTopBtn = document.getElementById("backToTop");
-
+ 
   if (!backToTopBtn) return;
-
+ 
   // Show/hide button based on scroll position
   window.addEventListener("scroll", () => {
     if (window.pageYOffset > 300) {
@@ -93,7 +94,7 @@ function setupBackToTop() {
       backToTopBtn.style.display = "none";
     }
   });
-
+ 
   // Smooth scroll to top
   backToTopBtn.addEventListener("click", () => {
     window.scrollTo({
@@ -101,6 +102,72 @@ function setupBackToTop() {
       behavior: "smooth"
     });
   });
+}
+
+// ==================== SIDE NAVIGATION FUNCTIONALITY ====================
+function setupSideNavigation() {
+  const sideNav = document.querySelector('.card.sticky-top');
+  if (!sideNav) return;
+
+  // Add event listeners to all navigation buttons
+  const navButtons = sideNav.querySelectorAll('.btn');
+  navButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.preventDefault();
+      const section = button.getAttribute('href');
+      loadSection(section);
+    });
+  });
+}
+
+// Load section content dynamically
+function loadSection(sectionUrl) {
+  const mainContentArea = document.getElementById('mainContentArea');
+  if (!mainContentArea) return;
+
+  // Show loading spinner
+  const spinner = document.getElementById('loadingSpinner');
+  if (spinner) spinner.classList.remove('d-none');
+
+  // Fetch the section content
+  fetch(sectionUrl)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(html => {
+      // Extract the body content from the fetched HTML
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      const sectionContent = doc.body.innerHTML;
+
+      // Update the main content area
+      mainContentArea.innerHTML = sectionContent;
+
+      // Initialize any necessary components
+      initializeSectionComponents();
+    })
+    .catch(error => {
+      logger.error('Error loading section:', error);
+      showAlert(`Failed to load section: ${error.message}`, 'danger');
+    })
+    .finally(() => {
+      // Hide loading spinner
+      if (spinner) spinner.classList.add('d-none');
+    });
+}
+
+// Initialize components for dynamically loaded sections
+function initializeSectionComponents() {
+  // Re-initialize Bootstrap tooltips, popovers, etc.
+  const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+
+  // Re-initialize any other components as needed
 }
 
 // ==================== LOAD DATA FROM BACKEND ====================

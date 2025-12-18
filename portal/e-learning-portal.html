@@ -31,6 +31,28 @@
   
   <!-- Custom Styles -->
   <link rel="stylesheet" href="/css/portal/portal-elearning.css">
+  <style>
+    /* Custom styles for sidebar navigation */
+    .sidebar-nav {
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .sidebar-nav .btn {
+      margin-bottom: 10px;
+      text-align: left;
+    }
+    
+    .sidebar-nav .btn i {
+      margin-right: 10px;
+    }
+    
+    #mainContentArea {
+      min-height: 500px;
+    }
+  </style>
   
   <!-- Preload critical resources -->
   <link rel="preload" href="/js/portal/e-learning-portal.js" as="script">
@@ -54,7 +76,7 @@
 
   <!-- Main Portal Content (hidden until logged in) -->
   <div id="mainContent" class="d-none">
-    
+     
     <!-- Navigation Header -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
       <div class="container">
@@ -111,7 +133,7 @@
         </div>
       </div>
     </nav>
-
+ 
     <!-- Hero Section -->
     <section class="hero text-white text-center py-5 position-relative overflow-hidden">
       <div class="container py-5 position-relative z-2">
@@ -132,255 +154,55 @@
     </section>
 
     <div class="container my-5">
-
-      <!-- Quick Stats Dashboard -->
-      <section id="dashboard" class="mb-5">
-        <h2 class="section-title text-center mb-5">Your Learning Dashboard</h2>
-        <div class="row g-4 mb-4">
-          <div class="col-md-3">
-            <div class="stat-card glass-card text-center p-4">
-              <i class="fas fa-book-open fa-3x text-primary mb-3"></i>
-              <h3 class="fw-bold" id="totalLessons">0</h3>
-              <p class="text-muted mb-0">Lessons Completed</p>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="stat-card glass-card text-center p-4">
-              <i class="fas fa-percentage fa-3x text-success mb-3"></i>
-              <h3 class="fw-bold" id="overallProgress">0%</h3>
-              <p class="text-muted mb-0">Overall Progress</p>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="stat-card glass-card text-center p-4">
-              <i class="fas fa-fire fa-3x text-warning mb-3"></i>
-              <h3 class="fw-bold" id="studyStreak">0</h3>
-              <p class="text-muted mb-0">Day Streak</p>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="stat-card glass-card text-center p-4">
-              <i class="fas fa-trophy fa-3x text-info mb-3"></i>
-              <h3 class="fw-bold" id="totalPoints">0</h3>
-              <p class="text-muted mb-0">Total Points</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Recent Achievements -->
-        <div class="row">
-          <div class="col-12">
-            <div class="glass-card p-4">
-              <h4 class="mb-3">Recent Achievements</h4>
-              <div id="achievementsGrid" class="row g-3"></div>
+      <!-- Side Navigation Buttons -->
+      <div class="row">
+        <div class="col-lg-3 mb-4">
+          <div class="sidebar-nav sticky-top" style="top: 70px;">
+            <h5 class="mb-3">Quick Access</h5>
+            <div class="d-grid gap-2">
+              <a href="/portal/sections/dashboard.html" class="btn btn-outline-primary">
+                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+              </a>
+              <a href="/portal/sections/subjects.html" class="btn btn-outline-primary">
+                <i class="fas fa-book me-2"></i>Subjects
+              </a>
+              <a href="/portal/sections/live-sessions.html" class="btn btn-outline-primary">
+                <i class="fas fa-video me-2"></i>Live Sessions
+              </a>
+              <a href="/portal/sections/calendar.html" class="btn btn-outline-primary">
+                <i class="fas fa-calendar-alt me-2"></i>Calendar
+              </a>
+              <a href="/portal/sections/resources.html" class="btn btn-outline-primary">
+                <i class="fas fa-folder-open me-2"></i>Resources
+              </a>
+              <a href="/portal/sections/quizzes.html" class="btn btn-outline-primary">
+                <i class="fas fa-clipboard-list me-2"></i>Quizzes
+              </a>
+              <a href="/portal/sections/forum.html" class="btn btn-outline-primary">
+                <i class="fas fa-comments me-2"></i>Forum
+              </a>
+              <a href="/portal/sections/analytics.html" class="btn btn-outline-primary">
+                <i class="fas fa-chart-line me-2"></i>Analytics
+              </a>
+              <a href="/portal/sections/media.html" class="btn btn-outline-primary">
+                <i class="fas fa-images me-2"></i>Media Gallery
+              </a>
+              <a href="/portal/sections/study-plans.html" class="btn btn-outline-primary">
+                <i class="fas fa-tasks me-2"></i>Study Plans
+              </a>
             </div>
           </div>
         </div>
-      </section>
-
-      <!-- Role Switcher -->
-      <div class="text-center mb-5">
-        <div class="btn-group btn-group-lg" role="group" aria-label="User Role">
-          <button type="button" class="btn btn-primary active" id="roleStudent" onclick="setRole('student')">
-            Student View
-          </button>
-          <button type="button" class="btn btn-outline-primary" id="roleTeacher" onclick="setRole('teacher')">
-            Teacher View
-          </button>
-        </div>
-      </div>
-
-      <!-- Subjects & Courses Grid -->
-      <section id="subjects" class="mb-5">
-        <h2 class="section-title text-center mb-5">Subjects & Courses</h2>
-        <div id="subjectsGrid" class="row g-4 mb-5"></div>
-      </section>
-
-      <!-- Live Sessions -->
-      <section id="live" class="mb-5">
-        <h2 class="section-title text-center mb-5">Live Sessions & Classes</h2>
-        <div id="liveSessionsGrid" class="row g-4 mb-5"></div>
-      </section>
-
-      <!-- Calendar & Schedule -->
-      <section id="calendar" class="mb-5">
-        <h2 class="section-title text-center mb-5">Your Schedule</h2>
-        <div class="row">
-          <div class="col-lg-8">
-            <div class="glass-card p-4">
-              <div id="calendarGrid" class="calendar-grid"></div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="glass-card p-4">
-              <h4 class="mb-3">Upcoming Events</h4>
-              <div id="upcomingEvents"></div>
+        <div class="col-lg-9">
+          <!-- Main Content Area -->
+          <div id="mainContentArea">
+            <div class="alert alert-info">
+              <h4 class="alert-heading">Welcome to the E-Learning Hub!</h4>
+              <p>Use the side navigation buttons to access different sections of the portal.</p>
             </div>
           </div>
         </div>
-      </section>
-
-      <!-- Teacher Upload Panel -->
-      <div id="teacherPanel" class="card border-0 shadow-lg p-4 p-md-5 mb-5 d-none" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);">
-        <h3 class="text-center mb-4 text-primary fw-bold">Teacher Upload Center</h3>
-        <form id="uploadForm" enctype="multipart/form-data">
-          <div class="row g-4">
-            <div class="col-12">
-              <label for="title" class="form-label fw-bold">Title</label>
-              <input id="title" type="text" class="form-control form-control-lg" placeholder="Lesson/Assignment Title" required>
-            </div>
-            <div class="col-md-6">
-              <label for="subject" class="form-label fw-bold">Subject</label>
-              <select id="subject" class="form-select form-select-lg" required>
-                <option value="">Select Subject</option>
-                <option>Mathematics</option>
-                <option>Physics</option>
-                <option>Chemistry</option>
-                <option>Biology</option>
-                <option>English</option>
-                <option>Kiswahili</option>
-                <option>History</option>
-                <option>Geography</option>
-                <option>CRE/IRE</option>
-                <option>Business Studies</option>
-                <option>Computer Studies</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label for="resource-type" class="form-label fw-bold">Type</label>
-              <select id="resource-type" class="form-select form-select-lg" required>
-                <option value="">Select Type</option>
-                <option>Lesson Notes</option>
-                <option>Assignment</option>
-                <option>Quiz</option>
-                <option>Video Lesson</option>
-                <option>Past Paper</option>
-                <option>Revision Guide</option>
-              </select>
-            </div>
-            <div class="col-12">
-              <label for="description" class="form-label fw-bold">Description</label>
-              <textarea id="description" class="form-control" rows="4" placeholder="Brief description of the resource (optional)"></textarea>
-            </div>
-            <div class="col-12">
-              <label for="file-upload" class="form-label fw-bold">Upload Files (Multiple allowed)</label>
-              <input id="file-upload" type="file" class="form-control form-control-lg" name="files" multiple accept=".pdf,.doc,.docx,.mp4,.jpg,.png,.zip">
-              <div id="fileList" class="mt-3"></div>
-            </div>
-            <div class="col-12 text-center">
-              <button type="submit" class="btn btn-success btn-lg px-5">
-                Upload Resource
-              </button>
-            </div>
-          </div>
-        </form>
       </div>
-
-      <!-- Resources Section -->
-      <section id="resources" class="mb-5">
-        <h2 class="section-title text-center mb-5">Learning Resources</h2>
-        <div class="row g-4 mb-4">
-          <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <div class="btn-group" role="group">
-                <button type="button" class="btn btn-outline-primary active" data-filter="all">All</button>
-                <button type="button" class="btn btn-outline-primary" data-filter="pdf">PDFs</button>
-                <button type="button" class="btn btn-outline-primary" data-filter="video">Videos</button>
-                <button type="button" class="btn btn-outline-primary" data-filter="interactive">Interactive</button>
-              </div>
-              <select class="form-select w-auto" id="subjectFilter">
-                <option value="">All Subjects</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div id="resourcesGrid" class="row g-4 mb-5"></div>
-      </section>
-
-      <!-- Quizzes & Assignments -->
-      <section id="quizzes" class="mb-5">
-        <h2 class="section-title text-center mb-5">Quizzes & Assignments</h2>
-        <div class="row g-4 mb-4">
-          <div class="col-md-6">
-            <div class="card border-0 shadow-sm h-100">
-              <div class="card-body">
-                <h5 class="card-title">Pending Quizzes</h5>
-                <div id="pendingQuizzes"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card border-0 shadow-sm h-100">
-              <div class="card-body">
-                <h5 class="card-title">Active Assignments</h5>
-                <div id="activeAssignments"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="quizGrid" class="row g-4 mb-5"></div>
-      </section>
-
-      <!-- Discussion Forum -->
-      <section id="forum" class="mb-5">
-        <h2 class="section-title text-center mb-5">Discussion & Q&A Forum</h2>
-        <div class="row">
-          <div class="col-lg-8">
-            <div class="glass-card p-4">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4>Recent Discussions</h4>
-                <button class="btn btn-primary" onclick="startNewDiscussion()">
-                  <i class="fas fa-plus me-2"></i>New Discussion
-                </button>
-              </div>
-              <div id="forumGrid" class="row g-4 mb-5"></div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="glass-card p-4">
-              <h4 class="mb-3">Forum Categories</h4>
-              <div id="forumCategories"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Progress Analytics -->
-      <section id="analytics" class="mb-5">
-        <h2 class="section-title text-center mb-5">Learning Analytics</h2>
-        <div class="row g-4">
-          <div class="col-lg-6">
-            <div class="glass-card p-4">
-              <h4 class="mb-3">Subject Performance</h4>
-              <div id="subjectProgressChart"></div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="glass-card p-4">
-              <h4 class="mb-3">Study Time This Week</h4>
-              <div id="studyTimeChart"></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Media Gallery -->
-      <section id="media" class="mb-5">
-        <h2 class="section-title text-center mb-5">Media & Lesson Gallery</h2>
-        <div id="mediaGrid" class="row g-4 mb-5"></div>
-      </section>
-
-      <!-- Notifications -->
-      <section id="notifications" class="mb-5">
-        <h2 class="section-title text-center mb-5">Notifications & Announcements</h2>
-        <div id="notificationList" class="list-group mb-5"></div>
-      </section>
-
-      <!-- Study Plans -->
-      <section id="study-plans" class="mb-5">
-        <h2 class="section-title text-center mb-5">Your Study Plans</h2>
-        <div id="studyPlansGrid" class="row g-4 mb-5"></div>
-      </section>
     </div>
 
   </div>
