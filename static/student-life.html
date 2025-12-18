@@ -39,8 +39,8 @@
                     and grow into responsible leaders.
                 </p>
                 <div class="hero-cta">
-                    <a href="#houses" class="btn-primary">Explore Our Houses</a>
-                    <a href="/clubs/clubs.html" class="btn-secondary">Join Clubs & Activities</a>
+                    <a href="#houses" class="btn-primary"><i class="fas fa-home"></i> Explore Our Houses</a>
+                    <a href="/clubs/clubs.html" class="btn-secondary"><i class="fas fa-users"></i> Join Clubs & Activities</a>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
                     <p>Our students thrive in a balanced environment that encourages personal growth, critical thinking, creativity, and teamwork. Daily activities and events allow learners to discover talents, develop skills, and build lasting friendships.</p>
                     <p>We focus on holistic development—preparing students not only for examinations, but for life. Our programs foster moral integrity, discipline, responsibility, and social consciousness, creating confident and well-rounded young adults.</p>
                     <p>From engaging co-curricular clubs to competitive sports and cultural activities, every student finds opportunities to shine, participate, and lead.</p>
-                    <a href="gallery.html" class="btn-primary">Explore Our School & Gallery</a>
+                    <a href="gallery.html" class="btn-primary intro-btn"><i class="fas fa-school"></i> Explore Our School & Gallery</a>
                 </div>
                 <div class="intro-image">
                     <img src="/assets/images/student-life/group-happy-small.jpg"
@@ -151,18 +151,22 @@
                 </div>
                 <!-- Additional clubs follow same pattern -->
             </div>
-            <div class="movements-grid">
-                <h3>Student Movements</h3>
-                <p>Student leadership empowers learners to take responsibility and lead peers.</p>
-                <div class="movement-card">
-                    <div class="movement-icon"><i class="fas fa-star"></i></div>
-                    <h4>Prefect Council</h4>
-                    <p>The highest student leadership body guiding learners and organizing events.</p>
+            <div class="movements-section">
+                <div class="section-header">
+                    <h3>Student Movements</h3>
+                    <p class="section-description">Student leadership empowers learners to take responsibility and lead peers.</p>
                 </div>
-                <div class="movement-card">
-                    <div class="movement-icon"><i class="fas fa-users"></i></div>
-                    <h4>Club Officials</h4>
-                    <p>Student leaders coordinating club activities and mentoring members.</p>
+                <div class="movements-grid">
+                    <div class="movement-card">
+                        <div class="movement-icon"><i class="fas fa-star"></i></div>
+                        <h4>Prefect Council</h4>
+                        <p>The highest student leadership body guiding learners and organizing events.</p>
+                    </div>
+                    <div class="movement-card">
+                        <div class="movement-icon"><i class="fas fa-users"></i></div>
+                        <h4>Club Officials</h4>
+                        <p>Student leaders coordinating club activities and mentoring members.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -212,8 +216,91 @@
                         <div class="form-group full-width">
                             <label>Interested Clubs * (Select up to 3)</label>
                             <div class="checkbox-grid" id="clubCheckboxes">
-                                <!-- Dynamically populated by JS -->
-                                <p class="text-center text-gray-600">Loading clubs...</p>
+                                <!-- Hardcoded clubs for reliability -->
+                                <div class="club-checkbox-item">
+                                    <label>
+                                        <input type="checkbox" name="interested_clubs" value="Scouts & Guides Movement">
+                                        <i class="fas fa-campground" style="color: #1e3a8a;"></i>
+                                        <span>Scouts & Guides Movement</span>
+                                    </label>
+                                </div>
+                                <div class="club-checkbox-item">
+                                    <label>
+                                        <input type="checkbox" name="interested_clubs" value="Christian Union (CU)">
+                                        <i class="fas fa-praying-hands" style="color: #1e3a8a;"></i>
+                                        <span>Christian Union (CU)</span>
+                                    </label>
+                                </div>
+                                <div class="club-checkbox-item">
+                                    <label>
+                                        <input type="checkbox" name="interested_clubs" value="Wildlife & Environment Club">
+                                        <i class="fas fa-paw" style="color: #1e3a8a;"></i>
+                                        <span>Wildlife & Environment Club</span>
+                                    </label>
+                                </div>
+                                <div class="club-checkbox-item">
+                                    <label>
+                                        <input type="checkbox" name="interested_clubs" value="Journalism & Media Club">
+                                        <i class="fas fa-newspaper" style="color: #1e3a8a;"></i>
+                                        <span>Journalism & Media Club</span>
+                                    </label>
+                                </div>
+                                <div class="club-checkbox-item">
+                                    <label>
+                                        <input type="checkbox" name="interested_clubs" value="Robotics & AI Club">
+                                        <i class="fas fa-robot" style="color: #1e3a8a;"></i>
+                                        <span>Robotics & AI Club</span>
+                                    </label>
+                                </div>
+                                <div class="club-checkbox-item">
+                                    <label>
+                                        <input type="checkbox" name="interested_clubs" value="Drama & Theatre Club">
+                                        <i class="fas fa-theater-masks" style="color: #1e3a8a;"></i>
+                                        <span>Drama & Theatre Club</span>
+                                    </label>
+                                </div>
+                                <div class="club-checkbox-item">
+                                    <label>
+                                        <input type="checkbox" name="interested_clubs" value="Music & Dance Club">
+                                        <i class="fas fa-music" style="color: #1e3a8a;"></i>
+                                        <span>Music & Dance Club</span>
+                                    </label>
+                                </div>
+                                <div class="club-checkbox-item">
+                                    <label>
+                                        <input type="checkbox" name="interested_clubs" value="Art & Craft Club">
+                                        <i class="fas fa-palette" style="color: #1e3a8a;"></i>
+                                        <span>Art & Craft Club</span>
+                                    </label>
+                                </div>
+                                <div class="club-checkbox-item">
+                                    <label>
+                                        <input type="checkbox" name="interested_clubs" value="Debate Club">
+                                        <i class="fas fa-microphone" style="color: #1e3a8a;"></i>
+                                        <span>Debate Club</span>
+                                    </label>
+                                </div>
+                                <div class="club-checkbox-item">
+                                    <label>
+                                        <input type="checkbox" name="interested_clubs" value="Science Club">
+                                        <i class="fas fa-flask" style="color: #1e3a8a;"></i>
+                                        <span>Science Club</span>
+                                    </label>
+                                </div>
+                                <div class="club-checkbox-item">
+                                    <label>
+                                        <input type="checkbox" name="interested_clubs" value="Mathematics Club">
+                                        <i class="fas fa-square-root-alt" style="color: #1e3a8a;"></i>
+                                        <span>Mathematics Club</span>
+                                    </label>
+                                </div>
+                                <div class="club-checkbox-item">
+                                    <label>
+                                        <input type="checkbox" name="interested_clubs" value="Humanities Club">
+                                        <i class="fas fa-landmark" style="color: #1e3a8a;"></i>
+                                        <span>Humanities Club</span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group full-width">
@@ -222,7 +309,7 @@
                         </div>
                     </div>
                     <div class="form-actions">
-                        <button type="submit" class="btn-primary large">
+                        <button type="submit" class="btn-primary large" onclick="validateClubRegistration(event)">
                             <i class="fas fa-user-plus"></i> Submit Registration
                         </button>
                     </div>
@@ -243,9 +330,9 @@
                 <p class="section-subtitle">Mark your calendar — upcoming events, holidays, exams, and activities</p>
             </div>
             <div class="calendar-controls">
-                <button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                <button id="prevMonth" title="Previous Month"><i class="fas fa-chevron-left"></i></button>
                 <h3 id="calendarMonthYear">December 2025</h3>
-                <button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                <button id="nextMonth" title="Next Month"><i class="fas fa-chevron-right"></i></button>
             </div>
             <div class="calendar-grid" id="calendarGrid">
                 <div class="loader">Loading calendar...</div>
@@ -338,5 +425,78 @@
     <script src="/js/static/mobile-menu.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js" defer></script>
     <script src="/js/static/student-life.js" defer></script>
+    
+    <script>
+    // Club registration form validation
+    function validateClubRegistration(event) {
+        event.preventDefault();
+        
+        // Get form values
+        const studentName = document.getElementById('regStudentName').value.trim();
+        const grade = document.getElementById('regGrade').value;
+        const house = document.getElementById('regHouse').value;
+        
+        // Validate required fields
+        if (!studentName) {
+            showFormStatus('Please enter your full name.', 'error');
+            return;
+        }
+        
+        if (!grade) {
+            showFormStatus('Please select your grade/form.', 'error');
+            return;
+        }
+        
+        if (!house) {
+            showFormStatus('Please select your house.', 'error');
+            return;
+        }
+        
+        // Get selected clubs
+        const selectedClubs = [];
+        document.querySelectorAll('input[name="interested_clubs"]:checked').forEach(checkbox => {
+            selectedClubs.push(checkbox.value);
+        });
+        
+        if (selectedClubs.length === 0) {
+            showFormStatus('Please select at least one club.', 'error');
+            return;
+        }
+        
+        if (selectedClubs.length > 3) {
+            showFormStatus('Please select no more than 3 clubs.', 'error');
+            return;
+        }
+        
+        // Form is valid - show success message
+        const statusDiv = document.getElementById('clubRegStatus');
+        statusDiv.innerHTML = `
+            <i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.5rem;"></i>
+            Registration submitted successfully! Selected clubs: ${selectedClubs.join(', ')}
+        `;
+        statusDiv.classList.remove('hidden', 'error');
+        statusDiv.classList.add('success');
+        
+        // Log form data to console
+        console.log('Club registration submitted:', {
+            student_name: studentName,
+            grade: grade,
+            house: house,
+            email: document.getElementById('regEmail').value,
+            clubs: selectedClubs,
+            message: document.getElementById('regMessage').value
+        });
+    }
+    
+    function showFormStatus(message, type) {
+        const statusDiv = document.getElementById('clubRegStatus');
+        statusDiv.innerHTML = `
+            <i class="fas fa-exclamation-circle" style="color: var(--danger); margin-right: 0.5rem;"></i>
+            ${message}
+        `;
+        statusDiv.classList.remove('hidden', 'success');
+        statusDiv.classList.add(type);
+    }
+    </script>
 </body>
 </html>

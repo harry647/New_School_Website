@@ -19,6 +19,91 @@
   margin-top: 3rem;
 }
 
+/* Special styling for hero CTA buttons */
+.hero-cta .btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 2px solid white;
+  box-shadow: 0 8px 25px rgba(0,86,179,0.4);
+  transition: all 0.4s ease;
+}
+
+/* Special styling for intro section button */
+.intro-btn {
+  background: linear-gradient(135deg, var(--success), #10b981);
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 2px solid var(--dark);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+  transition: all 0.4s ease;
+  margin-top: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.intro-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
+  background: linear-gradient(135deg, #10b981, var(--success));
+}
+
+.intro-btn i {
+  font-size: 1.2rem;
+}
+
+.hero-cta .btn-primary:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0,86,179,0.5);
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+}
+
+.hero-cta .btn-secondary {
+  background: linear-gradient(135deg, var(--accent), #f97316);
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: white;
+  border: 2px solid white;
+  box-shadow: 0 8px 25px rgba(245,158,11,0.4);
+  transition: all 0.4s ease;
+}
+
+.hero-cta .btn-secondary:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(245,158,11,0.5);
+  background: linear-gradient(135deg, #f97316, var(--accent));
+}
+
+/* Button icon styling */
+.hero-cta .btn-primary i,
+.hero-cta .btn-secondary i {
+  margin-right: 0.8rem;
+  font-size: 1.2rem;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+}
+
+.hero-subtitle {
+  font-size: 1.3rem;
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  line-height: 1.8;
+}
+
 /* Sticky Quick Nav */
 .quick-nav {
   position: sticky;
@@ -68,6 +153,48 @@
 /* Intro Section */
 .intro-section {
   background: var(--light);
+  padding: 4rem 0;
+}
+
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.intro-content {
+  padding-right: 2rem;
+}
+
+.intro-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: var(--primary);
+}
+
+.intro-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: #475569;
+}
+
+.intro-image img {
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  width: 100%;
+  height: auto;
+  transition: transform 0.4s ease;
+}
+
+.intro-image img:hover {
+  transform: scale(1.02);
+}
+
+/* Intro Section */
+.intro-section {
+  background: var(--light);
 }
 
 .intro-grid {
@@ -85,6 +212,38 @@
 /* House System */
 .houses-section {
   background: white;
+  padding: 4rem 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+  color: var(--primary);
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+
+.section-subtitle {
+  font-size: 1.2rem;
+  color: var(--secondary);
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .houses-grid {
@@ -100,12 +259,25 @@
   border-radius: 20px;
   text-align: center;
   box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
   border-top: 8px solid;
+  position: relative;
+  overflow: hidden;
+}
+
+.house-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
 }
 
 .house-card:hover {
   transform: translateY(-15px);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.15);
 }
 
 .house-card.red { border-color: #dc2626; }
@@ -117,22 +289,42 @@
   font-size: 4.5rem;
   margin-bottom: 1.5rem;
   color: inherit;
+  transition: transform 0.4s ease;
+}
+
+.house-card:hover .house-icon {
+  transform: scale(1.1);
 }
 
 .house-card h3 {
   font-size: 2rem;
   margin-bottom: 1rem;
+  color: var(--dark);
 }
 
 .house-card p {
   font-weight: 700;
   font-size: 1.2rem;
   margin-bottom: 2rem;
+  color: var(--secondary);
+}
+
+.house-card ul {
+  text-align: left;
+  padding-left: 1rem;
+}
+
+.house-card li {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  color: #475569;
+  line-height: 1.6;
 }
 
 /* Clubs Section */
 .clubs-section {
   background: var(--light);
+  padding: 4rem 0;
 }
 
 .clubs-grid {
@@ -148,25 +340,91 @@
   border-radius: 20px;
   text-align: center;
   box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.club-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--primary), #7c3aed, var(--primary));
 }
 
 .club-card:hover {
   transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
 .club-icon {
   font-size: 4rem;
   color: var(--primary);
   margin-bottom: 1.5rem;
+  transition: transform 0.4s ease;
 }
 
-/* Movements */
+.club-card:hover .club-icon {
+  transform: rotateY(180deg);
+}
+
+.club-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--dark);
+}
+
+.club-card p {
+  font-size: 1.1rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* Student Movements Section */
+.movements-section {
+  margin-top: 4rem;
+}
+
+.movements-section .section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.movements-section h3 {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.movements-section h3::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--success);
+  border-radius: 2px;
+}
+
+.movements-section .section-description {
+  font-size: 1.2rem;
+  color: var(--secondary);
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Movements Grid */
 .movements-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 3rem;
-  margin-top: 4rem;
 }
 
 .movement-card {
@@ -175,17 +433,53 @@
   border-radius: 20px;
   text-align: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.movement-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--success), #f59e0b, var(--success));
+}
+
+.movement-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
 }
 
 .movement-icon {
   font-size: 3.5rem;
   color: var(--primary);
   margin-bottom: 1.5rem;
+  transition: transform 0.4s ease;
+}
+
+.movement-card:hover .movement-icon {
+  transform: scale(1.2);
+}
+
+.movement-card h4 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: var(--dark);
+}
+
+.movement-card p {
+  font-size: 1.1rem;
+  color: #475569;
+  line-height: 1.6;
 }
 
 /* Club Registration Form */
 .club-registration-section {
   background: white;
+  padding: 4rem 0;
 }
 
 .registration-form-card {
@@ -195,6 +489,57 @@
   box-shadow: 0 20px 50px rgba(0,0,0,0.12);
   max-width: 1000px;
   margin: 0 auto;
+  border: 1px solid var(--gray);
+}
+
+.registration-form-card h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.registration-form-card .section-subtitle {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: var(--secondary);
+}
+
+.form-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 1.1rem;
+}
+
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0,86,179,0.15);
 }
 
 .checkbox-grid {
@@ -210,11 +555,120 @@
   gap: 1rem;
   font-size: 1.1rem;
   cursor: pointer;
+  padding: 0.8rem;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.checkbox-grid label:hover {
+  background: rgba(0,86,179,0.05);
+}
+
+.checkbox-grid input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary);
+}
+
+/* Club checkbox items for registration form */
+.club-checkbox-item {
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.club-checkbox-item label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: 12px;
+  background: white;
+  border: 2px solid var(--gray);
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.club-checkbox-item label:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0,86,179,0.15);
+}
+
+.club-checkbox-item input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+.club-checkbox-item i {
+  font-size: 1.4rem;
+  transition: transform 0.3s ease;
+}
+
+.club-checkbox-item label:hover i {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.club-checkbox-item input[type="checkbox"]:checked + i {
+  color: var(--success) !important;
+}
+
+.club-checkbox-item input[type="checkbox"]:checked + i + span {
+  font-weight: 600;
+  color: var(--dark);
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-actions {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.btn-primary.large {
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.form-note {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--secondary);
+  font-style: italic;
+}
+
+.form-status {
+  margin-top: 1.5rem;
+  padding: 1.2rem;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.form-status.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.form-status.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }
 
 /* Event Calendar */
 .calendar-section {
   background: var(--light);
+  padding: 4rem 0;
 }
 
 .calendar-card {
@@ -222,6 +676,94 @@
   padding: 3rem;
   border-radius: 24px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Calendar Events */
+.calendar-month {
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.calendar-month-header {
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--gray);
+  font-weight: 700;
+}
+
+.calendar-event {
+  background: var(--primary-light);
+  border-left: 4px solid var(--primary);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.calendar-event:hover {
+  transform: translateX(5px);
+  box-shadow: 0 8px 20px rgba(0,86,179,0.2);
+}
+
+.event-date {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  min-width: 60px;
+  text-align: center;
+}
+
+.event-info {
+  flex: 1;
+  margin-left: 1.5rem;
+}
+
+.event-info h5 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--dark);
+}
+
+.event-time, .event-location {
+  font-size: 0.95rem;
+  color: var(--secondary);
+  margin: 0.2rem 0;
+}
+
+.event-type-badge {
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  opacity: 0.8;
+}
+
+.calendar-event.academic {
+  border-left-color: var(--primary);
+  background: rgba(0,86,179,0.1);
+}
+
+.calendar-event.cultural {
+  border-left-color: #7c3aed;
+  background: rgba(124,58,237,0.1);
+}
+
+.calendar-event.sports {
+  border-left-color: var(--danger);
+  background: rgba(220,38,38,0.1);
+}
+
+.calendar-event.holiday {
+  border-left-color: var(--success);
+  background: rgba(22,163,74,0.1);
 }
 
 .calendar-controls {
@@ -243,10 +785,17 @@
   align-items: center;
   justify-content: center;
   transition: background 0.3s ease;
+  border: 2px solid var(--primary);
 }
 
 .calendar-controls button:hover {
   background: var(--primary-light);
+}
+
+.calendar-month-year {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary);
 }
 
 .calendar-grid {
@@ -262,6 +811,7 @@
   background: var(--primary);
   color: white;
   border-radius: 12px;
+  font-size: 1.1rem;
 }
 
 .day {
@@ -271,7 +821,12 @@
   border-radius: 16px;
   background: white;
   position: relative;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.day:hover {
+  background: var(--primary-light);
+  transform: scale(1.02);
 }
 
 .day.empty {
@@ -282,6 +837,17 @@
 .day-number {
   font-weight: bold;
   font-size: 1.2rem;
+  color: var(--dark);
+}
+
+.day.today {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.day.today .day-number {
+  color: white;
 }
 
 .event-badge {
@@ -291,6 +857,8 @@
   margin-top: 0.6rem;
   border-radius: 20px;
   color: white;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .event-badge.academic { background: var(--primary); }
@@ -311,11 +879,17 @@
   align-items: center;
   gap: 0.8rem;
   font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.legend-item i {
+  font-size: 1.2rem;
 }
 
 /* Sports Section */
 .sports-section {
   background: white;
+  padding: 4rem 0;
 }
 
 .sports-overview {
@@ -330,12 +904,54 @@
   padding: 3rem;
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.overview-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--success), var(--danger), var(--success));
+}
+
+.overview-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+.overview-card h3 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}
+
+.overview-card p {
+  font-size: 1.1rem;
+  color: #475569;
+  line-height: 1.6;
+}
+
+.overview-card ul {
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+
+.overview-card li {
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  color: #475569;
 }
 
 .sports-programs h3 {
   font-size: 2rem;
   margin-bottom: 2rem;
   text-align: center;
+  color: var(--primary);
 }
 
 .sports-grid {
@@ -350,23 +966,36 @@
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
   text-align: center;
 }
 
 .sport-card:hover {
   transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
 .sport-card img {
   width: 100%;
   height: 250px;
   object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.sport-card:hover img {
+  transform: scale(1.05);
 }
 
 .sport-card h4 {
   padding: 1.5rem 0 1rem;
   font-size: 1.6rem;
+  color: var(--dark);
+}
+
+.sport-card p {
+  padding: 0 1.5rem 2rem;
+  font-size: 1.1rem;
+  color: #475569;
 }
 
 .sports-structure {
@@ -380,6 +1009,24 @@
   padding: 3rem;
   border-radius: 20px;
   text-align: center;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.structure-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+.structure-card h3 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}
+
+.structure-card p {
+  font-size: 1.1rem;
+  color: #475569;
+  line-height: 1.6;
 }
 
 /* Lightbox Modal */
@@ -402,6 +1049,11 @@
   color: white;
   cursor: pointer;
   z-index: 10;
+  transition: transform 0.3s ease;
+}
+
+.close-lightbox:hover {
+  transform: scale(1.2);
 }
 
 #lightboxImage {
@@ -409,9 +1061,20 @@
   max-height: 90vh;
   border-radius: 16px;
   box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  transition: transform 0.4s ease;
+}
+
+#lightboxImage:hover {
+  transform: scale(1.02);
 }
 
 /* Responsive */
+@media (max-width: 1200px) {
+  .intro-grid {
+    gap: 3rem;
+  }
+}
+
 @media (max-width: 992px) {
   .intro-grid,
   .sports-overview,
@@ -429,6 +1092,14 @@
 
   .day {
     min-height: 90px;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
   }
 }
 
@@ -449,10 +1120,333 @@
   }
 
   .registration-form-card {
-    padding: 2.5rem;
+    padding: 2rem;
   }
 
   .checkbox-grid {
     grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+  }
+
+  .house-card h3 {
+    font-size: 1.8rem;
+  }
+
+  .club-card h3 {
+    font-size: 1.6rem;
+  }
+
+  .calendar-month-year {
+    font-size: 1.5rem;
+  }
+
+  .weekday {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .day {
+    min-height: 80px;
+    padding: 0.8rem;
+  }
+
+  .day-number {
+    font-size: 1.1rem;
+  }
+
+  .intro-content p,
+  .house-card li,
+  .club-card p,
+  .movement-card p,
+  .overview-card p,
+  .structure-card p,
+  .sport-card p {
+    font-size: 1rem;
+  }
+
+  /* Mobile calendar - show one event card at a time */
+  .calendar-event {
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+  }
+
+  .event-date {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .event-info {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .event-type-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.2rem;
+  }
+
+  /* Reduce font sizes for mobile calendar section */
+  .calendar-section {
+    padding: 1.5rem 0;
+  }
+
+  .calendar-month-header {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.6rem;
+  }
+
+  /* Ensure calendar events don't overlap */
+  .calendar-month {
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  }
+
+  /* Fix calendar grid for mobile */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+  }
+
+  .day {
+    min-height: 60px;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  /* Ensure calendar events are properly spaced */
+  .calendar-event + .calendar-event {
+    margin-top: 1.5rem;
+  }
+
+  /* Make sure event info is readable */
+  .event-info h5 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .event-time, .event-location {
+    font-size: 0.9rem;
+    margin: 0.2rem 0;
+  }
+
+  /* Additional mobile-specific styling */
+  @media (max-width: 768px) {
+    /* Reduce calendar section padding on mobile */
+    .calendar-section {
+      padding: 1rem 0;
+    }
+
+    /* Make calendar container more compact */
+    .calendar-card {
+      padding: 1rem;
+    }
+
+    /* Smaller font for event titles on mobile */
+    .event-info h5 {
+      font-size: 0.9rem;
+    }
+
+    /* Even smaller font for event details */
+    .event-time, .event-location {
+      font-size: 0.8rem;
+    }
+
+    /* Make calendar events more compact */
+    .calendar-event {
+      padding: 0.6rem;
+      gap: 0.5rem;
+    }
+
+    /* Reduce event date size further on small mobile */
+    .event-date {
+      font-size: 1.1rem;
+    }
+
+    /* Reduce month header size */
+    .calendar-month-header {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  /* Extra small devices */
+  @media (max-width: 480px) {
+    .event-date {
+      font-size: 1rem;
+    }
+
+    .event-info h5 {
+      font-size: 0.85rem;
+    }
+
+    .calendar-month-header {
+      font-size: 1rem;
+    }
+
+    /* Make everything even more compact on very small screens */
+    .calendar-event {
+      padding: 0.5rem;
+      gap: 0.4rem;
+    }
+
+    .event-time, .event-location {
+      font-size: 0.75rem;
+    }
+  }
+
+  /* Show More button styling */
+  .btn-show-more {
+    width: 100%;
+    justify-content: center;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .house-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .club-card,
+  .movement-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .overview-card,
+  .structure-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .calendar-controls button {
+    width: 50px;
+    height: 50px;
+    font-size: 1.8rem;
+  }
+
+  .day {
+    min-height: 70px;
+  }
+
+  .event-badge {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .legend-item {
+    font-size: 0.9rem;
+    gap: 0.5rem;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-group label,
+  input[type="text"],
+  input[type="email"],
+  select,
+  textarea {
+    font-size: 0.95rem;
+  }
+
+  .checkbox-grid label {
+    font-size: 1rem;
+  }
+
+  /* Ensure hamburger menu is responsive on mobile */
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background 0.3s;
+    z-index: 1200;
+  }
+
+  .hamburger:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .hamburger span {
+    width: 32px;
+    height: 3px;
+    background: white;
+    border-radius: 4px;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  }
+
+  /* Hamburger to X animation */
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+  }
+}
+
+/* Print styles */
+@media print {
+  .quick-nav,
+  .hero-cta,
+  .form-actions,
+  .calendar-controls {
+    display: none;
+  }
+
+  .section {
+    page-break-inside: avoid;
+  }
+
+  .house-card,
+  .club-card,
+  .movement-card,
+  .sport-card {
+    page-break-inside: avoid;
+    box-shadow: none;
+  }
+
+  .calendar-grid {
+    grid-template-columns: repeat(7, 1fr);
   }
 }

@@ -18,7 +18,8 @@
             housesGrid: document.querySelector(".houses-grid"),
             sportsGrid: document.querySelector(".sports-grid"),
             overviewCardsGrid: document.querySelectorAll(".info-cards-grid")[0],
-            orgCardsGrid: document.querySelectorAll(".info-cards-grid")[1]
+            orgCardsGrid: document.querySelectorAll(".info-cards-grid")[1],
+            calendarGrid: document.getElementById("calendarGrid")
         };
 
         console.log("Section containers:", sections);
@@ -213,31 +214,83 @@
         // 5. Enhanced Dynamic Content Loading
         // ===============================
         const loadSectionData = async () => {
-            const JSON_PATH = "/data/static/clubs-data.json";
+            const CLUBS_JSON_PATH = "/data/static/student-clubs.json";
+            const EVENTS_JSON_PATH = "/data/static/upcoming-events.json";
+            const CALENDAR_JSON_PATH = "/data/static/school-calendar.json";
 
             try {
-                const res = await fetch(JSON_PATH, { 
-                    cache: "no-cache",
-                    headers: {
-                        'Cache-Control': 'no-cache'
-                    }
-                });
+                // Load all JSON files in parallel
+                const [clubsRes, eventsRes, calendarRes] = await Promise.all([
+                    fetch(CLUBS_JSON_PATH, {
+                        cache: "no-cache",
+                        headers: { 'Cache-Control': 'no-cache' }
+                    }),
+                    fetch(EVENTS_JSON_PATH, {
+                        cache: "no-cache",
+                        headers: { 'Cache-Control': 'no-cache' }
+                    }),
+                    fetch(CALENDAR_JSON_PATH, {
+                        cache: "no-cache",
+                        headers: { 'Cache-Control': 'no-cache' }
+                    })
+                ]);
+                 
+                // Check all responses
+                if (!clubsRes.ok) throw new Error(`Failed to fetch clubs: ${clubsRes.status}`);
+                if (!eventsRes.ok) throw new Error(`Failed to fetch events: ${eventsRes.status}`);
+                if (!calendarRes.ok) throw new Error(`Failed to fetch calendar: ${calendarRes.status}`);
+ 
+                const [clubsData, eventsData, calendarData] = await Promise.all([
+                    clubsRes.json(),
+                    eventsRes.json(),
+                    calendarRes.json()
+                ]);
                 
-                if (!res.ok) throw new Error(`Failed to fetch JSON: ${res.status} ${res.statusText}`);
-
-                const data = await res.json();
-                console.log("JSON data loaded:", data);
+                console.log("Clubs data loaded:", clubsData);
+                console.log("Events data loaded:", eventsData);
+                console.log("Calendar data loaded:", calendarData);
+ 
+                const data = {
+                    clubs: clubsData,
+                    events: eventsData,
+                    calendar: calendarData
+                };
 
                 // Render sections with enhanced animations
-                if (data.clubs && sections.featuredClubs && sections.activitiesGrid) {
-                    console.log("Rendering clubs...");
-                    renderClubs(data.clubs, sections.featuredClubs, sections.activitiesGrid);
-                }
+                // Always try to render clubs for registration form if data exists
+                if (data.clubs) {
+                   console.log("Rendering clubs for registration form...");
+                   
+                   // Debug: Check if clubs data is valid
+                   console.log("Clubs data for registration form:", data.clubs);
+                   
+                   // Ensure clubs data has the right structure for registration form
+                   const clubsForRegistration = data.clubs.map(club => ({
+                       name: club.name || club.title || "Unnamed Club",
+                       icon: club.icon || DEFAULT_ICON,
+                       color: club.color || DEFAULT_COLOR
+                   }));
+                   
+                   console.log("Processed clubs for registration:", clubsForRegistration);
+                   renderClubRegistrationForm(clubsForRegistration);
+               }
+               
+               // Only render other sections if their containers exist
+               if (data.clubs && sections.featuredClubs && sections.activitiesGrid) {
+                   console.log("Rendering clubs grid...");
+                   renderClubs(data.clubs, sections.featuredClubs, sections.activitiesGrid);
+               }
 
-                if (data.events && sections.eventsTimeline) {
-                    console.log("Rendering events...");
-                    renderEvents(data.events, sections.eventsTimeline);
-                }
+               if (data.events && sections.eventsTimeline) {
+                   console.log("Rendering events...");
+                   renderEvents(data.events, sections.eventsTimeline);
+               }
+               
+               // Render calendar events if data and container exist
+               if (data.calendar && sections.calendarGrid) {
+                   console.log("Rendering calendar events...");
+                   renderCalendarEvents(data.calendar, sections.calendarGrid);
+               }
 
                 if (data.houses && sections.housesGrid) {
                     console.log("Rendering houses...");
@@ -373,7 +426,126 @@
         }
 
         // ===============================
-        // 8. Enhanced Houses Render Function
+        // 8. Enhanced Calendar Events Render Function
+        // ===============================
+        function renderCalendarEvents(events, container) {
+            console.log("Rendering calendar events...", events, container);
+            
+            if (!container) {
+                console.error("Calendar container not found");
+                return;
+            }
+            
+            // Clear loading message
+            const loader = container.querySelector('.loader');
+            if (loader) loader.remove();
+            
+            // Check if we're in mobile view
+            const isMobile = window.innerWidth <= 768;
+            
+            // Group events by month
+            const eventsByMonth = {};
+            events.forEach(event => {
+                const date = new Date(event.date);
+                const monthYear = date.toLocaleString('default', { month: 'long', year: 'numeric' });
+                
+                if (!eventsByMonth[monthYear]) {
+                    eventsByMonth[monthYear] = [];
+                }
+                eventsByMonth[monthYear].push(event);
+            });
+            
+            // Render events by month
+            Object.entries(eventsByMonth).forEach(([monthYear, monthEvents]) => {
+                const monthDiv = document.createElement('div');
+                monthDiv.className = 'calendar-month fade-in show';
+                
+                const monthHeader = document.createElement('h4');
+                monthHeader.textContent = monthYear;
+                monthHeader.className = 'calendar-month-header';
+                monthDiv.appendChild(monthHeader);
+                
+                // For mobile view, limit to 1 event per month
+                const eventsToShow = isMobile ? monthEvents.slice(0, 1) : monthEvents;
+                
+                eventsToShow.forEach((event, idx) => {
+                    const eventDiv = document.createElement('div');
+                    eventDiv.className = `calendar-event ${event.type.toLowerCase()}`;
+                    eventDiv.style.animationDelay = `${idx * 0.1}s`;
+                    
+                    const date = new Date(event.date);
+                    const day = date.getDate();
+                    
+                    eventDiv.innerHTML = `
+                        <div class="event-date">${day}</div>
+                        <div class="event-info">
+                            <h5>${event.title}</h5>
+                            ${event.time ? `<p class="event-time">${event.time}</p>` : ''}
+                            ${event.location ? `<p class="event-location">${event.location}</p>` : ''}
+                        </div>
+                        <div class="event-type-badge ${event.type.toLowerCase()}">
+                            ${getEventTypeIcon(event.type)}
+                        </div>
+                    `;
+                    
+                    monthDiv.appendChild(eventDiv);
+                });
+                
+                // Add "Show More" button for mobile view if there are more events
+                if (isMobile && monthEvents.length > 1) {
+                    const showMoreBtn = document.createElement('button');
+                    showMoreBtn.className = 'btn btn-outline btn-show-more';
+                    showMoreBtn.textContent = `+${monthEvents.length - 1} more events`;
+                    showMoreBtn.style.marginTop = '1rem';
+                    showMoreBtn.addEventListener('click', () => {
+                        // Show all events for this month
+                        const allEvents = monthEvents;
+                        monthDiv.innerHTML = '';
+                        monthDiv.appendChild(monthHeader);
+                        
+                        allEvents.forEach((event, idx) => {
+                            const eventDiv = document.createElement('div');
+                            eventDiv.className = `calendar-event ${event.type.toLowerCase()}`;
+                            eventDiv.style.animationDelay = `${idx * 0.1}s`;
+                            
+                            const date = new Date(event.date);
+                            const day = date.getDate();
+                            
+                            eventDiv.innerHTML = `
+                                <div class="event-date">${day}</div>
+                                <div class="event-info">
+                                    <h5>${event.title}</h5>
+                                    ${event.time ? `<p class="event-time">${event.time}</p>` : ''}
+                                    ${event.location ? `<p class="event-location">${event.location}</p>` : ''}
+                                </div>
+                                <div class="event-type-badge ${event.type.toLowerCase()}">
+                                    ${getEventTypeIcon(event.type)}
+                                </div>
+                            `;
+                            
+                            monthDiv.appendChild(eventDiv);
+                        });
+                    });
+                    
+                    monthDiv.appendChild(showMoreBtn);
+                }
+                
+                container.appendChild(monthDiv);
+            });
+        }
+        
+        function getEventTypeIcon(type) {
+            const typeIcons = {
+                academic: '<i class="fas fa-book"></i>',
+                cultural: '<i class="fas fa-music"></i>',
+                sports: '<i class="fas fa-futbol"></i>',
+                holiday: '<i class="fas fa-calendar"></i>'
+            };
+            return typeIcons[type.toLowerCase()] || '<i class="fas fa-star"></i>';
+        }
+        
+        // ===============================
+        // 9. Enhanced Houses Render Function
         // ===============================
         function renderHouses(houses, container) {
             container.innerHTML = "";
@@ -389,7 +561,7 @@
                     <p><strong>Motto:</strong> ${h.motto}</p>
                     ${h.points.map(p => `<p><i class="${p.icon}"></i> ${p.text}</p>`).join("")}
                 `;
-                
+                 
                 // Add enhanced hover effects
                 div.addEventListener("mouseenter", () => {
                     div.style.transform = "translateY(-12px) rotateX(5deg)";
@@ -402,6 +574,96 @@
 
                 container.appendChild(div);
             });
+        }
+
+        // ===============================
+        // 16. Enhanced Club Registration Form Population
+        // ===============================
+        function renderClubRegistrationForm(clubs) {
+            console.log("renderClubRegistrationForm called with:", clubs);
+            
+            const clubCheckboxes = document.getElementById("clubCheckboxes");
+            if (!clubCheckboxes) {
+                console.error("Club checkboxes container not found - element with ID 'clubCheckboxes' does not exist");
+                return;
+            }
+
+            // Clear loading message
+            clubCheckboxes.innerHTML = "";
+            
+            // Add debug info
+            console.log("Found clubCheckboxes container:", clubCheckboxes);
+            console.log("Number of clubs to render:", clubs.length);
+
+            clubs.forEach((club, idx) => {
+                console.log("Adding club to registration form:", club.name);
+                
+                const checkboxDiv = document.createElement("div");
+                checkboxDiv.className = "club-checkbox-item fade-in show";
+                checkboxDiv.style.animationDelay = `${idx * 0.05}s`;
+                
+                checkboxDiv.innerHTML = `
+                    <label>
+                        <input type="checkbox" name="interested_clubs" value="${club.name}">
+                        <i class="${club.icon || DEFAULT_ICON}" style="color: ${club.color || DEFAULT_COLOR}; margin-right: 0.8rem;"></i>
+                        <span>${club.name}</span>
+                    </label>
+                `;
+
+                // Add hover effect
+                checkboxDiv.addEventListener("mouseenter", () => {
+                    checkboxDiv.style.transform = "translateX(5px)";
+                });
+                checkboxDiv.addEventListener("mouseleave", () => {
+                    checkboxDiv.style.transform = "translateX(0)";
+                });
+
+                clubCheckboxes.appendChild(checkboxDiv);
+            });
+
+            // Add form submission handler
+            const registrationForm = document.getElementById("clubRegistrationForm");
+            if (registrationForm) {
+                registrationForm.addEventListener("submit", function(e) {
+                    e.preventDefault();
+                    
+                    // Get selected clubs
+                    const selectedClubs = [];
+                    document.querySelectorAll('input[name="interested_clubs"]:checked').forEach(checkbox => {
+                        selectedClubs.push(checkbox.value);
+                    });
+
+                    if (selectedClubs.length === 0) {
+                        alert("Please select at least one club.");
+                        return;
+                    }
+
+                    if (selectedClubs.length > 3) {
+                        alert("Please select no more than 3 clubs.");
+                        return;
+                    }
+
+                    // Show success message
+                    const statusDiv = document.getElementById("clubRegStatus");
+                    if (statusDiv) {
+                        statusDiv.innerHTML = `
+                            <i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.5rem;"></i>
+                            Registration submitted successfully! Selected clubs: ${selectedClubs.join(", ")}
+                        `;
+                        statusDiv.classList.remove("hidden", "error");
+                        statusDiv.classList.add("success");
+                    }
+
+                    console.log("Club registration submitted:", {
+                        student_name: document.getElementById("regStudentName").value,
+                        grade: document.getElementById("regGrade").value,
+                        house: document.getElementById("regHouse").value,
+                        email: document.getElementById("regEmail").value,
+                        clubs: selectedClubs,
+                        message: document.getElementById("regMessage").value
+                    });
+                });
+            }
         }
 
         // ===============================
