@@ -14,6 +14,7 @@
 /* Mission Section */
 .mission-section {
   background: var(--light);
+  padding: 4rem 0;
 }
 
 .mission-grid {
@@ -23,9 +24,18 @@
   align-items: center;
 }
 
+.mission-content {
+  padding: 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
 .mission-image img {
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  width: 100%;
+  height: auto;
 }
 
 .mission-list {
@@ -56,6 +66,7 @@
 /* Services Grid */
 .services-section {
   background: white;
+  padding: 4rem 0;
 }
 
 .services-grid {
@@ -71,6 +82,7 @@
   background: var(--primary-light);
   border-radius: 20px;
   transition: transform 0.4s ease, background 0.4s ease;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
 
 .service-card:hover {
@@ -79,17 +91,63 @@
   box-shadow: 0 20px 40px rgba(0,86,179,0.2);
 }
 
+.service-card .card-icon {
+  font-size: 3rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
 /* Success Stories Carousel */
 .stories-section {
   background: var(--light);
+  padding: 4rem 0;
 }
 
 #successStoriesSwiper {
   margin-top: 4rem;
   padding: 2rem 0;
+  position: relative;
 }
 
-.story-card {
+#successStoriesSwiper .swiper-button-next,
+#successStoriesSwiper .swiper-button-prev {
+  background: var(--primary);
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0 5px 15px rgba(0, 86, 179, 0.3);
+  transition: all 0.3s ease;
+}
+
+#successStoriesSwiper .swiper-button-next:hover,
+#successStoriesSwiper .swiper-button-prev:hover {
+  background: var(--primary-dark);
+  transform: scale(1.1);
+}
+
+#successStoriesSwiper .swiper-button-next::after,
+#successStoriesSwiper .swiper-button-prev::after {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+#successStoriesSwiper .swiper-pagination {
+  bottom: 0;
+}
+
+#successStoriesSwiper .swiper-pagination-bullet {
+  background: var(--primary);
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+#successStoriesSwiper .swiper-pagination-bullet-active {
+  opacity: 1;
+  background: var(--primary-dark);
+}
+
+.story-card, .success-card {
   background: white;
   border-radius: 20px;
   overflow: hidden;
@@ -98,14 +156,53 @@
   transition: transform 0.4s ease;
 }
 
-.story-card:hover {
+.story-card:hover, .success-card:hover {
   transform: translateY(-10px);
 }
 
-.story-card img {
+.story-card img, .success-card img {
   width: 100%;
   height: 350px;
   object-fit: cover;
+  border-radius: 20px 20px 0 0;
+}
+
+.success-card-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.success-info {
+  width: 100%;
+  padding: 1rem;
+}
+
+.success-info h4 {
+  font-size: 1.8rem;
+  margin: 1rem 0 0.5rem;
+  color: var(--primary);
+}
+
+.success-info .batch {
+  display: block;
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.success-info .achievement {
+  font-weight: 600;
+  color: var(--secondary);
+  margin-bottom: 1.5rem;
+}
+
+.success-info .story {
+  padding: 0 1rem 1rem;
+  line-height: 1.8;
+  font-size: 1rem;
+  color: #475569;
 }
 
 .story-card h3 {
@@ -129,11 +226,13 @@
 .story-card p {
   padding: 0 2rem 2rem;
   line-height: 1.8;
+  font-size: 1rem;
 }
 
 /* Booking Form */
 .booking-section {
   background: white;
+  padding: 4rem 0;
 }
 
 .booking-form-card {
@@ -145,9 +244,84 @@
   margin: 0 auto;
 }
 
+.booking-form-card .form-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.booking-form-card .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.booking-form-card label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.booking-form-card input[type="text"],
+.booking-form-card input[type="email"],
+.booking-form-card input[type="tel"],
+.booking-form-card input[type="date"],
+.booking-form-card select,
+.booking-form-card textarea {
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: border 0.3s ease;
+}
+
+.booking-form-card input:focus,
+.booking-form-card select:focus,
+.booking-form-card textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0,86,179,0.15);
+}
+
+.booking-form-card textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.booking-form-card .full-width {
+  grid-column: 1 / -1;
+}
+
+/* Button Styling */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  padding: 0.85rem 1.8rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,86,179,0.3);
+}
+
+.btn-primary.large {
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+}
+
 /* Stats Banner */
 .stats-section {
   background: var(--primary-light);
+  padding: 4rem 0;
 }
 
 #careerStatsGrid {
@@ -162,6 +336,7 @@
   padding: 3rem 2rem;
   border-radius: 20px;
   text-align: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
 }
 
 #careerStatsGrid .stat-card i {
@@ -176,7 +351,7 @@
 }
 
 /* Responsive */
-@media (max-width: 992px) {
+@media (max-width: 1200px) {
   .mission-grid {
     grid-template-columns: 1fr;
   }
@@ -192,7 +367,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .booking-form-card {
     padding: 2.5rem;
   }
@@ -203,5 +378,61 @@
 
   #successStoriesSwiper {
     padding: 1rem 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-hero {
+    min-height: 70vh;
+  }
+
+  .mission-content {
+    padding: 1.5rem;
+  }
+
+  .service-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .story-card h3 {
+    font-size: 1.5rem;
+  }
+
+  .story-card p {
+    font-size: 0.9rem;
+  }
+
+  .booking-form-card {
+    padding: 1.5rem;
+  }
+
+  .booking-form-card .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #careerStatsGrid .stat-card h3 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .mission-list li {
+    font-size: 1rem;
+  }
+
+  .story-card img {
+    height: 250px;
+  }
+
+  .booking-form-card input[type="text"],
+  .booking-form-card input[type="email"],
+  .booking-form-card input[type="tel"],
+  .booking-form-card input[type="date"],
+  .booking-form-card select {
+    padding: 0.75rem 1rem;
+  }
+
+  #careerStatsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 }
