@@ -46,6 +46,7 @@
   background: rgba(255,255,255,0.15);
   padding: 2rem;
   border-radius: 16px;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   text-align: center;
 }
@@ -89,29 +90,59 @@
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
   text-align: center;
+  border: 1px solid var(--gray);
 }
 
 .alumni-card:hover {
   transform: translateY(-15px);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+  border-color: var(--primary);
 }
 
 .alumni-card img {
   width: 100%;
   height: 320px;
   object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.alumni-card:hover img {
+  transform: scale(1.05);
 }
 
 .alumni-card h3 {
   font-size: 1.6rem;
   margin: 1.5rem 0 1rem;
+  color: var(--dark);
+  font-weight: 600;
 }
 
 .alumni-card p {
   padding: 0 1.5rem 2rem;
   color: var(--secondary);
   line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.alumni-card .batch {
+  font-size: 0.9rem;
+  color: var(--primary);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.alumni-card .achievement {
+  font-size: 1rem;
+  color: var(--dark);
+  margin-bottom: 0.5rem;
+}
+
+.alumni-card .current {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  font-style: italic;
 }
 
 /* Success Timeline */
@@ -218,20 +249,58 @@
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border: 1px solid var(--gray);
+  position: relative;
 }
 
 .event-card:hover {
   transform: translateY(-12px);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+  border-color: var(--primary);
+}
+
+.event-tag {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 10;
+}
+
+.event-icon {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--primary);
+  z-index: 10;
 }
 
 .event-image img {
   width: 100%;
   height: 220px;
   object-fit: cover;
+  transition: transform 0.4s ease;
 }
 
-.event-info {
+.event-card:hover .event-image img {
+  transform: scale(1.05);
+}
+
+.event-content {
   padding: 2rem;
 }
 
@@ -240,10 +309,94 @@
   color: var(--primary);
   font-weight: 600;
   margin-bottom: 1rem;
+  font-size: 0.9rem;
 }
 
-.event-info h3 {
+.event-content h4 {
   margin-bottom: 1rem;
+  color: var(--dark);
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.event-description {
+  color: var(--secondary);
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.event-meta {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--light);
+  border-radius: 12px;
+}
+
+.event-meta p {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--secondary);
+  font-size: 0.9rem;
+}
+
+.event-meta i {
+  color: var(--primary);
+}
+
+.countdown {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--primary-light);
+  border-radius: 12px;
+}
+
+.countdown-timer {
+  text-align: center;
+}
+
+.countdown-timer span {
+  display: block;
+}
+
+.countdown-timer .days,
+.countdown-timer .hours,
+.countdown-timer .minutes {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.countdown-timer .label {
+  font-size: 0.7rem;
+  color: var(--secondary);
+  text-transform: uppercase;
+}
+
+.event-btn {
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.event-btn:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,86,179,0.3);
 }
 
 /* Registration Form */
@@ -258,6 +411,36 @@
   box-shadow: 0 20px 50px rgba(0,0,0,0.12);
   max-width: 1100px;
   margin: 0 auto;
+}
+
+/* Button Styling */
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  padding: 0.85rem 1.8rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,86,179,0.3);
+}
+
+.btn-primary.large {
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+}
+
+.btn-primary i {
+  font-size: 1rem;
 }
 
 /* Engagement Opportunities */
@@ -277,13 +460,34 @@
   padding: 3rem 2rem;
   background: var(--primary-light);
   border-radius: 20px;
-  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+  border: 1px solid var(--gray);
 }
 
 .engagement-card:hover {
   transform: translateY(-12px);
   background: white;
   box-shadow: 0 20px 40px rgba(0,86,179,0.15);
+  border-color: var(--primary);
+}
+
+.engagement-card .card-icon {
+  font-size: 3rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.engagement-card h3 {
+  font-size: 1.4rem;
+  color: var(--dark);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.engagement-card p {
+  color: var(--secondary);
+  line-height: 1.6;
+  font-size: 0.95rem;
 }
 
 .engagement-cta {
@@ -355,5 +559,138 @@
   .events-grid,
   .alumni-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Enhanced mobile responsiveness */
+  .hero-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stats-grid .stat-card {
+    padding: 1.5rem;
+  }
+
+  .hero-stats-grid .stat-card h3 {
+    font-size: 2.5rem;
+  }
+
+  .alumni-card img {
+    height: 280px;
+  }
+
+  .timeline-content {
+    padding: 2rem;
+  }
+
+  .engagement-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .register-form-card {
+    padding: 2rem;
+  }
+
+  /* Font size adjustments for better readability */
+  body {
+    font-size: 15px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.6rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 576px) {
+  /* Further adjustments for smaller screens */
+  .container {
+    padding: 0 1rem;
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
+
+  .alumni-card img {
+    height: 250px;
+  }
+
+  .timeline-content {
+    padding: 1.5rem;
+  }
+
+  .engagement-card {
+    padding: 1.5rem;
+  }
+
+  /* Ensure text wraps properly */
+  .alumni-card p,
+  .event-info p,
+  .timeline-content p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .form-group label,
+  .form-group input,
+  .form-group textarea {
+    font-size: 0.9rem;
+  }
+}
+
+/* Animation enhancements */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Professional styling for cards and sections */
+.card {
+  border: 1px solid var(--gray);
+}
+
+.card:hover {
+  border-color: var(--primary);
+}
+
+/* Ensure consistent spacing and alignment */
+.section-header {
+  margin-bottom: 2.5rem;
+}
+
+.section-title {
+  font-size: 2.2rem;
+}
+
+@media (min-width: 1200px) {
+  .section-title {
+    font-size: 2.8rem;
   }
 }
