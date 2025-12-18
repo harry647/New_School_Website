@@ -1,533 +1,649 @@
-// /js/static/gallery.js - Advanced Gallery with Upload, Pagination, Search & ZIP
+// ==================================================
+// GALLERY PAGE – ULTRA-PREMIUM 2025 EDITION
+// Stunning Animations, Smooth Interactions & Perfect UX
+// ==================================================
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", async () => {
+    "use strict";
 
-    /* Common Variables */
-    const ITEMS_PER_PAGE = 12;
-    let currentPhotoPage = 1;
-    let currentVideoPage = 1;
+    const DEFAULT_PHOTO = "/assets/images/defaults/default-gallery.jpg";
+
+    // DOM Elements
+    const galleryGrid = document.getElementById("galleryGrid");
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const morePhotosText = document.getElementById("morePhotos");
+    const videoGrid = document.getElementById("videoGrid");
+    const videoTabBtns = document.querySelectorAll(".tab-btn");
+    const panoramaContainer = document.getElementById("panorama");
+    const backToTop = document.getElementById("backToTop");
+
     let allPhotos = [];
     let allVideos = [];
-    let filteredPhotos = [];
-    let filteredVideos = [];
+    let currentFilter = "all";
+    let currentVideoTab = "all";
 
-    /* 1. Photo Gallery - Dynamic + Filter + Search + Pagination + ZIP */
-    const galleryGrid = document.getElementById('galleryGrid');
-    const photoLoader = galleryGrid.querySelector('.loader');
-    const filterBtns = document.querySelectorAll('.gallery-filters .filter-btn');
-    const searchInput = document.getElementById('gallerySearch');
-    const loadMorePhotos = document.getElementById('loadMorePhotos');
-    const downloadAlbum = document.getElementById('downloadAlbum');
-
-    fetch('/data/gallery-photos.json')
-        .then(res => res.ok ? res.json() : Promise.reject())
-        .then(data => {
-            allPhotos = data.map(p => ({ ...p, id: Math.random() })); // add unique id
-            filteredPhotos = allPhotos;
-            renderPhotos();
-        })
-        .catch(() => {
-            allPhotos = []; // fallback empty
-            renderPhotos();
-        })
-        .finally(() => photoLoader.style.display = 'none');
-
-    function renderPhotos() {
-        const start = 0;
-        const end = currentPhotoPage * ITEMS_PER_PAGE;
-        const toShow = filteredPhotos.slice(0, end);
-
-        if (currentPhotoPage === 1) {
-            galleryGrid.innerHTML = '';
-        }
-
-        const fragment = document.createDocumentFragment();
-        toShow.slice((currentPhotoPage - 1) * ITEMS_PER_PAGE).forEach(photo => {
-            const a = document.createElement('a');
-            a.href = photo.src;
-            a.dataset.lightbox = "gallery";
-            a.dataset.title = photo.title || '';
-            a.innerHTML = `
-                <div class="gallery-item">
-                    <img src="${photo.thumb || photo.src}" alt="${photo.title || ''}" loading="lazy">
-                    <div class="gallery-overlay">
-                        <i class="fas fa-search-plus"></i>
-                        <p>${photo.title || ''}</p>
-                    </div>
-                </div>
-            `;
-            fragment.appendChild(a);
-        });
-        galleryGrid.appendChild(fragment);
-
-        loadMorePhotos.style.display = end < filteredPhotos.length ? 'block' : 'none';
-    }
-
-    // Filters
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            const filter = btn.dataset.filter;
-            filteredPhotos = filter === 'all' ? allPhotos : allPhotos.filter(p => p.category === filter);
-            currentPhotoPage = 1;
-            renderPhotos();
-        });
-    });
-
-    // Search
-    searchInput?.addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase();
-        filteredPhotos = allPhotos.filter(p => 
-            (p.title || '').toLowerCase().includes(term) ||
-            (p.description || '').toLowerCase().includes(term)
-        );
-        currentPhotoPage = 1;
-        renderPhotos();
-    });
-
-    // Load More
-    loadMorePhotos?.addEventListener('click', () => {
-        currentPhotoPage++;
-        renderPhotos();
-    });
-
-    // Download Album as ZIP (client-side using JSZip)
-    downloadAlbum?.addEventListener('click', async () => {
-        if (filteredPhotos.length === 0) return alert('No photos to download');
-
-        const zip = new JSZip();
-        const folder = zip.folder("BarUnion_Gallery_Album");
-
-        const promises = filteredPhotos.slice(0, 50).map(async (photo, i) => { // limit to 50
-            try {
-                const response = await fetch(photo.src);
-                const blob = await response.blob();
-                folder.file(`photo_${i + 1}_${photo.title?.slice(0,20) || 'image'}.jpg`, blob);
-            } catch (e) { console.warn('Failed to add:', photo.src); }
-        });
-
-        await Promise.all(promises);
-        zip.generateAsync({ type: "blob" }).then(blob => {
-            saveAs(blob, "BarUnion_Gallery_Album.zip");
-        });
-    });
-
-    /* 2. Video Gallery - Dynamic + Tabs + Search + Pagination */
-    const videoGrid = document.getElementById('videoGrid');
-    const videoTabs = document.querySelectorAll('#videoCategories .tab-btn');
-    const videoSearch = document.getElementById('videoSearch');
-    const loadMoreVideos = document.getElementById('loadMoreVideos');
-
-    fetch('/data/gallery-videos.json')
-        .then(res => res.ok ? res.json() : Promise.reject())
-        .then(data => {
-            allVideos = data;
-            filteredVideos = allVideos;
-            renderVideos();
-        })
-        .catch(() => {
-            filteredVideos = allVideos = [];
-            renderVideos();
-        });
-
-    function renderVideos() {
-        const start = 0;
-        const end = currentVideoPage * ITEMS_PER_PAGE;
-        const toShow = filteredVideos.slice(0, end);
-
-        if (currentVideoPage === 1) videoGrid.innerHTML = '';
-
-        const fragment = document.createDocumentFragment();
-        toShow.slice((currentVideoPage - 1) * ITEMS_PER_PAGE).forEach(video => {
-            const div = document.createElement('div');
-            div.className = 'video-item';
-            div.dataset.category = video.category;
-            div.innerHTML = `
-                <iframe src="${video.embedUrl}" allowfullscreen loading="lazy" frameborder="0"></iframe>
-                <h3>${video.title}</h3>
-                <p>${video.description}</p>
-            `;
-            fragment.appendChild(div);
-        });
-        videoGrid.appendChild(fragment);
-
-        loadMoreVideos.style.display = end < filteredVideos.length ? 'block' : 'none';
-    }
-
-    videoTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            videoTabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            const cat = tab.dataset.tab;
-            filteredVideos = cat === 'all' ? allVideos : allVideos.filter(v => v.category === cat);
-            currentVideoPage = 1;
-            renderVideos();
-        });
-    });
-
-    videoSearch?.addEventListener('input', (e) => {
-        const term = e.target.value.toLowerCase();
-        filteredVideos = allVideos.filter(v =>
-            v.title.toLowerCase().includes(term) ||
-            v.description.toLowerCase().includes(term)
-        );
-        currentVideoPage = 1;
-        renderVideos();
-    });
-
-    loadMoreVideos?.addEventListener('click', () => {
-        currentVideoPage++;
-        renderVideos();
-    });
+    // ========================================
+    // UTILITY FUNCTIONS
+    // ========================================
     
-    /* 3. Video Upload Modal - With Real Backend Integration */
-    const uploadModal = document.getElementById('videoUploadModal');
-    const openBtn = document.getElementById('openUploadModal');
-    const closeBtn = uploadModal?.querySelector('.close-modal');
-    const uploadForm = document.getElementById('videoUploadForm');
-    const fileInput = document.getElementById('videoFile');
-    const fileInfo = document.getElementById('fileInfo');
-    const uploadStatus = document.getElementById('uploadStatus'); // We'll add this in HTML
-    const submitBtn = uploadForm?.querySelector('button[type="submit"]');
-    const originalBtnText = submitBtn?.innerHTML || '';
-
-    const MAX_FILE_SIZE = 500 * 1024 * 1024; // 500MB
-
-    // Open / Close Modal
-    openBtn?.addEventListener('click', () => {
-        uploadModal.style.display = 'flex';
-        uploadForm.reset();
-        fileInfo.textContent = 'No file selected';
-        fileInfo.style.color = '';
-        if (uploadStatus) uploadStatus.classList.add('hidden');
-    });
-
-    closeBtn?.addEventListener('click', () => {
-        uploadModal.style.display = 'none';
-    });
-
-    uploadModal?.addEventListener('click', (e) => {
-        if (e.target === uploadModal) {
-            uploadModal.style.display = 'none';
-        }
-    });
-
-    // File selection feedback
-    fileInput?.addEventListener('change', () => {
-        const file = fileInput.files[0];
-        if (file) {
-            const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
-            fileInfo.textContent = `${file.name} (${sizeMB} MB)`;
-            fileInfo.style.color = file.size > MAX_FILE_SIZE ? '#e74c3c' : '#2ecc71';
-        } else {
-            fileInfo.textContent = 'No file selected';
-            fileInfo.style.color = '';
-        }
-    });
-
-    // Form Submission with Backend
-    uploadForm?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const file = fileInput.files[0];
-        if (!file) {
-            showUploadStatus('Please select a video file.', false);
-            return;
-        }
-
-        if (file.size > MAX_FILE_SIZE) {
-            showUploadStatus('Video file is too large! Maximum size is 500MB.', false);
-            return;
-        }
-
-        // Validate other required fields
-        const requiredFields = uploadForm.querySelectorAll('[required]');
-        for (let field of requiredFields) {
-            if (!field.value.trim()) {
-                showUploadStatus('Please fill in all required fields.', false);
-                return;
-            }
-        }
-
-        // Prepare for upload
-        setUploadLoading(true);
-
-        const formData = new FormData(uploadForm);
-
-        try {
-            const response = await fetch('/api/upload-video', {  // ← Your actual backend endpoint
-                method: 'POST',
-                body: formData,
-                // Do NOT set Content-Type header — browser sets it with proper boundary
-            });
-
-            if (response.ok) {
-                const result = await response.json().catch(() => ({}));
-                showUploadStatus(`
-                    <strong>Thank you!</strong><br>
-                    Your video "<strong>${formData.get('title')}</strong>" has been successfully submitted.<br>
-                    Our team will review it and add it to the gallery soon.<br>
-                    We'll notify you at <strong>${formData.get('email')}</strong>.
-                `, true);
-
-                // Reset form & close modal after delay
-                setTimeout(() => {
-                    uploadModal.style.display = 'none';
-                    uploadForm.reset();
-                    fileInfo.textContent = 'No file selected';
-                }, 4000);
-            } else {
-                const error = await response.json().catch(() => ({}));
-                throw new Error(error.message || 'Upload failed');
-            }
-        } catch (err) {
-            console.error('Video upload error:', err);
-            showUploadStatus(`
-                <strong>Upload Failed</strong><br>
-                There was a problem submitting your video.<br>
-                Possible reasons: network issue, server error, or file format not supported.<br>
-                Please try again or contact <a href="mailto:gallery@barunionschool.ac.ke">gallery@barunionschool.ac.ke</a>.
-            `, false);
-        } finally {
-            setUploadLoading(false);
-        }
-    });
-
-    // Helper: Loading state
-    function setUploadLoading(loading) {
-        if (loading) {
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading Video...';
-        } else {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalBtnText;
-        }
-    }
-
-    // Helper: Show status message
-    function showUploadStatus(message, isSuccess = true) {
-        if (!uploadStatus) return;
-
-        uploadStatus.innerHTML = message;
-        uploadStatus.className = `form-status ${isSuccess ? 'success' : 'error'}`;
-        uploadStatus.classList.remove('hidden');
-
-        // Auto scroll to status
-        uploadStatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    /* 4. Photo Upload Modal - With Backend Integration */
-    const photoUploadModal = document.getElementById('photoUploadModal');
-    const openPhotoBtn = document.getElementById('openPhotoUploadModal');
-    const closePhotoBtn = photoUploadModal?.querySelector('.close-modal');
-    const photoUploadForm = document.getElementById('photoUploadForm');
-    const photoFilesInput = document.getElementById('photoFiles');
-    const selectedPhotosList = document.getElementById('selectedPhotosList');
-    const photoUploadStatus = document.getElementById('photoUploadStatus');
-    const photoSubmitBtn = photoUploadForm?.querySelector('button[type="submit"]');
-    const originalPhotoBtnText = photoSubmitBtn?.innerHTML || '';
-
-    const MAX_PHOTO_SIZE = 10 * 1024 * 1024; // 10MB per photo
-    const MAX_PHOTOS = 10;
-
-    openPhotoBtn?.addEventListener('click', () => {
-        photoUploadModal.style.display = 'flex';
-        photoUploadForm.reset();
-        selectedPhotosList.innerHTML = '';
-        if (photoUploadStatus) photoUploadStatus.classList.add('hidden');
-    });
-
-    closePhotoBtn?.addEventListener('click', () => {
-        photoUploadModal.style.display = 'none';
-    });
-
-    photoUploadModal?.addEventListener('click', (e) => {
-        if (e.target === photoUploadModal) {
-            photoUploadModal.style.display = 'none';
-        }
-    });
-
-    // Show selected photos preview
-    photoFilesInput?.addEventListener('change', () => {
-        selectedPhotosList.innerHTML = '';
-        const files = Array.from(photoFilesInput.files);
-
-        if (files.length > MAX_PHOTOS) {
-            showPhotoStatus(`You can only upload up to ${MAX_PHOTOS} photos at once.`, false);
-            photoFilesInput.value = '';
-            return;
-        }
-
-        files.forEach((file, index) => {
-            if (file.size > MAX_PHOTO_SIZE) {
-                showPhotoStatus(`"${file.name}" is too large (max 10MB).`, false);
-                photoFilesInput.value = '';
-                return;
-            }
-
-            const div = document.createElement('div');
-            div.className = 'selected-file-item';
-            div.innerHTML = `
-                <span><strong>${index + 1}.</strong> ${file.name}</span>
-                <span class="file-size">(${(file.size / 1024 / 1024).toFixed(1)} MB)</span>
-            `;
-            selectedPhotosList.appendChild(div);
-        });
-    });
-
-    // Photo Upload Submission
-    photoUploadForm?.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const files = photoFilesInput.files;
-        if (files.length === 0) {
-            showPhotoStatus('Please select at least one photo.', false);
-            return;
-        }
-
-        if (files.length > MAX_PHOTOS) {
-            showPhotoStatus(`Maximum ${MAX_PHOTOS} photos allowed.`, false);
-            return;
-        }
-
-        // Check file sizes
-        for (let file of files) {
-            if (file.size > MAX_PHOTO_SIZE) {
-                showPhotoStatus(`"${file.name}" exceeds 10MB limit.`, false);
-                return;
-            }
-        }
-
-        setPhotoLoading(true);
-
-        const formData = new FormData();
-
-        // Append text fields
-        formData.append('name', photoUploadForm.name.value);
-        formData.append('email', photoUploadForm.email.value);
-        formData.append('category', photoUploadForm.category.value);
-        formData.append('event_date', photoUploadForm.event_date.value || '');
-        formData.append('description', photoUploadForm.description.value);
-
-        // Append all photos
-        for (let i = 0; i < files.length; i++) {
-            formData.append('photos', files[i]);
-        }
-
-        try {
-            const response = await fetch('/api/upload-photos', {  // ← Your backend endpoint
-                method: 'POST',
-                body: formData
-            });
-
-            if (response.ok) {
-                const result = await response.json().catch(() => ({}));
-                showPhotoStatus(`
-                    <strong>Thank You!</strong><br>
-                    Your ${files.length} photo(s) have been successfully submitted.<br>
-                    They will be reviewed and added to the "<strong>${photoUploadForm.category.options[photoUploadForm.category.selectedIndex].text}</strong>" gallery soon.<br>
-                    We'll email you at <strong>${formData.get('email')}</strong> when they're live!
-                `, true);
-
-                setTimeout(() => {
-                    photoUploadModal.style.display = 'none';
-                    photoUploadForm.reset();
-                    selectedPhotosList.innerHTML = '';
-                }, 5000);
-            } else {
-                const error = await response.json().catch(() => ({}));
-                throw new Error(error.message || 'Upload failed');
-            }
-        } catch (err) {
-            console.error('Photo upload error:', err);
-            showPhotoStatus(`
-                <strong>Upload Failed</strong><br>
-                There was an issue submitting your photos.<br>
-                Please try again or email them to <a href="mailto:gallery@barunionschool.ac.ke">gallery@barunionschool.ac.ke</a>
-            `, false);
-        } finally {
-            setPhotoLoading(false);
-        }
-    });
-
-    // Helpers
-    function setPhotoLoading(loading) {
-        if (loading) {
-            photoSubmitBtn.disabled = true;
-            photoSubmitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading Photos...';
-        } else {
-            photoSubmitBtn.disabled = false;
-            photoSubmitBtn.innerHTML = originalPhotoBtnText;
-        }
-    }
-
-    function showPhotoStatus(message, isSuccess = true) {
-        photoUploadStatus.innerHTML = message;
-        photoUploadStatus.className = `form-status ${isSuccess ? 'success' : 'error'}`;
-        photoUploadStatus.classList.remove('hidden');
-        photoUploadStatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    /* 5. 360° Virtual Tour */
-    pannellum.viewer('#panorama', {
-        type: "multires",
-        multiRes: {
-            basePath: "/assets/images/360/school-tour.jpg",
-            path: "/%l/%s%y_%x",
-            fallbackPath: "/fallback/%s",
-            extension: "jpg",
-            tileResolution: 512,
-            maxLevel: 4,
-            cubeResolution: 2048
-        },
-        autoLoad: true,
-        showControls: true,
-        hotSpots: [
-            { pitch: -10, yaw: 180, type: "info", text: "Main Academic Block" },
-            { pitch: -5, yaw: 0, type: "info", text: "Library & Resource Center" },
-            { pitch: -15, yaw: -90, type: "info", text: "Sports Field" }
-        ]
-    });
-
-    /* 4. Stats Animation */
-    const statsGrid = document.getElementById('galleryStats');
-    const statNumbers = statsGrid?.querySelectorAll('h3');
-
-    const animateStat = (el) => {
-        const targetText = el.textContent.trim();
-        const suffix = targetText.match(/[\+%]/)?.[0] || '';
-        const target = parseInt(targetText);
-        let start = 0;
-        const increment = target / 100;
-        const timer = setInterval(() => {
-            start += increment;
-            if (start >= target) {
-                el.textContent = target + suffix;
-                clearInterval(timer);
-            } else {
-                el.textContent = Math.floor(start) + suffix;
-            }
-        }, 20);
+    // Smooth scroll to element
+    const smoothScrollTo = (element, offset = 100) => {
+        const top = element.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top, behavior: "smooth" });
     };
 
-    if (statsGrid && statNumbers) {
+    // Animate elements on scroll
+    const observeElements = (elements, className = "animate-in") => {
         const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                statNumbers.forEach(animateStat);
-                observer.unobserve(entries[0].target);
-            }
-        }, { threshold: 0.5 });
-        observer.observe(statsGrid);
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add(className);
+                    }, index * 100);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        elements.forEach(el => observer.observe(el));
+    };
+
+    // Debounce function for performance
+    const debounce = (func, wait = 100) => {
+        let timeout;
+        return (...args) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    };
+
+    // ========================================
+    // 1. LOAD & RENDER PHOTO GALLERY
+    // ========================================
+    async function loadPhotos() {
+        try {
+            const res = await fetch("/data/static/gallery-data.json");
+            if (!res.ok) throw new Error("Not found");
+            allPhotos = await res.json();
+            renderPhotos(allPhotos);
+            attachPhotoFilterEvents();
+        } catch (err) {
+            console.warn("Photo gallery JSON failed, using fallback images");
+            // Use fallback gallery images
+            allPhotos = generateFallbackPhotos();
+            renderPhotos(allPhotos);
+            attachPhotoFilterEvents();
+        }
     }
 
-    /* 5. Back to Top */
-    const backToTop = document.getElementById('backToTop');
-    if (backToTop) {
-        window.addEventListener('scroll', () => {
-            backToTop.classList.toggle('visible', window.scrollY > 600);
+    function generateFallbackPhotos() {
+        const categories = ["campus", "academics", "sports", "events", "celebrations", "alumni"];
+        const photos = [];
+        
+        for (let i = 1; i <= 9; i++) {
+            photos.push({
+                id: i,
+                title: `School Memory ${i}`,
+                category: categories[i % categories.length],
+                thumb: `/assets/images/gallery/gallery${i}.jpg`,
+                full: `/assets/images/gallery/gallery${i}.jpg`
+            });
+        }
+        
+        return photos;
+    }
+
+    function renderPhotos(photos) {
+        if (!galleryGrid) return;
+        
+        galleryGrid.innerHTML = '';
+        
+        if (!photos?.length) {
+            galleryGrid.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-images"></i>
+                    <h3>No Photos Found</h3>
+                    <p>No photos in this category yet. Check back soon!</p>
+                </div>`;
+            if (morePhotosText) morePhotosText.style.display = "none";
+            return;
+        }
+
+        const fragment = document.createDocumentFragment();
+        
+        photos.forEach((photo, index) => {
+            const link = document.createElement("a");
+            link.href = photo.full || photo.thumb || DEFAULT_PHOTO;
+            link.dataset.lightbox = "school-gallery";
+            link.dataset.title = photo.title || "Bar Union Mixed Secondary School";
+            link.className = "gallery-item";
+            link.dataset.category = photo.category || "all";
+            link.style.animationDelay = `${index * 50}ms`;
+
+            const thumb = photo.thumb || photo.full || DEFAULT_PHOTO;
+
+            link.innerHTML = `
+                <img 
+                    src="${thumb}" 
+                    alt="${photo.title || 'School Memory'}" 
+                    loading="lazy"
+                    onerror="this.src='${DEFAULT_PHOTO}'"
+                >
+                <div class="overlay">
+                    <i class="fas fa-search-plus"></i>
+                    <p>${photo.title || ''}</p>
+                </div>
+            `;
+
+            fragment.appendChild(link);
         });
-        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        galleryGrid.appendChild(fragment);
+        
+        if (morePhotosText) {
+            morePhotosText.style.display = photos.length > 0 ? "block" : "none";
+        }
+
+        // Animate gallery items
+        requestAnimationFrame(() => {
+            const items = galleryGrid.querySelectorAll('.gallery-item');
+            observeElements(items, 'visible');
+        });
+
+        // Re-init Lightbox
+        if (typeof lightbox !== "undefined") {
+            lightbox.option({
+                resizeDuration: 300,
+                wrapAround: true,
+                albumLabel: "Image %1 of %2",
+                fadeDuration: 300,
+                imageFadeDuration: 300,
+                positionFromTop: 80
+            });
+        }
     }
 
+    function attachPhotoFilterEvents() {
+        filterBtns.forEach(btn => {
+            btn.addEventListener("click", function() {
+                // Update active state
+                filterBtns.forEach(b => {
+                    b.classList.remove("active");
+                    b.setAttribute("aria-selected", "false");
+                });
+                this.classList.add("active");
+                this.setAttribute("aria-selected", "true");
+
+                // Filter photos
+                currentFilter = this.dataset.filter;
+                const filtered = currentFilter === "all"
+                    ? allPhotos
+                    : allPhotos.filter(p => p.category === currentFilter);
+
+                // Add fade out effect
+                if (galleryGrid) {
+                    galleryGrid.style.opacity = "0";
+                    galleryGrid.style.transform = "translateY(20px)";
+                    
+                    setTimeout(() => {
+                        renderPhotos(filtered);
+                        galleryGrid.style.opacity = "1";
+                        galleryGrid.style.transform = "translateY(0)";
+                    }, 300);
+                }
+            });
+        });
+    }
+
+    // ========================================
+    // 2. LOAD & RENDER VIDEO GALLERY
+    // ========================================
+    async function loadVideos() {
+        // Get existing static videos from HTML
+        const existingVideos = videoGrid ? Array.from(videoGrid.querySelectorAll('.video-item')) : [];
+        
+        try {
+            const res = await fetch("/data/static/video-gallery-data.json");
+            if (!res.ok) throw new Error("Not found");
+            allVideos = await res.json();
+            
+            // Store static video data for filtering
+            existingVideos.forEach(item => {
+                const category = item.dataset.category || 'all';
+                const title = item.querySelector('.video-title')?.textContent || '';
+                const desc = item.querySelector('.video-description')?.textContent || '';
+                allVideos.unshift({
+                    type: 'static',
+                    category,
+                    title,
+                    desc,
+                    element: item.cloneNode(true)
+                });
+            });
+            
+            renderVideos(allVideos);
+            attachVideoTabEvents();
+        } catch (err) {
+            console.warn("Video gallery JSON not found, using static videos only");
+            
+            // Use static videos from HTML
+            existingVideos.forEach(item => {
+                const category = item.dataset.category || 'all';
+                const title = item.querySelector('.video-title')?.textContent || '';
+                const desc = item.querySelector('.video-description')?.textContent || '';
+                allVideos.push({
+                    type: 'static',
+                    category,
+                    title,
+                    desc,
+                    element: item.cloneNode(true)
+                });
+            });
+            
+            if (allVideos.length > 0) {
+                renderVideos(allVideos);
+                attachVideoTabEvents();
+            } else if (videoGrid) {
+                videoGrid.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-video"></i>
+                        <h3>Videos Coming Soon</h3>
+                        <p>Our video gallery is being updated. Check back soon!</p>
+                    </div>`;
+            }
+        }
+    }
+
+    function renderVideos(videos) {
+        if (!videoGrid) return;
+        
+        videoGrid.innerHTML = '';
+        
+        if (!videos?.length) {
+            videoGrid.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-video-slash"></i>
+                    <h3>No Videos Found</h3>
+                    <p>No videos in this category yet.</p>
+                </div>`;
+            return;
+        }
+
+        const fragment = document.createDocumentFragment();
+        
+        videos.forEach((video, index) => {
+            // If it's a static video element, use it directly
+            if (video.type === 'static' && video.element) {
+                const clonedElement = video.element.cloneNode(true);
+                clonedElement.style.animationDelay = `${index * 100}ms`;
+                clonedElement.classList.add('visible');
+                fragment.appendChild(clonedElement);
+                return;
+            }
+            
+            const card = document.createElement("div");
+            card.className = "video-item";
+            card.dataset.category = video.category || "all";
+            card.style.animationDelay = `${index * 100}ms`;
+
+            let embed = '';
+            
+            if (video.type === "youtube") {
+                embed = `
+                    <iframe 
+                        src="https://www.youtube.com/embed/${video.id}?rel=0" 
+                        title="${video.title}" 
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen 
+                        loading="lazy"
+                    ></iframe>`;
+            } else if (video.type === "facebook") {
+                embed = `
+                    <iframe 
+                        src="${video.src}"
+                        style="border:none;overflow:hidden"
+                        scrolling="no"
+                        frameborder="0"
+                        allowfullscreen="true"
+                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                        loading="lazy"
+                    ></iframe>`;
+            } else {
+                embed = `
+                    <video controls poster="${video.poster || ''}">
+                        <source src="${video.src}" type="video/mp4">
+                        Your browser does not support video.
+                    </video>`;
+            }
+
+            card.innerHTML = `
+                <div class="video-wrapper">${embed}</div>
+                <h3 class="video-title">${video.title || 'Untitled Video'}</h3>
+                <p class="video-description">${video.desc || ''}</p>
+            `;
+
+            fragment.appendChild(card);
+        });
+
+        videoGrid.appendChild(fragment);
+
+        // Animate video items
+        requestAnimationFrame(() => {
+            const items = videoGrid.querySelectorAll('.video-item');
+            items.forEach((item, i) => {
+                setTimeout(() => item.classList.add('visible'), i * 100);
+            });
+        });
+    }
+
+    function attachVideoTabEvents() {
+        videoTabBtns.forEach(btn => {
+            btn.addEventListener("click", function() {
+                // Update active state
+                videoTabBtns.forEach(b => {
+                    b.classList.remove("active");
+                    b.setAttribute("aria-selected", "false");
+                });
+                this.classList.add("active");
+                this.setAttribute("aria-selected", "true");
+
+                // Filter videos
+                currentVideoTab = this.dataset.tab;
+                const filtered = currentVideoTab === "all"
+                    ? allVideos
+                    : allVideos.filter(v => v.category === currentVideoTab);
+
+                // Add fade effect
+                if (videoGrid) {
+                    videoGrid.style.opacity = "0";
+                    videoGrid.style.transform = "translateY(20px)";
+                    
+                    setTimeout(() => {
+                        renderVideos(filtered);
+                        videoGrid.style.opacity = "1";
+                        videoGrid.style.transform = "translateY(0)";
+                    }, 300);
+                }
+            });
+        });
+    }
+
+    // ========================================
+    // 3. 360° VIRTUAL TOUR
+    // ========================================
+    function initPanorama() {
+        if (!panoramaContainer) return;
+
+        panoramaContainer.innerHTML = `
+            <div class="tour-loading">
+                <i class="fas fa-compass fa-spin"></i>
+                <p>Loading 360° Virtual Tour...</p>
+            </div>
+        `;
+
+        const initTour = () => {
+            if (typeof pannellum === "undefined") {
+                setTimeout(initTour, 500);
+                return;
+            }
+
+            panoramaContainer.innerHTML = '';
+            
+            try {
+                pannellum.viewer('panorama', {
+                    type: "equirectangular",
+                    panorama: "/assets/images/360/school-tour-2025.jpg",
+                    autoLoad: true,
+                    autoRotate: -2,
+                    autoRotateInactivityDelay: 3000,
+                    showControls: true,
+                    showFullscreenCtrl: true,
+                    showZoomCtrl: true,
+                    compass: true,
+                    northOffset: 45,
+                    pitch: 5,
+                    yaw: 0,
+                    hfov: 110,
+                    minHfov: 50,
+                    maxHfov: 120,
+                    hotSpots: [
+                        { 
+                            pitch: 8, 
+                            yaw: -20, 
+                            type: "info", 
+                            text: "<strong>Main Entrance</strong><br>Reception & Admin Block",
+                            cssClass: "custom-hotspot"
+                        },
+                        { 
+                            pitch: -12, 
+                            yaw: 135, 
+                            type: "info", 
+                            text: "<strong>Science Labs</strong><br>Modern Equipment & Research",
+                            cssClass: "custom-hotspot"
+                        },
+                        { 
+                            pitch: 10, 
+                            yaw: 180, 
+                            type: "info", 
+                            text: "<strong>Assembly Hall</strong><br>Events & Morning Prayers",
+                            cssClass: "custom-hotspot"
+                        },
+                        { 
+                            pitch: 18, 
+                            yaw: 70, 
+                            type: "info", 
+                            text: "<strong>Sports Ground</strong><br>Football, Athletics & More",
+                            cssClass: "custom-hotspot"
+                        },
+                        { 
+                            pitch: -5, 
+                            yaw: -90, 
+                            type: "info", 
+                            text: "<strong>Library</strong><br>15,000+ Books & Digital Resources",
+                            cssClass: "custom-hotspot"
+                        }
+                    ]
+                });
+            } catch (error) {
+                console.warn("Pannellum initialization failed:", error);
+                panoramaContainer.innerHTML = `
+                    <div class="tour-loading">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <p>Virtual tour temporarily unavailable. Please try again later.</p>
+                    </div>
+                `;
+            }
+        };
+
+        initTour();
+    }
+
+    // ========================================
+    // 4. BACK TO TOP BUTTON
+    // ========================================
+    function initBackToTop() {
+        if (!backToTop) return;
+
+        const handleScroll = debounce(() => {
+            const scrolled = window.scrollY > 500;
+            backToTop.classList.toggle("visible", scrolled);
+        }, 50);
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+    }
+
+    // ========================================
+    // 5. ANIMATE STATS ON SCROLL
+    // ========================================
+    function initStatsAnimation() {
+        const statsSection = document.getElementById("galleryStats");
+        if (!statsSection) return;
+
+        const stats = statsSection.querySelectorAll(".stat h3");
+        let animated = false;
+
+        const animateValue = (element, start, end, duration) => {
+            const startTime = performance.now();
+            const suffix = element.textContent.replace(/[0-9]/g, '');
+            
+            const update = (currentTime) => {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const current = Math.floor(start + (end - start) * easeOut);
+                
+                element.textContent = current + suffix;
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            };
+            
+            requestAnimationFrame(update);
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !animated) {
+                    animated = true;
+                    stats.forEach(stat => {
+                        const value = parseInt(stat.textContent);
+                        if (!isNaN(value)) {
+                            animateValue(stat, 0, value, 2000);
+                        }
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        observer.observe(statsSection);
+    }
+
+    // ========================================
+    // 6. REMOVE LOADERS
+    // ========================================
+    function removeLoaders() {
+        document.querySelectorAll('.loader').forEach(loader => {
+            loader.style.opacity = '0';
+            loader.style.transform = 'scale(0.9)';
+            setTimeout(() => loader.remove(), 500);
+        });
+    }
+
+    // ========================================
+    // 7. ADD SMOOTH TRANSITIONS TO GRIDS
+    // ========================================
+    function initGridTransitions() {
+        if (galleryGrid) {
+            galleryGrid.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        }
+        if (videoGrid) {
+            videoGrid.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        }
+    }
+
+    // ========================================
+    // 8. KEYBOARD NAVIGATION
+    // ========================================
+    function initKeyboardNav() {
+        document.addEventListener('keydown', (e) => {
+            // Close lightbox with Escape
+            if (e.key === 'Escape') {
+                const lightboxOverlay = document.querySelector('.lightbox');
+                if (lightboxOverlay) {
+                    lightboxOverlay.click();
+                }
+            }
+        });
+    }
+
+    // ========================================
+    // 9. LAZY LOAD IMAGES
+    // ========================================
+    function initLazyLoading() {
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                        }
+                        imageObserver.unobserve(img);
+                    }
+                });
+            }, { rootMargin: '50px 0px' });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+    }
+
+    // ========================================
+    // INITIALIZE EVERYTHING
+    // ========================================
+    async function init() {
+        // Add CSS for animations
+        const style = document.createElement('style');
+        style.textContent = `
+            .gallery-item, .video-item {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: opacity 0.5s ease, transform 0.5s ease;
+            }
+            .gallery-item.visible, .video-item.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .empty-state {
+                grid-column: 1 / -1;
+                text-align: center;
+                padding: 4rem 2rem;
+                color: #64748b;
+            }
+            .empty-state i {
+                font-size: 4rem;
+                margin-bottom: 1.5rem;
+                opacity: 0.5;
+            }
+            .empty-state h3 {
+                font-size: 1.5rem;
+                margin: 0 0 0.5rem;
+                color: #1e293b;
+            }
+            .empty-state p {
+                margin: 0;
+                font-size: 1rem;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize all features
+        initGridTransitions();
+        initBackToTop();
+        initKeyboardNav();
+        initLazyLoading();
+        
+        // Load content
+        await Promise.all([loadPhotos(), loadVideos()]);
+        
+        // Initialize remaining features
+        initPanorama();
+        initStatsAnimation();
+        removeLoaders();
+
+        console.log(
+            "%c🎨 Gallery Page Loaded Successfully!",
+            "color: #ffd700; font-size: 18px; font-weight: bold; background: #0b2d5e; padding: 12px 20px; border-radius: 8px;"
+        );
+    }
+
+    init();
 });

@@ -100,7 +100,7 @@ function getMessage(type, key) {
 // ==================== AUTH ====================
 async function checkAuthStatus() {
   try {
-    const response = await fetch('/api/auth/check', {
+    const response = await fetch('/api/profile', {
       method: 'GET',
       credentials: 'same-origin',
       headers: {
@@ -110,7 +110,7 @@ async function checkAuthStatus() {
 
     if (response.ok) {
       const data = await response.json();
-      return data.loggedIn;
+      return data.success && data.user;
     }
     return false;
   } catch (err) {
@@ -150,57 +150,14 @@ function showLoading(element, text = "Loading...") {
   if (!element) return;
   element.innerHTML = `
     <div class="text-center py-5">
-      <div class="spinner-border text-primary" role="status" style="width:3rem;height:3rem;">
-        <span class="visually-hidden">Loading...</span>
-      </div>
+      <div class="spinner-border text-primary" style="width:3rem;height:3rem;"></div>
       <p class="mt-3">${text}</p>
-    </div>
-  `;
-}
-
-function showSkeletonLoader(element, type = "card") {
-  if (!element) return;
-  
-  const skeletonCards = Array(6).fill(0).map(() => `
-    <div class="col-md-6 col-lg-4 mb-4">
-      <div class="glass-card p-4 text-center text-white h-100 shadow-lg">
-        <div class="skeleton-text skeleton-title mb-3"></div>
-        <div class="skeleton-text skeleton-subtitle mb-2"></div>
-        <div class="skeleton-text skeleton-text-small mb-2"></div>
-        <div class="skeleton-text skeleton-text-small"></div>
-      </div>
-    </div>
-  `).join('');
-  
-  element.innerHTML = skeletonCards;
-}
-
-function showErrorState(element, message = "Something went wrong", showRetry = true) {
-  if (!element) return;
-  element.innerHTML = `
-    <div class="col-12 text-center py-5 text-danger">
-      <i class="fas fa-exclamation-triangle fa-4x mb-3"></i>
-      <h4>Oops! Something went wrong</h4>
-      <p class="mb-4">${message}</p>
-      ${showRetry ? '<button onclick="location.reload()" class="btn btn-primary"><i class="fas fa-redo me-2"></i>Try Again</button>' : ''}
-    </div>
-  `;
-}
-
-function showEmptyState(element, title = "No data found", message = "There's nothing to display here", icon = "fa-info-circle") {
-  if (!element) return;
-  element.innerHTML = `
-    <div class="col-12 text-center py-5 text-muted">
-      <i class="fas ${icon} fa-4x mb-3 opacity-50"></i>
-      <h4>${title}</h4>
-      <p class="mb-0">${message}</p>
     </div>
   `;
 }
 
 // ==================== API CALLS ====================
 async function apiCall(endpoint, options = {}) {
-  // Cancel previous request if still pending
   if (abortController) {
     abortController.abort();
   }
@@ -209,85 +166,54 @@ async function apiCall(endpoint, options = {}) {
   const defaultOptions = {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
-      'X-Requested-With': 'XMLHttpRequest'
+      'Content-Type': 'application/json'
     },
     credentials: 'same-origin',
     signal: abortController.signal,
-    timeout: CLUBS_CONFIG.api.timeout || 10000
+    timeout: CLUBS_CONFIG.api.timeout
   };
 
   const finalOptions = { ...defaultOptions, ...options };
 
-  // Enhanced cache key for better caching
-  const cacheKey = `${endpoint}-${JSON.stringify(finalOptions.body || finalOptions.params || {})}`;
-  
   // Check cache for GET requests
-  if (finalOptions.method === 'GET' && CLUBS_CONFIG.api?.cache?.enabled && cache.has(cacheKey)) {
+  const cacheKey = `${endpoint}-${JSON.stringify(finalOptions.body || {})}`;
+  if (finalOptions.method === 'GET' && CLUBS_CONFIG.api.cache.enabled && cache.has(cacheKey)) {
     const cached = cache.get(cacheKey);
-    if (Date.now() - cached.timestamp < (CLUBS_CONFIG.api.cache.ttl || 300000)) {
-      console.log(`Cache hit for: ${endpoint}`);
+    if (Date.now() - cached.timestamp < CLUBS_CONFIG.api.cache.ttl) {
       return cached.data;
     }
   }
 
-  // Create timeout controller
-  const timeoutController = new AbortController();
-  const timeoutId = setTimeout(() => timeoutController.abort(), finalOptions.timeout);
-
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), finalOptions.timeout);
+
     const response = await fetch(endpoint, {
       ...finalOptions,
-      signal: AbortSignal.any([abortController.signal, timeoutController.signal])
+      signal: controller.signal
     });
 
     clearTimeout(timeoutId);
 
-    // Handle different response types
-    let data;
-    const contentType = response.headers.get('content-type');
-    
-    if (contentType && contentType.includes('application/json')) {
-      data = await response.json();
-    } else {
-      data = { success: response.ok, message: await response.text() };
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `HTTP ${response.status}`);
     }
 
-    if (!response.ok) {
-      const errorMessage = data?.message || 
-                          data?.error || 
-                          `HTTP ${response.status}: ${response.statusText}`;
-      throw new Error(errorMessage);
-    }
+    const data = await response.json();
 
     // Cache successful GET responses
-    if (finalOptions.method === 'GET' && CLUBS_CONFIG.api?.cache?.enabled) {
+    if (finalOptions.method === 'GET' && CLUBS_CONFIG.api.cache.enabled) {
       cache.set(cacheKey, { data, timestamp: Date.now() });
     }
 
     return data;
   } catch (err) {
-    clearTimeout(timeoutId);
-    
     if (err.name === 'AbortError') {
-      throw new Error('Request was cancelled');
-    }
-    
-    if (err.name === 'TimeoutError') {
-      throw new Error('Request timed out. Please check your connection.');
+      throw new Error('Request cancelled');
     }
 
-    console.error(`API call failed: ${endpoint}`, {
-      error: err.message,
-      status: err.status,
-      stack: err.stack
-    });
-    
-    // Provide user-friendly error messages
-    if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
-      throw new Error('Network error. Please check your internet connection and try again.');
-    }
-    
+    console.error(`API call failed: ${endpoint}`, err);
     throw err;
   }
 }
@@ -347,8 +273,7 @@ async function loadClubsAndEvents() {
   const grid = document.getElementById("clubsGrid");
   const eventsGrid = document.getElementById("eventsGrid");
 
-  // Show skeleton loaders for better UX
-  showSkeletonLoader(grid);
+  showLoading(grid, "Loading clubs...");
   showLoading(eventsGrid, "Loading events...");
 
   try {
@@ -363,7 +288,6 @@ async function loadClubsAndEvents() {
     renderClubsGrid();
     renderUpcomingEvents();
 
-    // Show success message with toast-like notification
     showAlert(getMessage('success', 'load'), 'success', 3000);
 
     // Auto-load club from URL hash
@@ -373,22 +297,18 @@ async function loadClubsAndEvents() {
     }
   } catch (err) {
     console.error("Failed to load clubs:", err);
-    
-    // Enhanced error handling with specific messages
-    let errorMessage = getMessage('errors', 'network');
-    if (err.message.includes('401') || err.message.includes('Authentication')) {
-      errorMessage = 'Please log in to access clubs and events.';
-    } else if (err.message.includes('timeout')) {
-      errorMessage = 'Request timed out. Please check your connection.';
-    } else if (err.message.includes('500')) {
-      errorMessage = 'Server error. Please try again later.';
-    }
-    
-    showAlert(errorMessage, "danger");
+    showAlert(getMessage('errors', 'network'), "danger");
 
-    // Show professional error states
-    showErrorState(grid, "Unable to load clubs", true);
-    showErrorState(eventsGrid, "Unable to load events", true);
+    // Show error state
+    grid.innerHTML = `
+      <div class="col-12 text-center py-5 text-muted">
+        <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
+        <h4>Unable to load clubs</h4>
+        <p>Please check your connection and try again.</p>
+        <button onclick="loadClubsAndEvents()" class="btn btn-primary">Retry</button>
+      </div>
+    `;
+    eventsGrid.innerHTML = '<p class="text-center text-muted col-12">Events unavailable</p>';
   }
 }
 
@@ -653,33 +573,14 @@ async function handleJoinSubmit(e) {
   const form = e.target;
   const submitBtn = form.querySelector('button[type="submit"]');
   const originalText = submitBtn.innerHTML;
-  const formFields = form.querySelectorAll('input, select, textarea');
 
-  // Disable all form elements and show loading
-  formFields.forEach(field => field.disabled = true);
+  // Disable form and show loading
   submitBtn.disabled = true;
-  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Submitting Application...';
-
-  // Add progress indicator
-  const progressContainer = document.createElement('div');
-  progressContainer.className = 'mt-3';
-  progressContainer.innerHTML = `
-    <div class="progress" style="height: 6px;">
-      <div class="progress-bar progress-bar-striped progress-bar-animated" 
-           role="progressbar" style="width: 100%"></div>
-    </div>
-  `;
-  submitBtn.parentNode.appendChild(progressContainer);
+  submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Submitting...';
 
   try {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
-
-    // Client-side validation
-    const validationErrors = validateJoinForm(data);
-    if (validationErrors.length > 0) {
-      throw new Error(validationErrors.join(', '));
-    }
 
     // Get club info
     const club = CLUBS.find(c => c.id === currentClubId);
@@ -693,91 +594,33 @@ async function handleJoinSubmit(e) {
       clubName: club.name
     };
 
-    // Show submission progress
-    showAlert('Submitting your application...', 'info', 2000);
-
     const result = await apiCall("/api/clubs/join", {
       method: "POST",
       body: JSON.stringify(payload)
     });
 
     if (result.success) {
-      // Success animation
-      submitBtn.innerHTML = '<i class="fas fa-check me-2"></i>Application Submitted!';
-      submitBtn.classList.remove('btn-success');
-      submitBtn.classList.add('btn-success');
-      
-      showAlert(getMessage('success', 'join'), "success", 5000);
-      
-      // Hide modal after delay
-      setTimeout(() => {
-        const modal = bootstrap.Modal.getInstance(document.getElementById("joinModal"));
-        modal?.hide();
-        form.reset();
-        
-        // Reset button
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-        formFields.forEach(field => field.disabled = false);
-        progressContainer.remove();
-      }, 2000);
+      showAlert(getMessage('success', 'join'), "success");
+      const modal = bootstrap.Modal.getInstance(document.getElementById("joinModal"));
+      modal?.hide();
+      form.reset();
 
       // Clear cache to refresh data
       cache.clear();
     } else {
-      throw new Error(result.message || getMessage('errors', 'server'));
+      showAlert(result.message || getMessage('errors', 'server'), "danger");
     }
   } catch (err) {
     console.error('Join submission failed:', err);
-    
-    // Reset button and re-enable form
-    submitBtn.innerHTML = originalText;
+    const message = err.message.includes('Network') ?
+      getMessage('errors', 'network') :
+      getMessage('errors', 'server');
+    showAlert(message, "danger");
+  } finally {
+    // Re-enable form
     submitBtn.disabled = false;
-    formFields.forEach(field => field.disabled = false);
-    progressContainer.remove();
-
-    // Show appropriate error message
-    let errorMessage = getMessage('errors', 'server');
-    if (err.message.includes('duplicate') || err.message.includes('already have')) {
-      errorMessage = getMessage('errors', 'duplicate');
-    } else if (err.message.includes('validation') || err.message.includes('required')) {
-      errorMessage = getMessage('errors', 'validation');
-    } else if (err.message.includes('Network') || err.message.includes('fetch')) {
-      errorMessage = getMessage('errors', 'network');
-    } else if (err.message) {
-      errorMessage = err.message;
-    }
-    
-    showAlert(errorMessage, "danger", 6000);
+    submitBtn.innerHTML = originalText;
   }
-}
-
-function validateJoinForm(data) {
-  const errors = [];
-  
-  if (!data.name?.trim()) {
-    errors.push('Full name is required');
-  }
-  
-  if (!data.email?.trim()) {
-    errors.push('Email is required');
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-    errors.push('Please enter a valid email address');
-  }
-  
-  if (!data.form) {
-    errors.push('Please select your form/class');
-  }
-  
-  if (data.phone && !/^(\+254|0)[71]\d{8}$/.test(data.phone.replace(/\s/g, ''))) {
-    errors.push('Please enter a valid Kenyan phone number');
-  }
-  
-  if (data.reason && data.reason.length > 500) {
-    errors.push('Reason should not exceed 500 characters');
-  }
-  
-  return errors;
 }
 
 // ==================== SEARCH & FILTER ====================
@@ -785,80 +628,24 @@ function filterClubs() {
   const searchTerm = document.getElementById("clubSearch")?.value.toLowerCase().trim() || "";
   const categoryFilter = document.getElementById("clubCategoryFilter")?.value || "";
 
-  // Show loading state for search
-  const grid = document.getElementById("clubsGrid");
-  if (grid && (searchTerm.length > 0 || categoryFilter)) {
-    grid.style.opacity = "0.7";
+  const filtered = CLUBS.filter(club => {
+    const matchesSearch = !searchTerm ||
+      club.name.toLowerCase().includes(searchTerm) ||
+      (club.shortDesc || "").toLowerCase().includes(searchTerm) ||
+      (club.category || "").toLowerCase().includes(searchTerm);
+
+    const matchesCategory = !categoryFilter || club.category === categoryFilter;
+
+    return matchesSearch && matchesCategory;
+  });
+
+  renderClubsGrid(filtered);
+
+  // Update results count
+  const resultsCount = document.getElementById("resultsCount");
+  if (resultsCount) {
+    resultsCount.textContent = `Showing ${filtered.length} of ${CLUBS.length} clubs`;
   }
-
-  // Use setTimeout to prevent excessive filtering during typing
-  setTimeout(() => {
-    const filtered = CLUBS.filter(club => {
-      const matchesSearch = !searchTerm ||
-        club.name.toLowerCase().includes(searchTerm) ||
-        (club.shortDesc || "").toLowerCase().includes(searchTerm) ||
-        (club.category || "").toLowerCase().includes(searchTerm);
-
-      const matchesCategory = !categoryFilter || club.category === categoryFilter;
-
-      return matchesSearch && matchesCategory;
-    });
-
-    renderClubsGrid(filtered);
-
-    // Restore opacity
-    if (grid) {
-      grid.style.opacity = "1";
-    }
-
-    // Update results count with animation
-    updateResultsCount(filtered.length, CLUBS.length, searchTerm, categoryFilter);
-
-    // Show "no results" message if needed
-    if (filtered.length === 0 && (searchTerm || categoryFilter)) {
-      showEmptyState(grid, "No clubs found", 
-        searchTerm && categoryFilter ? 
-          `No clubs match "${searchTerm}" in ${categoryFilter} category` :
-          searchTerm ? 
-            `No clubs match "${searchTerm}"` :
-            `No clubs found in ${categoryFilter} category`,
-        "fa-search"
-      );
-    }
-  }, 150);
-}
-
-function updateResultsCount(filteredCount, totalCount, searchTerm, categoryFilter) {
-  let countElement = document.getElementById("resultsCount");
-  
-  if (!countElement) {
-    // Create results count element if it doesn't exist
-    countElement = document.createElement("div");
-    countElement.id = "resultsCount";
-    countElement.className = "text-muted text-center mt-3";
-    
-    const clubsGrid = document.getElementById("clubsGrid");
-    if (clubsGrid && clubsGrid.parentNode) {
-      clubsGrid.parentNode.insertBefore(countElement, clubsGrid.nextSibling);
-    }
-  }
-
-  let message = `Showing ${filteredCount} of ${totalCount} clubs`;
-  
-  if (searchTerm || categoryFilter) {
-    const filters = [];
-    if (searchTerm) filters.push(`"${searchTerm}"`);
-    if (categoryFilter) filters.push(categoryFilter);
-    message += ` for ${filters.join(" in ")}`;
-  }
-
-  // Animate the count change
-  countElement.style.opacity = "0";
-  setTimeout(() => {
-    countElement.textContent = message;
-    countElement.style.opacity = "1";
-    countElement.style.transition = "opacity 0.3s ease";
-  }, 150);
 }
 
 // ==================== SEARCH & FILTER ====================

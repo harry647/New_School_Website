@@ -103,25 +103,25 @@ export const logger = (req, res, next) => {
     const originalSend = res.send;
 
     // Log request
-    // log('info', 'Request received', {
-    //     method: req.method,
-    //     url: req.url,
-    //     ip: req.ip,
-    //     userAgent: req.get('User-Agent'),
-    //     sessionId: req.session?.id
-    // });
+    log('info', 'Request received', {
+        method: req.method,
+        url: req.url,
+        ip: req.ip,
+        userAgent: req.get('User-Agent'),
+        sessionId: req.session?.id
+    });
 
     // Override res.send to log response
     res.send = function(data) {
         const duration = Date.now() - start;
 
-        // log('info', 'Response sent', {
-        //     method: req.method,
-        //     url: req.url,
-        //     statusCode: res.statusCode,
-        //     duration: `${duration}ms`,
-        //     contentLength: Buffer.isBuffer(data) ? data.length : (typeof data === 'string' ? data.length : 'unknown')
-        // });
+        log('info', 'Response sent', {
+            method: req.method,
+            url: req.url,
+            statusCode: res.statusCode,
+            duration: `${duration}ms`,
+            contentLength: Buffer.isBuffer(data) ? data.length : (typeof data === 'string' ? data.length : 'unknown')
+        });
 
         originalSend.call(this, data);
     };
@@ -129,11 +129,11 @@ export const logger = (req, res, next) => {
     // Log errors if they occur
     res.on('finish', () => {
         if (res.statusCode >= 400) {
-            // log('warn', 'Error response', {
-            //     method: req.method,
-            //     url: req.url,
-            //     statusCode: res.statusCode
-            // });
+            log('warn', 'Error response', {
+                method: req.method,
+                url: req.url,
+                statusCode: res.statusCode
+            });
         }
     });
 

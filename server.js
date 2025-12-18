@@ -9,8 +9,6 @@ import { fileURLToPath } from 'url';
 import session from 'express-session';
 import SQLiteStore from 'connect-sqlite3';
 import fs from 'fs';
-import multer from 'multer';
-import cors from 'cors';
 
 import authRoutes from './routes/auth.js';
 import portalRoutes from './routes/portal.js';
@@ -61,57 +59,14 @@ app.use(
 );
 
 // ================================================
-// 2. CORS Configuration
+// 2. Middleware
 // ================================================
-app.use(cors({
-  origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-}));
-
-// ================================================
-// 4. Middleware
-// ================================================
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-
-// Configure multer for contact form file uploads
-const contactUpload = multer({
-  storage: multer.diskStorage({
-    destination: (req, file, cb) => {
-      const uploadPath = path.join(__dirname, 'public', 'uploads', 'contact');
-      fs.mkdirSync(uploadPath, { recursive: true });
-      cb(null, uploadPath);
-    },
-    filename: (req, file, cb) => {
-      const unique = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
-      const ext = path.extname(file.originalname).toLowerCase();
-      cb(null, `contact-attachment-${unique}${ext}`);
-    }
-  }),
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB limit
-  fileFilter: (req, file, cb) => {
-    const allowedTypes = [
-      'application/pdf', 
-      'application/msword', 
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 
-      'image/jpeg', 
-      'image/jpg', 
-      'image/png'
-    ];
-    if (allowedTypes.includes(file.mimetype)) {
-      cb(null, true);
-    } else {
-      cb(new Error('Invalid file type. Only PDF, Word documents, and images are allowed.'), false);
-    }
-  }
-});
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(logger);
 
 // ================================================
-// 5. Static Files
+// 3. Static Files
 // ================================================
 const staticPaths = [
   'css', 'js', 'assets', 'includes', 'data', 'downloads',
@@ -124,14 +79,14 @@ staticPaths.forEach(folder => {
 });
 
 // ================================================
-// 6. Routes
+// 4. Routes
 // ================================================
 app.use('/auth', authRoutes);
 app.use('/portal', portalRoutes);
 app.use('/api', apiRoutes);
 
 // ================================================
-// 7. HTML Pages (Root Routes)
+// 5. HTML Pages (Root Routes)
 // ================================================
 const pages = [
   '', 'about', 'academics', 'admissions', 'gallery', 'news',
@@ -163,12 +118,12 @@ app.get('*', (req, res) => {
 });
 
 // ================================================
-// 8. Error Handler
+// 6. Error Handler
 // ================================================
 app.use(errorHandler);
 
 // ================================================
-// 9. Start Server
+// 7. Start Server
 // ================================================
 app.listen(PORT, () => {
   console.log(`Bar Union School Website LIVE at http://localhost:${PORT}`);

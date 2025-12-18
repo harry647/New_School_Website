@@ -1,6 +1,6 @@
 // =======================================================
-// languages.js – Professional Languages Department System
-// Backend-powered, dual filtering, file upload, forum, poll, RSVP
+// languages.js – Full Languages Department System (2026+)
+// Backend-powered, dual filtering, audio upload, forum, poll, RSVP
 // =======================================================
 
 let DATA = { subjects: [], teachers: [], resources: [], events: [] };
@@ -9,17 +9,16 @@ let FORUM_POSTS = [];
 let RSVP_EVENTS = {};
 let currentSession = "";
 let currentLanguage = "";
-let isLoading = false;
 
 // ==================== AUTH ====================
 async function isLoggedIn() {
   try {
-    // Check if user session exists by trying to access profile
-    const response = await fetch('/api/profile', {
+    const response = await fetch('/auth/check', {
       method: 'GET',
-      credentials: 'include'
+      credentials: 'include' // Include session cookies
     });
-    return response.ok;
+    const data = await response.json();
+    return data.loggedIn === true;
   } catch (error) {
     console.error('Auth check failed:', error);
     return false;
@@ -55,56 +54,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // ==================== LOAD DATA FROM BACKEND ====================
 async function loadLanguagesData() {
-  if (isLoading) return;
-  isLoading = true;
-
   try {
-    showLoading(true);
-    const res = await fetch("/api/departments/languages", { 
-      cache: "no-store",
-      credentials: 'include'
-    });
-    
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-    }
+    const res = await fetch("/api/departments/languages", { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed");
 
-    const data = await res.json();
-    
-    // Validate data structure
-    if (!data.subjects || !Array.isArray(data.subjects)) {
-      throw new Error("Invalid data structure: missing subjects array");
-    }
+    DATA = await res.json();
 
-    DATA = {
-      subjects: data.subjects || [],
-      teachers: data.teachers || [],
-      resources: data.resources || [],
-      events: data.events || []
-    };
-
-    // Initialize poll data
-    POLL = {};
-    DATA.subjects.forEach(s => {
-      POLL[s.name] = 0;
-    });
-
-    // Initialize RSVP events
-    RSVP_EVENTS = {};
-    DATA.events?.forEach(ev => {
-      RSVP_EVENTS[ev.title] = false;
-    });
+    // Initialize poll & RSVP
+    POLL = Object.fromEntries(DATA.subjects.map(s => [s.name, 0]));
+    DATA.events?.forEach(ev => RSVP_EVENTS[ev.title] = false);
 
     renderAll();
     populateFilters();
-    showAlert("Languages content loaded successfully!", "success");
   } catch (err) {
     console.error("Load error:", err);
-    showAlert(`Unable to load Languages content: ${err.message}`, "danger");
-    renderErrorState();
-  } finally {
-    isLoading = false;
-    showLoading(false);
+    showAlert("Unable to load Languages content. Please try again.", "danger");
   }
 }
 
@@ -208,9 +172,9 @@ function loadResources() {
     : filtered.map(r => `
       <div class="col-md-6 col-lg-4 mb-4">
         <div class="resource-card p-5 text-center glass-card shadow-sm">
-          <i class="fas ${getFileIcon(r.type || 'document')} fa-4x mb-4 text-danger"></i>
+          <i class="fas ${getFileIcon(r.type)} fa-4x mb-4 text-danger"></i>
           <h5 class="fw-bold">${r.title}</h5>
-          <p class="text-muted small mb-3">By: ${r.uploadedBy || 'Unknown'} • ${formatDate(r.date)}</p>
+          <p class="text-muted small mb-3">By: ${r.uploadedBy} • ${formatDate(r.date)}</p>
           <a href="${r.url}" class="btn btn-outline-primary btn-sm w-100" download>
             Download ${r.type === 'audio' ? 'Audio' : 'File'}
           </a>
@@ -255,26 +219,13 @@ function renderPoll() {
 }
 
 function votePoll(subject) {
-  if (!subject || !POLL.hasOwnProperty(subject)) {
-    showAlert("Invalid subject selection.", "warning");
-    return;
-  }
-
   POLL[subject] = (POLL[subject] || 0) + 1;
 
-  // Send to backend
   fetch("/api/departments/languages/poll", {
     method: "POST",
-    headers: { 
-      "Content-Type": "application/json",
-      "Credentials": "include"
-    },
-    body: JSON.stringify({ subject }),
-    credentials: 'include'
-  }).catch(err => {
-    console.error("Poll vote error:", err);
-    // Don't show error to user for poll failures, just log it
-  });
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ subject })
+  }).catch(() => {});
 
   renderPollResults();
   showAlert(`Voted for ${subject}!`, "success");
@@ -325,43 +276,22 @@ async function setupForum() {
 async function postForum() {
   const textarea = document.getElementById("forumPost");
   const text = textarea.value.trim();
-  
-  if (!text) {
-    showAlert("Please write something before posting.", "warning");
-    return;
-  }
-
-  if (text.length > 1000) {
-    showAlert("Post is too long. Maximum 1000 characters allowed.", "warning");
-    return;
-  }
+  if (!text) return showAlert("Write something first.", "warning");
 
   try {
-    showLoading(true);
     const res = await fetch("/api/departments/languages/forum", {
       method: "POST",
-      headers: { 
-        "Content-Type": "application/json",
-        "Credentials": "include"
-      },
-      body: JSON.stringify({ text }),
-      credentials: 'include'
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text })
     });
 
-    const result = await res.json();
-
-    if (res.ok && result.success) {
+    if (res.ok) {
       textarea.value = "";
-      showAlert("Posted successfully!", "success");
-      await loadForumPosts();
-    } else {
-      throw new Error(result.message || "Failed to post");
+      showAlert("Posted!", "success");
+      loadForumPosts();
     }
   } catch (err) {
-    console.error("Forum post error:", err);
-    showAlert(`Failed to post: ${err.message}`, "danger");
-  } finally {
-    showLoading(false);
+    showAlert("Failed to post.", "danger");
   }
 }
 
@@ -370,41 +300,22 @@ async function loadForumPosts() {
   if (!container) return;
 
   try {
-    const res = await fetch("/api/departments/languages/forum", {
-      credentials: 'include'
-    });
-    
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-    }
-
+    const res = await fetch("/api/departments/languages/forum");
     const posts = await res.json();
-    
-    if (!Array.isArray(posts)) {
-      throw new Error("Invalid posts data format");
-    }
 
     container.innerHTML = posts.length === 0
-      ? `<p class="text-center text-muted py-5">
-           <i class="fas fa-comments fa-3x mb-3"></i><br>
-           No posts yet. Start the conversation!
-         </p>`
+      ? `<p class="text-center text-muted py-5">No posts yet. Start the conversation!</p>`
       : posts.map(p => `
-        <div class="glass-card p-4 mb-4 rounded-3 forum-card">
+        <div class="glass-card p-4 mb-4 rounded-3">
           <p class="mb-2">
-            <strong class="forum-author">Student</strong>
-            <small class="forum-timestamp">– ${formatDate(p.timestamp)}</small>
+            <strong>Student</strong>
+            <small class="text-muted">– ${new Date(p.timestamp).toLocaleString()}</small>
           </p>
-          <p class="forum-content">${escapeHtml(p.text).replace(/\n/g, "<br>")}</p>
+          <p class="text-white opacity-90">${p.text.replace(/\n/g, "<br>")}</p>
         </div>
       `).join("");
-      
   } catch (err) {
-    console.error("Load forum posts error:", err);
-    container.innerHTML = `<p class="text-danger text-center py-5">
-      <i class="fas fa-exclamation-triangle fa-2x mb-3"></i><br>
-      Failed to load posts. Please try again.
-    </p>`;
+    container.innerHTML = `<p class="text-danger">Failed to load posts.</p>`;
   }
 }
 
@@ -423,55 +334,23 @@ function setupFileUpload() {
   input.addEventListener("change", async function () {
     if (this.files.length === 0) return;
 
-    // Validate files
-    const maxSize = 50 * 1024 * 1024; // 50MB
-    const allowedTypes = [
-      'audio/', 'video/', 'image/',
-      'application/pdf', 'application/msword',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-    ];
-
-    for (const file of this.files) {
-      if (file.size > maxSize) {
-        showAlert(`File "${file.name}" is too large. Maximum size is 50MB.`, "warning");
-        this.value = "";
-        return;
-      }
-
-      const isAllowed = allowedTypes.some(type => file.type.startsWith(type));
-      if (!isAllowed) {
-        showAlert(`File "${file.name}" type is not allowed.`, "warning");
-        this.value = "";
-        return;
-      }
-    }
-
     const formData = new FormData();
     Array.from(this.files).forEach(file => formData.append("files", file));
 
     try {
-      showLoading(true);
       const res = await fetch("/api/departments/languages/upload", {
         method: "POST",
-        body: formData,
-        credentials: 'include'
+        body: formData
       });
 
       const result = await res.json();
-      
-      if (res.ok && result.success) {
-        showAlert(`Successfully uploaded ${this.files.length} file(s)!`, "success");
+      if (result.success) {
+        showAlert(`Uploaded ${this.files.length} file(s)!`, "success");
         this.value = "";
-        await loadLanguagesData(); // Refresh
-      } else {
-        throw new Error(result.message || "Upload failed");
+        loadLanguagesData(); // Refresh
       }
     } catch (err) {
-      console.error("Upload error:", err);
-      showAlert(`Upload failed: ${err.message}`, "danger");
-      this.value = "";
-    } finally {
-      showLoading(false);
+      showAlert("Upload failed.", "danger");
     }
   });
 }
@@ -501,112 +380,4 @@ function showAlert(message, type = "info") {
   `;
   document.body.appendChild(alert);
   setTimeout(() => alert.remove(), 5000);
-}
-
-// ==================== UTILITY FUNCTIONS ====================
-function formatDate(dateString) {
-  if (!dateString) return 'Unknown date';
-  
-  try {
-    const date = new Date(dateString);
-    if (isNaN(date.getTime())) {
-      // If it's not a valid date, return as is (might be like "Nov 2025")
-      return dateString;
-    }
-    
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
-  } catch (error) {
-    return dateString; // Return original if parsing fails
-  }
-}
-
-function getFileIcon(type) {
-  const icons = {
-    'audio': 'fa-file-audio',
-    'pdf': 'fa-file-pdf',
-    'doc': 'fa-file-word',
-    'docx': 'fa-file-word',
-    'video': 'fa-file-video',
-    'image': 'fa-file-image',
-    'document': 'fa-file-alt'
-  };
-  return icons[type] || icons['document'];
-}
-
-function showLoading(show) {
-  const mainContent = document.getElementById("mainContent");
-  if (!mainContent) return;
-
-  if (show) {
-    mainContent.style.opacity = '0.6';
-    mainContent.style.pointerEvents = 'none';
-    
-    // Add loading spinner if not exists
-    if (!document.getElementById('loadingSpinner')) {
-      const spinner = document.createElement('div');
-      spinner.id = 'loadingSpinner';
-      spinner.className = 'position-fixed top-50 start-50 translate-middle';
-      spinner.style.cssText = 'z-index: 9999;';
-      spinner.innerHTML = `
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-      `;
-      document.body.appendChild(spinner);
-    }
-  } else {
-    mainContent.style.opacity = '1';
-    mainContent.style.pointerEvents = 'auto';
-    
-    const spinner = document.getElementById('loadingSpinner');
-    if (spinner) {
-      spinner.remove();
-    }
-  }
-}
-
-function renderErrorState() {
-  const subjectsGrid = document.getElementById("subjectsGrid");
-  const teachersGrid = document.getElementById("teachersGrid");
-  const resourcesGrid = document.getElementById("resourcesGrid");
-  const announcements = document.getElementById("announcements");
-
-  if (subjectsGrid) {
-    subjectsGrid.innerHTML = `<div class="col-12 text-center py-5 text-danger">
-      <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
-      <p>Failed to load subjects. Please refresh the page.</p>
-    </div>`;
-  }
-
-  if (teachersGrid) {
-    teachersGrid.innerHTML = `<div class="col-12 text-center py-5 text-danger">
-      <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
-      <p>Failed to load teachers. Please refresh the page.</p>
-    </div>`;
-  }
-
-  if (resourcesGrid) {
-    resourcesGrid.innerHTML = `<div class="col-12 text-center py-5 text-danger">
-      <i class="fas fa-exclamation-triangle fa-3x mb-3"></i>
-      <p>Failed to load resources. Please refresh the page.</p>
-    </div>`;
-  }
-
-  if (announcements) {
-    announcements.innerHTML = `<p class="text-center text-danger py-5">
-      <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
-      Failed to load events. Please refresh the page.
-    </p>`;
-  }
-}
-
-function escapeHtml(text) {
-  if (!text) return '';
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
 }

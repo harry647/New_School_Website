@@ -1,25 +1,11 @@
 // =======================================================
-// guidance.js – Professional Guidance & Counselling System (2026+)
-// Optimized for performance, accessibility, and user experience
+// guidance.js – Full Guidance & Counselling System (2026+)
+// Backend-powered, anonymous posting, file upload, appointment booking
 // =======================================================
 
 let DATA = { counsellors: [], resources: [] };
 let POSTS = [];
 let currentSession = "";
-let isLoading = false;
-
-// Performance optimization: Debounce function for rapid user actions
-const debounce = (func, wait) => {
-  let timeout;
-  return function executedFunction(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func(...args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
-};
 
 // ==================== AUTH ====================
 async function isLoggedIn() {
@@ -64,58 +50,25 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // ==================== LOAD DATA FROM BACKEND ====================
 async function loadGuidanceData() {
-  if (isLoading) return; // Prevent multiple simultaneous requests
-  isLoading = true;
-
   // Show loading state
   const loadingEl = document.getElementById("loadingState");
   if (loadingEl) loadingEl.style.display = "block";
 
   try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+    const res = await fetch("/api/guidance/data", { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed");
 
-    const res = await fetch("/api/guidance/data", { 
-      cache: "no-store",
-      signal: controller.signal,
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    });
-    
-    clearTimeout(timeoutId);
-
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
-
-    const responseData = await res.json();
-    
-    // Validate response data structure
-    if (responseData && typeof responseData === 'object') {
-      DATA = {
-        counsellors: Array.isArray(responseData.counsellors) ? responseData.counsellors : [],
-        resources: Array.isArray(responseData.resources) ? responseData.resources : []
-      };
-    } else {
-      throw new Error('Invalid data format received');
-    }
+    DATA = await res.json();
 
     renderCounsellors();
     renderResources();
     loadAnonymousPosts();
-    
   } catch (err) {
     console.error("Load error:", err);
-    const errorMessage = err.name === 'AbortError' 
-      ? "Request timed out. Please check your connection and try again."
-      : "Unable to load counselling content. Please refresh the page.";
-    showAlert(errorMessage, "danger");
+    showAlert("Unable to load counselling content. Please try again.", "danger");
   } finally {
     // Hide loading state
     if (loadingEl) loadingEl.style.display = "none";
-    isLoading = false;
   }
 }
 
@@ -130,51 +83,34 @@ function renderCounsellors() {
   if (DATA.counsellors.length === 0) {
     const emptyDiv = document.createElement("div");
     emptyDiv.className = "col-12 text-center py-5 text-muted";
-    emptyDiv.innerHTML = `
-      <i class="fas fa-user-friends fa-3x mb-3 text-muted"></i>
-      <p class="lead">No counsellors currently listed.</p>
-      <p class="text-muted">Please contact the school office for assistance.</p>
-    `;
+    emptyDiv.textContent = "No counsellors listed.";
     fragment.appendChild(emptyDiv);
   } else {
     DATA.counsellors.forEach(c => {
       const colDiv = document.createElement("div");
       colDiv.className = "col-md-6 col-lg-4 mb-4";
-      
-      const safeName = c.name || 'Unknown Counsellor';
-      const safeTitle = c.title || 'School Counsellor';
-      const safeSpecialty = c.specialty || 'Student Support';
-      const safePhoto = c.photo || '/assets/images/defaults/default-user.png';
-      
+
       colDiv.innerHTML = `
-        <article class="counsellor-card text-center p-4 shadow-sm h-100">
-          <div class="counsellor-image-container mb-3">
-            <img src="${safePhoto}"
-                 class="rounded-circle mb-3 shadow-sm"
-                 loading="lazy"
-                 width="140" height="140" 
-                 alt="${safeName} - ${safeTitle}"
-                 onerror="this.src='/assets/images/defaults/default-user.png'">
-          </div>
-          <h4 class="fw-bold mb-2 text-primary">${safeName}</h4>
-          <p class="text-muted mb-1 fw-medium">${safeTitle}</p>
-          <p class="text-info small mb-3">
-            <i class="fas fa-star me-1" aria-hidden="true"></i>${safeSpecialty}
-          </p>
-          <button onclick="openAppointment('${safeName}')"
-                  class="btn btn-outline-primary btn-lg w-100 mt-auto"
-                  aria-label="Book a session with ${safeName}">
-            <i class="fas fa-calendar-plus me-2" aria-hidden="true"></i>
-            Book Session
+        <div class="counsellor-card text-center p-5 glass-card shadow-sm">
+          <img src="${c.photo || '/assets/images/defaults/counsellor.png'}"
+               class="rounded-circle mb-4 shadow lazy"
+               loading="lazy"
+               width="150" height="150" alt="${c.name}">
+          <h4 class="fw-bold mb-2">${c.name}</h4>
+          <p class="text-muted mb-1">${c.title}</p>
+          <p class="text-info small mb-3">${c.specialty}</p>
+          <button onclick="openAppointment('${c.name}')"
+                  class="btn btn-outline-primary btn-lg w-100">
+            Book Session with ${c.name.split(" ")[0]}
           </button>
-        </article>
+        </div>
       `;
 
       fragment.appendChild(colDiv);
     });
   }
 
-  // Clear and append in one operation for better performance
+  // Clear and append in one operation
   grid.innerHTML = "";
   grid.appendChild(fragment);
 }
@@ -273,90 +209,39 @@ async function loadAnonymousPosts() {
 // ==================== APPOINTMENT BOOKING ====================
 function setupAppointmentForm() {
   const form = document.getElementById("appointmentForm");
-  const submitBtn = document.getElementById("submitBtn");
-  if (!form || !submitBtn) return;
+  if (!form) return;
 
-  // Set minimum date to today
-  const dateInput = document.getElementById("appointmentDate");
-  if (dateInput) {
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.setAttribute('min', today);
-  }
-
-  form.addEventListener("submit", debounce(async function (e) {
+  form.addEventListener("submit", async function (e) {
     e.preventDefault();
-    
-    // Validate form
-    if (!this.checkValidity()) {
-      this.reportValidity();
-      return;
-    }
 
-    // Show loading state
-    const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Submitting...';
-    submitBtn.disabled = true;
+    const formData = new FormData(this);
+    const data = {
+      name: formData.get("name") || "Anonymous",
+      email: formData.get("email"),
+      class: formData.get("class"),
+      date: formData.get("date"),
+      reason: formData.get("reason") || "General counselling"
+    };
 
     try {
-      const formData = new FormData(this);
-      const data = {
-        name: formData.get("name")?.trim() || "Anonymous",
-        email: formData.get("email")?.trim(),
-        class: formData.get("class"),
-        date: formData.get("date"),
-        reason: formData.get("reason")?.trim() || "General counselling"
-      };
-
-      // Client-side validation
-      if (!data.email || !data.class || !data.date) {
-        throw new Error("Please fill in all required fields.");
-      }
-
-      // Email validation
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(data.email)) {
-        throw new Error("Please enter a valid email address.");
-      }
-
-      // Date validation (ensure it's not in the past)
-      const selectedDate = new Date(data.date);
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      
-      if (selectedDate < today) {
-        throw new Error("Please select a future date for your appointment.");
-      }
-
-      const response = await fetch("/api/guidance/appointment", {
+      const res = await fetch("/api/guidance/appointment", {
         method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
       });
 
-      const result = await response.json();
+      const result = await res.json();
 
-      if (response.ok && result.success) {
-        showAlert("Appointment request sent successfully! We'll contact you soon.", "success");
+      if (result.success) {
+        showAlert("Appointment request sent! We'll contact you soon.", "success");
         this.reset();
-        
-        // Focus back to first input for better UX
-        const firstInput = this.querySelector('input[type="text"]');
-        if (firstInput) firstInput.focus();
       } else {
-        throw new Error(result.message || "Failed to book appointment");
+        showAlert(result.message || "Failed to book", "danger");
       }
     } catch (err) {
-      console.error("Appointment booking error:", err);
-      showAlert(err.message || "Network error. Please try again.", "danger");
-    } finally {
-      // Reset button state
-      submitBtn.innerHTML = originalText;
-      submitBtn.disabled = false;
+      showAlert("Network error. Try again.", "danger");
     }
-  }, 1000)); // Debounce to prevent double submissions
+  });
 }
 
 function openAppointment(counsellorName) {
