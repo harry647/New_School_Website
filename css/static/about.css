@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('/assets/images/common/about-hero.jpg') center/cover no-repeat;
+  background: linear-gradient(135deg, rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('/assets/images/common/about-history.png') center/cover no-repeat;
   color: white;
   text-align: center;
   overflow: hidden;
