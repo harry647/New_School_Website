@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ========================================
     async function loadPhotos() {
         try {
-            const res = await fetch("/data/static/gallery-data.json");
+            const res = await fetch("/data/static/gallery-photos.json");
             if (!res.ok) throw new Error("Not found");
             allPhotos = await res.json();
             renderPhotos(allPhotos);
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const existingVideos = videoGrid ? Array.from(videoGrid.querySelectorAll('.video-item')) : [];
         
         try {
-            const res = await fetch("/data/static/video-gallery-data.json");
+            const res = await fetch("/data/static/gallery-videos.json");
             if (!res.ok) throw new Error("Not found");
             allVideos = await res.json();
             
@@ -587,6 +587,45 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // ========================================
+    // 10. MODAL FUNCTIONALITY
+    // ========================================
+    function initModals() {
+        const photoUploadModal = document.getElementById('photoUploadModal');
+        const videoUploadModal = document.getElementById('videoUploadModal');
+        const openPhotoUploadBtn = document.getElementById('openPhotoUploadModal');
+        const openVideoUploadBtn = document.getElementById('openUploadModal');
+        const closeModalBtns = document.querySelectorAll('.close-modal');
+
+        if (openPhotoUploadBtn && photoUploadModal) {
+            openPhotoUploadBtn.addEventListener('click', () => {
+                photoUploadModal.style.display = 'flex';
+            });
+        }
+
+        if (openVideoUploadBtn && videoUploadModal) {
+            openVideoUploadBtn.addEventListener('click', () => {
+                videoUploadModal.style.display = 'flex';
+            });
+        }
+
+        closeModalBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const modal = btn.closest('.modal-overlay');
+                if (modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+
+        // Close modals when clicking outside the content
+        window.addEventListener('click', (event) => {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.style.display = 'none';
+            }
+        });
+    }
+
+    // ========================================
     // INITIALIZE EVERYTHING
     // ========================================
     async function init() {
@@ -630,7 +669,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         initBackToTop();
         initKeyboardNav();
         initLazyLoading();
-        
+        initModals();
+         
         // Load content
         await Promise.all([loadPhotos(), loadVideos()]);
         

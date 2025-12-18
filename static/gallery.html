@@ -144,6 +144,10 @@
                             </div>
                             <div class="form-group full-width">
                                 <label for="photoFiles">Select Photos * (JPG, PNG, GIF • Max 10MB each • Up to 10 files)</label>
+                                <label for="photoFiles" class="file-upload-label">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <span>Click to select photos or drag and drop</span>
+                                </label>
                                 <input type="file" id="photoFiles" name="photos" accept="image/jpeg,image/png,image/gif" multiple required>
                                 <div class="selected-files" id="selectedPhotosList"></div>
                             </div>
@@ -152,18 +156,18 @@
                                 <textarea id="photoDescription" name="description" rows="4" required placeholder="Describe the event, people, or moment in these photos..."></textarea>
                             </div>
                         </div>
-
+                        
                         <div class="form-actions">
                             <button type="submit" class="btn-primary">
                                 <i class="fas fa-upload"></i> Submit Photos for Review
                             </button>
                         </div>
-
+                        
                         <p class="form-note">
                             Photos will be reviewed by our team before being added to the public gallery.<br>
                             We'll notify you at your email once they're published.
                         </p>
-
+                        
                         <div class="form-status hidden" id="photoUploadStatus"></div>
                     </form>
                 </div>
@@ -351,7 +355,7 @@
     </section>
 
     <!-- Back to Top Button -->
-    <button id="backToTop" class="back-to-top">
+    <button id="backToTop" class="back-to-top" title="Back to Top">
         <i class="fas fa-arrow-up"></i>
     </button>
 
