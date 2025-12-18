@@ -6,9 +6,10 @@
   min-height: 90vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.65)), url('/assets/images/admissions/hero-bg.jpg') center/cover no-repeat;
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url('/assets/images/admissions/hero-bg.jpg') center/cover no-repeat;
   color: white;
   text-align: center;
+  overflow: hidden;
 }
 
 .hero-floating-elements {
@@ -34,15 +35,31 @@
   50% { transform: translateY(-35px) rotate(12deg); }
 }
 
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
 /* Admission Process Timeline */
 .process-section {
   background: var(--light);
+  padding: 4rem 0;
 }
 
 .timeline-container {
   position: relative;
   max-width: 1000px;
   margin: 4rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 .timeline-line {
@@ -98,6 +115,8 @@
   box-shadow: 0 15px 35px rgba(0,0,0,0.1);
   max-width: 500px;
   position: relative;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .timeline-content::before {
@@ -123,6 +142,7 @@
 /* Requirements Grid */
 .requirements-section {
   background: white;
+  padding: 4rem 0;
 }
 
 .requirements-grid {
@@ -137,7 +157,9 @@
   padding: 2.5rem;
   background: var(--primary-light);
   border-radius: 20px;
-  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 .requirement-card:hover {
@@ -149,6 +171,7 @@
 /* Fees Section */
 .fees-section {
   background: var(--light);
+  padding: 4rem 0;
 }
 
 .fees-grid {
@@ -165,6 +188,8 @@
   padding: 3rem;
   border-radius: 20px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 .card-header {
@@ -235,6 +260,7 @@
 /* Apply Form */
 .apply-section {
   background: white;
+  padding: 4rem 0;
 }
 
 .apply-form-card {
@@ -246,12 +272,38 @@
   margin: 0 auto;
 }
 
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  padding: 0.85rem 1.8rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,86,179,0.3);
+}
+
+.btn-primary.large {
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+}
+
 .form-section-title {
   font-size: 1.8rem;
   margin: 3rem 0 2rem;
   color: var(--primary);
   position: relative;
   padding-bottom: 0.8rem;
+  text-align: left;
 }
 
 .form-section-title::after {
@@ -343,6 +395,101 @@
   .fees-grid,
   .upload-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .apply-form-card {
+    padding: 1.5rem;
+  }
+
+  .form-section-title {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  .form-section-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .requirements-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-content {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle,
+  .hero-description {
+    font-size: 0.95rem;
+  }
+
+  .timeline-container {
+    padding: 0.5rem;
+  }
+
+  .timeline-content {
+    padding: 1rem;
+    font-size: 0.85rem;
+    max-width: 100%;
+  }
+
+  .timeline-marker {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .dates-card,
+  .fee-card {
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
+
+  .dates-list {
+    font-size: 0.85rem;
+    padding-left: 1rem;
+  }
+
+  .dates-list li span:first-child {
+    min-width: 150px;
+  }
+
+  .fee-table {
+    font-size: 0.8rem;
+  }
+
+  .fee-table th,
+  .fee-table td {
+    padding: 0.7rem;
+  }
+
+  .requirement-card {
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
+
+  .upload-group {
+    padding: 1rem;
+  }
+
+  .form-group label,
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 0.9rem;
+  }
+
+  .fees-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }
 
