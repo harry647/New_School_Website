@@ -1,6 +1,29 @@
 /* /css/static/index.css - Page-specific styles for Homepage (index.html)
    Builds on top of /css/global/styles.css - no duplicates! */
 
+/* WhatsApp Floating Button */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.1);
+}
+
 /* Hero Section */
 .hero {
   position: relative;
@@ -22,6 +45,7 @@
 .hero-title {
   font-size: 4.5rem;
   margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .hero-title-highlight {
@@ -32,6 +56,7 @@
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
   font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 .hero-description {
@@ -53,6 +78,8 @@
 .hero-buttons .btn {
   padding: 1rem 2.5rem;
   font-size: 1.2rem;
+  border-radius: 50px;
+  transition: all 0.3s ease;
 }
 
 /* Hero Scroll Indicator */
@@ -85,6 +112,7 @@
 /* About Section */
 .about-section {
   background: var(--light);
+  padding: 4rem 0;
 }
 
 .about-grid {
@@ -106,6 +134,11 @@
 .about-image img {
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  transition: transform 0.4s ease;
+}
+
+.about-image img:hover {
+  transform: scale(1.05);
 }
 
 /* Stats in About */
@@ -122,6 +155,11 @@
   background: white;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: transform 0.4s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-10px);
 }
 
 .stat-number {
@@ -139,6 +177,7 @@
 /* VM Section */
 .vm-section {
   background: white;
+  padding: 4rem 0;
 }
 
 .vm-grid {
@@ -153,11 +192,12 @@
   background: var(--primary-light);
   border-radius: 20px;
   box-shadow: 0 15px 35px rgba(0,86,179,0.1);
-  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .vm-card:hover {
   transform: translateY(-15px);
+  box-shadow: 0 20px 40px rgba(0,86,179,0.2);
 }
 
 .vm-icon {
@@ -169,11 +209,13 @@
 .vm-title {
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
+  color: var(--primary);
 }
 
 /* Values Section */
 .values-section {
   background: var(--light);
+  padding: 4rem 0;
 }
 
 .values-grid {
@@ -188,11 +230,12 @@
   border-radius: 20px;
   text-align: center;
   box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .value-card:hover {
   transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
 .value-card i {
@@ -204,11 +247,13 @@
 .value-card h4 {
   font-size: 1.6rem;
   margin-bottom: 1rem;
+  color: var(--primary);
 }
 
 /* Principal Section */
 .principal-section {
   background: white;
+  padding: 4rem 0;
 }
 
 .pm-grid {
@@ -222,6 +267,11 @@
   width: 100%;
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  transition: transform 0.4s ease;
+}
+
+.principal-photo img:hover {
+  transform: scale(1.05);
 }
 
 .message-box {
@@ -236,6 +286,7 @@
   line-height: 1.9;
   margin-bottom: 2rem;
   font-style: italic;
+  color: var(--secondary);
 }
 
 .signature {
@@ -257,6 +308,7 @@
 /* Features Section */
 .features-section {
   background: var(--light);
+  padding: 4rem 0;
 }
 
 .features-checklist {
@@ -272,6 +324,11 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.features-checklist li:hover {
+  transform: translateX(10px);
 }
 
 .features-checklist i {
@@ -288,6 +345,7 @@
 /* News Section */
 .news-section {
   background: white;
+  padding: 4rem 0;
 }
 
 .news-grid {
@@ -302,11 +360,12 @@
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .news-card:hover {
   transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
 .news-img {
@@ -343,9 +402,11 @@
   align-items: center;
   gap: 0.5rem;
   margin-top: 1rem;
+  transition: color 0.3s ease;
 }
 
 .read-more:hover {
+  color: var(--accent);
   text-decoration: underline;
 }
 
@@ -359,6 +420,7 @@
   position: relative;
   background: var(--primary-light);
   overflow: hidden;
+  padding: 4rem 0;
 }
 
 .enquiry-bg-elements {
@@ -404,6 +466,11 @@
   box-shadow: 0 20px 50px rgba(0,0,0,0.15);
   max-width: 700px;
   margin: 0 auto;
+  transition: transform 0.4s ease;
+}
+
+.enquiry-form-card:hover {
+  transform: translateY(-10px);
 }
 
 .btn-form-submit {
@@ -411,11 +478,30 @@
   padding: 1.2rem;
   font-size: 1.2rem;
   margin-top: 1rem;
+  border-radius: 50px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.btn-form-submit:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,86,179,0.3);
+}
+
+.btn-form-submit:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,86,179,0.3);
 }
 
 /* Testimonials */
 .testimonials-section {
   background: var(--light);
+  padding: 4rem 0;
 }
 
 .testimonials-slider {
@@ -428,6 +514,12 @@
   border-radius: 20px;
   box-shadow: 0 15px 35px rgba(0,0,0,0.1);
   text-align: center;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
 .testimonial-header {
@@ -444,6 +536,11 @@
   object-fit: cover;
   border: 5px solid var(--primary-light);
   margin-bottom: 1.5rem;
+  transition: transform 0.4s ease;
+}
+
+.testimonial-photo img:hover {
+  transform: scale(1.1);
 }
 
 .testimonial-author h4 {
@@ -466,6 +563,7 @@
 /* Gallery Preview */
 .gallery-section {
   background: white;
+  padding: 4rem 0;
 }
 
 .gallery-grid {
@@ -480,11 +578,12 @@
   overflow: hidden;
   border-radius: 20px;
   box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-  transition: transform 0.4s ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .gallery-item:hover {
   transform: translateY(-12px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
 }
 
 .gallery-item img {
@@ -526,6 +625,25 @@
 .btn-outline-large {
   padding: 1.2rem 3rem;
   font-size: 1.2rem;
+  border-radius: 50px;
+  background: transparent;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.btn-outline-large:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,86,179,0.3);
+}
+
+.btn-outline-large:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,86,179,0.3);
 }
 
 /* CTA Section */
@@ -534,6 +652,7 @@
   background: var(--primary);
   color: white;
   overflow: hidden;
+  padding: 4rem 0;
 }
 
 .cta-bg-elements {
@@ -555,6 +674,7 @@
 .cta-title {
   font-size: 3.5rem;
   margin-bottom: 2rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .cta-description {
@@ -567,6 +687,7 @@
   background: rgba(255,255,255,0.1);
   padding: 3rem;
   border-radius: 20px;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   margin: 3rem 0;
 }
@@ -584,6 +705,11 @@
   align-items: center;
   gap: 1rem;
   font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.benefit-item:hover {
+  transform: translateX(10px);
 }
 
 .benefit-item i {
@@ -598,11 +724,14 @@
   margin: 3rem 0;
   background: white;
   color: var(--primary);
+  border-radius: 50px;
+  transition: all 0.3s ease;
 }
 
 .btn-cta-primary:hover {
   background: var(--accent);
   color: white;
+  transform: translateY(-3px);
 }
 
 .cta-footer {
@@ -635,6 +764,42 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Data-Driven Elements Styling */
+/* Styles for dynamically generated content from JSON */
+
+/* General card styling for JSON-driven content */
+.data-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  margin-bottom: 2rem;
+}
+
+.data-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* List items for JSON data */
+.data-list-item {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--gray);
+  transition: background 0.3s ease;
+}
+
+.data-list-item:hover {
+  background: var(--primary-light);
+}
+
+/* Grid layout for JSON-driven content */
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
 }
 
 /* Responsive */
@@ -698,6 +863,36 @@
   }
 
   .cta-benefits-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .vm-card,
+  .value-card,
+  .feature-card,
+  .news-card,
+  .testimonial-card,
+  .gallery-item {
+    padding: 2rem 1.5rem;
+  }
+
+  .stat-number {
+    font-size: 3rem;
+  }
+
+  .enquiry-form-card {
+    padding: 2rem;
+  }
+
+  /* Responsive adjustments for data-driven elements */
+  .data-grid {
     grid-template-columns: 1fr;
   }
 }
