@@ -83,15 +83,15 @@ const log = (level, message, meta = {}) => {
     const formatted = formatLog(level, message, meta);
 
     // Console logging with colors
-    const colors = {
-        error: '\x1b[31m', // Red
-        warn: '\x1b[33m',  // Yellow
-        info: '\x1b[36m',  // Cyan
-        debug: '\x1b[35m'  // Magenta
-    };
-    const reset = '\x1b[0m';
+    // const colors = {
+    //     error: '\x1b[31m', // Red
+    //     warn: '\x1b[33m',  // Yellow
+    //     info: '\x1b[36m',  // Cyan
+    //     debug: '\x1b[35m'  // Magenta
+    // };
+    // const reset = '\x1b[0m';
 
-    console.log(`${colors[level]}${formatted}${reset}`);
+    // console.log(`${colors[level]}${formatted}${reset}`);
 
     // File logging
     writeToFile(formatted);
