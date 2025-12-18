@@ -109,8 +109,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     featuredNewsWrapper: document.getElementById("featuredNews"),
     blogGrid: document.getElementById("blogGrid"),
     eventPhotosGrid: document.getElementById("eventPhotos"),
-    spotlightProfiles: document.getElementById("spotlightProfiles"),
-    mediaCoverage: document.getElementById("mediaCoverage"),
     downloadsResources: document.getElementById("downloadsResources"),
     eventsCalendar: document.getElementById("eventsCalendar"),
     searchInput: document.getElementById("newsSearch"),
@@ -348,7 +346,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const renderEventPhotos = (photos = []) => {
     if (!elements.eventPhotosGrid) return;
     elements.eventPhotosGrid.innerHTML = "";
-    
+     
     if (photos.length === 0) {
       elements.eventPhotosGrid.innerHTML = `
         <div class="no-photos-message">
@@ -359,18 +357,21 @@ document.addEventListener("DOMContentLoaded", async () => {
       `;
       return;
     }
-
+  
     const frag = document.createDocumentFragment();
-    
+     
     photos.forEach((photo, index) => {
       const div = createElement("div", "photo-item");
       div.style.animationDelay = `${index * 0.15}s`;
-      
+       
       const img = createElement("img");
-      img.src = photo.src || '/assets/images/defaults/default-news.jpg';
-      img.alt = photo.alt || 'Event Photo';
+      img.src = photo.image || '/assets/images/defaults/default-news.jpg';
+      img.alt = photo.title || 'Event Photo';
       img.loading = "lazy";
       img.onerror = () => { img.src = '/assets/images/defaults/default-news.jpg'; };
+
+      const caption = createElement("div", "photo-caption");
+      caption.textContent = photo.title || 'Event Photo';
 
       // Enhanced image interactions with lightbox effect
       div.addEventListener('click', () => openLightbox(img.src, img.alt));
@@ -378,17 +379,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         img.style.transform = 'scale(1.1) rotate(2deg)';
         img.style.filter = 'brightness(1.1)';
       });
-      
+       
       div.addEventListener('mouseleave', () => {
         img.style.transform = 'scale(1) rotate(0deg)';
         img.style.filter = 'brightness(1)';
       });
 
       div.appendChild(img);
+      div.appendChild(caption);
       frag.appendChild(div);
       fadeIn(div, 500);
     });
-
+  
     elements.eventPhotosGrid.appendChild(frag);
   };
 
@@ -814,16 +816,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       blogs,
       events,
       photos,
-      spotlight,
-      media,
       downloads
     ] = await Promise.all([
-      fetchJSON("/data/static/news-data.json", []),
-      fetchJSON("/data/static/blogs.json", []),
+      fetchJSON("/data/static/news-events.json", []),
+      fetchJSON("/data/static/student-blogs.json", []),
       fetchJSON("/data/static/upcoming-events.json", []),
       fetchJSON("/data/static/event-photos.json", []),
-      fetchJSON("/data/static/spotlight.json", []),
-      fetchJSON("/data/static/media-coverage.json", []),
       fetchJSON("/data/static/downloads.json", [])
     ]);
 
@@ -840,8 +838,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       blogs: allBlogs.length,
       events: events.length,
       photos: photos.length,
-      spotlight: spotlight.length,
-      media: media.length,
       downloads: downloads.length
     });
 
@@ -858,11 +854,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       renderEventsCalendar(events);
       renderEventPhotos(photos);
     }, 1200);
-
-    setTimeout(() => {
-      renderSpotlight(spotlight);
-      renderMedia(media);
-    }, 1600);
 
     setTimeout(() => {
       renderDownloads(downloads);
