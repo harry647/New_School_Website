@@ -76,6 +76,10 @@ class ContentLoader {
     createEnhancedCard(type, data) {
         const card = document.createElement('div');
         
+        // Generate unique ID for the card
+        const cardId = `${type}-${data.name.replace(/\s+/g, '-').toLowerCase()}`;
+        card.id = cardId;
+         
         switch (type) {
             case 'bom':
                 card.className = 'bom-card fade-in';
@@ -148,7 +152,11 @@ class ContentLoader {
             }
             
             const res = await fetch('/data/static/admin-data.json?t=' + Date.now());
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            if (!res.ok) {
+                // Fallback to individual JSON files if admin-data.json is not found
+                console.log("⚠️ Fallback: Loading individual JSON files...");
+                return this.loadFallbackData();
+            }
             
             const data = await res.json();
             this.cache.set(cacheKey, data);
@@ -158,7 +166,49 @@ class ContentLoader {
             
         } catch (err) {
             console.error("❌ ERROR →", err);
-            throw err;
+            // Fallback to individual JSON files on error
+            console.log("⚠️ Fallback: Loading individual JSON files...");
+            return this.loadFallbackData();
+        }
+    }
+    
+    async loadFallbackData() {
+        try {
+            // Load BOM members
+            const bomRes = await fetch('/data/static/bom-members.json?t=' + Date.now());
+            const bomData = bomRes.ok ? await bomRes.json() : [];
+            
+            // Load leadership data
+            const leadershipRes = await fetch('/data/static/leadership.json?t=' + Date.now());
+            const leadershipData = leadershipRes.ok ? await leadershipRes.json() : [];
+            
+            // Load departments data
+            const deptRes = await fetch('/data/static/admin-departments.json?t=' + Date.now());
+            const deptData = deptRes.ok ? await deptRes.json() : [];
+            
+            // Transform departments data to match expected format
+            const transformedDepts = deptData.map(dept => ({
+                name: dept.title,
+                head: dept.head,
+                icon: dept.icon,
+                description: dept.description,
+                email: dept.email || '',
+                phone: dept.phone || '',
+                note: dept.note || ''
+            }));
+            
+            const fallbackData = {
+                bom: bomData,
+                leadership: leadershipData,
+                departments: transformedDepts
+            };
+            
+            console.log("✅ Fallback data loaded →", fallbackData);
+            return fallbackData;
+            
+        } catch (fallbackErr) {
+            console.error("❌ Fallback ERROR →", fallbackErr);
+            throw fallbackErr;
         }
     }
     
