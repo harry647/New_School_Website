@@ -8,7 +8,7 @@
   <meta name="keywords" content="e-learning, online education, Bar Union Secondary, courses, quizzes, assignments" />
   <meta name="author" content="Bar Union Secondary School" />
   
-  <!-- Open Graph / Social Media -->
+  <!-- Open Graph -->
   <meta property="og:title" content="E-Learning Hub | Bar Union Secondary" />
   <meta property="og:description" content="Access online classes, assignments, study materials, live sessions and digital resources anytime, anywhere." />
   <meta property="og:image" content="/assets/images/common/og-image.jpg" />
@@ -17,52 +17,33 @@
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico" />
   
-  <!-- Preconnect for performance -->
+  <!-- Preconnect -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   
-  <!-- Google Fonts -->
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Bootstrap 5 + Font Awesome -->
+  <!-- Bootstrap + Font Awesome -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
   
+  <!-- Chart.js for Analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <!-- Custom Styles -->
   <link rel="stylesheet" href="/css/portal/portal-elearning.css">
-  <style>
-    /* Custom styles for sidebar navigation */
-    .sidebar-nav {
-      background-color: #f8f9fa;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    
-    .sidebar-nav .btn {
-      margin-bottom: 10px;
-      text-align: left;
-    }
-    
-    .sidebar-nav .btn i {
-      margin-right: 10px;
-    }
-    
-    #mainContentArea {
-      min-height: 500px;
-    }
-  </style>
-  
-  <!-- Preload critical resources -->
+
+  <!-- Preload JS -->
   <link rel="preload" href="/js/portal/e-learning-portal.js" as="script">
 </head>
 <body class="page-learning-portal">
 
-  <!-- Header (included via w3.js) -->
+  <!-- Header -->
   <div w3-include-html="/includes/clb-en-header.html"></div>
 
-  <!-- Login Prompt (shown if not logged in) -->
+  <!-- Login Prompt -->
   <div id="loginCheck" class="container d-flex align-items-center justify-content-center min-vh-100">
     <div class="text-center p-5 bg-white rounded-4 shadow-lg" style="max-width: 500px;">
       <i class="fas fa-graduation-cap fa-5x text-primary mb-4"></i>
@@ -74,93 +55,38 @@
     </div>
   </div>
 
-  <!-- Main Portal Content (hidden until logged in) -->
-  <div id="mainContent" class="d-none">
-     
-    <!-- Navigation Header -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="#">
-          <i class="fas fa-graduation-cap me-2"></i>E-Learning Hub
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#dashboard">Dashboard</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#subjects">Subjects</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#resources">Resources</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#quizzes">Quizzes</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#live">Live Sessions</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#forum">Forum</a>
-            </li>
-          </ul>
-          <div class="d-flex align-items-center">
-            <div class="search-box me-3">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search..." id="globalSearch">
-                <button class="btn btn-outline-light" type="button">
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
-            </div>
-            <div class="user-profile dropdown">
-              <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                <img src="/assets/images/defaults/default-student.png" alt="Profile" class="rounded-circle me-2" width="32" height="32">
-                <span id="userName">Student</span>
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#profile"><i class="fas fa-user me-2"></i>Profile</a></li>
-                <li><a class="dropdown-item" href="#achievements"><i class="fas fa-trophy me-2"></i>Achievements</a></li>
-                <li><a class="dropdown-item" href="#settings"><i class="fas fa-cog me-2"></i>Settings</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
- 
+  <!-- Main Portal (Hidden until logged in) -->
+  <div id="loggedInContent" class="d-none">
+
     <!-- Hero Section -->
     <section class="hero text-white text-center py-5 position-relative overflow-hidden">
       <div class="container py-5 position-relative z-2">
         <h1 class="display-3 fw-bold mb-4">Welcome back, <span id="heroUserName">Student</span>!</h1>
         <p class="lead fs-4 mb-4">Continue Your Learning Journey</p>
         <p class="col-lg-8 mx-auto fs-5 opacity-90 mb-5">
-          You have <span class="text-warning fw-bold" id="pendingTasks">3 tasks</span> pending and a <span class="text-success fw-bold" id="currentStreak">15-day</span> study streak!
+          You have <span class="text-warning fw-bold" id="pendingTasks">0</span> pending tasks and a 
+          <span class="text-success fw-bold" id="currentStreak">0-day</span> study streak!
         </p>
         <div class="d-flex justify-content-center gap-3 flex-wrap">
-          <button onclick="scrollToSection('subjectsGrid')" class="btn btn-warning btn-lg px-5 fw-bold shadow">
+          <button onclick="loadSection('subjects')" class="btn btn-warning btn-lg px-5 fw-bold shadow">
             Continue Learning
           </button>
-          <button onclick="scrollToSection('quizGrid')" class="btn btn-success btn-lg px-5 fw-bold shadow">
+          <button onclick="loadSection('quizzes')" class="btn btn-success btn-lg px-5 fw-bold shadow">
             Take Quiz
           </button>
         </div>
       </div>
     </section>
 
+    <!-- Main Layout: Sidebar + Content -->
     <div class="container my-5">
-      <!-- Side Navigation Buttons -->
       <div class="row">
+        <!-- Sidebar Navigation -->
         <div class="col-lg-3 mb-4">
           <div class="sidebar-nav sticky-top" style="top: 70px;">
-            <h5 class="mb-3">Quick Access</h5>
+            <h5 class="mb-3 fw-bold">Quick Access</h5>
             <div class="d-grid gap-2">
-              <button onclick="loadSection('dashboard')" class="btn btn-outline-primary">
+              <button onclick="loadSection('dashboard')" class="btn btn-outline-primary active">
                 <i class="fas fa-tachometer-alt me-2"></i>Dashboard
               </button>
               <button onclick="loadSection('subjects')" class="btn btn-outline-primary">
@@ -175,8 +101,9 @@
               <button onclick="loadSection('resources')" class="btn btn-outline-primary">
                 <i class="fas fa-folder-open me-2"></i>Resources
               </button>
+              
               <button onclick="loadSection('quizzes')" class="btn btn-outline-primary">
-                <i class="fas fa-clipboard-list me-2"></i>Quizzes
+                <i class="fas fa-clipboard-list me-2"></i>Quizzes & Assignments
               </button>
               <button onclick="loadSection('forum')" class="btn btn-outline-primary">
                 <i class="fas fa-comments me-2"></i>Forum
@@ -193,157 +120,204 @@
             </div>
           </div>
         </div>
+        
+        <!-- Teacher Upload Button (hidden by default) -->
+        <div id="teacherUploadBtn" class="d-none">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
+            <i class="fas fa-upload me-2"></i>Upload Content
+          </button>
+        </div>
+
+        <!-- Teacher Upload Panel (Floating Button + Offcanvas) -->
+        <button class="btn btn-primary rounded-circle shadow-lg position-fixed bottom-0 end-0 m-4" 
+                style="width: 60px; height: 60px; z-index: 1000;" 
+                data-bs-toggle="offcanvas" 
+                data-bs-target="#teacherUploadPanel" 
+                id="teacherUploadBtn"
+                title="Upload Resources">
+          <i class="fas fa-cloud-upload-alt fa-2x"></i>
+        </button>
+
+        <!-- Offcanvas Upload Panel -->
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="teacherUploadPanel" style="width: 500px;">
+          <div class="offcanvas-header bg-primary text-white">
+            <h5 class="offcanvas-title">
+              <i class="fas fa-cloud-upload-alt me-2"></i>Upload Learning Resources
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+          </div>
+          <div class="offcanvas-body">
+            <form id="teacherUploadForm">
+              <div class="mb-3">
+                <label class="form-label fw-bold">Resource Type</label>
+                <select class="form-select" id="resourceType" required>
+                  <option value="">Choose type...</option>
+                  <option value="pdf">PDF Document</option>
+                  <option value="video">Video Lesson</option>
+                  <option value="image">Image / Diagram</option>
+                  <option value="document">Word / Notes</option>
+                  <option value="interactive">Interactive Link</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">Subject</label>
+                <select class="form-select" id="resourceSubject" required>
+                  <option value="">Select subject...</option>
+                  <option>Mathematics</option><option>Physics</option><option>Chemistry</option>
+                  <option>Biology</option><option>English</option><option>Kiswahili</option>
+                  <option>History</option><option>Geography</option><option>Computer Studies</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">Title</label>
+                <input type="text" class="form-control" id="resourceTitle" placeholder="e.g. Algebra Chapter 4 Notes" required>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">Description (Optional)</label>
+                <textarea class="form-control" id="resourceDescription" rows="3" placeholder="Brief description for students..."></textarea>
+              </div>
+
+              <div class="mb-3" id="fileUploadGroup">
+                <label class="form-label fw-bold">Upload File(s)</label>
+                <input type="file" class="form-control" id="resourceFiles" name="files" multiple 
+                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif,.mp4,.avi,.mov">
+                <div class="form-text">Max 50MB per file. Multiple files allowed.</div>
+              </div>
+
+              <div class="mb-3 d-none" id="linkUploadGroup">
+                <label class="form-label fw-bold">Resource Link</label>
+                <input type="url" class="form-control" id="resourceLink" placeholder="https://...">
+                <div class="form-text">For YouTube, Google Drive links, or interactive tools</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-bold">Tags (Optional)</label>
+                <input type="text" class="form-control" id="resourceTags" placeholder="e.g. revision, exam, chapter4">
+                <div class="form-text">Comma-separated for better search</div>
+              </div>
+
+              <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary flex-fill">
+                  <i class="fas fa-upload me-2"></i>Upload Resource
+                </button>
+                <button type="reset" class="btn btn-outline-secondary">
+                  <i class="fas fa-undo me-2"></i>Clear
+                </button>
+              </div>
+            </form>
+
+            <hr class="my-4">
+
+            <div id="uploadStatus"></div>
+            <div id="uploadedFilesList" class="mt-3"></div>
+          </div>
+        </div>
+
+        <!-- Dynamic Content Area -->
         <div class="col-lg-9">
-          <!-- Main Content Area -->
-          <div id="mainContentArea">
-            <div class="alert alert-info">
-              <h4 class="alert-heading">Welcome to the E-Learning Hub!</h4>
-              <p>Use the side navigation buttons to access different sections of the portal.</p>
+          <div id="mainContentArea" class="min-vh-100">
+            <!-- Default welcome message -->
+            <div class="text-center py-5">
+              <i class="fas fa-graduation-cap fa-5x text-primary mb-4 opacity-50"></i>
+              <h3>Welcome to your E-Learning Hub</h3>
+              <p class="lead text-muted">Select a section from the sidebar to begin.</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 
+  <!-- Modals (kept in main HTML for instant access) -->
   <!-- New Discussion Modal -->
-  <div class="modal fade" id="newDiscussionModal" tabindex="-1" aria-labelledby="newDiscussionModalLabel" aria-hidden="true">
+  <div class="modal fade" id="newDiscussionModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title" id="newDiscussionModalLabel">
-            <i class="fas fa-plus-circle me-2"></i>Start New Discussion
-          </h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title"><i class="fas fa-plus-circle me-2"></i>Start New Discussion</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <form id="newDiscussionForm">
             <div class="mb-3">
-              <label for="discussionTitle" class="form-label fw-bold">Title</label>
-              <input type="text" class="form-control" id="discussionTitle" placeholder="Enter a descriptive title" required>
+              <label class="form-label fw-bold">Title</label>
+              <input type="text" class="form-control" id="discussionTitle" required>
             </div>
             <div class="mb-3">
-              <label for="discussionCategory" class="form-label fw-bold">Category</label>
+              <label class="form-label fw-bold">Category</label>
               <select class="form-select" id="discussionCategory" required>
-                <option value="">Select a category</option>
-                <option value="Mathematics">Mathematics</option>
-                <option value="Physics">Physics</option>
-                <option value="Chemistry">Chemistry</option>
-                <option value="Biology">Biology</option>
-                <option value="English">English</option>
-                <option value="Kiswahili">Kiswahili</option>
-                <option value="History">History</option>
-                <option value="Geography">Geography</option>
-                <option value="Computer Studies">Computer Studies</option>
-                <option value="General">General Discussion</option>
+                <option value="">Select category</option>
+                <option>Mathematics</option><option>Physics</option><option>Chemistry</option>
+                <option>Biology</option><option>English</option><option>Kiswahili</option>
+                <option>History</option><option>Geography</option><option>Computer Studies</option>
+                <option>General</option>
               </select>
             </div>
             <div class="mb-3">
-              <label for="discussionContent" class="form-label fw-bold">Content</label>
-              <textarea class="form-control" id="discussionContent" rows="5" placeholder="Describe your question or topic in detail..." required></textarea>
+              <label class="form-label fw-bold">Content</label>
+              <textarea class="form-control" id="discussionContent" rows="5" required></textarea>
             </div>
             <div class="mb-3">
-              <label for="discussionTags" class="form-label fw-bold">Tags (comma separated)</label>
-              <input type="text" class="form-control" id="discussionTags" placeholder="e.g., algebra, equations, help">
+              <label class="form-label fw-bold">Tags (optional)</label>
+              <input type="text" class="form-control" id="discussionTags" placeholder="e.g. algebra, help">
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" onclick="submitNewDiscussion()">
-            <i class="fas fa-paper-plane me-2"></i>Post Discussion
-          </button>
+          <button type="button" class="btn btn-primary" onclick="submitNewDiscussion()">Post Discussion</button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Quiz Modal -->
-  <div class="modal fade" id="quizModal" tabindex="-1" aria-labelledby="quizModalLabel" aria-hidden="true">
+  <div class="modal fade" id="quizModal" tabindex="-1">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header bg-success text-white">
-          <h5 class="modal-title" id="quizModalLabel">
-            <i class="fas fa-question-circle me-2"></i>Quiz
-          </h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title" id="quizModalLabel"><i class="fas fa-question-circle me-2"></i>Quiz</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
-        <div class="modal-body" id="quizContent">
-          <!-- Quiz content will be loaded dynamically -->
-        </div>
+        <div class="modal-body" id="quizContent"></div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-success" id="submitQuizBtn" onclick="submitQuiz()">
-            <i class="fas fa-check me-2"></i>Submit Quiz
-          </button>
+          <button type="button" class="btn btn-success" onclick="submitQuiz()">Submit Quiz</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Assignment Submission Modal -->
-  <div class="modal fade" id="assignmentModal" tabindex="-1" aria-labelledby="assignmentModalLabel" aria-hidden="true">
+  <!-- Assignment Modal -->
+  <div class="modal fade" id="assignmentModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header bg-warning text-dark">
-          <h5 class="modal-title" id="assignmentModalLabel">
-            <i class="fas fa-tasks me-2"></i>Submit Assignment
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title"><i class="fas fa-tasks me-2"></i>Submit Assignment</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
-          <form id="assignmentSubmissionForm" enctype="multipart/form-data">
-            <input type="hidden" id="assignmentId" name="assignmentId">
+          <form id="assignmentSubmissionForm">
+            <input type="hidden" id="assignmentId">
+            <h6 id="assignmentTitle" class="fw-bold"></h6>
+            <p id="assignmentDescription" class="text-muted"></p>
             <div class="mb-3">
-              <h6 id="assignmentTitle" class="fw-bold"></h6>
-              <p id="assignmentDescription" class="text-muted"></p>
+              <label class="form-label fw-bold">Upload Files</label>
+              <input type="file" class="form-control" id="assignmentFiles" name="files" multiple required>
+              <div class="form-text">PDF, DOCX, JPG, PNG, ZIP (max 10MB each)</div>
             </div>
             <div class="mb-3">
-              <label for="assignmentFiles" class="form-label fw-bold">Upload Files</label>
-              <input type="file" class="form-control" id="assignmentFiles" name="files" multiple accept=".pdf,.doc,.docx,.jpg,.png,.zip" required>
-              <div class="form-text">Accepted formats: PDF, DOC, DOCX, JPG, PNG, ZIP (Max 10MB each)</div>
-            </div>
-            <div class="mb-3">
-              <label for="assignmentNotes" class="form-label fw-bold">Notes (Optional)</label>
-              <textarea class="form-control" id="assignmentNotes" name="notes" rows="3" placeholder="Add any notes for your teacher..."></textarea>
+              <label class="form-label fw-bold">Notes (Optional)</label>
+              <textarea class="form-control" id="assignmentNotes" rows="3"></textarea>
             </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-warning" onclick="submitAssignment()">
-            <i class="fas fa-upload me-2"></i>Submit Assignment
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Live Session Join Modal -->
-  <div class="modal fade" id="liveSessionModal" tabindex="-1" aria-labelledby="liveSessionModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-success text-white">
-          <h5 class="modal-title" id="liveSessionModalLabel">
-            <i class="fas fa-video me-2"></i>Join Live Session
-          </h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body text-center">
-          <i class="fas fa-video fa-4x text-success mb-3"></i>
-          <h5 id="sessionTitle" class="fw-bold"></h5>
-          <p id="sessionDetails" class="text-muted"></p>
-          <div class="alert alert-info">
-            <i class="fas fa-info-circle me-2"></i>
-            Make sure your camera and microphone are ready before joining.
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <a href="#" id="joinSessionBtn" class="btn btn-success" target="_blank">
-            <i class="fas fa-sign-in-alt me-2"></i>Join Now
-          </a>
+          <button type="button" class="btn btn-warning" onclick="submitAssignment()">Submit</button>
         </div>
       </div>
     </div>
@@ -352,14 +326,14 @@
   <!-- Footer -->
   <div w3-include-html="/includes/footer.html"></div>
 
-  <!-- Back to Top Button -->
-  <button id="backToTop" class="btn btn-primary rounded-circle shadow" aria-label="Back to top" style="display: none;">
+  <!-- Back to Top -->
+  <button id="backToTop" class="btn btn-primary rounded-circle shadow position-fixed bottom-0 end-0 m-4" style="display:none; z-index:1000;">
     <i class="fas fa-arrow-up"></i>
   </button>
 
-  <!-- Loading Spinner -->
-  <div id="loadingSpinner" class="d-none position-fixed top-50 start-50 translate-middle">
-    <div class="spinner-border text-primary" role="status">
+  <!-- Global Loading Spinner -->
+  <div id="loadingSpinner" class="d-none position-fixed top-50 start-50 translate-middle" style="z-index: 9999;">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
   </div>
@@ -368,273 +342,5 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://www.w3schools.com/lib/w3.js"></script>
   <script src="/js/portal/e-learning-portal.js" defer></script>
-
-  <script>
-    // Load section content dynamically
-    async function loadSection(sectionName) {
-      const contentArea = document.getElementById('mainContentArea');
-      if (!contentArea) return;
-
-      // Show loading spinner
-      contentArea.innerHTML = `
-        <div class="text-center py-5">
-          <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          <p class="mt-3">Loading ${sectionName.replace('-', ' ')}...</p>
-        </div>
-      `;
-
-      try {
-        const response = await fetch(`/portal/sections/${sectionName}.html`);
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        const html = await response.text();
-
-        // Parse the HTML and extract the body content
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const bodyContent = doc.body.innerHTML;
-
-        contentArea.innerHTML = bodyContent;
-      } catch (error) {
-        console.error('Error loading section:', error);
-        contentArea.innerHTML = `
-          <div class="alert alert-danger">
-            <h4 class="alert-heading">Error Loading Content</h4>
-            <p>Failed to load ${sectionName.replace('-', ' ')}. Please try again.</p>
-            <hr>
-            <p class="mb-0">Error: ${error.message}</p>
-          </div>
-        `;
-      }
-    }
-
-    // Smooth scroll function
-    function scrollToSection(id) {
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-
-    // Role switcher (student/teacher view)
-    function setRole(role) {
-      const roleStudentEl = document.getElementById('roleStudent');
-      const roleTeacherEl = document.getElementById('roleTeacher');
-      const teacherPanelEl = document.getElementById('teacherPanel');
-
-      if (roleStudentEl) roleStudentEl.classList.toggle('active', role === 'student');
-      if (roleTeacherEl) roleTeacherEl.classList.toggle('active', role === 'teacher');
-      if (teacherPanelEl) teacherPanelEl.classList.toggle('d-none', role !== 'teacher');
-      localStorage.setItem('portalRole', role);
-
-      // Update global search placeholder based on role
-      const searchInput = document.getElementById('globalSearch');
-      if (searchInput) {
-        searchInput.placeholder = role === 'teacher' ? 'Search lessons, students...' : 'Search courses, topics...';
-      }
-    }
-
-    // Logout function
-    function logout() {
-      localStorage.removeItem('userLoggedIn');
-      localStorage.removeItem('portalRole');
-      window.location.reload();
-    }
-
-    // Start new discussion - opens modal
-    function startNewDiscussion() {
-      const modal = new bootstrap.Modal(document.getElementById('newDiscussionModal'));
-      modal.show();
-    }
-
-    // Submit new discussion
-    async function submitNewDiscussion() {
-      const title = document.getElementById('discussionTitle').value.trim();
-      const category = document.getElementById('discussionCategory').value;
-      const content = document.getElementById('discussionContent').value.trim();
-      const tagsInput = document.getElementById('discussionTags').value.trim();
-      const tags = tagsInput ? tagsInput.split(',').map(t => t.trim()) : [];
-
-      if (!title || !category || !content) {
-        showAlert('Please fill in all required fields.', 'warning');
-        return;
-      }
-
-      try {
-        const res = await fetch('/api/elearning/forum', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title, category, content, tags })
-        });
-        const result = await res.json();
-        
-        if (result.success) {
-          showAlert('Discussion posted successfully!', 'success');
-          bootstrap.Modal.getInstance(document.getElementById('newDiscussionModal')).hide();
-          document.getElementById('newDiscussionForm').reset();
-          // Refresh forum data
-          if (typeof loadPortalData === 'function') loadPortalData(true);
-        } else {
-          showAlert(result.message || 'Failed to post discussion.', 'danger');
-        }
-      } catch (err) {
-        showAlert('Network error. Please try again.', 'danger');
-      }
-    }
-
-    // Submit quiz
-    async function submitQuiz() {
-      const quizId = document.getElementById('quizContent').dataset.quizId;
-      if (!quizId) {
-        showAlert('No quiz loaded.', 'warning');
-        return;
-      }
-      
-      // Collect answers from quiz form
-      const answers = [];
-      const questions = document.querySelectorAll('#quizContent .quiz-question');
-      questions.forEach((q, index) => {
-        const selected = q.querySelector('input:checked');
-        answers.push({
-          questionIndex: index,
-          answer: selected ? selected.value : null
-        });
-      });
-
-      try {
-        const res = await fetch(`/api/elearning/quiz/${quizId}/submit`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ answers })
-        });
-        const result = await res.json();
-        
-        if (result.success) {
-          showAlert('Quiz submitted successfully!', 'success');
-          bootstrap.Modal.getInstance(document.getElementById('quizModal')).hide();
-        } else {
-          showAlert(result.message || 'Failed to submit quiz.', 'danger');
-        }
-      } catch (err) {
-        showAlert('Network error. Please try again.', 'danger');
-      }
-    }
-
-    // Submit assignment
-    async function submitAssignment() {
-      const form = document.getElementById('assignmentSubmissionForm');
-      const formData = new FormData(form);
-      
-      const files = document.getElementById('assignmentFiles').files;
-      if (files.length === 0) {
-        showAlert('Please select at least one file.', 'warning');
-        return;
-      }
-
-      try {
-        const res = await fetch('/api/elearning/assignment/submit', {
-          method: 'POST',
-          body: formData
-        });
-        const result = await res.json();
-        
-        if (result.success) {
-          showAlert('Assignment submitted successfully!', 'success');
-          bootstrap.Modal.getInstance(document.getElementById('assignmentModal')).hide();
-          form.reset();
-        } else {
-          showAlert(result.message || 'Failed to submit assignment.', 'danger');
-        }
-      } catch (err) {
-        showAlert('Network error. Please try again.', 'danger');
-      }
-    }
-
-    // Register for live session
-    async function registerForSession(sessionId) {
-      try {
-        const res = await fetch(`/api/elearning/live-session/${sessionId}/register`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' }
-        });
-        const result = await res.json();
-        
-        if (result.success) {
-          showAlert('Successfully registered for the session!', 'success');
-          document.getElementById('joinSessionBtn').href = result.meetingLink || '#';
-        } else {
-          showAlert(result.message || 'Failed to register.', 'danger');
-        }
-      } catch (err) {
-        showAlert('Network error. Please try again.', 'danger');
-      }
-    }
-
-    // Check login status on load
-    document.addEventListener("DOMContentLoaded", () => {
-      w3.includeHTML(() => {
-        const isLoggedIn = localStorage.getItem("userLoggedIn") === "true";
-        const savedRole = localStorage.getItem("portalRole") || "student";
-
-        if (isLoggedIn) {
-          document.getElementById('loginCheck').classList.add('d-none');
-          document.getElementById('mainContent').classList.remove('d-none');
-          setRole(savedRole);
-          updateUserInfo();
-          // Load dashboard by default
-          loadSection('dashboard');
-        } else {
-          document.getElementById('loginCheck').classList.remove('d-none');
-          document.getElementById('mainContent').classList.add('d-none');
-        }
-      });
-    });
-
-    // Update user information in the UI
-    function updateUserInfo() {
-      // In a real implementation, this would fetch user data from the backend
-      const userName = localStorage.getItem('userName') || 'Student';
-      const userElement = document.getElementById('userName');
-      const heroUserElement = document.getElementById('heroUserName');
-      
-      if (userElement) userElement.textContent = userName;
-      if (heroUserElement) heroUserElement.textContent = userName;
-    }
-
-    // Global search functionality
-    document.addEventListener('DOMContentLoaded', () => {
-      const searchInput = document.getElementById('globalSearch');
-      if (searchInput) {
-        searchInput.addEventListener('keypress', (e) => {
-          if (e.key === 'Enter') {
-            performGlobalSearch(searchInput.value);
-          }
-        });
-      }
-    });
-
-    function performGlobalSearch(query) {
-      if (query.trim()) {
-        showAlert(`Searching for: "${query}"`, 'info');
-        // In a real implementation, this would perform a comprehensive search
-      }
-    }
-
-    // Utility function to show alerts (fallback if not available from main JS)
-    function showAlert(message, type = 'info') {
-      const alert = document.createElement('div');
-      alert.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
-      alert.style.cssText = 'top: 20px; right: 20px; z-index: 9999; min-width: 300px;';
-      alert.innerHTML = `
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-      `;
-      document.body.appendChild(alert);
-      setTimeout(() => alert.remove(), 5000);
-    }
-  </script>
 </body>
 </html>

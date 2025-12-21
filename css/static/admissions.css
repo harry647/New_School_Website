@@ -515,6 +515,7 @@
     border: 1px solid var(--gray);
     border-radius: 8px;
     margin-top: 0.5rem;
+    box-sizing: border-box;
   }
 
   .form-group textarea {
@@ -553,21 +554,10 @@
   .timeline-content p {
     font-size: 0.9rem;
   }
-}
 
-@media (max-width: 768px) {
-  .apply-form-card {
-    padding: 2.5rem;
-  }
-
-  .form-section-title {
-    font-size: 1.6rem;
-    text-align: center;
-  }
-
-  .form-section-title::after {
-    left: 50%;
-    transform: translateX(-50%);
+  .apply-form {
+    width: 100%;
+    overflow: hidden;
   }
 
   .form-grid {
@@ -577,70 +567,31 @@
 
   .form-column {
     width: 100%;
+    flex: none;
   }
 
-  .timeline-content h3 {
-    font-size: 1.2rem;
+  .form-group {
+    margin-bottom: 1.5rem;
   }
 
-  .timeline-content p {
-    font-size: 0.9rem;
+  .upload-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
-  .dates-list li {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .dates-list li span:first-child {
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 0.5rem;
-  }
-
-  .fee-table {
-    overflow-x: auto;
-    display: block;
-  }
-
-  .fee-table thead {
-    display: none;
-  }
-
-  .fee-table tbody,
-  .fee-table tr,
-  .fee-table td {
-    display: block;
+  .upload-group {
     width: 100%;
   }
 
-  .fee-table tr {
-    margin-bottom: 1rem;
-    border: 1px solid var(--gray);
-    border-radius: 8px;
-    padding: 0.5rem;
+  .apply-form-card {
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
   }
 
-  .fee-table td {
-    text-align: right;
-    padding-left: 50%;
-    position: relative;
-    border-bottom: 1px solid var(--gray);
-  }
-
-  .fee-table td::before {
-    content: attr(data-label);
-    position: absolute;
-    left: 1rem;
-    width: 45%;
-    padding-right: 10px;
-    font-weight: 700;
-    color: var(--primary);
-    text-align: left;
-  }
-
-  .fee-table td:last-child {
-    border-bottom: none;
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    box-sizing: border-box;
   }
 }
