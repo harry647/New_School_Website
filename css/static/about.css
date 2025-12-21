@@ -1,6 +1,12 @@
 /* /css/static/about.css - Page-specific styles for About Us
    Builds on top of /css/global/styles.css - no duplicates! */
 
+:root {
+    --dark: #0b2d5e;
+    --dark-alt: #0f3470;
+    --header-height: 90px;
+}
+
 .page-hero {
   position: relative;
   min-height: 90vh;
@@ -637,12 +643,45 @@
   display: inline;
 }
 
+/* Ensure header remains fixed in mobile view */
+@media (max-width: 992px) {
+    /* Ensure header stays fixed at top during scrolling */
+    .site-header {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        z-index: 1100 !important;
+        background: linear-gradient(135deg, var(--dark), var(--dark-alt)) !important;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        backdrop-filter: blur(10px) !important;
+    }
+    
+    /* Ensure body content doesn't overlap with fixed header */
+    body {
+        padding-top: var(--header-height) !important;
+        margin: 0 !important;
+    }
+    
+    /* Make sure the header height is consistent */
+    .site-header {
+        height: var(--header-height) !important;
+    }
+    
+    /* Ensure the header scrolled state works properly */
+    .site-header.scrolled {
+        height: 70px !important;
+        background: rgba(11, 45, 94, 0.95) !important;
+    }
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
-  .history-grid,
-  .principal-grid {
-    gap: 3rem;
-  }
+    .history-grid,
+    .principal-grid {
+        gap: 3rem;
+    }
 }
 
 @media (max-width: 992px) {

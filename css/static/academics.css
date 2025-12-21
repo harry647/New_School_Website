@@ -1,6 +1,12 @@
 /* /css/static/academics.css - Page-specific styles for Academics
    Builds on top of /css/global/styles.css - no duplicates! */
 
+:root {
+  --dark: #0b2d5e;
+  --dark-alt: #0f3470;
+  --header-height: 90px;
+}
+
 .page-hero {
   position: relative;
   min-height: 80vh;
@@ -620,6 +626,32 @@
 
   .dept-panel {
     padding: 2rem;
+  }
+
+  /* Mobile-specific header rules */
+  .site-header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: var(--header-height) !important;
+    background: linear-gradient(135deg, var(--dark), var(--dark-alt)) !important;
+    color: white !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25) !important;
+    z-index: 1100 !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    backdrop-filter: blur(10px) !important;
+    transition: all 0.4s ease !important;
+  }
+
+  .site-header.scrolled {
+    background: rgba(11, 45, 94, 0.95);
+    height: 70px;
+  }
+
+  /* Ensure body padding to prevent content from being hidden behind the fixed header */
+  body {
+    padding-top: var(--header-height) !important;
   }
 }
 

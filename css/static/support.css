@@ -1,6 +1,13 @@
 /* /css/static/support.css - Page-specific styles for Support & Utilities
    Builds on top of /css/global/styles.css - no duplicates! */
 
+/* CSS Variables for consistency */
+:root {
+    --dark: #1e293b;
+    --dark-alt: #0f3470;
+    --header-height: 90px;
+}
+
 .page-hero {
   position: relative;
   min-height: 80vh;

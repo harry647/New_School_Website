@@ -1,6 +1,12 @@
 /* /css/static/student-life.css - Page-specific styles for Student Life
    Builds on top of /css/global/styles.css - no duplicates! */
 
+:root {
+    --dark: #0b2d5e;
+    --dark-alt: #0f3470;
+    --header-height: 90px;
+}
+
 .page-hero {
   position: relative;
   min-height: 85vh;
@@ -1449,4 +1455,33 @@ textarea:focus {
   .calendar-grid {
     grid-template-columns: repeat(7, 1fr);
   }
+}
+
+/* Mobile-specific CSS rules for fixed header */
+@media (max-width: 992px) {
+    /* Ensure header remains fixed at the top */
+    .site-header {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: var(--header-height) !important;
+        background: linear-gradient(135deg, var(--dark), var(--dark-alt)) !important;
+        color: white !important;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.25) !important;
+        z-index: 1100 !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        backdrop-filter: blur(10px) !important;
+        transition: all 0.4s ease !important;
+    }
+
+    /* Ensure body padding to prevent content from being hidden behind the fixed header */
+    body {
+        padding-top: var(--header-height) !important;
+    }
+
+    /* Maintain consistent header height for both regular and scrolled states */
+    .site-header.scrolled {
+        height: var(--header-height) !important;
+    }
 }
