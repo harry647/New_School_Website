@@ -41,9 +41,13 @@ function setRole(role) {
   currentRole = role;
   localStorage.setItem("portalRole", role);
 
-  document.getElementById("roleStudent").classList.toggle("active", role === "student");
-  document.getElementById("roleTeacher").classList.toggle("active", role === "teacher");
-  document.getElementById("teacherPanel").classList.toggle("d-none", role !== "teacher");
+  const roleStudentEl = document.getElementById("roleStudent");
+  const roleTeacherEl = document.getElementById("roleTeacher");
+  const teacherPanelEl = document.getElementById("teacherPanel");
+
+  if (roleStudentEl) roleStudentEl.classList.toggle("active", role === "student");
+  if (roleTeacherEl) roleTeacherEl.classList.toggle("active", role === "teacher");
+  if (teacherPanelEl) teacherPanelEl.classList.toggle("d-none", role !== "teacher");
 }
 
 // Smooth scroll

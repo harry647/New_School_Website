@@ -272,6 +272,17 @@
   margin: 0 auto;
 }
 
+.form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.form-column {
+  flex: 1;
+  min-width: 300px;
+}
+
 .btn-primary {
   background: var(--primary);
   color: white;
@@ -370,18 +381,19 @@
     padding-right: 0 !important;
     padding-left: 0 !important;
     justify-content: center;
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
   }
 
   .timeline-marker {
     position: static;
     transform: none;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   .timeline-content {
-    max-width: 600px;
+    max-width: 100%;
     text-align: center;
+    margin: 0 auto;
   }
 
   .timeline-content::before {
@@ -395,6 +407,14 @@
   .fees-grid,
   .upload-grid {
     grid-template-columns: 1fr;
+  }
+
+  .form-grid {
+    flex-direction: column;
+  }
+
+  .form-column {
+    width: 100%;
   }
 }
 
@@ -487,9 +507,51 @@
     font-size: 0.9rem;
   }
 
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--gray);
+    border-radius: 8px;
+    margin-top: 0.5rem;
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .form-actions {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+  .btn-primary {
+    width: 100%;
+    max-width: 300px;
+  }
+
   .fees-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
+  }
+
+  .form-grid {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .form-column {
+    width: 100%;
+  }
+
+  .timeline-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .timeline-content p {
+    font-size: 0.9rem;
   }
 }
 
@@ -506,5 +568,79 @@
   .form-section-title::after {
     left: 50%;
     transform: translateX(-50%);
+  }
+
+  .form-grid {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .form-column {
+    width: 100%;
+  }
+
+  .timeline-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .timeline-content p {
+    font-size: 0.9rem;
+  }
+
+  .dates-list li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dates-list li span:first-child {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .fee-table {
+    overflow-x: auto;
+    display: block;
+  }
+
+  .fee-table thead {
+    display: none;
+  }
+
+  .fee-table tbody,
+  .fee-table tr,
+  .fee-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .fee-table tr {
+    margin-bottom: 1rem;
+    border: 1px solid var(--gray);
+    border-radius: 8px;
+    padding: 0.5rem;
+  }
+
+  .fee-table td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+    border-bottom: 1px solid var(--gray);
+  }
+
+  .fee-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 1rem;
+    width: 45%;
+    padding-right: 10px;
+    font-weight: 700;
+    color: var(--primary);
+    text-align: left;
+  }
+
+  .fee-table td:last-child {
+    border-bottom: none;
   }
 }

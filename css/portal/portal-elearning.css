@@ -40,7 +40,7 @@ html {
    1. Hero Section
 ================================== */
 .hero {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%), url('/assets/images/elearning-hero.jpg') center/cover;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%), url('/assets/images/elearning/portal-dashboard.jpg') center/cover;
   min-height: 90vh;
   display: flex;
   align-items: center;

@@ -160,36 +160,36 @@
           <div class="sidebar-nav sticky-top" style="top: 70px;">
             <h5 class="mb-3">Quick Access</h5>
             <div class="d-grid gap-2">
-              <a href="/portal/sections/dashboard.html" class="btn btn-outline-primary">
+              <button onclick="loadSection('dashboard')" class="btn btn-outline-primary">
                 <i class="fas fa-tachometer-alt me-2"></i>Dashboard
-              </a>
-              <a href="/portal/sections/subjects.html" class="btn btn-outline-primary">
+              </button>
+              <button onclick="loadSection('subjects')" class="btn btn-outline-primary">
                 <i class="fas fa-book me-2"></i>Subjects
-              </a>
-              <a href="/portal/sections/live-sessions.html" class="btn btn-outline-primary">
+              </button>
+              <button onclick="loadSection('live-sessions')" class="btn btn-outline-primary">
                 <i class="fas fa-video me-2"></i>Live Sessions
-              </a>
-              <a href="/portal/sections/calendar.html" class="btn btn-outline-primary">
+              </button>
+              <button onclick="loadSection('calendar')" class="btn btn-outline-primary">
                 <i class="fas fa-calendar-alt me-2"></i>Calendar
-              </a>
-              <a href="/portal/sections/resources.html" class="btn btn-outline-primary">
+              </button>
+              <button onclick="loadSection('resources')" class="btn btn-outline-primary">
                 <i class="fas fa-folder-open me-2"></i>Resources
-              </a>
-              <a href="/portal/sections/quizzes.html" class="btn btn-outline-primary">
+              </button>
+              <button onclick="loadSection('quizzes')" class="btn btn-outline-primary">
                 <i class="fas fa-clipboard-list me-2"></i>Quizzes
-              </a>
-              <a href="/portal/sections/forum.html" class="btn btn-outline-primary">
+              </button>
+              <button onclick="loadSection('forum')" class="btn btn-outline-primary">
                 <i class="fas fa-comments me-2"></i>Forum
-              </a>
-              <a href="/portal/sections/analytics.html" class="btn btn-outline-primary">
+              </button>
+              <button onclick="loadSection('analytics')" class="btn btn-outline-primary">
                 <i class="fas fa-chart-line me-2"></i>Analytics
-              </a>
-              <a href="/portal/sections/media.html" class="btn btn-outline-primary">
+              </button>
+              <button onclick="loadSection('media')" class="btn btn-outline-primary">
                 <i class="fas fa-images me-2"></i>Media Gallery
-              </a>
-              <a href="/portal/sections/study-plans.html" class="btn btn-outline-primary">
+              </button>
+              <button onclick="loadSection('study-plans')" class="btn btn-outline-primary">
                 <i class="fas fa-tasks me-2"></i>Study Plans
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -370,6 +370,47 @@
   <script src="/js/portal/e-learning-portal.js" defer></script>
 
   <script>
+    // Load section content dynamically
+    async function loadSection(sectionName) {
+      const contentArea = document.getElementById('mainContentArea');
+      if (!contentArea) return;
+
+      // Show loading spinner
+      contentArea.innerHTML = `
+        <div class="text-center py-5">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-3">Loading ${sectionName.replace('-', ' ')}...</p>
+        </div>
+      `;
+
+      try {
+        const response = await fetch(`/portal/sections/${sectionName}.html`);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        const html = await response.text();
+
+        // Parse the HTML and extract the body content
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const bodyContent = doc.body.innerHTML;
+
+        contentArea.innerHTML = bodyContent;
+      } catch (error) {
+        console.error('Error loading section:', error);
+        contentArea.innerHTML = `
+          <div class="alert alert-danger">
+            <h4 class="alert-heading">Error Loading Content</h4>
+            <p>Failed to load ${sectionName.replace('-', ' ')}. Please try again.</p>
+            <hr>
+            <p class="mb-0">Error: ${error.message}</p>
+          </div>
+        `;
+      }
+    }
+
     // Smooth scroll function
     function scrollToSection(id) {
       const element = document.getElementById(id);
@@ -380,11 +421,15 @@
 
     // Role switcher (student/teacher view)
     function setRole(role) {
-      document.getElementById('roleStudent').classList.toggle('active', role === 'student');
-      document.getElementById('roleTeacher').classList.toggle('active', role === 'teacher');
-      document.getElementById('teacherPanel').classList.toggle('d-none', role !== 'teacher');
+      const roleStudentEl = document.getElementById('roleStudent');
+      const roleTeacherEl = document.getElementById('roleTeacher');
+      const teacherPanelEl = document.getElementById('teacherPanel');
+
+      if (roleStudentEl) roleStudentEl.classList.toggle('active', role === 'student');
+      if (roleTeacherEl) roleTeacherEl.classList.toggle('active', role === 'teacher');
+      if (teacherPanelEl) teacherPanelEl.classList.toggle('d-none', role !== 'teacher');
       localStorage.setItem('portalRole', role);
-      
+
       // Update global search placeholder based on role
       const searchInput = document.getElementById('globalSearch');
       if (searchInput) {
@@ -539,6 +584,8 @@
           document.getElementById('mainContent').classList.remove('d-none');
           setRole(savedRole);
           updateUserInfo();
+          // Load dashboard by default
+          loadSection('dashboard');
         } else {
           document.getElementById('loginCheck').classList.remove('d-none');
           document.getElementById('mainContent').classList.add('d-none');

@@ -37,6 +37,57 @@
   padding: 1rem;
 }
 
+/* Hero Buttons Custom Styles */
+.hero-actions .btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  box-shadow: 0 8px 25px rgba(0, 86, 179, 0.3);
+  border: 2px solid transparent;
+  border-radius: 50px;
+  transition: all 0.4s ease;
+}
+
+.hero-actions .btn-primary:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 12px 35px rgba(0, 86, 179, 0.5);
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary-darker));
+  border-color: var(--primary-darker);
+}
+
+.hero-actions .btn-secondary {
+  background: linear-gradient(135deg, var(--secondary), #475569);
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+  border: 2px solid transparent;
+  border-radius: 50px;
+  transition: all 0.4s ease;
+}
+
+.hero-actions .btn-secondary:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4);
+  background: linear-gradient(135deg, #475569, #334155);
+  border-color: #334155;
+}
+
+/* Button Icon Animation */
+.hero-actions .btn-primary i,
+.hero-actions .btn-secondary i {
+  transition: transform 0.4s ease;
+}
+
+.hero-actions .btn-primary:hover i {
+  transform: translateX(5px);
+}
+
+.hero-actions .btn-secondary:hover i {
+  transform: translateX(5px);
+}
+
 /* Scroll Indicator */
 .scroll-indicator {
   position: absolute;
