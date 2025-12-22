@@ -71,7 +71,7 @@ app.use(logger);
 const staticPaths = [
   'css', 'js', 'assets', 'includes', 'data', 'downloads',
   'admin', 'portal', 'clubs', 'blogs', 'departments',
-  'resources', 'user', 'static'
+  'resources', 'user', 'static', 'user'
 ];
 
 staticPaths.forEach(folder => {

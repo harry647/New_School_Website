@@ -34,7 +34,7 @@ let cache = {};
 
 // ==================== AUTH & ROLE ====================
 function isLoggedIn() {
-    // Replace with real auth check (e.g., token, session cookie, API call)
+    // Check localStorage for authentication state
     return localStorage.getItem("userLoggedIn") === "true";
 }
 
@@ -48,6 +48,14 @@ function setRole(role) {
     // Role-specific UI can be added later (e.g., teacher panel)
 }
 
+// Logout function to clear authentication state
+function logout() {
+    localStorage.removeItem("userLoggedIn");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("portalRole");
+    window.location.href = "/user/login.html";
+}
+
 // Smooth scroll
 function scrollToSection(id) {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -56,11 +64,11 @@ function scrollToSection(id) {
 // ==================== DOM LOADED ====================
 document.addEventListener("DOMContentLoaded", () => {
     w3.includeHTML(() => {
-        // Always show login prompt by default
         const loginCheck = document.getElementById("loginCheck");
         const loggedInContent = document.getElementById("loggedInContent");
 
         if (!isLoggedIn()) {
+            // User not logged in - show login prompt, hide portal content
             if (loginCheck) loginCheck.classList.remove("d-none");
             if (loggedInContent) loggedInContent.classList.add("d-none");
             return;
@@ -70,13 +78,19 @@ document.addEventListener("DOMContentLoaded", () => {
         if (loginCheck) loginCheck.classList.add("d-none");
         if (loggedInContent) loggedInContent.classList.remove("d-none");
 
-        // Set welcome message
+        // Set welcome messages
         const heroUserName = document.getElementById("heroUserName");
-        if (heroUserName) heroUserName.textContent = getUserName();
+        const navUserName = document.getElementById("navUserName");
+        const userName = getUserName();
+        if (heroUserName) heroUserName.textContent = userName;
+        if (navUserName) navUserName.textContent = userName;
 
         // Restore saved role
         const savedRole = localStorage.getItem("portalRole") || "student";
         setRole(savedRole);
+
+        // Update teacher features based on role
+        updateTeacherFeatures();
 
         // Show loading spinner
         const spinner = document.getElementById("loadingSpinner");

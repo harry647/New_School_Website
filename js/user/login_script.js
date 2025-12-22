@@ -1,3 +1,26 @@
+// Translations object for internationalization
+const translations = {
+    en: {
+        invalid_email_username: 'Invalid email or username.',
+        invalid_password: 'Invalid password.',
+        invalid_role: 'Please select a role.',
+        invalid_full_name: 'Please enter a valid full name.',
+        invalid_email: 'Please enter a valid email address.',
+        invalid_password_reg: 'Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.',
+        passwords_do_not_match: 'Passwords do not match.',
+        agree_terms_required: 'You must agree to the terms and conditions.',
+        duplicate_security_questions: 'Please choose two different security questions.',
+        login_success: 'Login successful!',
+        login_failed: 'Login failed.',
+        registration_success: 'Registration successful!',
+        registration_failed: 'Registration failed.',
+        error_occurred: 'An error occurred. Please try again.',
+        profile: 'Profile',
+        logout: 'Logout'
+    },
+    // Add other languages as needed
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     // CSRF token fetching removed for simplified authentication
 
@@ -6,7 +29,10 @@ document.addEventListener('DOMContentLoaded', function() {
     tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
-
+    
+    // Base URL for API endpoints
+    const BASE_URL = 'http://localhost:3000';
+    
     // Redirect map for destination-aware login
     const redirects = {
         clubs: {
@@ -25,19 +51,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const languageToggle = document.getElementById('language-toggle');
     const storedLang = localStorage.getItem('selectedLanguage');
 
-    // Apply stored language or default to English
-    if (storedLang) {
-        languageToggle.value = storedLang;
-        updateTranslations(storedLang);
+    // Only proceed if languageToggle exists
+    if (languageToggle) {
+        // Apply stored language or default to English
+        if (storedLang) {
+            languageToggle.value = storedLang;
+            updateTranslations(storedLang);
+        } else {
+            updateTranslations('en');
+        }
+
+        languageToggle.addEventListener('change', (event) => {
+            const selectedLang = event.target.value;
+            localStorage.setItem('selectedLanguage', selectedLang);
+            updateTranslations(selectedLang);
+        });
     } else {
+        // Default to English if languageToggle is not present
         updateTranslations('en');
     }
-
-    languageToggle.addEventListener('change', (event) => {
-        const selectedLang = event.target.value;
-        localStorage.setItem('selectedLanguage', selectedLang);
-        updateTranslations(selectedLang);
-    });
 
     function updateTranslations(lang) {
         document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -216,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (isValid) {
                 showLoadingOverlay();
                 try {
-                    const response = await fetch(`${BASE_URL}/api/login`, {
+                    const response = await fetch(`${BASE_URL}/auth/login`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -239,6 +271,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         const destination = document.getElementById('loginDestination')?.value || 'e-learning';
                         const role = loginRole.value;
+
+                        // Set authentication state for the portal
+                        localStorage.setItem("userLoggedIn", "true");
+                        localStorage.setItem("userName", data.email || loginEmail.value);
+                        localStorage.setItem("portalRole", role);
 
                         if (redirects[destination] && redirects[destination][role]) {
                             window.location.href = redirects[destination][role];
@@ -326,7 +363,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   if (isValid) {
                       showLoadingOverlay();
                       try {
-                          const response = await fetch(`${BASE_URL}/api/register`, {
+                          const response = await fetch(`${BASE_URL}/auth/register`, {
                               method: 'POST',
                               headers: {
                                   'Content-Type': 'application/json'

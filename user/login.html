@@ -9,13 +9,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="css/user/login.css" rel="stylesheet">
+    <link href="/css/user/login.css" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="images/school-logo.png" alt="School Logo" class="logo">
+                <img src="/assets/images/school/logo.png" alt="School Logo" class="logo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -35,7 +35,7 @@
         <div class="container position-relative">
             <div class="hero-content">
                 <div class="hero-logo mb-4">
-                    <img src="images/school-logo.png" alt="School Logo" class="hero-logo-img">
+                    <img src="/assets/images/school/logo.png" alt="School Logo" class="hero-logo-img">
                 </div>
                 <h1 class="display-3 fw-bold mb-3 hero-title" data-i18n="welcome_message">Welcome to Our School Portal</h1>
                 <p class="lead fs-4 mb-4 hero-subtitle" data-i18n="portal_description">Login or register to access student results, school updates, and more.</p>
@@ -55,7 +55,7 @@
                 <div class="card login-card card-shadow p-0 border-0">
                     <div class="card-header text-center bg-transparent border-0 pb-0 pt-4">
                         <div class="login-card-logo mb-3">
-                            <img src="images/school-logo.png" alt="School Logo" class="login-logo">
+                            <img src="/assets/images/school/logo.png" alt="School Logo" class="login-logo">
                         </div>
                         <ul class="nav nav-tabs card-header-tabs modern-tabs" id="authTabs" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -145,7 +145,10 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="confirmPassword" class="form-label" data-i18n="confirm_password">Confirm Password</label>
-                                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required aria-describedby="confirmPasswordFeedback" aria-label="Confirm password for registration">
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required aria-describedby="confirmPasswordFeedback" aria-label="Confirm password for registration">
+                                            <button class="btn btn-outline-secondary" type="button" id="toggleConfirmPassword"><i class="bi bi-eye"></i></button>
+                                        </div>
                                         <div id="confirmPasswordFeedback" class="invalid-feedback" data-i18n="passwords_do_not_match">Passwords do not match.</div>
                                     </div>
                                     <!-- Security Questions Section -->
@@ -231,6 +234,6 @@
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/user/login_script.js" defer></script>
+    <script src="/js/user/login_script.js" defer></script>
 </body>
 </html>

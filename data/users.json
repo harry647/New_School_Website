@@ -12,5 +12,22 @@
     "email": "harryoginga@example.com",
     "password": "harry2007",
     "role": "e-learning"
+  },
+  {
+    "id": 3,
+    "name": "lucy okeyo",
+    "email": "JohnDoe@example.com",
+    "password": "ParentPass123!",
+    "role": "teacher",
+    "securityQuestions": [
+      {
+        "question": "pet_name",
+        "answer": "cat"
+      },
+      {
+        "question": "favorite_subject",
+        "answer": "maths"
+      }
+    ]
   }
 ]

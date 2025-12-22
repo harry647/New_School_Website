@@ -58,13 +58,37 @@
   <!-- Main Portal (Hidden until logged in) -->
   <div id="loggedInContent" class="d-none">
 
+    <!-- Navigation Bar for Logged In Users -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <i class="fas fa-graduation-cap me-2"></i>E-Learning Hub
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#portalNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="portalNavbar">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <span class="nav-link text-white">Welcome, <span id="navUserName">Student</span>!</span>
+            </li>
+            <li class="nav-item">
+              <button class="btn btn-outline-light ms-3" onclick="logout()">
+                <i class="fas fa-sign-out-alt me-2"></i>Logout
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     <!-- Hero Section -->
     <section class="hero text-white text-center py-5 position-relative overflow-hidden">
       <div class="container py-5 position-relative z-2">
         <h1 class="display-3 fw-bold mb-4">Welcome back, <span id="heroUserName">Student</span>!</h1>
         <p class="lead fs-4 mb-4">Continue Your Learning Journey</p>
         <p class="col-lg-8 mx-auto fs-5 opacity-90 mb-5">
-          You have <span class="text-warning fw-bold" id="pendingTasks">0</span> pending tasks and a 
+          You have <span class="text-warning fw-bold" id="pendingTasks">0</span> pending tasks and a
           <span class="text-success fw-bold" id="currentStreak">0-day</span> study streak!
         </p>
         <div class="d-flex justify-content-center gap-3 flex-wrap">

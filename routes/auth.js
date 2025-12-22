@@ -130,7 +130,7 @@ router.get('/logout', (req, res) => {
 // --------------------
 // REGISTER
 // --------------------
-router.post('/api/register', registerValidator, (req, res) => {
+router.post('/register', registerValidator, (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log('Validation errors:', errors.array()); // <-- log the exact errors
