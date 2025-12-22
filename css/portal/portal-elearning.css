@@ -1223,5 +1223,137 @@ html {
 }
 
 .subject-card .btn:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+/* ==================================
+31. Dashboard Cards - New Section
+================================= */
+.dashboard-card {
+transition: all 0.3s ease;
+border: none;
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card:hover {
+transform: translateY(-8px);
+box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-card .card-body {
+padding: 1.5rem;
+}
+
+.dashboard-card h6 {
+font-size: 1rem;
+font-weight: 600;
+color: #6c757d;
+margin-bottom: 0.5rem;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+}
+
+.dashboard-card .fs-4 {
+font-size: 2rem;
+font-weight: 700;
+margin-bottom: 0;
+}
+
+.dashboard-card.text-warning .fs-4 {
+color: #f59e0b;
+}
+
+.dashboard-card.text-success .fs-4 {
+color: #22c55e;
+}
+
+/* ==================================
+32. Sidebar Grouped Sections
+================================= */
+.sidebar-nav h6 {
+font-size: 0.75rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 1px;
+color: #6c757d;
+margin-top: 1.5rem;
+margin-bottom: 0.75rem;
+padding-bottom: 0.25rem;
+border-bottom: 1px solid #e9ecef;
+}
+
+.sidebar-nav .btn {
+justify-content: flex-start;
+text-align: left;
+padding: 0.5rem 1rem;
+font-size: 0.95rem;
+margin-bottom: 0.25rem;
+}
+
+.sidebar-nav .btn i {
+width: 20px;
+text-align: center;
+}
+
+.sidebar-nav .btn.active {
+background-color: var(--bs-primary);
+color: white;
+border-color: var(--bs-primary);
+}
+
+/* ==================================
+33. Teacher Upload Button
+================================= */
+#teacherUploadBtn {
+margin-bottom: 1rem;
+}
+
+#teacherUploadBtn button {
+width: 100%;
+padding: 0.75rem;
+font-weight: 600;
+}
+
+/* ==================================
+34. Visual Hierarchy Rules
+================================= */
+.btn-primary {
+font-size: 1rem;
+padding: 0.75rem 1.5rem;
+font-weight: 600;
+}
+
+.btn-lg {
+font-size: 1.1rem;
+padding: 0.85rem 2rem;
+font-weight: 700;
+}
+
+.btn-outline-primary {
+font-size: 0.95rem;
+padding: 0.5rem 1rem;
+font-weight: 500;
+}
+
+/* Primary actions - Large buttons */
+.btn-primary.btn-lg {
+font-size: 1.25rem;
+padding: 1rem 2.5rem;
+}
+
+/* Secondary actions - Outline buttons */
+.btn-outline-primary {
+border-width: 2px;
+}
+
+/* Info elements - Text/badges */
+.badge {
+font-size: 0.85rem;
+padding: 0.35rem 0.65rem;
+font-weight: 500;
+}
+
+/* Rare actions - Dropdowns */
+.dropdown-toggle {
+font-size: 0.9rem;
 }

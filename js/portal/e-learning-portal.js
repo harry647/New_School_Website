@@ -200,13 +200,21 @@ document.getElementById('teacherUploadForm')?.addEventListener('submit', async f
     }
 });
 
-// Optional: Only show upload button to teachers
+// Show/hide teacher features based on role
 function updateTeacherFeatures() {
     const uploadBtn = document.getElementById('teacherUploadBtn');
+    const uploadPanel = document.getElementById('teacherUploadPanel');
+    
     if (currentRole === 'teacher') {
         uploadBtn?.classList.remove('d-none');
+        // Keep upload panel available but hidden until triggered
     } else {
         uploadBtn?.classList.add('d-none');
+        // Remove floating upload button for students
+        const floatingUploadBtn = document.querySelector('.position-fixed.bottom-0.end-0');
+        if (floatingUploadBtn) {
+            floatingUploadBtn.remove();
+        }
     }
 }
 
@@ -326,13 +334,38 @@ async function loadPortalData(forceRefresh = false) {
     }
 }
 
-// Update hero section dynamic stats
+// Update hero section dynamic stats and dashboard cards
 function updateHeroStats() {
     const pendingTasksEl = document.getElementById("pendingTasks");
     const currentStreakEl = document.getElementById("currentStreak");
-
+ 
     if (pendingTasksEl && DATA.stats) pendingTasksEl.textContent = DATA.stats.pendingTasks || 0;
     if (currentStreakEl && DATA.stats) currentStreakEl.textContent = `${DATA.stats.streak || 0}-day`;
+    
+    // Update dashboard cards if they exist
+    updateDashboardCards();
+}
+
+// Update dashboard cards with dynamic data
+function updateDashboardCards() {
+    const subjectsCard = document.querySelector('.card h6:first-child');
+    const assignmentsCard = document.querySelector('.card h6:nth-child(2)');
+    const streakCard = document.querySelector('.card h6:nth-child(3)');
+    
+    if (subjectsCard && DATA.subjects) {
+        const subjectsCount = DATA.subjects.length || 8;
+        subjectsCard.parentNode.querySelector('.fs-4').textContent = subjectsCount;
+    }
+    
+    if (assignmentsCard && DATA.stats) {
+        const pendingCount = DATA.stats.pendingTasks || 3;
+        assignmentsCard.parentNode.querySelector('.fs-4').textContent = pendingCount;
+    }
+    
+    if (streakCard && DATA.stats) {
+        const streakDays = DATA.stats.streak || 5;
+        streakCard.parentNode.querySelector('.fs-4').textContent = streakDays + ' Days';
+    }
 }
 
 // ==================== SECTION RENDERERS ====================

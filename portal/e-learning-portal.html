@@ -68,7 +68,63 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="portalNavbar">
-          <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav me-auto">
+
+            <!-- Dashboard -->
+            <li class="nav-item">
+              <a class="nav-link active" href="#" onclick="loadSection('dashboard')">
+                <i class="fas fa-home me-1"></i> Dashboard
+              </a>
+            </li>
+
+            <!-- Learning Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                <i class="fas fa-book me-1"></i> Learning
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" onclick="loadSection('subjects')">Subjects</a></li>
+                <li><a class="dropdown-item" onclick="loadSection('resources')">Resources</a></li>
+                <li><a class="dropdown-item" onclick="loadSection('study-plans')">Study Plans</a></li>
+              </ul>
+            </li>
+
+            <!-- Activities Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                <i class="fas fa-tasks me-1"></i> Activities
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" onclick="loadSection('quizzes')">Quizzes & Assignments</a></li>
+                <li><a class="dropdown-item" onclick="loadSection('live-sessions')">Live Sessions</a></li>
+                <li><a class="dropdown-item" onclick="loadSection('forum')">Forum</a></li>
+              </ul>
+            </li>
+
+            <!-- Tools Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                <i class="fas fa-cogs me-1"></i> Tools
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" onclick="loadSection('calendar')">Calendar</a></li>
+                <li><a class="dropdown-item" onclick="loadSection('analytics')">Analytics</a></li>
+                <li><a class="dropdown-item" onclick="loadSection('media')">Media Gallery</a></li>
+              </ul>
+            </li>
+
+          </ul>
+
+          <!-- Teacher Upload Button (role-based) -->
+          <li class="nav-item d-none" id="teacherUploadNav">
+            <button class="btn btn-light btn-sm ms-3"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#teacherUploadPanel">
+              <i class="fas fa-upload me-1"></i> Upload
+            </button>
+          </li>
+
+          <ul class="navbar-nav">
             <li class="nav-item">
               <span class="nav-link text-white">Welcome, <span id="navUserName">Student</span>!</span>
             </li>
@@ -82,85 +138,13 @@
       </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero text-white text-center py-5 position-relative overflow-hidden">
-      <div class="container py-5 position-relative z-2">
-        <h1 class="display-3 fw-bold mb-4">Welcome back, <span id="heroUserName">Student</span>!</h1>
-        <p class="lead fs-4 mb-4">Continue Your Learning Journey</p>
-        <p class="col-lg-8 mx-auto fs-5 opacity-90 mb-5">
-          You have <span class="text-warning fw-bold" id="pendingTasks">0</span> pending tasks and a
-          <span class="text-success fw-bold" id="currentStreak">0-day</span> study streak!
-        </p>
-        <div class="d-flex justify-content-center gap-3 flex-wrap">
-          <button onclick="loadSection('subjects')" class="btn btn-warning btn-lg px-5 fw-bold shadow">
-            Continue Learning
-          </button>
-          <button onclick="loadSection('quizzes')" class="btn btn-success btn-lg px-5 fw-bold shadow">
-            Take Quiz
-          </button>
-        </div>
-      </div>
-    </section>
 
-    <!-- Main Layout: Sidebar + Content -->
+    <!-- Main Layout: Full Width Content -->
     <div class="container my-5">
       <div class="row">
-        <!-- Sidebar Navigation -->
-        <div class="col-lg-3 mb-4">
-          <div class="sidebar-nav sticky-top" style="top: 70px;">
-            <h5 class="mb-3 fw-bold">Quick Access</h5>
-            <div class="d-grid gap-2">
-              <button onclick="loadSection('dashboard')" class="btn btn-outline-primary active">
-                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
-              </button>
-              <button onclick="loadSection('subjects')" class="btn btn-outline-primary">
-                <i class="fas fa-book me-2"></i>Subjects
-              </button>
-              <button onclick="loadSection('live-sessions')" class="btn btn-outline-primary">
-                <i class="fas fa-video me-2"></i>Live Sessions
-              </button>
-              <button onclick="loadSection('calendar')" class="btn btn-outline-primary">
-                <i class="fas fa-calendar-alt me-2"></i>Calendar
-              </button>
-              <button onclick="loadSection('resources')" class="btn btn-outline-primary">
-                <i class="fas fa-folder-open me-2"></i>Resources
-              </button>
-              
-              <button onclick="loadSection('quizzes')" class="btn btn-outline-primary">
-                <i class="fas fa-clipboard-list me-2"></i>Quizzes & Assignments
-              </button>
-              <button onclick="loadSection('forum')" class="btn btn-outline-primary">
-                <i class="fas fa-comments me-2"></i>Forum
-              </button>
-              <button onclick="loadSection('analytics')" class="btn btn-outline-primary">
-                <i class="fas fa-chart-line me-2"></i>Analytics
-              </button>
-              <button onclick="loadSection('media')" class="btn btn-outline-primary">
-                <i class="fas fa-images me-2"></i>Media Gallery
-              </button>
-              <button onclick="loadSection('study-plans')" class="btn btn-outline-primary">
-                <i class="fas fa-tasks me-2"></i>Study Plans
-              </button>
-            </div>
-          </div>
-        </div>
+            
+            
         
-        <!-- Teacher Upload Button (hidden by default) -->
-        <div id="teacherUploadBtn" class="d-none">
-          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
-            <i class="fas fa-upload me-2"></i>Upload Content
-          </button>
-        </div>
-
-        <!-- Teacher Upload Panel (Floating Button + Offcanvas) -->
-        <button class="btn btn-primary rounded-circle shadow-lg position-fixed bottom-0 end-0 m-4" 
-                style="width: 60px; height: 60px; z-index: 1000;" 
-                data-bs-toggle="offcanvas" 
-                data-bs-target="#teacherUploadPanel" 
-                id="teacherUploadBtn"
-                title="Upload Resources">
-          <i class="fas fa-cloud-upload-alt fa-2x"></i>
-        </button>
 
         <!-- Offcanvas Upload Panel -->
         <div class="offcanvas offcanvas-end" tabindex="-1" id="teacherUploadPanel" style="width: 500px;">
@@ -240,14 +224,43 @@
           </div>
         </div>
 
-        <!-- Dynamic Content Area -->
-        <div class="col-lg-9">
+        <!-- Dynamic Content Area - Full Width -->
+        <div class="col-12">
           <div id="mainContentArea" class="min-vh-100">
-            <!-- Default welcome message -->
-            <div class="text-center py-5">
-              <i class="fas fa-graduation-cap fa-5x text-primary mb-4 opacity-50"></i>
-              <h3>Welcome to your E-Learning Hub</h3>
-              <p class="lead text-muted">Select a section from the sidebar to begin.</p>
+            <!-- Dashboard Heading -->
+            <div class="mb-4">
+              <h4 class="fw-bold">Dashboard Overview</h4>
+              <p class="text-muted mb-0">Your learning summary</p>
+            </div>
+
+            <!-- Default Dashboard Cards -->
+            <div class="row g-4">
+              <div class="col-md-4">
+                <div class="card border-0 shadow-sm">
+                  <div class="card-body">
+                    <h6><i class="fas fa-book me-2"></i>My Subjects</h6>
+                    <p class="fs-4 fw-bold">8</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="card border-0 shadow-sm">
+                  <div class="card-body">
+                    <h6><i class="fas fa-clipboard-list me-2"></i>Pending Assignments</h6>
+                    <p class="fs-4 fw-bold text-warning">3</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="card border-0 shadow-sm">
+                  <div class="card-body">
+                    <h6><i class="fas fa-fire me-2"></i>Study Streak</h6>
+                    <p class="fs-4 fw-bold text-success">5 Days</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -350,7 +363,7 @@
   <!-- Footer -->
   <div w3-include-html="/includes/footer.html"></div>
 
-  <!-- Back to Top -->
+  <!-- Back to Top (only floating button - bottom-right corner) -->
   <button id="backToTop" class="btn btn-primary rounded-circle shadow position-fixed bottom-0 end-0 m-4" style="display:none; z-index:1000;">
     <i class="fas fa-arrow-up"></i>
   </button>
