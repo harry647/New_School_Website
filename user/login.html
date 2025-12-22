@@ -1,151 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login • Bar Union Secondary</title>
-
-  <!-- Bootstrap + Icons -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="/css/user/login.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Register - Bar Union Secondary School</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="css/user/login.css" rel="stylesheet">
 </head>
 <body>
-
-  <div class="floating-shapes shape1"></div>
-  <div class="floating-shapes shape2"></div>
-
-  <div class="login-container">
-    <div class="login-card">
-      <div class="text-center mb-4">
-        <img src="/assets/images/school/logo.png" alt="School Logo" class="logo">
-        <h1>Member Login</h1>
-        <p class="subtitle">Access Clubs, Gallery & Student Portal</p>
-      </div>
-
-      <form id="loginForm">
-        
-        <!-- EMAIL / ADMISSION -->
-        <div class="mb-3">
-          <div class="input-group input-group-lg">
-            <span class="input-group-text"><i class="fas fa-user"></i></span>
-            <input 
-              type="text" 
-              name="email"
-              class="form-control" 
-              placeholder="Admission Number or Email"
-              required 
-              autocomplete="username"
-            >
-          </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="images/school-logo.png" alt="School Logo" class="logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
         </div>
+    </nav>
 
-        <!-- PASSWORD -->
-        <div class="mb-3">
-          <div class="input-group input-group-lg">
-            <span class="input-group-text"><i class="fas fa-lock"></i></span>
-            <input 
-              type="password" 
-              name="password"
-              class="form-control" 
-              placeholder="Password" 
-              required
-              autocomplete="current-password"
-            >
-          </div>
+    <div class="hero-section d-flex align-items-center justify-content-center text-white text-center position-relative overflow-hidden">
+        <div class="hero-background"></div>
+        <div class="floating-shapes">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+            <div class="floating-shape shape-4"></div>
         </div>
-
-        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-          <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="remember">
-            <label class="form-check-label text-white" for="remember">Remember me</label>
-          </div>
-          <a href="#" class="extra-links">Forgot password?</a>
+        <div class="container position-relative">
+            <div class="hero-content">
+                <div class="hero-logo mb-4">
+                    <img src="images/school-logo.png" alt="School Logo" class="hero-logo-img">
+                </div>
+                <h1 class="display-3 fw-bold mb-3 hero-title" data-i18n="welcome_message">Welcome to Our School Portal</h1>
+                <p class="lead fs-4 mb-4 hero-subtitle" data-i18n="portal_description">Login or register to access student results, school updates, and more.</p>
+                <div class="hero-divider"></div>
+            </div>
         </div>
-
-        <button type="submit" class="btn btn-login w-100 mb-3">
-          Login to Portal
-        </button>
-
-        <p class="text-center text-white-50 mb-0">
-          Not a member yet? <a href="register.html" class="extra-links">Create account</a>
-        </p>
-      </form>
-
-      <div class="text-center mt-4">
-        <small class="text-white-50">
-          Secured with SSL • Protected by Bar Union Secondary
-        </small>
-      </div>
     </div>
-  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <script>
-document.addEventListener("DOMContentLoaded", () => {
+    <div class="container my-5">
+        <div id="loading-overlay" class="d-none justify-content-center align-items-center" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.8); z-index: 1050;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden" data-i18n="loading">Loading...</span>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-7 col-xl-6">
+                <div class="card login-card card-shadow p-0 border-0">
+                    <div class="card-header text-center bg-transparent border-0 pb-0 pt-4">
+                        <div class="login-card-logo mb-3">
+                            <img src="images/school-logo.png" alt="School Logo" class="login-logo">
+                        </div>
+                        <ul class="nav nav-tabs card-header-tabs modern-tabs" id="authTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login-pane" type="button" role="tab" aria-controls="login-pane" aria-selected="true" data-i18n="login">
+                                    <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register-pane" type="button" role="tab" aria-controls="register-pane" aria-selected="false" data-i18n="register">
+                                    <i class="bi bi-person-plus me-2"></i>Register
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body pt-4">
+                        <div class="tab-content" id="authTabContent">
+                            <div class="tab-pane fade show active" id="login-pane" role="tabpanel" aria-labelledby="login-tab">
+                                <h4 class="text-center mb-4" data-i18n="login">Login</h4>
+                                <form id="login-form" novalidate>
+                                    <input type="hidden" id="csrf-token" name="_csrf">
+                                    <div class="mb-3">
+                                        <label for="loginEmail" class="form-label" data-i18n="email_username">Email/Username</label>
+                                        <input type="text" class="form-control" id="loginEmail" placeholder="Enter email or username" required aria-describedby="loginEmailFeedback" data-bs-toggle="tooltip" title="Enter your email or username" aria-label="Email or username for login">
+                                        <div id="loginEmailFeedback" class="invalid-feedback" data-i18n="invalid_email_username">Please enter a valid email or username (3–50 characters).</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="loginPassword" class="form-label" data-i18n="password">Password</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="loginPassword" placeholder="Enter password" required aria-describedby="loginPasswordFeedback" data-bs-toggle="tooltip" title="Enter your password" aria-label="Password for login">
+                                            <button class="btn btn-outline-secondary" type="button" id="toggleLoginPassword"><i class="bi bi-eye"></i></button>
+                                        </div>
+                                        <div id="loginPasswordFeedback" class="invalid-feedback" data-i18n="invalid_password">Password must be at least 6 characters.</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="loginRole" class="form-label" data-i18n="select_role">I am a...</label>
+                                        <select class="form-select" id="loginRole" required aria-describedby="loginRoleFeedback" data-bs-toggle="tooltip" title="Select your role" aria-label="Select your role">
+                                            <option value="" selected disabled data-i18n="choose_role">Choose...</option>
+                                            <option value="student" data-i18n="student_role">Student</option>
+                                            <option value="teacher" data-i18n="teacher_role">Teacher</option>
+                                            <option value="admin" data-i18n="admin_role">Admin</option>
+                                        </select>
+                                        <div id="loginRoleFeedback" class="invalid-feedback" data-i18n="invalid_role">Please select your role.</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="loginDestination" class="form-label" data-i18n="select_destination">Login to...</label>
+                                        <select class="form-select" id="loginDestination" required aria-describedby="loginDestinationFeedback" data-bs-toggle="tooltip" title="Select your destination" aria-label="Select your destination">
+                                            <option value="e-learning" data-i18n="e_learning">E-Learning</option>
+                                            <option value="clubs" data-i18n="clubs">Clubs</option>
+                                        </select>
+                                        <div id="loginDestinationFeedback" class="invalid-feedback" data-i18n="invalid_destination">Please select your destination.</div>
+                                    </div>
+                                    <div class="mb-3 d-flex justify-content-between align-items-center">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe">
+                                            <label class="form-check-label" for="rememberMe" data-i18n="remember_me">
+                                                Remember me
+                                            </label>
+                                        </div>
+                                        <a href="forgot_password.html" id="forgotPasswordLink" class="text-primary text-decoration-none" data-i18n="forgot_password" data-bs-toggle="tooltip" title="Reset your password" aria-label="Reset password">Forgot Password?</a>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 btn-action btn-login-enhanced" data-i18n="login" aria-label="Submit login form">
+                                        <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="register-pane" role="tabpanel" aria-labelledby="register-tab">
+                                <h4 class="text-center mb-4" data-i18n="register">Register</h4>
+                                <form id="register-form" novalidate>
+                                    <input type="hidden" id="register-csrf-token" name="_csrf">
+                                    <div class="mb-3">
+                                        <label for="registerName" class="form-label" data-i18n="full_name">Full Name</label>
+                                        <input type="text" class="form-control" id="registerName" placeholder="Enter your full name" required aria-describedby="registerNameFeedback" aria-label="Full name for registration">
+                                        <div id="registerNameFeedback" class="invalid-feedback" data-i18n="invalid_full_name">Please enter your full name (at least 3 characters).</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="registerEmail" class="form-label" data-i18n="email">Email Address</label>
+                                        <input type="email" class="form-control" id="registerEmail" placeholder="Enter your email address" required aria-describedby="registerEmailFeedback" aria-label="Email address for registration">
+                                        <div id="registerEmailFeedback" class="invalid-feedback" data-i18n="invalid_email">Please enter a valid email address.</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="registerPassword" class="form-label" data-i18n="password">Password</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control" id="registerPassword" placeholder="Create a password" required aria-describedby="registerPasswordFeedback" aria-label="Password for registration">
+                                            <button class="btn btn-outline-secondary" type="button" id="toggleRegisterPassword"><i class="bi bi-eye"></i></button>
+                                        </div>
+                                        <div id="registerPasswordFeedback" class="invalid-feedback" data-i18n="invalid_password_reg">Password must be at least 8 characters and include uppercase, lowercase, number, and special character.</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="confirmPassword" class="form-label" data-i18n="confirm_password">Confirm Password</label>
+                                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required aria-describedby="confirmPasswordFeedback" aria-label="Confirm password for registration">
+                                        <div id="confirmPasswordFeedback" class="invalid-feedback" data-i18n="passwords_do_not_match">Passwords do not match.</div>
+                                    </div>
+                                    <!-- Security Questions Section -->
+                                    <div class="mb-3">
+                                        <h6 class="fw-semibold text-primary">
+                                            <i class="bi bi-shield-lock me-2"></i>Security Questions (for Password Recovery)
+                                        </h6>
+                                        <small class="text-muted">
+                                            Choose at least two questions and provide answers you can remember.
+                                        </small>
+                                    </div>
 
-    const loginForm = document.getElementById("loginForm");
+                                    <!-- Question 1 -->
+                                    <div class="mb-3">
+                                        <label for="securityQuestion1" class="form-label">Security Question 1</label>
+                                        <select class="form-select" id="securityQuestion1" required>
+                                            <option value="" selected disabled>Choose a question...</option>
+                                            <option value="pet_name">What was the name of your first pet?</option>
+                                            <option value="birth_place">What town were you born in?</option>
+                                            <option value="favorite_teacher">Who was your favorite teacher?</option>
+                                            <option value="favorite_food">What is your favorite food?</option>
+                                        </select>
+                                    </div>
 
-    const emailInput = document.querySelector("#loginForm input[name='email']");
-    const passwordInput = document.querySelector("#loginForm input[name='password']");
+                                    <div class="mb-3">
+                                        <label for="securityAnswer1" class="form-label">Answer</label>
+                                        <input type="text" class="form-control" id="securityAnswer1"
+                                              placeholder="Your answer" required>
+                                    </div>
 
-    loginForm.addEventListener("submit", async (e) => {
-        e.preventDefault();
+                                    <!-- Question 2 -->
+                                    <div class="mb-3">
+                                        <label for="securityQuestion2" class="form-label">Security Question 2</label>
+                                        <select class="form-select" id="securityQuestion2" required>
+                                            <option value="" selected disabled>Choose a question...</option>
+                                            <option value="best_friend">What is the name of your childhood best friend?</option>
+                                            <option value="favorite_subject">What was your favorite school subject?</option>
+                                            <option value="first_school">What was the name of your first school?</option>
+                                            <option value="dream_job">What was your dream job as a child?</option>
+                                        </select>
+                                    </div>
 
-        const email = emailInput.value.trim();
-        const password = passwordInput.value;
+                                    <div class="mb-3">
+                                        <label for="securityAnswer2" class="form-label">Answer</label>
+                                        <input type="text" class="form-control" id="securityAnswer2"
+                                              placeholder="Your answer" required>
+                                    </div>
 
-        if (!email || !password) {
-            alert("Please enter both email and password.");
-            return;
-        }
+                                    <div class="mb-3">
+                                        <label for="registerRole" class="form-label" data-i18n="select_role">I am a...</label>
+                                        <select class="form-select" id="registerRole" required aria-describedby="registerRoleFeedback" aria-label="Select your role for registration">
+                                            <option value="" selected disabled data-i18n="choose_role">Choose...</option>
+                                            <option value="student" data-i18n="student_role">Student</option>
+                                            <option value="teacher" data-i18n="teacher_role">Teacher</option>
+                                            <option value="admin" data-i18n="admin_role">Admin</option>
+                                        </select>
+                                        <div id="registerRoleFeedback" class="invalid-feedback" data-i18n="invalid_role">Please select your role.</div>
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="termsCheck" required aria-describedby="termsCheckFeedback" aria-label="Agree to terms and privacy policy">
+                                        <label class="form-check-label" for="termsCheck" data-i18n="agree_terms">I agree to the <a href="privacy.html" class="text-primary text-decoration-none" target="_blank" data-i18n="terms_privacy">Terms & Privacy Policy</a></label>
+                                        <div id="termsCheckFeedback" class="invalid-feedback" data-i18n="agree_terms_required">You must agree to the terms and privacy policy.</div>
+                                    </div>
+                                    <button type="submit" class="btn btn-success w-100 btn-action btn-register-enhanced" data-i18n="register" aria-label="Submit registration form">
+                                        <i class="bi bi-person-plus me-2"></i>Register
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        try {
-            const response = await fetch("/auth/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password })
-            });
+    <!-- Floating shapes for visual appeal -->
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
 
-            let data;
-            try {
-                data = await response.json();
-            } catch {
-                alert("Invalid response from server.");
-                return;
-            }
-
-            if (data.success) {
-
-                // Store client-side data
-                localStorage.setItem("userLoggedIn", "true");
-                localStorage.setItem("userRole", data.user.role);
-                localStorage.setItem("userName", data.user.name || "");
-
-                // Redirect by role
-                switch (data.user.role) {
-                    case "clubs":
-                        window.location.href = "/portal/clubs";
-                        break;
-                    case "e-learning":
-                        window.location.href = "/portal/e-learning";
-                        break;
-                    default:
-                        window.location.href = "/";
-                }
-
-            } else {
-                alert(data.message || "Login failed. Check your credentials.");
-            }
-
-        } catch (err) {
-            console.error("Login error:", err);
-            alert("Unable to reach server. Try again later.");
-        }
-    });
-});
-</script>
-
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/user/login_script.js" defer></script>
 </body>
 </html>

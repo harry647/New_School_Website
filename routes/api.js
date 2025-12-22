@@ -567,13 +567,18 @@ router.get('/dashboard', (req, res) => {
   }
 
   const redirects = {
-    clubs: '/portal/clubs.html',
-    'e-learning': '/portal/e-learning-portal.html',
-    admin: '/admin/dashboard.html',
-    teacher: '/portal/teacher-dashboard.html', // Example
-    parent: '/portal/parent-dashboard.html',   // Example
-    student: '/portal/student-dashboard.html'  // Example
-  };
+  clubs: {
+    student: '/portal/clubs.html',
+    teacher: '/portal/clubs.html',
+    admin: '/portal/clubs.html'
+  },
+  'e-learning': {
+    student: '/portal/e-learning-portal.html',
+    teacher: '/portal/e-learning-portal.html',
+    admin: '/portal/e-learning-portal.html'
+  }
+};
+
 
   const redirectUrl = redirects[user.role] || '/user/profile.html';
 

@@ -90,7 +90,7 @@ router.post('/login', loginValidator, (req, res) => {
 
     console.log(`LOGIN SUCCESS → ${safeUser.name} (${safeUser.email}) – Role: ${safeUser.role}`);
 
-    // Frontend expects: success, message, and user object
+    // Frontend expects: success, message, and user object (no redirect - frontend controls navigation)
     res.json({
       success: true,
       message: "Login successful!",
@@ -130,7 +130,7 @@ router.get('/logout', (req, res) => {
 // --------------------
 // REGISTER
 // --------------------
-router.post('/auth/register', registerValidator, (req, res) => {
+router.post('/api/register', registerValidator, (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log('Validation errors:', errors.array()); // <-- log the exact errors
@@ -138,8 +138,8 @@ router.post('/auth/register', registerValidator, (req, res) => {
     return res.status(400).json({ success: false, errors: errors.array() });
   }
 
-  const { name, email, password, role, admission, gender } = req.body;
-  console.log('Register payload:', { name, email, password, role, admission, gender });
+  const { fullName, email, password, role, securityQuestion1, securityAnswer1, securityQuestion2, securityAnswer2 } = req.body;
+  console.log('Register payload:', { fullName, email, password, role, securityQuestion1, securityAnswer1, securityQuestion2, securityAnswer2 });
 
   const usersFile = path.join('data', 'users.json');
   const users = readJSON(usersFile);
@@ -151,12 +151,14 @@ router.post('/auth/register', registerValidator, (req, res) => {
   // hash password for production
   const newUser = {
     id: users.length + 1,
-    name,
+    name: fullName,
     email,
     password,
     role,
-    admission,
-    gender
+    securityQuestions: [
+      { question: securityQuestion1, answer: securityAnswer1.toLowerCase() },
+      { question: securityQuestion2, answer: securityAnswer2.toLowerCase() }
+    ]
   };
 
   users.push(newUser);
@@ -165,8 +167,79 @@ router.post('/auth/register', registerValidator, (req, res) => {
   res.json({
     success: true,
     message: 'User registered successfully',
-    user: { id: newUser.id, name, email, role, admission, gender }
+    user: { id: newUser.id, name: fullName, email, role }
   });
+});
+
+// --------------------
+// FORGOT PASSWORD - Step 1: Submit Email
+// --------------------
+router.post('/api/forgot-password/email', (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ success: false, message: 'Email is required' });
+  }
+
+  const users = readJSON(path.join('data', 'users.json'));
+  const user = users.find(u => u.email === email);
+
+  if (!user) {
+    return res.status(404).json({ success: false, message: 'Email not found' });
+  }
+
+  // Return security questions for the user
+  const questions = user.securityQuestions || [];
+  res.json({ success: true, questions: questions.map(q => q.question) });
+});
+
+// --------------------
+// FORGOT PASSWORD - Step 2: Verify Answers
+// --------------------
+router.post('/api/forgot-password/verify', (req, res) => {
+  const { email, answer1, answer2 } = req.body;
+  if (!email || !answer1 || !answer2) {
+    return res.status(400).json({ success: false, message: 'Email and answers are required' });
+  }
+
+  const users = readJSON(path.join('data', 'users.json'));
+  const user = users.find(u => u.email === email);
+
+  if (!user) {
+    return res.status(404).json({ success: false, message: 'Email not found' });
+  }
+
+  const securityQuestions = user.securityQuestions || [];
+  const isAnswer1Correct = securityQuestions.some(q => q.answer === answer1.toLowerCase());
+  const isAnswer2Correct = securityQuestions.some(q => q.answer === answer2.toLowerCase());
+
+  if (!isAnswer1Correct || !isAnswer2Correct) {
+    return res.status(401).json({ success: false, message: 'Incorrect answers. Please try again.' });
+  }
+
+  res.json({ success: true, message: 'Answers verified successfully' });
+});
+
+// --------------------
+// FORGOT PASSWORD - Step 3: Reset Password
+// --------------------
+router.post('/api/forgot-password/reset', (req, res) => {
+  const { email, newPassword } = req.body;
+  if (!email || !newPassword) {
+    return res.status(400).json({ success: false, message: 'Email and new password are required' });
+  }
+
+  const users = readJSON(path.join('data', 'users.json'));
+  const userIndex = users.findIndex(u => u.email === email);
+
+  if (userIndex === -1) {
+    return res.status(404).json({ success: false, message: 'Email not found' });
+  }
+
+  // Update the user's password
+  users[userIndex].password = newPassword;
+  writeJSON(path.join('data', 'users.json'), users);
+
+  res.json({ success: true, message: 'Password reset successfully' });
 });
 
 export default router;

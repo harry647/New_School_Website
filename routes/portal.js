@@ -17,16 +17,16 @@ const __dirname = path.dirname(__filename);
 /**
  * @route   GET /clubs
  * @desc    Serves the main clubs page HTML.
- * @access  Protected - requires 'clubs' role (example).
+ * @access  Protected - any logged-in user can access clubs.
  */
-router.get('/clubs', requireRole('clubs'), (req, res) => { // Role check can be adjusted
+router.get('/clubs', requireLogin, (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'clubs', 'clubs.html'));
 });
 
 // --------------------
-// E-learning page (only for 'e-learning' role)
+// E-learning page (any logged-in user can access e-learning)
 // --------------------
-router.get('/e-learning', requireRole('e-learning'), (req, res) => {
+router.get('/e-learning', requireLogin, (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'portal', 'e-learning-portal.html'));
 });
 
