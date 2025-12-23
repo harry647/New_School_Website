@@ -456,14 +456,27 @@ function injectClubEvents(clubId) {
 
 // ==================== FILE UPLOAD ZONE ====================
 function setupClubUpload(clubId) {
-  const zone = document.querySelector(".upload-zone");
-  const input = document.getElementById("clubFileInput") || document.querySelector('input[type="file"]');
-  const preview = document.getElementById("uploadPreview") || document.createElement("div");
+  // Wait for the upload zone to be available
+  const checkUploadZone = setInterval(() => {
+    const zone = document.querySelector(".upload-zone");
+    const input = document.getElementById("clubFileInput") || document.querySelector('input[type="file"]');
+    const preview = document.getElementById("uploadPreview") || document.createElement("div");
+ 
+    if (zone && input) {
+      clearInterval(checkUploadZone);
+      initializeUploadZone(zone, input, preview, clubId);
+    }
+  }, 100);
+}
 
-  if (!zone || !input) return;
-
+function initializeUploadZone(zone, input, preview, clubId) {
   let isDragOver = false;
-
+ 
+  // Ensure preview container is properly placed
+  if (preview && !preview.parentElement) {
+    zone.appendChild(preview);
+  }
+ 
   // Drag & drop effects
   const dragEnter = (e) => {
     e.preventDefault();
@@ -473,7 +486,7 @@ function setupClubUpload(clubId) {
       zone.classList.add("drag-over");
     }
   };
-
+ 
   const dragLeave = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -482,7 +495,7 @@ function setupClubUpload(clubId) {
       zone.classList.remove("drag-over");
     }
   };
-
+ 
   const drop = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -492,16 +505,25 @@ function setupClubUpload(clubId) {
     const files = e.dataTransfer.files;
     if (files.length) handleFiles(files);
   };
-
+ 
+  // Click to browse functionality
+  const clickToBrowse = (e) => {
+    if (e.target === zone || e.target.classList.contains('upload-zone')) {
+      input.click();
+    }
+  };
+ 
+  // Add event listeners
   zone.addEventListener("dragenter", dragEnter);
   zone.addEventListener("dragover", dragEnter);
   zone.addEventListener("dragleave", dragLeave);
   zone.addEventListener("drop", drop);
-
+  zone.addEventListener("click", clickToBrowse);
+ 
   input.addEventListener("change", () => {
     if (input.files.length) handleFiles(input.files);
   });
-
+ 
   async function handleFiles(files) {
     // Validate files
     const maxFiles = CLUBS_CONFIG.upload.maxFiles;
@@ -511,12 +533,12 @@ function setupClubUpload(clubId) {
       ...CLUBS_CONFIG.upload.allowedTypes.documents,
       ...CLUBS_CONFIG.upload.allowedTypes.media
     ].flat();
-
+ 
     if (files.length > maxFiles) {
       showAlert(`Maximum ${maxFiles} files allowed`, "warning");
       return;
     }
-
+ 
     for (let file of files) {
       if (file.size > maxSize) {
         showAlert(`File "${file.name}" is too large. Maximum size: ${Math.round(maxSize / 1024 / 1024)}MB`, "warning");
@@ -527,42 +549,56 @@ function setupClubUpload(clubId) {
         return;
       }
     }
-
+ 
+    // Show preview of selected files
     preview.innerHTML = `<div class="text-info">
-      <i class="fas fa-spinner fa-spin me-2"></i>
-      Uploading ${files.length} file(s)...
+      <i class="fas fa-file-alt me-2"></i>
+      Selected ${files.length} file(s): ${Array.from(files).map(f => f.name).join(', ')}
     </div>`;
-
-    const formData = new FormData();
-    Array.from(files).forEach(file => formData.append("files", file));
-    formData.append("clubId", clubId);
-
-    try {
-      const result = await apiCall("/api/clubs/upload", {
-        method: "POST",
-        body: formData,
-        headers: {} // Let browser set content-type for FormData
-      });
-
-      if (result.success) {
-        preview.innerHTML = `<div class="text-success">
-          <i class="fas fa-check-circle me-2"></i>
-          Successfully uploaded ${files.length} file(s)!
-        </div>`;
-        setTimeout(() => preview.innerHTML = "", 5000);
-
-        // Clear file input
-        input.value = '';
-      } else {
-        throw new Error(result.message || 'Upload failed');
-      }
-    } catch (err) {
-      console.error('Upload failed:', err);
-      preview.innerHTML = `<div class="text-danger">
-        <i class="fas fa-exclamation-triangle me-2"></i>
-        ${getMessage('errors', 'upload').failed}
+ 
+    // Add upload button
+    preview.innerHTML += `<button id="uploadButton" class="btn btn-success btn-sm mt-2">
+      <i class="fas fa-upload me-2"></i>Upload Files
+    </button>`;
+ 
+    // Add event listener for upload button
+    document.getElementById('uploadButton').addEventListener('click', async () => {
+      preview.innerHTML = `<div class="text-info">
+        <i class="fas fa-spinner fa-spin me-2"></i>
+        Uploading ${files.length} file(s)...
       </div>`;
-    }
+ 
+      const formData = new FormData();
+      Array.from(files).forEach(file => formData.append("files", file));
+      formData.append("clubId", clubId);
+ 
+      try {
+        const result = await apiCall("/api/clubs/upload", {
+          method: "POST",
+          body: formData,
+          headers: {} // Let browser set content-type for FormData
+        });
+ 
+        if (result.success) {
+          preview.innerHTML = `<div class="text-success">
+            <i class="fas fa-check-circle me-2"></i>
+            Successfully uploaded ${files.length} file(s)!
+          </div>`;
+          setTimeout(() => preview.innerHTML = "", 5000);
+
+          // Clear file input
+          input.value = '';
+        } else {
+          throw new Error(result.message || 'Upload failed');
+        }
+      } catch (err) {
+        console.error('Upload failed:', err);
+        preview.innerHTML = `<div class="text-danger">
+          <i class="fas fa-exclamation-triangle me-2"></i>
+          ${getMessage('errors', 'upload').failed}
+        </div>`;
+      }
+    });
   }
 }
 
