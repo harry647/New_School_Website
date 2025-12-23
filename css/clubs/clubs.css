@@ -93,9 +93,10 @@ body.page-clubs {
 
 /* ==================================
    1. Hero Section
-================================== */
+ ================================== */
 .hero {
-  padding: 8rem 0;
+  padding: 4rem 0;
+  min-height: 30vh;
   background: linear-gradient(135deg, rgba(11,45,94,0.94), rgba(1,117,194,0.88)),
               url('/assets/images/clubs-hero.jpg') center/cover no-repeat fixed;
   display: grid;
@@ -406,10 +407,10 @@ body.page-clubs {
 }
 
 /* ==================================
-    9. Responsive Adjustments
+   9. Responsive Adjustments
  ================================== */
 @media (max-width: 992px) {
-  .hero { padding: 6rem 0; }
+  .hero { padding: 3rem 0; min-height: 25vh; }
   .glass-card.p-5 { padding: 2rem !important; }
 }
 
@@ -447,4 +448,19 @@ body.page-clubs {
     transform: translateY(-6px);
     box-shadow: var(--shadow-md);
   }
+}
+
+/* ==================================
+   12. Club Leaders Section
+================================ */
+.card img {
+  height: 260px;
+  object-fit: cover;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  transition: 0.3s ease-in-out;
 }

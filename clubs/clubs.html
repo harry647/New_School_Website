@@ -34,42 +34,279 @@
         <h1 class="display-2 fw-bold mb-4">Clubs & Societies</h1>
         <p class="lead fs-3 mb-4">12 Vibrant Communities • Leadership • Creativity • Impact</p>
         <p class="col-lg-8 mx-auto fs-5 opacity-90">Join a club that matches your passion. From Robotics to Drama — there's a place for everyone.</p>
-        <button onclick="showAllClubs()" class="btn btn-warning btn-lg px-5 mt-4 fw-bold shadow-lg">Explore All Clubs</button>
       </div>
     </section>
 
     <div class="container my-5">
 
-      <!-- Search & Filter -->
+      <!-- Introduction Section -->
       <div class="row mb-5">
-        <div class="col-md-6">
-          <input type="text" id="clubSearch" class="form-control form-control-lg" placeholder="Search Clubs...">
-        </div>
-        <div class="col-md-6">
-          <select id="clubCategoryFilter" class="form-select form-select-lg" aria-label="Filter by category">
-            <option value="">All Categories</option>
-            <option>Academic</option>
-            <option>Sports</option>
-            <option>Arts</option>
-            <option>Community</option>
-          </select>
+        <div class="col-lg-10 mx-auto text-center">
+          <div class="glass-card p-5 mb-4">
+  
+            <h2 class="text-primary fw-bold mb-3">
+              Welcome to Clubs & Societies at Bar Union Secondary
+            </h2>
+  
+            <p class="fs-5 mb-4">
+              Clubs and societies are a core part of student life at Bar Union Secondary.
+              They provide a platform for learners to discover talents, grow confidence,
+              build leadership skills, and form meaningful connections beyond the classroom.
+            </p>
+  
+            <div class="row text-start mt-4">
+              <div class="col-md-6 mb-3">
+                <h5 class="fw-semibold text-primary">
+                  <i class="fas fa-star me-2"></i>Why Join a Club?
+                </h5>
+                <ul class="fs-6">
+                  <li>Develop leadership and teamwork skills</li>
+                  <li>Explore interests in arts, science, technology, and service</li>
+                  <li>Boost confidence and communication abilities</li>
+                  <li>Improve academic and personal growth</li>
+                </ul>
+              </div>
+  
+              <div class="col-md-6 mb-3">
+                <h5 class="fw-semibold text-primary">
+                  <i class="fas fa-users me-2"></i>What We Offer
+                </h5>
+                <ul class="fs-6">
+                  <li>12 active clubs and societies</li>
+                  <li>Student-led leadership opportunities</li>
+                  <li>Inter-school competitions and events</li>
+                  <li>Mentorship from dedicated teachers</li>
+                </ul>
+              </div>
+            </div>
+  
+            <hr class="my-4">
+  
+            <p class="fs-5 mb-4">
+              Whether you are passionate about innovation, community service, creativity,
+              or public speaking, there is a club where your ideas and talents matter.
+            </p>
+  
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+              <span class="badge bg-primary fs-6 px-3 py-2">Leadership</span>
+              <span class="badge bg-success fs-6 px-3 py-2">Creativity</span>
+              <span class="badge bg-warning text-dark fs-6 px-3 py-2">Teamwork</span>
+              <span class="badge bg-info text-dark fs-6 px-3 py-2">Innovation</span>
+              <span class="badge bg-secondary fs-6 px-3 py-2">Community Impact</span>
+            </div>
+  
+          </div>
         </div>
       </div>
-
-      <!-- Clubs Grid -->
-      <h2 class="section-title text-center">All Clubs</h2>
-      <div id="clubsGrid" class="row g-4 mb-5"></div>
-
-      <!-- Club Details / Dashboard -->
-      <div id="clubContainer" class="mt-5"></div>
-
-      <!-- Upcoming Events -->
-      <h2 class="section-title text-center mt-5">Upcoming Club Events</h2>
-      <div id="eventsGrid" class="row g-4 mb-5"></div>
-
     </div>
-
-    <!-- Join Modal -->
+    
+        <!-- How to Join Section -->
+        <div class="row mb-5">
+          <div class="col-lg-10 mx-auto">
+            <div class="glass-card p-5">
+    
+              <h2 class="text-primary fw-bold text-center mb-4">
+                How to Join a Club or Society
+              </h2>
+    
+              <div class="row g-4 text-center">
+    
+                <div class="col-md-3">
+                  <i class="fas fa-user-check fa-3x text-primary mb-3"></i>
+                  <h5 class="fw-semibold">Step 1</h5>
+                  <p>Login to your student account to access Clubs & Societies.</p>
+                </div>
+    
+                <div class="col-md-3">
+                  <i class="fas fa-search fa-3x text-success mb-3"></i>
+                  <h5 class="fw-semibold">Step 2</h5>
+                  <p>Browse through available clubs and find one that matches your interest.</p>
+                </div>
+    
+                <div class="col-md-3">
+                  <i class="fas fa-edit fa-3x text-warning mb-3"></i>
+                  <h5 class="fw-semibold">Step 3</h5>
+                  <p>Click <strong>Join</strong> and fill out the membership application form.</p>
+                </div>
+    
+                <div class="col-md-3">
+                  <i class="fas fa-thumbs-up fa-3x text-info mb-3"></i>
+                  <h5 class="fw-semibold">Step 4</h5>
+                  <p>Wait for approval and attend the first club meeting.</p>
+                </div>
+    
+              </div>
+    
+            </div>
+          </div>
+        </div>
+    
+        <!-- Head of Clubs Message -->
+        <div class="row mb-5">
+          <div class="col-lg-8 mx-auto text-center">
+            <div class="glass-card p-5">
+    
+              <i class="fas fa-quote-left fa-2x text-primary mb-3"></i>
+    
+              <h3 class="fw-bold text-primary mb-3">
+                Message from the Head of Clubs & Societies
+              </h3>
+    
+              <p class="fs-5 fst-italic">
+                “Clubs and societies are where character is built, leadership is discovered,
+                and creativity is nurtured. We encourage every learner to participate actively,
+                explore new ideas, and contribute positively to the school community.”
+              </p>
+    
+              <hr class="my-4">
+    
+              <p class="fw-semibold mb-0">
+                — Head of Clubs & Societies
+              </p>
+              <small class="text-muted">
+                Bar Union Secondary School
+              </small>
+    
+            </div>
+          </div>
+        </div>
+    
+        <!-- Club Leaders Section -->
+        <div class="row mb-5">
+          <div class="col-lg-11 mx-auto">
+            <div class="glass-card p-5">
+    
+              <h2 class="text-primary fw-bold text-center mb-4">
+                Meet Our Club Leaders
+              </h2>
+    
+              <p class="text-center fs-5 mb-5">
+                Our clubs are led by passionate student leaders under the guidance of dedicated teachers.
+              </p>
+    
+              <div class="row g-4">
+    
+                <!-- Leader Card -->
+                <div class="col-md-4 col-lg-3">
+                  <div class="card border-0 shadow-sm h-100 text-center">
+                    <img src="/assets/images/clubs/leaders/default-student.jpg" class="card-img-top" alt="Club Leader Photo">
+                    <div class="card-body">
+                      <h5 class="fw-bold mb-1">John Doe</h5>
+                      <p class="text-muted mb-2">Chairperson</p>
+                      <span class="badge bg-primary mb-2">Science Club</span>
+                      <p class="small">
+                        Passionate about innovation and scientific research.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+    
+                <!-- Leader Card -->
+                <div class="col-md-4 col-lg-3">
+                  <div class="card border-0 shadow-sm h-100 text-center">
+                    <img src="/assets/images/clubs/leaders/default-student.jpg" class="card-img-top" alt="Club Leader Photo">
+                    <div class="card-body">
+                      <h5 class="fw-bold mb-1">Jane Smith</h5>
+                      <p class="text-muted mb-2">Vice Chairperson</p>
+                      <span class="badge bg-success mb-2">Debate Society</span>
+                      <p class="small">
+                        Skilled in public speaking and leadership development.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+    
+                <!-- Leader Card -->
+                <div class="col-md-4 col-lg-3">
+                  <div class="card border-0 shadow-sm h-100 text-center">
+                    <img src="/assets/images/clubs/leaders/default-student.jpg" class="card-img-top" alt="Club Leader Photo">
+                    <div class="card-body">
+                      <h5 class="fw-bold mb-1">Kevin Owino</h5>
+                      <p class="text-muted mb-2">Secretary</p>
+                      <span class="badge bg-warning text-dark mb-2">Environmental Club</span>
+                      <p class="small">
+                        Advocate for sustainability and environmental conservation.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+    
+                <!-- Leader Card -->
+                <div class="col-md-4 col-lg-3">
+                  <div class="card border-0 shadow-sm h-100 text-center">
+                    <img src="/assets/images/clubs/leaders/default-student.jpg" class="card-img-top" alt="Club Leader Photo">
+                    <div class="card-body">
+                      <h5 class="fw-bold mb-1">Aisha Mohamed</h5>
+                      <p class="text-muted mb-2">Treasurer</p>
+                      <span class="badge bg-info text-dark mb-2">Drama Club</span>
+                      <p class="small">
+                        Creative performer with a passion for theatre arts.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+    
+              </div>
+    
+            </div>
+          </div>
+        </div>
+    
+        <!-- Student Testimonials -->
+        <div class="row mb-5">
+          <div class="col-lg-10 mx-auto">
+            <div class="glass-card p-5">
+    
+              <h2 class="text-primary fw-bold text-center mb-4">
+                What Our Students Say
+              </h2>
+    
+              <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+    
+                  <div class="carousel-item active text-center">
+                    <p class="fs-5 fst-italic mb-4">
+                      “Joining the Science Club boosted my confidence and helped me discover
+                      my passion for innovation and teamwork.”
+                    </p>
+                    <h6 class="fw-semibold mb-0">— Mary A.</h6>
+                    <small class="text-muted">Form 3 • Science Club</small>
+                  </div>
+    
+                  <div class="carousel-item text-center">
+                    <p class="fs-5 fst-italic mb-4">
+                      “The Debate Club improved my public speaking skills and gave me the
+                      courage to express my ideas confidently.”
+                    </p>
+                    <h6 class="fw-semibold mb-0">— Kevin O.</h6>
+                    <small class="text-muted">Form 4 • Debate Society</small>
+                  </div>
+    
+                  <div class="carousel-item text-center">
+                    <p class="fs-5 fst-italic mb-4">
+                      “Through the Environmental Club, I learned responsibility and how
+                      small actions can make a big difference.”
+                    </p>
+                    <h6 class="fw-semibold mb-0">— Aisha M.</h6>
+                    <small class="text-muted">Form 2 • Environmental Club</small>
+                  </div>
+    
+                </div>
+    
+                <!-- Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon"></span>
+                </button>
+              </div>
+    
+            </div>
+          </div>
+        </div>
+    
+        <!-- Join Modal -->
     <div class="modal fade" id="joinModal">
       <div class="modal-dialog modal-lg">
         <form id="joinForm" class="modal-content glass-card border-0 text-white">

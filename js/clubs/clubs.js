@@ -328,22 +328,20 @@ function renderClubsGrid(clubsToRender = CLUBS) {
 
   grid.innerHTML = clubsToRender.map(club => `
     <div class="col-md-6 col-lg-4 mb-4">
-      <div class="glass-card p-4 text-center text-white h-100 shadow-lg cursor-pointer position-relative overflow-hidden"
-            style="border-top: 8px solid ${club.color || CLUBS_CONFIG.ui.theme.primaryColor};"
-            onclick="loadClub('${club.id}')"
-            role="button"
-            tabindex="0"
-            aria-label="View ${club.name} details">
-        <div class="card-overlay"></div>
-        <i class="fas ${club.icon || 'fa-users'} fa-3x mb-3 position-relative z-1"></i>
-        <h3 class="h5 fw-bold mb-2 position-relative z-1">${club.name}</h3>
-        <p class="small opacity-80 mb-2 position-relative z-1">${club.category || "General"}</p>
-        <p class="small opacity-70 position-relative z-1">${club.members || 0} Members</p>
-        <p class="mt-3 small position-relative z-1">${club.shortDesc || "Click to explore →"}</p>
-        <div class="card-hover-indicator position-absolute bottom-0 start-50 translate-middle-x">
-          <i class="fas fa-chevron-down fa-sm opacity-75"></i>
+      <a href="/clubs/subfiles/${club.id}.html" class="text-decoration-none">
+        <div class="glass-card p-4 text-center text-white h-100 shadow-lg cursor-pointer position-relative overflow-hidden"
+             style="border-top: 8px solid ${club.color || CLUBS_CONFIG.ui.theme.primaryColor};">
+          <div class="card-overlay"></div>
+          <i class="fas ${club.icon || 'fa-users'} fa-3x mb-3 position-relative z-1"></i>
+          <h3 class="h5 fw-bold mb-2 position-relative z-1">${club.name}</h3>
+          <p class="small opacity-80 mb-2 position-relative z-1">${club.category || "General"}</p>
+          <p class="small opacity-70 position-relative z-1">${club.members || 0} Members</p>
+          <p class="mt-3 small position-relative z-1">${club.shortDesc || "Click to explore →"}</p>
+          <div class="card-hover-indicator position-absolute bottom-0 start-50 translate-middle-x">
+            <i class="fas fa-chevron-down fa-sm opacity-75"></i>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   `).join("");
 
@@ -351,7 +349,8 @@ function renderClubsGrid(clubsToRender = CLUBS) {
   grid.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      e.target.click();
+      const link = e.target.closest('a');
+      if (link) link.click();
     }
   });
 }
