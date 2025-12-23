@@ -660,14 +660,34 @@ function handleFormSubmission(e) {
     submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
     submitButton.disabled = true;
     
-    // Simulate form submission (replace with actual submission logic)
-    setTimeout(() => {
+    // Actual API submission
+    fetch('/api/static/register-alumni', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            form.reset();
+            document.querySelectorAll('.file-preview').forEach(preview => preview.innerHTML = '');
+            showNotification(data.message || 'Thank you for joining our alumni network!', 'success');
+        } else {
+            throw new Error(data.message || 'Submission failed');
+        }
+    })
+    .catch(error => {
+        console.error('Submission error:', error);
+        showNotification('There was an error submitting your registration. Please try again.', 'error');
+    })
+    .finally(() => {
         submitButton.innerHTML = originalText;
         submitButton.disabled = false;
-        form.reset();
-        document.querySelectorAll('.file-preview').forEach(preview => preview.innerHTML = '');
-        showNotification('Thank you for joining our alumni network!', 'success');
-    }, 2000);
+    });
 }
 
 function showNotification(message, type) {

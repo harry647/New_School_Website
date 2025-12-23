@@ -56,7 +56,7 @@ const writeJSON = (filePath, data) => {
 const createUploader = (folder, allowedExtensions = [], maxSize = 15 * 1024 * 1024) => {
   const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      const uploadPath = path.join(__dirname, '..', 'public', 'uploads', folder);
+      const uploadPath = path.join(__dirname, '..', '..', 'public', 'uploads', folder);
       fs.mkdirSync(uploadPath, { recursive: true });
       cb(null, uploadPath);
     },
@@ -90,6 +90,7 @@ const uploadResume = createUploader('resumes/', [...documentExtensions, ...image
 const uploadBlogImage = createUploader('blogs/', imageExtensions);
 const uploadDonationDoc = createUploader('donations/', [...documentExtensions, ...imageExtensions]);
 const uploadDepartmentFile = createUploader('departments/', [...documentExtensions, ...mediaExtensions, ...imageExtensions]);
+const uploadAlumniPhotos = createUploader('alumni/', imageExtensions);
 
 /**
  * @route   POST /submit-enquiry
@@ -427,6 +428,47 @@ router.post('/feedback', (req, res) => {
 router.get('/notifications', (req, res) => {
   const notifications = readJSON(path.join(__dirname, '..', '..', 'data', 'notifications.json'));
   res.json(notifications || []);
+});
+
+/**
+ * @route   POST /register-alumni
+ * @desc    Handles alumni registration and profile updates with photo uploads.
+ * @access  Public
+ */
+router.post('/register-alumni', uploadAlumniPhotos.fields([
+  { name: 'profile_photo', maxCount: 1 },
+  { name: 'passport_photo', maxCount: 1 }
+]), (req, res) => {
+  const { name, batch, _replyto: email, phone, profession, organization, location, message, skills, connect } = req.body;
+
+  if (!name || !batch || !email) {
+    return res.status(400).json({ success: false, message: 'Name, batch year, and email are required.' });
+  }
+
+  const file = path.join(__dirname, '..', '..', 'data', 'alumni-registrations.json');
+  const registrations = readJSON(file);
+
+  registrations.push({
+    id: Date.now().toString(),
+    name: name.trim(),
+    batch: batch.trim(),
+    email: email.toLowerCase().trim(),
+    phone: phone?.trim() || null,
+    profession: profession?.trim() || null,
+    organization: organization?.trim() || null,
+    location: location?.trim() || null,
+    favorite_memory: message?.trim() || null,
+    skills_interests: skills?.trim() || null,
+    connection_preferences: connect?.trim() || null,
+    profile_photo: req.files?.profile_photo?.[0] ? `/uploads/alumni/${req.files.profile_photo[0].filename}` : null,
+    passport_photo: req.files?.passport_photo?.[0] ? `/uploads/alumni/${req.files.passport_photo[0].filename}` : null,
+    registration_date: new Date().toISOString(),
+    status: "new"
+  });
+
+  writeJSON(file, registrations);
+  console.log(`Alumni Registration → ${name} | Batch ${batch}`);
+  res.json({ success: true, message: "Thank you for joining our alumni network! We'll contact you soon." });
 });
 
 export default router;
