@@ -49,5 +49,41 @@
     "published_at": null,
     "ip_address": "::1",
     "user_agent": "curl/8.13.0"
+  },
+  {
+    "id": "1766513553903",
+    "author_name": "John Doe",
+    "grade": "Form 3",
+    "email": "john@example.com",
+    "title": "My School Experience",
+    "topic": "academics & study tips",
+    "content": "This is a test blog post about my experience at Bar Union School.",
+    "image": null,
+    "submitted_at": "2025-12-23T18:12:33.903Z",
+    "status": "pending"
+  },
+  {
+    "id": "1766513622118",
+    "author_name": "Jane Smith",
+    "grade": "Form 2",
+    "email": "jane@example.com",
+    "title": "My First Blog Post",
+    "topic": "creative writing",
+    "content": "This is another test blog post to verify the form works correctly.",
+    "image": null,
+    "submitted_at": "2025-12-23T18:13:42.118Z",
+    "status": "pending"
+  },
+  {
+    "id": "1766513650050",
+    "author_name": "Test User",
+    "grade": "Form 4",
+    "email": "test@example.com",
+    "title": "Test with Image",
+    "topic": "school events",
+    "content": "This blog post includes an image upload test.",
+    "image": "/uploads/blogs/1766513650045-582220985.jpg",
+    "submitted_at": "2025-12-23T18:14:10.050Z",
+    "status": "pending"
   }
 ]

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "1766514378155",
+    "name": "John Doe",
+    "email": "john@example.com",
+    "phone": "+254712345678",
+    "subject": "Test Inquiry",
+    "department": "General",
+    "message": "This is a test message",
+    "preferred_contact": "Email",
+    "submitted_at": "2025-12-23T18:26:18.155Z",
+    "status": "new"
+  }
+]

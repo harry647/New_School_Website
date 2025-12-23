@@ -296,6 +296,39 @@ router.post('/contact', (req, res) => {
 });
 
 /**
+ * @route   POST /contactus
+ * @desc    Handles the contact form submission from the contact page.
+ * @access  Public
+ */
+router.post('/contactus', (req, res) => {
+  const { name, _replyto: email, phone, subject, department, message, followup } = req.body;
+
+  if (!name || !email || !phone || !subject || !message) {
+    return res.status(400).json({ success: false, message: 'Required fields missing.' });
+  }
+
+  const file = path.join(__dirname, '..', '..', 'data', 'contactus.json');
+  const contacts = readJSON(file);
+
+  contacts.push({
+    id: Date.now().toString(),
+    name: name.trim(),
+    email: email.toLowerCase().trim(),
+    phone: phone.trim(),
+    subject,
+    department: department || "General",
+    message: message.trim(),
+    preferred_contact: followup || "Any",
+    submitted_at: new Date().toISOString(),
+    status: "new"
+  });
+
+  writeJSON(file, contacts);
+  console.log(`Contact Us → ${name} | ${subject}`);
+  res.json({ success: true, message: "Message received!" });
+});
+
+/**
  * @route   POST /submit-blog
  * @desc    Handles student blog submissions with an image upload.
  * @access  Public

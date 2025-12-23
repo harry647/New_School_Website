@@ -1,0 +1,9 @@
+{
+  "name": "John Doe",
+  "_replyto": "john@example.com",
+  "phone": "+254712345678",
+  "subject": "Test Inquiry",
+  "department": "General",
+  "message": "This is a test message",
+  "followup": "Email"
+}
