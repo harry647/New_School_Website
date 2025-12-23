@@ -9,20 +9,73 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/e-learning/e-learning.css">
 </head>
-<body>
+<body class="page-learning-portal" data-page="calendar">
   <div class="container my-5">
     <section id="calendar" class="mb-5">
       <h2 class="section-title text-center mb-5">Your Schedule</h2>
+      <div id="calendarAdminControls" class="d-none mb-4"></div>
+      <!--
+      Calendar Event Object:
+      {
+        id,
+        title,
+        type: class | assignment | exam | meeting,
+        date,
+        startTime,
+        endTime,
+        subject,
+        location
+      }
+      -->
       <div class="row">
         <div class="col-lg-8">
           <div class="glass-card p-4">
-            <div id="calendarGrid" class="calendar-grid"></div>
+            <div class="d-flex gap-2 mb-3">
+              <button id="goToday" class="btn btn-outline-primary btn-sm">
+                Today
+              </button>
+              <button id="refreshCalendar" class="btn btn-outline-secondary btn-sm">
+                <i class="fas fa-sync"></i>
+              </button>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <button id="prevMonth" class="btn btn-outline-secondary btn-sm">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <h5 id="currentMonth" class="mb-0"></h5>
+              <button id="nextMonth" class="btn btn-outline-secondary btn-sm">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="d-flex flex-wrap gap-3 mt-3 small">
+              <span><i class="fas fa-circle text-primary me-1"></i> <time datetime="2025-06-12">12 Jun</time> Classes</span>
+              <span><i class="fas fa-circle text-warning me-1"></i> <time datetime="2025-06-12">12 Jun</time> Assignments</span>
+              <span><i class="fas fa-circle text-danger me-1"></i> <time datetime="2025-06-12">12 Jun</time> Exams</span>
+              <span><i class="fas fa-circle text-success me-1"></i> <time datetime="2025-06-12">12 Jun</time> Meetings</span>
+              <span><i class="fas fa-circle text-primary me-1"></i> Classes</span>
+              <span><i class="fas fa-circle text-warning me-1"></i> Assignments</span>
+              <span><i class="fas fa-circle text-danger me-1"></i> Exams</span>
+              <span><i class="fas fa-circle text-success me-1"></i> Meetings</span>
+            </div>
+            <div id="calendarGrid" class="calendar-grid">
+              <div id="calendarLoading" class="text-center py-5">
+                <div class="spinner-border text-primary mb-3"></div>
+                <p>Loading calendar...</p>
+              </div>
+              <div id="calendarEmpty" class="alert alert-info d-none">
+                No scheduled events yet.
+              </div>
+              <div id="calendarError" class="alert alert-danger d-none">
+                Failed to load calendar data.
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="glass-card p-4">
             <h4 class="mb-3">Upcoming Events</h4>
-            <div id="upcomingEvents"></div>
+            <!-- Upcoming events should link to their respective pages -->
+            <div id="upcomingEvents" aria-live="polite"></div>
           </div>
         </div>
       </div>
@@ -30,5 +83,9 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/js/e-learning/calendar.js"></script>
+  <!--
+  Calendar API:
+  GET /api/calendar?month=&year=
+  -->
 </body>
 </html>

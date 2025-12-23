@@ -32,7 +32,7 @@
   <!-- Custom Styles -->
   <link rel="stylesheet" href="/css/e-learning/e-learning.css">
 </head>
-<body class="page-learning-portal">
+<body class="page-learning-portal" data-page="forum-thread">
 
   <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
@@ -57,7 +57,58 @@
 
   <!-- Main Content -->
   <div class="container my-5">
+    <!-- Thread Loading State -->
+    <div id="threadLoading" class="text-center py-5">
+      <div class="spinner-border text-primary mb-3"></div>
+      <p>Loading discussion...</p>
+    </div>
+
+    <!-- Thread Error State -->
+    <div id="threadError" class="alert alert-danger d-none">
+      Failed to load discussion.
+    </div>
+
+    <!-- Thread Data Contract -->
+    <!--
+    Forum Thread Object:
+    {
+      id,
+      title,
+      author,
+      createdAt,
+      content,
+      replies[],
+      isLocked,
+      isPinned
+    }
+    -->
+
     <div id="threadDetails"></div>
+
+    <!-- Reply Composer -->
+    <div id="replyComposer" class="glass-card p-4 mt-4 d-none">
+      <h5 class="mb-3">Post a Reply</h5>
+      <textarea id="replyContent" class="form-control mb-3" rows="4"
+        placeholder="Write your reply..."></textarea>
+      <button id="postReplyBtn" class="btn btn-primary">
+        <i class="fas fa-paper-plane me-1"></i> Post Reply
+      </button>
+    </div>
+
+    <!-- Load More Replies -->
+    <div id="loadMoreReplies" class="text-center my-4 d-none">
+      <button class="btn btn-outline-secondary btn-sm">
+        Load more replies
+      </button>
+    </div>
+
+    <!-- Moderation Tools -->
+    <div id="moderationTools" class="d-none"></div>
+
+    <!-- Thread Sync Status -->
+    <div id="threadSyncStatus" class="small text-muted d-none">
+      Syncing replies...
+    </div>
   </div>
 
   <!-- Footer -->
@@ -67,6 +118,13 @@
   <button id="backToTop" class="btn btn-primary rounded-circle shadow position-fixed bottom-0 end-0 m-4" style="display:none; z-index:1000;">
     <i class="fas fa-arrow-up"></i>
   </button>
+
+  <!-- API Contract Reminder -->
+  <!--
+  Forum API:
+  GET /api/forum/thread/:id
+  POST /api/forum/thread/:id/reply
+  -->
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
