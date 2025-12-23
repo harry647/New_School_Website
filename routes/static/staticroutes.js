@@ -300,7 +300,8 @@ router.post('/contact', (req, res) => {
  * @desc    Handles the contact form submission from the contact page.
  * @access  Public
  */
-router.post('/contactus', (req, res) => {
+const uploadContactAttachment = createUploader('contact/', [...documentExtensions, ...imageExtensions]);
+router.post('/contactus', uploadContactAttachment.single('attachment'), (req, res) => {
   const { name, _replyto: email, phone, subject, department, message, followup } = req.body;
 
   if (!name || !email || !phone || !subject || !message) {

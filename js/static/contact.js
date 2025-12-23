@@ -10,11 +10,18 @@ document.addEventListener("DOMContentLoaded", function () {
   // =====================================================
   // 1. ENHANCED CONTACT FORM WITH BEAUTIFUL UX
   // =====================================================
-  const form = document.querySelector(".contact-form");
-  const submitBtn = form?.querySelector('button[type="submit"]');
+  const form = document.querySelector("form#contactForm");
+  
+  // Additional check to ensure form is a valid HTMLFormElement
+  if (!form || !(form instanceof HTMLFormElement)) {
+    console.error('Contact form not found or not a valid HTMLFormElement');
+    return;
+  }
+  
+  const submitBtn = form.querySelector('button[type="submit"]');
   const originalBtnHTML = submitBtn?.innerHTML || "Send Message";
 
-  if (form) {
+  if (form && submitBtn) {
     // Enhanced file preview for uploaded documents
     const fileInput = form.querySelector('input[name="attachment"]');
     const preview = document.getElementById("filePreview");
@@ -96,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Enhanced form data logging for debugging
         console.log("Form data being sent:", Object.fromEntries(formData));
 
-        const response = await fetch("/api/static/contact", {
+        const response = await fetch("/api/static/contactus", {
           method: "POST",
           body: formData,
           headers: { 
@@ -296,8 +303,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }, i * 100);
       }
     }
+  } else {
+    console.warn('Contact form or submit button not found');
   }
-
+  
   // =====================================================
   // 2. ENHANCED FAQ ACCORDION WITH ANIMATIONS
   // =====================================================

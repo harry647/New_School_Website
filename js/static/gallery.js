@@ -599,12 +599,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (openPhotoUploadBtn && photoUploadModal) {
         openPhotoUploadBtn.addEventListener('click', () => {
           photoUploadModal.style.display = 'flex';
+          // Ensure modal opens below the navbar
+          photoUploadModal.style.marginTop = '80px';
         });
       }
   
       if (openVideoUploadBtn && videoUploadModal) {
         openVideoUploadBtn.addEventListener('click', () => {
           videoUploadModal.style.display = 'flex';
+          // Ensure modal opens below the navbar
+          videoUploadModal.style.marginTop = '80px';
         });
       }
   
@@ -616,13 +620,42 @@ document.addEventListener("DOMContentLoaded", async () => {
           }
         });
       });
-  
+ 
       // Close modals when clicking outside the content
       window.addEventListener('click', (event) => {
         if (event.target.classList.contains('modal-overlay')) {
           event.target.style.display = 'none';
         }
       });
+  
+      // Handle photo preview
+      const photoFilesInput = document.getElementById('photoFiles');
+      const selectedPhotosList = document.getElementById('selectedPhotosList');
+      if (photoFilesInput && selectedPhotosList) {
+        photoFilesInput.addEventListener('change', (e) => {
+          selectedPhotosList.innerHTML = '';
+          const files = Array.from(e.target.files);
+          files.forEach(file => {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'selected-file-item';
+            fileItem.textContent = file.name;
+            selectedPhotosList.appendChild(fileItem);
+          });
+        });
+      }
+  
+      // Handle video file selection
+      const videoFileInput = document.getElementById('videoFile');
+      const fileInfo = document.getElementById('fileInfo');
+      if (videoFileInput && fileInfo) {
+        videoFileInput.addEventListener('change', (e) => {
+          if (e.target.files.length > 0) {
+            fileInfo.textContent = e.target.files[0].name;
+          } else {
+            fileInfo.textContent = 'No file selected';
+          }
+        });
+      }
   
       // Handle photo upload form submission
       const photoUploadForm = document.getElementById('photoUploadForm');
@@ -732,6 +765,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             .empty-state p {
                 margin: 0;
                 font-size: 1rem;
+            }
+            .modal-overlay {
+                margin-top: 120px;
+            }
+            .selected-file-item {
+                padding: 8px;
+                margin: 4px 0;
+                background: #f0f0f0;
+                border-radius: 4px;
             }
         `;
         document.head.appendChild(style);

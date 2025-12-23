@@ -85,5 +85,29 @@
     "image": "/uploads/blogs/1766513650045-582220985.jpg",
     "submitted_at": "2025-12-23T18:14:10.050Z",
     "status": "pending"
+  },
+  {
+    "id": "1766520601589",
+    "author_name": "John Doe",
+    "grade": "Form 3",
+    "email": "john.doe@example.com",
+    "title": "Test Blog",
+    "topic": "academics & study tips",
+    "content": "This is a test blog post.",
+    "image": null,
+    "submitted_at": "2025-12-23T20:10:01.589Z",
+    "status": "pending"
+  },
+  {
+    "id": "1766520791354",
+    "author_name": "patrick okeyo",
+    "grade": "Grade 10",
+    "email": "harryoginga@gmail.com",
+    "title": "days in school",
+    "topic": "academics & study tips",
+    "content": "love school activities",
+    "image": "/uploads/blogs/1766520791345-49661566.jpg",
+    "submitted_at": "2025-12-23T20:13:11.354Z",
+    "status": "pending"
   }
 ]

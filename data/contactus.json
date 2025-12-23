@@ -10,5 +10,65 @@
     "preferred_contact": "Email",
     "submitted_at": "2025-12-23T18:26:18.155Z",
     "status": "new"
+  },
+  {
+    "id": "1766521559270",
+    "name": "Test User",
+    "email": "test@example.com",
+    "phone": "+254712345678",
+    "subject": "Test Subject",
+    "department": "General",
+    "message": "Test message",
+    "preferred_contact": "Email",
+    "submitted_at": "2025-12-23T20:25:59.270Z",
+    "status": "new"
+  },
+  {
+    "id": "1766521640933",
+    "name": "Test User",
+    "email": "test@example.com",
+    "phone": "+254712345678",
+    "subject": "Test Subject",
+    "department": "General",
+    "message": "Test message",
+    "preferred_contact": "Email",
+    "submitted_at": "2025-12-23T20:27:20.933Z",
+    "status": "new"
+  },
+  {
+    "id": "1766521765404",
+    "name": "Test User",
+    "email": "test@example.com",
+    "phone": "+254712345678",
+    "subject": "Test Subject",
+    "department": "General",
+    "message": "Test message",
+    "preferred_contact": "Email",
+    "submitted_at": "2025-12-23T20:29:25.404Z",
+    "status": "new"
+  },
+  {
+    "id": "1766522575665",
+    "name": "harry oginga",
+    "email": "harryoginga@example.com",
+    "phone": "+254706259403",
+    "subject": "Admission Inquiry",
+    "department": "Admissions",
+    "message": "i need fee structure",
+    "preferred_contact": "Email",
+    "submitted_at": "2025-12-23T20:42:55.665Z",
+    "status": "new"
+  },
+  {
+    "id": "1766522723079",
+    "name": "harry oginga",
+    "email": "harryoginga@gmail.com",
+    "phone": "+254708759036",
+    "subject": "School Tour Request",
+    "department": "Academic Office",
+    "message": "i need to no more about the school",
+    "preferred_contact": "Phone Call",
+    "submitted_at": "2025-12-23T20:45:23.079Z",
+    "status": "new"
   }
 ]

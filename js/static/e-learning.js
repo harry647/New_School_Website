@@ -66,11 +66,20 @@ document.addEventListener("DOMContentLoaded", function () {
         const preferences = [];
         formData.getAll("preferences[]").forEach(p => preferences.push(p));
 
+        const email = formData.get("_replyto")?.trim().toLowerCase();
+
+        // Validate email
+        if (!email) {
+          throw new Error("Email is required.");
+        }
+
         const payload = {
-          email: formData.get("_replyto")?.trim().toLowerCase(),
+          _replyto: email,
           name: formData.get("name")?.trim() || null,
-          preferences: preferences
+          'preferences[]': preferences
         };
+
+        console.log("Submitting payload:", payload); // Debug log
 
         const response = await fetch("/api/static/subscribe", {
           method: "POST",
@@ -83,14 +92,106 @@ document.addEventListener("DOMContentLoaded", function () {
         if (response.ok && result.success) {
           newsletterForm.style.opacity = "0.5";
           newsletterForm.style.pointerEvents = "none";
-          successMsg.style.display = "block";
+          
+          // Reset the submit button state
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = "Subscribed!";
+          submitBtn.style.backgroundColor = "#28a745";
+          
+          console.log("Subscription successful!");
+          
+          // Create or update success message with enhanced styling
+          if (!successMsg) {
+            successMsg = document.createElement('div');
+            successMsg.id = 'subscriptionSuccess';
+            successMsg.style.cssText = `
+              background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+              color: #155724;
+              padding: 25px;
+              border-radius: 12px;
+              margin: 20px 0;
+              border: 2px solid #28a745;
+              box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
+              text-align: center;
+              animation: fadeIn 0.5s ease-out;
+              position: relative;
+              overflow: hidden;
+            `;
+            
+            // Add checkmark icon
+            const checkmark = document.createElement('div');
+            checkmark.style.cssText = `
+              font-size: 50px;
+              margin-bottom: 15px;
+              color: #28a745;
+              animation: bounce 0.5s ease-out;
+            `;
+            checkmark.innerHTML = '✓';
+            successMsg.appendChild(checkmark);
+            
+            // Add message container
+            const messageContainer = document.createElement('div');
+            messageContainer.className = 'message-text';
+            messageContainer.style.cssText = `
+              font-size: 18px;
+              font-weight: 600;
+              margin-bottom: 10px;
+            `;
+            successMsg.appendChild(messageContainer);
+            
+            // Add additional info
+            const additionalInfo = document.createElement('div');
+            additionalInfo.style.cssText = `
+              font-size: 14px;
+              opacity: 0.8;
+              margin-top: 10px;
+            `;
+            additionalInfo.textContent = 'You will receive updates about school news, events, and important announcements.';
+            successMsg.appendChild(additionalInfo);
+            
+            // Insert after the form
+            newsletterForm.parentNode.insertBefore(successMsg, newsletterForm.nextSibling);
+          }
+          
+          // Update success message content
+          const messageText = successMsg.querySelector('.message-text') || successMsg;
+          messageText.textContent = result.message || "Subscription successful! Thank you for subscribing.";
+          
           successMsg.scrollIntoView({ behavior: "smooth", block: "center" });
+          
+          // Add CSS animations if not already present
+          if (!document.getElementById('subscription-animations')) {
+            const style = document.createElement('style');
+            style.id = 'subscription-animations';
+            style.textContent = `
+              @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+              }
+              @keyframes bounce {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.2); }
+              }
+            `;
+            document.head.appendChild(style);
+          }
         } else {
           throw new Error(result.message || "Subscription failed");
         }
       } catch (err) {
         console.error("Subscription error:", err);
-        alert("Could not subscribe. Please try again later or email us directly.");
+        
+        // Provide more user-friendly error message
+        let errorMessage = "Could not subscribe. Please try again.";
+        if (err.message && err.message.includes("network")) {
+          errorMessage = "Network error. Please check your connection and try again.";
+        } else if (err.message && err.message.includes("email")) {
+          errorMessage = "Invalid email format. Please enter a valid email address.";
+        } else if (err.message && err.message.includes("already")) {
+          errorMessage = "You are already subscribed to our newsletter.";
+        }
+        
+        alert(errorMessage);
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalHTML;
       }

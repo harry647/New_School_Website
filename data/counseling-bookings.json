@@ -24,5 +24,18 @@
     "resume_path": null,
     "submitted_at": "2025-12-23T18:05:56.374Z",
     "status": "pending"
+  },
+  {
+    "id": "1766519678699",
+    "student_name": "harry oginga",
+    "grade": "Grade 10",
+    "parent_name": "Margrate anyango",
+    "phone": "+254706259403",
+    "email": "harryoginga@gmail.com",
+    "preferred_date": "2025-12-24",
+    "query": "education science",
+    "resume_path": null,
+    "submitted_at": "2025-12-23T19:54:38.700Z",
+    "status": "pending"
   }
 ]

@@ -100,6 +100,11 @@ const pages = [
   'e-learning', 'alumni', 'career-guidance', 'support-utilities'
 ];
 
+// Serve favicon
+app.get('/favicon.ico', (req, res) => {
+  res.sendFile(path.join(__dirname, 'assets', 'images', 'favicon.ico'));
+});
+
 pages.forEach(page => {
   const route = page === '' ? '/' : `/${page}`;
   const fileName = page === '' ? 'index.html' : `${page}.html`;

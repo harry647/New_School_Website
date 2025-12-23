@@ -22,5 +22,62 @@
     "subscribed_at": "2025-12-23T17:59:24.709Z",
     "source": "website",
     "status": "active"
+  },
+  {
+    "id": "1766516878320",
+    "email": "newtest@example.com",
+    "name": "New Test User",
+    "preferences": [
+      "Admissions",
+      "Events"
+    ],
+    "subscribed_at": "2025-12-23T19:07:58.320Z",
+    "source": "website",
+    "status": "active"
+  },
+  {
+    "id": "1766516937379",
+    "email": "harryoginga@gmail.com",
+    "name": "harryoginga",
+    "preferences": [
+      "Admissions"
+    ],
+    "subscribed_at": "2025-12-23T19:08:57.379Z",
+    "source": "website",
+    "status": "active"
+  },
+  {
+    "id": "1766517795059",
+    "email": "brandnewuser1766517794999@example.com",
+    "name": "Brand New User",
+    "preferences": [
+      "Admissions",
+      "Events"
+    ],
+    "subscribed_at": "2025-12-23T19:23:15.059Z",
+    "source": "website",
+    "status": "active"
+  },
+  {
+    "id": "1766518047766",
+    "email": "harry232@example.com",
+    "name": "eunice akoth",
+    "preferences": [
+      "Alumni"
+    ],
+    "subscribed_at": "2025-12-23T19:27:27.766Z",
+    "source": "website",
+    "status": "active"
+  },
+  {
+    "id": "1766518373314",
+    "email": "edwinokello@example.com",
+    "name": "edwin okello",
+    "preferences": [
+      "E-learning"
+    ],
+    "subscribed_at": "2025-12-23T19:32:53.314Z",
+    "source": "website",
+    "status": "active"
   }
 ]

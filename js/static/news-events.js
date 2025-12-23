@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const constants = {
     DEFAULT_IMG: "/assets/images/defaults/default-news.jpg",
-    DEFAULT_BLOG_IMG: "/assets/images/defaults/default-blog.jpg",
+    DEFAULT_BLOG_IMG: "/assets/images/defaults/default-gallery.jpg",
     DEFAULT_AVATAR: "/assets/images/defaults/default-user.png"
   };
 
@@ -891,23 +891,39 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     blogForm.addEventListener("submit", async function (e) {
       e.preventDefault();
-
+  
       const submitBtn = blogForm.querySelector('button[type="submit"]');
       const originalHTML = submitBtn.innerHTML;
-
+  
+      // Validate form fields
+      const authorName = blogForm.querySelector('input[name="author_name"]').value.trim();
+      const grade = blogForm.querySelector('select[name="grade"]').value;
+      const email = blogForm.querySelector('input[name="email"]').value.trim();
+      const title = blogForm.querySelector('input[name="title"]').value.trim();
+      const topic = blogForm.querySelector('select[name="topic"]').value;
+      const content = blogForm.querySelector('textarea[name="content"]').value.trim();
+      const consent = blogForm.querySelector('input[name="consent"]').checked;
+  
+      if (!authorName || !grade || !email || !title || !topic || !content || !consent) {
+        alert("All fields are required. Please fill in all the fields and check the consent box.");
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalHTML;
+        return;
+      }
+  
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-
+  
       try {
         const formData = new FormData(blogForm);
-
+  
         const response = await fetch(blogForm.action, {
           method: "POST",
           body: formData
         });
-
+  
         const result = await response.json();
-
+  
         if (response.ok && result.success) {
           blogForm.innerHTML = `
             <div class="success-message">
@@ -915,8 +931,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <i class="fas fa-check-circle"></i>
               </div>
               <h2>Blog Submitted Successfully!</h2>
-              <p>Thank you, <strong>${formData.get('student_name') || 'Student'}!</strong></p>
-              <p>Your blog "<strong>${formData.get('blog_title') || ''}</strong>" has been received.</p>
+              <p>Thank you, <strong>${authorName}!</strong></p>
+              <p>Your blog "<strong>${title}</strong>" has been received.</p>
               <p>Our team will review it within 3–5 days and notify you by email when it goes live!</p>
               <p class="encouragement">
                 <i class="fas fa-heart"></i>
@@ -925,11 +941,11 @@ document.addEventListener("DOMContentLoaded", async () => {
               </p>
             </div>
           `;
-          
+  
           // Enhanced success animation
           const successDiv = blogForm.querySelector('.success-message');
           fadeIn(successDiv, 600);
-          
+  
         } else {
           throw new Error(result.message || "Submission failed");
         }

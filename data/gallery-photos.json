@@ -20,5 +20,27 @@
     "photo_path": "/uploads/gallery/photos/1766512187584-947963405.jpg",
     "submitted_at": "2025-12-23T17:49:47.586Z",
     "status": "pending"
+  },
+  {
+    "id": "1766515849628",
+    "name": "harry oginga",
+    "email": "harryoginga@gmail.com",
+    "category": "academics",
+    "event_date": "2025-12-10",
+    "description": "looks great",
+    "photo_path": "/uploads/gallery/photos/1766515849608-185633223.png",
+    "submitted_at": "2025-12-23T18:50:49.628Z",
+    "status": "pending"
+  },
+  {
+    "id": "1766518978333",
+    "name": "harryoginga",
+    "email": "harryoginga@gmail.com",
+    "category": "academics",
+    "event_date": "2025-12-05",
+    "description": "i like maths",
+    "photo_path": "/uploads/gallery/photos/1766518978320-339433646.png",
+    "submitted_at": "2025-12-23T19:42:58.333Z",
+    "status": "pending"
   }
 ]
