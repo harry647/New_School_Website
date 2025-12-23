@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
   <link rel="stylesheet" href="/css/clubs/clubs.css" />
 </head>
-<body class="bg-light">
+<body>
 
   <div w3-include-html="/includes/clb-en-header.html"></div>
 
@@ -192,41 +192,55 @@
       const container = document.getElementById('debateEvents');
       if (!container) return;
 
-      const clubId = 'debate'; // Must match club.id in clubs.json
+      const clubId = 'debate';
 
-      const loadEvents = () => {
-        if (typeof window.EVENTS === 'undefined') {
-          setTimeout(loadEvents, 100);
-          return;
-        }
+      const loadEvents = async () => {
+        try {
+          const response = await fetch('/api/clubs/events/public');
+          const data = await response.json();
 
-        const clubEvents = window.EVENTS
-          .filter(group => group.clubId === clubId)
-          .flatMap(group => group.events || []);
+          if (!data.success || !Array.isArray(data.data)) {
+            throw new Error('Invalid events data');
+          }
 
-        if (clubEvents.length === 0) {
+          const clubEvents = data.data
+            .filter(group => group.clubId === clubId)
+            .flatMap(group => group.events || []);
+
+          if (clubEvents.length === 0) {
+            container.innerHTML = `
+              <div class="col-12 text-center py-5">
+                <p class="text-muted fs-5">No upcoming events scheduled.</p>
+              </div>`;
+            return;
+          }
+
+          container.innerHTML = clubEvents.map(ev => `
+            <div class="col-md-6 mb-4">
+              <div class="glass-card p-4 text-white h-100">
+                <h5 class="fw-bold">${ev.title}</h5>
+                <p class="small opacity-80 mb-2">
+                  ${new Date(ev.date).toLocaleDateString('en-KE', {
+                    weekday: 'long', month: 'long', day: 'numeric'
+                  })}
+                </p>
+                ${ev.time ? `<p class="small opacity-80"><i class="far fa-clock"></i> ${ev.time}</p>` : ''}
+                ${ev.location ? `<p class="small opacity-80"><i class="fas fa-map-marker-alt"></i> ${ev.location}</p>` : ''}
+                <p class="mt-3">${ev.description || ''}</p>
+              </div>
+            </div>
+          `).join('');
+        } catch (err) {
+          console.error('Failed to load events:', err);
           container.innerHTML = `
             <div class="col-12 text-center py-5">
-              <p class="text-muted fs-5">No upcoming events scheduled.</p>
+              <i class="fas fa-exclamation-triangle fa-2x text-danger mb-3"></i>
+              <p class="text-muted fs-5">Failed to load events. Please try again later.</p>
+              <button onclick="window.location.reload()" class="btn btn-outline-light btn-sm mt-2">
+                <i class="fas fa-redo me-2"></i>Retry
+              </button>
             </div>`;
-          return;
         }
-
-        container.innerHTML = clubEvents.map(ev => `
-          <div class="col-md-6 mb-4">
-            <div class="glass-card p-4 text-white h-100">
-              <h5 class="fw-bold mb-2">${ev.title}</h5>
-              <p class="small opacity-80 mb-2">
-                ${new Date(ev.date).toLocaleDateString('en-KE', {
-                  weekday: 'long', month: 'long', day: 'numeric'
-                })}
-              </p>
-              ${ev.time ? `<p class="small opacity-80"><i class="far fa-clock"></i> ${ev.time}</p>` : ''}
-              ${ev.location ? `<p class="small opacity-80"><i class="fas fa-map-marker-alt"></i> ${ev.location}</p>` : ''}
-              <p class="mt-3">${ev.description || ''}</p>
-            </div>
-          </div>
-        `).join('');
       };
 
       loadEvents();

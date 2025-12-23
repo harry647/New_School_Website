@@ -19,76 +19,63 @@
   --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Club-specific styles */
-.club-art { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
-.club-christian-union { background: linear-gradient(135deg, #a8edea, #fed6e3); }
-.club-debate { background: linear-gradient(135deg, #d299c2, #fef9d7); }
-.club-drama { background: linear-gradient(135deg, #fdbb2d, #22c1c3); }
-.club-humanities { background: linear-gradient(135deg, #eb3349, #f45c43); }
-.club-journalism { background: linear-gradient(135deg, #667eea, #764ba2); }
-.club-mathematics { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-.club-music { background: linear-gradient(135deg, #43e97b, #38f9d7); }
-.club-robotics { background: linear-gradient(135deg, #fa709a, #fee140); }
-.club-science { background: linear-gradient(135deg, #30cfd0, #330867); }
-.club-scouts { background: linear-gradient(135deg, #a8caba, #5d4157); }
-.club-wildlife { background: linear-gradient(135deg, #56ab2f, #a8e063); }
+/* ==================================
+   DESIGN GOAL: Soft artistic background
+================================== */
+body {
+  background:
+    radial-gradient(circle at top left, rgba(255, 105, 180, 0.08), transparent 40%),
+    radial-gradient(circle at bottom right, rgba(138, 43, 226, 0.08), transparent 40%),
+    linear-gradient(180deg, #0e0e11, #12121a);
+  color: #eaeaf0;
+}
 
-/* Club-specific text and accent colors */
-.club-art { --club-color: #e91e63; }
-.club-christian-union { --club-color: #4361ee; }
-.club-debate { --club-color: #3498db; }
-.club-drama { --club-color: #e67e22; }
-.club-humanities { --club-color: #95a5a6; }
-.club-journalism { --club-color: #e74c3c; }
-.club-mathematics { --club-color: #4caf50; }
-.club-music { --club-color: #f1c40f; }
-.club-robotics { --club-color: #9c27b0; }
-.club-science { --club-color: #009688; }
-.club-scouts { --club-color: #ff9800; }
-.club-wildlife { --club-color: #27ae60; }
 
-/* Club-specific button and link styles */
-.club-art .btn-success { background-color: #e91e63; border-color: #e91e63; }
-.club-christian-union .btn-success { background-color: #4361ee; border-color: #4361ee; }
-.club-debate .btn-success { background-color: #3498db; border-color: #3498db; }
-.club-drama .btn-success { background-color: #e67e22; border-color: #e67e22; }
-.club-humanities .btn-success { background-color: #95a5a6; border-color: #95a5a6; }
-.club-journalism .btn-success { background-color: #e74c3c; border-color: #e74c3c; }
-.club-mathematics .btn-success { background-color: #4caf50; border-color: #4caf50; }
-.club-music .btn-success { background-color: #f1c40f; border-color: #f1c40f; }
-.club-robotics .btn-success { background-color: #9c27b0; border-color: #9c27b0; }
-.club-science .btn-success { background-color: #009688; border-color: #009688; }
-.club-scouts .btn-success { background-color: #ff9800; border-color: #ff9800; }
-.club-wildlife .btn-success { background-color: #27ae60; border-color: #27ae60; }
+/* DESIGN GOAL: Club Logo Styling */
+.club-logo {
+  max-width: 220px;
+  background: rgba(255,255,255,0.1);
+  padding: 1rem;
+}
 
-/* Club-specific link and hover effects */
-.club-art a { color: #e91e63; }
-.club-christian-union a { color: #4361ee; }
-.club-debate a { color: #3498db; }
-.club-drama a { color: #e67e22; }
-.club-humanities a { color: #95a5a6; }
-.club-journalism a { color: #e74c3c; }
-.club-mathematics a { color: #4caf50; }
-.club-music a { color: #f1c40f; }
-.club-robotics a { color: #9c27b0; }
-.club-science a { color: #009688; }
-.club-scouts a { color: #ff9800; }
-.club-wildlife a { color: #27ae60; }
+
+/* DESIGN GOAL: Accent Color */
+.text-pink {
+  color: #ff69b4 !important;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #ff69b4, #8a2be2);
+  border: none;
+}
+
+.btn-success:hover {
+  filter: brightness(1.1);
+}
+
+
+/* DESIGN GOAL: Gallery Images */
+[data-fancybox] img {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-fancybox] img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
 
 /* ==================================
    Global
 ================================== */
-body.page-clubs {
-  margin: 0;
-  font-family: 'Inter', system-ui, sans-serif;
-  line-height: 1.75;
-  color: #333;
-  background: var(--light);
-}
 .container {
-  max-width: 1380px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
+}
+
+/* DESIGN GOAL: Spacing & Breathing Room */
+section {
+  padding-top: 0.5rem;
 }
 
 /* ==================================
@@ -152,19 +139,31 @@ body.page-clubs {
   border-radius: 5px;
 }
 
-/* Club-specific section title styles */
-.club-art .section-title { color: #ff9a9e; }
-.club-christian-union .section-title { color: #a8edea; }
-.club-debate .section-title { color: #d299c2; }
-.club-drama .section-title { color: #fdbb2d; }
-.club-humanities .section-title { color: #eb3349; }
-.club-journalism .section-title { color: #667eea; }
-.club-mathematics .section-title { color: #4facfe; }
-.club-music .section-title { color: #43e97b; }
-.club-robotics .section-title { color: #fa709a; }
-.club-science .section-title { color: #30cfd0; }
-.club-scouts .section-title { color: #a8caba; }
-.club-wildlife .section-title { color: #56ab2f; }
+/* DESIGN GOAL: Headings & Typography */
+h1, h2, h3, h4, h5 {
+  letter-spacing: 0.3px;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 3rem;
+}
+
+h3 {
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+h3::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  margin-top: 8px;
+  background: linear-gradient(to right, #ff69b4, #8a2be2);
+  border-radius: 3px;
+}
+
 
 /* ==================================
    4. Search & Filter
@@ -184,68 +183,45 @@ body.page-clubs {
     5. Glass Cards (Clubs & Events)
  ================================== */
 .glass-card {
-  background: rgba(255, 255, 255, 0.6);
-  -webkit-backdrop-filter: blur(15px);
-  backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
-  color: var(--blue-dark);
-  cursor: pointer;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow:
+    0 25px 60px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.06);
 }
 
-.glass-card h3, .glass-card h5 {
-  color: var(--blue-dark);
-  font-weight: 700;
-}
 
-.glass-card p {
-  color: var(--gray);
-}
 
-.glass-card .opacity-80 {
-  opacity: 0.8 !important;
-  color: var(--blue);
-  font-weight: 500;
-}
 
-.glass-card i {
-  color: var(--blue);
-}
-
-/* Club-specific glass card styles */
-.club-art .glass-card { background: rgba(255, 154, 158, 0.6); }
-.club-christian-union .glass-card { background: rgba(168, 237, 234, 0.6); }
-.club-debate .glass-card { background: rgba(210, 153, 194, 0.6); }
-.club-drama .glass-card { background: rgba(253, 187, 45, 0.6); }
-.club-humanities .glass-card { background: rgba(235, 51, 73, 0.6); }
-.club-journalism .glass-card { background: rgba(102, 126, 234, 0.6); }
-.club-mathematics .glass-card { background: rgba(79, 172, 254, 0.6); }
-.club-music .glass-card { background: rgba(67, 233, 123, 0.6); }
-.club-robotics .glass-card { background: rgba(250, 112, 154, 0.6); }
-.club-science .glass-card { background: rgba(48, 207, 208, 0.6); }
-.club-scouts .glass-card { background: rgba(168, 202, 186, 0.6); }
-.club-wildlife .glass-card { background: rgba(86, 171, 47, 0.6); }
-
-/* Specifics for Event Cards */
-#eventsGrid .glass-card {
-  color: var(--blue-dark);
-}
-#eventsGrid .glass-card i {
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* DESIGN GOAL: Inner Cards (Leader & Resources) */
+.glass-card.text-dark {
+  background: rgba(255,255,255,0.85);
+  color: #222;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
 }
 
 /* ==================================
-   6. Join Modal
-================================== */
+    6. Join Modal
+ ================================== */
 .modal-content.glass-card {
   background: rgba(11, 45, 94, 0.85);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* DESIGN GOAL: Event Cards Consistency */
+#artEvents .glass-card {
+  background: rgba(255,255,255,0.1);
+  border-radius: 14px;
+  transition: transform 0.25s ease;
+}
+
+#artEvents .glass-card:hover {
+  transform: translateY(-4px);
 }
 .modal-content.glass-card .form-control,
 .modal-content.glass-card .form-select {
@@ -265,8 +241,8 @@ body.page-clubs {
 }
 
 /* ==================================
-    6. Upload Zone Styles
- ================================== */
+     6. Upload Zone Styles
+  ================================== */
 .upload-zone {
   border: 2px dashed rgba(255, 255, 255, 0.3);
   background: rgba(255, 255, 255, 0.05);
@@ -275,136 +251,24 @@ body.page-clubs {
   overflow: hidden;
 }
 
+/* DESIGN GOAL: Upload Zone */
+.upload-zone {
+  background:
+    linear-gradient(135deg, rgba(255,105,180,0.15), rgba(138,43,226,0.15));
+  border-color: rgba(255,255,255,0.4);
+  transition: all 0.3s ease;
+}
+
 .upload-zone:hover {
-  border-color: var(--gold);
-  background: rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(135deg, rgba(255,105,180,0.25), rgba(138,43,226,0.25));
+  border-color: #ff69b4;
+  cursor: pointer;
 }
 
-.upload-zone.drag-over {
-  border-color: var(--gold);
-  background: rgba(255, 255, 255, 0.15);
-  transform: scale(1.02);
-}
 
-.upload-zone.drag-over::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(45deg, transparent 30%, rgba(255, 215, 0, 0.1) 50%, transparent 70%);
-  animation: shimmer 1.5s infinite;
-}
 
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
 
-/* ==================================
-    7. Card Enhancements
- ================================== */
-.glass-card {
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-.card-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.1) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.glass-card:hover .card-overlay {
-  opacity: 1;
-}
-
-.card-hover-indicator {
-  animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-5px); }
-  60% { transform: translateY(-3px); }
-}
-
-/* ==================================
-    8. Loading States
- ================================== */
-.spinner-border {
-  border-width: 0.15em;
-}
-
-/* Skeleton Loader Styles */
-.skeleton-text {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-  border-radius: 8px;
-  height: 20px;
-  margin-bottom: 10px;
-}
-
-.skeleton-title {
-  height: 28px;
-  width: 80%;
-  margin: 0 auto;
-}
-
-.skeleton-subtitle {
-  height: 16px;
-  width: 60%;
-  margin: 0 auto;
-}
-
-.skeleton-text-small {
-  height: 14px;
-  width: 90%;
-}
-
-@keyframes loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-
-/* Enhanced Alert Styles */
-.alert {
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  font-weight: 500;
-}
-
-.alert-success {
-  background: linear-gradient(135deg, #d4edda, #c3e6cb);
-  color: #155724;
-}
-
-.alert-danger {
-  background: linear-gradient(135deg, #f8d7da, #f5c6cb);
-  color: #721c24;
-}
-
-.alert-warning {
-  background: linear-gradient(135deg, #fff3cd, #ffeaa7);
-  color: #856404;
-}
-
-.alert-info {
-  background: linear-gradient(135deg, #d1ecf1, #bee5eb);
-  color: #0c5460;
-}
 
 /* ==================================
    9. Responsive Adjustments
@@ -416,11 +280,26 @@ body.page-clubs {
 
 @media (max-width: 767px) {
   #clubSearch { margin-bottom: 1rem; }
-  .section-title { font-size: 2.2rem; }
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
   .login-prompt > div { padding: 2rem; }
   .btn-lg { padding: 0.75rem 1.5rem; font-size: 1rem; }
   .upload-zone { padding: 2rem !important; }
   .upload-zone p.lead { font-size: 1.1rem; }
+  
+  /* Reduce heading sizes for better mobile readability */
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.6rem; }
+  h3 { font-size: 1.4rem; }
+  h4, h5 { font-size: 1.2rem; }
+  
+  /* Adjust paragraph and lead text sizes */
+  p, .lead { font-size: 0.95rem; }
+  
+  /* Make buttons more compact */
+  .btn { padding: 0.5rem 1rem; }
 }
 
 /* ==================================
@@ -433,13 +312,13 @@ body.page-clubs {
 }
 
 /* ==================================
-    11. Touch-Friendly Interactions
- ================================== */
+     11. Touch-Friendly Interactions
+  ================================== */
 @media (hover: hover) {
   .glass-card:hover {
     transform: translateY(-12px);
     box-shadow: var(--shadow-lg);
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.12);
   }
 }
 
@@ -448,19 +327,4 @@ body.page-clubs {
     transform: translateY(-6px);
     box-shadow: var(--shadow-md);
   }
-}
-
-/* ==================================
-   12. Club Leaders Section
-================================ */
-.card img {
-  height: 260px;
-  object-fit: cover;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  transition: 0.3s ease-in-out;
 }

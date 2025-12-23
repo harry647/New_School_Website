@@ -739,6 +739,53 @@ router.get('/clubs/events', requireAuth, (req, res) => {
 });
 
 /**
+ * @route   GET /clubs/events/public
+ * @desc    Fetches all scheduled club events (public access).
+ * @access  Public
+ */
+router.get('/clubs/events/public', (req, res) => {
+  try {
+    const eventsFile = path.join(__dirname, '..', 'data', 'clubs', 'events.json');
+    const events = readJSON(eventsFile);
+
+    if (!Array.isArray(events)) {
+      return res.status(500).json({
+        success: false,
+        message: "Invalid events data format"
+      });
+    }
+
+    // Filter out past events and sort by date
+    const now = new Date();
+    const upcomingEvents = events
+      .map(group => ({
+        ...group,
+        events: group.events.filter(event => new Date(event.date) >= now)
+      }))
+      .filter(group => group.events.length > 0)
+      .sort((a, b) => {
+        const aDate = new Date(a.events[0].date);
+        const bDate = new Date(b.events[0].date);
+        return aDate - bDate;
+      });
+
+    console.log('Public events fetched');
+
+    res.json({
+      success: true,
+      data: upcomingEvents,
+      totalEvents: upcomingEvents.reduce((sum, group) => sum + group.events.length, 0)
+    });
+  } catch (err) {
+    console.error('Error fetching public events:', err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to load events data"
+    });
+  }
+});
+
+/**
  * @route   POST /clubs/join
  * @desc    Handles a student's application to join a club.
  * @access  Protected
