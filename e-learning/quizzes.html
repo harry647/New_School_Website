@@ -31,6 +31,13 @@
 
   <!-- Custom Styles -->
   <link rel="stylesheet" href="/css/e-learning/e-learning.css">
+  <style>
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+  </style>
 </head>
 <body class="page-learning-portal">
 
@@ -60,8 +67,13 @@
     <h1 class="display-5 fw-bold mb-4">Quizzes</h1>
     <p class="lead mb-5">Take quizzes to test your knowledge.</p>
 
+    <!-- Search Bar -->
+    <div class="mb-4">
+      <input type="text" id="quizSearch" placeholder="Search quizzes..." class="form-control">
+    </div>
+
     <!-- Quizzes Grid -->
-    <div class="row g-4" id="quizzesGrid">
+    <div class="row g-4" id="quizzesGrid" aria-live="polite">
       <!-- Quizzes will be loaded dynamically here -->
     </div>
   </div>

@@ -31,6 +31,21 @@
 
   <!-- Custom Styles -->
   <link rel="stylesheet" href="/css/e-learning/e-learning.css">
+  <style>
+    .question-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .question-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    .border-success {
+      border-color: #28a745 !important;
+    }
+    .border-danger {
+      border-color: #dc3545 !important;
+    }
+  </style>
 </head>
 <body class="page-learning-portal">
 
@@ -56,6 +71,8 @@
 
   <!-- Main Content -->
   <div class="container my-5">
+    <div id="quizTimer" class="mb-3 text-end text-primary fw-bold"></div>
+    <div id="quizProgress" class="mb-3"></div>
     <div id="quizDetails"></div>
   </div>
 
