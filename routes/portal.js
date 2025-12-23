@@ -27,14 +27,7 @@ router.get('/clubs', requireLogin, (req, res) => {
 // E-learning page (any logged-in user can access e-learning)
 // --------------------
 router.get('/e-learning', requireLogin, (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'portal', 'e-learning-portal.html'));
-});
-
-// --------------------
-// Notifications (any logged-in user)
-// --------------------
-router.get('/notifications', requireLogin, (req, res) => {
-    res.sendFile(path.join('static', 'notifications.html'), { root: '.' });
+    res.sendFile(path.join(__dirname, '..', 'e-learning', 'index.html'));
 });
 
 export default router;

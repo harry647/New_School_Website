@@ -427,7 +427,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       submitBtn.style.transform = "scale(0.95)";
 
       try {
-        const response = await fetch("/api/submit-application", {
+        const response = await fetch("/api/static/submit-application", {
           method: "POST",
           body: new FormData(form),
           headers: {

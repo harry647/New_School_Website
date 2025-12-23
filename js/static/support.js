@@ -269,7 +269,7 @@ document.addEventListener("DOMContentLoaded", function () {
     try {
       const formData = new FormData(donationForm);
       
-      const response = await fetch("/api/donate", {
+      const response = await fetch("/api/static/donate", {
         method: "POST",
         body: formData
       });

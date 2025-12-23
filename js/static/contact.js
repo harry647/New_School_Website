@@ -1,3 +1,4 @@
+
 // =======================================================
 // CONTACT PAGE JAVASCRIPT - ENHANCED INTERACTIVE VERSION
 // Bar Union Mixed Secondary School - Stunning UX 2025+
@@ -95,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Enhanced form data logging for debugging
         console.log("Form data being sent:", Object.fromEntries(formData));
 
-        const response = await fetch("/api/contact", {
+        const response = await fetch("/api/static/contact", {
           method: "POST",
           body: formData,
           headers: { 

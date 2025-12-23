@@ -75,4 +75,10 @@ Phase 2 (Core LMS): Progress Tracking, Assessment, Video Streaming
 Phase 3 (Advanced): Real-time features, Analytics, Admin tools
 Phase 4 (Enterprise): Security hardening, Scalability, Integrations
 
-This transformation would require moving from a static website to a full-stack web application with microservices architecture, significantly improving reliability, security, and user experience.
+This transformation would require moving from a static website to a full-stack web application with microservices architecture, significantly improving 
+reliability, security, and user experience.
+
+Clubs Routes: /api/clubs/list, /api/clubs/events, etc.
+Departments Routes: /api/departments/applied-sciences, /api/departments/humanities, etc.
+E-Learning Routes: /api/elearning/data, /api/elearning/upload, etc.
+Static Routes: /api/static/submit-enquiry, /api/static/contact, e

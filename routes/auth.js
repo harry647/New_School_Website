@@ -242,5 +242,87 @@ router.post('/api/forgot-password/reset', (req, res) => {
   res.json({ success: true, message: 'Password reset successfully' });
 });
 
+/* ==================== USER & AUTH ==================== */
+router.get('/profile', requireAuth, (req, res) => {
+  const { password, ...safeUser } = req.session.user;
+  res.json({ success: true, user: safeUser });
+});
+
+router.put('/profile', requireAuth, uploadImage.single('photo'), (req, res) => {
+  const users = readJSON(path.join(__dirname, '..', 'data', 'users.json'));
+  const index = users.findIndex(u => u.id === req.session.user.id);
+  if (index === -1) return res.status(404).json({ success: false, message: 'User not found' });
+
+  const updates = req.body;
+  if (req.file) updates.photo = `/uploads/images/${req.file.filename}`;
+
+  users[index] = { ...users[index], ...updates, updated_at: new Date().toISOString() };
+  if (writeJSON(path.join(__dirname, '..', 'data', 'users.json'), users)) {
+    req.session.user = users[index];
+    const { password, ...safeUser } = users[index];
+    res.json({ success: true, user: safeUser, message: 'Profile updated!' });
+  } else {
+    res.status(500).json({ success: false, message: 'Failed to save profile' });
+  }
+});
+
+/**
+ * @route   GET /users/:id
+ * @desc    Fetches a single user's profile by ID.
+ * @access  Public (should be protected in a real app)
+ */
+router.get('/users/:id', (req, res) => {
+  const { id } = req.params;
+  const users = readJSON(path.join(__dirname, '..', 'data', 'users.json'));
+  const user = users.find(u => u.id.toString() === id.toString());
+
+  if (!user) {
+    return res.status(404).json({ success: false, message: 'User not found' });
+  }
+
+  // IMPORTANT: Never send the password hash or plain text password in a response.
+  const { password, ...safeUser } = user;
+  res.json({ success: true, user: safeUser });
+});
+
+/**
+ * @route   PUT /users/:id
+ * @desc    Updates a user's profile.
+ * @access  Protected (should have middleware to check if user is updating their own profile or is an admin)
+ */
+router.put('/users/:id', (req, res) => {
+  const { id } = req.params;
+  const { name, email, password, role } = req.body;
+
+  const usersFile = path.join(__dirname, '..', 'data', 'users.json');
+  const users = readJSON(usersFile);
+
+  const index = users.findIndex(u => u.id.toString() === id.toString());
+  if (index === -1) {
+    return res.status(404).json({ success: false, message: 'User not found' });
+  }
+
+  // Update only provided fields
+  if (name) users[index].name = name.trim();
+  if (email) users[index].email = email.toLowerCase().trim();
+  // SECURITY WARNING: Passwords should be hashed using a library like bcrypt before saving.
+  // This is a major security risk in its current state.
+  if (password) users[index].password = password;
+  if (role) users[index].role = role;
+
+  if (!writeJSON(usersFile, users)) {
+    return res.status(500).json({ success: false, message: 'Failed to save changes.' });
+  }
+
+  const { password: _, ...updatedUser } = users[index];
+
+  console.log(`User Updated → ID: ${id} | Name: ${updatedUser.name}`);
+  res.json({
+    success: true,
+    message: 'Profile updated successfully',
+    user: updatedUser
+  });
+});
+
 export default router;
 

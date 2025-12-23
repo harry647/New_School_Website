@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
           preferences: preferences
         };
 
-        const response = await fetch("/api/subscribe", {
+        const response = await fetch("/api/static/subscribe", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)

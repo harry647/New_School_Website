@@ -251,7 +251,7 @@ document.addEventListener("DOMContentLoaded", function () {
       submitBtn.style.background = '#64748b';
 
       try {
-        const response = await fetch("/api/submit-enquiry", {
+        const response = await fetch("/api/static/submit-enquiry", {
           method: "POST",
           body: new FormData(form),
           headers: {

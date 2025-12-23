@@ -414,7 +414,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const formData = new FormData(form);
         
         // Enhanced submission with better error handling
-        fetch("/api/book-counseling", {
+        fetch("/api/static/book-counseling", {
             method: "POST",
             body: formData,
             headers: { "Accept": "application/json" }
