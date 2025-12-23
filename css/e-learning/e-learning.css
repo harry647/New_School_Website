@@ -200,6 +200,11 @@ section.container.my-5 {
    Back to Top Button
    ============================================ */
 
+.back-to-top {
+    display: none;
+    z-index: 1000;
+}
+
 .backToTopBtn {
     z-index: 1000;
     width: 50px;
