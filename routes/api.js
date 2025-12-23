@@ -48,7 +48,7 @@ const createUploader = (folder, allowedExtensions = [], maxSize = 15 * 1024 * 10
     filename: (req, file, cb) => {
       const unique = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
       const ext = path.extname(file.originalname).toLowerCase();
-      cb(null, `${folder.slice(0, -1)}-${unique}${ext}`);
+      cb(null, `${unique}${ext}`);
     }
   });
 

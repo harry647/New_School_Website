@@ -590,39 +590,111 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 10. MODAL FUNCTIONALITY
     // ========================================
     function initModals() {
-        const photoUploadModal = document.getElementById('photoUploadModal');
-        const videoUploadModal = document.getElementById('videoUploadModal');
-        const openPhotoUploadBtn = document.getElementById('openPhotoUploadModal');
-        const openVideoUploadBtn = document.getElementById('openUploadModal');
-        const closeModalBtns = document.querySelectorAll('.close-modal');
-
-        if (openPhotoUploadBtn && photoUploadModal) {
-            openPhotoUploadBtn.addEventListener('click', () => {
-                photoUploadModal.style.display = 'flex';
-            });
-        }
-
-        if (openVideoUploadBtn && videoUploadModal) {
-            openVideoUploadBtn.addEventListener('click', () => {
-                videoUploadModal.style.display = 'flex';
-            });
-        }
-
-        closeModalBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const modal = btn.closest('.modal-overlay');
-                if (modal) {
-                    modal.style.display = 'none';
-                }
-            });
+      const photoUploadModal = document.getElementById('photoUploadModal');
+      const videoUploadModal = document.getElementById('videoUploadModal');
+      const openPhotoUploadBtn = document.getElementById('openPhotoUploadModal');
+      const openVideoUploadBtn = document.getElementById('openUploadModal');
+      const closeModalBtns = document.querySelectorAll('.close-modal');
+  
+      if (openPhotoUploadBtn && photoUploadModal) {
+        openPhotoUploadBtn.addEventListener('click', () => {
+          photoUploadModal.style.display = 'flex';
         });
-
-        // Close modals when clicking outside the content
-        window.addEventListener('click', (event) => {
-            if (event.target.classList.contains('modal-overlay')) {
-                event.target.style.display = 'none';
+      }
+  
+      if (openVideoUploadBtn && videoUploadModal) {
+        openVideoUploadBtn.addEventListener('click', () => {
+          videoUploadModal.style.display = 'flex';
+        });
+      }
+  
+      closeModalBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const modal = btn.closest('.modal-overlay');
+          if (modal) {
+            modal.style.display = 'none';
+          }
+        });
+      });
+  
+      // Close modals when clicking outside the content
+      window.addEventListener('click', (event) => {
+        if (event.target.classList.contains('modal-overlay')) {
+          event.target.style.display = 'none';
+        }
+      });
+  
+      // Handle photo upload form submission
+      const photoUploadForm = document.getElementById('photoUploadForm');
+      if (photoUploadForm) {
+        photoUploadForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const statusElement = document.getElementById('photoUploadStatus');
+          statusElement.classList.remove('hidden');
+          statusElement.textContent = 'Uploading photos...';
+          statusElement.style.color = '#0b2d5e';
+  
+          const formData = new FormData(photoUploadForm);
+  
+          try {
+            const response = await fetch('/api/static/upload-photos', {
+              method: 'POST',
+              body: formData
+            });
+  
+            const result = await response.json();
+            if (result.success) {
+              statusElement.textContent = result.message;
+              statusElement.style.color = '#0175C2';
+              photoUploadForm.reset();
+              document.getElementById('selectedPhotosList').innerHTML = '';
+            } else {
+              statusElement.textContent = result.message || 'Failed to upload photos.';
+              statusElement.style.color = '#dc2626';
             }
+          } catch (error) {
+            statusElement.textContent = 'An error occurred while uploading photos.';
+            statusElement.style.color = '#dc2626';
+            console.error('Error uploading photos:', error);
+          }
         });
+      }
+  
+      // Handle video upload form submission
+      const videoUploadForm = document.getElementById('videoUploadForm');
+      if (videoUploadForm) {
+        videoUploadForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const statusElement = document.getElementById('uploadStatus');
+          statusElement.classList.remove('hidden');
+          statusElement.textContent = 'Uploading video...';
+          statusElement.style.color = '#0b2d5e';
+  
+          const formData = new FormData(videoUploadForm);
+  
+          try {
+            const response = await fetch('/api/static/upload-video', {
+              method: 'POST',
+              body: formData
+            });
+  
+            const result = await response.json();
+            if (result.success) {
+              statusElement.textContent = result.message;
+              statusElement.style.color = '#0175C2';
+              videoUploadForm.reset();
+              document.getElementById('fileInfo').textContent = 'No file selected';
+            } else {
+              statusElement.textContent = result.message || 'Failed to upload video.';
+              statusElement.style.color = '#dc2626';
+            }
+          } catch (error) {
+            statusElement.textContent = 'An error occurred while uploading video.';
+            statusElement.style.color = '#dc2626';
+            console.error('Error uploading video:', error);
+          }
+        });
+      }
     }
 
     // ========================================

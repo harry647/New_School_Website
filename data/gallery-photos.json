@@ -1,0 +1,24 @@
+[
+  {
+    "id": "1766512094553",
+    "name": "Test User",
+    "email": "test@example.com",
+    "category": "campus",
+    "event_date": null,
+    "description": "Test photo upload",
+    "photo_path": "/uploads/gallery/photos/1766512094543-200016685.jpg",
+    "submitted_at": "2025-12-23T17:48:14.553Z",
+    "status": "pending"
+  },
+  {
+    "id": "1766512187586",
+    "name": "Test User 2",
+    "email": "test2@example.com",
+    "category": "sports",
+    "event_date": null,
+    "description": "Second test photo upload",
+    "photo_path": "/uploads/gallery/photos/1766512187584-947963405.jpg",
+    "submitted_at": "2025-12-23T17:49:47.586Z",
+    "status": "pending"
+  }
+]

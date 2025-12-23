@@ -63,7 +63,7 @@ const createUploader = (folder, allowedExtensions = [], maxSize = 15 * 1024 * 10
     filename: (req, file, cb) => {
       const unique = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
       const ext = path.extname(file.originalname).toLowerCase();
-      cb(null, `${folder.slice(0, -1)}-${unique}${ext}`);
+      cb(null, `${unique}${ext}`);
     }
   });
 
@@ -91,6 +91,82 @@ const uploadBlogImage = createUploader('blogs/', imageExtensions);
 const uploadDonationDoc = createUploader('donations/', [...documentExtensions, ...imageExtensions]);
 const uploadDepartmentFile = createUploader('departments/', [...documentExtensions, ...mediaExtensions, ...imageExtensions]);
 const uploadAlumniPhotos = createUploader('alumni/', imageExtensions);
+const uploadGalleryPhotos = createUploader('gallery/photos', imageExtensions);
+const uploadGalleryVideos = createUploader('gallery/videos', mediaExtensions);
+
+/**
+ * @route   POST /upload-photos
+ * @desc    Handles photo uploads for the gallery.
+ * @access  Public
+ */
+router.post('/upload-photos', uploadGalleryPhotos.array('photos', 10), (req, res) => {
+  const { name, email, category, event_date, description } = req.body;
+
+  if (!name || !email || !category || !description) {
+    return res.status(400).json({ success: false, message: 'Name, email, category, and description are required.' });
+  }
+
+  if (!req.files || req.files.length === 0) {
+    return res.status(400).json({ success: false, message: 'No photos uploaded.' });
+  }
+
+  const file = path.join(__dirname, '..', '..', 'data', 'gallery-photos.json');
+  const photos = readJSON(file);
+
+  req.files.forEach(file => {
+    photos.push({
+      id: Date.now().toString(),
+      name: name.trim(),
+      email: email.toLowerCase().trim(),
+      category,
+      event_date: event_date || null,
+      description: description.trim(),
+      photo_path: `/uploads/gallery/photos/${file.filename}`,
+      submitted_at: new Date().toISOString(),
+      status: "pending"
+    });
+  });
+
+  writeJSON(file, photos);
+  console.log(`Photo Upload → ${name} | ${req.files.length} photos`);
+  res.json({ success: true, message: "Photos uploaded successfully! They will be reviewed before being added to the gallery." });
+});
+
+/**
+ * @route   POST /upload-video
+ * @desc    Handles video uploads for the gallery.
+ * @access  Public
+ */
+router.post('/upload-video', uploadGalleryVideos.single('video'), (req, res) => {
+  const { name, email, title, category, description } = req.body;
+
+  if (!name || !email || !title || !category || !description) {
+    return res.status(400).json({ success: false, message: 'Name, email, title, category, and description are required.' });
+  }
+
+  if (!req.file) {
+    return res.status(400).json({ success: false, message: 'No video uploaded.' });
+  }
+
+  const file = path.join(__dirname, '..', '..', 'data', 'gallery-videos.json');
+  const videos = readJSON(file);
+
+  videos.push({
+    id: Date.now().toString(),
+    name: name.trim(),
+    email: email.toLowerCase().trim(),
+    title: title.trim(),
+    category,
+    description: description.trim(),
+    video_path: `/uploads/gallery/videos/${req.file.filename}`,
+    submitted_at: new Date().toISOString(),
+    status: "pending"
+  });
+
+  writeJSON(file, videos);
+  console.log(`Video Upload → ${name} | ${title}`);
+  res.json({ success: true, message: "Video uploaded successfully! It will be reviewed before being added to the gallery." });
+});
 
 /**
  * @route   POST /submit-enquiry
@@ -135,7 +211,14 @@ router.post('/submit-enquiry', (req, res) => {
  * @desc    Handles the full admission application form.
  * @access  Public
  */
-router.post('/submit-application', (req, res) => {
+const uploadAdmissionDocs = createUploader('admissions/', [...documentExtensions, ...imageExtensions]);
+router.post('/submit-application', uploadAdmissionDocs.fields([
+  { name: 'birth_certificate', maxCount: 1 },
+  { name: 'academic_results', maxCount: 1 },
+  { name: 'school_report', maxCount: 1 },
+  { name: 'medical_report', maxCount: 1 },
+  { name: 'passport_photo', maxCount: 1 }
+]), (req, res) => {
   const { student_name, dob, gender, grade, parent_name, _replyto: email, phone, previous_school, message } = req.body;
 
   if (!student_name || !dob || !gender || !grade || !parent_name || !email || !phone) {
@@ -144,6 +227,11 @@ router.post('/submit-application', (req, res) => {
 
   if (!/^(\+254|0)[71]\d{8}$/.test(phone.replace(/\s/g, ''))) {
     return res.status(400).json({ success: false, message: 'Invalid Kenyan phone number.' });
+  }
+
+  // Check if required documents are uploaded
+  if (!req.files || !req.files.birth_certificate || !req.files.academic_results) {
+    return res.status(400).json({ success: false, message: 'Birth certificate and academic results are required documents.' });
   }
 
   const file = path.join(__dirname, '..', '..', 'data', 'applications.json');
@@ -160,6 +248,11 @@ router.post('/submit-application', (req, res) => {
     phone: phone.trim(),
     previous_school: previous_school?.trim() || null,
     special_notes: message?.trim() || null,
+    birth_certificate: req.files.birth_certificate ? `/uploads/admissions/${req.files.birth_certificate[0].filename}` : null,
+    academic_results: req.files.academic_results ? `/uploads/admissions/${req.files.academic_results[0].filename}` : null,
+    school_report: req.files.school_report ? `/uploads/admissions/${req.files.school_report[0].filename}` : null,
+    medical_report: req.files.medical_report ? `/uploads/admissions/${req.files.medical_report[0].filename}` : null,
+    passport_photo: req.files.passport_photo ? `/uploads/admissions/${req.files.passport_photo[0].filename}` : null,
     submitted_at: new Date().toISOString(),
     status: "pending"
   });
@@ -428,6 +521,45 @@ router.post('/feedback', (req, res) => {
 router.get('/notifications', (req, res) => {
   const notifications = readJSON(path.join(__dirname, '..', '..', 'data', 'notifications.json'));
   res.json(notifications || []);
+});
+
+/**
+ * @route   POST /register-club
+ * @desc    Handles student club registration form submissions.
+ * @access  Public
+ */
+router.post('/register-club', (req, res) => {
+  const { student_name, grade, house, email, message, interested_clubs } = req.body;
+
+  if (!student_name || !grade || !house || !interested_clubs) {
+    return res.status(400).json({ success: false, message: 'Student name, grade, house, and at least one club selection are required.' });
+  }
+
+  // Ensure interested_clubs is an array
+  const clubs = Array.isArray(interested_clubs) ? interested_clubs : [interested_clubs];
+
+  if (clubs.length === 0 || clubs.length > 3) {
+    return res.status(400).json({ success: false, message: 'Please select between 1-3 clubs.' });
+  }
+
+  const file = path.join(__dirname, '..', '..', 'data', 'club-registrations.json');
+  const registrations = readJSON(file);
+
+  registrations.push({
+    id: Date.now().toString(),
+    student_name: student_name.trim(),
+    grade: grade.trim(),
+    house: house.trim(),
+    email: email?.trim() || null,
+    interested_clubs: clubs,
+    message: message?.trim() || null,
+    submitted_at: new Date().toISOString(),
+    status: "new"
+  });
+
+  writeJSON(file, registrations);
+  console.log(`Club Registration → ${student_name} | ${grade} | Clubs: ${clubs.join(', ')}`);
+  res.json({ success: true, message: "Club registration received! Coordinators will contact you soon." });
 });
 
 /**

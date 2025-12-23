@@ -1,0 +1,40 @@
+[
+  {
+    "id": "1766510139941",
+    "student_name": "John Doe",
+    "date_of_birth": "2010-05-15",
+    "gender": "Male",
+    "grade_pathway": "Grade 10 - STEM",
+    "parent_name": "Jane Doe",
+    "email": "jane.doe@example.com",
+    "phone": "0712345678",
+    "previous_school": "Previous School, Grade A, KCPE 400",
+    "special_notes": "Interested in STEM program",
+    "birth_certificate": "/uploads/admissions/admissions-1766510139921-670810979.jpg",
+    "academic_results": "/uploads/admissions/admissions-1766510139924-481701540.jpg",
+    "school_report": null,
+    "medical_report": null,
+    "passport_photo": null,
+    "submitted_at": "2025-12-23T17:15:39.941Z",
+    "status": "pending"
+  },
+  {
+    "id": "1766510358356",
+    "student_name": "harry oginga",
+    "date_of_birth": "2010-06-10",
+    "gender": "Male",
+    "grade_pathway": "Grade 10 - Humanities",
+    "parent_name": "Margrate anyango",
+    "email": "harryoginga@gmail.com",
+    "phone": "0706259403",
+    "previous_school": "kanyadet kcpe 400 marks",
+    "special_notes": null,
+    "birth_certificate": "/uploads/admissions/admissions-1766510358294-633330995.png",
+    "academic_results": "/uploads/admissions/admissions-1766510358305-353223385.png",
+    "school_report": "/uploads/admissions/admissions-1766510358310-357836323.png",
+    "medical_report": "/uploads/admissions/admissions-1766510358315-766510817.png",
+    "passport_photo": "/uploads/admissions/admissions-1766510358349-725790638.png",
+    "submitted_at": "2025-12-23T17:19:18.356Z",
+    "status": "pending"
+  }
+]

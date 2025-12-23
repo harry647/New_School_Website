@@ -1,0 +1,16 @@
+[
+  {
+    "id": "1766511019558",
+    "student_name": "John Doe",
+    "grade": "Form 2",
+    "house": "Red Hawks",
+    "email": "john@example.com",
+    "interested_clubs": [
+      "Drama & Theatre Club",
+      "Science Club"
+    ],
+    "message": null,
+    "submitted_at": "2025-12-23T17:30:19.558Z",
+    "status": "new"
+  }
+]

@@ -626,41 +626,88 @@
             if (registrationForm) {
                 registrationForm.addEventListener("submit", function(e) {
                     e.preventDefault();
-                    
+                     
                     // Get selected clubs
                     const selectedClubs = [];
                     document.querySelectorAll('input[name="interested_clubs"]:checked').forEach(checkbox => {
                         selectedClubs.push(checkbox.value);
                     });
-
+    
                     if (selectedClubs.length === 0) {
                         alert("Please select at least one club.");
                         return;
                     }
-
+    
                     if (selectedClubs.length > 3) {
                         alert("Please select no more than 3 clubs.");
                         return;
                     }
-
-                    // Show success message
+    
+                    // Get form data
+                    const formData = {
+                        student_name: document.getElementById("regStudentName").value.trim(),
+                        grade: document.getElementById("regGrade").value,
+                        house: document.getElementById("regHouse").value,
+                        email: document.getElementById("regEmail").value.trim(),
+                        interested_clubs: selectedClubs,
+                        message: document.getElementById("regMessage").value.trim()
+                    };
+    
+                    // Show loading state
                     const statusDiv = document.getElementById("clubRegStatus");
                     if (statusDiv) {
                         statusDiv.innerHTML = `
-                            <i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.5rem;"></i>
-                            Registration submitted successfully! Selected clubs: ${selectedClubs.join(", ")}
+                            <i class="fas fa-spinner fa-spin" style="margin-right: 0.5rem;"></i>
+                            Submitting registration...
                         `;
-                        statusDiv.classList.remove("hidden", "error");
-                        statusDiv.classList.add("success");
+                        statusDiv.classList.remove("hidden", "error", "success");
                     }
-
-                    console.log("Club registration submitted:", {
-                        student_name: document.getElementById("regStudentName").value,
-                        grade: document.getElementById("regGrade").value,
-                        house: document.getElementById("regHouse").value,
-                        email: document.getElementById("regEmail").value,
-                        clubs: selectedClubs,
-                        message: document.getElementById("regMessage").value
+    
+                    // Make API call
+                    fetch('/api/static/register-club', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(formData)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            if (statusDiv) {
+                                statusDiv.innerHTML = `
+                                    <i class="fas fa-check-circle" style="color: var(--success); margin-right: 0.5rem;"></i>
+                                    ${data.message}
+                                `;
+                                statusDiv.classList.remove("hidden", "error");
+                                statusDiv.classList.add("success");
+                            }
+                            console.log("Club registration successful:", data);
+                            
+                            // Reset form after successful submission
+                            registrationForm.reset();
+                        } else {
+                            if (statusDiv) {
+                                statusDiv.innerHTML = `
+                                    <i class="fas fa-exclamation-circle" style="color: var(--danger); margin-right: 0.5rem;"></i>
+                                    ${data.message || 'Registration failed. Please try again.'}
+                                `;
+                                statusDiv.classList.remove("hidden", "success");
+                                statusDiv.classList.add("error");
+                            }
+                            console.error("Club registration error:", data);
+                        }
+                    })
+                    .catch(error => {
+                        if (statusDiv) {
+                            statusDiv.innerHTML = `
+                                <i class="fas fa-exclamation-circle" style="color: var(--danger); margin-right: 0.5rem;"></i>
+                                Network error. Please check your connection and try again.
+                            `;
+                            statusDiv.classList.remove("hidden", "success");
+                            statusDiv.classList.add("error");
+                        }
+                        console.error("Club registration network error:", error);
                     });
                 });
             }

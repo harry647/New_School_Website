@@ -1,0 +1,24 @@
+[
+  {
+    "id": "1766512117458",
+    "name": "Test User",
+    "email": "test@example.com",
+    "title": "Test Video",
+    "category": "events",
+    "description": "Test video upload",
+    "video_path": "/uploads/gallery/videos/1766512117455-651397972.mp4",
+    "submitted_at": "2025-12-23T17:48:37.458Z",
+    "status": "pending"
+  },
+  {
+    "id": "1766512203613",
+    "name": "Test User 2",
+    "email": "test2@example.com",
+    "title": "Second Test Video",
+    "category": "sports",
+    "description": "Second test video upload",
+    "video_path": "/uploads/gallery/videos/1766512203610-181677279.mp4",
+    "submitted_at": "2025-12-23T17:50:03.613Z",
+    "status": "pending"
+  }
+]

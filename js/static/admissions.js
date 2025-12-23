@@ -339,7 +339,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   // =====================================================
   // 4. Enhanced Form with Real-time Validation
   // =====================================================
-  const form = document.querySelector(".admission-form");
+  const form = document.querySelector(".apply-form");
   const submitBtn = form?.querySelector('button[type="submit"]');
   const originalBtnHTML = submitBtn?.innerHTML || "Submit Application";
 
