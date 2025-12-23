@@ -36,14 +36,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Redirect map for destination-aware login
     const redirects = {
         clubs: {
-            student: '/portal/clubs.html',
-            teacher: '/portal/clubs.html',
-            admin: '/portal/clubs.html'
+            student: '/clubs/clubs.html',
+            teacher: '/clubs/clubs.html',
+            admin: '/clubs/clubs.html'
         },
         'e-learning': {
-            student: '/portal/e-learning-portal.html',
-            teacher: '/portal/e-learning-portal.html',
-            admin: '/portal/e-learning-portal.html'
+            student: '/e-learning/index.html',
+            teacher: '/e-learning/index.html',
+            admin: '/e-learning/index.html'
         }
     };
 

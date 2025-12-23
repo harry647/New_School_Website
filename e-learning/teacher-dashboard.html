@@ -60,10 +60,57 @@
     <h1 class="display-5 fw-bold mb-4">Teacher Dashboard</h1>
     <p class="lead mb-5">Manage resources, assignments, and quizzes.</p>
 
-    <!-- Upload Resource Section -->
-    <section class="mb-5">
-      <h2 class="mb-4">Upload Resource</h2>
-      <form id="teacherUploadForm">
+    <!-- Quick Stats Cards -->
+    <div class="row mb-5" id="statsRow">
+      <div class="col-md-3">
+        <div class="card text-center bg-primary text-white">
+          <div class="card-body">
+            <h5>Total Resources</h5>
+            <h3 id="totalResources">0</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-center bg-success text-white">
+          <div class="card-body">
+            <h5>Active Assignments</h5>
+            <h3 id="activeAssignments">0</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-center bg-warning text-white">
+          <div class="card-body">
+            <h5>Total Quizzes</h5>
+            <h3 id="totalQuizzes">0</h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-center bg-info text-white">
+          <div class="card-body">
+            <h5>Student Engagement</h5>
+            <h3 id="studentEngagement">0%</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar Navigation and Content -->
+    <div class="row">
+      <div class="col-md-3">
+        <div class="list-group sticky-top" style="top: 100px;">
+          <a href="#upload" class="list-group-item list-group-item-action active">Upload Resource</a>
+          <a href="#assignments" class="list-group-item list-group-item-action">Manage Assignments</a>
+          <a href="#quizzes" class="list-group-item list-group-item-action">Manage Quizzes</a>
+          <a href="#analytics" class="list-group-item list-group-item-action">Class Analytics</a>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <!-- Upload Resource Section -->
+        <section id="upload" class="mb-5">
+          <h2 class="mb-4">Upload Resource</h2>
+          <form id="teacherUploadForm">
         <div class="mb-3">
           <label class="form-label fw-bold">Resource Type</label>
           <select class="form-select" id="resourceType" required>
@@ -109,6 +156,11 @@
           <div class="form-text">For YouTube, Google Drive links, or interactive tools</div>
         </div>
 
+        <!-- Progress Bar for Uploads -->
+        <div class="progress mb-3 d-none" id="uploadProgress">
+          <div class="progress-bar" role="progressbar" style="width: 0%;"></div>
+        </div>
+
         <div class="mb-3">
           <label class="form-label fw-bold">Tags (Optional)</label>
           <input type="text" class="form-control" id="resourceTags" placeholder="e.g. revision, exam, chapter4">
@@ -127,18 +179,34 @@
     </section>
 
     <!-- Manage Assignments Section -->
-    <section class="mb-5">
+    <section id="assignments" class="mb-5">
       <h2 class="mb-4">Manage Assignments</h2>
+      <div class="d-flex justify-content-between mb-3">
+        <input type="text" class="form-control w-50" placeholder="Search..." id="assignmentsSearch">
+        <button class="btn btn-primary" id="createAssignmentBtn">Create Assignment</button>
+      </div>
       <div class="row g-4" id="assignmentsGrid">
         <!-- Assignments will be loaded dynamically here -->
       </div>
     </section>
 
     <!-- Manage Quizzes Section -->
-    <section>
+    <section id="quizzes">
       <h2 class="mb-4">Manage Quizzes</h2>
+      <div class="d-flex justify-content-between mb-3">
+        <input type="text" class="form-control w-50" placeholder="Search..." id="quizzesSearch">
+        <button class="btn btn-primary" id="createQuizBtn">Create Quiz</button>
+      </div>
       <div class="row g-4" id="quizzesGrid">
         <!-- Quizzes will be loaded dynamically here -->
+      </div>
+    </section>
+
+    <!-- Analytics Section -->
+    <section id="analytics" class="mb-5">
+      <h2 class="mb-4">Class Analytics</h2>
+      <div class="row g-4" id="analyticsGrid">
+        <!-- Analytics cards will be loaded dynamically here -->
       </div>
     </section>
   </div>

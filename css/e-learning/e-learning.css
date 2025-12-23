@@ -340,8 +340,8 @@ section.container.my-5 {
 }
 
 /* ============================================
-   Print Styles
-   ============================================ */
+    Print Styles
+    ============================================ */
 
 @media print {
     .navbar,
@@ -359,4 +359,82 @@ section.container.my-5 {
         box-shadow: none;
         border: 1px solid #ddd;
     }
+}
+
+/* ============================================
+   Study Plan Styles
+   ============================================ */
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: #333;
+}
+
+.study-plan-card {
+    transition: transform 0.2s;
+}
+
+.study-plan-card:hover {
+    transform: scale(1.05);
+}
+
+.progress-bar {
+    height: 10px;
+}
+
+#loadingSpinner {
+    margin: 20px auto;
+}
+
+/* ============================================
+   Teacher Dashboard Styles
+   ============================================ */
+
+.card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.glass-effect {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.sidebar a.active {
+    background: #007bff;
+    color: white;
+}
+
+.list-group-item {
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-left-color: #007bff;
+}
+
+.list-group-item.active {
+    border-left-color: #007bff;
+    font-weight: 600;
+}
+
+#statsRow .card {
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#statsRow .card h3 {
+    font-size: 2rem;
+    font-weight: 700;
 }

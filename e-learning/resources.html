@@ -31,6 +31,13 @@
 
   <!-- Custom Styles -->
   <link rel="stylesheet" href="/css/e-learning/e-learning.css">
+  <style>
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+  </style>
 </head>
 <body class="page-learning-portal">
 
@@ -60,8 +67,11 @@
     <h1 class="display-5 fw-bold mb-4">Resources</h1>
     <p class="lead mb-5">Access study materials, PDFs, videos, and interactive content.</p>
 
+    <!-- Search Bar -->
+    <input type="text" id="resourceSearch" placeholder="Search resources..." class="form-control mb-4" aria-label="Search resources">
+
     <!-- Resources Grid -->
-    <div class="row g-4" id="resourcesGrid">
+    <div class="row g-4" id="resourcesGrid" aria-live="polite">
       <!-- Resources will be loaded dynamically here -->
     </div>
   </div>

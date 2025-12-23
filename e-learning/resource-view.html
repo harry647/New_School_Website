@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Resource View | E-Learning Hub</title>
-  <meta name="description" content="View detailed information about a specific resource." />
+  <meta name="description" content="View and interact with learning resources" />
   <meta name="keywords" content="resource view, study materials, e-learning, Bar Union Secondary" />
   <meta name="author" content="Bar Union Secondary School" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Resource View | E-Learning Hub" />
-  <meta property="og:description" content="View detailed information about a specific resource." />
+  <meta property="og:description" content="View and interact with learning resources" />
   <meta property="og:image" content="/assets/images/common/og-image.jpg" />
   <meta property="og:type" content="website" />
 
@@ -29,8 +29,52 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
 
+  <!-- PDF.js for PDF preview -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
+
   <!-- Custom Styles -->
- <link rel="stylesheet" href="/css/e-learning/e-learning.css">
+  <link rel="stylesheet" href="/css/e-learning/e-learning.css">
+  <style>
+    .resource-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+    }
+    .resource-preview {
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .metadata-item {
+      padding: 0.5rem 0;
+    }
+    .comment-section {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .progress-bar {
+      transition: width 0.6s ease;
+    }
+    #pdfViewer {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
 </head>
 <body class="page-learning-portal">
 
@@ -41,23 +85,135 @@
         <i class="fas fa-graduation-cap me-2"></i>E-Learning Hub
       </a>
 
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <span class="nav-link text-white">Welcome, <span id="navUserName">Student</span>!</span>
-          </li>
-          <li class="nav-item">
-            <button class="btn btn-outline-light ms-3" onclick="logout()">
-              <i class="fas fa-sign-out-alt me-2"></i>Logout
-            </button>
-          </li>
-        </ul>
-      </div>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <span class="nav-link text-white">Welcome, <span id="navUserName">Student</span>!</span>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-light ms-3" onclick="logout()">
+            <i class="fas fa-sign-out-alt me-2"></i>Logout
+          </button>
+        </li>
+      </ul>
     </div>
   </nav>
 
   <!-- Main Content -->
   <div class="container my-5">
-    <div id="resourceDetails"></div>
+    <!-- Resource Header -->
+    <div class="resource-header rounded">
+      <div class="container">
+        <h1 class="display-5 fw-bold" id="resourceTitle">Resource Title</h1>
+        <p class="lead" id="resourceDescription">Resource description will appear here</p>
+        <div class="d-flex gap-2 mt-3">
+          <span class="badge bg-primary" id="resourceTypeBadge">PDF</span>
+          <span class="badge bg-secondary" id="resourceSubjectBadge">Subject</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resource Preview -->
+    <section class="mb-5">
+      <h3 class="mb-3">Resource Preview</h3>
+      <div id="resourcePreview" class="resource-preview mb-4"></div>
+    </section>
+
+    <!-- Resource Metadata -->
+    <section class="mb-5">
+      <h3 class="mb-3">Resource Details</h3>
+      <ul class="list-group mb-3" id="resourceMetadata">
+        <li class="list-group-item metadata-item"><strong>Author:</strong> <span id="resourceAuthor">Loading...</span></li>
+        <li class="list-group-item metadata-item"><strong>Subject:</strong> <span id="resourceSubject">Loading...</span></li>
+        <li class="list-group-item metadata-item"><strong>Level:</strong> <span id="resourceLevel">Loading...</span></li>
+        <li class="list-group-item metadata-item"><strong>Uploaded:</strong> <span id="resourceUploaded">Loading...</span></li>
+        <li class="list-group-item metadata-item"><strong>File Size:</strong> <span id="resourceFileSize">Loading...</span></li>
+      </ul>
+    </section>
+
+    <!-- Resource Actions -->
+    <section class="mb-5">
+      <h3 class="mb-3">Actions</h3>
+      <div class="d-flex gap-2 mb-4" id="resourceActions">
+        <a href="#" id="downloadButton" class="btn btn-primary" download>
+          <i class="fas fa-download me-1"></i>Download
+        </a>
+        <button class="btn btn-warning" onclick="bookmarkResource()" id="bookmarkButton">
+          <i class="fas fa-bookmark me-1"></i>Bookmark
+        </button>
+        <button class="btn btn-secondary" onclick="copyLink()" id="copyLinkButton">
+          <i class="fas fa-link me-1"></i>Copy Link
+        </button>
+        <button class="btn btn-info" onclick="printResource()" id="printButton">
+          <i class="fas fa-print me-1"></i>Print
+        </button>
+      </div>
+    </section>
+
+    <!-- Progress Tracking -->
+    <section class="mb-5">
+      <h3 class="mb-3">Your Progress</h3>
+      <div class="progress mb-3">
+        <div class="progress-bar" role="progressbar" id="progressBar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-success" onclick="markAsCompleted()" id="markCompletedButton">
+          <i class="fas fa-check me-1"></i>Mark as Completed
+        </button>
+        <button class="btn btn-outline-secondary" onclick="markAsReviewed()" id="markReviewedButton">
+          <i class="fas fa-eye me-1"></i>Mark as Reviewed
+        </button>
+      </div>
+    </section>
+
+    <!-- Comments Section -->
+    <section class="mb-5">
+      <h3 class="mb-3">Comments & Notes</h3>
+      <div class="card mb-3">
+        <div class="card-body comment-section" id="commentsSection">
+          <p class="text-muted">No comments yet. Be the first to add one!</p>
+        </div>
+        <div class="card-footer">
+          <div class="input-group">
+            <textarea class="form-control" id="commentInput" placeholder="Add your comment or note..." rows="2"></textarea>
+            <button class="btn btn-primary" onclick="addComment()">Post</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ratings Section -->
+    <section class="mb-5">
+      <h3 class="mb-3">Rate This Resource</h3>
+      <div class="d-flex align-items-center gap-3">
+        <div class="rating-stars" id="ratingStars">
+          <i class="far fa-star" data-value="1"></i>
+          <i class="far fa-star" data-value="2"></i>
+          <i class="far fa-star" data-value="3"></i>
+          <i class="far fa-star" data-value="4"></i>
+          <i class="far fa-star" data-value="5"></i>
+        </div>
+        <span class="badge bg-secondary" id="ratingCount">0 ratings</span>
+      </div>
+    </section>
+
+    <!-- Related Resources -->
+    <section class="mb-5">
+      <h3 class="mb-3">Related Resources</h3>
+      <div id="relatedResources" class="row g-3"></div>
+    </section>
+
+    <!-- Gamification -->
+    <section class="mb-5">
+      <h3 class="mb-3">Your Achievements</h3>
+      <div class="d-flex gap-3" id="badgesSection">
+        <div class="text-center">
+          <div class="bg-light p-3 rounded-circle mb-2" style="width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">
+            <i class="fas fa-book fa-2x text-primary"></i>
+          </div>
+          <small>Resource Viewer</small>
+        </div>
+      </div>
+    </section>
   </div>
 
   <!-- Footer -->
@@ -67,6 +223,17 @@
   <button id="backToTop" class="btn btn-primary rounded-circle shadow position-fixed bottom-0 end-0 m-4" style="display:none; z-index:1000;">
     <i class="fas fa-arrow-up"></i>
   </button>
+
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json" id="structuredData">
+  {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    "name": "Resource Title",
+    "educationalLevel": "Grade Level",
+    "url": "https://example.com/resource/123"
+  }
+  </script>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
