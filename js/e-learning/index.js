@@ -1,112 +1,450 @@
-// JavaScript for index.html - E-Learning Portal Management
-console.log('Index page loaded');
+// E-Learning Portal - Comprehensive State Management
+// Implements all refactoring suggestions for clean, maintainable code
 
-// Initialize the e-learning portal
+console.log('E-Learning portal initialized');
+
+// Page metadata from HTML data attributes
+const pageMetadata = {
+    page: document.body.dataset.page || 'dashboard',
+    module: document.body.dataset.module || 'e-learning'
+};
+
+// Navigation configuration - single source of truth
+const navigationConfig = [
+    { path: '/e-learning/index.html', icon: 'fa-home', text: 'Dashboard', active: true },
+    { path: '/e-learning/subjects.html', icon: 'fa-book', text: 'Subjects' },
+    { path: '/e-learning/resources.html', icon: 'fa-folder-open', text: 'Resources' },
+    { path: '/e-learning/assignments.html', icon: 'fa-tasks', text: 'Assignments' },
+    { path: '/e-learning/quizzes.html', icon: 'fa-question-circle', text: 'Quizzes' },
+    { path: '/e-learning/live.html', icon: 'fa-video', text: 'Live Sessions' },
+    { path: '/e-learning/forum.html', icon: 'fa-comments', text: 'Forum' },
+    { path: '/e-learning/analytics.html', icon: 'fa-chart-line', text: 'Analytics' },
+    { path: '/e-learning/calendar.html', icon: 'fa-calendar-alt', text: 'Calendar' },
+    { path: '/e-learning/media.html', icon: 'fa-photo-video', text: 'Media Gallery' },
+    { path: '/e-learning/study-plans.html', icon: 'fa-tasks', text: 'Study Plans' },
+    { path: '/e-learning/notifications.html', icon: 'fa-bell', text: 'Notifications' }
+];
+
+// Role-based navigation items
+const roleBasedNavItems = [
+    { role: 'teacher', path: '/e-learning/teacher-dashboard.html', icon: 'fa-upload', text: 'Teacher Dashboard' }
+];
+
+// What We Offer cards configuration
+const offerCardsConfig = [
+    { title: 'Subjects', icon: 'fa-book', color: 'primary', link: '/e-learning/subjects.html', 
+      description: 'Explore all your subjects in one place. Access notes, videos, and more.' },
+    { title: 'Resources', icon: 'fa-folder-open', color: 'success', link: '/e-learning/resources.html',
+      description: 'Access study materials, PDFs, videos, and interactive content.' },
+    { title: 'Assignments', icon: 'fa-tasks', color: 'warning', link: '/e-learning/assignments.html',
+      description: 'Submit assignments and track your progress.' },
+    { title: 'Quizzes', icon: 'fa-question-circle', color: 'info', link: '/e-learning/quizzes.html',
+      description: 'Test your knowledge with interactive quizzes.' },
+    { title: 'Live Sessions', icon: 'fa-video', color: 'danger', link: '/e-learning/live.html',
+      description: 'Join live classes and interact with teachers.' },
+    { title: 'Forum', icon: 'fa-comments', color: 'secondary', link: '/e-learning/forum.html',
+      description: 'Engage in discussions and ask questions.' },
+    { title: 'Calendar', icon: 'fa-calendar-alt', color: 'info', link: '/e-learning/calendar.html',
+      description: 'View your schedule and upcoming events.' },
+    { title: 'Media Gallery', icon: 'fa-photo-video', color: 'warning', link: '/e-learning/media.html',
+      description: 'Access lesson videos and images.' },
+    { title: 'Notifications', icon: 'fa-bell', color: 'danger', link: '/e-learning/notifications.html',
+      description: 'Stay updated with important alerts.' }
+];
+
+// User data hooks
+const userDataHooks = {
+    subjectsCount: 'subjectsCount',
+    pendingAssignments: 'pendingAssignments', 
+    studyStreak: 'studyStreak'
+};
+
+// Main application state
+const appState = {
+    isLoggedIn: false,
+    userName: 'Student',
+    userRole: 'student',
+    userData: {
+        subjectsEnrolled: 8,
+        pendingAssignments: 3,
+        studyStreakDays: 5
+    }
+};
+
+// Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('E-Learning portal initialized');
+    console.log('Initializing E-Learning Portal with refactored architecture');
     
-    // Set up navigation highlighting
-    setupNavigation();
+    // Load user session
+    loadUserSession();
+    
+    // Set up event listeners
+    setupEventListeners();
     
     // Set up back to top button
     setupBackToTop();
     
-    // Initialize user session
-    initUserSession();
+    // Log analytics
+    logPageView();
 });
 
-// Navigation highlighting based on current page
-function setupNavigation() {
-    const currentPath = window.location.pathname;
-    const navLinks = document.querySelectorAll('#portalNavbar .nav-link');
+// Load user session from localStorage
+function loadUserSession() {
+    const savedSession = localStorage.getItem('eLearningSession');
     
-    navLinks.forEach(link => {
-        const linkPath = link.getAttribute('href');
-        if (currentPath.includes(linkPath.replace('/e-learning/', ''))) {
-            link.classList.add('active');
-        } else {
-            link.classList.remove('active');
+    if (savedSession) {
+        try {
+            const sessionData = JSON.parse(savedSession);
+            appState.isLoggedIn = sessionData.isLoggedIn || false;
+            appState.userName = sessionData.userName || 'Student';
+            appState.userRole = sessionData.userRole || 'student';
+            appState.userData = sessionData.userData || appState.userData;
+        } catch (error) {
+            console.error('Error parsing session data:', error);
+        }
+    }
+    
+    // Render appropriate UI based on auth state
+    renderUI();
+}
+
+// Render UI based on current state
+function renderUI() {
+    if (appState.isLoggedIn) {
+        renderLoggedInUI();
+    } else {
+        renderLoginPrompt();
+    }
+}
+
+// Render login prompt
+function renderLoginPrompt() {
+    const loginContainer = document.getElementById('loginContainer');
+    
+    loginContainer.innerHTML = `
+        <div class="container d-flex align-items-center justify-content-center min-vh-100">
+            <div class="text-center p-5 bg-white rounded-4 shadow-lg loginCard">
+                <i class="fas fa-graduation-cap fa-5x text-primary mb-4"></i>
+                <h1 class="display-5 fw-bold mb-3">Welcome to E-Learning Hub</h1>
+                <p class="lead mb-4">Please log in to access your courses, assignments, and resources.</p>
+                <a href="/user/login.html" class="btn btn-primary btn-lg px-5">
+                    <i class="fas fa-sign-in-alt me-2"></i> Login Now
+                </a>
+            </div>
+        </div>
+    `;
+}
+
+// Render logged-in UI
+function renderLoggedInUI() {
+    const portalContainer = document.getElementById('portalContainer');
+    portalContainer.classList.remove('d-none');
+    
+    portalContainer.innerHTML = `
+        <main id="portalMain">
+            ${renderNavigation()}
+            ${renderHeroSection()}
+            ${renderOfferCards()}
+            ${renderLearningSnapshot()}
+        </main>
+    `;
+    
+    // Set up navigation after rendering
+    setupNavigation();
+}
+
+// Render navigation bar
+function renderNavigation() {
+    return `
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+            <div class="container">
+                <a class="navbar-brand" href="/e-learning/index.html">
+                    <i class="fas fa-graduation-cap me-2"></i>E-Learning Hub
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#portalNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="portalNavbar">
+                    <ul class="navbar-nav me-auto" id="mainNavigation"></ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <span class="nav-link text-white">Welcome, <span id="navUsername">${appState.userName}</span>!</span>
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn btn-outline-light ms-3" id="logoutBtn">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    `;
+}
+
+// Set up navigation with dynamic active state
+function setupNavigation() {
+    const navContainer = document.getElementById('mainNavigation');
+    const currentPath = window.location.pathname;
+    
+    // Render main navigation items
+    navigationConfig.forEach(item => {
+        const isActive = currentPath.includes(item.path.replace('/e-learning/', ''));
+        const activeClass = isActive ? 'active' : '';
+        
+        navContainer.innerHTML += `
+            <li class="nav-item">
+                <a class="nav-link ${activeClass}" href="${item.path}">
+                    <i class="fas ${item.icon} me-1"></i> ${item.text}
+                </a>
+            </li>
+        `;
+    });
+    
+    // Render role-based navigation items
+    roleBasedNavItems.forEach(item => {
+        if (appState.userRole === item.role) {
+            const isActive = currentPath.includes(item.path.replace('/e-learning/', ''));
+            const activeClass = isActive ? 'active' : '';
+            
+            navContainer.innerHTML += `
+                <li class="nav-item" data-role="${item.role}">
+                    <a class="nav-link ${activeClass}" href="${item.path}">
+                        <i class="fas ${item.icon} me-1"></i> ${item.text}
+                    </a>
+                </li>
+            `;
+        }
+    });
+    
+    // Set up logout button
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+}
+
+// Render hero section
+function renderHeroSection() {
+    return `
+        <section class="container my-5" aria-labelledby="heroHeading">
+            <h2 id="heroHeading" class="visually-hidden">Welcome Section</h2>
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="display-4 fw-bold mb-4">Welcome to the E-Learning Hub</h1>
+                    <p class="lead mb-4">Your gateway to seamless learning. Access courses, track progress, and engage with resources anytime, anywhere.</p>
+                    <div class="d-flex gap-3">
+                        <a href="/e-learning/subjects.html" class="btn btn-primary btn-lg">
+                            <i class="fas fa-book me-2"></i> Browse Subjects
+                        </a>
+                        <a href="/e-learning/analytics.html" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-chart-line me-2"></i> View Progress
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="/assets/images/elearning/portal-dashboard.png" 
+                         class="img-fluid rounded-3" 
+                         alt="E-Learning Dashboard"
+                         loading="lazy"
+                         decoding="async">
+                </div>
+            </div>
+        </section>
+    `;
+}
+
+// Render offer cards dynamically
+function renderOfferCards() {
+    return `
+        <section class="container my-5" aria-labelledby="offersHeading">
+            <h2 id="offersHeading" class="text-center mb-5">What We Offer</h2>
+            <div class="row g-4" id="offerCardsContainer"></div>
+        </section>
+    `;
+}
+
+// Generate offer cards from configuration
+function generateOfferCards() {
+    const container = document.getElementById('offerCardsContainer');
+    
+    offerCardsConfig.forEach(card => {
+        container.innerHTML += `
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas ${card.icon} fa-3x text-${card.color} mb-3"></i>
+                        <h5 class="card-title">${card.title}</h5>
+                        <p class="card-text">${card.description}</p>
+                        <a href="${card.link}" class="btn btn-${card.color}">${getCardButtonText(card.title)}</a>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+}
+
+// Helper function for card button text
+function getCardButtonText(title) {
+    const buttonTexts = {
+        'Subjects': 'Browse Subjects',
+        'Resources': 'View Resources',
+        'Assignments': 'View Assignments',
+        'Quizzes': 'Take Quizzes',
+        'Live Sessions': 'Join Live',
+        'Forum': 'Visit Forum',
+        'Calendar': 'View Calendar',
+        'Media Gallery': 'View Media',
+        'Notifications': 'View Notifications'
+    };
+    
+    return buttonTexts[title] || `View ${title}`;
+}
+
+// Render learning snapshot with data hooks
+function renderLearningSnapshot() {
+    return `
+        <section class="container my-5" aria-labelledby="snapshotHeading">
+            <h2 id="snapshotHeading" class="text-center mb-4">Your Learning Snapshot</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-book fa-2x text-primary mb-3"></i>
+                            <h5 class="card-title">Subjects Enrolled</h5>
+                            <p class="fs-4 fw-bold" id="${userDataHooks.subjectsCount}">–</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-clipboard-list fa-2x text-warning mb-3"></i>
+                            <h5 class="card-title">Pending Assignments</h5>
+                            <p class="fs-4 fw-bold text-warning" id="${userDataHooks.pendingAssignments}">–</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <i class="fas fa-fire fa-2x text-success mb-3"></i>
+                            <h5 class="card-title">Study Streak</h5>
+                            <p class="fs-4 fw-bold text-success" id="${userDataHooks.studyStreak}">–</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    `;
+}
+
+// Load user data into data hooks
+function loadUserData() {
+    // Simulate API call or use cached data
+    setTimeout(() => {
+        document.getElementById(userDataHooks.subjectsCount).textContent = appState.userData.subjectsEnrolled;
+        document.getElementById(userDataHooks.pendingAssignments).textContent = appState.userData.pendingAssignments;
+        document.getElementById(userDataHooks.studyStreak).textContent = `${appState.userData.studyStreakDays} Days`;
+        
+        // Generate offer cards after data is loaded
+        generateOfferCards();
+    }, 500); // Simulate network delay
+}
+
+// Set up event listeners
+function setupEventListeners() {
+    // Event delegation for any dynamic elements
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('[data-role]')) {
+            handleRoleBasedNavigation(e);
         }
     });
 }
 
-// Back to top button functionality
+// Handle role-based navigation
+function handleRoleBasedNavigation(event) {
+    const navItem = event.target.closest('[data-role]');
+    const requiredRole = navItem.dataset.role;
+    
+    if (appState.userRole !== requiredRole) {
+        console.warn(`Access denied: User role ${appState.userRole} cannot access ${requiredRole} feature`);
+        // Could show a toast notification here
+    }
+}
+
+// Set up back to top button
 function setupBackToTop() {
     const backToTopBtn = document.getElementById('backToTop');
     
-    if (backToTopBtn) {
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 300) {
-                backToTopBtn.style.display = 'block';
-            } else {
-                backToTopBtn.style.display = 'none';
-            }
-        });
-        
-        backToTopBtn.addEventListener('click', function() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
-}
-
-// User session management
-function initUserSession() {
-    // Check if user is logged in (simplified for demo)
-    const isLoggedIn = localStorage.getItem('eLearningLoggedIn') === 'true';
-    
-    if (isLoggedIn) {
-        // Show logged in content
-        document.getElementById('loginCheck').classList.add('d-none');
-        document.getElementById('loggedInContent').classList.remove('d-none');
-        
-        // Load user data
-        loadUserData();
-        
-        // Check if user is a teacher to show teacher dashboard link
-        const userRole = localStorage.getItem('userRole');
-        if (userRole === 'teacher') {
-            document.getElementById('teacherUploadNav').classList.remove('d-none');
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+            backToTopBtn.style.display = 'block';
+        } else {
+            backToTopBtn.style.display = 'none';
         }
-    } else {
-        // Show login prompt
-        document.getElementById('loginCheck').classList.remove('d-none');
-        document.getElementById('loggedInContent').classList.add('d-none');
-    }
+    });
+    
+    backToTopBtn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 }
 
-// Load user data and update UI
-function loadUserData() {
-    const userName = localStorage.getItem('userName') || 'Student';
-    document.getElementById('navUserName').textContent = userName;
-}
-
-// Login simulation function
-function login(userName, userRole = 'student') {
-    localStorage.setItem('eLearningLoggedIn', 'true');
-    localStorage.setItem('userName', userName);
-    localStorage.setItem('userRole', userRole);
-    window.location.reload();
+// Login function
+function login(userName, userRole = 'student', userData = {}) {
+    appState.isLoggedIn = true;
+    appState.userName = userName;
+    appState.userRole = userRole;
+    appState.userData = { ...appState.userData, ...userData };
+    
+    // Save session
+    localStorage.setItem('eLearningSession', JSON.stringify(appState));
+    
+    // Re-render UI
+    renderUI();
+    
+    // Load user data
+    loadUserData();
 }
 
 // Logout function
 function logout() {
-    localStorage.removeItem('eLearningLoggedIn');
-    localStorage.removeItem('userName');
-    localStorage.removeItem('userRole');
+    appState.isLoggedIn = false;
+    appState.userName = 'Student';
+    appState.userRole = 'student';
+    
+    // Clear session
+    localStorage.removeItem('eLearningSession');
+    
+    // Redirect to login
     window.location.href = '/user/login.html';
 }
 
-// Navigation helper functions
+// Log page view for analytics
+function logPageView() {
+    console.log(`Page View: ${pageMetadata.module}/${pageMetadata.page}`);
+    
+    // In a real app, this would send to analytics service
+    if (typeof analytics !== 'undefined') {
+        analytics.track('pageView', {
+            module: pageMetadata.module,
+            page: pageMetadata.page,
+            timestamp: new Date().toISOString()
+        });
+    }
+}
+
+// Navigation helper function
 function navigateTo(page) {
     window.location.href = `/e-learning/${page}.html`;
 }
 
-// Export functions for other modules
+// Export functions for testing or other modules
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         login,
         logout,
         navigateTo,
-        initUserSession
+        loadUserSession,
+        renderUI,
+        appState,
+        pageMetadata
     };
 }
