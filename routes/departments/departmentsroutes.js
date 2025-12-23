@@ -46,8 +46,10 @@ const writeJSON = (filePath, data) => {
     }
 
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+    return true;
   } catch (err) {
     console.error('Error writing JSON:', err);
+    return false;
   }
 };
 
@@ -91,7 +93,7 @@ const uploadGuidanceResource = createUploader('guidance/', documentExtensions);
 const uploadWelfareAttachment = createUploader('welfare/', [...documentExtensions, ...imageExtensions]);
 
 router.get('/cocurriculum/data', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'cocurriculum', 'data.json'));
+  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'cocurriculum', 'data.json'));
   res.json(data);
 });
 
@@ -102,7 +104,7 @@ router.get('/cocurriculum/data', (req, res) => {
  */
 router.post('/cocurriculum/join', (req, res) => {
   const data = req.body;
-  const file = path.join(__dirname, '..', 'data', 'cocurriculum-joins.json');
+  const file = path.join(__dirname, '..', '..', 'data', 'cocurriculum-joins.json');
   let joins = readJSON(file);
   joins.push({ ...data, submitted_at: new Date().toISOString() });
   writeJSON(file, joins);
@@ -129,7 +131,7 @@ router.post('/cocurriculum/upload', uploadCoCurriculumPhoto.array('photos', 30),
 
 // --- Applied Sciences ---
 router.get('/applied-sciences', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'applied-sciences-data.json'));
+  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'applied-sciences-data.json'));
   res.json(data);
 });
 router.post('/applied-sciences/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
@@ -144,13 +146,13 @@ router.get('/humanities', (req, res) => {
   res.json(data);
 });
 router.get('/humanities/forum', (req, res) => {
-  const posts = readJSON(path.join(__dirname, '..', 'data', 'departments', 'humanities-forum.json'));
+  const posts = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'humanities-forum.json'));
   res.json(posts.slice(0, 50)); // Return latest 50
 });
 router.post('/humanities/forum', (req, res) => {
   const { text } = req.body;
   if (!text?.trim()) return res.status(400).json({ success: false, message: "Post text cannot be empty." });
-  const file = path.join(__dirname, '..', 'data', 'departments', 'humanities-forum.json');
+  const file = path.join(__dirname, '..', '..', 'data', 'departments', 'humanities-forum.json');
   let posts = readJSON(file);
   posts.unshift({ id: Date.now(), text: text.trim(), timestamp: new Date().toISOString() });
   writeJSON(file, posts);
@@ -159,7 +161,7 @@ router.post('/humanities/forum', (req, res) => {
 router.post('/humanities/poll', (req, res) => {
   const { subject } = req.body;
   if (!subject) return res.status(400).json({ success: false, message: "Subject required." });
-  const file = path.join(__dirname, '..', 'data', 'departments', 'humanities-poll.json');
+  const file = path.join(__dirname, '..', '..', 'data', 'departments', 'humanities-poll.json');
   let poll = readJSON(file);
   poll[subject] = (poll[subject] || 0) + 1;
   writeJSON(file, poll);
@@ -173,7 +175,7 @@ router.post('/humanities/upload', uploadDepartmentFile.array('files', 20), (req,
 
 // --- Languages ---
 router.get('/languages', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'languages-data.json'));
+  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'languages-data.json'));
   res.json(data);
 });
 router.get('/languages/forum', (req, res) => {
@@ -183,7 +185,7 @@ router.get('/languages/forum', (req, res) => {
 router.post('/languages/forum', (req, res) => {
   const { text } = req.body;
   if (!text?.trim()) return res.status(400).json({ success: false, message: "Post text cannot be empty." });
-  const file = path.join(__dirname, '..', 'data', 'departments', 'languages-forum.json');
+  const file = path.join(__dirname, '..', '..', 'data', 'departments', 'languages-forum.json');
   let posts = readJSON(file);
   posts.unshift({ id: Date.now(), text: text.trim(), timestamp: new Date().toISOString() });
   writeJSON(file, posts);
@@ -192,7 +194,7 @@ router.post('/languages/forum', (req, res) => {
 router.post('/languages/poll', (req, res) => {
   const { subject } = req.body;
   if (!subject) return res.status(400).json({ success: false, message: "Subject required." });
-  const file = path.join(__dirname, '..', 'data', 'departments', 'languages-poll.json');
+  const file = path.join(__dirname, '..', '..', 'data', 'departments', 'languages-poll.json');
   let poll = readJSON(file);
   poll[subject] = (poll[subject] || 0) + 1;
   writeJSON(file, poll);
@@ -206,7 +208,7 @@ router.post('/languages/upload', uploadDepartmentFile.array('files', 20), (req, 
 
 // --- Mathematics ---
 router.get('/mathematics', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'math-data.json'));
+  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'math-data.json'));
   res.json(data);
 });
 router.post('/mathematics/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
@@ -217,7 +219,7 @@ router.post('/mathematics/upload', uploadDepartmentFile.array('files', 20), (req
 
 // --- Sciences ---
 router.get('/science', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'science.json'));
+  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'science.json'));
   res.json(data);
 });
 router.post('/science/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
@@ -233,17 +235,17 @@ router.post('/science/upload', uploadDepartmentFile.array('files', 20), (req, re
 
 // --- Guidance & Counseling ---
 router.get('/guidance/data', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'guidance', 'data.json'));
+  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'guidance', 'data.json'));
   res.json(data);
 });
 router.get('/guidance/anonymous', (req, res) => {
-  const posts = readJSON(path.join(__dirname, '..', 'data', 'guidance-anonymous.json'));
+  const posts = readJSON(path.join(__dirname, '..', '..', 'data', 'guidance-anonymous.json'));
   res.json(posts.slice(0, 20)); // Return latest 20
 });
 router.post('/guidance/anonymous', (req, res) => {
   const { text } = req.body;
   if (!text?.trim()) return res.status(400).json({ success: false, message: "Post text cannot be empty." });
-  const file = path.join(__dirname, '..', 'data', 'guidance-anonymous.json');
+  const file = path.join(__dirname, '..', '..', 'data', 'guidance-anonymous.json');
   let posts = readJSON(file);
   posts.unshift({ id: Date.now(), text: text.trim(), timestamp: new Date().toISOString() });
   writeJSON(file, posts);
@@ -251,7 +253,7 @@ router.post('/guidance/anonymous', (req, res) => {
 });
 router.post('/guidance/appointment', (req, res) => {
   const data = req.body;
-  const file = path.join(__dirname, '..', 'data', 'guidance-appointments.json');
+  const file = path.join(__dirname, '..', '..', 'data', 'guidance-appointments.json');
   let appointments = readJSON(file);
   appointments.push({ ...data, submitted_at: new Date().toISOString(), status: "pending" });
   writeJSON(file, appointments);
@@ -264,7 +266,7 @@ router.post('/guidance/upload', uploadGuidanceResource.array('resources', 20), (
 
 // --- Welfare ---
 router.get('/welfare/data', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'welfare', 'data.json'));
+  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'welfare', 'data.json'));
   res.json(data);
 });
 router.post('/welfare/request', uploadWelfareAttachment.array('attachments', 10), (req, res) => {
@@ -274,7 +276,7 @@ router.post('/welfare/request', uploadWelfareAttachment.array('attachments', 10)
     return res.status(400).json({ success: false, message: "Required fields missing" });
   }
 
-  const file = path.join(__dirname, '..', 'data', 'welfare-requests.json');
+  const file = path.join(__dirname, '..', '..', 'data', 'welfare-requests.json');
   let requests = readJSON(file);
 
   requests.push({

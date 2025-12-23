@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "id": "1766501842950",
+    "studentName": "Test Student",
+    "parentPhone": "0712345678",
+    "email": "test@example.com",
+    "submittedAt": "2025-12-23T14:57:22.950Z",
+    "status": "new"
+  },
+  {
+    "id": "1766502006320",
+    "studentName": "Test Student",
+    "parentPhone": "0712345678",
+    "email": "test@example.com",
+    "submittedAt": "2025-12-23T15:00:06.320Z",
+    "status": "new"
+  },
+  {
+    "id": "1766502090158",
+    "studentName": "Test Student",
+    "parentPhone": "0712345678",
+    "email": "test@example.com",
+    "submittedAt": "2025-12-23T15:01:30.158Z",
+    "status": "new"
+  },
+  {
+    "id": "1766502935820",
+    "studentName": "Final Test",
+    "parentPhone": "0722123456",
+    "email": "finaltest@example.com",
+    "submittedAt": "2025-12-23T15:15:35.820Z",
+    "status": "new"
+  },
+  {
+    "id": "1766503004727",
+    "studentName": "HARRY OTIENO",
+    "parentPhone": "0706259403",
+    "email": "harryoginga@gmail.com",
+    "submittedAt": "2025-12-23T15:16:44.727Z",
+    "status": "new"
+  }
+]

@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": "1766504518005",
+    "name": "harry oginga",
+    "email": "harryoginga@gmail.com",
+    "phone": "0706259403",
+    "subject": "admissions",
+    "department": "General",
+    "message": "the requirements",
+    "preferred_contact": "Any",
+    "submitted_at": "2025-12-23T15:41:58.005Z",
+    "status": "new"
+  },
+  {
+    "id": "1766505057733",
+    "name": "HARRY OTIENO",
+    "email": "harryoginga@gmail.com",
+    "phone": "0706259403",
+    "subject": "fees",
+    "department": "General",
+    "message": "fee structure for grade 2",
+    "preferred_contact": "Any",
+    "submitted_at": "2025-12-23T15:50:57.733Z",
+    "status": "new"
+  }
+]

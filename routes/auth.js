@@ -4,6 +4,8 @@ import path from 'path';
 import fs from 'fs';
 import { loginValidator, registerValidator } from '../validators/authValidator.js';
 import { validationResult } from 'express-validator';
+import { requireLogin } from '../middleware/authMiddleware.js';
+import { uploadImage } from '../middleware/uploadMiddleware.js';
 
 const router = express.Router();
 
@@ -40,8 +42,10 @@ const writeJSON = (filePath, data) => {
     }
 
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+    return true;
   } catch (err) {
     console.error('Error writing JSON:', err);
+    return false;
   }
 };
 
@@ -57,7 +61,7 @@ router.post('/login', loginValidator, (req, res) => {
 
   const { email, password } = req.body;
 
-  const users = readJSON(path.join('data', 'users.json'));
+  const users = readJSON(path.join(__dirname, '..', '..', 'data', 'users.json'));
   const user = users.find(u => u.email === email && u.password === password);
 
   if (!user) {
@@ -141,7 +145,7 @@ router.post('/register', registerValidator, (req, res) => {
   const { fullName, email, password, role, securityQuestion1, securityAnswer1, securityQuestion2, securityAnswer2 } = req.body;
   console.log('Register payload:', { fullName, email, password, role, securityQuestion1, securityAnswer1, securityQuestion2, securityAnswer2 });
 
-  const usersFile = path.join('data', 'users.json');
+  const usersFile = path.join(__dirname, '..', '..', 'data', 'users.json');
   const users = readJSON(usersFile);
 
   if (users.some(u => u.email === email)) {
@@ -180,7 +184,7 @@ router.post('/api/forgot-password/email', (req, res) => {
     return res.status(400).json({ success: false, message: 'Email is required' });
   }
 
-  const users = readJSON(path.join('data', 'users.json'));
+  const users = readJSON(path.join(__dirname, '..', '..', 'data', 'users.json'));
   const user = users.find(u => u.email === email);
 
   if (!user) {
@@ -201,7 +205,7 @@ router.post('/api/forgot-password/verify', (req, res) => {
     return res.status(400).json({ success: false, message: 'Email and answers are required' });
   }
 
-  const users = readJSON(path.join('data', 'users.json'));
+  const users = readJSON(path.join(__dirname, '..', '..', 'data', 'users.json'));
   const user = users.find(u => u.email === email);
 
   if (!user) {
@@ -228,7 +232,7 @@ router.post('/api/forgot-password/reset', (req, res) => {
     return res.status(400).json({ success: false, message: 'Email and new password are required' });
   }
 
-  const users = readJSON(path.join('data', 'users.json'));
+  const users = readJSON(path.join(__dirname, '..', '..', 'data', 'users.json'));
   const userIndex = users.findIndex(u => u.email === email);
 
   if (userIndex === -1) {
@@ -237,19 +241,19 @@ router.post('/api/forgot-password/reset', (req, res) => {
 
   // Update the user's password
   users[userIndex].password = newPassword;
-  writeJSON(path.join('data', 'users.json'), users);
+  writeJSON(path.join(__dirname, '..', '..', 'data', 'users.json'), users);
 
   res.json({ success: true, message: 'Password reset successfully' });
 });
 
 /* ==================== USER & AUTH ==================== */
-router.get('/profile', requireAuth, (req, res) => {
+router.get('/profile', requireLogin, (req, res) => {
   const { password, ...safeUser } = req.session.user;
   res.json({ success: true, user: safeUser });
 });
 
-router.put('/profile', requireAuth, uploadImage.single('photo'), (req, res) => {
-  const users = readJSON(path.join(__dirname, '..', 'data', 'users.json'));
+router.put('/profile', requireLogin, uploadImage, (req, res) => {
+  const users = readJSON(path.join(__dirname, '..', '..', 'data', 'users.json'));
   const index = users.findIndex(u => u.id === req.session.user.id);
   if (index === -1) return res.status(404).json({ success: false, message: 'User not found' });
 
@@ -257,7 +261,7 @@ router.put('/profile', requireAuth, uploadImage.single('photo'), (req, res) => {
   if (req.file) updates.photo = `/uploads/images/${req.file.filename}`;
 
   users[index] = { ...users[index], ...updates, updated_at: new Date().toISOString() };
-  if (writeJSON(path.join(__dirname, '..', 'data', 'users.json'), users)) {
+  if (writeJSON(path.join(__dirname, '..', '..', 'data', 'users.json'), users)) {
     req.session.user = users[index];
     const { password, ...safeUser } = users[index];
     res.json({ success: true, user: safeUser, message: 'Profile updated!' });
@@ -273,7 +277,7 @@ router.put('/profile', requireAuth, uploadImage.single('photo'), (req, res) => {
  */
 router.get('/users/:id', (req, res) => {
   const { id } = req.params;
-  const users = readJSON(path.join(__dirname, '..', 'data', 'users.json'));
+  const users = readJSON(path.join(__dirname, '..', '..', 'data', 'users.json'));
   const user = users.find(u => u.id.toString() === id.toString());
 
   if (!user) {
@@ -294,7 +298,7 @@ router.put('/users/:id', (req, res) => {
   const { id } = req.params;
   const { name, email, password, role } = req.body;
 
-  const usersFile = path.join(__dirname, '..', 'data', 'users.json');
+  const usersFile = path.join(__dirname, '..', '..', 'data', 'users.json');
   const users = readJSON(usersFile);
 
   const index = users.findIndex(u => u.id.toString() === id.toString());

@@ -45,8 +45,10 @@ const writeJSON = (filePath, data) => {
     }
 
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+    return true;
   } catch (err) {
     console.error('Error writing JSON:', err);
+    return false;
   }
 };
 
@@ -105,7 +107,7 @@ router.post('/submit-enquiry', (req, res) => {
     return res.status(400).json({ success: false, message: 'Invalid Kenyan phone number.' });
   }
 
-  const file = path.join(__dirname, '..', 'data', 'enquiries.json');
+  const file = path.join(__dirname, '..', '..', 'data', 'enquiries.json');
   const enquiries = readJSON(file);
 
   enquiries.push({
@@ -117,10 +119,12 @@ router.post('/submit-enquiry', (req, res) => {
     status: 'new'
   });
 
+  console.log('Attempting to write to file:', file);
   if (writeJSON(file, enquiries)) {
     console.log(`Enquiry → ${studentName} | ${parentPhone}`);
     res.json({ success: true, message: 'Enquiry received!' });
   } else {
+    console.error('writeJSON returned false for file:', file);
     res.status(500).json({ success: false, message: 'Server error saving enquiry.' });
   }
 });
@@ -141,7 +145,7 @@ router.post('/submit-application', (req, res) => {
     return res.status(400).json({ success: false, message: 'Invalid Kenyan phone number.' });
   }
 
-  const file = path.join(__dirname, '..', 'data', 'applications.json');
+  const file = path.join(__dirname, '..', '..', 'data', 'applications.json');
   const apps = readJSON(file);
 
   apps.push({
@@ -176,7 +180,7 @@ router.post('/contact', (req, res) => {
     return res.status(400).json({ success: false, message: 'Required fields missing.' });
   }
 
-  const file = path.join(__dirname, '..', 'data', 'contacts.json');
+  const file = path.join(__dirname, '..', '..', 'data', 'contacts.json');
   const contacts = readJSON(file);
 
   contacts.push({
@@ -209,7 +213,7 @@ router.post('/submit-blog', uploadBlogImage.single('image'), (req, res) => {
     return res.status(400).json({ success: false, message: "All fields required." });
   }
 
-  const file = path.join(__dirname, '..', 'data', 'pending-blogs.json');
+  const file = path.join(__dirname, '..', '..', 'data', 'pending-blogs.json');
   const pending = readJSON(file);
 
   pending.push({
@@ -246,7 +250,7 @@ router.post('/book-counseling', uploadResume.single('resume'), (req, res) => {
     return res.status(400).json({ success: false, message: "Invalid Kenyan phone." });
   }
 
-  const file = path.join(__dirname, '..', 'data', 'counseling-bookings.json');
+  const file = path.join(__dirname, '..', '..', 'data', 'counseling-bookings.json');
   const bookings = readJSON(file);
 
   bookings.push({
@@ -285,7 +289,7 @@ router.post('/donate', uploadDonationDoc.single('attachment'), (req, res) => {
     return res.status(400).json({ success: false, message: "Minimum donation is Ksh 50." });
   }
 
-  const file = path.join(__dirname, '..', 'data', 'donations.json');
+  const file = path.join(__dirname, '..', '..', 'data', 'donations.json');
   const donations = readJSON(file);
 
   donations.unshift({
@@ -326,7 +330,7 @@ router.post('/subscribe', (req, res) => {
     return res.status(400).json({ success: false, message: "Invalid email format." });
   }
 
-  const file = path.join(__dirname, '..', 'data', 'subscribers.json');
+  const file = path.join(__dirname, '..', '..', 'data', 'subscribers.json');
   let list = readJSON(file);
 
   if (list.some(s => s.email === cleanEmail)) {
@@ -348,6 +352,68 @@ router.post('/subscribe', (req, res) => {
   res.json({ success: true, message: "Subscription successful!" });
 });
 
+/**
+ * @route   POST /contact
+ * @desc    Handles the contact form submission from the About page.
+ * @access  Public
+ */
+router.post('/contact', (req, res) => {
+  const { name, _replyto: email, phone, subject, message } = req.body;
+
+  if (!name || !email || !subject || !message) {
+    return res.status(400).json({ success: false, message: 'Name, email, subject, and message are required.' });
+  }
+
+  const file = path.join(__dirname, '..', '..', 'data', 'about-contact.json');
+  const contacts = readJSON(file);
+
+  contacts.push({
+    id: Date.now().toString(),
+    name: name.trim(),
+    email: email.toLowerCase().trim(),
+    phone: phone?.trim() || null,
+    subject,
+    message: message.trim(),
+    submitted_at: new Date().toISOString(),
+    status: "new"
+  });
+
+  writeJSON(file, contacts);
+  console.log(`About Contact → ${name} | ${subject}`);
+  res.json({ success: true, message: "Message received! We will get back to you soon." });
+});
+
+/**
+ * @route   POST /feedback
+ * @desc    Handles the feedback form submission from the About page.
+ * @access  Public
+ */
+router.post('/feedback', (req, res) => {
+  const { email, category, rating, feedback, suggestions } = req.body;
+
+  if (!email || !category || !rating || !feedback) {
+    return res.status(400).json({ success: false, message: 'Email, category, rating, and feedback are required.' });
+  }
+
+  const file = path.join(__dirname, '..', '..', 'data', 'about-feedback.json');
+  const feedbacks = readJSON(file);
+
+  feedbacks.push({
+    id: Date.now().toString(),
+    email: email.toLowerCase().trim(),
+    category,
+    rating: parseInt(rating),
+    feedback: feedback.trim(),
+    suggestions: suggestions?.trim() || null,
+    submitted_at: new Date().toISOString(),
+    status: "new"
+  });
+
+  writeJSON(file, feedbacks);
+  console.log(`About Feedback → ${email} | Rating: ${rating}`);
+  res.json({ success: true, message: "Thank you for your feedback! We appreciate your input." });
+});
+
 
 // =================================================================
 // GENERAL & USER-RELATED ROUTES
@@ -359,7 +425,7 @@ router.post('/subscribe', (req, res) => {
  * @access  Public
  */
 router.get('/notifications', (req, res) => {
-  const notifications = readJSON(path.join(__dirname, '..', 'data', 'notifications.json'));
+  const notifications = readJSON(path.join(__dirname, '..', '..', 'data', 'notifications.json'));
   res.json(notifications || []);
 });
 

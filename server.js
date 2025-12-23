@@ -9,6 +9,7 @@ import { fileURLToPath } from 'url';
 import session from 'express-session';
 import SQLiteStore from 'connect-sqlite3';
 import fs from 'fs';
+import cors from 'cors';
 
 import authRoutes from './routes/auth.js';
 import portalRoutes from './routes/portal.js';
@@ -61,6 +62,11 @@ app.use(
 // ================================================
 // 2. Middleware
 // ================================================
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(logger);

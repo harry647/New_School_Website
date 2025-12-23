@@ -171,8 +171,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // ===================================
   // 4. Enhanced Quick Enquiry Form – Professional Validation & UX
   // ===================================
-  const form = document.querySelector(".enquiry-form");
-  const submitBtn = form?.querySelector(".enquiry-btn");
+  const form = document.getElementById("enquiryForm");
+  const submitBtn = form?.querySelector("button[type='submit']");
   const originalBtnHTML = submitBtn?.innerHTML || "Send My Prospectus";
 
   if (form) {
@@ -253,10 +253,11 @@ document.addEventListener("DOMContentLoaded", function () {
       try {
         const response = await fetch("/api/static/submit-enquiry", {
           method: "POST",
-          body: new FormData(form),
           headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
             "Accept": "application/json",
           },
+          body: new URLSearchParams(new FormData(form)),
         });
 
         const result = await response.json();
@@ -444,12 +445,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // ===================================
   // 9. Enhanced Form Field Animations
   // ===================================
-  document.querySelectorAll('.enquiry-form input').forEach(input => {
+  document.querySelectorAll('#enquiryForm input').forEach(input => {
     input.addEventListener('focus', function() {
       this.parentNode.style.transform = 'scale(1.02)';
       this.parentNode.style.transition = 'transform 0.2s ease';
     });
-    
+     
     input.addEventListener('blur', function() {
       this.parentNode.style.transform = 'scale(1)';
     });

@@ -45,8 +45,10 @@ const writeJSON = (filePath, data) => {
     }
 
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+    return true;
   } catch (err) {
     console.error('Error writing JSON:', err);
+    return false;
   }
 };
 
@@ -101,7 +103,7 @@ const requireAuth = (req, res, next) => {
  */
 router.get('/list', requireAuth, (req, res) => {
   try {
-    const clubsFile = path.join(__dirname, '..', 'data', 'clubs', 'clubs.json');
+    const clubsFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'clubs.json');
     const clubs = readJSON(clubsFile);
 
     if (!Array.isArray(clubs)) {
@@ -135,7 +137,7 @@ router.get('/list', requireAuth, (req, res) => {
  */
 router.get('/events', requireAuth, (req, res) => {
   try {
-    const eventsFile = path.join(__dirname, '..', 'data', 'clubs', 'events.json');
+    const eventsFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'events.json');
     const events = readJSON(eventsFile);
 
     if (!Array.isArray(events)) {
@@ -182,7 +184,7 @@ router.get('/events', requireAuth, (req, res) => {
  */
 router.get('/events/public', (req, res) => {
   try {
-    const eventsFile = path.join(__dirname, '..', 'data', 'clubs', 'events.json');
+    const eventsFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'events.json');
     const events = readJSON(eventsFile);
 
     if (!Array.isArray(events)) {
@@ -256,7 +258,7 @@ router.post('/join', requireAuth, (req, res) => {
       });
     }
 
-    const file = path.join(__dirname, '..', 'data', 'club-joins.json');
+    const file = path.join(__dirname, '..', '..', 'data', 'club-joins.json');
     let joins = readJSON(file);
 
     // Check for duplicate applications

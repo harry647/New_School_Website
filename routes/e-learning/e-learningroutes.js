@@ -45,8 +45,10 @@ const writeJSON = (filePath, data) => {
     }
 
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+    return true;
   } catch (err) {
     console.error('Error writing JSON:', err);
+    return false;
   }
 };
 
@@ -93,7 +95,7 @@ const uploadDepartmentFile = createUploader('departments/', [...documentExtensio
  * @access  Protected
  */
 router.get('/data', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'portal', 'elearning-data.json'));
+  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'portal', 'elearning-data.json'));
   res.json(data);
 });
 
@@ -103,7 +105,7 @@ router.get('/data', (req, res) => {
  * @access  Public
  */
 router.get('/notifications', (req, res) => {
-  const notifications = readJSON(path.join(__dirname, '..', 'data', 'notifications.json'));
+  const notifications = readJSON(path.join(__dirname, '..', '..', 'data', 'notifications.json'));
   res.json(notifications || []);
 });
 
@@ -123,7 +125,7 @@ router.post('/upload', uploadElearning.array('files', 10), (req, res) => {
     return res.status(400).json({ success: false, message: "No files were uploaded." });
   }
 
-  const resourcesFile = path.join(__dirname, '..', 'data', 'portal', 'resources.json');
+  const resourcesFile = path.join(__dirname, '..', '..', 'data', 'portal', 'resources.json');
   let resources = readJSON(resourcesFile);
 
   const newResources = req.files.map(file => ({
@@ -156,7 +158,7 @@ router.post('/upload', uploadElearning.array('files', 10), (req, res) => {
  * @access  Protected
  */
 router.get('/resources/all', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'resources', 'data.json'));
+  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'resources', 'data.json'));
   res.json(data);
 });
 

@@ -764,5 +764,112 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Page visible - resuming animations');
         }
     });
-    
+
+    // =================================================
+    // FORM SUBMISSION HANDLERS
+    // =================================================
+
+    /**
+     * Handle Contact Form Submission
+     */
+    function handleContactFormSubmission() {
+        const contactForm = document.getElementById('contactForm');
+        if (!contactForm) return;
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = {
+                name: document.getElementById('contactName').value,
+                _replyto: document.getElementById('contactEmail').value,
+                phone: document.getElementById('contactPhone').value,
+                subject: document.getElementById('contactSubject').value,
+                message: document.getElementById('contactMessage').value
+            };
+
+            try {
+                const response = await fetch('/api/static/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                const statusElement = document.getElementById('contactFormStatus');
+                if (result.success) {
+                    statusElement.textContent = 'Message sent successfully! We will get back to you soon.';
+                    statusElement.className = 'form-status success';
+                    contactForm.reset();
+                } else {
+                    statusElement.textContent = result.message || 'Failed to send message.';
+                    statusElement.className = 'form-status error';
+                }
+                statusElement.classList.remove('hidden');
+            } catch (error) {
+                console.error('Error submitting contact form:', error);
+                const statusElement = document.getElementById('contactFormStatus');
+                statusElement.textContent = 'An error occurred. Please try again.';
+                statusElement.className = 'form-status error';
+                statusElement.classList.remove('hidden');
+            }
+        });
+    }
+
+    /**
+     * Handle Feedback Form Submission
+     */
+    function handleFeedbackFormSubmission() {
+        const feedbackForm = document.getElementById('feedbackForm');
+        if (!feedbackForm) return;
+
+        feedbackForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const rating = document.querySelector('input[name="rating"]:checked')?.value || '';
+            const formData = {
+                email: document.getElementById('feedbackEmail').value,
+                category: document.getElementById('feedbackCategory').value,
+                rating: rating,
+                feedback: document.getElementById('feedbackContent').value,
+                suggestions: document.getElementById('feedbackSuggestions').value
+            };
+
+            try {
+                const response = await fetch('/api/static/feedback', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                const statusElement = document.getElementById('feedbackFormStatus');
+                if (result.success) {
+                    statusElement.textContent = 'Thank you for your feedback! We appreciate your input.';
+                    statusElement.className = 'form-status success';
+                    feedbackForm.reset();
+                } else {
+                    statusElement.textContent = result.message || 'Failed to submit feedback.';
+                    statusElement.className = 'form-status error';
+                }
+                statusElement.classList.remove('hidden');
+            } catch (error) {
+                console.error('Error submitting feedback form:', error);
+                const statusElement = document.getElementById('feedbackFormStatus');
+                statusElement.textContent = 'An error occurred. Please try again.';
+                statusElement.className = 'form-status error';
+                statusElement.classList.remove('hidden');
+            }
+        });
+    }
+
+    // Initialize form handlers
+    handleContactFormSubmission();
+    handleFeedbackFormSubmission();
+
 });
