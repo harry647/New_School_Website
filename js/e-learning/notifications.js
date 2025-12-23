@@ -30,28 +30,81 @@ const logger = {
     error: (msg, data) => logger.log('error', msg, data)
 };
 
+// DOM Elements
+const notificationsList = document.getElementById('notificationsList');
+const loadingSpinner = document.getElementById('loadingSpinner');
+const emptyState = document.getElementById('emptyState');
+
 // API Functions
-async function fetchNotifications() {
+async function fetchNotifications(page = 1, limit = CONFIG.PAGE_SIZE) {
+    loadingSpinner.style.display = 'block';
+    emptyState.style.display = 'none';
+    
+    if (page === 1) {
+        notificationsList.innerHTML = '';
+    }
+
     try {
-        showLoading(true);
-        logger.info('Fetching notifications from API');
-        
-        const response = await fetch(`${CONFIG.API_BASE}/notifications`);
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        const response = await fetch(`/api/notifications?page=${page}&limit=${limit}`);
+        if (!response.ok) throw new Error('Failed to fetch notifications');
+        const data = await response.json();
+
+        if (data.length === 0 && page === 1) {
+            emptyState.style.display = 'block';
+        } else {
+            if (page === 1) {
+                notifications = data;
+            } else {
+                notifications = [...notifications, ...data];
+            }
+            applyFilters();
+            updateStats();
         }
-        
-        notifications = await response.json();
-        logger.info(`Loaded ${notifications.length} notifications`);
-        
+    } catch (err) {
+        emptyState.style.display = 'block';
+        emptyState.innerHTML = `<p class="text-danger">${err.message}</p>`;
+    } finally {
+        loadingSpinner.style.display = 'none';
+    }
+}
+
+// Implement infinite scroll using IntersectionObserver
+let currentPage = 1;
+let isLoading = false;
+
+function setupInfiniteScroll() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !isLoading) {
+                currentPage++;
+                isLoading = true;
+                fetchNotifications(currentPage).finally(() => {
+                    isLoading = false;
+                });
+            }
+        });
+    }, { threshold: 0.1 });
+
+    const sentinel = document.createElement('div');
+    sentinel.id = 'infiniteScrollSentinel';
+    notificationsList.appendChild(sentinel);
+    observer.observe(sentinel);
+}
+
+// Support offline fallback with cached notifications
+if (!navigator.onLine) {
+    const cachedNotifications = localStorage.getItem('notificationsCache');
+    if (cachedNotifications) {
+        notifications = JSON.parse(cachedNotifications);
         applyFilters();
         updateStats();
-        showLoading(false);
-        
-    } catch (error) {
-        logger.error('Failed to load notifications', error);
-        showError('Failed to load notifications. Please try again later.');
-        showLoading(false);
+    }
+}
+
+// Cache notifications when online
+function cacheNotifications() {
+    if (navigator.onLine) {
+        localStorage.setItem('notificationsCache', JSON.stringify(notifications));
     }
 }
 
@@ -131,6 +184,32 @@ function showError(message) {
 function updateStats() {
     const unreadCount = notifications.filter(n => !n.read).length;
     document.getElementById('unreadCount').textContent = unreadCount;
+    
+    // Update notification badges on filter tabs
+    document.querySelectorAll('[data-filter]').forEach(tab => {
+        const filter = tab.dataset.filter;
+        let count = 0;
+        
+        if (filter === 'unread') {
+            count = notifications.filter(n => !n.read).length;
+        } else if (filter !== 'all') {
+            count = notifications.filter(n => n.category === filter).length;
+        }
+        
+        const badge = tab.querySelector('.notification-badge');
+        if (count > 0) {
+            if (!badge) {
+                const span = document.createElement('span');
+                span.className = 'notification-badge';
+                span.textContent = count;
+                tab.appendChild(span);
+            } else {
+                badge.textContent = count;
+            }
+        } else if (badge) {
+            badge.remove();
+        }
+    });
 }
 
 function applyFilters() {
@@ -167,56 +246,46 @@ function applyFilters() {
     renderNotifications();
 }
 
-function renderNotifications() {
-    const container = document.getElementById('notificationsList');
-    const emptyState = document.getElementById('emptyState');
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
 
-    if (filteredNotifications.length === 0) {
-        container.style.display = 'none';
-        emptyState.style.display = 'block';
-        return;
-    }
-
-    container.style.display = 'block';
-    emptyState.style.display = 'none';
-
-    container.innerHTML = filteredNotifications.map(notification => `
-        <div class="notification-item ${notification.read ? '' : 'unread'} ${notification.priority || 'low'}-priority"
-             data-id="${notification.id}">
-            <div class="d-flex align-items-start">
-                <div class="notification-icon ${notification.type || 'administrative'}">
-                    <i class="fas ${notification.icon || 'fa-bell'}"></i>
-                </div>
-                <div class="flex-grow-1">
-                    <div class="d-flex justify-content-between align-items-start mb-1">
-                        <h5 class="mb-0">${notification.title || 'Notification'}</h5>
-                        <div class="d-flex align-items-center gap-2">
-                            ${notification.priority ? `
-                                <span class="priority-badge priority-${notification.priority}">
-                                    ${notification.priority}
-                                </span>
-                            ` : ''}
-                            <small class="text-muted">${formatTime(notification.createdAt || notification.time)}</small>
-                        </div>
-                    </div>
-                    <p class="mb-2 text-muted">${notification.message || ''}</p>
-                    ${notification.category ? `
-                        <span class="badge bg-secondary mb-2">${notification.category}</span>
-                    ` : ''}
-                    <div class="notification-actions">
-                        ${!notification.read ? `
-                            <button class="btn-action btn-mark-read" onclick="markAsRead('${notification.id}')">
-                                <i class="fas fa-check me-1"></i>Mark Read
-                            </button>
-                        ` : ''}
-                        <button class="btn-action btn-delete" onclick="deleteNotification('${notification.id}')">
-                            <i class="fas fa-trash me-1"></i>Delete
-                        </button>
-                    </div>
-                </div>
+function renderNotification(notification) {
+    const div = document.createElement('div');
+    div.className = `notification-item ${notification.read ? '' : 'unread'} ${notification.priority}-priority`;
+    div.setAttribute('data-type', notification.type);
+    div.setAttribute('data-read', notification.read);
+    div.innerHTML = `
+        <div class="d-flex align-items-center">
+            <div class="notification-icon ${notification.type}"><i class="${notification.icon}"></i></div>
+            <div>
+                <h5>${escapeHtml(notification.title)}</h5>
+                <p>${escapeHtml(notification.message)}</p>
+                <div class="notification-meta">${escapeHtml(notification.date)}</div>
             </div>
-        </div>
-    `).join('');
+        </div>`;
+    notificationsList.appendChild(div);
+}
+
+// Show skeleton loading cards instead of a spinner for a better UX
+function showSkeletonLoading() {
+    notificationsList.innerHTML = '';
+    for (let i = 0; i < 5; i++) {
+        const skeleton = document.createElement('div');
+        skeleton.className = 'notification-item skeleton';
+        skeleton.innerHTML = `
+            <div class="d-flex align-items-center">
+                <div class="notification-icon skeleton-icon"></div>
+                <div class="flex-grow-1">
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line"></div>
+                    <div class="skeleton-line"></div>
+                </div>
+            </div>`;
+        notificationsList.appendChild(skeleton);
+    }
 }
 
 function formatTime(timestamp) {
@@ -275,9 +344,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     logger.info('Initializing notifications system');
     setupEventListeners();
     await fetchNotifications();
+    setupInfiniteScroll();
     
     // Set up real-time updates using Server-Sent Events if available
     setupRealTimeUpdates();
+});
+
+// Event delegation for dynamically created notifications
+notificationsList.addEventListener('click', (e) => {
+    const notificationItem = e.target.closest('.notification-item');
+    if (!notificationItem) return;
+    
+    const notificationId = notificationItem.dataset.id;
+    const notification = notifications.find(n => n.id === notificationId);
+    
+    if (e.target.closest('.btn-mark-read')) {
+        markAsRead(notificationId);
+    } else if (e.target.closest('.btn-delete')) {
+        deleteNotification(notificationId);
+    }
 });
 
 function setupRealTimeUpdates() {
