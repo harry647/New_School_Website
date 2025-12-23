@@ -13,7 +13,64 @@
   <div class="container my-5">
     <section id="live" class="mb-5">
       <h2 class="section-title text-center mb-5">Live Sessions & Classes</h2>
+      
+      <!-- Loading / Empty / Error States -->
+      <div id="liveLoading" class="text-center py-5">
+        <div class="spinner-border text-primary"></div>
+        <p class="mt-2">Loading live sessions...</p>
+      </div>
+
+      <div id="liveEmpty" class="alert alert-info d-none">
+        No live sessions available at the moment.
+      </div>
+
+      <div id="liveError" class="alert alert-danger d-none">
+        Unable to fetch live sessions. Please try again later.
+      </div>
+
+      <!-- Session Card Skeleton (API Contract Ready) -->
+      <!--
+      Live Session Object:
+      {
+        id,
+        title,
+        instructor,
+        startTime,
+        endTime,
+        platformUrl,
+        isOngoing,      // true if currently live
+        isRecorded,     // true if replay available
+        description
+      }
+      -->
+
+      <!-- Search & Filter Options -->
+      <div class="row mb-4 align-items-center">
+        <div class="col-md-6 mb-2">
+          <input id="liveSearch" type="search" class="form-control" placeholder="Search sessions...">
+        </div>
+        <div class="col-md-6 mb-2">
+          <select id="liveFilter" class="form-select">
+            <option value="">All Subjects</option>
+            <option value="math">Mathematics</option>
+            <option value="science">Science</option>
+          </select>
+        </div>
+      </div>
+
       <div id="liveSessionsGrid" class="row g-4 mb-5"></div>
+
+      <!-- Pagination / Infinite Scroll Hook -->
+      <div id="livePagination" class="text-center my-4 d-none">
+        <button class="btn btn-outline-secondary btn-sm">Load More Sessions</button>
+      </div>
+
+      <!-- API Contract Reminder -->
+      <!--
+      API Endpoints:
+      GET /api/live-sessions -> returns array of session objects
+      POST /api/live-sessions/join -> join a session
+      -->
     </section>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

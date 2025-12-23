@@ -32,7 +32,7 @@
   <!-- Custom Styles -->
   <link rel="stylesheet" href="/css/e-learning/e-learning.css">
 </head>
-<body class="page-learning-portal">
+<body class="page-learning-portal" data-page="forum-index">
 
   <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
@@ -60,16 +60,78 @@
     <h1 class="display-5 fw-bold mb-4">Forum</h1>
     <p class="lead mb-5">Engage in discussions and ask questions.</p>
 
+    <!-- Forum Guidelines -->
+    <div class="glass-card p-3 mb-4">
+      <h6 class="fw-bold mb-2">Forum Guidelines</h6>
+      <ul class="small mb-0">
+        <li>Be respectful</li>
+        <li>Stay on topic</li>
+        <li>No duplicate questions</li>
+      </ul>
+    </div>
+
+    <!-- Forum Categories Filter -->
+    <div class="row mb-4 align-items-center">
+      <div class="col-md-4">
+        <select id="forumCategoryFilter" class="form-select">
+          <option value="">All Categories</option>
+          <option value="math">Mathematics</option>
+          <option value="science">Science</option>
+          <option value="general">General Discussion</option>
+        </select>
+      </div>
+      <div class="col-md-8">
+        <input id="forumSearch" type="search"
+          class="form-control"
+          placeholder="Search discussions...">
+      </div>
+    </div>
+
     <!-- New Discussion Button -->
     <div class="mb-4">
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newDiscussionModal">
+      <button id="newDiscussionBtn" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newDiscussionModal">
         <i class="fas fa-plus me-2"></i> Start New Discussion
       </button>
+    </div>
+
+    <!-- Discussion Card Data Contract -->
+    <!--
+    Discussion Object:
+    {
+      id,
+      title,
+      author,
+      repliesCount,
+      lastReplyAt,
+      isPinned,
+      isLocked,
+      category
+    }
+    -->
+
+    <!-- Empty, Loading & Error States -->
+    <div id="forumLoading" class="text-center py-5">
+      <div class="spinner-border text-primary"></div>
+    </div>
+
+    <div id="forumEmpty" class="alert alert-info d-none">
+      No discussions yet. Be the first to start one.
+    </div>
+
+    <div id="forumError" class="alert alert-danger d-none">
+      Unable to load discussions.
     </div>
 
     <!-- Discussions Grid -->
     <div class="row g-4" id="discussionsGrid">
       <!-- Discussions will be loaded dynamically here -->
+    </div>
+
+    <!-- Pagination / Infinite Scroll Hook -->
+    <div id="forumPagination" class="text-center my-4 d-none">
+      <button class="btn btn-outline-secondary btn-sm">
+        Load more discussions
+      </button>
     </div>
   </div>
 
@@ -108,6 +170,13 @@
       </div>
     </div>
   </div>
+
+  <!-- API Contract Reminder -->
+  <!--
+  Forum API:
+  GET /api/forum
+  POST /api/forum
+  -->
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

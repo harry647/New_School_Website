@@ -60,9 +60,65 @@
     <h1 class="display-5 fw-bold mb-4">Live Sessions</h1>
     <p class="lead mb-5">Join live classes and interact with teachers.</p>
 
-    <!-- Live Sessions Grid -->
-    <div class="row g-4" id="liveSessionsGrid">
-      <!-- Live sessions will be loaded dynamically here -->
+    <!-- Intro / Overview Section -->
+    <div class="mb-4">
+      <p class="lead">
+        You have <span id="totalLiveSessions">0</span> live sessions scheduled this week.
+      </p>
+    </div>
+
+    <!-- Upcoming / Featured Sessions -->
+    <div class="mb-5">
+      <h4>Upcoming Featured Sessions</h4>
+      <div id="featuredSessions" class="row g-3">
+        <!-- Featured sessions will be loaded dynamically -->
+      </div>
+    </div>
+
+    <!-- Search / Filters for Live Sessions -->
+    <div class="row mb-4 align-items-center">
+      <div class="col-md-6 mb-2">
+        <input id="liveSearch" type="search" class="form-control" placeholder="Search sessions...">
+      </div>
+      <div class="col-md-6 mb-2">
+        <select id="liveFilter" class="form-select">
+          <option value="">All Subjects</option>
+          <option value="math">Mathematics</option>
+          <option value="science">Science</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Real-time Status / Countdown -->
+    <div id="liveStatus" class="mb-5">
+      <p class="text-muted">Next live session starts in <span id="nextSessionCountdown">00:00:00</span></p>
+    </div>
+
+    <!-- Optional Analytics / Stats -->
+    <div class="row g-3 mb-5">
+      <div class="col-md-4">
+        <div class="glass-card text-center p-3">
+          <h5>Total Live Sessions</h5>
+          <p class="fs-4 fw-bold" id="statsTotalSessions">0</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="glass-card text-center p-3">
+          <h5>Sessions Attended</h5>
+          <p class="fs-4 fw-bold" id="statsAttended">0</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="glass-card text-center p-3">
+          <h5>Next Session</h5>
+          <p class="fs-4 fw-bold" id="statsNextSession">--</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lazy-loading / "Load More" button -->
+    <div id="livePagination" class="text-center d-none my-4">
+      <button class="btn btn-outline-secondary btn-sm">Load More</button>
     </div>
   </div>
 
