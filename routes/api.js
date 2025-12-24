@@ -199,6 +199,33 @@ router.get('/config/clubs', (req, res) => {
   res.json(clientConfig);
 });
 
+// =================================================================
+// AUTH ROUTES – ADDED FOR CLIENT COMPATIBILITY
+// =================================================================
+
+/**
+ * @route   GET /profile
+ * @desc    Get current user profile
+ * @access  Private
+ */
+router.get('/profile', requireAuth, (req, res) => {
+  const { password, ...safeUser } = req.session.user;
+  res.json({ success: true, user: safeUser });
+});
+
+/**
+ * @route   POST /logout
+ * @desc    Logout user
+ * @access  Private
+ */
+router.post('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) return res.status(500).json({ success: false, message: 'Logout failed' });
+    res.clearCookie('connect.sid');
+    res.json({ success: true, message: 'Logged out successfully', redirect: '/' });
+  });
+});
+
 // Mount the imported routes
 router.use('/clubs', clubsRoutes);
 router.use('/departments', departmentsRoutes);

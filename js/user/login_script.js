@@ -277,6 +277,21 @@ document.addEventListener('DOMContentLoaded', function() {
                         localStorage.setItem("userName", data.email || loginEmail.value);
                         localStorage.setItem("portalRole", role);
 
+                        // Set e-learning session if destination is e-learning
+                        if (destination === 'e-learning') {
+                            const eLearningSession = {
+                                isLoggedIn: true,
+                                userName: data.email || loginEmail.value,
+                                userRole: role,
+                                userData: {
+                                    subjectsEnrolled: 8,
+                                    pendingAssignments: 3,
+                                    studyStreakDays: 5
+                                }
+                            };
+                            localStorage.setItem('eLearningSession', JSON.stringify(eLearningSession));
+                        }
+
                         if (redirects[destination] && redirects[destination][role]) {
                             window.location.href = redirects[destination][role];
                         } else {

@@ -230,7 +230,7 @@ function renderHeroSection() {
                 <div class="col-md-6">
                     <h1 class="display-4 fw-bold mb-4">Welcome to the E-Learning Hub</h1>
                     <p class="lead mb-4">Your gateway to seamless learning. Access courses, track progress, and engage with resources anytime, anywhere.</p>
-                    <div class="d-flex gap-3">
+                    <div class="button-group">
                         <a href="/e-learning/subjects.html" class="btn btn-primary btn-lg">
                             <i class="fas fa-book me-2"></i> Browse Subjects
                         </a>

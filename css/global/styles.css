@@ -1,5 +1,6 @@
 /* ===================================
    GLOBAL STYLES - Bar Union Mixed Secondary School
+   Updated with Professional Subtle Animations (2025 Standards)
    =================================== */
 
 /* 1. Reset & Base */
@@ -17,12 +18,23 @@ html {
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  line-height: 1.6;
-  color: #333;
-  background-color: #f8fafc;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.7;
+  color: #334155;
+  background-color: #f9fafb;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prefer reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 img {
@@ -34,36 +46,37 @@ img {
 a {
   text-decoration: none;
   color: inherit;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+a:hover {
+  opacity: 0.9;
 }
 
 ul, ol {
   list-style: none;
 }
 
-button {
-  cursor: pointer;
-  border: none;
-  background: none;
+button, input, select, textarea {
   font-family: inherit;
 }
 
 /* 2. Typography */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Playfair Display', Georgia, serif;
   font-weight: 700;
-  line-height: 1.2;
-  margin-bottom: 1rem;
+  line-height: 1.3;
+  margin-bottom: 1.25rem;
   color: #1e293b;
 }
 
-h1 { font-size: 3rem; }
-h2 { font-size: 2.5rem; }
+h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
+h2 { font-size: clamp(2rem, 4vw, 2.8rem); }
 h3 { font-size: 1.8rem; }
-h4 { font-size: 1.4rem; }
+h4 { font-size: 1.5rem; }
 
 p {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   color: #475569;
 }
 
@@ -75,117 +88,143 @@ p {
 .large { font-size: 1.125rem; }
 
 .fw-bold { font-weight: 700; }
-.fw-medium { font-weight: 600; }
+.fw-semibold { font-weight: 600; }
 .fw-normal { font-weight: 400; }
 
-.text-primary { color: #0056b3; }
-.text-secondary { color: #64748b; }
-.text-success { color: #16a34a; }
-.text-danger { color: #dc2626; }
+.text-primary { color: var(--primary); }
+.text-secondary { color: var(--secondary); }
+.text-success { color: var(--success); }
+.text-danger { color: var(--danger); }
 
-/* 3. Color Palette */
+/* 3. Color Palette - Refined for Professional Educational Feel */
 :root {
-  --primary: #0056b3;
-  --primary-dark: #003d82;
-  --primary-light: #e0f2fe;
-  --secondary: #64748b;
-  --accent: #f59e0b;
-  --success: #16a34a;
+  --primary: #1e40af;      /* Deeper blue for trust and professionalism */
+  --primary-dark: #1e3a8a;
+  --primary-light: #dbeafe;
+  --secondary: #475569;    /* Slate for text and accents */
+  --accent: #059669;        /* Emerald green for growth/education */
+  --success: #059669;
   --danger: #dc2626;
-  --warning: #f59e0b;
+  --warning: #d97706;
   --info: #0ea5e9;
-  --light: #f8fafc;
+  --light: #f9fafb;
   --dark: #1e293b;
   --gray: #e2e8f0;
   --white: #ffffff;
+  --border: #e2e8f0;
 }
 
 /* 4. Layout & Containers */
 .container {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 2rem;
 }
 
 .section {
-  padding: 5rem 0;
+  padding: 6rem 0;
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
 .section-title {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
+  font-size: 2.8rem;
+  margin-bottom: 1.5rem;
   position: relative;
 }
 
-.section-title-underline {
-  width: 100px;
-  height: 4px;
-  background: var(--primary);
-  margin: 1rem auto;
-  border-radius: 2px;
+.section-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 5px;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  margin: 1.5rem auto 0;
+  border-radius: 4px;
 }
 
 .section-subtitle {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: var(--secondary);
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
+  line-height: 1.6;
 }
 
 /* 5. Grid Systems */
 .grid {
   display: grid;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
-.grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-.grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-.grid-4 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.grid-4 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
 
 /* Flex Helpers */
 .flex {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
 }
+
 .flex-center { align-items: center; justify-content: center; }
 .flex-between { justify-content: space-between; }
 .flex-column { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
 
-/* 6. Buttons */
+/* 6. Buttons - Enhanced with Subtle Hover Animations */
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.85rem 1.8rem;
-  border-radius: 50px;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.9rem 2rem;
+  border-radius: 9999px;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-  text-align: center;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s;
+}
+
+.btn:hover::before {
+  left: 100%;
 }
 
 .btn-primary {
   background: var(--primary);
-  color: white;
+  color: var(--white);
 }
+
 .btn-primary:hover {
   background: var(--primary-dark);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0,86,179,0.3);
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 12px 24px rgba(30,64,175,0.3);
 }
 
 .btn-secondary {
-  background: var(--secondary);
-  color: white;
+  background: var(--accent);
+  color: var(--white);
 }
+
 .btn-secondary:hover {
-  background: #475569;
+  background: #047857;
+  transform: translateY(-4px) scale(1.03);
 }
 
 .btn-outline {
@@ -193,26 +232,28 @@ p {
   border: 2px solid var(--primary);
   color: var(--primary);
 }
+
 .btn-outline:hover {
   background: var(--primary);
-  color: white;
+  color: var(--white);
+  transform: scale(1.03);
 }
 
 .btn-large {
-  padding: 1rem 2.5rem;
-  font-size: 1.1rem;
+  padding: 1.2rem 3rem;
+  font-size: 1.125rem;
 }
 
 /* 7. Forms & Inputs */
 .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.75rem;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   font-weight: 600;
-  color: #1e293b;
+  color: var(--dark);
 }
 
 input[type="text"],
@@ -224,11 +265,12 @@ input[type="file"],
 select,
 textarea {
   width: 100%;
-  padding: 0.9rem 1.2rem;
-  border: 1px solid #cbd5e0;
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--border);
   border-radius: 12px;
+  background: var(--white);
   font-size: 1rem;
-  transition: border 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 input:focus,
@@ -236,87 +278,110 @@ select:focus,
 textarea:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(0,86,179,0.15);
+  box-shadow: 0 0 0 4px rgba(30,64,175,0.15);
+  transform: translateY(-2px);
 }
 
 textarea {
-  min-height: 120px;
+  min-height: 140px;
   resize: vertical;
 }
 
 .form-grid {
   display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .full-width {
   grid-column: 1 / -1;
 }
 
-/* 8. Cards */
+/* 8. Cards - With Subtle Entrance & Hover Animations */
 .card {
-  background: white;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  background: var(--white);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  transform: translateY(-16px);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.15);
 }
 
 .card-icon {
-  font-size: 3rem;
+  font-size: 3.5rem;
   color: var(--primary);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   text-align: center;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .card-icon {
+  transform: scale(1.15) rotate(5deg);
 }
 
 /* 9. Utility Classes */
 .hidden { display: none !important; }
-.text-muted { color: #64748b; }
+.text-muted { color: var(--secondary); }
+
 .mb-1 { margin-bottom: 1rem; }
 .mb-2 { margin-bottom: 2rem; }
-.mt-2 { margin-top: 2rem; }
-.py-5 { padding: 5rem 0; }
+.mb-3 { margin-bottom: 3rem; }
+.mt-3 { margin-top: 3rem; }
 
-/* Loader */
+.py-6 { padding: 6rem 0; }
+
+/* Loader & Status */
 .loader {
   text-align: center;
-  padding: 3rem;
+  padding: 4rem;
   color: var(--secondary);
-  font-style: italic;
 }
 
-/* Status Messages */
 .form-status {
-  margin-top: 1.5rem;
-  padding: 1.2rem;
+  margin-top: 2rem;
+  padding: 1.5rem;
   border-radius: 12px;
   text-align: center;
   font-weight: 600;
 }
+
 .form-status.success {
-  background: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-}
-.form-status.error {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
 }
 
-/* 10. Responsive */
+.form-status.error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* 10. Responsive Enhancements */
+@media (max-width: 1024px) {
+  .container { padding: 0 1.5rem; }
+  .section { padding: 5rem 0; }
+}
+
 @media (max-width: 768px) {
-  h1 { font-size: 2.5rem; }
-  h2 { font-size: 2rem; }
-  .section { padding: 3rem 0; }
+  h1 { font-size: 2.8rem; }
+  h2 { font-size: 2.2rem; }
+  .section { padding: 4rem 0; }
   .container { padding: 0 1rem; }
   .form-grid { grid-template-columns: 1fr; }
-  .hero-buttons { flex-direction: column; align-items: stretch; }
-  .btn { justify-content: center; }
+  .flex { flex-direction: column; }
+  .btn { width: 100%; justify-content: center; }
 }
+
+/* Optional: Simple JS for fade-in on scroll (pure CSS alternative possible with modern browsers) */
