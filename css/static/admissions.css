@@ -46,97 +46,132 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* Admission Process Timeline */
+/* ===================================
+   ADMISSION PROCESS / TIMELINE
+   =================================== */
+
 .process-section {
-  background: var(--light);
-  padding: 4rem 0;
+  background: var(--gray-50);
+  position: relative;
 }
 
 .timeline-container {
   position: relative;
-  max-width: 1000px;
-  margin: 4rem auto;
-  padding: 2rem;
-  background: white;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-top: 4rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .timeline-line {
   position: absolute;
-  width: 6px;
-  background: var(--primary);
   top: 0;
-  bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 3px;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--primary), var(--accent));
+  border-radius: 4px;
 }
 
 .timeline-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
   position: relative;
 }
 
+/* Individual timeline item */
 .timeline-item {
   display: flex;
-  justify-content: flex-end;
-  padding-right: 55%;
-  margin-bottom: 4rem;
+  align-items: flex-start;
+  gap: 2rem;
   position: relative;
+  width: 50%;
 }
 
 .timeline-item.reverse {
-  justify-content: flex-start;
-  padding-right: 0;
-  padding-left: 55%;
+  margin-left: auto;
+  flex-direction: row-reverse;
+  text-align: right;
 }
 
+/* Marker */
 .timeline-marker {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  background: var(--primary);
+  color: var(--white);
   width: 60px;
   height: 60px;
-  background: var(--primary);
-  color: white;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.8rem;
-  box-shadow: 0 10px 25px rgba(0,86,179,0.3);
-  z-index: 10;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  flex-shrink: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.timeline-marker:hover {
+  transform: scale(1.15);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.2);
+}
+
+/* Content */
 .timeline-content {
-  background: white;
-  padding: 2.5rem;
-  border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-  max-width: 500px;
-  position: relative;
+  background: var(--white);
+  border-radius: 16px;
+  padding: 1.8rem 2rem;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-content h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  color: var(--dark);
+}
+
+.timeline-content p {
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.7;
+  color: var(--secondary);
 }
 
-.timeline-content::before {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 0;
-  border: 15px solid transparent;
-  top: 50%;
-  transform: translateY(-50%);
+.timeline-item:hover .timeline-content {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.15);
 }
 
-.timeline-item:not(.reverse) .timeline-content::before {
-  border-left-color: white;
-  right: -30px;
-}
+/* Responsive timeline for mobile */
+@media (max-width: 768px) {
+  .timeline-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 
-.timeline-item.reverse .timeline-content::before {
-  border-right-color: white;
-  left: -30px;
+  .timeline-line {
+    left: 8px;
+  }
+
+  .timeline-item,
+  .timeline-item.reverse {
+    width: 100%;
+    flex-direction: row;
+    text-align: left;
+  }
+
+  .timeline-item.reverse {
+    margin-left: 0;
+  }
+
+  .timeline-content {
+    padding: 1.5rem 1.75rem;
+  }
+
+  .timeline-marker {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
 }
 
 /* Requirements Grid */
@@ -168,93 +203,167 @@
   box-shadow: 0 15px 35px rgba(0,86,179,0.15);
 }
 
-/* Fees Section */
+/* ===================================
+   FEES / ADMISSIONS TIMELINE
+   =================================== */
+
 .fees-section {
   background: var(--light);
-  padding: 4rem 0;
 }
 
 .fees-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 4rem;
-  align-items: start;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
   margin-top: 3rem;
 }
 
+/* Cards */
 .dates-card,
 .fee-card {
-  background: white;
-  padding: 3rem;
+  background: var(--white);
   border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-  font-size: 0.95rem;
-  line-height: 1.6;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.dates-card:hover,
+.fee-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.15);
+}
+
+/* Card Header */
 .card-header {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
+.card-icon {
+  background: var(--primary);
+  color: var(--white);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.card-header h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--dark);
+}
+
+/* Dates List */
 .dates-list {
-  padding-left: 1.5rem;
-  line-height: 2.2;
-  font-size: 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .dates-list li {
-  position: relative;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
 }
 
-.dates-list li span:first-child {
-  font-weight: 700;
-  color: var(--primary);
-  min-width: 200px;
-  display: inline-block;
-}
-
-.dates-note {
-  margin-top: 2rem;
-  padding: 1.5rem;
-  background: var(--primary-light);
-  border-radius: 12px;
-  text-align: center;
+.dates-list li span {
   font-weight: 600;
+  min-width: 160px;
+  color: var(--primary);
 }
 
+/* Notes */
+.dates-note,
+.fee-note {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--secondary);
+  font-style: italic;
+}
+
+/* Fee Table */
 .fee-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 2rem 0;
-  font-size: 1.1rem;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
 }
 
 .fee-table th,
 .fee-table td {
-  padding: 1.2rem;
+  padding: 0.85rem 1rem;
   text-align: left;
-  border-bottom: 1px solid var(--gray);
+  border: 1px solid var(--border);
 }
 
 .fee-table th {
-  background: var(--primary);
-  color: white;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  font-weight: 600;
 }
 
-.fee-table tr:last-child td {
-  border-bottom: none;
-  font-weight: 700;
-  font-size: 1.2rem;
+.fee-table tbody tr:nth-child(even) {
+  background: var(--gray);
 }
 
-.fee-note {
-  margin-top: 1.5rem;
-  font-style: italic;
+/* Fee Description */
+.fee-description {
+  margin-bottom: 1rem;
   color: var(--secondary);
-  text-align: center;
+}
+
+/* Download Button */
+.fee-card .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .fees-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-header {
+    flex-direction: row;
+    gap: 0.75rem;
+  }
+
+  .card-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
+
+  .dates-list li span {
+    min-width: 120px;
+  }
+
+  .fee-table th,
+  .fee-table td {
+    padding: 0.75rem 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .fee-table {
+    font-size: 0.9rem;
+  }
 }
 
 /* Apply Form */
