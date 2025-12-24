@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Past KCSE Papers | Bar Union Mixed Secondary School</title>
+    <meta name="description" content="Access complete collection of KCSE past papers (2015–2024) with marking schemes, examiners' reports, and revision tips at Bar Union Mixed Secondary School." />
+    <meta name="keywords" content="KCSE past papers, marking schemes, examiners reports, revision tips, Bar Union" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="Past KCSE Papers | Bar Union Mixed Secondary School">
+    <meta property="og:description" content="Complete KCSE past papers collection with detailed marking schemes and revision tips">
+    <meta property="og:image" content="/assets/images/common/og-image.jpg">
+    <meta property="og:url" content="https://barunionschool.ac.ke/resources/past-papers.html">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+    <!-- Custom Pure CSS -->
+    <link rel="stylesheet" href="/css/global/styles.css">
+    <link rel="stylesheet" href="/css/static/academics.css">
+</head>
+<body>
+    <!-- Header -->
+    <div w3-include-html="/includes/header.html"></div>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="hero-background"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-floating-elements">
+            <div class="floating-blob blob-1"></div>
+            <div class="floating-blob blob-2"></div>
+            <div class="floating-blob blob-3"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Past KCSE Papers</h1>
+                <p class="hero-subtitle">
+                    Comprehensive Collection of KCSE Examination Papers
+                </p>
+                <p class="hero-description">
+                    Access complete KCSE past papers from 2015 to 2024, including marking schemes, examiners' reports, and expert revision tips. Prepare effectively for your examinations with resources designed to enhance understanding and boost performance.
+                </p>
+            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Papers Collection -->
+    <section class="section papers-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">KCSE Past Papers Collection</h2>
+                <p class="section-subtitle">
+                    Browse and download past examination papers by year and subject
+                </p>
+            </div>
+
+            <!-- Year Filter -->
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-year="all">All Years</button>
+                <button class="filter-btn" data-year="2024">2024</button>
+                <button class="filter-btn" data-year="2023">2023</button>
+                <button class="filter-btn" data-year="2022">2022</button>
+                <button class="filter-btn" data-year="2021">2021</button>
+                <button class="filter-btn" data-year="2020">2020</button>
+                <button class="filter-btn" data-year="2019">2019</button>
+                <button class="filter-btn" data-year="2018">2018</button>
+                <button class="filter-btn" data-year="2017">2017</button>
+                <button class="filter-btn" data-year="2016">2016</button>
+                <button class="filter-btn" data-year="2015">2015</button>
+            </div>
+
+            <!-- Papers Grid -->
+            <div class="papers-grid" id="papersGrid">
+                <!-- Papers will be loaded here -->
+                <div class="paper-card" data-year="2024" data-subject="mathematics">
+                    <div class="paper-header">
+                        <i class="fas fa-file-pdf paper-icon"></i>
+                        <h3>Mathematics Paper 1</h3>
+                        <span class="year-badge">2024</span>
+                    </div>
+                    <p>Algebra, Geometry, Calculus, and Statistics</p>
+                    <div class="paper-actions">
+                        <button class="btn-preview" data-file="math_p1_2024.pdf">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                        <a href="/downloads/past-papers/math_p1_2024.pdf" class="btn-download" download>
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+
+                <div class="paper-card" data-year="2024" data-subject="english">
+                    <div class="paper-header">
+                        <i class="fas fa-file-pdf paper-icon"></i>
+                        <h3>English Paper 1</h3>
+                        <span class="year-badge">2024</span>
+                    </div>
+                    <p>Functional Writing, Cloze Test, Oral Skills</p>
+                    <div class="paper-actions">
+                        <button class="btn-preview" data-file="english_p1_2024.pdf">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                        <a href="/downloads/past-papers/english_p1_2024.pdf" class="btn-download" download>
+                            <i class="fas fa-download"></i> Download
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Add more paper cards as needed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Preview Modal -->
+    <div id="previewModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2>Paper Preview</h2>
+            </div>
+            <div class="modal-body">
+                <iframe id="pdfViewer" src="" width="100%" height="600px"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teacher Upload Section -->
+    <section class="section upload-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Teacher Upload Portal</h2>
+                <p class="section-subtitle">
+                    Authorized teachers can upload new past papers and resources
+                </p>
+            </div>
+
+            <div class="upload-form-container">
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select Subject</option>
+                            <option value="mathematics">Mathematics</option>
+                            <option value="english">English</option>
+                            <option value="kiswahili">Kiswahili</option>
+                            <option value="biology">Biology</option>
+                            <option value="chemistry">Chemistry</option>
+                            <option value="physics">Physics</option>
+                            <option value="history">History</option>
+                            <option value="geography">Geography</option>
+                            <option value="cre">CRE</option>
+                            <option value="business">Business Studies</option>
+                            <option value="agriculture">Agriculture</option>
+                            <option value="computer">Computer Studies</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paperType">Paper Type</label>
+                        <select id="paperType" name="paperType" required>
+                            <option value="">Select Type</option>
+                            <option value="paper1">Paper 1</option>
+                            <option value="paper2">Paper 2</option>
+                            <option value="paper3">Paper 3</option>
+                            <option value="marking-scheme">Marking Scheme</option>
+                            <option value="examiners-report">Examiners' Report</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="year">Examination Year</label>
+                        <input type="number" id="year" name="year" min="2015" max="2025" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="file">Upload File (PDF only)</label>
+                        <input type="file" id="file" name="file" accept=".pdf" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description (Optional)</label>
+                        <textarea id="description" name="description" rows="3" placeholder="Brief description of the paper content"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-upload"></i> Upload Paper
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div w3-include-html="/includes/footer.html"></div>
+
+    <!-- Scripts -->
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script>w3.includeHTML();</script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
+    <script src="/js/static/academics.js"></script>
+    <script src="/js/static/past-papers.js"></script>
+</body>
+</html>

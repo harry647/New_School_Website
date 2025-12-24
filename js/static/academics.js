@@ -595,3 +595,34 @@ additionalStyles.textContent = `
 `;
 
 document.head.appendChild(additionalStyles);
+
+// ========================================
+// DEPARTMENT TABS FUNCTIONALITY
+// ========================================
+const initDepartmentTabs = () => {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const deptPanels = document.querySelectorAll('.dept-panel');
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all tabs and panels
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            deptPanels.forEach(panel => panel.classList.remove('active'));
+
+            // Add active class to clicked tab
+            button.classList.add('active');
+
+            // Get the department name from data attribute
+            const deptName = button.getAttribute('data-dept');
+
+            // Find and show the corresponding panel
+            const targetPanel = document.getElementById(deptName);
+            if (targetPanel) {
+                targetPanel.classList.add('active');
+            }
+        });
+    });
+};
+
+// Initialize department tabs
+initDepartmentTabs();
