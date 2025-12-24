@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     const body = document.body;
+    const menuOverlay = document.querySelector('.menu-overlay');
 
     // Safety check – if header not loaded yet (w3-include delay), wait a bit
     if (!hamburger || !navMenu) {
@@ -37,18 +38,22 @@ document.addEventListener('DOMContentLoaded', function () {
             hamburger.classList.toggle('active', isOpen);
             hamburger.setAttribute('aria-expanded', isOpen);
             body.classList.toggle('menu-open', isOpen); // Optional: prevent scroll when menu open
+            if (menuOverlay) menuOverlay.classList.toggle('active', isOpen);
         });
 
         // ===================================
         // 2. Close menu when clicking a link (mobile only)
         // ===================================
         allLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (navMenu.classList.contains('active')) {
+            link.addEventListener('click', (e) => {
+                // Don't close menu if this is a dropdown toggle on mobile
+                if (navMenu.classList.contains('active') &&
+                    !(link.parentElement.classList.contains('dropdown') && window.innerWidth <= 992)) {
                     navMenu.classList.remove('active');
                     hamburger.classList.remove('active');
                     hamburger.setAttribute('aria-expanded', 'false');
                     body.classList.remove('menu-open');
+                    if (menuOverlay) menuOverlay.classList.remove('active');
                 }
             });
         });
@@ -126,13 +131,14 @@ document.addEventListener('DOMContentLoaded', function () {
         // 5. Close menu when clicking outside (optional bonus UX)
         // ===================================
         document.addEventListener('click', (e) => {
-            if (navMenu.classList.contains('active') && 
-                !navMenu.contains(e.target) && 
+            if (navMenu.classList.contains('active') &&
+                !navMenu.contains(e.target) &&
                 !hamburger.contains(e.target)) {
                 navMenu.classList.remove('active');
                 hamburger.classList.remove('active');
                 hamburger.setAttribute('aria-expanded', 'false');
                 body.classList.remove('menu-open');
+                if (menuOverlay) menuOverlay.classList.remove('active');
             }
         });
 
@@ -145,6 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 hamburger.classList.remove('active');
                 hamburger.setAttribute('aria-expanded', 'false');
                 body.classList.remove('menu-open');
+                if (menuOverlay) menuOverlay.classList.remove('active');
             }
         });
     }
