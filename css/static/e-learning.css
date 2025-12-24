@@ -342,6 +342,30 @@
   justify-content: center;
 }
 
+.app-stores a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.app-stores a:hover {
+  transform: translateY(-8px);
+}
+
+.app-stores .fab.fa-google-play {
+  font-size: 3rem;
+  color: #4285F4;
+}
+
+.app-stores .fab.fa-apple {
+  font-size: 3rem;
+  color: #000;
+}
+
 .app-stores img {
   height: 60px;
   transition: transform 0.3s ease;
@@ -527,12 +551,12 @@
 
 /* Quick Access */
 .access-section {
-  background: white;
+  background: #f8f9fa;
 }
 
 .access-card {
   display: block;
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  background: #003d7a;
   color: white;
   padding: 4rem;
   border-radius: 24px;

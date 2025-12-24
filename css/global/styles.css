@@ -158,6 +158,17 @@ p {
   line-height: 1.6;
 }
 
+.section-badge {
+  display: inline-block;
+  background: var(--accent);
+  color: white;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
 /* 5. Grid Systems */
 .grid {
   display: grid;
