@@ -146,6 +146,10 @@ p {
   border-radius: 4px;
 }
 
+.section + .section {
+  border-top: 1px solid var(--border);
+}
+
 .section-subtitle {
   font-size: 1.25rem;
   color: var(--secondary);
@@ -303,19 +307,27 @@ textarea {
   border-radius: 20px;
   padding: 2.5rem;
   box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s ease;
+}
+
+.card.animate {
   opacity: 0;
   transform: translateY(40px);
 }
 
-.card.animate-in {
+.card.animate.animate-in {
   opacity: 1;
   transform: translateY(0);
 }
 
-.card:hover {
+.feature-card:hover {
   transform: translateY(-16px);
-  box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+}
+
+
+
+.card:hover {
+  transform: translateY(-6px);
 }
 
 .card-icon {
@@ -368,6 +380,16 @@ textarea {
   border: 1px solid #fecaca;
 }
 
+.prose {
+  max-width: 70ch;
+}
+
+.prose h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+}
+
 /* 10. Responsive Enhancements */
 @media (max-width: 1024px) {
   .container { padding: 0 1.5rem; }
@@ -381,7 +403,7 @@ textarea {
   .container { padding: 0 1rem; }
   .form-grid { grid-template-columns: 1fr; }
   .flex { flex-direction: column; }
-  .btn { width: 100%; justify-content: center; }
+  .btn.block { width: 100%; justify-content: center; }
 }
 
 /* Optional: Simple JS for fade-in on scroll (pure CSS alternative possible with modern browsers) */
