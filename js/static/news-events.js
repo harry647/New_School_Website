@@ -173,12 +173,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const frag = document.createDocumentFragment();
     
+
     items.forEach((item, index) => {
       const card = createElement("article", "news-card");
       card.dataset.category = (item.category || "general").toLowerCase();
       card.style.animationDelay = `${index * 0.1}s`;
 
-      const catLabel = (item.category || "news").charAt(0).toUpperCase() + 
+      const catLabel = (item.category || "news").charAt(0).toUpperCase() +
                       (item.category || "news").slice(1);
       const readTime = readingTime(item.excerpt || "");
 
@@ -205,6 +206,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         card.style.transform = 'translateY(-15px) scale(1.02)';
       });
       
+
       card.addEventListener('mouseleave', () => {
         card.style.transform = 'translateY(0) scale(1)';
       });
@@ -235,6 +237,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const frag = document.createDocumentFragment();
     
+
     items.forEach((blog, index) => {
       const card = createElement("div", "blog-card");
       card.dataset.topic = (blog.topic || "general").toLowerCase();
@@ -266,6 +269,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (img) img.style.transform = 'scale(1.1)';
       });
       
+
       card.addEventListener('mouseleave', () => {
         card.style.transform = 'translateY(0) scale(1)';
         const img = card.querySelector('img');
@@ -286,6 +290,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!elements.eventsCalendar) return;
     elements.eventsCalendar.innerHTML = "";
     
+
     if (events.length === 0) {
       elements.eventsCalendar.innerHTML = `
         <div class="no-events-message">
@@ -299,10 +304,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const frag = document.createDocumentFragment();
     
+
     events.forEach((ev, index) => {
       const div = createElement("div", "event-item");
       div.style.animationDelay = `${index * 0.2}s`;
       
+
       const eventDate = new Date(ev.date);
       const formattedDate = eventDate.toLocaleDateString("en-KE", {
         day: "numeric",
@@ -331,6 +338,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         div.style.transform = 'translateY(-20px) scale(1.05)';
       });
       
+
       div.addEventListener('mouseleave', () => {
         div.style.transform = 'translateY(0) scale(1)';
       });
@@ -346,7 +354,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const renderEventPhotos = (photos = []) => {
     if (!elements.eventPhotosGrid) return;
     elements.eventPhotosGrid.innerHTML = "";
-     
+    
+
     if (photos.length === 0) {
       elements.eventPhotosGrid.innerHTML = `
         <div class="no-photos-message">
@@ -357,13 +366,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       `;
       return;
     }
-  
+   
+
     const frag = document.createDocumentFragment();
-     
+    
+
     photos.forEach((photo, index) => {
       const div = createElement("div", "photo-item");
       div.style.animationDelay = `${index * 0.15}s`;
-       
+      
+
       const img = createElement("img");
       img.src = photo.image || '/assets/images/defaults/default-news.jpg';
       img.alt = photo.title || 'Event Photo';
@@ -379,7 +391,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         img.style.transform = 'scale(1.1) rotate(2deg)';
         img.style.filter = 'brightness(1.1)';
       });
-       
+      
+
       div.addEventListener('mouseleave', () => {
         img.style.transform = 'scale(1) rotate(0deg)';
         img.style.filter = 'brightness(1)';
@@ -391,6 +404,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       fadeIn(div, 500);
     });
   
+
     elements.eventPhotosGrid.appendChild(frag);
   };
 
@@ -399,6 +413,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!elements.spotlightProfiles) return;
     elements.spotlightProfiles.innerHTML = "";
     
+
     if (profiles.length === 0) {
       elements.spotlightProfiles.innerHTML = `
         <div class="no-profiles-message">
@@ -412,10 +427,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const frag = document.createDocumentFragment();
     
+
     profiles.forEach((profile, index) => {
       const div = createElement("div", "spotlight-card");
       div.style.animationDelay = `${index * 0.2}s`;
       
+
       div.innerHTML = `
         <img src="${profile.photo || constants.DEFAULT_AVATAR}" 
              alt="${profile.name || 'Profile'}" 
@@ -433,6 +450,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (img) img.style.borderColor = 'var(--gold)';
       });
       
+
       div.addEventListener('mouseleave', () => {
         div.style.transform = 'translateY(0) scale(1)';
         const img = div.querySelector('img');
@@ -451,6 +469,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!elements.mediaCoverage) return;
     elements.mediaCoverage.innerHTML = "";
     
+
     if (mediaItems.length === 0) {
       elements.mediaCoverage.innerHTML = `
         <div class="no-media-message">
@@ -464,10 +483,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const frag = document.createDocumentFragment();
     
+
     mediaItems.forEach((item, index) => {
       const div = createElement("div", "media-card");
       div.style.animationDelay = `${index * 0.15}s`;
       
+
       const img = createElement("img");
       img.src = item.image || '/assets/images/defaults/default-news.jpg';
       img.alt = item.title || 'Media Coverage';
@@ -479,14 +500,17 @@ document.addEventListener("DOMContentLoaded", async () => {
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       
+
       const title = createElement("p", "", item.title || '');
       
+
       // Enhanced media card hover effects
       div.addEventListener('mouseenter', () => {
         img.style.transform = 'scale(1.08) translateY(-5px)';
         img.style.filter = 'brightness(1.1) contrast(1.1)';
       });
       
+
       div.addEventListener('mouseleave', () => {
         img.style.transform = 'scale(1) translateY(0)';
         img.style.filter = 'brightness(1) contrast(1)';
@@ -507,6 +531,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!elements.downloadsResources) return;
     elements.downloadsResources.innerHTML = "";
     
+
     if (downloads.length === 0) {
       elements.downloadsResources.innerHTML = `
         <div class="no-downloads-message">
@@ -520,34 +545,71 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const frag = document.createDocumentFragment();
     
+
     downloads.forEach((file, index) => {
       const a = createElement("a", "download-card");
       a.href = file.link || "#";
       a.style.animationDelay = `${index * 0.1}s`;
       a.setAttribute('download', file.title || 'download');
+      a.setAttribute('title', `Download ${file.title}`);
       
       a.innerHTML = `
-        <i class="fas fa-file-${getFileIcon(file.type || 'pdf')}"></i>
-        <p>${file.title || 'Download'}</p>
-        <small>${file.size || ''}</small>
+        <div class="download-icon">
+          <i class="fas fa-file-${getFileIcon(file.type || 'pdf')}"></i>
+          <span class="download-badge"><i class="fas fa-download"></i></span>
+        </div>
+        <div class="download-info">
+          <h4 class="download-title">${file.title || 'Download'}</h4>
+          <p class="download-description">${file.description || 'Click to download'}</p>
+          <div class="download-meta">
+            <span class="file-type">${file.type || 'PDF'}</span>
+            <span class="file-size">${file.size || ''}</span>
+          </div>
+        </div>
+        <div class="download-action">
+          <i class="fas fa-arrow-down"></i>
+        </div>
       `;
 
       // Enhanced download card interactions
       a.addEventListener('mouseenter', () => {
         a.style.transform = 'translateY(-10px) scale(1.05)';
-        const icon = a.querySelector('i');
+        a.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.2)';
+        const icon = a.querySelector('.download-icon i');
+        const badge = a.querySelector('.download-badge');
+        const action = a.querySelector('.download-action');
         if (icon) {
-          icon.style.transform = 'scale(1.2) rotate(10deg)';
+          icon.style.transform = 'scale(1.2) rotate(5deg)';
           icon.style.color = 'var(--gold)';
+        }
+        if (badge) {
+          badge.style.transform = 'scale(1.3)';
+          badge.style.opacity = '1';
+        }
+        if (action) {
+          action.style.transform = 'translateX(10px)';
+          action.style.opacity = '1';
         }
       });
       
+
       a.addEventListener('mouseleave', () => {
         a.style.transform = 'translateY(0) scale(1)';
-        const icon = a.querySelector('i');
+        a.style.boxShadow = '0 8px 15px rgba(0, 0, 0, 0.1)';
+        const icon = a.querySelector('.download-icon i');
+        const badge = a.querySelector('.download-badge');
+        const action = a.querySelector('.download-action');
         if (icon) {
           icon.style.transform = 'scale(1) rotate(0deg)';
           icon.style.color = 'var(--blue)';
+        }
+        if (badge) {
+          badge.style.transform = 'scale(1)';
+          badge.style.opacity = '0.8';
+        }
+        if (action) {
+          action.style.transform = 'translateX(0)';
+          action.style.opacity = '0.7';
         }
       });
 
@@ -590,6 +652,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       filtered = filtered.filter(n => (n.category || "general").toLowerCase() === activeFilter);
     }
     
+
     if (term) {
       filtered = filtered.filter(n =>
         n.title.toLowerCase().includes(term) ||
@@ -601,11 +664,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     filteredNews = filtered;
     visibleNews = 6;
     
+
     // Enhanced search feedback
     if (term) {
       console.log(`🔍 Search for "${term}" found ${filteredNews.length} results`);
     }
     
+
     renderNews();
   };
 
@@ -619,6 +684,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       filtered = filtered.filter(b => (b.topic || "general").toLowerCase() === activeFilter);
     }
     
+
     if (term) {
       filtered = filtered.filter(b =>
         b.title.toLowerCase().includes(term) ||
@@ -635,6 +701,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // ===================== ENHANCED EVENT LISTENERS =====================
   
+
   // Enhanced search with debouncing
   elements.searchInput?.addEventListener('input', debounce(applyNewsFilters, 300));
   elements.blogSearchInput?.addEventListener('input', debounce(applyBlogFilters, 300));
@@ -648,15 +715,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         b.style.transform = 'scale(1)';
       });
       
+
       // Add active class to clicked button with animation
       btn.classList.add('active');
       btn.style.transform = 'scale(1.05) translateY(-2px)';
       
+
       // Reset transform after animation
       setTimeout(() => {
         btn.style.transform = 'scale(1)';
       }, 200);
       
+
       applyNewsFilters();
     });
   });
@@ -668,13 +738,16 @@ document.addEventListener("DOMContentLoaded", async () => {
         b.style.transform = 'scale(1)';
       });
       
+
       btn.classList.add('active');
       btn.style.transform = 'scale(1.05) translateY(-2px)';
       
+
       setTimeout(() => {
         btn.style.transform = 'scale(1)';
       }, 200);
       
+
       applyBlogFilters();
     });
   });
@@ -684,6 +757,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     visibleNews += increment;
     renderNews();
     
+
     // Enhanced button feedback
     elements.loadMoreBtn.style.transform = 'scale(0.95)';
     setTimeout(() => {
@@ -695,6 +769,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     visibleBlogs += blogsIncrement;
     renderBlogs();
     
+
     elements.loadMoreBlogsBtn.style.transform = 'scale(0.95)';
     setTimeout(() => {
       elements.loadMoreBlogsBtn.style.transform = 'scale(1)';
@@ -724,15 +799,18 @@ document.addEventListener("DOMContentLoaded", async () => {
       </div>
     `;
     
+
     document.body.appendChild(lightbox);
     document.body.style.overflow = 'hidden';
     
+
     // Enhanced lightbox animations
     lightbox.style.opacity = '0';
     setTimeout(() => {
       lightbox.style.opacity = '1';
     }, 10);
     
+
     const closeLightbox = () => {
       lightbox.style.opacity = '0';
       setTimeout(() => {
@@ -741,12 +819,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       }, 300);
     };
     
+
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox || e.target.closest('.lightbox-close')) {
         closeLightbox();
       }
     });
     
+
     document.addEventListener('keydown', function escHandler(e) {
       if (e.key === 'Escape') {
         closeLightbox();
@@ -761,25 +841,30 @@ document.addEventListener("DOMContentLoaded", async () => {
       animateCounter(statsElements.totalNewsEl, allNews.length, 2000);
     }
     
+
     if (statsElements.totalEventsEl) {
       const eventCount = allNews.filter(n => n.category === "events").length;
       animateCounter(statsElements.totalEventsEl, eventCount, 2000);
     }
     
+
     if (statsElements.totalAchievementsEl) {
       const achievementCount = allNews.filter(n => n.category === "achievements").length;
       animateCounter(statsElements.totalAchievementsEl, achievementCount, 2000);
     }
     
+
     if (statsElements.totalBlogsEl) {
       animateCounter(statsElements.totalBlogsEl, allBlogs.length, 2000);
     }
     
+
     if (statsElements.activeBloggersEl) {
       const authors = [...new Set(allBlogs.map(b => b.author))].filter(Boolean);
       animateCounter(statsElements.activeBloggersEl, authors.length, 2000);
     }
     
+
     if (statsElements.popularTopicEl && allBlogs.length > 0) {
       const topics = allBlogs.reduce((acc, b) => {
         const t = (b.topic || "general").toLowerCase();
@@ -797,6 +882,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const increment = target / (duration / 16);
     let current = start;
     
+
     const timer = setInterval(() => {
       current += increment;
       if (current >= target) {
@@ -811,6 +897,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const loadAllData = async () => {
     console.log('🚀 Starting to load all data...');
     
+
     const [
       news,
       blogs,
@@ -866,6 +953,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const imageInput = blogForm.querySelector('input[name="featured_image"]');
     const imagePreview = document.getElementById("imagePreview") || createElement('div', 'image-preview');
     
+
     // Live image preview
     imageInput?.addEventListener("change", function () {
       if (imagePreview) {
@@ -877,12 +965,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             this.value = "";
             return;
           }
-          
+         
+
           const img = createElement('img');
           img.src = URL.createObjectURL(file);
           img.style.cssText = "max-height:200px; border-radius:12px; box-shadow:0 8px 25px rgba(0,0,0,0.15);";
           img.alt = 'Image preview';
-          
+         
+
           imagePreview.appendChild(img);
           fadeIn(imagePreview, 300);
         }
@@ -892,9 +982,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     blogForm.addEventListener("submit", async function (e) {
       e.preventDefault();
   
+
       const submitBtn = blogForm.querySelector('button[type="submit"]');
       const originalHTML = submitBtn.innerHTML;
   
+
       // Validate form fields
       const authorName = blogForm.querySelector('input[name="author_name"]').value.trim();
       const grade = blogForm.querySelector('select[name="grade"]').value;
@@ -904,6 +996,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const content = blogForm.querySelector('textarea[name="content"]').value.trim();
       const consent = blogForm.querySelector('input[name="consent"]').checked;
   
+
       if (!authorName || !grade || !email || !title || !topic || !content || !consent) {
         alert("All fields are required. Please fill in all the fields and check the consent box.");
         submitBtn.disabled = false;
@@ -911,19 +1004,24 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
       }
   
+
       submitBtn.disabled = true;
       submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
   
+
       try {
         const formData = new FormData(blogForm);
   
+
         const response = await fetch(blogForm.action, {
           method: "POST",
           body: formData
         });
   
+
         const result = await response.json();
   
+
         if (response.ok && result.success) {
           blogForm.innerHTML = `
             <div class="success-message">
@@ -942,10 +1040,12 @@ document.addEventListener("DOMContentLoaded", async () => {
             </div>
           `;
   
+
           // Enhanced success animation
           const successDiv = blogForm.querySelector('.success-message');
           fadeIn(successDiv, 600);
   
+
         } else {
           throw new Error(result.message || "Submission failed");
         }
@@ -960,6 +1060,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // ===================== ENHANCED PERFORMANCE OPTIMIZATIONS =====================
   
+
   // Intersection Observer for lazy loading and animations
   const observerOptions = {
     threshold: 0.1,
@@ -987,6 +1088,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Enhanced scroll performance
   let ticking = false;
   
+
   const updateOnScroll = () => {
     // Add scroll-based effects here
     ticking = false;
@@ -1004,6 +1106,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ===================== INITIALIZATION =====================
   console.log('🎉 Initializing Enhanced News & Events Page...');
   
+
   // Initialize enhanced features
   setTimeout(() => {
     observeElements();
@@ -1015,6 +1118,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // ===================== GLOBAL FUNCTIONS =====================
   
+
   // Expose global functions for event handlers
   window.registerForEvent = (eventId) => {
     console.log(`📝 Registering for event: ${eventId}`);
@@ -1044,12 +1148,14 @@ const lightboxStyles = `
       transition: opacity 0.3s ease;
     }
     
+
     .lightbox-content {
       position: relative;
       max-width: 90%;
       max-height: 90%;
     }
     
+
     .lightbox-content img {
       max-width: 100%;
       max-height: 100%;
@@ -1057,6 +1163,7 @@ const lightboxStyles = `
       border-radius: 8px;
     }
     
+
     .lightbox-close {
       position: absolute;
       top: -40px;
@@ -1075,11 +1182,13 @@ const lightboxStyles = `
       transition: all 0.3s ease;
     }
     
+
     .lightbox-close:hover {
       background: white;
       transform: scale(1.1);
     }
     
+
     .success-message {
       text-align: center;
       padding: 4rem 2rem;
@@ -1089,6 +1198,7 @@ const lightboxStyles = `
       animation: success-entrance 0.8s ease-out;
     }
     
+
     .success-icon {
       font-size: 5rem;
       color: #28a745;
@@ -1096,6 +1206,7 @@ const lightboxStyles = `
       animation: icon-bounce 1s ease-in-out;
     }
     
+
     @keyframes success-entrance {
       from {
         opacity: 0;
@@ -1107,6 +1218,7 @@ const lightboxStyles = `
       }
     }
     
+
     @keyframes icon-bounce {
       0%, 20%, 50%, 80%, 100% {
         transform: translateY(0);
@@ -1119,6 +1231,7 @@ const lightboxStyles = `
       }
     }
     
+
     .no-events-message,
     .no-photos-message,
     .no-profiles-message,
@@ -1130,6 +1243,7 @@ const lightboxStyles = `
       grid-column: 1 / -1;
     }
     
+
     .no-events-message i,
     .no-photos-message i,
     .no-profiles-message i,
@@ -1141,20 +1255,182 @@ const lightboxStyles = `
       opacity: 0.5;
     }
     
+
     .encouragement {
       margin-top: 2rem;
       font-weight: 600;
       color: #0f5132;
     }
     
+
     .achievement {
       color: var(--gold);
       font-weight: 600;
       margin-top: 0.5rem;
     }
     
+
     .achievement i {
       margin-right: 0.5rem;
+    }
+    
+    /* Enhanced Download Cards Styles */
+    .download-card {
+      display: flex;
+      align-items: center;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      border: 2px solid transparent;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .download-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-5px) scale(1.02);
+    }
+    
+    .download-icon {
+      position: relative;
+      margin-right: 1.5rem;
+      flex-shrink: 0;
+    }
+    
+    .download-icon i {
+      font-size: 2.5rem;
+      color: var(--blue);
+      transition: all 0.3s ease;
+    }
+    
+    .download-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--gold);
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      opacity: 0.8;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(255, 193, 7, 0.4);
+    }
+    
+    .download-info {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .download-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--dark);
+      margin: 0 0 0.5rem 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .download-description {
+      font-size: 0.9rem;
+      color: var(--gray-dark);
+      margin: 0 0 0.8rem 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .download-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+    }
+    
+    .file-type {
+      background: var(--blue-light);
+      color: var(--blue-dark);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    
+    .file-size {
+      background: var(--gray-light);
+      color: var(--gray-dark);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    
+    .download-action {
+      margin-left: 1.5rem;
+      font-size: 1.5rem;
+      color: var(--gold);
+      opacity: 0.7;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+    
+    /* Download Section Header */
+    .downloads-section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .downloads-section-header h2 {
+      font-size: 2rem;
+      color: var(--dark);
+      margin-bottom: 1rem;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 0.5rem;
+    }
+    
+    .downloads-section-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--gold));
+      border-radius: 2px;
+    }
+    
+    .downloads-section-header p {
+      color: var(--gray-dark);
+      font-size: 1.1rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    /* Download Card Animation */
+    @keyframes downloadPulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+    }
+    
+    .download-badge {
+      animation: downloadPulse 2s ease-in-out infinite;
     }
   </style>
 `;
