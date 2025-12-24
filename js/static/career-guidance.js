@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     // Add staggered animation delays for grouped elements
                     if (element.classList.contains('service-card')) {
                         animateServiceCards(element);
-                    } else if (element.classList.contains('stat')) {
+                    } else if (element.classList.contains('stat-card')) {
                         animateStats(element);
                     } else {
                         animateElement(element);
@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         }, observerOptions);
 
         // Observe all revealable elements
-        const revealElements = document.querySelectorAll('.reveal, .service-card, .success-card, .stat, .mission-text, .mission-image');
+        const revealElements = document.querySelectorAll('.reveal, .service-card, .success-card, .stat-card, .mission-text, .mission-image');
         revealElements.forEach((el, index) => {
             el.style.animationDelay = `${index * 0.1}s`;
             observer.observe(el);
@@ -286,16 +286,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             data.stats.forEach((stat, index) => {
                 const item = document.createElement("div");
-                item.className = "stat text-center reveal";
+                item.className = "stat-card text-center reveal";
                 item.style.animationDelay = `${index * 0.1}s`;
                 item.innerHTML = `
-                    <div class="stat-icon">
-                        <i class="${stat.icon} fa-3x mb-4 text-cyan-300"></i>
-                    </div>
-                    <h3 class="counter text-5xl font-bold" data-target="${stat.value.replace(/\D/g, '')}">
+                    <i class="${stat.icon}"></i>
+                    <h3 class="counter" data-target="${stat.value.replace(/\D/g, '')}">
                         ${stat.value.includes('+') ? '0+' : '0'}
                     </h3>
-                    <p class="mt-2 text-lg opacity-white/90">${stat.label}</p>
+                    <p>${stat.label}</p>
                 `;
                 statsGrid.appendChild(item);
             });
@@ -308,13 +306,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     function initCounterAnimations() {
-        const statsSection = document.querySelector('.career-stats');
+        const statsSection = document.querySelector('.stats-section');
         if (!statsSection) return;
 
         const observer = createIntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const counters = entry.target.querySelectorAll('.counter');
+                    const counters = statsSection.querySelectorAll('.counter');
                     counters.forEach(counter => animateCounter(counter));
                     observer.unobserve(entry.target);
                 }
