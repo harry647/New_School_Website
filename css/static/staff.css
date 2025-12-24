@@ -52,6 +52,26 @@
   margin-bottom: 0.5rem;
 }
 
+.hero-scroll-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255,255,255,0.3);
+  margin-top: 2rem;
+}
+
+.hero-scroll-indicator:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
 /* Staff Section */
 .staff-section {
   background: var(--light);

@@ -11,45 +11,65 @@
   },
   "notable": [
     {
-      "name": "Class Of 2022",
-      "batch": "2022",
+      "name": "Jane Wanjiku",
+      "batch": "2015",
       "photo": "/assets/images/alumni/alumni1.jpg",
-      "achievement": "Joined Different Universities And Colleges"
+      "achievement": "CEO, Tech Innovations Ltd.",
+      "currentRole": "Advocate for STEM Education in Kenya • Mentor to young tech entrepreneurs"
     },
     {
-      "name": "Class Of 2023",
-      "batch": "2023",
+      "name": "Joshua Agengo",
+      "batch": "2018",
       "photo": "/assets/images/alumni/alumni2.jpg",
-      "achievement": "Joined Different Universities And Colleges"
+      "achievement": "International Diplomat",
+      "currentRole": "Former UN Youth Ambassador • Promotes peace, diplomacy, and global youth engagement"
     },
     {
-      "name": "Class Of 2024",
-      "batch": "2023",
+      "name": "Sam Onyango",
+      "batch": "2012",
       "photo": "/assets/images/alumni/alumni3.jpg",
-      "achievement": "Joined Different Universities And Colleges"
+      "achievement": "Renowned Medical Researcher",
+      "currentRole": "Advocate for Community Health Programs • Pioneer in public health initiatives in Africa"
     },
     {
-      "name": "Class Of 2025",
-      "batch": "2025",
+      "name": "David Njoroge",
+      "batch": "2010",
       "photo": "/assets/images/alumni/alumni4.jpg",
-      "achievement": "Joined Different Universities And Colleges"
+      "achievement": "Entrepreneur & Philanthropist",
+      "currentRole": "Supporting Education and Sports Development • Invests in youth empowerment projects"
+    },
+    {
+      "name": "Mary Achieng",
+      "batch": "2016",
+      "photo": "/assets/images/alumni/alumni5.jpg",
+      "achievement": "Author & Social Activist",
+      "currentRole": "Promotes Literacy and Girls' Education in Kenya • Founder of community-based reading programs"
     }
   ],
   "events": [
     {
-      "date": "15 Feb 2026",
-      "title": "Batch Of 2025",
-      "description": "Grand celebration with cultural night & awards"
+      "date": "2026-02-15T18:00:00",
+      "title": "Batch Of 2025 Reunion",
+      "description": "Grand celebration with cultural night & awards",
+      "location": "School Auditorium",
+      "time": "6:00 PM",
+      "type": "reunion"
     },
     {
-      "date": "12 Apr 2026",
+      "date": "2026-04-12T14:00:00",
       "title": "Alumni Mentorship Meet",
-      "description": "Current students interact with successful alumni"
+      "description": "Current students interact with successful alumni",
+      "location": "School Library",
+      "time": "2:00 PM",
+      "type": "mentorship"
     },
     {
-      "date": "18 Dec 2026",
+      "date": "2026-12-18T19:00:00",
       "title": "Annual Alumni Dinner",
-      "description": "Formal gathering at school"
+      "description": "Formal gathering at school",
+      "location": "School Dining Hall",
+      "time": "7:00 PM",
+      "type": "networking"
     }
   ]
 }
