@@ -1,0 +1,44 @@
+[
+  {
+    "title": "Introduction to Algebra",
+    "description": "A comprehensive guide to basic algebra concepts and techniques.",
+    "type": "pdf",
+    "url": "/assets/images/common/placeholder-doc.png",
+    "thumbnail": "/assets/images/common/placeholder-doc.png"
+  },
+  {
+    "title": "Geometry Basics",
+    "description": "Learn the fundamentals of geometry, including shapes, angles, and theorems.",
+    "type": "pdf",
+    "url": "/assets/images/common/placeholder-doc.png",
+    "thumbnail": "/assets/images/common/placeholder-doc.png"
+  },
+  {
+    "title": "Calculus Tutorial",
+    "description": "An interactive tutorial on calculus, covering limits, derivatives, and integrals.",
+    "type": "interactive",
+    "url": "https://www.example.com/calculus-tutorial",
+    "thumbnail": "/assets/images/common/placeholder-doc.png"
+  },
+  {
+    "title": "English Grammar Guide",
+    "description": "A detailed guide to English grammar rules and usage.",
+    "type": "pdf",
+    "url": "/assets/images/common/placeholder-doc.png",
+    "thumbnail": "/assets/images/common/placeholder-doc.png"
+  },
+  {
+    "title": "Biology Basics",
+    "description": "An introduction to biology, covering cells, genetics, and evolution.",
+    "type": "video",
+    "url": "https://www.example.com/biology-basics",
+    "thumbnail": "/assets/images/common/placeholder-doc.png"
+  },
+  {
+    "title": "Computer Science Fundamentals",
+    "description": "Learn the basics of computer science, including algorithms and data structures.",
+    "type": "interactive",
+    "url": "https://www.example.com/computer-science-fundamentals",
+    "thumbnail": "/assets/images/common/placeholder-doc.png"
+  }
+]

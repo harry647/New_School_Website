@@ -5,7 +5,7 @@ const subjectsGrid = document.querySelector('.row.g-4');
 async function loadSubjects() {
   subjectsGrid.innerHTML = `<div class="text-center my-5"><div class="spinner-border text-primary"></div><p>Loading subjects...</p></div>`;
   try {
-    const res = await fetch('/api/subjects');
+    const res = await fetch('/api/elearning/subjects');
     if (!res.ok) throw new Error('Failed to load subjects.');
     const subjects = await res.json();
 
@@ -38,11 +38,13 @@ async function loadSubjects() {
   }
 }
 
-document.getElementById('subjectSearch').addEventListener('input', e => {
-  const term = e.target.value.toLowerCase();
-  document.querySelectorAll('.card-title').forEach(title => {
-    title.closest('.col-md-4').style.display = title.textContent.toLowerCase().includes(term) ? '' : 'none';
+document.addEventListener('DOMContentLoaded', () => {
+  loadSubjects();
+
+  document.getElementById('subjectSearch').addEventListener('input', e => {
+    const term = e.target.value.toLowerCase();
+    document.querySelectorAll('.card-title').forEach(title => {
+      title.closest('.col-md-4').style.display = title.textContent.toLowerCase().includes(term) ? '' : 'none';
+    });
   });
 });
-
-document.addEventListener('DOMContentLoaded', loadSubjects);

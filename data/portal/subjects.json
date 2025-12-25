@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Mathematics",
+    "description": "Explore algebra, geometry, calculus, and more.",
+    "topics": 15,
+    "resources": 20,
+    "duration": "12 weeks",
+    "progress": 75,
+    "slug": "mathematics",
+    "image": "/assets/images/elearning/portal-dashboard.jpg"
+  },
+  {
+    "name": "English",
+    "description": "Improve your reading, writing, and comprehension skills.",
+    "topics": 12,
+    "resources": 18,
+    "duration": "10 weeks",
+    "progress": 60,
+    "slug": "english",
+    "image": "/assets/images/elearning/portal-dashboard.jpg"
+  },
+  {
+    "name": "Biology",
+    "description": "Learn about living organisms, ecosystems, and biology concepts.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "biology",
+    "image": "/assets/images/elearning/portal-dashboard.jpg"
+  },
+  {
+    "name": "Computer Studies",
+    "description": "Dive into programming, algorithms, and computer science.",
+    "topics": 20,
+    "resources": 25,
+    "duration": "15 weeks",
+    "progress": 80,
+    "slug": "computer-studies",
+    "image": "/assets/images/elearning/portal-dashboard.jpg"
+  }
+]

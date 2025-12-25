@@ -100,6 +100,97 @@ router.get('/data', (req, res) => {
 });
 
 /**
+ * @route   GET /subjects
+ * @desc    Fetches all subjects for the e-learning portal.
+ * @access  Public
+ */
+router.get('/subjects', (req, res) => {
+  const subjects = readJSON(path.join(__dirname, '..', '..', 'data', 'portal', 'subjects.json'));
+  res.json(subjects);
+});
+
+/**
+ * @route   GET /resources
+ * @desc    Fetches all resources for the e-learning portal.
+ * @access  Public
+ */
+router.get('/resources', (req, res) => {
+  const resources = readJSON(path.join(__dirname, '..', '..', 'data', 'portal', 'resources.json'));
+  res.json(resources);
+});
+
+/**
+ * @route   GET /media
+ * @desc    Fetches all media for the e-learning portal.
+ * @access  Public
+ */
+router.get('/media', (req, res) => {
+  const media = readJSON(path.join(__dirname, '..', '..', 'data', 'portal', 'media.json'));
+  const page = parseInt(req.query.page) || 1;
+  const search = req.query.search || '';
+  const type = req.query.type || '';
+
+  // Filter media based on search and type
+  let filteredMedia = media;
+  if (search) {
+    filteredMedia = filteredMedia.filter(item =>
+      item.title.toLowerCase().includes(search.toLowerCase())
+    );
+  }
+  if (type) {
+    filteredMedia = filteredMedia.filter(item =>
+      item.type.toLowerCase() === type.toLowerCase()
+    );
+  }
+
+  // Paginate media
+  const pageSize = 6;
+  const startIndex = (page - 1) * pageSize;
+  const endIndex = startIndex + pageSize;
+  const paginatedMedia = filteredMedia.slice(startIndex, endIndex);
+
+  res.json({ items: paginatedMedia });
+});
+
+/**
+ * @route   GET /media/:id
+ * @desc    Fetches a single media item for the e-learning portal.
+ * @access  Public
+ */
+router.get('/media/:id', (req, res) => {
+  const media = readJSON(path.join(__dirname, '..', '..', 'data', 'portal', 'media.json'));
+  const item = media.find(item => item.id === parseInt(req.params.id));
+  if (!item) {
+    return res.status(404).json({ error: 'Media not found' });
+  }
+  res.json(item);
+});
+
+/**
+ * @route   GET /media/:id/download
+ * @desc    Downloads a media item for the e-learning portal.
+ * @access  Public
+ */
+router.get('/media/:id/download', (req, res) => {
+  const media = readJSON(path.join(__dirname, '..', '..', 'data', 'portal', 'media.json'));
+  const item = media.find(item => item.id === parseInt(req.params.id));
+  if (!item) {
+    return res.status(404).json({ error: 'Media not found' });
+  }
+  res.redirect(item.url);
+});
+
+/**
+ * @route   GET /study-plans
+ * @desc    Fetches all study plans for the e-learning portal.
+ * @access  Public
+ */
+router.get('/study-plans', (req, res) => {
+  const studyPlans = readJSON(path.join(__dirname, '..', '..', 'data', 'portal', 'study-plans.json'));
+  res.json(studyPlans);
+});
+
+/**
  * @route   GET /notifications
  * @desc    Fetches notifications for the portal.
  * @access  Public

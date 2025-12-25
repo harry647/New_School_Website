@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "title": "Introduction to Algebra",
+    "type": "video",
+    "duration": "10:30",
+    "thumbnail": "/assets/images/common/placeholder-doc.png",
+    "url": "https://www.example.com/intro-to-algebra"
+  },
+  {
+    "id": 2,
+    "title": "Geometry Basics",
+    "type": "video",
+    "duration": "15:45",
+    "thumbnail": "/assets/images/common/placeholder-doc.png",
+    "url": "https://www.example.com/geometry-basics"
+  },
+  {
+    "id": 3,
+    "title": "Calculus Tutorial",
+    "type": "video",
+    "duration": "20:10",
+    "thumbnail": "/assets/images/common/placeholder-doc.png",
+    "url": "https://www.example.com/calculus-tutorial"
+  },
+  {
+    "id": 4,
+    "title": "English Grammar Guide",
+    "type": "audio",
+    "duration": "12:30",
+    "thumbnail": "/assets/images/common/placeholder-doc.png",
+    "url": "https://www.example.com/english-grammar-guide"
+  },
+  {
+    "id": 5,
+    "title": "Biology Basics",
+    "type": "video",
+    "duration": "18:20",
+    "thumbnail": "/assets/images/common/placeholder-doc.png",
+    "url": "https://www.example.com/biology-basics"
+  },
+  {
+    "id": 6,
+    "title": "Computer Science Fundamentals",
+    "type": "video",
+    "duration": "25:15",
+    "thumbnail": "/assets/images/common/placeholder-doc.png",
+    "url": "https://www.example.com/computer-science-fundamentals"
+  },
+  {
+    "id": 7,
+    "title": "Introduction to Chemistry",
+    "type": "video",
+    "duration": "14:20",
+    "thumbnail": "/assets/images/common/placeholder-doc.png",
+    "url": "https://www.example.com/intro-to-chemistry"
+  },
+  {
+    "id": 8,
+    "title": "Physics Basics",
+    "type": "video",
+    "duration": "16:30",
+    "thumbnail": "/assets/images/common/placeholder-doc.png",
+    "url": "https://www.example.com/physics-basics"
+  },
+  {
+    "id": 9,
+    "title": "History of Mathematics",
+    "type": "audio",
+    "duration": "13:45",
+    "thumbnail": "/assets/images/common/placeholder-doc.png",
+    "url": "https://www.example.com/history-of-math"
+  },
+  {
+    "id": 10,
+    "title": "Literature Analysis",
+    "type": "video",
+    "duration": "17:20",
+    "thumbnail": "/assets/images/common/placeholder-doc.png",
+    "url": "https://www.example.com/literature-analysis"
+  },
+  {
+    "id": 11,
+    "title": "Introduction to Programming",
+    "type": "video",
+    "duration": "22:10",
+    "thumbnail": "/assets/images/common/placeholder-doc.png",
+    "url": "https://www.example.com/intro-to-programming"
+  },
+  {
+    "id": 12,
+    "title": "Environmental Science",
+    "type": "video",
+    "duration": "19:30",
+    "thumbnail": "/assets/images/common/placeholder-doc.png",
+    "url": "https://www.example.com/environmental-science"
+  }
+]

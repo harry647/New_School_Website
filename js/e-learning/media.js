@@ -1,21 +1,36 @@
 // JavaScript for media.html
 console.log('Media page loaded');
+console.log('DOM elements check:', {
+  mediaGrid: document.getElementById('mediaGrid'),
+  loadMoreMedia: document.getElementById('loadMoreMedia'),
+  mediaSearch: document.getElementById('mediaSearch'),
+  mediaFilter: document.getElementById('mediaFilter')
+});
 
 // Fetch media from API
 async function loadMediaItems(page = 1, search = '', filter = '') {
   try {
-    const response = await fetch(`/api/media?page=${page}&search=${search}&type=${filter}`);
+    const response = await fetch(`/api/elearning/media?page=${page}&search=${search}&type=${filter}`);
     const data = await response.json();
     renderMedia(data.items);
   } catch (err) {
     console.error("Failed to load media:", err);
-    document.getElementById('mediaGrid').innerHTML = "<p class='text-danger'>Failed to load media.</p>";
+    const mediaGrid = document.getElementById('mediaGrid');
+    if (mediaGrid) {
+      mediaGrid.innerHTML = "<p class='text-danger'>Failed to load media.</p>";
+    } else {
+      console.error("mediaGrid element not found");
+    }
   }
 }
 
 // Render media cards
 function renderMedia(items) {
   const grid = document.getElementById('mediaGrid');
+  if (!grid) {
+    console.error("mediaGrid element not found in renderMedia");
+    return;
+  }
   items.forEach(item => {
     const card = document.createElement('div');
     card.className = 'col-md-4';
@@ -44,7 +59,7 @@ function previewMedia(id) {
   const modal = new bootstrap.Modal(document.getElementById('mediaPreviewModal'));
   document.getElementById('mediaModalTitle').innerText = "Loading...";
   document.getElementById('mediaModalBody').innerHTML = "<p>Loading media...</p>";
-  fetch(`/api/media/${id}`).then(res => res.json()).then(item => {
+  fetch(`/api/elearning/media/${id}`).then(res => res.json()).then(item => {
     document.getElementById('mediaModalTitle').innerText = item.title;
     let html = '';
     if(item.type === 'video') html = `<video src="${item.url}" controls class="w-100"></video>`;
@@ -58,24 +73,35 @@ function previewMedia(id) {
 
 // Download media
 function downloadMedia(id) {
-  window.open(`/api/media/${id}/download`, '_blank');
+  window.open(`/api/elearning/media/${id}/download`, '_blank');
 }
 
-// Load more media
-document.getElementById('loadMoreMedia').addEventListener('click', () => {
-  const currentPage = parseInt(document.getElementById('loadMoreMedia').dataset.page) || 1;
-  loadMediaItems(currentPage + 1, document.getElementById('mediaSearch').value, document.getElementById('mediaFilter').value);
-  document.getElementById('loadMoreMedia').dataset.page = currentPage + 1;
-});
+document.addEventListener('DOMContentLoaded', () => {
+  const loadMoreMedia = document.getElementById('loadMoreMedia');
+  const mediaSearch = document.getElementById('mediaSearch');
+  const mediaFilter = document.getElementById('mediaFilter');
 
-// Search and filter hooks
-document.getElementById('mediaSearch').addEventListener('input', (e) => {
-  loadMediaItems(1, e.target.value, document.getElementById('mediaFilter').value);
-});
+  if (!loadMoreMedia || !mediaSearch || !mediaFilter) {
+    console.error("One or more DOM elements not found:", { loadMoreMedia, mediaSearch, mediaFilter });
+    return;
+  }
 
-document.getElementById('mediaFilter').addEventListener('change', (e) => {
-  loadMediaItems(1, document.getElementById('mediaSearch').value, e.target.value);
-});
+  // Load more media
+  loadMoreMedia.addEventListener('click', () => {
+    const currentPage = parseInt(loadMoreMedia.dataset.page) || 1;
+    loadMediaItems(currentPage + 1, mediaSearch.value, mediaFilter.value);
+    loadMoreMedia.dataset.page = currentPage + 1;
+  });
 
-// Initialize
-loadMediaItems();
+  // Search and filter hooks
+  mediaSearch.addEventListener('input', (e) => {
+    loadMediaItems(1, e.target.value, mediaFilter.value);
+  });
+
+  mediaFilter.addEventListener('change', (e) => {
+    loadMediaItems(1, mediaSearch.value, e.target.value);
+  });
+
+  // Initialize
+  loadMediaItems();
+});

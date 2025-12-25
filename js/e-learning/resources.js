@@ -6,7 +6,7 @@ const resourcesGrid = document.getElementById('resourcesGrid');
 async function loadResources() {
   resourcesGrid.innerHTML = `<div class="text-center my-5"><div class="spinner-border text-primary"></div><p>Loading resources...</p></div>`;
   try {
-    const res = await fetch('/api/resources');
+    const res = await fetch('/api/elearning/resources');
     if (!res.ok) throw new Error('Failed to load resources.');
     const resources = await res.json();
 

@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Mathematics Study Plan",
+    "description": "A comprehensive study plan for mathematics covering algebra, calculus, and geometry.",
+    "duration": 12,
+    "progress": 75,
+    "courses": ["Algebra", "Calculus", "Geometry"]
+  },
+  {
+    "id": 2,
+    "title": "Science Study Plan",
+    "description": "A study plan for science subjects including physics, chemistry, and biology.",
+    "duration": 10,
+    "progress": 50,
+    "courses": ["Physics", "Chemistry", "Biology"]
+  },
+  {
+    "id": 3,
+    "title": "Literature Study Plan",
+    "description": "A study plan for literature covering classic and modern works.",
+    "duration": 8,
+    "progress": 30,
+    "courses": ["Classic Literature", "Modern Literature"]
+  }
+]

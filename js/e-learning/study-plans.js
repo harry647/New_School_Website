@@ -1,11 +1,26 @@
 // JavaScript for study-plans.html
 document.addEventListener('DOMContentLoaded', () => {
-    const apiBase = '/api'; // Adjust to your backend URL
+    const apiBase = '/api/elearning'; // Adjust to your backend URL
     const token = localStorage.getItem('authToken'); // For auth (robustness)
 
+    // Check if required DOM elements exist
+    const createPlanBtn = document.getElementById('createPlanBtn');
+    const savePlanBtn = document.getElementById('savePlanBtn');
+    const searchInput = document.getElementById('searchInput');
+    const filterStatus = document.getElementById('filterStatus');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const studyPlansGrid = document.getElementById('studyPlansGrid');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const errorMessage = document.getElementById('errorMessage');
+
+    if (!createPlanBtn || !savePlanBtn || !searchInput || !filterStatus || !logoutBtn || !studyPlansGrid || !loadingSpinner || !errorMessage) {
+        console.error("One or more DOM elements not found:", { createPlanBtn, savePlanBtn, searchInput, filterStatus, logoutBtn, studyPlansGrid, loadingSpinner, errorMessage });
+        return;
+    }
+
     async function fetchPlans() {
-        document.getElementById('loadingSpinner').classList.remove('d-none');
-        document.getElementById('errorMessage').classList.add('d-none');
+        loadingSpinner.classList.remove('d-none');
+        errorMessage.classList.add('d-none');
         try {
             const response = await fetch(`${apiBase}/study-plans`, {
                 headers: { 'Authorization': `Bearer ${token}` } // Secure API calls
@@ -14,16 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const plans = await response.json();
             renderPlans(plans);
         } catch (error) {
-            document.getElementById('errorMessage').textContent = error.message;
-            document.getElementById('errorMessage').classList.remove('d-none');
+            errorMessage.textContent = error.message;
+            errorMessage.classList.remove('d-none');
         } finally {
-            document.getElementById('loadingSpinner').classList.add('d-none');
+            loadingSpinner.classList.add('d-none');
         }
     }
 
     function renderPlans(plans) {
-        const grid = document.getElementById('studyPlansGrid');
-        grid.innerHTML = '';
+        studyPlansGrid.innerHTML = '';
         plans.forEach(plan => {
             const card = document.createElement('div');
             card.className = 'col-md-4';
@@ -38,18 +52,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             `;
-            grid.appendChild(card);
+            studyPlansGrid.appendChild(card);
         });
     }
 
     // Event listeners for create/edit/save
-    document.getElementById('createPlanBtn').addEventListener('click', () => {
+    createPlanBtn.addEventListener('click', () => {
         document.getElementById('planForm').reset();
         document.getElementById('planId').value = '';
         new bootstrap.Modal(document.getElementById('planModal')).show();
     });
 
-    document.getElementById('savePlanBtn').addEventListener('click', async () => {
+    savePlanBtn.addEventListener('click', async () => {
         const id = document.getElementById('planId').value;
         const data = {
             title: document.getElementById('planTitle').value,
@@ -69,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Add listeners for edit/delete buttons
-    document.getElementById('studyPlansGrid').addEventListener('click', (e) => {
+    studyPlansGrid.addEventListener('click', (e) => {
         if (e.target.classList.contains('editBtn')) {
             const planId = e.target.getAttribute('data-id');
             // Fetch plan details and populate modal
@@ -100,9 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Search/filter: Add input listeners to filter rendered plans client-side
-    document.getElementById('searchInput').addEventListener('input', () => {
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-        const statusFilter = document.getElementById('filterStatus').value;
+    searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.toLowerCase();
+        const statusFilter = filterStatus.value;
         const cards = document.querySelectorAll('.study-plan-card');
         cards.forEach(card => {
             const title = card.querySelector('.card-title').textContent.toLowerCase();
@@ -114,9 +128,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.getElementById('filterStatus').addEventListener('change', () => {
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-        const statusFilter = document.getElementById('filterStatus').value;
+    filterStatus.addEventListener('change', () => {
+        const searchTerm = searchInput.value.toLowerCase();
+        const statusFilter = filterStatus.value;
         const cards = document.querySelectorAll('.study-plan-card');
         cards.forEach(card => {
             const title = card.querySelector('.card-title').textContent.toLowerCase();
@@ -129,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Logout (for auth in e-learning)
-    document.getElementById('logoutBtn').addEventListener('click', () => {
+    logoutBtn.addEventListener('click', () => {
         localStorage.removeItem('authToken');
         window.location.href = '/login';
     });
