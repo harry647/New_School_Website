@@ -250,6 +250,18 @@ router.post('/science/upload', uploadDepartmentFile.array('files', 20), (req, re
   res.json({ success: true });
 });
 
+// --- Resources ---
+router.get('/resources/all', (req, res) => {
+  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'resources-data.json'));
+  res.json(data);
+});
+
+router.post('/resources/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
+  if (!req.files?.length) return res.status(400).json({ success: false, message: "No files" });
+  console.log(`Resources Upload → ${req.files.length} files`);
+  res.json({ success: true });
+});
+
 
 // =================================================================
 // GUIDANCE & WELFARE ROUTES

@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.getElementById("mainContent").classList.remove("d-none");
 
-    // LoadAllData();
+    LoadAllData();
     setupRoleSwitcher();
     setupUploads();
     setupFilters();
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 // ==================== LOAD DATA FROM BACKEND ====================
 async function LoadAllData() {
   try {
-    const res = await fetch("/api/resources/all", { cache: "no-store" });
+    const res = await fetch("/api/departments/resources/all", { cache: "no-store" });
     if (!res.ok) throw new Error("Failed");
 
     const data = await res.json();
@@ -248,7 +248,7 @@ function setupUploads() {
       formData.append("role", currentRole);
 
       try {
-        const res = await fetch("/api/resources/upload", {
+        const res = await fetch("/api/departments/resources/upload", {
           method: "POST",
           body: formData
         });
@@ -263,6 +263,49 @@ function setupUploads() {
         showAlert("Upload failed.", "danger");
       }
     });
+  });
+}
+
+// ==================== SEARCH SETUP ====================
+function setupSearch() {
+  const searchInput = document.getElementById("searchInput");
+  if (!searchInput) return;
+
+  searchInput.addEventListener("input", resetAndRender);
+}
+
+// ==================== QUICK UPLOAD SETUP ====================
+function setupQuickUpload() {
+  const quickDrop = document.getElementById("quickDrop");
+  const quickFile = document.getElementById("quickFile");
+
+  if (!quickDrop || !quickFile) return;
+
+  quickDrop.addEventListener("click", () => quickFile.click());
+
+  quickFile.addEventListener("change", async function () {
+    if (this.files.length === 0) return;
+
+    const formData = new FormData();
+    Array.from(this.files).forEach(file => formData.append("files", file));
+    formData.append("uploadedBy", getCurrentUserName());
+    formData.append("role", currentRole);
+
+    try {
+      const res = await fetch("/api/departments/resources/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        showAlert(`Quick upload: ${this.files.length} file(s) uploaded!`, "success");
+        this.value = "";
+        LoadAllData();
+      }
+    } catch (err) {
+      showAlert("Quick upload failed.", "danger");
+    }
   });
 }
 
@@ -329,6 +372,27 @@ function populateTags() {
 function searchByTag(tag) {
   document.getElementById("searchInput").value = tag;
   resetAndRender();
+}
+
+// ==================== SORT & VIEW TOGGLE ====================
+function toggleSortMenu(event) {
+  // Placeholder for sort menu toggle
+  console.log("Sort menu toggled");
+}
+
+function toggleGridList() {
+  // Placeholder for grid/list view toggle
+  console.log("Grid/List view toggled");
+}
+
+function showTrending() {
+  // Placeholder for showing trending resources
+  console.log("Show trending resources");
+}
+
+function approveSubmission(id) {
+  // Placeholder for approving submissions
+  console.log("Submission approved:", id);
 }
 
 // ==================== UTILITIES ====================

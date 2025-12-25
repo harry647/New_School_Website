@@ -54,6 +54,61 @@
       "icon": "fa-file-audio",
       "color": "#3b82f6",
       "description": "Audio files to improve English listening skills and comprehension."
+    },
+    {
+      "title": "Chemistry Notes for Form 3",
+      "category": "Sciences",
+      "type": "PDF",
+      "uploadedBy": "Mr. Kimani",
+      "date": "Nov 2025",
+      "url": "/downloads/chemistry-notes.pdf",
+      "icon": "fa-file-pdf",
+      "color": "#10b981",
+      "description": "Comprehensive chemistry notes covering all topics for Form 3 students."
+    },
+    {
+      "title": "History of Kenya",
+      "category": "Humanities",
+      "type": "PDF",
+      "uploadedBy": "Ms. Wanjiku",
+      "date": "Oct 2025",
+      "url": "/downloads/history-kenya.pdf",
+      "icon": "fa-file-pdf",
+      "color": "#ec4899",
+      "description": "Detailed history notes covering Kenya's history from pre-colonial to modern times."
+    },
+    {
+      "title": "Computer Studies Guide",
+      "category": "Applied Sciences",
+      "type": "PDF",
+      "uploadedBy": "Mr. Kibet",
+      "date": "Sep 2025",
+      "url": "/downloads/computer-studies.pdf",
+      "icon": "fa-file-pdf",
+      "color": "#06b6d4",
+      "description": "Guide to computer studies covering hardware, software, and programming basics."
+    },
+    {
+      "title": "Geography Fieldwork Manual",
+      "category": "Humanities",
+      "type": "PDF",
+      "uploadedBy": "Ms. Njeri",
+      "date": "Nov 2025",
+      "url": "/downloads/geography-manual.pdf",
+      "icon": "fa-file-pdf",
+      "color": "#ec4899",
+      "description": "Manual for geography fieldwork activities and data collection."
+    },
+    {
+      "title": "Business Studies Notes",
+      "category": "Applied Sciences",
+      "type": "PDF",
+      "uploadedBy": "Mr. Omondi",
+      "date": "Oct 2025",
+      "url": "/downloads/business-notes.pdf",
+      "icon": "fa-file-pdf",
+      "color": "#06b6d4",
+      "description": "Comprehensive notes for business studies covering all topics."
     }
   ],
   "submissions": [],
@@ -79,5 +134,5 @@
       "description": "Step-by-step demonstrations of key physics experiments."
     }
   ],
-  "tags": ["Mathematics", "Sciences", "Languages", "Revision", "Workbook", "Labs", "Audio", "Video"]
+  "tags": ["Mathematics", "Sciences", "Languages", "Humanities", "Applied Sciences", "Revision", "Workbook", "Labs", "Audio", "Video", "Notes", "Guide", "Manual"]
 }
