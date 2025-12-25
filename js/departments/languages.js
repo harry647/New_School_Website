@@ -381,3 +381,44 @@ function showAlert(message, type = "info") {
   document.body.appendChild(alert);
   setTimeout(() => alert.remove(), 5000);
 }
+
+function getFileIcon(type) {
+  const icons = {
+    'audio': 'fa-microphone',
+    'pdf': 'fa-file-pdf',
+    'document': 'fa-file-alt',
+    'video': 'fa-file-video'
+  };
+  return icons[type] || 'fa-file';
+}
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+function renderForum() {
+  const container = document.getElementById("forumPosts");
+  if (!container) return;
+  
+  if (FORUM_POSTS.length === 0) {
+    container.innerHTML = `<p class="text-center text-muted py-5">No posts yet. Start the conversation!</p>`;
+    return;
+  }
+  
+  container.innerHTML = FORUM_POSTS.map(p => `
+    <div class="glass-card p-4 mb-4 rounded-3">
+      <p class="mb-2">
+        <strong>Student</strong>
+        <small class="text-muted">– ${new Date(p.timestamp).toLocaleString()}</small>
+      </p>
+      <p class="text-white opacity-90">${p.text.replace(/\n/g, "<br>")}</p>
+    </div>
+  `).join("");
+}
+
+function toggleRSVP(title) {
+  RSVP_EVENTS[title] = !RSVP_EVENTS[title];
+  loadEvents();
+  showAlert(RSVP_EVENTS[title] ? "RSVP confirmed!" : "RSVP cancelled", "info");
+}
