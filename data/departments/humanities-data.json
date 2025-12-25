@@ -1,11 +1,11 @@
 {
   "subjects": [
-    { "name": "History", "icon": "fa-landmark", "teacher": "Ms. Nyawanda", "description": "World & Kenyan history, archaeology" },
-    { "name": "Geography", "icon": "fa-globe", "teacher": "Mr. Ouma", "description": "Physical & human geography, GIS" },
-    { "name": "Literature", "icon": "fa-book-open", "teacher": "Ms. Adhiambo", "description": "English & Kiswahili literature" },
-    { "name": "Religious Studies", "icon": "fa-pray", "teacher": "Mr. Otieno", "description": "CRE & IRE" },
-    { "name": "Languages", "icon": "fa-language", "teacher": "Ms. Akinyi", "description": "French, German, Arabic" },
-    { "name": "Social Studies", "icon": "fa-users", "teacher": "Mr. Juma", "description": "Civics, ethics, citizenship" }
+    { "name": "History", "icon": "fa-landmark", "teacher": "Ms. Nyawanda", "description": "World & Kenyan history, archaeology", "session": "2025-2026" },
+    { "name": "Geography", "icon": "fa-globe", "teacher": "Mr. Ouma", "description": "Physical & human geography, GIS", "session": "2025-2026" },
+    { "name": "Literature", "icon": "fa-book-open", "teacher": "Ms. Adhiambo", "description": "English & Kiswahili literature", "session": "2025-2026" },
+    { "name": "Religious Studies", "icon": "fa-pray", "teacher": "Mr. Otieno", "description": "CRE & IRE", "session": "2025-2026" },
+    { "name": "Languages", "icon": "fa-language", "teacher": "Ms. Akinyi", "description": "French, German, Arabic", "session": "2025-2026" },
+    { "name": "Social Studies", "icon": "fa-users", "teacher": "Mr. Juma", "description": "Civics, ethics, citizenship", "session": "2025-2026" }
   ],
   "teachers": [
     { "name": "Ms. Nyawanda", "subjects": ["History", "Social Studies"], "email": "nyawanda@barunion.sc.ke", "photo": "/assets/staff/nyawanda.jpg" },
@@ -16,15 +16,21 @@
     { "name": "Mr. Juma", "subjects": ["Social Studies"], "email": "juma@barunion.sc.ke", "photo": "/assets/staff/juma.jpg" }
   ],
   "resources": [
-    { "title": "Form 4 History Notes 2025", "uploadedBy": "Ms. Nyawanda", "date": "Nov 2025", "url": "/downloads/history-f4.pdf" },
-    { "title": "Geography Map Work Pack", "uploadedBy": "Mr. Ouma", "date": "Oct 2025", "url": "/downloads/geography-maps.pdf" },
-    { "title": "Literature Analysis Handbook", "uploadedBy": "Ms. Adhiambo", "date": "Sep 2025", "url": "/downloads/literature-handbook.pdf" },
-    { "title": "Languages Grammar Pack", "uploadedBy": "Ms. Akinyi", "date": "Aug 2025", "url": "/downloads/languages-grammar.pdf" }
+    { "title": "Form 4 History Notes 2025", "uploadedBy": "Ms. Nyawanda", "date": "Nov 2025", "url": "/downloads/history-f4.pdf", "session": "2025-2026" },
+    { "title": "Geography Map Work Pack", "uploadedBy": "Mr. Ouma", "date": "Oct 2025", "url": "/downloads/geography-maps.pdf", "session": "2025-2026" },
+    { "title": "Literature Analysis Handbook", "uploadedBy": "Ms. Adhiambo", "date": "Sep 2025", "url": "/downloads/literature-handbook.pdf", "session": "2025-2026" },
+    { "title": "Languages Grammar Pack", "uploadedBy": "Ms. Akinyi", "date": "Aug 2025", "url": "/downloads/languages-grammar.pdf", "session": "2025-2026" }
   ],
   "announcements": [
     { "text": "Essay Writing Competition – Deadline: 30th Nov 2025", "date": "30 Nov 2025", "icon": "fa-bullhorn" },
     { "text": "Geography Field Trip to Lake Victoria – 12th Dec 2025", "date": "12 Dec 2025", "icon": "fa-bus" },
     { "text": "Languages Week Celebration – 5th Jan 2026", "date": "05 Jan 2026", "icon": "fa-globe" },
     { "text": "History Project Submissions – 20th Jan 2026", "date": "20 Jan 2026", "icon": "fa-landmark" }
+  ],
+  "events": [
+    { "title": "Essay Writing Competition", "date": "2025-11-30", "description": "Submit your essays for the competition." },
+    { "title": "Geography Field Trip", "date": "2025-12-12", "description": "Field trip to Lake Victoria." },
+    { "title": "Languages Week", "date": "2026-01-05", "description": "Celebration of languages." },
+    { "title": "History Project Submissions", "date": "2026-01-20", "description": "Submit your history projects." }
   ]
 }

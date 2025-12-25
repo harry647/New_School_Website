@@ -61,7 +61,9 @@ async function loadHumanitiesData() {
 
     // Initialize poll
     POLL = {};
-    DATA.subjects.forEach(s => POLL[s.name] = 0);
+    if (DATA.subjects && Array.isArray(DATA.subjects)) {
+      DATA.subjects.forEach(s => POLL[s.name] = 0);
+    }
 
     renderAll();
     populateSessionFilter();
@@ -77,8 +79,8 @@ function populateSessionFilter() {
   if (!filter) return;
 
   const sessions = [...new Set([
-    ...DATA.subjects.map(s => s.session).filter(Boolean),
-    ...DATA.resources.map(r => r.session).filter(Boolean)
+    ...(DATA.subjects ? DATA.subjects.map(s => s.session).filter(Boolean) : []),
+    ...(DATA.resources ? DATA.resources.map(r => r.session).filter(Boolean) : [])
   ])].sort().reverse();
 
   sessions.forEach(sess => {
@@ -95,8 +97,9 @@ function renderAll() {
   loadTeachers();
   loadResources();
   loadAnnouncements();
-  loadForum();
+  loadForumPosts();
   renderPollResults();
+  loadEventsCalendar();
 }
 
 // ==================== RENDER FUNCTIONS ====================
@@ -104,9 +107,10 @@ function loadSubjects() {
   const grid = document.getElementById("subjectsGrid");
   if (!grid) return;
 
+  const subjects = DATA.subjects || [];
   const filtered = currentSession
-    ? DATA.subjects.filter(s => s.session === currentSession)
-    : DATA.subjects;
+    ? subjects.filter(s => s.session === currentSession)
+    : subjects;
 
   grid.innerHTML = filtered.length === 0
     ? `<div class="col-12 text-center py-5 text-muted">No subjects found for this session.</div>`
@@ -117,7 +121,7 @@ function loadSubjects() {
           <h3 class="h5 fw-bold">${s.name}</h3>
           <p class="text-muted small mb-2">Teacher: ${s.teacher}</p>
           <p class="mb-3">${s.description}</p>
-          <button onclick="votePoll('${s.name}')" 
+          <button onclick="votePoll('${s.name}')"
                   class="btn btn-outline-warning btn-sm mt-3 w-100">
             Vote for ${s.name}
           </button>
@@ -130,12 +134,13 @@ function loadTeachers() {
   const grid = document.getElementById("teachersGrid");
   if (!grid) return;
 
-  grid.innerHTML = DATA.teachers.length === 0
+  const teachers = DATA.teachers || [];
+  grid.innerHTML = teachers.length === 0
     ? `<div class="col-12 text-center py-5 text-muted">No teachers listed.</div>`
-    : DATA.teachers.map(t => `
+    : teachers.map(t => `
       <div class="col-md-6 col-lg-4 mb-4">
         <div class="teacher-card text-center p-5 glass-card shadow-sm">
-          <img src="${t.photo || '/assets/images/defaults/teacher.png'}" 
+          <img src="${t.photo || '/assets/images/defaults/default-user.jpg'}"
                class="rounded-circle mb-4 shadow" width="140" height="140" alt="${t.name}">
           <h4 class="fw-bold mb-2">${t.name}</h4>
           <p class="text-muted mb-1">${t.subjects?.join(" • ") || "Humanities"}</p>
@@ -149,9 +154,10 @@ function loadResources() {
   const grid = document.getElementById("resourcesGrid");
   if (!grid) return;
 
+  const resources = DATA.resources || [];
   const filtered = currentSession
-    ? DATA.resources.filter(r => r.session === currentSession)
-    : DATA.resources;
+    ? resources.filter(r => r.session === currentSession)
+    : resources;
 
   grid.innerHTML = filtered.length === 0
     ? `<div class="col-12 text-center py-5 text-muted">No resources available.</div>`
@@ -171,20 +177,42 @@ function loadResources() {
 
 function loadAnnouncements() {
   const container = document.getElementById("announcements");
-  if (!container || !DATA.announcements?.length) {
+  const announcements = DATA.announcements || [];
+  if (!container || announcements.length === 0) {
     container.innerHTML = `<p class="text-center text-white-50">No announcements.</p>`;
     return;
   }
 
   container.innerHTML = `
     <ul class="list-unstyled mb-0 fs-5">
-      ${DATA.announcements.map(a => `
+      ${announcements.map(a => `
         <li class="mb-3">
           <i class="fas fa-bullhorn me-3 text-warning"></i>
           ${a.text} — <span class="text-info">${a.date}</span>
         </li>
       `).join("")}
     </ul>
+  `;
+}
+
+function loadEventsCalendar() {
+  const container = document.getElementById("eventsCalendar");
+  const events = DATA.events || [];
+  if (!container || events.length === 0) {
+    container.innerHTML = `<p class="text-center text-white-50">No upcoming events.</p>`;
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="calendar-events">
+      ${events.map(event => `
+        <div class="event-item mb-3 p-3 bg-white rounded shadow-sm">
+          <h5 class="fw-bold mb-1">${event.title}</h5>
+          <p class="text-muted mb-1">${new Date(event.date).toLocaleDateString()}</p>
+          <p class="mb-0">${event.description}</p>
+        </div>
+      `).join("")}
+    </div>
   `;
 }
 
@@ -328,6 +356,20 @@ function filterBySession(session) {
 // ==================== UTILITIES ====================
 function scrollToSection(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function formatDate(dateString) {
+  if (!dateString) return "Unknown date";
+  try {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  } catch (error) {
+    return dateString; // Return original if parsing fails
+  }
 }
 
 function showAlert(message, type = "info") {

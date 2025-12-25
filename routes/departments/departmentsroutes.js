@@ -142,7 +142,7 @@ router.post('/applied-sciences/upload', uploadDepartmentFile.array('files', 20),
 
 // --- Humanities ---
 router.get('/humanities', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', 'data', 'departments', 'humanities-data.json'));
+  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'humanities-data.json'));
   res.json(data);
 });
 router.get('/humanities/forum', (req, res) => {
