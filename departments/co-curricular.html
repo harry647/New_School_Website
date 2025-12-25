@@ -85,25 +85,25 @@
         <form id="joinActivityForm">
           <div class="row g-3">
             <div class="col-md-6">
-              <input type="text" class="form-control form-control-lg" placeholder="Full Name" required>
+              <input type="text" class="form-control form-control-lg" name="fullName" placeholder="Full Name" required>
             </div>
             <div class="col-md-6">
-              <input type="email" class="form-control form-control-lg" placeholder="Email" required>
+              <input type="email" class="form-control form-control-lg" name="email" placeholder="Email" required>
             </div>
             <div class="col-md-6">
               <label for="formClass" class="visually-hidden">Select Form/Class</label>
-              <select id="formClass" class="form-select form-select-lg" required aria-label="Select your form/class">
+              <select id="formClass" class="form-select form-select-lg" name="formClass" required aria-label="Select your form/class">
                 <option value="">Select Form/Class</option>
               </select>
             </div>
             <div class="col-md-6">
               <label for="activitySelect" class="visually-hidden">Choose Activity</label>
-              <select id="activitySelect" class="form-select form-select-lg" required aria-label="Choose co-curricular activity">
+              <select id="activitySelect" class="form-select form-select-lg" name="activitySelect" required aria-label="Choose co-curricular activity">
                 <option value="">Choose Activity</option>
               </select>
             </div>
             <div class="col-12">
-              <textarea class="form-control" rows="3" placeholder="Why do you want to join?"></textarea>
+              <textarea class="form-control" name="reason" rows="3" placeholder="Why do you want to join?"></textarea>
             </div>
             <div class="col-12 text-center">
               <button type="submit" class="btn btn-success btn-lg px-5">Submit Application</button>

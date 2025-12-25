@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 // ==================== LOAD DATA FROM BACKEND ====================
 async function loadCoCurriculumData() {
   try {
-    const res = await fetch("/api/cocurriculum/data", { cache: "no-store" });
+    const res = await fetch("/api/departments/cocurriculum/data", { cache: "no-store" });
     if (!res.ok) throw new Error("Failed");
 
     const data = await res.json();
@@ -99,6 +99,7 @@ function renderAll() {
   loadGallery();
   loadCoordinators();
   populateActivitySelect();
+  populateFormClassSelect();
 }
 
 // ==================== RENDER FUNCTIONS ====================
@@ -164,7 +165,7 @@ function loadEvents() {
     ? `<div class="col-12 text-center py-5 text-muted">No upcoming events.</div>`
     : filtered.map(ev => `
       <div class="col-md-6 col-lg-4 mb-4">
-        <div class="glass-card p-4 text-white">
+        <div class="glass-card p-4 text-dark">
           <h5 class="fw-bold">${ev.title}</h5>
           <p class="small opacity-90 mb-2">
             ${new Date(ev.date).toLocaleDateString('en-KE', { 
@@ -229,6 +230,15 @@ function populateActivitySelect() {
     ACTIVITIES.map(a => `<option value="${a.name}">${a.name}</option>`).join("");
 }
 
+function populateFormClassSelect() {
+  const select = document.getElementById("formClass");
+  if (!select) return;
+
+  const forms = ["Form 1", "Form 2", "Form 3", "Form 4"];
+  select.innerHTML = `<option value="">Select Form/Class</option>` +
+    forms.map(f => `<option value="${f}">${f}</option>`).join("");
+}
+
 function scrollToJoinForm(activityName) {
   const select = document.getElementById("activitySelect");
   if (select) select.value = activityName;
@@ -246,7 +256,7 @@ function setupJoinForm() {
     const data = Object.fromEntries(formData);
 
     try {
-      const res = await fetch("/api/cocurriculum/join", {
+      const res = await fetch("/api/departments/cocurriculum/join", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
@@ -278,7 +288,7 @@ function setupPhotoUpload() {
     Array.from(this.files).forEach(file => formData.append("photos", file));
 
     try {
-      const res = await fetch("/api/cocurriculum/upload", {
+      const res = await fetch("/api/departments/cocurriculum/upload", {
         method: "POST",
         body: formData
       });
@@ -303,6 +313,10 @@ function filterBySession(session) {
 }
 
 // ==================== UTILITIES ====================
+function scrollToSection(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
 function showAlert(msg, type = "info") {
   const alert = document.createElement("div");
   alert.className = `alert alert-${type} alert-dismissible fade show position-fixed`;

@@ -28,8 +28,8 @@
   --technology: #6366f1;
 
   /* Glassmorphism */
-  --glass-bg: rgba(255, 255, 255, 0.08);
-  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.35);
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 
   /* Gradients */
@@ -39,7 +39,7 @@
   --activity-gradient: linear-gradient(45deg, var(--arts) 0%, var(--sports) 16.67%, var(--leadership) 33.33%, var(--cultural) 50%, var(--environmental) 66.67%, var(--academic) 83.33%, var(--community) 100%);
 
   /* Typography */
-  --text-primary: #ffffff;
+  --text-primary: #333333;
   --text-secondary: #e2e8f0;
   --text-muted: #94a3b8;
   --text-dark: #1e293b;
@@ -74,7 +74,7 @@ body {
 /* ===== HERO SECTION ===== */
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: 60vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -129,15 +129,16 @@ body {
 
 /* ===== GLASSMORPHISM SYSTEM ===== */
 .glass-card {
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: var(--border-radius-large);
   box-shadow: var(--glass-shadow);
   position: relative;
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  color: var(--text-dark);
 }
 
 .glass-card::before {
@@ -430,14 +431,15 @@ body {
 
 /* ===== JOIN FORM ===== */
 .join-form {
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: var(--border-radius-large);
   padding: 2.5rem;
   max-width: 500px;
   margin: 0 auto;
+  color: var(--text-dark);
 }
 
 .form-title {
@@ -464,20 +466,20 @@ body {
 .form-select {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(0, 0, 0, 0.2);
   border-radius: var(--border-radius);
   font-size: 1rem;
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--text-dark);
 }
 
 .form-control:focus,
 .form-select:focus {
-  outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
-  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+  background: rgba(255, 255, 255, 0.9);
+  caret-color: var(--text-dark);
 }
 
 textarea.form-control {
@@ -666,7 +668,7 @@ textarea.form-control {
 
 @media (max-width: 768px) {
   .hero {
-    min-height: 90vh;
+    min-height: 50vh;
     padding: 2rem 0;
   }
 
