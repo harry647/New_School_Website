@@ -1,118 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Notifications - Bar Union School Portal</title>
-    <meta name="description" content="Bar Union School Portal Notifications">
-    <meta property="og:title" content="Notifications - Bar Union School Portal">
-
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-    <!-- Common Portal CSS -->
-    <link rel="stylesheet" href="/css/e-learning/e-learning.css">
-
-    <link rel="stylesheet" href="/css/e-learning/notifications.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="notifications.css">
 </head>
-<body class="bg-light">
-    <div class="container-fluid py-4">
-        <div class="notification-container">
-            <!-- Header -->
-            <div class="notification-header">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h1 class="h2 mb-0">
-                        <i class="fas fa-bell me-2" aria-hidden="true"></i>
-                        Notifications
-                    </h1>
-                    <div class="stats-badge">
-                        <span id="unreadCount">0</span> unread
+<body>
+    <div class="container">
+        <h1>Notifications</h1>
+        
+        <!-- Filter Options -->
+        <div class="filter-options">
+            <button class="btn btn-sm btn-outline-primary" id="filter-pinned">
+                <i class="fas fa-star"></i> Pinned
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="filter-archive">
+                <i class="fas fa-archive"></i> Archive
+            </button>
+            <button class="btn btn-sm btn-outline-danger" id="filter-trash">
+                <i class="fas fa-trash"></i> Trash
+            </button>
+        </div>
+        
+        <!-- Bulk Actions -->
+        <div class="bulk-actions">
+            <button class="btn btn-sm btn-outline-primary" id="mark-read">
+                <i class="fas fa-check"></i> Mark as Read
+            </button>
+            <button class="btn btn-sm btn-outline-danger" id="delete-selected">
+                <i class="fas fa-trash"></i> Delete
+            </button>
+            <button class="btn btn-sm btn-outline-warning" id="pin-selected">
+                <i class="fas fa-star"></i> Pin
+            </button>
+        </div>
+        
+        <!-- Notifications List -->
+        <div class="notifications-list">
+            
+            <!-- Today Section -->
+            <div class="notification-section">
+                <h3>Today</h3>
+                
+                <!-- Example Notification 1 -->
+                <div class="notification">
+                    <div class="notification-header">
+                        <input type="checkbox" class="form-check-input select-notification">
+                        <span class="badge bg-danger">Urgent</span>
+                        <span class="notification-source">
+                            <small class="text-muted">
+                                <i class="fas fa-building me-1"></i> Finance Office
+                            </small>
+                        </span>
+                        <i class="fas fa-envelope" title="Email sent"></i>
+                        <i class="far fa-star pin-icon" title="Pin"></i>
+                    </div>
+                    <div class="notification-body">
+                        <p>Your fee payment is overdue. Please settle the amount as soon as possible.</p>
+                        <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-file-invoice"></i> View Invoice
+                        </button>
+                        <button class="btn btn-sm btn-outline-success">
+                            <i class="fas fa-check"></i> Acknowledge
+                        </button>
+                    </div>
+                    <div class="notification-footer">
+                        <small class="text-muted">Ref: NOTIF-2025-1043</small>
+                        <small class="text-muted">2 hours ago</small>
                     </div>
                 </div>
                 
-                <!-- Controls -->
-                <div class="notification-controls">
-                    <!-- Search -->
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <div class="search-box">
-                                <i class="fas fa-search"></i>
-                                <input type="text" class="form-control" id="searchInput" placeholder="Search notifications...">
-                            </div>
-                        </div>
-                        <div class="col-md-6 text-end">
-                            <button class="btn btn-light btn-sm me-2" id="markAllRead" role="button">
-                                <i class="fas fa-check-double me-1" aria-hidden="true"></i>
-                                Mark All Read
-                            </button>
-                            <button class="btn btn-outline-light btn-sm" id="refreshBtn" role="button">
-                                <i class="fas fa-sync-alt me-1" aria-hidden="true"></i>
-                                Refresh
-                            </button>
-                        </div>
+                <!-- Example Notification 2 -->
+                <div class="notification">
+                    <div class="notification-header">
+                        <input type="checkbox" class="form-check-input select-notification">
+                        <span class="badge bg-warning text-dark">Important</span>
+                        <span class="notification-source">
+                            <small class="text-muted">
+                                <i class="fas fa-user-tie me-1"></i> Class Teacher
+                            </small>
+                        </span>
+                        <i class="fas fa-envelope" title="Email sent"></i>
+                        <i class="far fa-star pin-icon" title="Pin"></i>
                     </div>
-                    
-                    <!-- Filters -->
-                    <ul class="nav nav-pills filter-tabs" id="filterTabs" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" data-filter="all" role="button">
-                                <i class="fas fa-list me-1" aria-hidden="true"></i>
-                                All
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-filter="unread" role="button">
-                                <i class="fas fa-envelope me-1" aria-hidden="true"></i>
-                                Unread
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-filter="academic" role="button">
-                                <i class="fas fa-graduation-cap me-1" aria-hidden="true"></i>
-                                Academic
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-filter="administrative" role="button">
-                                <i class="fas fa-cog me-1" aria-hidden="true"></i>
-                                Administrative
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-filter="event" role="button">
-                                <i class="fas fa-calendar me-1" aria-hidden="true"></i>
-                                Events
-                            </button>
-                        </li>
-                    </ul>
+                    <div class="notification-body">
+                        <p>Parent-Teacher meeting scheduled for tomorrow at 2 PM.</p>
+                        <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-calendar"></i> View Event
+                        </button>
+                    </div>
+                    <div class="notification-footer">
+                        <small class="text-muted">Ref: NOTIF-2025-1044</small>
+                        <small class="text-muted">4 hours ago</small>
+                    </div>
+                </div>
+                
+                <!-- Example Notification 3 -->
+                <div class="notification">
+                    <div class="notification-header">
+                        <input type="checkbox" class="form-check-input select-notification">
+                        <span class="badge bg-primary">Normal</span>
+                        <span class="notification-source">
+                            <small class="text-muted">
+                                <i class="fas fa-graduation-cap me-1"></i> Exams Office
+                            </small>
+                        </span>
+                        <i class="fas fa-envelope" title="Email sent"></i>
+                        <i class="far fa-star pin-icon" title="Pin"></i>
+                    </div>
+                    <div class="notification-body">
+                        <p>Your exam results for the mid-term tests are now available.</p>
+                        <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-file-alt"></i> View Result
+                        </button>
+                    </div>
+                    <div class="notification-footer">
+                        <small class="text-muted">Ref: NOTIF-2025-1045</small>
+                        <small class="text-muted">6 hours ago</small>
+                    </div>
                 </div>
             </div>
             
-            <!-- Loading Spinner -->
-            <div class="loading-spinner" id="loadingSpinner">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
+            <!-- Yesterday Section -->
+            <div class="notification-section">
+                <h3>Yesterday</h3>
+                
+                <!-- Example Notification 4 -->
+                <div class="notification">
+                    <div class="notification-header">
+                        <input type="checkbox" class="form-check-input select-notification">
+                        <span class="badge bg-primary">Normal</span>
+                        <span class="notification-source">
+                            <small class="text-muted">
+                                <i class="fas fa-cog me-1"></i> System
+                            </small>
+                        </span>
+                        <i class="fas fa-envelope" title="Email sent"></i>
+                        <i class="far fa-star pin-icon" title="Pin"></i>
+                    </div>
+                    <div class="notification-body">
+                        <p>System maintenance scheduled for this weekend. Expect downtime.</p>
+                        <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-info-circle"></i> View Details
+                        </button>
+                    </div>
+                    <div class="notification-footer">
+                        <small class="text-muted">Ref: NOTIF-2025-1046</small>
+                        <small class="text-muted">1 day ago</small>
+                    </div>
                 </div>
-                <p class="mt-2">Loading notifications...</p>
             </div>
             
-            <!-- Notifications List -->
-            <div id="notificationsList" class="fade-in" aria-live="polite"></div>
+            <!-- This Week Section -->
+            <div class="notification-section">
+                <h3>This Week</h3>
+                
+                <!-- Example Notification 5 -->
+                <div class="notification">
+                    <div class="notification-header">
+                        <input type="checkbox" class="form-check-input select-notification">
+                        <span class="badge bg-warning text-dark">Important</span>
+                        <span class="notification-source">
+                            <small class="text-muted">
+                                <i class="fas fa-building me-1"></i> Finance Office
+                            </small>
+                        </span>
+                        <i class="fas fa-envelope" title="Email sent"></i>
+                        <i class="fas fa-star text-warning pin-icon" title="Unpin"></i>
+                    </div>
+                    <div class="notification-body">
+                        <p>Fee reminder: Payment due in 3 days.</p>
+                        <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-file-invoice"></i> View Invoice
+                        </button>
+                    </div>
+                    <div class="notification-footer">
+                        <small class="text-muted">Ref: NOTIF-2025-1047</small>
+                        <small class="text-muted">3 days ago</small>
+                    </div>
+                </div>
+            </div>
             
-            <!-- Empty State -->
-            <div class="empty-state" id="emptyState" style="display: none;">
-                <i class="fas fa-bell-slash fa-3x mb-3 text-muted"></i>
-                <h4>No notifications found</h4>
-                <p class="text-muted">You're all caught up! Check back later for new updates.</p>
+            <!-- Older Section -->
+            <div class="notification-section">
+                <h3>Older</h3>
+                
+                <!-- Example Notification 6 -->
+                <div class="notification">
+                    <div class="notification-header">
+                        <input type="checkbox" class="form-check-input select-notification">
+                        <span class="badge bg-primary">Normal</span>
+                        <span class="notification-source">
+                            <small class="text-muted">
+                                <i class="fas fa-user-tie me-1"></i> Class Teacher
+                            </small>
+                        </span>
+                        <i class="fas fa-envelope" title="Email sent"></i>
+                        <i class="far fa-star pin-icon" title="Pin"></i>
+                    </div>
+                    <div class="notification-body">
+                        <p>Your assignment has been graded. Check your scores.</p>
+                        <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-file-alt"></i> View Result
+                        </button>
+                    </div>
+                    <div class="notification-footer">
+                        <small class="text-muted">Ref: NOTIF-2025-1048</small>
+                        <small class="text-muted">1 week ago</small>
+                    </div>
+                </div>
+                
+                <!-- Example Notification 7 -->
+                <div class="notification">
+                    <div class="notification-header">
+                        <input type="checkbox" class="form-check-input select-notification">
+                        <span class="badge bg-success">Acknowledged</span>
+                        <span class="notification-source">
+                            <small class="text-muted">
+                                <i class="fas fa-building me-1"></i> Finance Office
+                            </small>
+                        </span>
+                        <i class="fas fa-envelope" title="Email sent"></i>
+                        <i class="far fa-star pin-icon" title="Pin"></i>
+                    </div>
+                    <div class="notification-body">
+                        <p>Your fee payment has been received and acknowledged.</p>
+                        <button class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-receipt"></i> View Receipt
+                        </button>
+                    </div>
+                    <div class="notification-footer">
+                        <small class="text-muted">Ref: NOTIF-2025-1049</small>
+                        <small class="text-muted">2 weeks ago</small>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/e-learning/notifications.js"></script>
+    
+    <script src="notifications.js"></script>
 </body>
 </html>

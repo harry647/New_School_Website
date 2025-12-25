@@ -750,19 +750,19 @@ router.post('/request-deletion', requireLogin, (req, res) => {
     const usersFile = path.join(__dirname, '..', 'data', 'users.json');
     const users = readJSON(usersFile);
     const userIndex = users.findIndex(u => u.id === req.session.user.id);
-
+  
     if (userIndex === -1) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
-
+  
     // Mark user as requested for deletion
     users[userIndex].accountStatus = 'deletion_requested';
     users[userIndex].deletionRequestedAt = new Date().toISOString();
-
+  
     if (!writeJSON(usersFile, users)) {
       return res.status(500).json({ success: false, message: 'Failed to request account deletion' });
     }
-
+  
     // Destroy session
     req.session.destroy(err => {
       if (err) {
@@ -770,11 +770,191 @@ router.post('/request-deletion', requireLogin, (req, res) => {
       }
       res.clearCookie('connect.sid');
     });
-
+  
     res.json({ success: true, message: 'Account deletion requested successfully' });
   } catch (err) {
     console.error('Request deletion error:', err);
     res.status(500).json({ success: false, message: 'Failed to request account deletion' });
+  }
+});
+
+// --------------------
+// NOTIFICATIONS API
+// --------------------
+
+// Helper: Read notifications data
+const readNotifications = () => {
+  const notificationsFile = path.join(__dirname, '..', 'data', 'notifications.json');
+  return readJSON(notificationsFile);
+};
+
+// Helper: Write notifications data
+const writeNotifications = (data) => {
+  const notificationsFile = path.join(__dirname, '..', 'data', 'notifications.json');
+  return writeJSON(notificationsFile, data);
+};
+
+// Get all notifications for the current user
+router.get('/notifications', requireLogin, (req, res) => {
+  try {
+    const notifications = readNotifications();
+    const userNotifications = notifications.filter(n => n.userId === req.session.user.id);
+    res.json({ success: true, notifications: userNotifications });
+  } catch (err) {
+    console.error('Error fetching notifications:', err);
+    res.status(500).json({ success: false, message: 'Failed to fetch notifications' });
+  }
+});
+
+// Create a new notification
+router.post('/notifications', requireLogin, (req, res) => {
+  try {
+    const { title, message, priority, source, action } = req.body;
+    if (!title || !message || !priority || !source) {
+      return res.status(400).json({ success: false, message: 'Missing required fields' });
+    }
+
+    const notifications = readNotifications();
+    const newNotification = {
+      id: notifications.length + 1,
+      userId: req.session.user.id,
+      title,
+      message,
+      priority,
+      source,
+      action,
+      isRead: false,
+      isPinned: false,
+      createdAt: new Date().toISOString(),
+      reference: `NOTIF-${new Date().getFullYear()}-${notifications.length + 1}`
+    };
+
+    notifications.push(newNotification);
+    if (writeNotifications(notifications)) {
+      res.json({ success: true, notification: newNotification });
+    } else {
+      res.status(500).json({ success: false, message: 'Failed to save notification' });
+    }
+  } catch (err) {
+    console.error('Error creating notification:', err);
+    res.status(500).json({ success: false, message: 'Failed to create notification' });
+  }
+});
+
+// Mark a notification as read
+router.put('/notifications/:id/read', requireLogin, (req, res) => {
+  try {
+    const { id } = req.params;
+    const notifications = readNotifications();
+    const notificationIndex = notifications.findIndex(n => n.id.toString() === id.toString() && n.userId === req.session.user.id);
+
+    if (notificationIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Notification not found' });
+    }
+
+    notifications[notificationIndex].isRead = true;
+    if (writeNotifications(notifications)) {
+      res.json({ success: true, notification: notifications[notificationIndex] });
+    } else {
+      res.status(500).json({ success: false, message: 'Failed to update notification' });
+    }
+  } catch (err) {
+    console.error('Error marking notification as read:', err);
+    res.status(500).json({ success: false, message: 'Failed to mark notification as read' });
+  }
+});
+
+// Pin a notification
+router.put('/notifications/:id/pin', requireLogin, (req, res) => {
+  try {
+    const { id } = req.params;
+    const notifications = readNotifications();
+    const notificationIndex = notifications.findIndex(n => n.id.toString() === id.toString() && n.userId === req.session.user.id);
+
+    if (notificationIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Notification not found' });
+    }
+
+    notifications[notificationIndex].isPinned = !notifications[notificationIndex].isPinned;
+    if (writeNotifications(notifications)) {
+      res.json({ success: true, notification: notifications[notificationIndex] });
+    } else {
+      res.status(500).json({ success: false, message: 'Failed to update notification' });
+    }
+  } catch (err) {
+    console.error('Error pinning notification:', err);
+    res.status(500).json({ success: false, message: 'Failed to pin notification' });
+  }
+});
+
+// Delete a notification
+router.delete('/notifications/:id', requireLogin, (req, res) => {
+  try {
+    const { id } = req.params;
+    const notifications = readNotifications();
+    const notificationIndex = notifications.findIndex(n => n.id.toString() === id.toString() && n.userId === req.session.user.id);
+
+    if (notificationIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Notification not found' });
+    }
+
+    notifications.splice(notificationIndex, 1);
+    if (writeNotifications(notifications)) {
+      res.json({ success: true, message: 'Notification deleted successfully' });
+    } else {
+      res.status(500).json({ success: false, message: 'Failed to delete notification' });
+    }
+  } catch (err) {
+    console.error('Error deleting notification:', err);
+    res.status(500).json({ success: false, message: 'Failed to delete notification' });
+  }
+});
+
+// Get pinned notifications
+router.get('/notifications/pinned', requireLogin, (req, res) => {
+  try {
+    const notifications = readNotifications();
+    const pinnedNotifications = notifications.filter(n => n.userId === req.session.user.id && n.isPinned);
+    res.json({ success: true, notifications: pinnedNotifications });
+  } catch (err) {
+    console.error('Error fetching pinned notifications:', err);
+    res.status(500).json({ success: false, message: 'Failed to fetch pinned notifications' });
+  }
+});
+
+// Get unread notifications
+router.get('/notifications/unread', requireLogin, (req, res) => {
+  try {
+    const notifications = readNotifications();
+    const unreadNotifications = notifications.filter(n => n.userId === req.session.user.id && !n.isRead);
+    res.json({ success: true, notifications: unreadNotifications });
+  } catch (err) {
+    console.error('Error fetching unread notifications:', err);
+    res.status(500).json({ success: false, message: 'Failed to fetch unread notifications' });
+  }
+});
+
+// Acknowledge a notification
+router.put('/notifications/:id/acknowledge', requireLogin, (req, res) => {
+  try {
+    const { id } = req.params;
+    const notifications = readNotifications();
+    const notificationIndex = notifications.findIndex(n => n.id.toString() === id.toString() && n.userId === req.session.user.id);
+
+    if (notificationIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Notification not found' });
+    }
+
+    notifications[notificationIndex].isAcknowledged = true;
+    notifications[notificationIndex].acknowledgedAt = new Date().toISOString();
+    if (writeNotifications(notifications)) {
+      res.json({ success: true, notification: notifications[notificationIndex] });
+    } else {
+      res.status(500).json({ success: false, message: 'Failed to acknowledge notification' });
+    }
+  } catch (err) {
+    console.error('Error acknowledging notification:', err);
+    res.status(500).json({ success: false, message: 'Failed to acknowledge notification' });
   }
 });
 
