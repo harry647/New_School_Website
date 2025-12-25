@@ -217,6 +217,28 @@ router.post('/mathematics/upload', uploadDepartmentFile.array('files', 20), (req
   res.json({ success: true });
 });
 
+// --- Mathematics Ask Question ---
+router.post('/mathematics/ask', (req, res) => {
+  const { question, teacher } = req.body;
+  if (!question) {
+    return res.status(400).json({ success: false, message: "Question is required" });
+  }
+  
+  const file = path.join(__dirname, '..', '..', 'data', 'departments', 'math-questions.json');
+  let questions = readJSON(file);
+  
+  questions.push({
+    id: Date.now(),
+    question,
+    teacher: teacher || "Any Teacher",
+    timestamp: new Date().toISOString()
+  });
+  
+  writeJSON(file, questions);
+  console.log(`Mathematics Question → ${question.substring(0, 50)}...`);
+  res.json({ success: true });
+});
+
 // --- Sciences ---
 router.get('/science', (req, res) => {
   const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'science.json'));

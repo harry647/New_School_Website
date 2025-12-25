@@ -12,7 +12,7 @@
 
   <!-- Page meta for PWA & sharing (optional) -->
   <meta name="theme-color" content="#0b2d5e" />
-  <link rel="manifest" href="/manifest.json" />
+  <link rel="manifest" href="/static/manifest.json" />
 </head>
 <body class="math-page">
 
@@ -36,7 +36,7 @@
     <header class="hero d-flex align-items-center text-white">
       <div class="container text-center position-relative z-2">
         <h1 class="display-2 fw-bold mb-3">Mathematics Department</h1>
-        <p class="lead fs-4 mb-3">From Form 1 to Form 4 — logical thinking, problem solving, and exam excellence.</p>
+        <p class="lead fs-4 mb-3">From Form 1 to Form 4 and Grade 10 to Grade 12 — logical thinking, problem solving, and exam excellence.</p>
 
         <!-- Quick action buttons -->
         <div class="d-flex justify-content-center gap-3 mt-3 flex-wrap">
@@ -77,6 +77,11 @@
 
             <!-- filters -->
             <div class="d-flex gap-3 flex-wrap align-items-center mb-3">
+              <label for="sessionFilter" class="visually-hidden">Filter by Session</label>
+              <select id="sessionFilter" class="form-select w-auto" aria-label="Filter by session">
+                <option value="">All Sessions</option>
+              </select>
+  
               <label for="filterForm" class="visually-hidden">Filter by Form</label>
               <select id="filterForm" class="form-select w-auto" aria-label="Filter by form level">
                 <option value="">All Forms</option>
@@ -85,12 +90,12 @@
                 <option>Form 3</option>
                 <option>Form 4</option>
               </select>
-
+  
               <label for="filterTopic" class="visually-hidden">Filter by Topic</label>
               <select id="filterTopic" class="form-select w-auto" aria-label="Filter by mathematics topic">
                 <option value="">All Topics</option>
               </select>
-
+  
               <div class="ms-auto d-flex gap-2">
                 <button id="toggleDark" class="btn btn-outline-secondary">
                   <i class="fas fa-moon"></i> Theme

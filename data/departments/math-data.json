@@ -4,7 +4,7 @@
       "name": "Mr. Owino",
       "role": "HOD Mathematics",
       "subjects": ["Pure Mathematics", "Applied Mathematics", "Statistics"],
-      "photo": "/assets/leadership/seniorteacher1.jpg",
+      "photo": "/assets/images/leadership/seniorteacher1.jpg",
       "email": "owino@barunion.sc.ke",
       "philosophy": "Mathematics is the language of logical thinking, and every learner can master it with proper guidance.",
       "experience": "12 years teaching Mathematics at high school and competition level."
@@ -13,7 +13,7 @@
       "name": "Ms. Atieno",
       "role": "Senior Teacher",
       "subjects": ["Form 3 Mathematics", "Form 4 Mathematics", "Statistics"],
-      "photo": "/assets/leadership/seniorteacher2.jpg",
+      "photo": "/assets/images/leadership/seniorteacher2.jpg",
       "email": "atieno@barunion.sc.ke",
       "philosophy": "Students learn best when mathematics is connected to real-life applications.",
       "experience": "9 years teaching upper school mathematics."
@@ -22,7 +22,7 @@
       "name": "Mr. Omondi",
       "role": "Teacher",
       "subjects": ["Form 1 Mathematics", "Form 2 Mathematics"],
-      "photo": "/assets/leadership/deputy1.jpg",
+      "photo": "/assets/images/leadership/deputy1.jpg",
       "email": "omondi@barunion.sc.ke",
       "philosophy": "Building strong foundational skills shapes successful mathematicians.",
       "experience": "5 years teaching lower secondary mathematics."
@@ -112,6 +112,51 @@
       "url": "/downloads/trigonometry-videos.zip",
       "preview": "/downloads/previews/trig-video-preview.jpg",
       "size": "150 MB"
+    }
+  ],
+
+  "videoLessons": [
+    {
+      "title": "Algebra Basics",
+      "uploadedBy": "Mr. Owino",
+      "date": "2025-10-01",
+      "url": "/videos/algebra-basics.mp4",
+      "description": "Introduction to basic algebraic operations and equations."
+    },
+    {
+      "title": "Geometry Fundamentals",
+      "uploadedBy": "Ms. Atieno",
+      "date": "2025-09-15",
+      "url": "/videos/geometry-fundamentals.mp4",
+      "description": "Understanding shapes, angles, and geometric properties."
+    },
+    {
+      "title": "Trigonometry Overview",
+      "uploadedBy": "Mr. Omondi",
+      "date": "2025-08-20",
+      "url": "/videos/trigonometry-overview.mp4",
+      "description": "Exploring trigonometric functions and their applications."
+    }
+  ],
+
+  "pastPapers": [
+    {
+      "title": "KCSE Mathematics Paper 1 - 2024",
+      "year": "2024",
+      "type": "KCSE",
+      "url": "/downloads/kcse-math-paper1-2024.pdf"
+    },
+    {
+      "title": "KCSE Mathematics Paper 2 - 2024",
+      "year": "2024",
+      "type": "KCSE",
+      "url": "/downloads/kcse-math-paper2-2024.pdf"
+    },
+    {
+      "title": "Form 4 Midterm Exam - 2025",
+      "year": "2025",
+      "type": "Midterm",
+      "url": "/downloads/form4-midterm-math-2025.pdf"
     }
   ],
 
