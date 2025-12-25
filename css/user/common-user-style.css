@@ -124,3 +124,100 @@ body {
     .glass-card { padding: 20px; }
     .page-title { font-size: 1.6rem; }
 }
+
+/* Settings Page Specific Styles */
+.settings-section {
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border-left: 3px solid #4caf50;
+}
+
+.settings-section h5 {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.settings-section hr {
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.form-select {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.form-select:focus {
+    background: rgba(255, 255, 255, 0.18);
+    outline: none;
+    box-shadow: none;
+    color: #fff;
+}
+
+.form-check-input {
+    margin-top: 0.3em;
+    margin-right: 0.5em;
+}
+
+.form-check-label {
+    color: #fff;
+}
+
+.btn-outline-danger {
+    color: #ff6b6b;
+    border-color: #ff6b6b;
+}
+
+.btn-outline-danger:hover {
+    background-color: #ff6b6b;
+    color: #fff;
+}
+
+.btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.btn-outline-warning {
+    color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn-outline-warning:hover {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+.text-danger {
+    color: #e63946 !important;
+}
+
+.btn-danger {
+    background-color: #e63946;
+    border-color: #e63946;
+}
+
+.btn-danger:hover {
+    background-color: #d62839;
+    border-color: #d62839;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    border-radius: 0.2rem;
+}
+
+.ms-2 {
+    margin-left: 0.5rem;
+}

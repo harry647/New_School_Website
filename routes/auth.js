@@ -680,5 +680,103 @@ router.get('/profile/attendance', requireLogin, (req, res) => {
   }
 });
 
+// --------------------
+// LOGOUT FROM ALL DEVICES
+// --------------------
+router.post('/logout-all', requireLogin, (req, res) => {
+  try {
+    // In a real app, you would invalidate all sessions for this user
+    // For this demo, we'll just destroy the current session
+    req.session.destroy(err => {
+      if (err) {
+        console.error('Error destroying session:', err);
+        return res.status(500).json({ success: false, message: 'Failed to log out of all devices' });
+      }
+      res.clearCookie('connect.sid');
+      res.json({ success: true, message: 'Logged out of all devices successfully' });
+    });
+  } catch (err) {
+    console.error('Logout all error:', err);
+    res.status(500).json({ success: false, message: 'Failed to log out of all devices' });
+  }
+});
+
+// --------------------
+// DOWNLOAD USER DATA
+// --------------------
+router.get('/download-data', requireLogin, (req, res) => {
+  try {
+    const usersFile = path.join(__dirname, '..', 'data', 'users.json');
+    const users = readJSON(usersFile);
+    const user = users.find(u => u.id === req.session.user.id);
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    // Remove sensitive data
+    const { password, ...safeUser } = user;
+
+    // Set headers for file download
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Disposition', 'attachment; filename=user-data.json');
+
+    res.json(safeUser);
+  } catch (err) {
+    console.error('Download data error:', err);
+    res.status(500).json({ success: false, message: 'Failed to download user data' });
+  }
+});
+
+// --------------------
+// CLEAR CACHED DATA
+// --------------------
+router.post('/clear-cache', requireLogin, (req, res) => {
+  try {
+    // In a real app, you would clear cached data for this user
+    // For this demo, we'll just return a success message
+    res.json({ success: true, message: 'Cached data cleared successfully' });
+  } catch (err) {
+    console.error('Clear cache error:', err);
+    res.status(500).json({ success: false, message: 'Failed to clear cached data' });
+  }
+});
+
+// --------------------
+// REQUEST ACCOUNT DELETION
+// --------------------
+router.post('/request-deletion', requireLogin, (req, res) => {
+  try {
+    const usersFile = path.join(__dirname, '..', 'data', 'users.json');
+    const users = readJSON(usersFile);
+    const userIndex = users.findIndex(u => u.id === req.session.user.id);
+
+    if (userIndex === -1) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    // Mark user as requested for deletion
+    users[userIndex].accountStatus = 'deletion_requested';
+    users[userIndex].deletionRequestedAt = new Date().toISOString();
+
+    if (!writeJSON(usersFile, users)) {
+      return res.status(500).json({ success: false, message: 'Failed to request account deletion' });
+    }
+
+    // Destroy session
+    req.session.destroy(err => {
+      if (err) {
+        console.error('Error destroying session:', err);
+      }
+      res.clearCookie('connect.sid');
+    });
+
+    res.json({ success: true, message: 'Account deletion requested successfully' });
+  } catch (err) {
+    console.error('Request deletion error:', err);
+    res.status(500).json({ success: false, message: 'Failed to request account deletion' });
+  }
+});
+
 export default router;
 

@@ -17,7 +17,7 @@
     "id": 3,
     "name": "lucy okeyo",
     "email": "JohnDoe@example.com",
-    "password": "ParentPass123!",
+    "password": "",
     "role": "teacher",
     "securityQuestions": [
       {
@@ -28,6 +28,15 @@
         "question": "favorite_subject",
         "answer": "maths"
       }
-    ]
+    ],
+    "defaultDashboard": "profile",
+    "language": "en",
+    "timezone": "Africa/Nairobi",
+    "theme": "light",
+    "reduceMotion": false,
+    "emailAlerts": false,
+    "clubUpdates": false,
+    "hideEmail": true,
+    "updated_at": "2025-12-25T13:54:45.513Z"
   }
 ]
