@@ -235,6 +235,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // Load data from backend
     await loadClubsAndEvents();
+    await loadClubLeaders();
+    await loadTestimonials();
 
     // Setup event listeners
     setupEventListeners();
@@ -309,6 +311,94 @@ async function loadClubsAndEvents() {
       </div>
     `;
     eventsGrid.innerHTML = '<p class="text-center text-muted col-12">Events unavailable</p>';
+  }
+}
+
+// ==================== LOAD CLUB LEADERS ====================
+async function loadClubLeaders() {
+  try {
+    const response = await apiCall("/api/clubs/leaders");
+    const leaders = response.data || [];
+
+    const leadersContainer = document.querySelector(".row.g-4");
+    if (!leadersContainer) return;
+
+    leadersContainer.innerHTML = leaders.map(leader => `
+      <div class="col-md-4 col-lg-3">
+        <div class="card border-0 shadow-sm h-100 text-center">
+          <img src="/assets/images/clubs/leaders/${leader.photo || 'default-student.jpg'}" class="card-img-top" alt="${leader.name}">
+          <div class="card-body">
+            <h5 class="fw-bold mb-1">${leader.name}</h5>
+            <p class="text-muted mb-2">${leader.position}</p>
+            <span class="badge bg-primary mb-2">${leader.club}</span>
+            <p class="small">${leader.bio}</p>
+          </div>
+        </div>
+      </div>
+    `).join("");
+  } catch (err) {
+    console.error("Failed to load club leaders from API:", err);
+    // Fallback: Load from local JSON file
+    try {
+      const response = await fetch('/data/clubs/leaders.json');
+      const leaders = await response.json();
+      const leadersContainer = document.querySelector(".row.g-4");
+      if (leadersContainer) {
+        leadersContainer.innerHTML = leaders.map(leader => `
+          <div class="col-md-4 col-lg-3">
+            <div class="card border-0 shadow-sm h-100 text-center">
+              <img src="/assets/images/clubs/leaders/${leader.photo || 'default-student.jpg'}" class="card-img-top" alt="${leader.name}">
+              <div class="card-body">
+                <h5 class="fw-bold mb-1">${leader.name}</h5>
+                <p class="text-muted mb-2">${leader.position}</p>
+                <span class="badge bg-primary mb-2">${leader.club}</span>
+                <p class="small">${leader.bio}</p>
+              </div>
+            </div>
+          </div>
+        `).join("");
+      }
+    } catch (fallbackErr) {
+      console.error("Failed to load club leaders from fallback:", fallbackErr);
+    }
+  }
+}
+
+// ==================== LOAD TESTIMONIALS ====================
+async function loadTestimonials() {
+  try {
+    const response = await apiCall("/api/clubs/testimonials");
+    const testimonials = response.data || [];
+
+    const carouselInner = document.querySelector("#testimonialCarousel .carousel-inner");
+    if (!carouselInner) return;
+
+    carouselInner.innerHTML = testimonials.map((testimonial, index) => `
+      <div class="carousel-item ${index === 0 ? 'active' : ''} text-center">
+        <p class="fs-5 fst-italic mb-4">${testimonial.quote}</p>
+        <h6 class="fw-semibold mb-0">— ${testimonial.name}</h6>
+        <small class="text-muted">${testimonial.form} • ${testimonial.club}</small>
+      </div>
+    `).join("");
+  } catch (err) {
+    console.error("Failed to load testimonials from API:", err);
+    // Fallback: Load from local JSON file
+    try {
+      const response = await fetch('/data/clubs/testimonials.json');
+      const testimonials = await response.json();
+      const carouselInner = document.querySelector("#testimonialCarousel .carousel-inner");
+      if (carouselInner) {
+        carouselInner.innerHTML = testimonials.map((testimonial, index) => `
+          <div class="carousel-item ${index === 0 ? 'active' : ''} text-center">
+            <p class="fs-5 fst-italic mb-4">${testimonial.quote}</p>
+            <h6 class="fw-semibold mb-0">— ${testimonial.name}</h6>
+            <small class="text-muted">${testimonial.form} • ${testimonial.club}</small>
+          </div>
+        `).join("");
+      }
+    } catch (fallbackErr) {
+      console.error("Failed to load testimonials from fallback:", fallbackErr);
+    }
   }
 }
 
@@ -655,6 +745,18 @@ async function handleJoinSubmit(e) {
     // Re-enable form
     submitBtn.disabled = false;
     submitBtn.innerHTML = originalText;
+  }
+}
+
+// ==================== MODAL FUNCTIONS ====================
+function openJoinModal(clubName) {
+  const modal = document.getElementById("joinModal");
+  const modalClubName = document.getElementById("modalClubName");
+
+  if (modal && modalClubName) {
+    modalClubName.textContent = clubName;
+    const bsModal = new bootstrap.Modal(modal);
+    bsModal.show();
   }
 }
 

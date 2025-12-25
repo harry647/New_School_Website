@@ -1,0 +1,30 @@
+[
+  {
+    "name": "John Doe",
+    "position": "Chairperson",
+    "club": "Science Club",
+    "photo": "default-student.jpg",
+    "bio": "Passionate about innovation and scientific research."
+  },
+  {
+    "name": "Jane Smith",
+    "position": "Vice Chairperson",
+    "club": "Debate Society",
+    "photo": "default-student.jpg",
+    "bio": "Skilled in public speaking and leadership development."
+  },
+  {
+    "name": "Kevin Owino",
+    "position": "Secretary",
+    "club": "Environmental Club",
+    "photo": "default-student.jpg",
+    "bio": "Advocate for sustainability and environmental conservation."
+  },
+  {
+    "name": "Aisha Mohamed",
+    "position": "Treasurer",
+    "club": "Drama Club",
+    "photo": "default-student.jpg",
+    "bio": "Creative performer with a passion for theatre arts."
+  }
+]

@@ -312,6 +312,72 @@ router.post('/join', requireAuth, (req, res) => {
 });
 
 /**
+ * @route   GET /leaders
+ * @desc    Fetches club leaders information
+ * @access  Public
+ */
+router.get('/leaders', (req, res) => {
+  try {
+    const leadersFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'leaders.json');
+    const leaders = readJSON(leadersFile);
+
+    if (!Array.isArray(leaders)) {
+      return res.status(500).json({
+        success: false,
+        message: "Invalid leaders data format"
+      });
+    }
+
+    console.log('Club leaders fetched');
+
+    res.json({
+      success: true,
+      data: leaders,
+      count: leaders.length
+    });
+  } catch (err) {
+    console.error('Error fetching club leaders:', err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to load leaders data"
+    });
+  }
+});
+
+/**
+ * @route   GET /testimonials
+ * @desc    Fetches student testimonials about clubs
+ * @access  Public
+ */
+router.get('/testimonials', (req, res) => {
+  try {
+    const testimonialsFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'testimonials.json');
+    const testimonials = readJSON(testimonialsFile);
+
+    if (!Array.isArray(testimonials)) {
+      return res.status(500).json({
+        success: false,
+        message: "Invalid testimonials data format"
+      });
+    }
+
+    console.log('Club testimonials fetched');
+
+    res.json({
+      success: true,
+      data: testimonials,
+      count: testimonials.length
+    });
+  } catch (err) {
+    console.error('Error fetching club testimonials:', err);
+    res.status(500).json({
+      success: false,
+      message: "Failed to load testimonials data"
+    });
+  }
+});
+
+/**
  * @route   POST /upload
  * @desc    Handles file submissions for a specific club.
  * @access  Protected

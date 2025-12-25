@@ -17,17 +17,18 @@
   --shadow-md: 0 20px 50px rgba(0,0,0,0.15);
   --shadow-lg: 0 35px 80px rgba(0,0,0,0.22);
   --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --bg-main: linear-gradient(180deg, #1a1a1a, #22222a);
+  --text-main: #eaeaf0;
+  --glass-bg: rgba(255,255,255,0.08);
+  --accent: #00e0ff;
 }
 
 /* ==================================
    DESIGN GOAL: Soft artistic background
 ================================== */
 body {
-  background:
-    radial-gradient(circle at top left, rgba(255, 105, 180, 0.08), transparent 40%),
-    radial-gradient(circle at bottom right, rgba(138, 43, 226, 0.08), transparent 40%),
-    linear-gradient(180deg, #0e0e11, #12121a);
-  color: #eaeaf0;
+  background: var(--bg-main);
+  color: var(--text-main);
 }
 
 
@@ -88,6 +89,8 @@ section {
               url('/assets/images/clubs-hero.jpg') center/cover no-repeat fixed;
   display: grid;
   place-items: center;
+  position: relative;
+  z-index: auto;
 }
 .hero h1, .hero p {
   text-shadow: 0 4px 20px rgba(0,0,0,0.8);
@@ -309,6 +312,52 @@ h3::after {
   .club-logo { max-width: 80%; }
   .glass-card { padding: 1.5rem !important; }
   .upload-zone { padding: 1.5rem !important; }
+}
+
+/* Theme Definitions */
+body.theme-dark {
+  --bg-main: linear-gradient(180deg, #1a1a1a, #22222a);
+  --text-main: #eaeaf0;
+  --glass-bg: rgba(255,255,255,0.08);
+  --accent: #00e0ff;
+}
+
+body.theme-light {
+  --bg-main: linear-gradient(180deg, #f8fafc, #eef2f7);
+  --text-main: #1f2937;
+  --glass-bg: rgba(255,255,255,0.7);
+  --accent: #0175C2;
+}
+
+body.theme-royal {
+  --bg-main: linear-gradient(135deg, #0b2d5e, #0175C2);
+  --text-main: #ffffff;
+  --glass-bg: rgba(255,255,255,0.15);
+  --accent: #ffd700;
+}
+
+body.theme-creative {
+  --bg-main:
+    radial-gradient(circle at top left, rgba(255,105,180,0.12), transparent 40%),
+    radial-gradient(circle at bottom right, rgba(138,43,226,0.12), transparent 40%),
+    linear-gradient(180deg, #1a1a1a, #22222a);
+  --text-main: #f5f5fa;
+  --glass-bg: rgba(255,255,255,0.12);
+  --accent: #ff69b4;
+}
+
+body.theme-nature {
+  --bg-main: linear-gradient(135deg, #0f3d2e, #1b5e20);
+  --text-main: #e8f5e9;
+  --glass-bg: rgba(255,255,255,0.12);
+  --accent: #a5d6a7;
+}
+
+body.theme-accessible {
+  --bg-main: #000;
+  --text-main: #fff;
+  --glass-bg: rgba(255,255,255,0.2);
+  --accent: #ffd700;
 }
 
 /* ==================================

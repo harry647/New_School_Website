@@ -191,6 +191,27 @@
   <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
   <script src="https://www.w3schools.com/lib/w3.js"></script>
   <script src="/js/clubs/clubs.js"></script>
+  <script>
+    // Theme Switcher
+    function setTheme(theme) {
+      document.body.className = `theme-${theme}`;
+      localStorage.setItem('theme', theme);
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
+
+    // Toggle Dark Mode (for backward compatibility)
+    function toggleDarkMode() {
+      const themes = ['dark', 'light', 'royal', 'creative', 'nature', 'accessible'];
+      const currentTheme = localStorage.getItem('theme') || 'dark';
+      const currentIndex = themes.indexOf(currentTheme);
+      const nextIndex = (currentIndex + 1) % themes.length;
+      const newTheme = themes[nextIndex];
+      setTheme(newTheme);
+    }
+  </script>
 
   <!-- Auto-load events & setup upload when page loads -->
   <script>

@@ -39,6 +39,7 @@
       <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-lg p-3">
         <div class="row">
           <div class="col-6">
+            <h6 class="text-uppercase text-info small mb-2">Creative</h6>
             <li><a class="dropdown-item" href="/clubs/subfiles/art.html">Art & Design</a></li>
             <li><a class="dropdown-item" href="/clubs/subfiles/drama.html">Drama</a></li>
             <li><a class="dropdown-item" href="/clubs/subfiles/music.html">Music</a></li>
@@ -46,6 +47,7 @@
             <li><a class="dropdown-item" href="/clubs/subfiles/debate.html">Debate</a></li>
           </div>
           <div class="col-6">
+            <h6 class="text-uppercase text-info small mb-2">Academic</h6>
             <li><a class="dropdown-item" href="/clubs/subfiles/science.html">Science</a></li>
             <li><a class="dropdown-item" href="/clubs/subfiles/mathematics.html">Mathematics</a></li>
             <li><a class="dropdown-item" href="/clubs/subfiles/robotics.html">Robotics</a></li>
@@ -61,18 +63,20 @@
 
   <!-- Right: Grouped Utilities -->
   <div class="d-flex align-items-center">
-    <div class="d-flex align-items-center gap-2 px-2 py-1 rounded-pill bg-dark bg-opacity-50">
-        <i class="fas fa-bell"></i>
-        <span class="badge bg-danger position-absolute top-0 start-100 translate-middle small">3</span>
-      </a>
+    <a href="/e-learning/notifications.html"
+       class="position-relative text-white d-flex align-items-center justify-content-center"
+       aria-label="Notifications">
+      <i class="fas fa-bell"></i>
+      <span class="badge bg-danger position-absolute top-0 start-100 translate-middle small">3</span>
+    </a>
 
-      <!-- Dark Mode Toggle -->
-      <button class="btn btn-sm btn-outline-light p-2"
-              onclick="toggleDarkMode()"
-              title="Toggle Dark Mode"
-              aria-label="Toggle Dark Mode">
-        <i class="fas fa-moon"></i>
-      </button>
+    <!-- Dark Mode Toggle -->
+    <button class="btn btn-sm btn-outline-light p-2"
+            onclick="toggleDarkMode()"
+            title="Toggle Dark Mode"
+            aria-label="Toggle Dark Mode">
+      <i class="fas fa-moon" aria-hidden="true"></i>
+    </button>
 
       <!-- User Dropdown with status indicator -->
       <div class="dropdown">
@@ -138,10 +142,22 @@
 </div>
 
 <style>
+  :root {
+    --nav-bg: rgba(0, 0, 0, 0.8);
+    --nav-accent: #00e0ff;
+  }
+
+  body.dark-mode {
+    --nav-bg: rgba(0, 0, 0, 0.9);
+  }
+
   .glass-nav {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(12px);
-    background: rgba(0, 0, 0, 0.4);
+    background: var(--nav-bg);
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
     transition: background 0.3s ease-in-out;
     padding-top: 0.6rem;
@@ -159,7 +175,7 @@
     left: 20%;
     width: 60%;
     height: 1px;
-    background: linear-gradient(to right, transparent, #00e0ff, transparent);
+    background: linear-gradient(to right, transparent, var(--nav-accent), transparent);
     opacity: 0.5;
   }
 
@@ -180,8 +196,8 @@
   .btn-outline-light:hover,
   .btn-outline-light:focus {
     background-color: rgba(255,255,255,0.15);
-    color: #00e0ff;
-    border-color: #00e0ff;
+    color: var(--nav-accent);
+    border-color: var(--nav-accent);
   }
 
   /* Desktop: text links + icon-only buttons */
@@ -201,15 +217,15 @@
   }
 
   .nav-link:hover, .nav-link:focus {
-    color: #00e0ff !important;
+    color: var(--nav-accent) !important;
     background: rgba(255,255,255,0.08);
     border-radius: 6px;
   }
 
   .nav-link.active {
-    color: #00e0ff !important;
+    color: var(--nav-accent) !important;
     background: rgba(0,224,255,0.15);
-    box-shadow: inset 0 -2px 0 #00e0ff;
+    box-shadow: inset 0 -2px 0 var(--nav-accent);
   }
 
   nav.d-lg-flex {
@@ -221,6 +237,11 @@
     min-width: 420px;
     border-radius: 14px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.45);
+  }
+
+  /* Global Dropdown Menu Fix */
+  .dropdown-menu {
+    z-index: 10000;
   }
   .dropdown-menu-lg .dropdown-item {
     border-radius: 8px;
@@ -236,6 +257,42 @@
     box-shadow: 0 0 0 2px rgba(0,0,0,0.6);
   }
 
+  /* Visual Hierarchy Improvements */
+  .glass-nav .fw-semibold {
+    font-size: 1.05rem;
+    letter-spacing: 0.3px;
+  }
+
+  nav .nav-link {
+    opacity: 0.85;
+  }
+
+  nav .nav-link:hover {
+    opacity: 1;
+  }
+
+  /* Mega Dropdown Enhancements */
+  .dropdown-menu-lg hr {
+    border-color: rgba(255,255,255,0.15);
+  }
+
+  /* Micro-Interactions */
+  .btn-outline-light,
+  .nav-link {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .btn-outline-light:hover,
+  .nav-link:hover {
+    transform: translateY(-1px);
+  }
+
+  /* Focus-Visible Styling */
+  :focus-visible {
+    outline: 2px solid var(--nav-accent);
+    outline-offset: 2px;
+  }
+
   body.dark-mode {
     background: #111;
     color: white;
@@ -246,12 +303,35 @@
     .nav-link {
       padding: 0.5rem 0;
     }
+    .glass-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
   }
 </style>
 
 <script>
+  // =============================
+  // Theme Switcher
+  // =============================
+  function setTheme(theme) {
+    document.body.className = `theme-${theme}`;
+    localStorage.setItem('theme', theme);
+  }
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  setTheme(savedTheme);
+
+  // Toggle Dark Mode (for backward compatibility)
   function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
+    const themes = ['dark', 'light', 'royal', 'creative', 'nature', 'accessible'];
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    const currentIndex = themes.indexOf(currentTheme);
+    const nextIndex = (currentIndex + 1) % themes.length;
+    const newTheme = themes[nextIndex];
+    setTheme(newTheme);
   }
 
   const user = {
@@ -290,6 +370,13 @@
       const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvas);
       bsOffcanvas.hide();
       hamburgerBtn.focus();
+    }
+  });
+
+  // Active State Detection
+  document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
+    if (link.href === window.location.href) {
+      link.classList.add('active');
     }
   });
 </script>
