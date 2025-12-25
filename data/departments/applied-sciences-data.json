@@ -4,81 +4,107 @@
       "name": "Agriculture",
       "icon": "fa-seedling",
       "teacher": "Mr. Odhiambo",
-      "description": "Practical farming skills, crop management, and animal husbandry.",
+      "description": "Practical farming skills, crop management, and animal husbandry. Students learn modern agricultural techniques and sustainable farming practices.",
       "session": "2025-2026"
     },
     {
       "name": "Computer Studies",
       "icon": "fa-laptop-code",
       "teacher": "Ms. Achieng",
-      "description": "Programming, databases, networking, and IT skills.",
+      "description": "Programming, databases, networking, and IT skills. Covers Python, Java, web development, and computer hardware fundamentals.",
       "session": "2025-2026"
     },
     {
       "name": "Home Science",
       "icon": "fa-utensils",
       "teacher": "Mrs. Kamau",
-      "description": "Nutrition, cooking, sewing, and household management.",
+      "description": "Nutrition, cooking, sewing, and household management. Includes food preparation, meal planning, and textile arts.",
       "session": "2025-2026"
     },
     {
       "name": "Business Studies",
       "icon": "fa-briefcase",
       "teacher": "Mr. Mwangi",
-      "description": "Accounting, entrepreneurship, and financial literacy.",
+      "description": "Accounting, entrepreneurship, and financial literacy. Students learn business planning, marketing, and economic principles.",
       "session": "2025-2026"
     },
     {
       "name": "Technical Drawing",
       "icon": "fa-ruler-combined",
       "teacher": "Ms. Wanjiru",
-      "description": "Blueprint reading, CAD, and design principles.",
+      "description": "Blueprint reading, CAD, and design principles. Includes architectural drawing and engineering graphics.",
       "session": "2024-2025"
     },
     {
       "name": "Building & Construction",
       "icon": "fa-hard-hat",
       "teacher": "Mr. Mutua",
-      "description": "Construction skills, project planning, and safety practices.",
+      "description": "Construction skills, project planning, and safety practices. Covers masonry, carpentry, and plumbing basics.",
+      "session": "2024-2025"
+    },
+    {
+      "name": "Agriculture",
+      "icon": "fa-seedling",
+      "teacher": "Mr. Odhiambo",
+      "description": "Advanced agricultural science including soil chemistry and modern irrigation systems.",
+      "session": "2024-2025"
+    },
+    {
+      "name": "Computer Studies",
+      "icon": "fa-laptop-code",
+      "teacher": "Ms. Achieng",
+      "description": "Advanced programming and computer science concepts including algorithms and data structures.",
       "session": "2024-2025"
     }
   ],
   "teachers": [
     {
       "name": "Mr. Odhiambo",
-      "photo": "/assets/teachers/odhiambo.jpg",
+      "photo": "/assets/images/defaults/default-user.jpg",
       "subjects": ["Agriculture"],
-      "email": "odhiambo@barunion.ac.ke"
+      "email": "odhiambo@barunion.ac.ke",
+      "qualification": "M.Sc Agriculture, B.Ed",
+      "experience": "12 years"
     },
     {
       "name": "Ms. Achieng",
       "photo": "/assets/teachers/achieng.jpg",
       "subjects": ["Computer Studies"],
-      "email": "achieng@barunion.ac.ke"
+      "email": "achieng@barunion.ac.ke",
+      "qualification": "M.Sc Computer Science, B.Ed",
+      "experience": "8 years"
     },
     {
       "name": "Mrs. Kamau",
       "photo": "/assets/teachers/kamau.jpg",
       "subjects": ["Home Science"],
-      "email": "kamau@barunion.ac.ke"
+      "email": "kamau@barunion.ac.ke",
+      "qualification": "M.Sc Food Science, B.Ed",
+      "experience": "15 years"
     },
     {
       "name": "Mr. Mwangi",
       "photo": "/assets/teachers/mwangi.jpg",
       "subjects": ["Business Studies"],
-      "email": "mwangi@barunion.ac.ke"
+      "email": "mwangi@barunion.ac.ke",
+      "qualification": "MBA, B.Ed Commerce",
+      "experience": "10 years"
     },
     {
       "name": "Ms. Wanjiru",
       "photo": "/assets/teachers/wanjiru.jpg",
       "subjects": ["Technical Drawing"],
-      "email": "wanjiru@barunion.ac.ke"
+      "email": "wanjiru@barunion.ac.ke",
+      "qualification": "M.Architecture, B.Ed",
+      "experience": "9 years"
     },
     {
       "name": "Mr. Mutua",
       "photo": "/assets/teachers/mutua.jpg",
       "subjects": ["Building & Construction"],
-      "email": "mutua@barunion.ac.ke"
+      "email": "mutua@barunion.ac.ke",
+      "qualification": "Diploma in Civil Engineering, B.Ed",
+      "experience": "14 years"
     }
   ],
   "resources": [
@@ -117,6 +143,42 @@
       "url": "/assets/resources/business-case.pdf",
       "type": "pdf",
       "color": "#fd7e14"
+    },
+    {
+      "title": "Technical Drawing Templates",
+      "uploadedBy": "Ms. Wanjiru",
+      "date": "2025-08-25",
+      "session": "2024-2025",
+      "url": "/assets/resources/drawing-templates.pdf",
+      "type": "pdf",
+      "color": "#6f42c1"
+    },
+    {
+      "title": "Construction Safety Guidelines",
+      "uploadedBy": "Mr. Mutua",
+      "date": "2025-07-10",
+      "session": "2024-2025",
+      "url": "/assets/resources/safety-guidelines.pdf",
+      "type": "pdf",
+      "color": "#dc3545"
+    },
+    {
+      "title": "Agriculture Project Video",
+      "uploadedBy": "Mr. Odhiambo",
+      "date": "2025-10-05",
+      "session": "2025-2026",
+      "url": "/assets/resources/agriculture-project.mp4",
+      "type": "video",
+      "color": "#20c997"
+    },
+    {
+      "title": "Computer Lab Tour",
+      "uploadedBy": "Ms. Achieng",
+      "date": "2025-09-01",
+      "session": "2025-2026",
+      "url": "/assets/resources/lab-tour.jpg",
+      "type": "image",
+      "color": "#0d6efd"
     }
   ],
   "events": [
@@ -126,16 +188,16 @@
       "time": "09:00 AM",
       "location": "School Field",
       "session": "2025-2026",
-      "description": "Showcase of student farming projects and innovations.",
+      "description": "Showcase of student farming projects and innovations. Join us to see our greenhouse, poultry projects, and crop demonstrations.",
       "color": "#28a745"
     },
     {
       "title": "Coding Bootcamp",
       "date": "2025-12-14",
       "time": "10:00 AM",
-      "location": "Computer Lab",
+      "location": "Computer Lab 1 & 2",
       "session": "2025-2026",
-      "description": "Hands-on programming workshops for students.",
+      "description": "Hands-on programming workshops for students. Learn Python, web development, and participate in coding challenges.",
       "color": "#007bff"
     },
     {
@@ -144,8 +206,35 @@
       "time": "02:00 PM",
       "location": "Workshop Area",
       "session": "2024-2025",
-      "description": "Demonstration of student building and construction projects.",
+      "description": "Demonstration of student building and construction projects. View scale models, architectural designs, and practical demonstrations.",
       "color": "#fd7e14"
+    },
+    {
+      "title": "Home Science Food Festival",
+      "date": "2025-12-20",
+      "time": "11:00 AM",
+      "location": "School Cafeteria",
+      "session": "2025-2026",
+      "description": "Annual food festival featuring dishes prepared by students. Taste creative recipes and learn about nutrition.",
+      "color": "#ffc107"
+    },
+    {
+      "title": "Business Plan Competition",
+      "date": "2026-01-20",
+      "time": "09:00 AM",
+      "location": "Main Hall",
+      "session": "2024-2025",
+      "description": "Student entrepreneurs present their business plans to a panel of judges. Prizes for the best innovative ideas.",
+      "color": "#198754"
+    },
+    {
+      "title": "CAD Design Workshop",
+      "date": "2025-12-22",
+      "time": "01:00 PM",
+      "location": "Computer Lab 3",
+      "session": "2025-2026",
+      "description": "Learn computer-aided design basics with industry-standard software. Open to all students interested in technical drawing.",
+      "color": "#6f42c1"
     }
   ],
   "media": [
@@ -172,6 +261,46 @@
       "session": "2025-2026",
       "url": "/assets/media/cooking-session.jpg",
       "type": "image"
+    },
+    {
+      "title": "Construction Skills Demonstration",
+      "uploadedBy": "Mr. Mutua",
+      "date": "2025-08-15",
+      "session": "2024-2025",
+      "url": "/assets/media/construction-demo.jpg",
+      "type": "image"
+    },
+    {
+      "title": "Technical Drawing Exhibition",
+      "uploadedBy": "Ms. Wanjiru",
+      "date": "2025-07-25",
+      "session": "2024-2025",
+      "url": "/assets/media/drawing-exhibition.jpg",
+      "type": "image"
+    },
+    {
+      "title": "Business Studies Presentation",
+      "uploadedBy": "Mr. Mwangi",
+      "date": "2025-11-05",
+      "session": "2025-2026",
+      "url": "/assets/media/business-presentation.jpg",
+      "type": "image"
+    },
+    {
+      "title": "School Farm Tour",
+      "uploadedBy": "Mr. Odhiambo",
+      "date": "2025-10-10",
+      "session": "2025-2026",
+      "url": "/assets/media/farm-tour.mp4",
+      "type": "video"
+    },
+    {
+      "title": "Robotics Club Demonstration",
+      "uploadedBy": "Ms. Achieng",
+      "date": "2025-09-28",
+      "session": "2025-2026",
+      "url": "/assets/media/robotics-demo.mp4",
+      "type": "video"
     }
   ]
 }
