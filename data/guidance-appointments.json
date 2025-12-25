@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "class": "Form 3",
+    "date": "2023-01-15",
+    "reason": "Stress management and exam preparation",
+    "submitted_at": "2023-01-10T08:30:00.000Z",
+    "status": "completed"
+  },
+  {
+    "name": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "class": "Form 2",
+    "date": "2023-01-20",
+    "reason": "Career guidance and subject selection",
+    "submitted_at": "2023-01-12T11:45:00.000Z",
+    "status": "completed"
+  },
+  {
+    "name": "Anonymous",
+    "email": "anonymous.student@example.com",
+    "class": "Form 4",
+    "date": "2023-01-25",
+    "reason": "Personal issues affecting academic performance",
+    "submitted_at": "2023-01-18T16:20:00.000Z",
+    "status": "completed"
+  }
+]

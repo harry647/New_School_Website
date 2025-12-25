@@ -1,47 +1,47 @@
 {
   "counsellors": [
-    { 
-      "name": "Ms. Achieng", 
-      "title": "Head Counsellor", 
-      "specialty": "Personal & Emotional Support", 
-      "photo": "/assets/staff/achieng.jpg",
+    {
+      "name": "Ms. Achieng",
+      "title": "Head Counsellor",
+      "specialty": "Personal & Emotional Support",
+      "photo": "/assets/images/defaults/default-user.png",
       "session": "2025/2026"
     },
-    { 
-      "name": "Mr. Otieno", 
-      "title": "Career Guidance", 
-      "specialty": "Academic & Career Planning", 
-      "photo": "/assets/staff/otieno.jpg",
+    {
+      "name": "Mr. Otieno",
+      "title": "Career Guidance",
+      "specialty": "Academic & Career Planning",
+      "photo": "/assets/images/defaults/default-user.png",
       "session": "2024/2025"
     },
-    { 
-      "name": "Ms. Anyango", 
-      "title": "Wellness Coach", 
-      "specialty": "Mental Health & Stress", 
-      "photo": "/assets/staff/anyango.jpg",
+    {
+      "name": "Ms. Anyango",
+      "title": "Wellness Coach",
+      "specialty": "Mental Health & Stress",
+      "photo": "/assets/images/defaults/default-user.png",
       "session": "2023/2024"
     }
   ],
   "resources": [
-    { 
-      "title": "Stress Management Guide", 
-      "category": "Mental Health", 
-      "icon": "fa-brain", 
-      "url": "/downloads/stress-guide.pdf",
+    {
+      "title": "Stress Management Guide",
+      "category": "Mental Health",
+      "icon": "fa-brain",
+      "url": "/downloads/school/stress-management-guide.pdf",
       "session": "2025/2026"
     },
-    { 
-      "title": "Career Pathways 2025", 
-      "category": "Career", 
-      "icon": "fa-road", 
-      "url": "/downloads/career-2025.pdf",
+    {
+      "title": "Career Pathways 2025",
+      "category": "Career",
+      "icon": "fa-road",
+      "url": "/downloads/school/career-pathways-2025.pdf",
       "session": "2024/2025"
     },
-    { 
-      "title": "Study Skills Handbook", 
-      "category": "Academic", 
-      "icon": "fa-book", 
-      "url": "/downloads/study-skills.pdf",
+    {
+      "title": "Study Skills Handbook",
+      "category": "Academic",
+      "icon": "fa-book",
+      "url": "/downloads/school/study-skills-handbook.pdf",
       "session": "2023/2024"
     }
   ]

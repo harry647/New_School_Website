@@ -257,7 +257,7 @@ router.post('/science/upload', uploadDepartmentFile.array('files', 20), (req, re
 
 // --- Guidance & Counseling ---
 router.get('/guidance/data', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'guidance', 'data.json'));
+  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'guidance-data.json'));
   res.json(data);
 });
 router.get('/guidance/anonymous', (req, res) => {

@@ -55,7 +55,7 @@ async function loadGuidanceData() {
   if (loadingEl) loadingEl.style.display = "block";
 
   try {
-    const res = await fetch("/api/guidance/data", { cache: "no-store" });
+    const res = await fetch("/api/departments/guidance/data", { cache: "no-store" });
     if (!res.ok) throw new Error("Failed");
 
     DATA = await res.json();
@@ -92,7 +92,7 @@ function renderCounsellors() {
 
       colDiv.innerHTML = `
         <div class="counsellor-card text-center p-5 glass-card shadow-sm">
-          <img src="${c.photo || '/assets/images/defaults/counsellor.png'}"
+          <img src="${c.photo || '/assets/images/defaults/default-user.png'}"
                class="rounded-circle mb-4 shadow lazy"
                loading="lazy"
                width="150" height="150" alt="${c.name}">
@@ -161,7 +161,7 @@ async function postAnonymously() {
   }
 
   try {
-    const res = await fetch("/api/guidance/anonymous", {
+    const res = await fetch("/api/departments/guidance/anonymous", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text })
@@ -184,7 +184,7 @@ async function loadAnonymousPosts() {
   if (!container) return;
 
   try {
-    const res = await fetch("/api/guidance/anonymous");
+    const res = await fetch("/api/departments/guidance/anonymous");
     const posts = await res.json();
 
     container.innerHTML = posts.length === 0
@@ -195,7 +195,7 @@ async function loadAnonymousPosts() {
             <strong>Anonymous</strong>
             <small class="text-muted">– ${new Date(p.timestamp).toLocaleString()}</small>
           </p>
-          <p class="text-white opacity-90 mb-3">${p.text.replace(/\n/g, "<br>")}</p>
+          <p class="text-dark mb-3">${p.text.replace(/\n/g, "<br>")}</p>
           <p class="text-success small">
             <em>A counsellor will respond privately within 24 hours.</em>
           </p>
@@ -224,7 +224,7 @@ function setupAppointmentForm() {
     };
 
     try {
-      const res = await fetch("/api/guidance/appointment", {
+      const res = await fetch("/api/departments/guidance/appointment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
@@ -267,7 +267,7 @@ function setupResourceUpload() {
     });
 
     try {
-      const res = await fetch("/api/guidance/upload", {
+      const res = await fetch("/api/departments/guidance/upload", {
         method: "POST",
         body: formData
       });

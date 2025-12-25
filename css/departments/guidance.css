@@ -4,7 +4,7 @@
   --accent: #ffd700;
   --soft-blue: #e3f2fd;
   --calm: #f0f7ff;
-  --glass: rgba(255,255,255,0.15);
+  --glass: rgba(255,255,255,0.85);
   --border: rgba(255,255,255,0.2);
   --text-light: #f8f9fa;
   --text-muted: #6c757d;
@@ -35,10 +35,9 @@ html {
 }
 
 .hero {
-  background: linear-gradient(135deg, var(--primary) 0%, #1e4d8c 100%), 
+  background: linear-gradient(135deg, var(--primary) 0%, #1e4d8c 100%),
               url('/assets/images/guidance-hero.jpg') center/cover;
-  min-height: 90vh;
-  min-height: 100vh;
+  min-height: 60vh;
   position: relative;
   display: flex;
   align-items: center;
@@ -107,6 +106,20 @@ html {
   box-shadow: var(--shadow-hover);
 }
 
+/* Hotline cards - ensure text is visible */
+#hotlines-section .glass-card {
+  color: #0b2d5e;
+}
+
+#hotlines-section .glass-card a {
+  color: #0b2d5e !important;
+}
+
+#hotlines-section .glass-card small {
+  color: #0b2d5e !important;
+  opacity: 0.7;
+}
+
 .counsellor-card, .resource-card {
   background: #fff;
   border-radius: 20px;
@@ -149,7 +162,8 @@ html {
   font-weight: 900;
   color: var(--primary);
   position: relative;
-  display: inline-block;
+  display: block;
+  text-align: center;
   margin-bottom: 3rem;
 }
 .section-title::after {
@@ -198,7 +212,7 @@ textarea {
 .form-label {
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: var(--text-light);
+  color: #0b2d5e !important;
 }
 
 button {
@@ -259,7 +273,7 @@ button:disabled {
 /* Anonymous Post Cards */
 #anonymousPosts .glass-card {
   background: var(--glass);
-  color: var(--text-light);
+  color: #0b2d5e;
   border-radius: 24px;
   padding: 1.5rem;
   margin-bottom: 1rem;
@@ -268,6 +282,47 @@ button:disabled {
 #anonymousPosts .glass-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+}
+
+/* Anonymous forum section - ensure text is visible */
+#forum-section .glass-card {
+  color: #0b2d5e;
+}
+
+#forum-section .form-label {
+  color: #0b2d5e !important;
+}
+
+/* Button styles for visibility */
+.btn-outline-light {
+  border: 2px solid #0b2d5e !important;
+  color: #0b2d5e !important;
+}
+
+.btn-outline-light:hover {
+  background: #0b2d5e !important;
+  color: white !important;
+  border-color: #0b2d5e !important;
+}
+
+/* Appointment form section */
+#appointment-section .glass-card {
+  color: #0b2d5e;
+}
+
+#appointment-section .text-white-50 {
+  color: #0b2d5e !important;
+  opacity: 0.7;
+}
+
+/* Global text visibility fixes */
+.text-white {
+  color: #0b2d5e !important;
+}
+
+.text-white-50 {
+  color: #0b2d5e !important;
+  opacity: 0.7;
 }
 
 /* Smooth scroll for sections */
@@ -351,7 +406,7 @@ textarea:focus-visible {
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .glass-card {
-    background: rgba(255,255,255,0.95);
+    background: rgba(255,255,255,0.98);
     border: 2px solid #000;
   }
   

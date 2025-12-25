@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "id": 1672531200000,
+    "text": "I've been feeling really stressed about my exams lately. Does anyone else feel this way?",
+    "timestamp": "2023-01-01T10:00:00.000Z"
+  },
+  {
+    "id": 1672617600000,
+    "text": "How do you handle peer pressure? I find it really challenging to say no to my friends sometimes.",
+    "timestamp": "2023-01-02T14:30:00.000Z"
+  },
+  {
+    "id": 1672704000000,
+    "text": "I'm struggling with time management. Any tips on how to balance school work and personal time?",
+    "timestamp": "2023-01-03T09:15:00.000Z"
+  }
+]
