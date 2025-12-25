@@ -338,5 +338,347 @@ router.put('/users/:id', (req, res) => {
   });
 });
 
+// =================================================================
+// ENHANCED PROFILE ENDPOINTS – ULTRA-PREMIUM 2025-2026
+// =================================================================
+
+/**
+ * @route   GET /profile/enhanced
+ * @desc    Get current user profile with enhanced data (academic, personal, preferences, security)
+ * @access  Private
+ */
+router.get('/profile/enhanced', requireLogin, (req, res) => {
+  try {
+    const usersFile = path.join(__dirname, '..', 'data', 'users.json');
+    const users = readJSON(usersFile);
+    const user = users.find(u => u.id === req.session.user.id);
+    
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    
+    // Get base user data
+    const { password, ...safeUser } = user;
+    
+    // Enhance with academic data (from user data or defaults)
+    const academicData = user.academic || {
+      term: 'Term 2, 2025',
+      meanGrade: 'B+ (3.3)',
+      bestSubject: 'Mathematics',
+      subjectsTaken: 9,
+      subjectGrades: ['A', 'B+', 'B', 'A-', 'B+', 'B', 'A', 'B+', 'B']
+    };
+    
+    // Enhance with personal data
+    const personalData = user.personal || {
+      dob: '15 January 2008',
+      gender: 'Male',
+      parentContact: '+254 712 345 678',
+      emergencyContact: '+254 723 456 789',
+      residence: 'Nairobi, Kenya',
+      studentId: 'S2025/0042'
+    };
+    
+    // Enhance with preferences
+    const preferencesData = user.preferences || {
+      learningStyle: 'Practical / Hands-on',
+      favoriteSubjects: 'Mathematics, Physics, Robotics',
+      careerInterests: 'Engineering, Robotics, Computer Science',
+      skillsToDevelop: 'Programming, Leadership, Public Speaking'
+    };
+    
+    // Enhance with security info
+    const securityData = user.security || {
+      lastLogin: new Date().toLocaleString(),
+      activeDevices: 2,
+      passwordStrength: 'Strong',
+      twoFactorEnabled: false
+    };
+    
+    // Combine all data
+    const enhancedUser = {
+      ...safeUser,
+      academic: academicData,
+      personal: personalData,
+      preferences: preferencesData,
+      security: securityData,
+      role: user.role || 'student'
+    };
+    
+    res.json({ success: true, user: enhancedUser });
+  } catch (err) {
+    console.error('Enhanced profile fetch error:', err);
+    res.status(500).json({ success: false, message: 'Failed to fetch enhanced profile data' });
+  }
+});
+
+/**
+ * @route   PUT /profile/personal
+ * @desc    Update personal information
+ * @access  Private
+ */
+router.put('/profile/personal', requireLogin, (req, res) => {
+  try {
+    const { dob, gender, parentContact, emergencyContact, residence } = req.body;
+    
+    // Validate required fields
+    if (!dob || !gender || !parentContact || !emergencyContact) {
+      return res.status(400).json({
+        success: false,
+        message: 'Missing required personal information fields'
+      });
+    }
+    
+    const usersFile = path.join(__dirname, '..', 'data', 'users.json');
+    const users = readJSON(usersFile);
+    const userIndex = users.findIndex(u => u.id === req.session.user.id);
+    
+    if (userIndex === -1) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    
+    // Update personal data
+    users[userIndex].personal = {
+      dob,
+      gender,
+      parentContact,
+      emergencyContact,
+      residence: residence || users[userIndex].personal?.residence
+    };
+    
+    // Save updated user data
+    if (!writeJSON(usersFile, users)) {
+      return res.status(500).json({ success: false, message: 'Failed to save personal information' });
+    }
+    
+    // Update session
+    req.session.user.personal = users[userIndex].personal;
+    
+    res.json({
+      success: true,
+      message: 'Personal information updated successfully',
+      personal: users[userIndex].personal
+    });
+  } catch (err) {
+    console.error('Personal info update error:', err);
+    res.status(500).json({ success: false, message: 'Failed to update personal information' });
+  }
+});
+
+/**
+ * @route   PUT /profile/preferences
+ * @desc    Update learning preferences
+ * @access  Private
+ */
+router.put('/profile/preferences', requireLogin, (req, res) => {
+  try {
+    const { learningStyle, favoriteSubjects, careerInterests, skillsToDevelop } = req.body;
+    
+    // Validate required fields
+    if (!learningStyle || !favoriteSubjects || !careerInterests) {
+      return res.status(400).json({
+        success: false,
+        message: 'Missing required preference fields'
+      });
+    }
+    
+    const usersFile = path.join(__dirname, '..', 'data', 'users.json');
+    const users = readJSON(usersFile);
+    const userIndex = users.findIndex(u => u.id === req.session.user.id);
+    
+    if (userIndex === -1) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    
+    // Update preferences
+    users[userIndex].preferences = {
+      learningStyle,
+      favoriteSubjects,
+      careerInterests,
+      skillsToDevelop: skillsToDevelop || users[userIndex].preferences?.skillsToDevelop
+    };
+    
+    // Save updated user data
+    if (!writeJSON(usersFile, users)) {
+      return res.status(500).json({ success: false, message: 'Failed to save preferences' });
+    }
+    
+    // Update session
+    req.session.user.preferences = users[userIndex].preferences;
+    
+    res.json({
+      success: true,
+      message: 'Learning preferences updated successfully',
+      preferences: users[userIndex].preferences
+    });
+  } catch (err) {
+    console.error('Preferences update error:', err);
+    res.status(500).json({ success: false, message: 'Failed to update preferences' });
+  }
+});
+
+/**
+ * @route   PUT /profile/security
+ * @desc    Update security settings
+ * @access  Private
+ */
+router.put('/profile/security', requireLogin, (req, res) => {
+  try {
+    const { currentPassword, newPassword, enableTwoFactor } = req.body;
+    
+    const usersFile = path.join(__dirname, '..', 'data', 'users.json');
+    const users = readJSON(usersFile);
+    const userIndex = users.findIndex(u => u.id === req.session.user.id);
+    
+    if (userIndex === -1) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+    
+    // Validate current password if changing password
+    if (newPassword && users[userIndex].password !== currentPassword) {
+      return res.status(401).json({ success: false, message: 'Current password is incorrect' });
+    }
+    
+    // Update password if provided
+    if (newPassword) {
+      users[userIndex].password = newPassword;
+      req.session.user.passwordChanged = true;
+    }
+    
+    // Update two-factor authentication setting
+    if (enableTwoFactor !== undefined) {
+      users[userIndex].security = {
+        ...users[userIndex].security,
+        twoFactorEnabled: !!enableTwoFactor
+      };
+      req.session.user.security = users[userIndex].security;
+    }
+    
+    // Save updated user data
+    if (!writeJSON(usersFile, users)) {
+      return res.status(500).json({ success: false, message: 'Failed to save security settings' });
+    }
+    
+    res.json({
+      success: true,
+      message: 'Security settings updated successfully',
+      security: users[userIndex].security
+    });
+  } catch (err) {
+    console.error('Security update error:', err);
+    res.status(500).json({ success: false, message: 'Failed to update security settings' });
+  }
+});
+
+/**
+ * @route   GET /profile/activity
+ * @desc    Get user activity feed
+ * @access  Private
+ */
+router.get('/profile/activity', requireLogin, (req, res) => {
+  try {
+    // Mock activity data - in a real app, this would come from a database
+    const mockActivity = [
+      {
+        id: 1,
+        category: 'academic',
+        title: 'Won 1st Place in Science Fair',
+        description: 'Congratulations! Your project on renewable energy impressed the judges.',
+        timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+        icon: 'trophy'
+      },
+      {
+        id: 2,
+        category: 'academic',
+        title: 'Earned 50 Merit Points',
+        description: 'For excellent performance in Mathematics mid-term exam.',
+        timestamp: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
+        icon: 'star'
+      },
+      {
+        id: 3,
+        category: 'clubs',
+        title: 'Joined Robotics Club',
+        description: 'Welcome to the team! First meeting this Friday.',
+        timestamp: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000),
+        icon: 'users'
+      },
+      {
+        id: 4,
+        category: 'system',
+        title: 'Profile Updated',
+        description: 'You updated your personal information and preferences.',
+        timestamp: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000),
+        icon: 'cog'
+      },
+      {
+        id: 5,
+        category: 'academic',
+        title: 'Term 1 Results Released',
+        description: 'Your term 1 results are now available. Mean grade: B+',
+        timestamp: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000),
+        icon: 'graduation-cap'
+      }
+    ];
+    
+    res.json({
+      success: true,
+      activity: mockActivity.map(item => ({
+        ...item,
+        timestamp: item.timestamp.toISOString()
+      }))
+    });
+  } catch (err) {
+    console.error('Activity feed error:', err);
+    res.status(500).json({ success: false, message: 'Failed to fetch activity feed' });
+  }
+});
+
+/**
+ * @route   GET /profile/attendance
+ * @desc    Get attendance records (admin/student view)
+ * @access  Private
+ */
+router.get('/profile/attendance', requireLogin, (req, res) => {
+  try {
+    const userRole = req.session.user.role || 'student';
+    
+    // Basic attendance data for all users
+    const basicAttendance = {
+      overallAttendance: '98% (Excellent)',
+      lateArrivals: 2,
+      disciplineRecords: 'None',
+      commendations: 3
+    };
+    
+    // Admin gets detailed records
+    const detailedRecords = [
+      {
+        date: '2025-11-15',
+        status: 'late',
+        reason: 'Traffic',
+        actionTaken: 'None'
+      },
+      {
+        date: '2025-10-05',
+        status: 'late',
+        reason: 'Transport issue',
+        actionTaken: 'None'
+      }
+    ];
+    
+    res.json({
+      success: true,
+      attendance: {
+        ...basicAttendance,
+        ...(userRole === 'admin' && { detailedRecords })
+      }
+    });
+  } catch (err) {
+    console.error('Attendance fetch error:', err);
+    res.status(500).json({ success: false, message: 'Failed to fetch attendance data' });
+  }
+});
+
 export default router;
 

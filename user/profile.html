@@ -15,291 +15,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <!-- Custom Premium CSS -->
-<style>
-/* ==================================================
-   USER PROFILE PAGE – BAR UNION MIXED SECONDARY SCHOOL
-   FINAL 2025–2026 ULTRA-PREMIUM EDITION
-   Full photo upload • Stats • Activity • Mobile-perfect
-================================================== */
-
-:root {
-  --blue: #0175C2;
-  --blue-dark: #0b2d5e;
-  --gold: #ffd700;
-  --gold-light: #ffed4e;
-  --gray: #555;
-  --gray-light: #777;
-  --light: #f8fafc;
-  --radius: 32px;
-  --shadow-sm: 0 12px 35px rgba(0,0,0,0.1);
-  --shadow-md: 0 20px 50px rgba(0,0,0,0.15);
-  --shadow-lg: 0 35px 80px rgba(0,0,0,0.22);
-  --transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background: linear-gradient(135deg, #f0f5ff 0%, #e0eaff 100%);
-  color: #333;
-  min-height: 100vh;
-  padding-top: 90px;
-}
-
-/* ==================================
-   Header Spacing (for fixed header)
-================================== */
-.container {
-  max-width: 1380px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-/* ==================================
-   Profile Hero Card
-================================== */
-.profile-card {
-  background: white;
-  border-radius: 42px;
-  padding: 4rem 5rem;
-  margin: 4rem auto;
-  max-width: 1100px;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid rgba(1,117,194,0.15);
-  position: relative;
-  overflow: hidden;
-}
-.profile-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 12px;
-  background: linear-gradient(90deg, var(--blue-dark), var(--blue), var(--gold));
-  border-radius: 42px 42px 0 0;
-}
-
-/* Profile Header */
-.profile-header {
-  display: flex;
-  align-items: center;
-  gap: 3rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-}
-.profile-photo-wrapper {
-  position: relative;
-}
-#userPhoto {
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 8px solid white;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-  transition: var(--transition);
-}
-.profile-photo-wrapper:hover #userPhoto {
-  transform: scale(1.08);
-}
-#photoUpload {
-  position: absolute;
-  bottom: 10px; right: 10px;
-  width: 50px; height: 50px;
-  background: var(--blue);
-  color: white;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 1.4rem;
-  cursor: pointer;
-  box-shadow: 0 10px 30px rgba(1,117,194,0.4);
-  transition: var(--transition);
-}
-#photoUpload:hover {
-  background: var(--blue-dark);
-  transform: scale(1.15);
-}
-
-.profile-info h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 3.2rem;
-  font-weight: 900;
-  color: var(--blue-dark);
-  margin: 0 0 0.8rem;
-}
-.profile-info .role {
-  font-size: 1.4rem;
-  color: var(--blue);
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-.profile-info p {
-  font-size: 1.2rem;
-  color: var(--gray);
-  line-height: 1.9;
-}
-
-/* ==================================
-   Stats Grid
-================================== */
-.profile-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2.5rem;
-  margin: 4rem 0;
-}
-.stat-item {
-  background: rgba(1,117,194,0.08);
-  padding: 2.5rem;
-  border-radius: 28px;
-  text-align: center;
-  transition: var(--transition);
-}
-.stat-item:hover {
-  background: rgba(1,117,194,0.15);
-  transform: translateY(-10px);
-}
-.stat-item i {
-  font-size: 3rem;
-  color: var(--blue);
-  margin-bottom: 1.2rem;
-}
-.stat-item strong {
-  display: block;
-  font-size: 2.8rem;
-  font-weight: 900;
-  color: var(--blue-dark);
-}
-.stat-item span {
-  font-size: 1.1rem;
-  color: var(--gray);
-}
-
-/* ==================================
-   Activity & Actions
-================================== */
-.profile-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  margin: 4rem 0;
-  justify-content: center;
-}
-.profile-actions .btn {
-  padding: 1.4rem 4rem;
-  font-size: 1.2rem;
-  font-weight: 700;
-  border-radius: 70px;
-  transition: var(--transition);
-  min-width: 220px;
-  text-align: center;
-}
-.btn-primary {
-  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
-  color: white;
-  box-shadow: 0 15px 45px rgba(1,117,194,0.4);
-}
-.btn-primary:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 25px 70px rgba(1,117,194,0.55);
-}
-.btn-outline {
-  background: white;
-  color: var(--blue-dark);
-  border: 2px solid var(--blue);
-}
-.btn-outline:hover {
-  background: var(--blue);
-  color: white;
-}
-
-/* ==================================
-   Recent Activity
-================================== */
-.activity-feed {
-  background: white;
-  border-radius: var(--radius);
-  padding: 3.5rem;
-  box-shadow: var(--shadow-md);
-  margin: 4rem 0;
-}
-.activity-feed h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.4rem;
-  color: var(--blue-dark);
-  margin-bottom: 2rem;
-  text-align: center;
-}
-.activity-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-  padding: 1.5rem 0;
-  border-bottom: 1px dashed rgba(1,117,194,0.15);
-}
-.activity-item:last-child {
-  border-bottom: none;
-}
-.activity-item i {
-  font-size: 2rem;
-  color: var(--blue);
-  min-width: 50px;
-}
-.activity-item .content h5 {
-  font-size: 1.3rem;
-  color: var(--blue-dark);
-  margin: 0 0 0.5rem;
-}
-.activity-item .content p {
-  font-size: 1.05rem;
-  color: var(--gray);
-  margin: 0;
-}
-.activity-time {
-  font-size: 0.95rem;
-  color: var(--gray-light);
-  margin-top: 0.5rem;
-}
-
-/* ==================================
-   RESPONSIVE – FLAWLESS
-================================== */
-@media (max-width: 992px) {
-  .profile-header {
-    flex-direction: column;
-    text-align: center;
-  }
-  #userPhoto {
-    width: 160px;
-    height: 160px;
-  }
-}
-@media (max-width: 768px) {
-  .profile-card {
-    padding: 3.5rem 3rem;
-  }
-  .profile-stats {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media (max-width: 640px) {
-  .profile-card {
-    padding: 3rem 2rem;
-    border-radius: 32px;
-  }
-  .profile-actions .btn {
-    width: 100%;
-  }
-  .activity-feed {
-    padding: 2.5rem;
-  }
-}
-</style>
+  <link rel="stylesheet" href="/css/user/profile.css">
 </head>
 <body class="page-profile">
 
 <div class="container">
-
   <!-- Main Profile Card -->
   <div class="profile-card">
     <div class="profile-header">
@@ -314,6 +34,14 @@ body {
         <h1 id="userName">Loading...</h1>
         <p class="role" id="userRole">Student • Form 3 Blue</p>
         <p id="userEmail">Loading...</p>
+        
+        <!-- Profile Completion Indicator -->
+        <div class="profile-completion">
+          <div class="completion-bar">
+            <div class="completion-fill" id="completionFill" style="width: 85%;"></div>
+          </div>
+          <span class="completion-text">Profile Completion: <strong id="completionPercent">85%</strong></span>
+        </div>
       </div>
     </div>
 
@@ -341,38 +69,340 @@ body {
       </div>
     </div>
 
+    <!-- Academic Snapshot Section -->
+    <div class="academic-snapshot">
+      <h3>📘 Academic Overview</h3>
+      <div class="academic-grid">
+        <div class="academic-item">
+          <span class="academic-label">Current Term:</span>
+          <strong id="currentTerm">Term 2, 2025</strong>
+        </div>
+        <div class="academic-item">
+          <span class="academic-label">Mean Grade/GPA:</span>
+          <strong id="meanGrade">B+ (3.3)</strong>
+        </div>
+        <div class="academic-item">
+          <span class="academic-label">Best Subject:</span>
+          <strong id="bestSubject">Mathematics</strong>
+        </div>
+        <div class="academic-item">
+          <span class="academic-label">Subjects Taken:</span>
+          <strong id="subjectsTaken">9</strong>
+        </div>
+      </div>
+      <div class="subject-progress">
+        <h4>Subject Progress</h4>
+        <div class="progress-bars">
+          <div class="progress-item">
+            <span>Mathematics</span>
+            <div class="progress-container">
+              <div class="progress-fill" style="width: 90%; background: var(--blue);"></div>
+            </div>
+            <span class="progress-text">A</span>
+          </div>
+          <div class="progress-item">
+            <span>Physics</span>
+            <div class="progress-container">
+              <div class="progress-fill" style="width: 85%; background: var(--blue);"></div>
+            </div>
+            <span class="progress-text">B+</span>
+          </div>
+          <div class="progress-item">
+            <span>Chemistry</span>
+            <div class="progress-container">
+              <div class="progress-fill" style="width: 75%; background: var(--blue);"></div>
+            </div>
+            <span class="progress-text">B</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clubs & Roles Section -->
+    <div class="clubs-section">
+      <h3>🤝 My Clubs & Positions</h3>
+      <div class="clubs-grid" id="clubsGrid">
+        <div class="club-card">
+          <div class="club-icon">🤖</div>
+          <div class="club-info">
+            <h4>Robotics Club</h4>
+            <p class="club-role">Vice Chairperson</p>
+            <p class="club-meta">Joined: Jan 2025 • <span class="activity-badge active">Active</span></p>
+          </div>
+        </div>
+        <div class="club-card">
+          <div class="club-icon">🎭</div>
+          <div class="club-info">
+            <h4>Drama Club</h4>
+            <p class="club-role">Member</p>
+            <p class="club-meta">Joined: Feb 2025 • <span class="activity-badge regular">Regular</span></p>
+          </div>
+        </div>
+        <div class="club-card">
+          <div class="club-icon">🌿</div>
+          <div class="club-info">
+            <h4>Wildlife Club</h4>
+            <p class="club-role">Member</p>
+            <p class="club-meta">Joined: Mar 2025 • <span class="activity-badge active">Active</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievements & Badges Section -->
+    <div class="achievements-section">
+      <h3>🏆 My Achievements & Badges</h3>
+      <div class="badges-grid" id="badgesGrid">
+        <div class="badge-card">
+          <div class="badge-icon">🏆</div>
+          <h4>Science Fair Winner</h4>
+          <p class="badge-date">Awarded: 15 Nov 2025</p>
+          <p class="badge-description">1st Place - Renewable Energy Project</p>
+        </div>
+        <div class="badge-card">
+          <div class="badge-icon">⭐</div>
+          <h4>Perfect Attendance</h4>
+          <p class="badge-date">Awarded: 30 Oct 2025</p>
+          <p class="badge-description">Term 1, 2025 - No absences</p>
+        </div>
+        <div class="badge-card">
+          <div class="badge-icon">🎖</div>
+          <h4>Club Leadership</h4>
+          <p class="badge-date">Awarded: 10 Sep 2025</p>
+          <p class="badge-description">Robotics Club Vice Chair</p>
+        </div>
+        <div class="badge-card">
+          <div class="badge-icon">📚</div>
+          <h4>Academic Excellence</h4>
+          <p class="badge-date">Awarded: 5 Aug 2025</p>
+          <p class="badge-description">Top 5% in Mathematics</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Attendance & Discipline Section -->
+    <div class="attendance-section">
+      <h3>📅 Attendance & Discipline Summary</h3>
+      <div class="attendance-grid">
+        <div class="attendance-item">
+          <i class="fas fa-calendar-check"></i>
+          <span class="attendance-label">Overall Attendance:</span>
+          <strong id="overallAttendance">98% (Excellent)</strong>
+        </div>
+        <div class="attendance-item">
+          <i class="fas fa-clock"></i>
+          <span class="attendance-label">Late Arrivals:</span>
+          <strong id="lateArrivals">2</strong>
+        </div>
+        <div class="attendance-item">
+          <i class="fas fa-check-circle"></i>
+          <span class="attendance-label">Discipline Records:</span>
+          <strong id="disciplineRecords">None</strong>
+        </div>
+        <div class="attendance-item">
+          <i class="fas fa-star"></i>
+          <span class="attendance-label">Commendations:</span>
+          <strong id="commendations">3</strong>
+        </div>
+      </div>
+      
+      <!-- Admin-only detailed view -->
+      <div class="admin-attendance" id="adminAttendance" style="display: none;">
+        <h4>Detailed Attendance Records</h4>
+        <table class="attendance-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Reason</th>
+              <th>Action Taken</th>
+            </tr>
+          </thead>
+          <tbody id="attendanceRecords">
+            <tr>
+              <td>2025-11-15</td>
+              <td><span class="status-badge late">Late</span></td>
+              <td>Traffic</td>
+              <td>None</td>
+            </tr>
+            <tr>
+              <td>2025-10-05</td>
+              <td><span class="status-badge late">Late</span></td>
+              <td>Transport issue</td>
+              <td>None</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Personal Info Section -->
+    <div class="personal-info-section">
+      <h3>👤 Personal Information</h3>
+      <div class="personal-info-grid">
+        <div class="personal-item">
+          <i class="fas fa-birthday-cake"></i>
+          <span class="personal-label">Date of Birth:</span>
+          <strong id="dob">15 January 2008</strong>
+        </div>
+        <div class="personal-item">
+          <i class="fas fa-venus-mars"></i>
+          <span class="personal-label">Gender:</span>
+          <strong id="gender">Male</strong>
+        </div>
+        <div class="personal-item">
+          <i class="fas fa-phone"></i>
+          <span class="personal-label">Parent Contact:</span>
+          <strong id="parentContact">+254 712 345 678</strong>
+        </div>
+        <div class="personal-item">
+          <i class="fas fa-exclamation-triangle"></i>
+          <span class="personal-label">Emergency Contact:</span>
+          <strong id="emergencyContact">+254 723 456 789</strong>
+        </div>
+        <div class="personal-item">
+          <i class="fas fa-home"></i>
+          <span class="personal-label">Residence:</span>
+          <strong id="residence">Nairobi, Kenya</strong>
+        </div>
+        <div class="personal-item">
+          <i class="fas fa-id-card"></i>
+          <span class="personal-label">Student ID:</span>
+          <strong id="studentId">S2025/0042</strong>
+        </div>
+      </div>
+      <button class="btn btn-outline edit-personal-btn" onclick="editPersonalInfo()">
+        <i class="fas fa-edit"></i> Edit Personal Info
+      </button>
+    </div>
+
+    <!-- Learning Preferences Section -->
+    <div class="learning-preferences-section">
+      <h3>🎯 Learning Preferences & Career Interests</h3>
+      <div class="preferences-grid">
+        <div class="preference-item">
+          <i class="fas fa-brain"></i>
+          <span class="preference-label">Learning Style:</span>
+          <strong id="learningStyle">Practical / Hands-on</strong>
+        </div>
+        <div class="preference-item">
+          <i class="fas fa-heart"></i>
+          <span class="preference-label">Favorite Subjects:</span>
+          <strong id="favoriteSubjects">Mathematics, Physics, Robotics</strong>
+        </div>
+        <div class="preference-item">
+          <i class="fas fa-briefcase"></i>
+          <span class="preference-label">Career Interests:</span>
+          <strong id="careerInterests">Engineering, Robotics, Computer Science</strong>
+        </div>
+        <div class="preference-item">
+          <i class="fas fa-lightbulb"></i>
+          <span class="preference-label">Skills to Develop:</span>
+          <strong id="skillsToDevelop">Programming, Leadership, Public Speaking</strong>
+        </div>
+      </div>
+      <button class="btn btn-outline edit-preferences-btn" onclick="editPreferences()">
+        <i class="fas fa-edit"></i> Update Preferences
+      </button>
+    </div>
+
+    <!-- Security & Account Section -->
+    <div class="security-section">
+      <h3>🔐 Account Security</h3>
+      <div class="security-grid">
+        <div class="security-item">
+          <i class="fas fa-clock"></i>
+          <span class="security-label">Last Login:</span>
+          <strong id="lastLogin">Today, 10:42 AM</strong>
+        </div>
+        <div class="security-item">
+          <i class="fas fa-mobile-alt"></i>
+          <span class="security-label">Active Devices:</span>
+          <strong id="activeDevices">2 devices</strong>
+        </div>
+        <div class="security-item">
+          <i class="fas fa-shield-alt"></i>
+          <span class="security-label">Password Strength:</span>
+          <strong id="passwordStrength">Strong</strong>
+        </div>
+        <div class="security-item">
+          <i class="fas fa-lock"></i>
+          <span class="security-label">Two-Factor Auth:</span>
+          <strong id="twoFactorStatus">Not Enabled</strong>
+        </div>
+      </div>
+      <div class="security-actions">
+        <button class="btn btn-primary change-password-btn" onclick="changePassword()">
+          <i class="fas fa-key"></i> Change Password
+        </button>
+        <button class="btn btn-outline enable-2fa-btn" onclick="enableTwoFactor()">
+          <i class="fas fa-shield-alt"></i> Enable 2FA
+        </button>
+        <button class="btn btn-outline view-devices-btn" onclick="viewDevices()">
+          <i class="fas fa-mobile-alt"></i> View Devices
+        </button>
+      </div>
+    </div>
+
     <!-- Action Buttons -->
     <div class="profile-actions">
       <a href="/user/edit-profile.html" class="btn btn-primary">Edit Profile</a>
-      <a href="/portal/dashboard.html" class="btn btn-outline">Go to Dashboard</a>
+      <a href="/e-learning/index.html" class="btn btn-outline">E-Learning Dashboard</a>
+      <a href="/clubs/clubs.html" class="btn btn-outline">Clubs Dashboard</a>
       <button class="btn btn-outline" onclick="alert('Password change coming soon!')">Change Password</button>
     </div>
 
-    <!-- Recent Activity -->
+    <!-- Enhanced Activity Feed -->
     <div class="activity-feed">
-      <h3>Recent Activity</h3>
-      <div class="activity-item">
-        <i class="fas fa-trophy"></i>
-        <div class="content">
-          <h5>Won 1st Place in Science Fair</h5>
-          <p>Congratulations! Your project on renewable energy impressed the judges.</p>
-          <div class="activity-time">2 days ago</div>
+      <div class="activity-header">
+        <h3>📋 Recent Activity</h3>
+        <div class="activity-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="academic">Academic</button>
+          <button class="filter-btn" data-filter="clubs">Clubs</button>
+          <button class="filter-btn" data-filter="system">System</button>
         </div>
       </div>
-      <div class="activity-item">
-        <i class="fas fa-star"></i>
-        <div class="content">
-          <h5>Earned 50 Merit Points</h5>
-          <p>For excellent performance in Mathematics mid-term exam.</p>
-          <div class="activity-time">1 week ago</div>
+      <div class="activity-list" id="activityList">
+        <div class="activity-item" data-category="academic">
+          <i class="fas fa-trophy activity-icon academic"></i>
+          <div class="content">
+            <h5>Won 1st Place in Science Fair</h5>
+            <p>Congratulations! Your project on renewable energy impressed the judges.</p>
+            <div class="activity-time">2 days ago • <span class="activity-category">Academic</span></div>
+          </div>
         </div>
-      </div>
-      <div class="activity-item">
-        <i class="fas fa-users"></i>
-        <div class="content">
-          <h5>Joined Robotics Club</h5>
-          <p>Welcome to the team! First meeting this Friday.</p>
-          <div class="activity-time">2 weeks ago</div>
+        <div class="activity-item" data-category="clubs">
+          <i class="fas fa-star activity-icon clubs"></i>
+          <div class="content">
+            <h5>Earned 50 Merit Points</h5>
+            <p>For excellent performance in Mathematics mid-term exam.</p>
+            <div class="activity-time">1 week ago • <span class="activity-category">Academic</span></div>
+          </div>
+        </div>
+        <div class="activity-item" data-category="clubs">
+          <i class="fas fa-users activity-icon clubs"></i>
+          <div class="content">
+            <h5>Joined Robotics Club</h5>
+            <p>Welcome to the team! First meeting this Friday.</p>
+            <div class="activity-time">2 weeks ago • <span class="activity-category">Clubs</span></div>
+          </div>
+        </div>
+        <div class="activity-item" data-category="system">
+          <i class="fas fa-cog activity-icon system"></i>
+          <div class="content">
+            <h5>Profile Updated</h5>
+            <p>You updated your personal information and preferences.</p>
+            <div class="activity-time">3 weeks ago • <span class="activity-category">System</span></div>
+          </div>
+        </div>
+        <div class="activity-item" data-category="academic">
+          <i class="fas fa-graduation-cap activity-icon academic"></i>
+          <div class="content">
+            <h5>Term 1 Results Released</h5>
+            <p>Your term 1 results are now available. Mean grade: B+</p>
+            <div class="activity-time">1 month ago • <span class="activity-category">Academic</span></div>
+          </div>
         </div>
       </div>
     </div>
@@ -380,125 +410,6 @@ body {
 </div>
 
 <!-- Scripts – ULTRA-PREMIUM PROFILE.JS (2025–2026) -->
-<script>
-// =================================================================
-// 1. PHOTO UPLOAD – Live Preview + Upload to Server
-// =================================================================
-document.getElementById('photoInput').addEventListener('change', async function(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  // 1. Show instant preview
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    document.getElementById('userPhoto').src = e.target.result;
-  };
-  reader.readAsDataURL(file);
-
-  // 2. Upload to server
-  const formData = new FormData();
-  formData.append('photo', file);
-
-  try {
-    const res = await fetch('/api/profile', {
-      method: 'PUT',
-      body: formData,
-      credentials: 'include'
-    });
-    const data = await res.json();
-    if (data.success) {
-      showToast('Profile photo updated successfully!', 'success');
-    } else {
-      showToast('Failed to update photo. Please try again.', 'error');
-    }
-  } catch (err) {
-    console.error('Upload error:', err);
-    showToast('Network error. Please check your connection.', 'error');
-  }
-});
-
-// =================================================================
-// 2. LOAD PROFILE FROM API (Real Data)
-// =================================================================
-async function loadProfile() {
-  const loadingElements = document.querySelectorAll('#userName, #userEmail, #userRole, .stat-item strong');
-  loadingElements.forEach(el => el.textContent = 'Loading...');
-
-  try {
-    const res = await fetch('/api/profile', {
-      credentials: 'include'
-    });
-    const data = await res.json();
-
-    if (!data.success || !data.user) {
-      window.location.href = '/user/login.html';
-      return;
-    }
-
-    const user = data.user;
-
-    // Populate profile
-    document.getElementById('userName').textContent = user.name || 'Student';
-    document.getElementById('userEmail').textContent = user.email || 'No email';
-    document.getElementById('userRole').textContent = `${user.role || 'Student'} • ${user.grade || 'N/A'}`;
-    document.getElementById('userPhoto').src = user.photo || '/assets/images/defaults/default-user.png';
-
-    // Stats (fallback to 0 if not available)
-    document.getElementById('achievementsCount').textContent = user.achievements || '0';
-    document.getElementById('attendanceRate').textContent = user.attendance || '0%';
-    document.getElementById('pointsEarned').textContent = user.points || '0';
-    document.getElementById('clubsJoined').textContent = user.clubs?.length || '0';
-
-  } catch (err) {
-    console.error('Profile load error:', err);
-    showToast('Failed to load profile. Redirecting...', 'error');
-    setTimeout(() => window.location.href = '/user/login.html', 2000);
-  }
-}
-
-// =================================================================
-// 3. TOAST NOTIFICATIONS – Beautiful Feedback
-// =================================================================
-function showToast(message, type = 'info') {
-  const toast = document.createElement('div');
-  toast.textContent = message;
-  toast.style.cssText = `
-    position: fixed;
-    bottom: 30px; right: 30px;
-    background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#1e40af'};
-    color: white;
-    padding: 1.2rem 2rem;
-    border-radius: 16px;
-    font-weight: 600;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-    z-index: 9999;
-    animation: slideIn 0.5s ease, fadeOut 0.5s ease 3s forwards;
-    transform: translateX(120%);
-  `;
-  document.body.appendChild(toast);
-
-  // Trigger animation
-  setTimeout(() => toast.style.transform = 'translateX(0)', 100);
-
-  // Auto remove
-  setTimeout(() => toast.remove(), 4000);
-}
-
-// Animation keyframes
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes slideIn { from { transform: translateX(120%); } to { transform: translateX(0); } }
-  @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
-`;
-document.head.appendChild(style);
-
-// =================================================================
-// 4. INIT – Load Profile on Page Load
-// =================================================================
-document.addEventListener('DOMContentLoaded', () => {
-  loadProfile();
-});
-</script>
-
+<script src="/js/user/profile.js"></script>
 </body>
 </html>

@@ -1,0 +1,894 @@
+/* ==================================================
+   USER PROFILE PAGE – BAR UNION MIXED SECONDARY SCHOOL
+   FINAL 2025–2026 ULTRA-PREMIUM EDITION
+   Full photo upload • Stats • Activity • Mobile-perfect
+================================================== */
+
+:root {
+  --blue: #0175C2;
+  --blue-dark: #0b2d5e;
+  --gold: #ffd700;
+  --gold-light: #ffed4e;
+  --gray: #555;
+  --gray-light: #777;
+  --light: #f8fafc;
+  --radius: 32px;
+  --shadow-sm: 0 12px 35px rgba(0,0,0,0.1);
+  --shadow-md: 0 20px 50px rgba(0,0,0,0.15);
+  --shadow-lg: 0 35px 80px rgba(0,0,0,0.22);
+  --transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+  --info: #3b82f6;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: linear-gradient(135deg, #f0f5ff 0%, #e0eaff 100%);
+  color: #333;
+  min-height: 100vh;
+  padding-top: 90px;
+}
+
+/* ==================================
+   Header Spacing (for fixed header)
+================================== */
+.container {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ==================================
+   Profile Hero Card
+================================== */
+.profile-card {
+  background: white;
+  border-radius: 42px;
+  padding: 4rem 5rem;
+  margin: 4rem auto;
+  max-width: 1100px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid rgba(1,117,194,0.15);
+  position: relative;
+  overflow: hidden;
+}
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 12px;
+  background: linear-gradient(90deg, var(--blue-dark), var(--blue), var(--gold));
+  border-radius: 42px 42px 0 0;
+}
+
+/* Profile Header */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+.profile-photo-wrapper {
+  position: relative;
+}
+#userPhoto {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 8px solid white;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  transition: var(--transition);
+}
+.profile-photo-wrapper:hover #userPhoto {
+  transform: scale(1.08);
+}
+#photoUpload {
+  position: absolute;
+  bottom: 10px; right: 10px;
+  width: 50px; height: 50px;
+  background: var(--blue);
+  color: white;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.4rem;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(1,117,194,0.4);
+  transition: var(--transition);
+}
+#photoUpload:hover {
+  background: var(--blue-dark);
+  transform: scale(1.15);
+}
+
+.profile-info h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: var(--blue-dark);
+  margin: 0 0 0.8rem;
+}
+.profile-info .role {
+  font-size: 1.4rem;
+  color: var(--blue);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.profile-info p {
+  font-size: 1.2rem;
+  color: var(--gray);
+  line-height: 1.9;
+}
+
+/* Profile Completion Indicator */
+.profile-completion {
+  margin-top: 1.5rem;
+  background: rgba(1,117,194,0.05);
+  padding: 1rem;
+  border-radius: 12px;
+  border-left: 4px solid var(--blue);
+}
+.completion-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(1,117,194,0.1);
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+}
+.completion-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--gold));
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+.completion-text {
+  font-size: 0.95rem;
+  color: var(--blue-dark);
+  font-weight: 600;
+}
+
+/* ==================================
+   Stats Grid
+================================== */
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2.5rem;
+  margin: 4rem 0;
+}
+.stat-item {
+  background: rgba(1,117,194,0.08);
+  padding: 2.5rem;
+  border-radius: 28px;
+  text-align: center;
+  transition: var(--transition);
+}
+.stat-item:hover {
+  background: rgba(1,117,194,0.15);
+  transform: translateY(-10px);
+}
+.stat-item i {
+  font-size: 3rem;
+  color: var(--blue);
+  margin-bottom: 1.2rem;
+}
+.stat-item strong {
+  display: block;
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: var(--blue-dark);
+}
+.stat-item span {
+  font-size: 1.1rem;
+  color: var(--gray);
+}
+
+/* ==================================
+   Academic Snapshot
+================================== */
+.academic-snapshot {
+  background: rgba(1,117,194,0.04);
+  border-radius: var(--radius);
+  padding: 3rem;
+  margin: 3rem 0;
+  border: 1px solid rgba(1,117,194,0.1);
+}
+.academic-snapshot h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: var(--blue-dark);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.academic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.academic-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--blue);
+}
+.academic-label {
+  font-size: 0.95rem;
+  color: var(--gray);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.academic-item strong {
+  font-size: 1.3rem;
+  color: var(--blue-dark);
+  font-weight: 700;
+}
+.subject-progress {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px dashed rgba(1,117,194,0.2);
+}
+.subject-progress h4 {
+  font-size: 1.4rem;
+  color: var(--blue-dark);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+.progress-item {
+  margin-bottom: 1rem;
+}
+.progress-item span {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--gray);
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+.progress-container {
+  width: 100%;
+  height: 8px;
+  background: rgba(1,117,194,0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+.progress-text {
+  font-size: 0.85rem;
+  color: var(--blue-dark);
+  font-weight: 700;
+  margin-top: 0.3rem;
+  display: block;
+}
+
+/* ==================================
+   Clubs & Roles Section
+================================== */
+.clubs-section {
+  background: rgba(1,117,194,0.04);
+  border-radius: var(--radius);
+  padding: 3rem;
+  margin: 3rem 0;
+  border: 1px solid rgba(1,117,194,0.1);
+}
+.clubs-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: var(--blue-dark);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.clubs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.club-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--blue);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transition: var(--transition);
+}
+.club-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+.club-icon {
+  font-size: 2.5rem;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+  color: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.club-info h4 {
+  font-size: 1.4rem;
+  color: var(--blue-dark);
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+}
+.club-role {
+  font-size: 1rem;
+  color: var(--blue);
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+.club-meta {
+  font-size: 0.9rem;
+  color: var(--gray);
+  margin: 0;
+}
+.activity-badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.activity-badge.active {
+  background: var(--success);
+  color: white;
+}
+.activity-badge.regular {
+  background: var(--warning);
+  color: white;
+}
+
+/* ==================================
+   Achievements & Badges
+================================== */
+.achievements-section {
+  background: rgba(1,117,194,0.04);
+  border-radius: var(--radius);
+  padding: 3rem;
+  margin: 3rem 0;
+  border: 1px solid rgba(1,117,194,0.1);
+}
+.achievements-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: var(--blue-dark);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.badge-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--gold);
+  transition: var(--transition);
+}
+.badge-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+.badge-icon {
+  font-size: 3rem;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--blue-dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  box-shadow: 0 10px 25px rgba(255,215,0,0.3);
+}
+.badge-card h4 {
+  font-size: 1.3rem;
+  color: var(--blue-dark);
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+.badge-date {
+  font-size: 0.85rem;
+  color: var(--gray);
+  text-align: center;
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}
+.badge-description {
+  font-size: 0.95rem;
+  color: var(--gray-light);
+  text-align: center;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ==================================
+   Attendance & Discipline
+================================== */
+.attendance-section {
+  background: rgba(1,117,194,0.04);
+  border-radius: var(--radius);
+  padding: 3rem;
+  margin: 3rem 0;
+  border: 1px solid rgba(1,117,194,0.1);
+}
+.attendance-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: var(--blue-dark);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.attendance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.attendance-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.attendance-item i {
+  font-size: 1.5rem;
+  color: var(--blue);
+}
+.attendance-label {
+  font-size: 0.95rem;
+  color: var(--gray);
+}
+.attendance-item strong {
+  font-size: 1.1rem;
+  color: var(--blue-dark);
+  font-weight: 700;
+}
+.admin-attendance {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px dashed rgba(1,117,194,0.2);
+}
+.admin-attendance h4 {
+  font-size: 1.3rem;
+  color: var(--blue-dark);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.attendance-table th {
+  background: var(--blue);
+  color: white;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+.attendance-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(1,117,194,0.1);
+}
+.attendance-table tr:hover {
+  background: rgba(1,117,194,0.05);
+}
+.status-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.status-badge.late {
+  background: var(--warning);
+  color: white;
+}
+.status-badge.absent {
+  background: var(--danger);
+  color: white;
+}
+.status-badge.present {
+  background: var(--success);
+  color: white;
+}
+
+/* ==================================
+   Personal Info Section
+================================== */
+.personal-info-section {
+  background: rgba(1,117,194,0.04);
+  border-radius: var(--radius);
+  padding: 3rem;
+  margin: 3rem 0;
+  border: 1px solid rgba(1,117,194,0.1);
+}
+.personal-info-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: var(--blue-dark);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.personal-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.personal-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.personal-item i {
+  font-size: 1.5rem;
+  color: var(--blue);
+  width: 40px;
+  text-align: center;
+}
+.personal-label {
+  font-size: 0.95rem;
+  color: var(--gray);
+}
+.personal-item strong {
+  font-size: 1.1rem;
+  color: var(--blue-dark);
+  font-weight: 700;
+}
+.edit-personal-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 auto;
+}
+
+/* ==================================
+   Learning Preferences
+================================== */
+.learning-preferences-section {
+  background: rgba(1,117,194,0.04);
+  border-radius: var(--radius);
+  padding: 3rem;
+  margin: 3rem 0;
+  border: 1px solid rgba(1,117,194,0.1);
+}
+.learning-preferences-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: var(--blue-dark);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.preferences-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.preference-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.preference-item i {
+  font-size: 1.5rem;
+  color: var(--blue);
+  width: 40px;
+  text-align: center;
+}
+.preference-label {
+  font-size: 0.95rem;
+  color: var(--gray);
+}
+.preference-item strong {
+  font-size: 1.1rem;
+  color: var(--blue-dark);
+  font-weight: 700;
+}
+.edit-preferences-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 auto;
+}
+
+/* ==================================
+   Security Section
+================================== */
+.security-section {
+  background: rgba(1,117,194,0.04);
+  border-radius: var(--radius);
+  padding: 3rem;
+  margin: 3rem 0;
+  border: 1px solid rgba(1,117,194,0.1);
+}
+.security-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: var(--blue-dark);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.security-item {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.security-item i {
+  font-size: 1.5rem;
+  color: var(--blue);
+}
+.security-label {
+  font-size: 0.95rem;
+  color: var(--gray);
+}
+.security-item strong {
+  font-size: 1.1rem;
+  color: var(--blue-dark);
+  font-weight: 700;
+}
+.security-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+.security-actions .btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ==================================
+   Activity & Actions
+================================== */
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 4rem 0;
+  justify-content: center;
+}
+.profile-actions .btn {
+  padding: 1.4rem 4rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 70px;
+  transition: var(--transition);
+  min-width: 220px;
+  text-align: center;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+  color: white;
+  box-shadow: 0 15px 45px rgba(1,117,194,0.4);
+}
+.btn-primary:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 70px rgba(1,117,194,0.55);
+}
+.btn-outline {
+  background: white;
+  color: var(--blue-dark);
+  border: 2px solid var(--blue);
+}
+.btn-outline:hover {
+  background: var(--blue);
+  color: white;
+}
+
+/* ==================================
+   Enhanced Activity Feed
+================================== */
+.activity-feed {
+  background: white;
+  border-radius: var(--radius);
+  padding: 3.5rem;
+  box-shadow: var(--shadow-md);
+  margin: 4rem 0;
+}
+.activity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.activity-feed h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  color: var(--blue-dark);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.activity-filters {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(1,117,194,0.05);
+  padding: 0.5rem;
+  border-radius: 20px;
+}
+.filter-btn {
+  padding: 0.5rem 1.2rem;
+  background: transparent;
+  border: none;
+  color: var(--blue);
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.filter-btn:hover {
+  background: rgba(1,117,194,0.1);
+}
+.filter-btn.active {
+  background: var(--blue);
+  color: white;
+}
+.activity-list {
+  display: grid;
+  gap: 1rem;
+}
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--blue);
+  transition: var(--transition);
+}
+.activity-item:hover {
+  transform: translateX(5px);
+  box-shadow: var(--shadow-md);
+}
+.activity-item[data-category="academic"] { border-left-color: var(--success); }
+.activity-item[data-category="clubs"] { border-left-color: var(--gold); }
+.activity-item[data-category="system"] { border-left-color: var(--info); }
+
+.activity-icon {
+  font-size: 2rem;
+  min-width: 50px;
+  text-align: center;
+}
+.activity-icon.academic { color: var(--success); }
+.activity-icon.clubs { color: var(--gold); }
+.activity-icon.system { color: var(--info); }
+
+.activity-item .content h5 {
+  font-size: 1.3rem;
+  color: var(--blue-dark);
+  margin: 0 0 0.5rem;
+}
+.activity-item .content p {
+  font-size: 1.05rem;
+  color: var(--gray);
+  margin: 0;
+}
+.activity-time {
+  font-size: 0.95rem;
+  color: var(--gray-light);
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.activity-category {
+  padding: 0.2rem 0.6rem;
+  background: rgba(1,117,194,0.1);
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+/* ==================================
+   RESPONSIVE – FLAWLESS
+================================== */
+@media (max-width: 992px) {
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  #userPhoto {
+    width: 160px;
+    height: 160px;
+  }
+  .profile-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 768px) {
+  .profile-card {
+    padding: 3.5rem 3rem;
+  }
+  .profile-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+  .clubs-grid,
+  .badges-grid,
+  .attendance-grid,
+  .personal-info-grid,
+  .preferences-grid,
+  .security-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .profile-card {
+    padding: 3rem 2rem;
+    border-radius: 32px;
+  }
+  .profile-actions .btn {
+    width: 100%;
+  }
+  .activity-feed {
+    padding: 2.5rem;
+  }
+  .club-card {
+    flex-direction: column;
+    text-align: center;
+  }
+}
