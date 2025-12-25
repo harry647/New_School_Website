@@ -100,7 +100,7 @@ function renderTeachers() {
     : DATA.teachers.map(t => `
       <div class="col-md-6 col-lg-4 mb-4">
         <div class="teacher-card text-center p-5 glass-card shadow-sm">
-          <img src="${t.photo || '/assets/images/defaults/teacher.png'}" 
+          <img src="${t.photo || '/assets/images/defaults/default-user.png'}"
                class="rounded-circle mb-4 shadow" width="140" height="140" alt="${t.name}">
           <h4 class="fw-bold mb-2">${t.name}</h4>
           <p class="text-muted mb-1">${t.subject}</p>
@@ -274,4 +274,12 @@ function showAlert(message, type = "info") {
   `;
   document.body.appendChild(alert);
   setTimeout(() => alert.remove(), 5000);
+}
+
+// Scroll to section function
+function scrollToSection(sectionId) {
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' });
+  }
 }

@@ -241,7 +241,7 @@ router.post('/mathematics/ask', (req, res) => {
 
 // --- Sciences ---
 router.get('/science', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'science.json'));
+  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'science-data.json'));
   res.json(data);
 });
 router.post('/science/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
