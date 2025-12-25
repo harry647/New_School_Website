@@ -1,17 +1,17 @@
 {
   "announcements": [
-    { "icon": "fa-heartbeat", "text": "Mental Health Week – 10th–15th Dec 2025" },
-    { "icon": "fa-hand-holding-usd", "text": "Emergency Fund Applications Open" },
-    { "icon": "fa-calendar-check", "text": "Free Health Checkup Camp – 20th Dec" }
+    { "icon": "fa-heartbeat", "text": "Mental Health Week – 10th–15th Dec 2025", "date": "2025-12-01" },
+    { "icon": "fa-hand-holding-usd", "text": "Emergency Fund Applications Open", "date": "2025-11-28" },
+    { "icon": "fa-calendar-check", "text": "Free Health Checkup Camp – 20th Dec", "date": "2025-11-25" }
   ],
   "team": [
-    { "name": "Ms. Achieng", "role": "Head of Welfare", "contact": "achieng@barunion.sc.ke", "photo": "/assets/staff/achieng.jpg" },
-    { "name": "Mr. Otieno", "role": "Student Counsellor", "contact": "otieno@barunion.sc.ke", "photo": "/assets/staff/otieno.jpg" },
-    { "name": "Ms. Anyango", "role": "Teacher Support", "contact": "anyango@barunion.sc.ke", "photo": "/assets/staff/anyango.jpg" }
+    { "name": "Ms. Achieng", "role": "Head of Welfare", "contact": "achieng@barunion.sc.ke", "photo": "/assets/images/leadership/seniorteacher1.jpg" },
+    { "name": "Mr. Otieno", "role": "Student Counsellor", "contact": "otieno@barunion.sc.ke", "photo": "/assets/images/leadership/seniorteacher2.jpg" },
+    { "name": "Ms. Anyango", "role": "Teacher Support", "contact": "anyango@barunion.sc.ke", "photo": "/assets/images/leadership/hod-cocurriculum.jpg" }
   ],
   "resources": [
-    { "title": "Mental Health Guide", "icon": "fa-brain", "url": "/downloads/mental-health.pdf" },
-    { "title": "Financial Aid Form", "icon": "fa-file-invoice-dollar", "url": "/downloads/aid-form.pdf" },
-    { "title": "Stress Management Tips", "icon": "fa-heartbeat", "url": "/downloads/stress-tips.pdf" }
+    { "title": "Mental Health Guide", "icon": "fa-brain", "url": "/downloads/mental-health.pdf", "type": "pdf", "description": "Comprehensive guide to maintaining good mental health and recognizing signs of stress" },
+    { "title": "Financial Aid Form", "icon": "fa-file-invoice-dollar", "url": "/downloads/aid-form.pdf", "type": "pdf", "description": "Application form for students and staff needing financial assistance" },
+    { "title": "Stress Management Tips", "icon": "fa-heartbeat", "url": "/downloads/stress-tips.pdf", "type": "pdf", "description": "Practical techniques for managing academic and professional stress effectively" }
   ]
 }

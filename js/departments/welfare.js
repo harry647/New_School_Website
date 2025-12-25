@@ -43,10 +43,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 // ==================== LOAD DATA FROM BACKEND ====================
 async function loadWelfareData() {
   try {
-    const res = await fetch("/api/welfare/data", { cache: "no-store" });
+    const res = await fetch("/api/departments/welfare/data", { cache: "no-store" });
     if (!res.ok) throw new Error("Failed");
 
-    DATA = await res.json();
+    const apiData = await res.json();
+    
+    // Ensure data structure matches what the render functions expect
+    DATA = {
+      announcements: apiData.announcements || [],
+      team: apiData.team || [],
+      resources: apiData.resources || []
+    };
 
     renderAnnouncements();
     renderTeam();
@@ -63,12 +70,16 @@ function renderAnnouncements() {
   if (!list) return;
 
   list.innerHTML = DATA.announcements.length === 0
-    ? `<li class="text-center text-white-50">No announcements at the moment.</li>`
+    ? `<li class="text-center text-muted">No announcements at the moment.</li>`
     : DATA.announcements.map(a => `
-      <li class="mb-3">
-        <i class="fas ${a.icon || 'fa-bell'} me-3 text-warning"></i>
-        <strong>${a.text}</strong>
-        ${a.date ? `<span class="text-white-50 ms-2">— ${formatDate(a.date)}</span>` : ''}
+      <li class="mb-3 announcement-item">
+        <div class="announcement-icon">
+          <i class="fas ${a.icon || 'fa-bell'}"></i>
+        </div>
+        <div class="announcement-content">
+          <strong class="announcement-text">${a.text}</strong>
+          ${a.date ? `<span class="announcement-date">— ${formatDate(a.date)}</span>` : ''}
+        </div>
       </li>
     `).join("");
 }
@@ -78,17 +89,17 @@ function renderTeam() {
   if (!grid) return;
 
   grid.innerHTML = DATA.team.length === 0
-    ? `<div class="col-12 text-center py-5 text-white-50">No team members listed.</div>`
+    ? `<div class="col-12 text-center py-5 text-muted">No team members listed.</div>`
     : DATA.team.map(m => `
       <div class="col-md-6 col-lg-4 mb-4">
-        <div class="glass-card p-5 text-center text-white shadow-sm">
-          <img src="${m.photo || '/assets/images/defaults/staff.png'}" 
-               class="rounded-circle mb-4 shadow" width="140" height="140" alt="${m.name}">
-          <h4 class="fw-bold mb-2">${m.name}</h4>
-          <p class="mb-1">${m.role}</p>
-          <p class="small text-white-75 mb-3">${m.contact || ''}</p>
-          <button onclick="openSupportRequest('${m.name}')" 
-                  class="btn btn-outline-light btn-sm w-100">
+        <div class="team-card p-5 text-center shadow-sm">
+          <img src="${m.photo || '/assets/images/defaults/staff.png'}"
+               class="team-image mb-4 shadow" width="140" height="140" alt="${m.name}">
+          <h4 class="team-name fw-bold mb-2">${m.name}</h4>
+          <p class="team-role mb-1">${m.role}</p>
+          <p class="team-contact small mb-3">${m.contact || ''}</p>
+          <button onclick="openSupportRequest('${m.name}')"
+                  class="btn btn-outline-primary btn-sm w-100">
             Request Support
           </button>
         </div>
@@ -101,16 +112,18 @@ function renderResources() {
   if (!grid) return;
 
   grid.innerHTML = DATA.resources.length === 0
-    ? `<div class="col-12 text-center py-5 text-white-50">No wellness resources available.</div>`
+    ? `<div class="col-12 text-center py-5 text-muted">No wellness resources available.</div>`
     : DATA.resources.map(r => `
       <div class="col-md-6 col-lg-4 mb-4">
-        <div class="glass-card p-5 text-center text-white shadow-sm">
-          <i class="fas ${r.icon || 'fa-heart'} fa-4x mb-4 text-danger"></i>
-          <h5 class="fw-bold mb-3">${r.title}</h5>
-          <p class="small text-white-75 mb-3">${r.description || ''}</p>
-          <a href="${r.url}" 
-             class="btn btn-outline-light btn-sm w-100" 
-             ${r.type === 'pdf' ? 'download' : 'target="_blank"'} 
+        <div class="resource-card p-5 text-center shadow-sm">
+          <div class="resource-icon mb-4">
+            <i class="fas ${r.icon || 'fa-heart'}"></i>
+          </div>
+          <h5 class="resource-title fw-bold mb-3">${r.title}</h5>
+          <p class="resource-description small mb-3">${r.description || ''}</p>
+          <a href="${r.url}"
+             class="btn btn-outline-primary btn-sm w-100"
+             ${r.type === 'pdf' ? 'download' : 'target="_blank"'}
              data-fancybox>
             ${r.type === 'video' ? 'Watch Video' : r.type === 'audio' ? 'Listen' : 'Open Resource'}
           </a>
@@ -162,7 +175,7 @@ async function submitWelfareRequest() {
   Array.from(files).forEach(file => formData.append("attachments", file));
 
   try {
-    const res = await fetch("/api/welfare/request", {
+    const res = await fetch("/api/departments/welfare/request", {
       method: "POST",
       body: formData
     });

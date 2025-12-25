@@ -300,7 +300,7 @@ router.post('/guidance/upload', uploadGuidanceResource.array('resources', 20), (
 
 // --- Welfare ---
 router.get('/welfare/data', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'welfare', 'data.json'));
+  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'welfare-data.json'));
   res.json(data);
 });
 router.post('/welfare/request', uploadWelfareAttachment.array('attachments', 10), (req, res) => {
@@ -310,7 +310,7 @@ router.post('/welfare/request', uploadWelfareAttachment.array('attachments', 10)
     return res.status(400).json({ success: false, message: "Required fields missing" });
   }
 
-  const file = path.join(__dirname, '..', '..', 'data', 'welfare-requests.json');
+  const file = path.join(__dirname, '..', '..', 'data', 'departments', 'welfare-requests.json');
   let requests = readJSON(file);
 
   requests.push({
