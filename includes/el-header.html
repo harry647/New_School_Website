@@ -156,50 +156,50 @@
     </a>
 
     <!-- Mobile Learning Dropdown -->
-    <div class="mb-1">
-      <button class="btn btn-outline-light w-100 text-start dropdown-toggle text-white nav-link"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              aria-label="Learning menu">
-        <i class="fas fa-book-reader me-2"></i> Learning
-      </button>
-      <ul class="dropdown-menu dropdown-menu-dark w-100">
-        <li><a class="dropdown-item" href="/e-learning/resources.html">Resources</a></li>
-        <li><a class="dropdown-item" href="/e-learning/media.html">Media</a></li>
-        <li><a class="dropdown-item" href="/e-learning/live.html">Live Sessions</a></li>
-        <li><a class="dropdown-item" href="/e-learning/study-plans.html">Study Plans</a></li>
-      </ul>
-    </div>
+      <div class="mb-1">
+        <button class="btn btn-outline-light w-100 text-start dropdown-toggle text-white nav-link"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                aria-label="Learning menu">
+          <i class="fas fa-book-reader me-2"></i> Learning
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark w-100 mobile-dropdown-menu">
+          <li><a class="dropdown-item" href="/e-learning/resources.html">Resources</a></li>
+          <li><a class="dropdown-item" href="/e-learning/media.html">Media</a></li>
+          <li><a class="dropdown-item" href="/e-learning/live.html">Live Sessions</a></li>
+          <li><a class="dropdown-item" href="/e-learning/study-plans.html">Study Plans</a></li>
+        </ul>
+      </div>
 
     <!-- Mobile Assessment Dropdown -->
-    <div class="mb-1">
-      <button class="btn btn-outline-light w-100 text-start dropdown-toggle text-white nav-link"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              aria-label="Assessment menu">
-        <i class="fas fa-clipboard-check me-2"></i> Assessment
-      </button>
-      <ul class="dropdown-menu dropdown-menu-dark w-100">
-        <li><a class="dropdown-item" href="/e-learning/quizzes.html">Quizzes</a></li>
-        <li><a class="dropdown-item" href="/e-learning/analytics.html">Analytics</a></li>
-      </ul>
-    </div>
+      <div class="mb-1">
+        <button class="btn btn-outline-light w-100 text-start dropdown-toggle text-white nav-link"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                aria-label="Assessment menu">
+          <i class="fas fa-clipboard-check me-2"></i> Assessment
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark w-100 mobile-dropdown-menu">
+          <li><a class="dropdown-item" href="/e-learning/quizzes.html">Quizzes</a></li>
+          <li><a class="dropdown-item" href="/e-learning/analytics.html">Analytics</a></li>
+        </ul>
+      </div>
 
     <!-- Mobile Community Dropdown -->
-    <div class="mb-1">
-      <button class="btn btn-outline-light w-100 text-start dropdown-toggle text-white nav-link"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              aria-label="Community menu">
-        <i class="fas fa-comments me-2"></i> Community
-      </button>
-      <ul class="dropdown-menu dropdown-menu-dark w-100">
-        <li><a class="dropdown-item" href="/e-learning/forum.html">Forum</a></li>
-      </ul>
-    </div>
+      <div class="mb-1">
+        <button class="btn btn-outline-light w-100 text-start dropdown-toggle text-white nav-link"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                aria-label="Community menu">
+          <i class="fas fa-comments me-2"></i> Community
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark w-100 mobile-dropdown-menu">
+          <li><a class="dropdown-item" href="/e-learning/forum.html">Forum</a></li>
+        </ul>
+      </div>
 
     <a class="text-white nav-link" href="/e-learning/calendar.html">
       <i class="fas fa-calendar me-2"></i> Calendar
@@ -378,6 +378,48 @@
       right: 0;
       z-index: 1000;
     }
+  }
+
+  /* Mobile dropdown menu scrolling and height fix */
+  .mobile-dropdown-menu {
+    max-height: 300px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  }
+
+  .mobile-dropdown-menu::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .mobile-dropdown-menu::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+  }
+
+  .mobile-dropdown-menu::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Ensure offcanvas has enough height for dropdowns */
+  .offcanvas-body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  }
+
+  .offcanvas-body::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .offcanvas-body::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+  }
+
+  .offcanvas-body::-webkit-scrollbar-track {
+    background: transparent;
   }
 </style>
 

@@ -18,6 +18,23 @@ main#portalMain {
     flex: 1;
 }
 
+/* Ensure content appears below fixed header */
+body {
+    padding-top: 80px; /* Match header height */
+}
+
+@media (max-width: 991.98px) {
+    body {
+        padding-top: 70px; /* Slightly less for mobile */
+    }
+}
+
+/* Container for main content */
+.container.main-content {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
 /* ============================================
    Login Container Styles
    ============================================ */
