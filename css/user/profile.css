@@ -892,3 +892,540 @@ body {
     text-align: center;
   }
 }
+
+/* ==================================
+   ENHANCED MOBILE RESPONSIVENESS
+================================== */
+@media (max-width: 1200px) {
+  .profile-card {
+    padding: 3rem 4rem;
+  }
+  .profile-info h1 {
+    font-size: 2.8rem;
+  }
+  .stat-item strong {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+  .profile-photo-wrapper {
+    margin: 0 auto;
+  }
+  #userPhoto {
+    width: 160px;
+    height: 160px;
+  }
+  .profile-info {
+    text-align: center;
+  }
+  .profile-info h1 {
+    font-size: 2.6rem;
+  }
+  .profile-info .role {
+    font-size: 1.3rem;
+  }
+  .profile-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .stat-item {
+    padding: 2rem;
+  }
+  .stat-item i {
+    font-size: 2.5rem;
+  }
+  .stat-item strong {
+    font-size: 2.2rem;
+  }
+  .academic-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .progress-item {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 60px;
+  }
+  .container {
+    padding: 0 1rem;
+  }
+  .profile-card {
+    padding: 2.5rem 2rem;
+    margin: 2rem auto;
+  }
+  .profile-header {
+    gap: 1.5rem;
+  }
+  #userPhoto {
+    width: 140px;
+    height: 140px;
+  }
+  .profile-info h1 {
+    font-size: 2.2rem;
+  }
+  .profile-info .role {
+    font-size: 1.2rem;
+  }
+  .profile-info p {
+    font-size: 1.1rem;
+  }
+  .profile-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 2.5rem 0;
+  }
+  .stat-item {
+    padding: 1.5rem;
+  }
+  .stat-item i {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+  }
+  .stat-item strong {
+    font-size: 1.8rem;
+  }
+  .stat-item span {
+    font-size: 1rem;
+  }
+  
+  /* Section Headings */
+  .academic-snapshot h3,
+  .clubs-section h3,
+  .achievements-section h3,
+  .attendance-section h3,
+  .personal-info-section h3,
+  .learning-preferences-section h3,
+  .security-section h3,
+  .activity-feed h3 {
+    font-size: 1.8rem;
+  }
+  
+  /* Grid Sections */
+  .academic-grid,
+  .clubs-grid,
+  .badges-grid,
+  .attendance-grid,
+  .personal-info-grid,
+  .preferences-grid,
+  .security-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  /* Club Cards */
+  .club-card {
+    flex-direction: row;
+    padding: 1.5rem;
+  }
+  .club-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 2rem;
+  }
+  .club-info h4 {
+    font-size: 1.2rem;
+  }
+  
+  /* Badge Cards */
+  .badge-card {
+    padding: 1.5rem;
+  }
+  .badge-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 2.5rem;
+  }
+  .badge-card h4 {
+    font-size: 1.2rem;
+  }
+  
+  /* Attendance Table */
+  .attendance-table {
+    display: block;
+    overflow-x: auto;
+  }
+  .attendance-table th,
+  .attendance-table td {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+  
+  /* Action Buttons */
+  .profile-actions {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .profile-actions .btn {
+    width: 100%;
+    padding: 1.2rem;
+    font-size: 1.1rem;
+  }
+  
+  /* Security Actions */
+  .security-actions {
+    flex-direction: column;
+  }
+  .security-actions .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .profile-card {
+    padding: 2rem 1.5rem;
+    border-radius: 24px;
+  }
+  #userPhoto {
+    width: 120px;
+    height: 120px;
+  }
+  .profile-info h1 {
+    font-size: 2rem;
+  }
+  .profile-info .role {
+    font-size: 1.1rem;
+  }
+  .profile-info p {
+    font-size: 1rem;
+  }
+  .profile-stats {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .stat-item {
+    padding: 1.2rem;
+  }
+  .stat-item i {
+    font-size: 1.8rem;
+  }
+  .stat-item strong {
+    font-size: 1.6rem;
+  }
+  
+  /* Section Headings */
+  .academic-snapshot h3,
+  .clubs-section h3,
+  .achievements-section h3,
+  .attendance-section h3,
+  .personal-info-section h3,
+  .learning-preferences-section h3,
+  .security-section h3,
+  .activity-feed h3 {
+    font-size: 1.6rem;
+  }
+  
+  /* Club Cards */
+  .club-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .club-icon {
+    margin: 0 auto 1rem;
+  }
+  
+  /* Activity Feed */
+  .activity-feed {
+    padding: 2rem 1.5rem;
+  }
+  .activity-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .activity-filters {
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  .filter-btn {
+    white-space: nowrap;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+  
+  /* Activity Items */
+  .activity-item {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .activity-icon {
+    font-size: 1.8rem;
+  }
+  .activity-item .content h5 {
+    font-size: 1.2rem;
+  }
+  
+  /* Form Elements */
+  .btn {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+  
+  /* Input Fields */
+  input[type="file"],
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  select,
+  textarea {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 40px;
+  }
+  .container {
+    padding: 0 0.8rem;
+  }
+  .profile-card {
+    padding: 1.5rem 1rem;
+    border-radius: 20px;
+  }
+  #userPhoto {
+    width: 100px;
+    height: 100px;
+  }
+  .profile-info h1 {
+    font-size: 1.8rem;
+  }
+  .profile-info .role {
+    font-size: 1rem;
+  }
+  .profile-info p {
+    font-size: 0.95rem;
+  }
+  
+  /* Section Headings */
+  .academic-snapshot h3,
+  .clubs-section h3,
+  .achievements-section h3,
+  .attendance-section h3,
+  .personal-info-section h3,
+  .learning-preferences-section h3,
+  .security-section h3,
+  .activity-feed h3 {
+    font-size: 1.4rem;
+  }
+  
+  /* Grid Items */
+  .academic-item,
+  .attendance-item,
+  .personal-item,
+  .preference-item,
+  .security-item {
+    padding: 1rem;
+  }
+  
+  /* Badge Cards */
+  .badge-card {
+    padding: 1rem;
+  }
+  .badge-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 2rem;
+  }
+  
+  /* Progress Bars */
+  .progress-item span {
+    font-size: 0.9rem;
+  }
+  
+  /* Small Text Elements */
+  .academic-label,
+  .attendance-label,
+  .personal-label,
+  .preference-label,
+  .security-label,
+  .completion-text {
+    font-size: 0.85rem;
+  }
+  
+  .academic-item strong,
+  .attendance-item strong,
+  .personal-item strong,
+  .preference-item strong,
+  .security-item strong {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .profile-card {
+    padding: 1rem 0.8rem;
+    border-radius: 16px;
+  }
+  #userPhoto {
+    width: 80px;
+    height: 80px;
+  }
+  .profile-info h1 {
+    font-size: 1.6rem;
+  }
+  .profile-info .role {
+    font-size: 0.9rem;
+  }
+  .profile-info p {
+    font-size: 0.85rem;
+  }
+  
+  /* Section Headings */
+  .academic-snapshot h3,
+  .clubs-section h3,
+  .achievements-section h3,
+  .attendance-section h3,
+  .personal-info-section h3,
+  .learning-preferences-section h3,
+  .security-section h3,
+  .activity-feed h3 {
+    font-size: 1.3rem;
+  }
+  
+  /* Stat Items */
+  .stat-item {
+    padding: 1rem;
+  }
+  .stat-item i {
+    font-size: 1.6rem;
+  }
+  .stat-item strong {
+    font-size: 1.4rem;
+  }
+  .stat-item span {
+    font-size: 0.9rem;
+  }
+  
+  /* Very Small Text */
+  .academic-label,
+  .attendance-label,
+  .personal-label,
+  .preference-label,
+  .security-label,
+  .completion-text,
+  .club-role,
+  .club-meta,
+  .badge-date,
+  .badge-description,
+  .activity-time {
+    font-size: 0.8rem;
+  }
+  
+  .academic-item strong,
+  .attendance-item strong,
+  .personal-item strong,
+  .preference-item strong,
+  .security-item strong {
+    font-size: 0.9rem;
+  }
+  
+  /* Buttons */
+  .btn {
+    padding: 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* ==================================
+   MOBILE-SPECIFIC OPTIMIZATIONS
+================================== */
+/* Touch Target Sizes */
+@media (hover: none) and (pointer: coarse) {
+  .btn,
+  .filter-btn,
+  .stat-item,
+  .club-card,
+  .badge-card,
+  .activity-item,
+  #photoUpload {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  .btn {
+    padding: 12px 24px;
+  }
+  
+  /* Increase tap targets */
+  .stat-item {
+    padding: 1.5rem;
+  }
+  
+  .club-card,
+  .badge-card {
+    padding: 1.5rem;
+  }
+}
+
+/* Portrait vs Landscape */
+@media (max-width: 768px) and (orientation: landscape) {
+  .profile-header {
+    flex-direction: row;
+    gap: 2rem;
+  }
+  .profile-info {
+    text-align: left;
+  }
+  #userPhoto {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .profile-stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .academic-grid,
+  .attendance-grid,
+  .personal-info-grid,
+  .preferences-grid,
+  .security-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* High DPI/Retina Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  #userPhoto,
+  .club-icon,
+  .badge-icon {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .profile-card {
+    box-shadow: none;
+    border: none;
+    page-break-inside: avoid;
+  }
+  
+  .no-print {
+    display: none;
+  }
+  
+  /* Ensure all content is visible */
+  body {
+    background: white;
+    color: black;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+}
