@@ -19,7 +19,6 @@ const elements = {
     error: document.getElementById('analyticsError'),
     empty: document.getElementById('analyticsEmpty'),
     rangeSelect: document.getElementById('analyticsRange'),
-    logoutBtn: document.getElementById('logoutBtn'),
     retryBtn: document.getElementById('retryAnalytics'),
     backToTop: document.getElementById('backToTop'),
     dataHooks: {
@@ -56,29 +55,41 @@ const chartConfig = {
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Initializing analytics dashboard');
     
-    // Set up event listeners
-    setupEventListeners();
-    
-    // Set up back to top button
-    setupBackToTop();
-    
-    // Load initial data
-    loadAnalyticsData();
+    // Wait for W3.js includes to load before setting up event listeners
+    // This ensures the header is fully loaded
+    const checkW3Loaded = setInterval(function() {
+        if (typeof w3 !== 'undefined' && document.querySelector('[w3-include-html]')) {
+            clearInterval(checkW3Loaded);
+            
+            // Give a small delay for the includes to fully process
+            setTimeout(function() {
+                // Set up event listeners
+                setupEventListeners();
+                
+                // Set up back to top button
+                setupBackToTop();
+                
+                // Load initial data
+                loadAnalyticsData();
+            }, 500);
+        }
+    }, 100);
 });
 
 // Set up event listeners
 function setupEventListeners() {
     // Time range filter
-    elements.rangeSelect.addEventListener('change', function() {
-        analyticsState.currentRange = this.value;
-        loadAnalyticsData();
-    });
+    if (elements.rangeSelect) {
+        elements.rangeSelect.addEventListener('change', function() {
+            analyticsState.currentRange = this.value;
+            loadAnalyticsData();
+        });
+    }
     
     // Retry button
-    elements.retryBtn.addEventListener('click', loadAnalyticsData);
-    
-    // Logout button
-    elements.logoutBtn.addEventListener('click', logout);
+    if (elements.retryBtn) {
+        elements.retryBtn.addEventListener('click', loadAnalyticsData);
+    }
 }
 
 // Load analytics data from API
@@ -200,6 +211,9 @@ function showLoadingState() {
     analyticsState.hasError = false;
     analyticsState.isEmpty = false;
     
+    console.log('DEBUG - Showing loading state');
+    console.log('Loading element:', elements.loading);
+    
     elements.loading.style.display = 'flex';
     elements.error.classList.add('d-none');
     elements.empty.classList.add('d-none');
@@ -230,9 +244,22 @@ function showContentState() {
     analyticsState.hasError = false;
     analyticsState.isEmpty = false;
     
-    elements.loading.style.display = 'none';
+    console.log('DEBUG - Showing content state');
+    console.log('Loading element before hiding:', elements.loading);
+    console.log('Loading element display style before:', elements.loading.style.display);
+    
+    // Use !important to ensure the style is applied
+    elements.loading.style.setProperty('display', 'none', 'important');
     elements.error.classList.add('d-none');
     elements.empty.classList.add('d-none');
+    
+    console.log('Loading element display style after:', elements.loading.style.display);
+    
+    // Additional check after a small delay to see if something is changing it back
+    setTimeout(function() {
+        console.log('DEBUG - Loading element display style after 1 second:', elements.loading.style.display);
+        console.log('DEBUG - Loading element computed style:', window.getComputedStyle(elements.loading).display);
+    }, 1000);
 }
 
 // Set up back to top button
@@ -250,11 +277,6 @@ function setupBackToTop() {
     });
 }
 
-// Logout function
-function logout() {
-    localStorage.removeItem('eLearningSession');
-    window.location.href = '/user/login.html';
-}
 
 // Analytics tracking
 function trackAnalyticsEvent(eventName, data = {}) {
