@@ -7,8 +7,8 @@
   "progress": 50,
   "difficulty": "Intermediate",
   "slug": "biology",
-  "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group II – Science Subjects",
+  "image": "/assets/images/elearning/subjects.png",
+  "group": "Science Subjects",
 
   "keyTopics": [
     "Cell Biology",

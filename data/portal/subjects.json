@@ -7,7 +7,7 @@
     "duration": "12 weeks",
     "progress": 75,
     "slug": "mathematics",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group I – Compulsory Core Subjects"
   },
   {
@@ -18,7 +18,7 @@
     "duration": "10 weeks",
     "progress": 60,
     "slug": "english",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group I – Compulsory Core Subjects"
   },
   {
@@ -29,7 +29,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "biology",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group II – Science Subjects"
   },
   {
@@ -40,7 +40,7 @@
     "duration": "15 weeks",
     "progress": 80,
     "slug": "computer-studies",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group IV – Applied & Practical Subjects"
   },
   {
@@ -51,7 +51,7 @@
     "duration": "10 weeks",
     "progress": 60,
     "slug": "kiswahili",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group I – Compulsory Core Subjects"
   },
   {
@@ -62,7 +62,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "physics",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group II – Science Subjects"
   },
   {
@@ -73,7 +73,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "chemistry",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group II – Science Subjects"
   },
   {
@@ -84,7 +84,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "physical-sciences",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group II – Science Subjects"
   },
   {
@@ -95,7 +95,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "history-government",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group III – Humanities & Social Sciences"
   },
   {
@@ -106,7 +106,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "geography",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group III – Humanities & Social Sciences"
   },
   {
@@ -117,7 +117,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "cre",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group III – Humanities & Social Sciences"
   },
   {
@@ -128,7 +128,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "ire",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group III – Humanities & Social Sciences"
   },
   {
@@ -139,7 +139,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "hre",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group III – Humanities & Social Sciences"
   },
   {
@@ -150,7 +150,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "home-science",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group IV – Applied & Practical Subjects"
   },
   {
@@ -161,7 +161,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "art-design",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group IV – Applied & Practical Subjects"
   },
   {
@@ -172,7 +172,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "agriculture",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group IV – Applied & Practical Subjects"
   },
   {
@@ -183,7 +183,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "woodwork",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group IV – Applied & Practical Subjects"
   },
   {
@@ -194,7 +194,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "metalwork",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group IV – Applied & Practical Subjects"
   },
   {
@@ -205,7 +205,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "building-construction",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group IV – Applied & Practical Subjects"
   },
   {
@@ -216,7 +216,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "power-mechanics",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group IV – Applied & Practical Subjects"
   },
   {
@@ -227,7 +227,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "electricity",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group IV – Applied & Practical Subjects"
   },
   {
@@ -238,7 +238,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "drawing-design",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group IV – Applied & Practical Subjects"
   },
   {
@@ -249,7 +249,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "aviation-technology",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group IV – Applied & Practical Subjects"
   },
   {
@@ -260,7 +260,7 @@
     "duration": "10 weeks",
     "progress": 60,
     "slug": "french",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group V – Languages, Arts & Other Electives"
   },
   {
@@ -271,7 +271,7 @@
     "duration": "10 weeks",
     "progress": 60,
     "slug": "german",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group V – Languages, Arts & Other Electives"
   },
   {
@@ -282,7 +282,7 @@
     "duration": "10 weeks",
     "progress": 60,
     "slug": "arabic",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group V – Languages, Arts & Other Electives"
   },
   {
@@ -293,7 +293,7 @@
     "duration": "10 weeks",
     "progress": 60,
     "slug": "chinese",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group V – Languages, Arts & Other Electives"
   },
   {
@@ -304,7 +304,7 @@
     "duration": "10 weeks",
     "progress": 60,
     "slug": "kenyan-sign-language",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group V – Languages, Arts & Other Electives"
   },
   {
@@ -315,7 +315,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "indigenous-languages",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group V – Languages, Arts & Other Electives"
   },
   {
@@ -326,7 +326,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "music-dance",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group V – Languages, Arts & Other Electives"
   },
   {
@@ -337,7 +337,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "theatre-film",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group V – Languages, Arts & Other Electives"
   },
   {
@@ -348,7 +348,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "drama",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "image": "/assets/images/elearning/subjects.jpg",
     "group": "Group V – Languages, Arts & Other Electives"
   },
   {
@@ -359,8 +359,8 @@
     "duration": "12 weeks",
     "progress": 75,
     "slug": "advanced-mathematics",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
-    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+    "image": "/assets/images/elearning/subjects.jpg",
+    "group": "CBC Senior Secondary"
   },
   {
     "name": "Literature in English",
@@ -370,8 +370,8 @@
     "duration": "10 weeks",
     "progress": 60,
     "slug": "literature-english",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
-    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+    "image": "/assets/images/elearning/subjects.jpg",
+    "group": "CBC Senior Secondary"
   },
   {
     "name": "Fasihi ya Kiswahili",
@@ -381,8 +381,8 @@
     "duration": "10 weeks",
     "progress": 60,
     "slug": "fasihi-ya-kiswahili",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
-    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+    "image": "/assets/images/elearning/subjects.jpg",
+    "group": "CBC Senior Secondary"
   },
   {
     "name": "Community Service Learning",
@@ -392,8 +392,8 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "community-service-learning",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
-    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+    "image": "/assets/images/elearning/subjects.jpg",
+    "group": "CBC Senior Secondary"
   },
   {
     "name": "Sports & Recreation",
@@ -403,8 +403,8 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "sports-recreation",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
-    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+    "image": "/assets/images/elearning/subjects.jpg",
+    "group": "CBC Senior Secondary"
   },
   {
     "name": "Media Technology",
@@ -414,8 +414,8 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "media-technology",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
-    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+    "image": "/assets/images/elearning/subjects.png",
+    "group": "CBC Senior Secondary"
   },
   {
     "name": "Marine & Fisheries Technology",
@@ -425,8 +425,8 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "marine-fisheries-technology",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
-    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+    "image": "/assets/images/elearning/subjects.jpg",
+    "group": "CBC Senior Secondary"
   },
   {
     "name": "Technology",
@@ -436,8 +436,8 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "technology",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
-    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+    "image": "/assets/images/elearning/subjects.jpg",
+    "group": "CBC Senior Secondary"
   },
   {
     "name": "Agricultural Technology",
@@ -447,8 +447,8 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "agricultural-technology",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
-    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+    "image": "/assets/images/elearning/subjects.jpg",
+    "group": "CBC Senior Secondary"
   },
   {
     "name": "Electronics Technology",
@@ -458,8 +458,8 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "electronics-technology",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
-    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+    "image": "/assets/images/elearning/subjects.jpg",
+    "group": "CBC Senior Secondary"
   },
   {
     "name": "Manufacturing / Mechatronics",
@@ -469,7 +469,7 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "manufacturing-mechatronics",
-    "image": "/assets/images/elearning/portal-dashboard.jpg",
-    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+    "image": "/assets/images/elearning/subjects.jpg",
+    "group": "CBC Senior Secondary"
   }
 ]
