@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "ire",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group III – Humanities & Social Sciences"
+  "group": "Group III – Humanities & Social Sciences",
+
+  "keyTopics": [
+    "Quranic Studies",
+    "Islamic Ethics",
+    "History of Islam",
+    "Comparative Religion",
+    "Spiritual Development"
+  ],
+
+  "learningOutcomes": [
+    "Understand Islamic teachings and beliefs",
+    "Analyze ethical dilemmas from an Islamic perspective",
+    "Explore the history and development of Islam",
+    "Develop spiritual and moral values"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Essays and written assignments",
+    "Group discussions",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Critical thinking",
+    "Ethical reasoning",
+    "Spiritual development",
+    "Communication"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in Islamic studies and theology",
+    "Learners interested in ethics and spirituality"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of religious concepts"
+  ],
+
+  "certification": true
 }

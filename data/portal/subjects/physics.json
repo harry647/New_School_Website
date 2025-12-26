@@ -5,7 +5,47 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "physics",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group II – Science Subjects"
+  "group": "Group II – Science Subjects",
+
+  "keyTopics": [
+    "Mechanics",
+    "Thermodynamics",
+    "Electromagnetism",
+    "Optics",
+    "Quantum Physics"
+  ],
+
+  "learningOutcomes": [
+    "Understand the laws of motion and forces",
+    "Analyze energy transfer and conservation",
+    "Study electromagnetic fields and waves",
+    "Explore quantum mechanics and relativity"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Laboratory experiments",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Problem-solving",
+    "Data analysis",
+    "Critical thinking",
+    "Experimental techniques"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in physics and engineering",
+    "Learners interested in physical sciences"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of mathematics and general science"
+  ],
+
+  "certification": true
 }

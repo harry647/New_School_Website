@@ -5,7 +5,47 @@
   "resources": 20,
   "duration": "12 weeks",
   "progress": 75,
+  "difficulty": "Intermediate",
   "slug": "mathematics",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group I – Compulsory Core Subjects"
+  "group": "Group I – Compulsory Core Subjects",
+
+  "keyTopics": [
+    "Algebra",
+    "Geometry",
+    "Calculus",
+    "Trigonometry",
+    "Statistics"
+  ],
+
+  "learningOutcomes": [
+    "Solve algebraic equations and inequalities",
+    "Understand geometric principles and theorems",
+    "Apply calculus to real-world problems",
+    "Analyze statistical data"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Assignments and problem sets",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Problem-solving",
+    "Logical reasoning",
+    "Data analysis",
+    "Critical thinking"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing STEM-related careers",
+    "Learners interested in science and technology"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of arithmetic and algebra"
+  ],
+
+  "certification": true
 }

@@ -1,11 +1,61 @@
 {
   "name": "Advanced Mathematics",
-  "description": "Study advanced topics in mathematics, including calculus and linear algebra.",
+  "description": "Advanced Mathematics builds on foundational mathematical principles and introduces higher-level concepts used in science, engineering, technology, and economics. The subject emphasizes analytical thinking, problem-solving, and logical reasoning through both theoretical and applied mathematics.",
   "topics": 15,
   "resources": 20,
   "duration": "12 weeks",
   "progress": 75,
+  "difficulty": "Advanced",
   "slug": "advanced-mathematics",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+  "group": "CBC Senior Secondary",
+
+  "keyTopics": [
+    "Advanced Algebra",
+    "Functions and Graphs",
+    "Differential Calculus",
+    "Integral Calculus",
+    "Vectors and Vector Geometry",
+    "Matrices and Linear Algebra",
+    "Sequences and Series",
+    "Complex Numbers",
+    "Probability and Statistics",
+    "Mathematical Modelling"
+  ],
+
+  "learningOutcomes": [
+    "Apply calculus techniques to solve real-world problems",
+    "Analyze and interpret complex mathematical models",
+    "Demonstrate proficiency in algebraic and graphical methods",
+    "Develop logical reasoning and critical thinking skills",
+    "Use mathematics to support learning in science and technology subjects"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Assignments and problem sets",
+    "Project-based applications",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Analytical thinking",
+    "Problem-solving",
+    "Data interpretation",
+    "Logical reasoning",
+    "Mathematical modelling"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing STEM-related careers",
+    "Learners interested in engineering, medicine, economics, or technology",
+    "Students preparing for advanced tertiary-level mathematics"
+  ],
+
+  "prerequisites": [
+    "Strong understanding of basic mathematics",
+    "Competency in algebra and trigonometry"
+  ],
+
+  "certification": true
 }

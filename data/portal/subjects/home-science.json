@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "home-science",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group IV – Applied & Practical Subjects"
+  "group": "Group IV – Applied & Practical Subjects",
+
+  "keyTopics": [
+    "Nutrition and Dietetics",
+    "Home Management",
+    "Child Development",
+    "Family Life Education",
+    "Textile and Clothing"
+  ],
+
+  "learningOutcomes": [
+    "Understand principles of nutrition and dietetics",
+    "Develop home management and organizational skills",
+    "Explore child development and family life education",
+    "Learn textile and clothing design"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Practical assignments",
+    "Project-based applications",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Home management",
+    "Nutrition and dietetics",
+    "Child development",
+    "Textile and clothing design"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in home science and nutrition",
+    "Learners interested in family life education"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of general science"
+  ],
+
+  "certification": true
 }

@@ -5,7 +5,48 @@
   "resources": 18,
   "duration": "10 weeks",
   "progress": 60,
+  "difficulty": "Intermediate",
   "slug": "chinese",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group V – Languages, Arts & Other Electives"
+  "group": "Group V – Languages, Arts & Other Electives",
+
+  "keyTopics": [
+    "Grammar and Syntax",
+    "Reading Comprehension",
+    "Writing Skills",
+    "Vocabulary Building",
+    "Cultural Studies"
+  ],
+
+  "learningOutcomes": [
+    "Develop proficiency in written and spoken Chinese",
+    "Analyze and interpret Chinese literary texts",
+    "Enhance reading comprehension and critical thinking",
+    "Improve communication skills in Chinese"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Essays and written assignments",
+    "Oral presentations",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Communication",
+    "Critical thinking",
+    "Writing proficiency",
+    "Cultural awareness"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in languages and international relations",
+    "Learners interested in improving language skills"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of Chinese language"
+  ],
+
+  "certification": true
 }

@@ -5,7 +5,48 @@
   "resources": 18,
   "duration": "10 weeks",
   "progress": 60,
+  "difficulty": "Intermediate",
   "slug": "literature-english",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+  "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)",
+
+  "keyTopics": [
+    "Poetry Analysis",
+    "Prose and Fiction",
+    "Drama and Theatre",
+    "Literary Criticism",
+    "Creative Writing"
+  ],
+
+  "learningOutcomes": [
+    "Analyze and interpret literary works",
+    "Develop critical thinking and analytical skills",
+    "Explore different genres and styles of literature",
+    "Enhance creative writing and expression"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Essays and literary analysis",
+    "Creative writing assignments",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Critical thinking",
+    "Literary analysis",
+    "Creative writing",
+    "Communication"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in literature and creative writing",
+    "Learners interested in literary analysis"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of English language and literature"
+  ],
+
+  "certification": true
 }

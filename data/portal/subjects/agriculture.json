@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "agriculture",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group IV – Applied & Practical Subjects"
+  "group": "Group IV – Applied & Practical Subjects",
+
+  "keyTopics": [
+    "Crop Production",
+    "Animal Husbandry",
+    "Soil Science",
+    "Agricultural Economics",
+    "Sustainable Farming"
+  ],
+
+  "learningOutcomes": [
+    "Understand modern farming techniques",
+    "Analyze soil health and crop management",
+    "Develop sustainable agricultural practices",
+    "Explore agricultural economics and marketing"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Fieldwork reports",
+    "Project-based applications",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Farming techniques",
+    "Soil and crop management",
+    "Sustainable practices",
+    "Agricultural economics"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in agriculture and agribusiness",
+    "Learners interested in sustainable farming"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of general science"
+  ],
+
+  "certification": true
 }

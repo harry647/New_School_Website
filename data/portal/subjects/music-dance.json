@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "music-dance",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group V – Languages, Arts & Other Electives"
+  "group": "Group V – Languages, Arts & Other Electives",
+
+  "keyTopics": [
+    "Music Theory",
+    "Dance Techniques",
+    "Performing Arts",
+    "Music History",
+    "Choreography"
+  ],
+
+  "learningOutcomes": [
+    "Develop proficiency in music theory and composition",
+    "Master various dance techniques and styles",
+    "Explore the history and evolution of music and dance",
+    "Create and perform choreographed routines"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Performance assessments",
+    "Creative projects",
+    "End-of-term recitals"
+  ],
+
+  "skillsGained": [
+    "Musical proficiency",
+    "Dance techniques",
+    "Creative expression",
+    "Performance skills"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in music and performing arts",
+    "Learners interested in creative expression"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of music and dance concepts"
+  ],
+
+  "certification": true
 }

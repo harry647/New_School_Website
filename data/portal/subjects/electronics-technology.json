@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Advanced",
   "slug": "electronics-technology",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+  "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)",
+
+  "keyTopics": [
+    "Electronic Circuits",
+    "Digital Electronics",
+    "Microcontrollers",
+    "Embedded Systems",
+    "Robotics"
+  ],
+
+  "learningOutcomes": [
+    "Understand electronic circuits and digital electronics",
+    "Analyze microcontrollers and embedded systems",
+    "Develop skills in robotics and automation",
+    "Explore technology applications in electronics"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Practical assignments",
+    "Project-based applications",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Electronic circuits",
+    "Digital electronics",
+    "Microcontrollers",
+    "Robotics"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in electronics and technology",
+    "Learners interested in robotics and automation"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of electronics and technology"
+  ],
+
+  "certification": true
 }

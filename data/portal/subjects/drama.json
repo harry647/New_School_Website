@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "drama",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group V – Languages, Arts & Other Electives"
+  "group": "Group V – Languages, Arts & Other Electives",
+
+  "keyTopics": [
+    "Acting Techniques",
+    "Stage Performance",
+    "Scriptwriting",
+    "Theatre History",
+    "Directing"
+  ],
+
+  "learningOutcomes": [
+    "Develop proficiency in acting and stage performance",
+    "Master scriptwriting and storytelling techniques",
+    "Explore the history and evolution of theatre",
+    "Learn directing and production skills"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Performance assessments",
+    "Scriptwriting assignments",
+    "End-of-term productions"
+  ],
+
+  "skillsGained": [
+    "Acting proficiency",
+    "Stage performance",
+    "Scriptwriting",
+    "Directing skills"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in theatre and performing arts",
+    "Learners interested in dramatic arts"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of dramatic arts"
+  ],
+
+  "certification": true
 }

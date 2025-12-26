@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "agricultural-technology",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+  "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)",
+
+  "keyTopics": [
+    "Precision Farming",
+    "Agricultural Machinery",
+    "Soil and Water Management",
+    "Crop Biotechnology",
+    "Sustainable Agriculture"
+  ],
+
+  "learningOutcomes": [
+    "Understand precision farming techniques",
+    "Analyze agricultural machinery and technology",
+    "Develop soil and water management strategies",
+    "Explore crop biotechnology and genetic engineering"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Fieldwork reports",
+    "Project-based applications",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Precision farming",
+    "Agricultural technology",
+    "Soil and water management",
+    "Crop biotechnology"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in agricultural technology",
+    "Learners interested in modern farming techniques"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of agriculture and technology"
+  ],
+
+  "certification": true
 }

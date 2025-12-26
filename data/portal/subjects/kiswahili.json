@@ -5,7 +5,48 @@
   "resources": 18,
   "duration": "10 weeks",
   "progress": 60,
+  "difficulty": "Intermediate",
   "slug": "kiswahili",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group I – Compulsory Core Subjects"
+  "group": "Group I – Compulsory Core Subjects",
+
+  "keyTopics": [
+    "Grammar and Syntax",
+    "Reading Comprehension",
+    "Writing Skills",
+    "Literature Analysis",
+    "Vocabulary Building"
+  ],
+
+  "learningOutcomes": [
+    "Develop proficiency in written and spoken Kiswahili",
+    "Analyze and interpret literary texts in Kiswahili",
+    "Enhance reading comprehension and critical thinking",
+    "Improve communication skills in Kiswahili"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Essays and written assignments",
+    "Oral presentations",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Communication",
+    "Critical thinking",
+    "Writing proficiency",
+    "Literary analysis"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in literature and communication",
+    "Learners interested in improving language skills"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of Kiswahili language"
+  ],
+
+  "certification": true
 }

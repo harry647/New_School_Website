@@ -5,7 +5,47 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "biology",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group II – Science Subjects"
+  "group": "Group II – Science Subjects",
+
+  "keyTopics": [
+    "Cell Biology",
+    "Genetics",
+    "Ecology",
+    "Evolution",
+    "Human Anatomy"
+  ],
+
+  "learningOutcomes": [
+    "Understand the structure and function of cells",
+    "Analyze genetic inheritance patterns",
+    "Study ecosystems and their interactions",
+    "Explore evolutionary processes"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Laboratory reports",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Scientific inquiry",
+    "Data analysis",
+    "Critical thinking",
+    "Laboratory techniques"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in medicine and biology",
+    "Learners interested in life sciences"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of general science"
+  ],
+
+  "certification": true
 }

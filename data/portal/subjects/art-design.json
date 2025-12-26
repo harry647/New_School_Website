@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "art-design",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group IV – Applied & Practical Subjects"
+  "group": "Group IV – Applied & Practical Subjects",
+
+  "keyTopics": [
+    "Drawing and Painting",
+    "Graphic Design",
+    "Sculpture",
+    "Art History",
+    "Digital Art"
+  ],
+
+  "learningOutcomes": [
+    "Develop proficiency in various art techniques",
+    "Understand the principles of design and composition",
+    "Explore the history and evolution of art",
+    "Create digital art and graphic designs"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Art projects and portfolios",
+    "Creative assignments",
+    "End-of-term exhibitions"
+  ],
+
+  "skillsGained": [
+    "Creative thinking",
+    "Artistic techniques",
+    "Design principles",
+    "Digital art skills"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in art and design",
+    "Learners interested in creative expression"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of art and design concepts"
+  ],
+
+  "certification": true
 }

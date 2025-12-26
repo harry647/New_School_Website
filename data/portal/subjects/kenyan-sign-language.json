@@ -5,7 +5,48 @@
   "resources": 18,
   "duration": "10 weeks",
   "progress": 60,
+  "difficulty": "Intermediate",
   "slug": "kenyan-sign-language",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group V – Languages, Arts & Other Electives"
+  "group": "Group V – Languages, Arts & Other Electives",
+
+  "keyTopics": [
+    "Sign Language Basics",
+    "Finger Spelling",
+    "Grammar and Syntax",
+    "Cultural Context",
+    "Communication Techniques"
+  ],
+
+  "learningOutcomes": [
+    "Develop proficiency in Kenyan Sign Language",
+    "Master finger spelling and sign vocabulary",
+    "Understand the grammar and syntax of sign language",
+    "Enhance communication skills with the deaf community"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Sign language demonstrations",
+    "Interactive assignments",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Sign language proficiency",
+    "Communication skills",
+    "Cultural awareness",
+    "Interpersonal skills"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in special education and communication",
+    "Learners interested in sign language"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of communication concepts"
+  ],
+
+  "certification": true
 }

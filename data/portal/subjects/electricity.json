@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "electricity",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group IV – Applied & Practical Subjects"
+  "group": "Group IV – Applied & Practical Subjects",
+
+  "keyTopics": [
+    "Electrical Circuits",
+    "Electrical Systems",
+    "Electronics",
+    "Power Distribution",
+    "Safety Regulations"
+  ],
+
+  "learningOutcomes": [
+    "Understand electrical circuits and systems",
+    "Analyze electronics and power distribution",
+    "Develop skills in electrical installations",
+    "Explore safety regulations and compliance"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Practical assignments",
+    "Project-based applications",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Electrical circuits",
+    "Electrical systems",
+    "Electronics",
+    "Safety compliance"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in electrical engineering",
+    "Learners interested in electrical systems"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of physics and technology"
+  ],
+
+  "certification": true
 }

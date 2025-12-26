@@ -5,7 +5,48 @@
   "resources": 25,
   "duration": "15 weeks",
   "progress": 80,
+  "difficulty": "Advanced",
   "slug": "computer-studies",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group IV – Applied & Practical Subjects"
+  "group": "Group IV – Applied & Practical Subjects",
+
+  "keyTopics": [
+    "Programming Fundamentals",
+    "Data Structures",
+    "Algorithms",
+    "Computer Networks",
+    "Database Management"
+  ],
+
+  "learningOutcomes": [
+    "Develop proficiency in programming languages",
+    "Design and analyze algorithms",
+    "Understand computer networks and databases",
+    "Build software applications"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Coding assignments",
+    "Project-based applications",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Programming",
+    "Problem-solving",
+    "Logical reasoning",
+    "Software development"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in computer science and IT",
+    "Learners interested in technology and programming"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of mathematics and logic"
+  ],
+
+  "certification": true
 }

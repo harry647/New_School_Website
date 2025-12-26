@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "building-construction",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group IV – Applied & Practical Subjects"
+  "group": "Group IV – Applied & Practical Subjects",
+
+  "keyTopics": [
+    "Construction Techniques",
+    "Building Materials",
+    "Structural Design",
+    "Project Management",
+    "Safety Regulations"
+  ],
+
+  "learningOutcomes": [
+    "Understand construction techniques and building materials",
+    "Analyze structural design and project management",
+    "Develop skills in construction project planning",
+    "Explore safety regulations and compliance"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Practical assignments",
+    "Project-based applications",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Construction techniques",
+    "Project management",
+    "Structural design",
+    "Safety compliance"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in construction and engineering",
+    "Learners interested in building and design"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of construction and design"
+  ],
+
+  "certification": true
 }

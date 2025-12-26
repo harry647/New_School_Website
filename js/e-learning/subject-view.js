@@ -60,6 +60,67 @@ async function loadSubjectDetails() {
                   <div class="progress-bar" role="progressbar" style="width: ${subject.progress}%;" aria-valuenow="${subject.progress}" aria-valuemin="0" aria-valuemax="100">${subject.progress}%</div>
                 </div>
               </div>
+              
+              ${subject.keyTopics ? `
+              <div class="mt-4">
+                <h4>Key Topics</h4>
+                <ul class="list-group">
+                  ${subject.keyTopics.map(topic => `<li class="list-group-item">${topic}</li>`).join('')}
+                </ul>
+              </div>
+              ` : ''}
+              
+              ${subject.learningOutcomes ? `
+              <div class="mt-4">
+                <h4>Learning Outcomes</h4>
+                <ul class="list-group">
+                  ${subject.learningOutcomes.map(outcome => `<li class="list-group-item">${outcome}</li>`).join('')}
+                </ul>
+              </div>
+              ` : ''}
+              
+              ${subject.assessmentMethods ? `
+              <div class="mt-4">
+                <h4>Assessment Methods</h4>
+                <ul class="list-group">
+                  ${subject.assessmentMethods.map(method => `<li class="list-group-item">${method}</li>`).join('')}
+                </ul>
+              </div>
+              ` : ''}
+              
+              ${subject.skillsGained ? `
+              <div class="mt-4">
+                <h4>Skills Gained</h4>
+                <ul class="list-group">
+                  ${subject.skillsGained.map(skill => `<li class="list-group-item">${skill}</li>`).join('')}
+                </ul>
+              </div>
+              ` : ''}
+              
+              ${subject.recommendedFor ? `
+              <div class="mt-4">
+                <h4>Recommended For</h4>
+                <ul class="list-group">
+                  ${subject.recommendedFor.map(recommendation => `<li class="list-group-item">${recommendation}</li>`).join('')}
+                </ul>
+              </div>
+              ` : ''}
+              
+              ${subject.prerequisites ? `
+              <div class="mt-4">
+                <h4>Prerequisites</h4>
+                <ul class="list-group">
+                  ${subject.prerequisites.map(prerequisite => `<li class="list-group-item">${prerequisite}</li>`).join('')}
+                </ul>
+              </div>
+              ` : ''}
+              
+              ${subject.certification ? `
+              <div class="mt-4">
+                <h4>Certification</h4>
+                <p>This subject offers a certification upon completion.</p>
+              </div>
+              ` : ''}
             </div>
           </div>
         </div>

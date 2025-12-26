@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "technology",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+  "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)",
+
+  "keyTopics": [
+    "Information Technology",
+    "Engineering Technology",
+    "Applied Sciences",
+    "Innovation and Design",
+    "Technology Applications"
+  ],
+
+  "learningOutcomes": [
+    "Understand various technology pathways and applications",
+    "Analyze engineering and applied sciences",
+    "Develop skills in innovation and design",
+    "Explore technology applications in different fields"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Technology projects",
+    "Research assignments",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Information technology",
+    "Engineering technology",
+    "Innovation and design",
+    "Technology applications"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in technology and engineering",
+    "Learners interested in applied sciences"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of technology and science"
+  ],
+
+  "certification": true
 }

@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "sports-recreation",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+  "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)",
+
+  "keyTopics": [
+    "Physical Education",
+    "Sports Science",
+    "Recreational Activities",
+    "Health and Fitness",
+    "Coaching and Leadership"
+  ],
+
+  "learningOutcomes": [
+    "Understand principles of physical education and sports science",
+    "Analyze recreational activities and health benefits",
+    "Develop skills in coaching and leadership",
+    "Explore health and fitness strategies"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Practical demonstrations",
+    "Project-based applications",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Physical education",
+    "Sports science",
+    "Coaching",
+    "Leadership"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in sports and recreation",
+    "Learners interested in physical education"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of physical education and sports"
+  ],
+
+  "certification": true
 }

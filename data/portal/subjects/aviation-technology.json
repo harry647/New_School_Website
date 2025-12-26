@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Advanced",
   "slug": "aviation-technology",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group IV – Applied & Practical Subjects"
+  "group": "Group IV – Applied & Practical Subjects",
+
+  "keyTopics": [
+    "Aerodynamics",
+    "Aircraft Systems",
+    "Flight Mechanics",
+    "Avionics",
+    "Air Traffic Control"
+  ],
+
+  "learningOutcomes": [
+    "Understand the principles of aerodynamics and flight",
+    "Analyze aircraft systems and technology",
+    "Develop flight mechanics and control skills",
+    "Explore avionics and air traffic control"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Practical simulations",
+    "Project-based applications",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Aerodynamics",
+    "Aircraft systems",
+    "Flight mechanics",
+    "Avionics"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in aviation and aerospace",
+    "Learners interested in aviation technology"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of physics and technology"
+  ],
+
+  "certification": true
 }

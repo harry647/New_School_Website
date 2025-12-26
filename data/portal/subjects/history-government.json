@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "history-government",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group III – Humanities & Social Sciences"
+  "group": "Group III – Humanities & Social Sciences",
+
+  "keyTopics": [
+    "World History",
+    "African History",
+    "Government Systems",
+    "Political Theories",
+    "Historical Analysis"
+  ],
+
+  "learningOutcomes": [
+    "Understand major historical events and their impact",
+    "Analyze different governmental systems",
+    "Develop critical thinking and analytical skills",
+    "Explore political theories and ideologies"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Research projects",
+    "Essays and written assignments",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Critical thinking",
+    "Research and analysis",
+    "Historical interpretation",
+    "Communication"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in history and political science",
+    "Learners interested in social sciences"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of historical concepts"
+  ],
+
+  "certification": true
 }

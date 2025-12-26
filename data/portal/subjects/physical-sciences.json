@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "physical-sciences",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group II – Science Subjects"
+  "group": "Group II – Science Subjects",
+
+  "keyTopics": [
+    "Mechanics",
+    "Thermodynamics",
+    "Chemical Reactions",
+    "Electromagnetism",
+    "Atomic Structure"
+  ],
+
+  "learningOutcomes": [
+    "Understand the principles of physics and chemistry",
+    "Analyze physical and chemical phenomena",
+    "Develop problem-solving and analytical skills",
+    "Explore the natural world through scientific inquiry"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Laboratory experiments",
+    "Project-based applications",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Scientific inquiry",
+    "Problem-solving",
+    "Analytical thinking",
+    "Laboratory techniques"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in science and engineering",
+    "Learners interested in physical sciences"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of physics and chemistry"
+  ],
+
+  "certification": true
 }

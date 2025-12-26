@@ -5,7 +5,47 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "chemistry",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group II – Science Subjects"
+  "group": "Group II – Science Subjects",
+
+  "keyTopics": [
+    "Atomic Structure",
+    "Chemical Bonding",
+    "Thermodynamics",
+    "Organic Chemistry",
+    "Periodic Table"
+  ],
+
+  "learningOutcomes": [
+    "Understand atomic and molecular structures",
+    "Analyze chemical reactions and equations",
+    "Study thermodynamic principles",
+    "Explore organic compounds and their reactions"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Laboratory experiments",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Scientific inquiry",
+    "Data analysis",
+    "Critical thinking",
+    "Laboratory techniques"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in chemistry and related fields",
+    "Learners interested in physical sciences"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of general science"
+  ],
+
+  "certification": true
 }

@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "geography",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group III – Humanities & Social Sciences"
+  "group": "Group III – Humanities & Social Sciences",
+
+  "keyTopics": [
+    "Physical Geography",
+    "Human Geography",
+    "Environmental Studies",
+    "Cartography",
+    "Climatology"
+  ],
+
+  "learningOutcomes": [
+    "Understand Earth's physical and human landscapes",
+    "Analyze environmental issues and sustainability",
+    "Develop map-reading and spatial analysis skills",
+    "Explore climate patterns and their impacts"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Fieldwork reports",
+    "Research projects",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Spatial analysis",
+    "Research and data interpretation",
+    "Critical thinking",
+    "Environmental awareness"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in geography and environmental science",
+    "Learners interested in social and natural sciences"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of general science and social studies"
+  ],
+
+  "certification": true
 }

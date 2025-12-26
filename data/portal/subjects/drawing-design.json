@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "drawing-design",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group IV – Applied & Practical Subjects"
+  "group": "Group IV – Applied & Practical Subjects",
+
+  "keyTopics": [
+    "Technical Drawing",
+    "Design Principles",
+    "Computer-Aided Design (CAD)",
+    "Architectural Drawing",
+    "Engineering Graphics"
+  ],
+
+  "learningOutcomes": [
+    "Develop proficiency in technical drawing and design",
+    "Understand design principles and techniques",
+    "Master computer-aided design (CAD) software",
+    "Explore architectural and engineering graphics"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Design projects",
+    "CAD assignments",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Technical drawing",
+    "Design principles",
+    "CAD proficiency",
+    "Architectural graphics"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in design and engineering",
+    "Learners interested in technical drawing"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of design and drawing"
+  ],
+
+  "certification": true
 }

@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "indigenous-languages",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group V – Languages, Arts & Other Electives"
+  "group": "Group V – Languages, Arts & Other Electives",
+
+  "keyTopics": [
+    "Language Structure",
+    "Cultural Significance",
+    "Oral Traditions",
+    "Language Preservation",
+    "Comparative Linguistics"
+  ],
+
+  "learningOutcomes": [
+    "Understand the structure and grammar of indigenous languages",
+    "Analyze the cultural significance of indigenous languages",
+    "Explore oral traditions and storytelling",
+    "Develop strategies for language preservation"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Research projects",
+    "Oral presentations",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Linguistic analysis",
+    "Cultural awareness",
+    "Research skills",
+    "Communication"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in linguistics and cultural studies",
+    "Learners interested in indigenous languages"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of linguistic concepts"
+  ],
+
+  "certification": true
 }

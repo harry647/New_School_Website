@@ -5,7 +5,48 @@
   "resources": 15,
   "duration": "8 weeks",
   "progress": 50,
+  "difficulty": "Intermediate",
   "slug": "hre",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group III – Humanities & Social Sciences"
+  "group": "Group III – Humanities & Social Sciences",
+
+  "keyTopics": [
+    "Vedic Studies",
+    "Hindu Ethics",
+    "History of Hinduism",
+    "Comparative Religion",
+    "Spiritual Development"
+  ],
+
+  "learningOutcomes": [
+    "Understand Hindu teachings and beliefs",
+    "Analyze ethical dilemmas from a Hindu perspective",
+    "Explore the history and development of Hinduism",
+    "Develop spiritual and moral values"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Essays and written assignments",
+    "Group discussions",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Critical thinking",
+    "Ethical reasoning",
+    "Spiritual development",
+    "Communication"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in Hindu studies and theology",
+    "Learners interested in ethics and spirituality"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of religious concepts"
+  ],
+
+  "certification": true
 }

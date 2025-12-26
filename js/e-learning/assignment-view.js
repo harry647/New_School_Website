@@ -17,7 +17,10 @@ const assignmentAttachments = document.getElementById('assignmentAttachments');
 const submissionStatus = document.getElementById('submissionStatus');
 const submitAssignmentBtn = document.getElementById('submitAssignmentBtn');
 const submissionFiles = document.getElementById('submissionFiles');
-const submissionAssignmentId = document.getElementById('submissionAssignmentId');
+// Note: submissionAssignmentId is moved inside DOMContentLoaded to avoid null reference
+
+// Debug: Log the state of critical elements
+console.log('DEBUG - assignmentId:', assignmentId);
 const submissionStatusMessage = document.getElementById('submissionStatusMessage');
 
 // Display assignment details
@@ -30,7 +33,12 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Set assignment ID in hidden field
-  submissionAssignmentId.value = assignmentId;
+  const submissionAssignmentId = document.getElementById('submissionAssignmentId');
+  if (submissionAssignmentId) {
+    submissionAssignmentId.value = assignmentId;
+  } else {
+    console.error('Error: submissionAssignmentId element not found');
+  }
   assignmentDetails.dataset.assignmentId = assignmentId;
 
   // Simulate API fetch

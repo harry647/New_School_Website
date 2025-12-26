@@ -5,7 +5,48 @@
   "resources": 18,
   "duration": "10 weeks",
   "progress": 60,
+  "difficulty": "Intermediate",
   "slug": "german",
   "image": "/assets/images/elearning/portal-dashboard.jpg",
-  "group": "Group V – Languages, Arts & Other Electives"
+  "group": "Group V – Languages, Arts & Other Electives",
+
+  "keyTopics": [
+    "Grammar and Syntax",
+    "Reading Comprehension",
+    "Writing Skills",
+    "Vocabulary Building",
+    "Cultural Studies"
+  ],
+
+  "learningOutcomes": [
+    "Develop proficiency in written and spoken German",
+    "Analyze and interpret German literary texts",
+    "Enhance reading comprehension and critical thinking",
+    "Improve communication skills in German"
+  ],
+
+  "assessmentMethods": [
+    "Continuous assessment tests (CATs)",
+    "Essays and written assignments",
+    "Oral presentations",
+    "End-of-term examinations"
+  ],
+
+  "skillsGained": [
+    "Communication",
+    "Critical thinking",
+    "Writing proficiency",
+    "Cultural awareness"
+  ],
+
+  "recommendedFor": [
+    "Students pursuing careers in languages and international relations",
+    "Learners interested in improving language skills"
+  ],
+
+  "prerequisites": [
+    "Basic understanding of German language"
+  ],
+
+  "certification": true
 }
