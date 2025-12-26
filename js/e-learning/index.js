@@ -75,19 +75,6 @@ function loadHeader() {
     }
 }
 
-// Load header JavaScript dynamically
-function loadHeaderScript() {
-    const script = document.createElement('script');
-    script.src = '/js/includes/el-header.js';
-    script.onload = function() {
-        // Initialize header after script is loaded
-        if (typeof initializeHeader === 'function') {
-            initializeHeader();
-        }
-    };
-    document.body.appendChild(script);
-}
-
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Initializing E-Learning Portal with refactored architecture');
