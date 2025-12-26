@@ -1,0 +1,11 @@
+{
+  "name": "Music & Dance",
+  "description": "Explore music theory, dance, and performing arts.",
+  "topics": 10,
+  "resources": 15,
+  "duration": "8 weeks",
+  "progress": 50,
+  "slug": "music-dance",
+  "image": "/assets/images/elearning/portal-dashboard.jpg",
+  "group": "Group V – Languages, Arts & Other Electives"
+}

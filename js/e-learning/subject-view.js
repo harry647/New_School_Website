@@ -16,7 +16,7 @@ async function loadSubjectDetails() {
   subjectDetails.innerHTML = `<div class="text-center my-5"><div class="spinner-border text-primary"></div><p>Loading subject details...</p></div>`;
 
   try {
-    const res = await fetch(`/api/subjects/${subjectSlug}`);
+    const res = await fetch(`/data/portal/subjects/${subjectSlug}.json`);
     if (!res.ok) throw new Error('Failed to load subject details.');
     const subject = await res.json();
 

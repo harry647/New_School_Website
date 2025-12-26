@@ -1,0 +1,11 @@
+{
+  "name": "Christian Religious Education (CRE)",
+  "description": "Learn about Christian beliefs, values, and practices.",
+  "topics": 10,
+  "resources": 15,
+  "duration": "8 weeks",
+  "progress": 50,
+  "slug": "cre",
+  "image": "/assets/images/elearning/portal-dashboard.jpg",
+  "group": "Group III – Humanities & Social Sciences"
+}

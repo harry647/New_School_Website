@@ -1,0 +1,11 @@
+{
+  "name": "Advanced Mathematics",
+  "description": "Study advanced topics in mathematics, including calculus and linear algebra.",
+  "topics": 15,
+  "resources": 20,
+  "duration": "12 weeks",
+  "progress": 75,
+  "slug": "advanced-mathematics",
+  "image": "/assets/images/elearning/portal-dashboard.jpg",
+  "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "History & Government",
+  "description": "Study historical events and governmental systems.",
+  "topics": 10,
+  "resources": 15,
+  "duration": "8 weeks",
+  "progress": 50,
+  "slug": "history-government",
+  "image": "/assets/images/elearning/portal-dashboard.jpg",
+  "group": "Group III – Humanities & Social Sciences"
+}

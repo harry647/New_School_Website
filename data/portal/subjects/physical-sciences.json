@@ -1,0 +1,11 @@
+{
+  "name": "Physical Sciences",
+  "description": "Combine physics and chemistry to understand the natural world.",
+  "topics": 10,
+  "resources": 15,
+  "duration": "8 weeks",
+  "progress": 50,
+  "slug": "physical-sciences",
+  "image": "/assets/images/elearning/portal-dashboard.jpg",
+  "group": "Group II – Science Subjects"
+}

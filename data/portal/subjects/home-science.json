@@ -1,0 +1,11 @@
+{
+  "name": "Home Science",
+  "description": "Learn about home management, nutrition, and family life.",
+  "topics": 10,
+  "resources": 15,
+  "duration": "8 weeks",
+  "progress": 50,
+  "slug": "home-science",
+  "image": "/assets/images/elearning/portal-dashboard.jpg",
+  "group": "Group IV – Applied & Practical Subjects"
+}

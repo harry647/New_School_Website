@@ -1,0 +1,11 @@
+{
+  "name": "Electricity",
+  "description": "Learn about electrical systems and circuits.",
+  "topics": 10,
+  "resources": 15,
+  "duration": "8 weeks",
+  "progress": 50,
+  "slug": "electricity",
+  "image": "/assets/images/elearning/portal-dashboard.jpg",
+  "group": "Group IV – Applied & Practical Subjects"
+}

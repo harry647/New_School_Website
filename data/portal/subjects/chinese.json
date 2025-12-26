@@ -1,0 +1,11 @@
+{
+  "name": "Chinese / Mandarin",
+  "description": "Learn the Chinese language, including reading, writing, and comprehension.",
+  "topics": 12,
+  "resources": 18,
+  "duration": "10 weeks",
+  "progress": 60,
+  "slug": "chinese",
+  "image": "/assets/images/elearning/portal-dashboard.jpg",
+  "group": "Group V – Languages, Arts & Other Electives"
+}

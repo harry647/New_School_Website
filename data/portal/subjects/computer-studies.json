@@ -1,0 +1,11 @@
+{
+  "name": "Computer Studies",
+  "description": "Dive into programming, algorithms, and computer science.",
+  "topics": 20,
+  "resources": 25,
+  "duration": "15 weeks",
+  "progress": 80,
+  "slug": "computer-studies",
+  "image": "/assets/images/elearning/portal-dashboard.jpg",
+  "group": "Group IV – Applied & Practical Subjects"
+}

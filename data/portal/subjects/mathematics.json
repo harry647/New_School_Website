@@ -1,0 +1,11 @@
+{
+  "name": "Mathematics",
+  "description": "Explore algebra, geometry, calculus, and more.",
+  "topics": 15,
+  "resources": 20,
+  "duration": "12 weeks",
+  "progress": 75,
+  "slug": "mathematics",
+  "image": "/assets/images/elearning/portal-dashboard.jpg",
+  "group": "Group I – Compulsory Core Subjects"
+}

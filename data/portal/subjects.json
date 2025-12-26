@@ -7,7 +7,8 @@
     "duration": "12 weeks",
     "progress": 75,
     "slug": "mathematics",
-    "image": "/assets/images/elearning/portal-dashboard.jpg"
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group I – Compulsory Core Subjects"
   },
   {
     "name": "English",
@@ -17,7 +18,8 @@
     "duration": "10 weeks",
     "progress": 60,
     "slug": "english",
-    "image": "/assets/images/elearning/portal-dashboard.jpg"
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group I – Compulsory Core Subjects"
   },
   {
     "name": "Biology",
@@ -27,7 +29,8 @@
     "duration": "8 weeks",
     "progress": 50,
     "slug": "biology",
-    "image": "/assets/images/elearning/portal-dashboard.jpg"
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group II – Science Subjects"
   },
   {
     "name": "Computer Studies",
@@ -37,6 +40,436 @@
     "duration": "15 weeks",
     "progress": 80,
     "slug": "computer-studies",
-    "image": "/assets/images/elearning/portal-dashboard.jpg"
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group IV – Applied & Practical Subjects"
+  },
+  {
+    "name": "Kiswahili",
+    "description": "Learn the Kiswahili language, including reading, writing, and comprehension.",
+    "topics": 12,
+    "resources": 18,
+    "duration": "10 weeks",
+    "progress": 60,
+    "slug": "kiswahili",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group I – Compulsory Core Subjects"
+  },
+  {
+    "name": "Physics",
+    "description": "Study matter, energy, and the fundamental forces of nature.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "physics",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group II – Science Subjects"
+  },
+  {
+    "name": "Chemistry",
+    "description": "Explore the composition, structure, and properties of matter.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "chemistry",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group II – Science Subjects"
+  },
+  {
+    "name": "Physical Sciences",
+    "description": "Combine physics and chemistry to understand the natural world.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "physical-sciences",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group II – Science Subjects"
+  },
+  {
+    "name": "History & Government",
+    "description": "Study historical events and governmental systems.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "history-government",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group III – Humanities & Social Sciences"
+  },
+  {
+    "name": "Geography",
+    "description": "Explore the Earth's landscapes, environments, and the relationships between people and their surroundings.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "geography",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group III – Humanities & Social Sciences"
+  },
+  {
+    "name": "Christian Religious Education (CRE)",
+    "description": "Learn about Christian beliefs, values, and practices.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "cre",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group III – Humanities & Social Sciences"
+  },
+  {
+    "name": "Islamic Religious Education (IRE)",
+    "description": "Study Islamic beliefs, values, and practices.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "ire",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group III – Humanities & Social Sciences"
+  },
+  {
+    "name": "Hindu Religious Education (HRE)",
+    "description": "Explore Hindu beliefs, values, and practices.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "hre",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group III – Humanities & Social Sciences"
+  },
+  {
+    "name": "Home Science",
+    "description": "Learn about home management, nutrition, and family life.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "home-science",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group IV – Applied & Practical Subjects"
+  },
+  {
+    "name": "Art & Design",
+    "description": "Explore creative expression through visual arts and design.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "art-design",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group IV – Applied & Practical Subjects"
+  },
+  {
+    "name": "Agriculture",
+    "description": "Study farming practices, crop production, and animal husbandry.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "agriculture",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group IV – Applied & Practical Subjects"
+  },
+  {
+    "name": "Woodwork",
+    "description": "Learn woodworking techniques and craftsmanship.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "woodwork",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group IV – Applied & Practical Subjects"
+  },
+  {
+    "name": "Metalwork",
+    "description": "Study metalworking techniques and applications.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "metalwork",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group IV – Applied & Practical Subjects"
+  },
+  {
+    "name": "Building Construction",
+    "description": "Explore construction techniques and building materials.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "building-construction",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group IV – Applied & Practical Subjects"
+  },
+  {
+    "name": "Power Mechanics",
+    "description": "Study mechanical systems and power generation.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "power-mechanics",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group IV – Applied & Practical Subjects"
+  },
+  {
+    "name": "Electricity",
+    "description": "Learn about electrical systems and circuits.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "electricity",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group IV – Applied & Practical Subjects"
+  },
+  {
+    "name": "Drawing & Design",
+    "description": "Explore technical drawing and design principles.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "drawing-design",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group IV – Applied & Practical Subjects"
+  },
+  {
+    "name": "Aviation Technology",
+    "description": "Study aviation principles and technology.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "aviation-technology",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group IV – Applied & Practical Subjects"
+  },
+  {
+    "name": "French",
+    "description": "Learn the French language, including reading, writing, and comprehension.",
+    "topics": 12,
+    "resources": 18,
+    "duration": "10 weeks",
+    "progress": 60,
+    "slug": "french",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group V – Languages, Arts & Other Electives"
+  },
+  {
+    "name": "German",
+    "description": "Learn the German language, including reading, writing, and comprehension.",
+    "topics": 12,
+    "resources": 18,
+    "duration": "10 weeks",
+    "progress": 60,
+    "slug": "german",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group V – Languages, Arts & Other Electives"
+  },
+  {
+    "name": "Arabic",
+    "description": "Learn the Arabic language, including reading, writing, and comprehension.",
+    "topics": 12,
+    "resources": 18,
+    "duration": "10 weeks",
+    "progress": 60,
+    "slug": "arabic",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group V – Languages, Arts & Other Electives"
+  },
+  {
+    "name": "Chinese / Mandarin",
+    "description": "Learn the Chinese language, including reading, writing, and comprehension.",
+    "topics": 12,
+    "resources": 18,
+    "duration": "10 weeks",
+    "progress": 60,
+    "slug": "chinese",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group V – Languages, Arts & Other Electives"
+  },
+  {
+    "name": "Kenyan Sign Language",
+    "description": "Learn Kenyan Sign Language for communication with the deaf community.",
+    "topics": 12,
+    "resources": 18,
+    "duration": "10 weeks",
+    "progress": 60,
+    "slug": "kenyan-sign-language",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group V – Languages, Arts & Other Electives"
+  },
+  {
+    "name": "Indigenous Languages",
+    "description": "Study indigenous languages and their cultural significance.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "indigenous-languages",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group V – Languages, Arts & Other Electives"
+  },
+  {
+    "name": "Music & Dance",
+    "description": "Explore music theory, dance, and performing arts.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "music-dance",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group V – Languages, Arts & Other Electives"
+  },
+  {
+    "name": "Theatre & Film",
+    "description": "Study theatre arts, film production, and performance techniques.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "theatre-film",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group V – Languages, Arts & Other Electives"
+  },
+  {
+    "name": "Drama",
+    "description": "Explore dramatic arts, acting, and stage performance.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "drama",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "Group V – Languages, Arts & Other Electives"
+  },
+  {
+    "name": "Advanced Mathematics",
+    "description": "Study advanced topics in mathematics, including calculus and linear algebra.",
+    "topics": 15,
+    "resources": 20,
+    "duration": "12 weeks",
+    "progress": 75,
+    "slug": "advanced-mathematics",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+  },
+  {
+    "name": "Literature in English",
+    "description": "Explore literary works, analysis, and critical thinking in English.",
+    "topics": 12,
+    "resources": 18,
+    "duration": "10 weeks",
+    "progress": 60,
+    "slug": "literature-english",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+  },
+  {
+    "name": "Fasihi ya Kiswahili",
+    "description": "Study Kiswahili literature, analysis, and critical thinking.",
+    "topics": 12,
+    "resources": 18,
+    "duration": "10 weeks",
+    "progress": 60,
+    "slug": "fasihi-ya-kiswahili",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+  },
+  {
+    "name": "Community Service Learning",
+    "description": "Engage in community service and learn about civic responsibility.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "community-service-learning",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+  },
+  {
+    "name": "Sports & Recreation",
+    "description": "Explore physical education, sports, and recreational activities.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "sports-recreation",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+  },
+  {
+    "name": "Media Technology",
+    "description": "Study media production, technology, and communication.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "media-technology",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+  },
+  {
+    "name": "Marine & Fisheries Technology",
+    "description": "Explore marine science, fisheries, and aquatic technology.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "marine-fisheries-technology",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+  },
+  {
+    "name": "Technology",
+    "description": "Study various technology pathways and applications.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "technology",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+  },
+  {
+    "name": "Agricultural Technology",
+    "description": "Explore advanced agricultural techniques and technology.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "agricultural-technology",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+  },
+  {
+    "name": "Electronics Technology",
+    "description": "Study electronics, circuits, and technology applications.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "electronics-technology",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
+  },
+  {
+    "name": "Manufacturing / Mechatronics",
+    "description": "Explore manufacturing processes and mechatronics technology.",
+    "topics": 10,
+    "resources": 15,
+    "duration": "8 weeks",
+    "progress": 50,
+    "slug": "manufacturing-mechatronics",
+    "image": "/assets/images/elearning/portal-dashboard.jpg",
+    "group": "📌 Other Subjects Listed Under Evolving CBC Senior Secondary (40+ Subjects)"
   }
 ]

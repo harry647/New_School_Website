@@ -1,0 +1,11 @@
+{
+  "name": "Art & Design",
+  "description": "Explore creative expression through visual arts and design.",
+  "topics": 10,
+  "resources": 15,
+  "duration": "8 weeks",
+  "progress": 50,
+  "slug": "art-design",
+  "image": "/assets/images/elearning/portal-dashboard.jpg",
+  "group": "Group IV – Applied & Practical Subjects"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Kiswahili",
+  "description": "Learn the Kiswahili language, including reading, writing, and comprehension.",
+  "topics": 12,
+  "resources": 18,
+  "duration": "10 weeks",
+  "progress": 60,
+  "slug": "kiswahili",
+  "image": "/assets/images/elearning/portal-dashboard.jpg",
+  "group": "Group I – Compulsory Core Subjects"
+}

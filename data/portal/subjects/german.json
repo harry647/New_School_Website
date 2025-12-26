@@ -1,0 +1,11 @@
+{
+  "name": "German",
+  "description": "Learn the German language, including reading, writing, and comprehension.",
+  "topics": 12,
+  "resources": 18,
+  "duration": "10 weeks",
+  "progress": 60,
+  "slug": "german",
+  "image": "/assets/images/elearning/portal-dashboard.jpg",
+  "group": "Group V – Languages, Arts & Other Electives"
+}

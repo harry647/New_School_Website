@@ -1,0 +1,11 @@
+{
+  "name": "French",
+  "description": "Learn the French language, including reading, writing, and comprehension.",
+  "topics": 12,
+  "resources": 18,
+  "duration": "10 weeks",
+  "progress": 60,
+  "slug": "french",
+  "image": "/assets/images/elearning/portal-dashboard.jpg",
+  "group": "Group V – Languages, Arts & Other Electives"
+}

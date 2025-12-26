@@ -1,0 +1,11 @@
+{
+  "name": "English",
+  "description": "Improve your reading, writing, and comprehension skills.",
+  "topics": 12,
+  "resources": 18,
+  "duration": "10 weeks",
+  "progress": 60,
+  "slug": "english",
+  "image": "/assets/images/elearning/portal-dashboard.jpg",
+  "group": "Group I – Compulsory Core Subjects"
+}

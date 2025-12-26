@@ -15,24 +15,42 @@ async function loadSubjects() {
     }
 
     subjectsGrid.innerHTML = '';
+    
+    // Group subjects by their group field
+    const groupedSubjects = {};
     subjects.forEach(sub => {
-      const col = document.createElement('div');
-      col.className = 'col-md-4';
-      col.innerHTML = `
-        <div class="card h-100 border-0 shadow-sm">
-          <img src="${sub.image}" class="card-img-top" alt="${sub.name}">
-          <div class="card-body d-flex flex-column">
-            <h5 class="card-title">${sub.name}</h5>
-            <p class="card-text">${sub.description}</p>
-            <p class="card-text"><small class="text-muted">${sub.topics} topics • ${sub.resources} resources • ${sub.duration}</small></p>
-            <div class="progress mt-2">
-              <div class="progress-bar" role="progressbar" style="width: ${sub.progress}%;" aria-valuenow="${sub.progress}" aria-valuemin="0" aria-valuemax="100">${sub.progress}%</div>
-            </div>
-            <a href="/e-learning/subject-view.html?subject=${sub.slug}" class="btn btn-primary mt-auto">View Subject</a>
-          </div>
-        </div>`;
-      subjectsGrid.appendChild(col);
+      if (!groupedSubjects[sub.group]) {
+        groupedSubjects[sub.group] = [];
+      }
+      groupedSubjects[sub.group].push(sub);
     });
+    
+    // Display subjects grouped by their category
+    for (const [group, subjectsInGroup] of Object.entries(groupedSubjects)) {
+      const groupHeader = document.createElement('div');
+      groupHeader.className = 'col-12 mt-4';
+      groupHeader.innerHTML = `<h2 class="fw-bold">${group}</h2><hr>`;
+      subjectsGrid.appendChild(groupHeader);
+      
+      subjectsInGroup.forEach(sub => {
+        const col = document.createElement('div');
+        col.className = 'col-md-4';
+        col.innerHTML = `
+          <div class="card h-100 border-0 shadow-sm">
+            <img src="${sub.image}" class="card-img-top" alt="${sub.name}">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">${sub.name}</h5>
+              <p class="card-text">${sub.description}</p>
+              <p class="card-text"><small class="text-muted">${sub.topics} topics • ${sub.resources} resources • ${sub.duration}</small></p>
+              <div class="progress mt-2">
+                <div class="progress-bar" role="progressbar" style="width: ${sub.progress}%;" aria-valuenow="${sub.progress}" aria-valuemin="0" aria-valuemax="100">${sub.progress}%</div>
+              </div>
+              <a href="/e-learning/subject-view.html?subject=${sub.slug}" class="btn btn-primary mt-auto">View Subject</a>
+            </div>
+          </div>`;
+        subjectsGrid.appendChild(col);
+      });
+    }
   } catch (err) {
     subjectsGrid.innerHTML = `<p class="text-danger text-center my-5">${err.message}</p>`;
   }
