@@ -9,26 +9,6 @@ const pageMetadata = {
     module: document.body.dataset.module || 'e-learning'
 };
 
-// Navigation configuration - single source of truth
-const navigationConfig = [
-    { path: '/e-learning/index.html', icon: 'fa-home', text: 'Dashboard', active: true },
-    { path: '/e-learning/subjects.html', icon: 'fa-book', text: 'Subjects' },
-    { path: '/e-learning/resources.html', icon: 'fa-folder-open', text: 'Resources' },
-    { path: '/e-learning/assignments.html', icon: 'fa-tasks', text: 'Assignments' },
-    { path: '/e-learning/quizzes.html', icon: 'fa-question-circle', text: 'Quizzes' },
-    { path: '/e-learning/live.html', icon: 'fa-video', text: 'Live Sessions' },
-    { path: '/e-learning/forum.html', icon: 'fa-comments', text: 'Forum' },
-    { path: '/e-learning/analytics.html', icon: 'fa-chart-line', text: 'Analytics' },
-    { path: '/e-learning/calendar.html', icon: 'fa-calendar-alt', text: 'Calendar' },
-    { path: '/e-learning/media.html', icon: 'fa-photo-video', text: 'Media Gallery' },
-    { path: '/e-learning/study-plans.html', icon: 'fa-tasks', text: 'Study Plans' },
-    { path: '/e-learning/notifications.html', icon: 'fa-bell', text: 'Notifications' }
-];
-
-// Role-based navigation items
-const roleBasedNavItems = [
-    { role: 'teacher', path: '/e-learning/teacher-dashboard.html', icon: 'fa-upload', text: 'Teacher Dashboard' }
-];
 
 // What We Offer cards configuration
 const offerCardsConfig = [
@@ -71,9 +51,49 @@ const appState = {
     }
 };
 
+// Load header dynamically
+function loadHeader() {
+    const headerContainer = document.getElementById('headerContainer');
+    
+    if (headerContainer) {
+        fetch('/includes/el-header.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to load header');
+                }
+                return response.text();
+            })
+            .then(html => {
+                headerContainer.innerHTML = html;
+                
+                // Load the header JavaScript after HTML is loaded
+                loadHeaderScript();
+            })
+            .catch(error => {
+                console.error('Error loading header:', error);
+            });
+    }
+}
+
+// Load header JavaScript dynamically
+function loadHeaderScript() {
+    const script = document.createElement('script');
+    script.src = '/js/includes/el-header.js';
+    script.onload = function() {
+        // Initialize header after script is loaded
+        if (typeof initializeHeader === 'function') {
+            initializeHeader();
+        }
+    };
+    document.body.appendChild(script);
+}
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Initializing E-Learning Portal with refactored architecture');
+    
+    // Load header first
+    loadHeader();
     
     // Load user session
     loadUserSession();
@@ -142,84 +162,13 @@ function renderLoggedInUI() {
     
     portalContainer.innerHTML = `
         <main id="portalMain">
-            ${renderNavigation()}
             ${renderHeroSection()}
             ${renderOfferCards()}
             ${renderLearningSnapshot()}
         </main>
     `;
-    
-    // Set up navigation after rendering
-    setupNavigation();
 }
 
-// Render navigation bar
-function renderNavigation() {
-    return `
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
-            <div class="container">
-                <a class="navbar-brand" href="/e-learning/index.html">
-                    <i class="fas fa-graduation-cap me-2"></i>E-Learning Hub
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#portalNavbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="portalNavbar">
-                    <ul class="navbar-nav me-auto" id="mainNavigation"></ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <span class="nav-link text-white">Welcome, <span id="navUsername">${appState.userName}</span>!</span>
-                        </li>
-                        <li class="nav-item">
-                            <button class="btn btn-outline-light ms-3" id="logoutBtn">
-                                <i class="fas fa-sign-out-alt me-2"></i>Logout
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    `;
-}
-
-// Set up navigation with dynamic active state
-function setupNavigation() {
-    const navContainer = document.getElementById('mainNavigation');
-    const currentPath = window.location.pathname;
-    
-    // Render main navigation items
-    navigationConfig.forEach(item => {
-        const isActive = currentPath.includes(item.path.replace('/e-learning/', ''));
-        const activeClass = isActive ? 'active' : '';
-        
-        navContainer.innerHTML += `
-            <li class="nav-item">
-                <a class="nav-link ${activeClass}" href="${item.path}">
-                    <i class="fas ${item.icon} me-1"></i> ${item.text}
-                </a>
-            </li>
-        `;
-    });
-    
-    // Render role-based navigation items
-    roleBasedNavItems.forEach(item => {
-        if (appState.userRole === item.role) {
-            const isActive = currentPath.includes(item.path.replace('/e-learning/', ''));
-            const activeClass = isActive ? 'active' : '';
-            
-            navContainer.innerHTML += `
-                <li class="nav-item" data-role="${item.role}">
-                    <a class="nav-link ${activeClass}" href="${item.path}">
-                        <i class="fas ${item.icon} me-1"></i> ${item.text}
-                    </a>
-                </li>
-            `;
-        }
-    });
-    
-    // Set up logout button
-    document.getElementById('logoutBtn').addEventListener('click', logout);
-}
 
 // Render hero section
 function renderHeroSection() {

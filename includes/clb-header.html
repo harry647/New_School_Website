@@ -1,0 +1,382 @@
+<!-- Enhanced Common Header for Clubs & E-Learning Portal (Bootstrap 5) -->
+<header class="glass-nav sticky-top px-3 py-2 d-flex align-items-center justify-content-between">
+
+  <!-- Left: Logo & Hamburger -->
+  <div class="d-flex align-items-center gap-3">
+    <button class="btn btn-outline-light d-lg-none p-2"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#mainMenu"
+            aria-label="Open menu"
+            aria-controls="mainMenu"
+            aria-expanded="false">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- School Branding - Replace Home icon with logo + visual anchor -->
+    <a href="/static/index.html" class="d-flex align-items-center gap-3 text-white text-decoration-none">
+      <img src="/assets/images/school/logo.png" height="36" alt="Bar Union Secondary Logo">
+      <span class="vr bg-light opacity-50 d-none d-md-block"></span>
+      <span class="fw-semibold d-none d-md-inline">
+        Bar Union Secondary
+      </span>
+    </a>
+  </div>
+
+  <!-- Center: Desktop Navigation -->
+  <nav class="d-none d-lg-flex align-items-center gap-4">
+    
+    <!-- Clubs Mega Dropdown Menu -->
+    <div class="dropdown">
+      <button class="text-white nav-link dropdown-toggle"
+              style="padding: 0.4rem 0.6rem; border-radius: 6px;"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              aria-label="Clubs menu">
+        Clubs
+      </button>
+      <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-lg p-3">
+        <div class="row">
+          <div class="col-6">
+            <h6 class="text-uppercase text-info small mb-2">Creative</h6>
+            <li><a class="dropdown-item" href="/clubs/subfiles/art.html">Art & Design</a></li>
+            <li><a class="dropdown-item" href="/clubs/subfiles/drama.html">Drama</a></li>
+            <li><a class="dropdown-item" href="/clubs/subfiles/music.html">Music</a></li>
+            <li><a class="dropdown-item" href="/clubs/subfiles/journalism.html">Journalism</a></li>
+            <li><a class="dropdown-item" href="/clubs/subfiles/debate.html">Debate</a></li>
+          </div>
+          <div class="col-6">
+            <h6 class="text-uppercase text-info small mb-2">Academic</h6>
+            <li><a class="dropdown-item" href="/clubs/subfiles/science.html">Science</a></li>
+            <li><a class="dropdown-item" href="/clubs/subfiles/mathematics.html">Mathematics</a></li>
+            <li><a class="dropdown-item" href="/clubs/subfiles/robotics.html">Robotics</a></li>
+            <li><a class="dropdown-item" href="/clubs/subfiles/wildlife.html">Wildlife</a></li>
+            <li><a class="dropdown-item" href="/clubs/subfiles/scouts.html">Scouts</a></li>
+          </div>
+        </div>
+        <hr>
+        <li><a class="dropdown-item text-info" href="/clubs/clubs.html">All Clubs Overview →</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Right: Grouped Utilities -->
+  <div class="d-flex align-items-center">
+    <a href="/user/notifications.html"
+       class="position-relative text-white d-flex align-items-center justify-content-center"
+       aria-label="Notifications">
+      <i class="fas fa-bell"></i>
+      <span class="badge bg-danger position-absolute top-0 start-100 translate-middle small">3</span>
+    </a>
+
+    <!-- Dark Mode Toggle -->
+    <button class="btn btn-sm btn-outline-light p-2"
+            onclick="toggleDarkMode()"
+            title="Toggle Dark Mode"
+            aria-label="Toggle Dark Mode">
+      <i class="fas fa-moon" aria-hidden="true"></i>
+    </button>
+
+      <!-- User Dropdown with status indicator -->
+      <div class="dropdown">
+        <button class="btn btn-sm btn-outline-light d-flex align-items-center gap-2 dropdown-toggle p-2"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                aria-label="User menu">
+          <div class="position-relative">
+            <img id="userAvatar" src="/assets/images/defaults/default-user.png" class="rounded-circle" width="32" height="32" alt="User Avatar">
+            <span class="position-absolute bottom-0 end-0 bg-success rounded-circle border border-dark"
+                  style="width:10px;height:10px"></span>
+          </div>
+          <span id="userName" class="d-none d-md-inline">Guest</span>
+        </button>
+
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="/user/profile.html"><i class="fas fa-user me-2"></i>Profile</a></li>
+          <li><a class="dropdown-item" href="/user/settings.html"><i class="fas fa-cog me-2"></i>Settings</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item text-danger" href="/user/logout.html"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Offcanvas Mobile Menu -->
+<div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="mainMenu" aria-labelledby="mainMenuLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="mainMenuLabel">Menu</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close menu"></button>
+  </div>
+
+  <div class="offcanvas-body d-flex flex-column gap-2">
+    
+    <!-- Mobile Clubs Dropdown -->
+    <div class="mb-1">
+      <button class="btn btn-outline-light w-100 text-start dropdown-toggle text-white nav-link"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              aria-label="Clubs menu">
+        <i class="fas fa-users me-2"></i> Clubs
+      </button>
+      <ul class="dropdown-menu dropdown-menu-dark w-100">
+        <li><a class="dropdown-item" href="/clubs/subfiles/art.html">Art & Design</a></li>
+        <li><a class="dropdown-item" href="/clubs/subfiles/christian-union.html">Christian Union</a></li>
+        <li><a class="dropdown-item" href="/clubs/subfiles/debate.html">Debate</a></li>
+        <li><a class="dropdown-item" href="/clubs/subfiles/drama.html">Drama</a></li>
+        <li><a class="dropdown-item" href="/clubs/subfiles/humanities.html">Humanities</a></li>
+        <li><a class="dropdown-item" href="/clubs/subfiles/journalism.html">Journalism</a></li>
+        <li><a class="dropdown-item" href="/clubs/subfiles/mathematics.html">Mathematics</a></li>
+        <li><a class="dropdown-item" href="/clubs/subfiles/music.html">Music</a></li>
+        <li><a class="dropdown-item" href="/clubs/subfiles/robotics.html">Robotics</a></li>
+        <li><a class="dropdown-item" href="/clubs/subfiles/science.html">Science</a></li>
+        <li><a class="dropdown-item" href="/clubs/subfiles/scouts.html">Scouts</a></li>
+        <li><a class="dropdown-item" href="/clubs/subfiles/wildlife.html">Wildlife</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="/clubs/clubs.html">All Clubs Overview</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<style>
+  :root {
+    --nav-bg: rgba(0, 0, 0, 0.8);
+    --nav-accent: #00e0ff;
+  }
+
+  body.dark-mode {
+    --nav-bg: rgba(0, 0, 0, 0.9);
+  }
+
+  .glass-nav {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    background: var(--nav-bg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    transition: background 0.3s ease-in-out;
+    padding-top: 0.6rem;
+    padding-bottom: 0.6rem;
+    box-shadow:
+      0 6px 20px rgba(0,0,0,0.35),
+      inset 0 1px 0 rgba(255,255,255,0.08);
+    letter-spacing: 0.2px;
+  }
+
+  .glass-nav::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--nav-accent), transparent);
+    opacity: 0.5;
+  }
+
+  .glass-nav.scrolled {
+    background: rgba(0,0,0,0.65);
+  }
+
+  .btn-outline-light {
+    color: #fff;
+    border-color: rgba(255,255,255,0.85);
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-outline-light:hover,
+  .btn-outline-light:focus {
+    background-color: rgba(255,255,255,0.15);
+    color: var(--nav-accent);
+    border-color: var(--nav-accent);
+  }
+
+  /* Desktop: text links + icon-only buttons */
+  @media (min-width: 992px) {
+    .btn-outline-light {
+      border: none;
+      background: transparent;
+    }
+  }
+
+  .nav-link {
+    font-weight: 500;
+    transition: 0.3s;
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+
+  .nav-link:hover, .nav-link:focus {
+    color: var(--nav-accent) !important;
+    background: rgba(255,255,255,0.08);
+    border-radius: 6px;
+  }
+
+  .nav-link.active {
+    color: var(--nav-accent) !important;
+    background: rgba(0,224,255,0.15);
+    box-shadow: inset 0 -2px 0 var(--nav-accent);
+  }
+
+  nav.d-lg-flex {
+    gap: 2rem;
+  }
+
+  /* Mega Dropdown Enhancements */
+  .dropdown-menu-lg {
+    min-width: 420px;
+    border-radius: 14px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.45);
+  }
+
+  /* Global Dropdown Menu Fix */
+  .dropdown-menu {
+    z-index: 10000;
+  }
+  .dropdown-menu-lg .dropdown-item {
+    border-radius: 8px;
+  }
+  .dropdown-menu-lg .dropdown-item:hover {
+    background: rgba(0,224,255,0.12);
+  }
+
+  /* Notification badge styling */
+  .badge.bg-danger {
+    font-size: 0.65rem;
+    padding: 0.35em 0.45em;
+    box-shadow: 0 0 0 2px rgba(0,0,0,0.6);
+  }
+
+  /* Visual Hierarchy Improvements */
+  .glass-nav .fw-semibold {
+    font-size: 1.05rem;
+    letter-spacing: 0.3px;
+  }
+
+  nav .nav-link {
+    opacity: 0.85;
+  }
+
+  nav .nav-link:hover {
+    opacity: 1;
+  }
+
+  /* Mega Dropdown Enhancements */
+  .dropdown-menu-lg hr {
+    border-color: rgba(255,255,255,0.15);
+  }
+
+  /* Micro-Interactions */
+  .btn-outline-light,
+  .nav-link {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .btn-outline-light:hover,
+  .nav-link:hover {
+    transform: translateY(-1px);
+  }
+
+  /* Focus-Visible Styling */
+  :focus-visible {
+    outline: 2px solid var(--nav-accent);
+    outline-offset: 2px;
+  }
+
+  body.dark-mode {
+    background: #111;
+    color: white;
+  }
+
+  /* Mobile menu icons */
+  @media (max-width: 991.98px) {
+    .nav-link {
+      padding: 0.5rem 0;
+    }
+    .glass-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+  }
+</style>
+
+<script>
+  // =============================
+  // Theme Switcher
+  // =============================
+  function setTheme(theme) {
+    document.body.className = `theme-${theme}`;
+    localStorage.setItem('theme', theme);
+  }
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  setTheme(savedTheme);
+
+  // Toggle Dark Mode (for backward compatibility)
+  function toggleDarkMode() {
+    const themes = ['dark', 'light', 'royal', 'creative', 'nature', 'accessible'];
+    const currentTheme = localStorage.getItem('theme') || 'dark';
+    const currentIndex = themes.indexOf(currentTheme);
+    const nextIndex = (currentIndex + 1) % themes.length;
+    const newTheme = themes[nextIndex];
+    setTheme(newTheme);
+  }
+
+  const user = {
+    loggedIn: true,
+    name: "John Doe",
+    avatar: "/assets/images/users/john.png"
+  };
+
+  if (user.loggedIn) {
+    document.getElementById('userName').textContent = user.name;
+    document.getElementById('userAvatar').src = user.avatar;
+  }
+
+  // =============================
+  // Scroll State - Elite-Level Polish
+  // =============================
+  window.addEventListener("scroll", () => {
+    document.querySelector(".glass-nav")
+      .classList.toggle("scrolled", window.scrollY > 10);
+  });
+
+  // =============================
+  // Keyboard Accessibility for Offcanvas
+  // =============================
+  const hamburgerBtn = document.querySelector('[data-bs-target="#mainMenu"]');
+  const offcanvas = document.getElementById('mainMenu');
+
+  hamburgerBtn.addEventListener('click', () => {
+    const expanded = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+    hamburgerBtn.setAttribute('aria-expanded', !expanded);
+  });
+
+  offcanvas.addEventListener('keydown', (e) => {
+    // Close on Escape key
+    if (e.key === 'Escape') {
+      const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvas);
+      bsOffcanvas.hide();
+      hamburgerBtn.focus();
+    }
+  });
+
+  // Active State Detection
+  document.querySelectorAll('.nav-link, .dropdown-item').forEach(link => {
+    if (link.href === window.location.href) {
+      link.classList.add('active');
+    }
+  });
+</script>
