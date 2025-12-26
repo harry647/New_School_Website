@@ -66,8 +66,9 @@ function loadHeader() {
             .then(html => {
                 headerContainer.innerHTML = html;
                 
-                // Load the header JavaScript after HTML is loaded
-                loadHeaderScript();
+                // The new header has embedded JavaScript that will execute automatically
+                // No need to load separate header script
+                console.log('Header loaded successfully');
             })
             .catch(error => {
                 console.error('Error loading header:', error);
