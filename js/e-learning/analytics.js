@@ -1,8 +1,6 @@
 // E-Learning Analytics Dashboard - Professional Implementation
 // Enterprise-grade analytics with Fetch API integration
 
-console.log('Analytics dashboard initialized');
-
 // Application State
 const analyticsState = {
     isLoading: true,
@@ -53,8 +51,6 @@ const chartConfig = {
 
 // Initialize the analytics dashboard
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Initializing analytics dashboard');
-    
     // Wait for W3.js includes to load before setting up event listeners
     // This ensures the header is fully loaded
     const checkW3Loaded = setInterval(function() {
@@ -94,34 +90,31 @@ function setupEventListeners() {
 
 // Load analytics data from API
 async function loadAnalyticsData() {
-    console.log(`Loading analytics data for range: ${analyticsState.currentRange} days`);
-    
     // Show loading state
     showLoadingState();
-    
+     
     try {
         // Simulate API call (in production, this would be a real fetch)
         const apiUrl = `/api/analytics/summary?range=${analyticsState.currentRange}`;
-        console.log(`Fetching from: ${apiUrl}`);
-        
+         
         // Simulate network delay
         await new Promise(resolve => setTimeout(resolve, 1500));
-        
+         
         // Simulate API response
         const mockResponse = await getMockAnalyticsData();
-        
+         
         if (!mockResponse || Object.keys(mockResponse).length === 0) {
             showEmptyState();
             return;
         }
-        
+         
         // Process and display data
         processAnalyticsData(mockResponse);
         renderCharts(mockResponse.charts);
-        
+         
         // Show success state
         showContentState();
-        
+         
     } catch (error) {
         console.error('Error loading analytics:', error);
         showErrorState();
@@ -153,13 +146,11 @@ async function getMockAnalyticsData() {
 // Process and display analytics data
 function processAnalyticsData(data) {
     analyticsState.userData = data;
-    
+     
     // Update data hooks
     elements.dataHooks.subjectsCount.textContent = data.subjects;
     elements.dataHooks.pendingAssignments.textContent = data.pendingAssignments;
     elements.dataHooks.studyStreak.textContent = `${data.studyStreakDays} Days`;
-    
-    console.log('Analytics data processed:', data);
 }
 
 // Render charts using Chart.js
@@ -211,9 +202,6 @@ function showLoadingState() {
     analyticsState.hasError = false;
     analyticsState.isEmpty = false;
     
-    console.log('DEBUG - Showing loading state');
-    console.log('Loading element:', elements.loading);
-    
     elements.loading.style.display = 'flex';
     elements.error.classList.add('d-none');
     elements.empty.classList.add('d-none');
@@ -244,22 +232,10 @@ function showContentState() {
     analyticsState.hasError = false;
     analyticsState.isEmpty = false;
     
-    console.log('DEBUG - Showing content state');
-    console.log('Loading element before hiding:', elements.loading);
-    console.log('Loading element display style before:', elements.loading.style.display);
-    
     // Use !important to ensure the style is applied
     elements.loading.style.setProperty('display', 'none', 'important');
     elements.error.classList.add('d-none');
     elements.empty.classList.add('d-none');
-    
-    console.log('Loading element display style after:', elements.loading.style.display);
-    
-    // Additional check after a small delay to see if something is changing it back
-    setTimeout(function() {
-        console.log('DEBUG - Loading element display style after 1 second:', elements.loading.style.display);
-        console.log('DEBUG - Loading element computed style:', window.getComputedStyle(elements.loading).display);
-    }, 1000);
 }
 
 // Set up back to top button
