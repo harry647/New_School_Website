@@ -267,4 +267,26 @@ router.post('/resources/upload', uploadDepartmentFile.array('files', 20), (req, 
   res.json({ success: true });
 });
 
+/**
+ * @route   GET /calendar
+ * @desc    Fetches calendar events for a specific month and year.
+ * @access  Public
+ */
+router.get('/calendar', (req, res) => {
+  const month = parseInt(req.query.month) || new Date().getMonth() + 1;
+  const year = parseInt(req.query.year) || new Date().getFullYear();
+  
+  // Read calendar data from the JSON file
+  const calendarDataPath = path.join(__dirname, '..', '..', 'data', 'static', 'school-calendar.json');
+  const calendarData = readJSON(calendarDataPath);
+  
+  // Filter events for the specified month and year
+  const events = calendarData.filter(event => {
+    const eventDate = new Date(event.date);
+    return eventDate.getMonth() + 1 === month && eventDate.getFullYear() === year;
+  });
+  
+  res.json({ events });
+});
+
 export default router;

@@ -1,0 +1,128 @@
+/*
+ * Calendar-specific CSS for the e-learning portal
+ * Focuses on formatting dates and days for better readability
+ */
+
+/* Calendar Grid Layout */
+.calendar-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.calendar-day-header {
+    width: calc(100% / 7);
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.calendar-day {
+    width: calc(100% / 7);
+    min-height: 80px;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    position: relative;
+}
+
+.calendar-day.empty {
+    background-color: var(--surface-1);
+    border-color: var(--surface-2);
+}
+
+.calendar-day-number {
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-bottom: 0.25rem;
+}
+
+.calendar-day-events {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-top: 0.25rem;
+}
+
+.calendar-event {
+    font-size: 0.75rem;
+    padding: 0.125rem 0.25rem;
+    border-radius: var(--radius-sm);
+    background-color: var(--surface-2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Event Type Colors */
+.calendar-event.text-primary {
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+.calendar-event.text-warning {
+    background-color: rgba(255, 193, 7, 0.1);
+}
+
+.calendar-event.text-danger {
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.calendar-event.text-success {
+    background-color: rgba(25, 135, 84, 0.1);
+}
+
+/* Current Day Highlight */
+.calendar-day.today {
+    background-color: rgba(13, 110, 253, 0.05);
+    border-color: var(--brand-primary);
+}
+
+.calendar-day.today .calendar-day-number {
+    background-color: var(--brand-primary);
+    color: var(--text-inverted);
+    border-radius: var(--radius-full);
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Upcoming Events */
+.upcoming-event {
+    background-color: var(--surface-1);
+    border-left: 3px solid var(--brand-primary);
+    transition: var(--transition-fast);
+}
+
+.upcoming-event:hover {
+    background-color: var(--surface-2);
+    transform: translateX(4px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .calendar-day {
+        min-height: 60px;
+    }
+
+    .calendar-day-number {
+        font-size: 0.85rem;
+    }
+
+    .calendar-event {
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .calendar-day-header {
+        font-size: 0.8rem;
+    }
+
+    .calendar-day {
+        min-height: 50px;
+    }
+}

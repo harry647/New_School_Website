@@ -70,7 +70,7 @@ async function loadEvents() {
 
   try {
     // Simulate API call
-    const response = await fetch(`/api/calendar?month=${state.currentDate.getMonth() + 1}&year=${state.currentDate.getFullYear()}`);
+    const response = await fetch(`/api/elearning/calendar?month=${state.currentDate.getMonth() + 1}&year=${state.currentDate.getFullYear()}`);
     
     if (!response.ok) {
       throw new Error('Failed to load calendar data');
@@ -156,6 +156,12 @@ function renderCalendar() {
   for (let day = 1; day <= daysInMonth; day++) {
     const dayCell = document.createElement('div');
     dayCell.className = 'calendar-day';
+    
+    // Highlight current day
+    const today = new Date();
+    if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+      dayCell.classList.add('today');
+    }
     
     const dayNumber = document.createElement('div');
     dayNumber.className = 'calendar-day-number';
