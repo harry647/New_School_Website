@@ -289,4 +289,28 @@ router.get('/calendar', (req, res) => {
   res.json({ events });
 });
 
+/**
+ * @route   GET /quiz/:id
+ * @desc    Fetches a specific quiz by ID with detailed questions
+ * @access  Public
+ */
+router.get('/quiz/:id', (req, res) => {
+  const quizzes = readJSON(path.join(__dirname, '..', '..', 'data', 'portal', 'quizzes.json'));
+  const quiz = quizzes.find(q => q.id === req.params.id);
+  if (!quiz) {
+    return res.status(404).json({ error: 'Quiz not found' });
+  }
+  res.json(quiz);
+});
+
+/**
+ * @route   GET /quizzes
+ * @desc    Fetches all available quizzes
+ * @access  Public
+ */
+router.get('/quizzes', (req, res) => {
+  const quizzes = readJSON(path.join(__dirname, '..', '..', 'data', 'portal', 'quizzes.json'));
+  res.json(quizzes);
+});
+
 export default router;

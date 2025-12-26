@@ -1,0 +1,177 @@
+[
+  {
+    "id": "math-quiz-001",
+    "title": "Algebra Assessment - Linear Equations",
+    "subject": "Mathematics",
+    "type": "quiz",
+    "description": "Test your understanding of linear equations, inequalities, and graphing.",
+    "timeLimit": 30,
+    "questions": [
+      {
+        "question": "Solve for x: 2x + 5 = 15",
+        "options": ["x = 5", "x = 10", "x = 7", "x = 3"],
+        "correctAnswer": "x = 5"
+      },
+      {
+        "question": "Which inequality represents 'x is greater than 3 and less than 8'?",
+        "options": ["3 < x < 8", "3 > x > 8", "x > 3 or x < 8", "x ≤ 3 or x ≥ 8"],
+        "correctAnswer": "3 < x < 8"
+      },
+      {
+        "question": "What is the slope of the line y = 3x - 2?",
+        "options": ["3", "-2", "2", "-3"],
+        "correctAnswer": "3"
+      },
+      {
+        "question": "Solve: 4(x - 2) = 20",
+        "options": ["x = 7", "x = 5", "x = 8", "x = 6"],
+        "correctAnswer": "x = 7"
+      },
+      {
+        "question": "Which equation represents a horizontal line?",
+        "options": ["y = 3", "x = 3", "y = x", "y = 2x + 1"],
+        "correctAnswer": "y = 3"
+      }
+    ]
+  },
+  {
+    "id": "physics-quiz-002",
+    "title": "Waves and Sound Test",
+    "subject": "Physics",
+    "type": "test",
+    "description": "Comprehensive test on wave properties and sound propagation.",
+    "timeLimit": 45,
+    "questions": [
+      {
+        "question": "What is the unit of frequency?",
+        "options": ["Hertz (Hz)", "Meters (m)", "Seconds (s)", "Newtons (N)"],
+        "correctAnswer": "Hertz (Hz)"
+      },
+      {
+        "question": "Which wave property determines pitch in sound?",
+        "options": ["Frequency", "Amplitude", "Wavelength", "Speed"],
+        "correctAnswer": "Frequency"
+      },
+      {
+        "question": "What happens to wavelength when frequency increases?",
+        "options": ["Decreases", "Increases", "Stays the same", "Becomes zero"],
+        "correctAnswer": "Decreases"
+      },
+      {
+        "question": "Sound travels fastest through:",
+        "options": ["Solids", "Liquids", "Gases", "Vacuum"],
+        "correctAnswer": "Solids"
+      },
+      {
+        "question": "The Doppler effect describes:",
+        "options": ["Change in frequency due to motion", "Reflection of sound waves", "Absorption of sound", "Resonance"],
+        "correctAnswer": "Change in frequency due to motion"
+      }
+    ]
+  },
+  {
+    "id": "chem-quiz-003",
+    "title": "Organic Chemistry Quiz",
+    "subject": "Chemistry",
+    "type": "quiz",
+    "description": "Test your knowledge of organic chemistry fundamentals.",
+    "timeLimit": 25,
+    "questions": [
+      {
+        "question": "What is the general formula for alkanes?",
+        "options": ["CnH2n+2", "CnH2n", "CnH2n-2", "CnHn"],
+        "correctAnswer": "CnH2n+2"
+      },
+      {
+        "question": "Which functional group is present in alcohols?",
+        "options": ["-OH", "-COOH", "-CHO", "-NH2"],
+        "correctAnswer": "-OH"
+      },
+      {
+        "question": "What type of reaction is combustion?",
+        "options": ["Exothermic", "Endothermic", "Reversible", "Catalytic"],
+        "correctAnswer": "Exothermic"
+      },
+      {
+        "question": "Isomers have the same:",
+        "options": ["Molecular formula", "Structural formula", "Physical properties", "Chemical properties"],
+        "correctAnswer": "Molecular formula"
+      },
+      {
+        "question": "What is the IUPAC name of CH3-CH2-OH?",
+        "options": ["Ethanol", "Methanol", "Propanol", "Butanol"],
+        "correctAnswer": "Ethanol"
+      }
+    ]
+  },
+  {
+    "id": "bio-quiz-004",
+    "title": "Cell Biology Practical",
+    "subject": "Biology",
+    "type": "practical",
+    "description": "Practical examination with microscope work and diagram drawing.",
+    "timeLimit": 90,
+    "questions": [
+      {
+        "question": "What is the basic unit of life?",
+        "options": ["Cell", "Tissue", "Organ", "Organism"],
+        "correctAnswer": "Cell"
+      },
+      {
+        "question": "Which organelle is the powerhouse of the cell?",
+        "options": ["Mitochondria", "Nucleus", "Ribosome", "Chloroplast"],
+        "correctAnswer": "Mitochondria"
+      },
+      {
+        "question": "What process describes cell division that results in two identical daughter cells?",
+        "options": ["Mitosis", "Meiosis", "Binary fission", "Budding"],
+        "correctAnswer": "Mitosis"
+      },
+      {
+        "question": "Which type of microscope provides the highest magnification?",
+        "options": ["Electron microscope", "Light microscope", "Compound microscope", "Stereo microscope"],
+        "correctAnswer": "Electron microscope"
+      },
+      {
+        "question": "What is the main function of the cell membrane?",
+        "options": ["Regulate what enters and leaves the cell", "Store genetic information", "Produce energy", "Synthesize proteins"],
+        "correctAnswer": "Regulate what enters and leaves the cell"
+      }
+    ]
+  },
+  {
+    "id": "english-quiz-005",
+    "title": "Essay Writing Assignment",
+    "subject": "English",
+    "type": "assignment",
+    "description": "Write a 500-word persuasive essay on a given topic.",
+    "timeLimit": 120,
+    "questions": [
+      {
+        "question": "What is the correct structure for a persuasive essay?",
+        "options": ["Introduction, Body, Conclusion", "Thesis, Arguments, Counterarguments", "Hook, Evidence, Call to action", "Topic sentence, Supporting details, Transition"],
+        "correctAnswer": "Introduction, Body, Conclusion"
+      },
+      {
+        "question": "Which of these is NOT a persuasive writing technique?",
+        "options": ["Facts and statistics", "Emotional appeal", "Personal anecdotes", "Plagiarism"],
+        "correctAnswer": "Plagiarism"
+      },
+      {
+        "question": "What should be included in a strong thesis statement?",
+        "options": ["Clear position on the topic", "Three main arguments", "Counterarguments", "Personal opinion only"],
+        "correctAnswer": "Clear position on the topic"
+      },
+      {
+        "question": "Which transition word is best for introducing a contrasting idea?",
+        "options": ["However", "Additionally", "Furthermore", "In conclusion"],
+        "correctAnswer": "However"
+      },
+      {
+        "question": "What is the purpose of a call to action in persuasive writing?",
+        "options": ["Encourage the reader to take action", "Summarize the main points", "Introduce the topic", "Provide evidence"],
+        "correctAnswer": "Encourage the reader to take action"
+      }
+    ]
+  }
+]
