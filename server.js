@@ -8,8 +8,13 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import session from 'express-session';
 import SQLiteStore from 'connect-sqlite3';
+import MongoStore from 'connect-mongo';
+import mongoose from 'mongoose';
 import fs from 'fs';
 import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 import authRoutes from './routes/auth.js';
 import portalRoutes from './routes/portal.js';
@@ -31,9 +36,51 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ================================================
-// 1. SESSION SETUP – USING SQLITE (BEST OPTION)
+// MongoDB Connection Setup
 // ================================================
-// Ensure database folder exists
+const connectToMongoDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/school_portal', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log('✅ MongoDB connected successfully');
+    
+    // Set up MongoDB session store
+    const sessionStore = MongoStore.create({
+      mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/school_portal',
+      ttl: parseInt(process.env.SESSION_TTL) || 7 * 24 * 60 * 60 // 7 days
+    });
+    
+    // Add MongoDB session store to app for later use
+    app.locals.mongoSessionStore = sessionStore;
+    
+  } catch (err) {
+    console.error('❌ MongoDB connection error:', err);
+    // Continue with SQLite if MongoDB fails (fallback)
+  }
+};
+
+// Connect to MongoDB (non-blocking)
+connectToMongoDB();
+
+// MongoDB connection event handlers
+mongoose.connection.on('connected', () => {
+  console.log('MongoDB connection established');
+});
+
+mongoose.connection.on('error', (err) => {
+  console.error('MongoDB connection error:', err);
+});
+
+mongoose.connection.on('disconnected', () => {
+  console.log('MongoDB disconnected');
+});
+
+// ================================================
+// 1. SESSION SETUP – MONGODB (PRIMARY) WITH SQLITE FALLBACK
+// ================================================
+// Ensure database folder exists for SQLite fallback
 const dbFolder = path.join(__dirname, 'database');
 if (!fs.existsSync(dbFolder)) {
   fs.mkdirSync(dbFolder, { recursive: true });
@@ -41,23 +88,32 @@ if (!fs.existsSync(dbFolder)) {
 
 const SQLiteStoreInstance = SQLiteStore(session);
 
-app.use(
-  session({
-    store: new SQLiteStoreInstance({
-      db: 'sessions.db',
-      dir: dbFolder,
-      concurrentDB: true
-    }),
-    secret: 'bar-union-2025-super-secret-key-please-change-in-production',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      httpOnly: true,
-      secure: false,
-      maxAge: 7 * 24 * 60 * 60 * 1000
-    }
-  })
-);
+// Determine which session store to use
+const sessionConfig = {
+  secret: process.env.SESSION_SECRET || 'bar-union-2025-super-secret-key-please-change-in-production',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 7 * 24 * 60 * 60 * 1000
+  }
+};
+
+// Use MongoDB session store if available, otherwise fallback to SQLite
+if (app.locals.mongoSessionStore) {
+  console.log('🔄 Using MongoDB for session storage');
+  sessionConfig.store = app.locals.mongoSessionStore;
+} else {
+  console.log('🔄 Using SQLite for session storage (fallback)');
+  sessionConfig.store = new SQLiteStoreInstance({
+    db: 'sessions.db',
+    dir: dbFolder,
+    concurrentDB: true
+  });
+}
+
+app.use(session(sessionConfig));
 
 // ================================================
 // 2. Middleware
@@ -137,6 +193,15 @@ app.use(errorHandler);
 // 7. Start Server
 // ================================================
 app.listen(PORT, () => {
-  console.log(`Bar Union School Website LIVE at http://localhost:${PORT}`);
-  console.log('SQLite session database → /database/sessions.db');
+  console.log(`🚀 Bar Union School Website LIVE at http://localhost:${PORT}`);
+  
+  if (mongoose.connection.readyState === 1) {
+    console.log('🔄 MongoDB session database → Active');
+    console.log('📊 Primary data storage → MongoDB');
+  } else {
+    console.log('🔄 SQLite session database → /database/sessions.db');
+    console.log('⚠️  MongoDB not connected - using SQLite fallback');
+  }
+  
+  console.log('📁 JSON files remain intact as backup');
 });
