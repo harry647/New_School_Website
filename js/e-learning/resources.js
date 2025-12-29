@@ -33,10 +33,6 @@ function sanitizeText(text) {
 
 function sanitizeUrl(url) {
   try {
-    // Handle relative URLs by prepending the current domain
-    if (url.startsWith('/')) {
-      return url; // Return relative URLs as-is for internal resources
-    }
     const parsedUrl = new URL(url);
     return parsedUrl.href;
   } catch (e) {

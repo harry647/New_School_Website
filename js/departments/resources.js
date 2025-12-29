@@ -80,7 +80,7 @@ function renderFeatured() {
     : DATA.featured.map((f, i) => `
       <div class="carousel-item ${i === 0 ? 'active' : ''}">
         <div class="glass-card p-5 d-flex flex-column flex-md-row gap-4 align-items-center">
-          <img src="${f.thumb || '/assets/images/common/placeholder-doc.png'}"
+          <img src="${f.thumb || '/assets/images/placeholder-doc.png'}" 
                class="d-none d-md-block rounded shadow" style="width:180px;" alt="">
           <div>
             <h3 class="h5 fw-bold text-warning">${f.title}</h3>
@@ -131,7 +131,7 @@ function renderResources() {
               ${r.subject ? ` • ${r.subject}` : ''}
             </p>
             <div class="d-flex gap-2 flex-wrap">
-              <button class="btn btn-outline-primary btn-sm previewBtn"
+              <button class="btn btn-outline-primary btn-sm previewBtn" 
                       onclick="openPreview(${JSON.stringify(r)})">
                 Preview
               </button>
@@ -188,7 +188,7 @@ function applyFilters() {
   return DATA.resources.filter(r => {
     const matchCat = !category || r.category?.toLowerCase() === category;
     const matchType = !type || r.type?.toLowerCase() === type;
-    const matchSearch = !search ||
+    const matchSearch = !search || 
       r.title.toLowerCase().includes(search) ||
       r.uploadedBy.toLowerCase().includes(search) ||
       r.description?.toLowerCase().includes(search);

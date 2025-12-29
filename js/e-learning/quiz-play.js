@@ -3,18 +3,7 @@ console.log('Quiz play page loaded');
 
 // Extract quiz ID from URL
 const urlParams = new URLSearchParams(window.location.search);
-const uiQuizId = urlParams.get('id');
-  
-// Map UI quiz IDs to actual quiz IDs
-const quizIdMapping = {
-  '1': 'math-quiz-001',
-  '2': 'physics-quiz-002',
-  '3': 'chem-quiz-003',
-  '4': 'bio-quiz-004',
-  '5': 'english-quiz-005'
-};
-
-const quizId = quizIdMapping[uiQuizId] || uiQuizId;
+const quizId = urlParams.get('id');
 
 // DOM Elements
 const quizDetails = document.getElementById('quizDetails');
@@ -36,8 +25,8 @@ async function loadQuiz(quizId) {
   quizDetails.innerHTML = `<div class="text-center my-5"><div class="spinner-border text-primary"></div><p>Loading quiz...</p></div>`;
   
   try {
-    // Fetch quiz data from the correct API endpoint
-    const res = await fetch(`/api/elearning/quiz/${quizId}`);
+    // Simulate API call (replace with actual fetch in production)
+    const res = await fetch(`/api/quiz/${quizId}`);
     if (!res.ok) throw new Error('Failed to load quiz.');
     const quiz = await res.json();
     
