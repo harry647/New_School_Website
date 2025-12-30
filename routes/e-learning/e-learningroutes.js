@@ -69,40 +69,199 @@ const writeJSON = (filePath, data) => {
   }
 };
 
-// Helper: Get data from MongoDB with JSON fallback
+// Cache for frequently accessed data to minimize fallback latency
+const dataCache = new Map();
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes cache TTL
+
+// Helper: Check MongoDB connection status with retry logic
+const checkMongoDBConnection = async (retries = 3, delay = 100) => {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      if (mongoose.connection.readyState === 1) {
+        return true;
+      }
+      
+      // If not connected, try to reconnect
+      if (mongoose.connection.readyState === 0) {
+        console.log(`🔄 Attempting to reconnect to MongoDB (attempt ${attempt}/${retries})`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    } catch (err) {
+      console.error(`❌ MongoDB connection check error (attempt ${attempt}):`, err.message);
+      await new Promise(resolve => setTimeout(resolve, delay));
+    }
+  }
+  
+  return mongoose.connection.readyState === 1;
+};
+
+// Helper: Get cache key for data
+const getCacheKey = (model, query, jsonPath) => {
+  if (!model) {
+    // For null models, use the JSON path as part of the cache key
+    const queryString = JSON.stringify(query);
+    const pathHash = path.basename(jsonPath).replace('.json', '');
+    return `json-${pathHash}:${queryString}`;
+  }
+  const queryString = JSON.stringify(query);
+  return `${model.modelName}:${queryString}`;
+};
+
+// Helper: Get cached data if available and not expired
+const getCachedData = (cacheKey) => {
+  if (!cacheKey) return null;
+  
+  const cached = dataCache.get(cacheKey);
+  if (!cached) return null;
+  
+  // Check if cache is expired
+  if (Date.now() - cached.timestamp > CACHE_TTL) {
+    dataCache.delete(cacheKey);
+    return null;
+  }
+  
+  return cached.data;
+};
+
+// Helper: Cache data for future requests
+const cacheData = (cacheKey, data) => {
+  if (!cacheKey) return;
+  dataCache.set(cacheKey, { data, timestamp: Date.now() });
+};
+
+// Helper: Get data from MongoDB with JSON fallback (optimized with caching)
 const getDataWithFallback = async (model, jsonPath, query = {}) => {
+  const startTime = Date.now();
+  const cacheKey = getCacheKey(model, query, jsonPath);
+  
+  // Check cache first for immediate response
+  const cachedData = getCachedData(cacheKey);
+  if (cachedData) {
+    console.log(`🚀 Using cached data for ${model?.modelName || 'unknown'} (instant)`);
+    return cachedData;
+  }
+  
   try {
-    // Try MongoDB first
+    // Try MongoDB first if connection is available
     if (model && mongoose.connection.readyState === 1) {
-      const data = await model.find(query).lean();
-      console.log(`✅ Using MongoDB for ${model.modelName}`);
-      return data;
+      try {
+        // Set a reasonable timeout for MongoDB operations to prevent hanging
+        const mongoOperation = model.find(query).lean();
+        
+        // Use Promise.race to implement timeout
+        const data = await Promise.race([
+          mongoOperation,
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('MongoDB operation timed out')), 3000)
+          )
+        ]);
+        
+        const mongoDuration = Date.now() - startTime;
+        console.log(`✅ Using MongoDB for ${model.modelName} (${mongoDuration}ms)`);
+        
+        // Cache the result for future requests
+        cacheData(cacheKey, data);
+        
+        return data;
+      } catch (mongoErr) {
+        console.error(`❌ MongoDB error for ${model.modelName}:`, mongoErr.message);
+        // Continue to JSON fallback
+      }
+    } else {
+      console.log(`ℹ️  MongoDB not available for ${model?.modelName || 'unknown'}`);
     }
   } catch (err) {
-    console.error(`❌ MongoDB error for ${model?.modelName || 'unknown'}`, err);
+    console.error(`❌ Unexpected error in getDataWithFallback for ${model?.modelName || 'unknown'}`, err);
   }
 
   // Fallback to JSON
-  console.log(`🔄 Using JSON fallback for ${model?.modelName || 'unknown'}`);
-  return readJSON(jsonPath);
+  try {
+    const jsonData = readJSON(jsonPath);
+    const jsonDuration = Date.now() - startTime;
+    console.log(`🔄 Using JSON fallback for ${model?.modelName || 'unknown'} (${jsonDuration}ms)`);
+    
+    // Cache JSON data as well to minimize repeated file reads
+    cacheData(cacheKey, jsonData);
+    
+    return jsonData;
+  } catch (jsonErr) {
+    console.error(`❌ JSON fallback failed for ${model?.modelName || 'unknown'}:`, jsonErr.message);
+    return []; // Return empty array as last resort
+  }
 };
 
-// Helper: Save data to MongoDB with JSON backup
+// Helper: Save data to MongoDB with JSON backup (optimized with timeout)
 const saveDataWithBackup = async (model, jsonPath, data) => {
+  const startTime = Date.now();
+  
   try {
-    // Try MongoDB first
+    // Try MongoDB first if connection is available
     if (model && mongoose.connection.readyState === 1) {
-      await model.create(data);
-      console.log(`✅ Saved to MongoDB for ${model.modelName}`);
-      return true;
+      try {
+        // Handle single object or array of objects
+        const mongoOperation = Array.isArray(data)
+          ? model.insertMany(data)
+          : model.create(data);
+        
+        // Use Promise.race to implement timeout for MongoDB operations
+        await Promise.race([
+          mongoOperation,
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('MongoDB save operation timed out')), 2000)
+          )
+        ]);
+        
+        const mongoDuration = Date.now() - startTime;
+        console.log(`✅ Saved to MongoDB for ${model.modelName} (${mongoDuration}ms)`);
+        
+        // Invalidate cache for this model to ensure fresh data on next read
+        if (model) {
+          const cacheKeysToRemove = [];
+          for (const [key] of dataCache) {
+            if (key.startsWith(`${model.modelName}:`)) {
+              cacheKeysToRemove.push(key);
+            }
+          }
+          cacheKeysToRemove.forEach(key => dataCache.delete(key));
+        }
+        
+        return true;
+      } catch (mongoErr) {
+        console.error(`❌ MongoDB save error for ${model.modelName}:`, mongoErr.message);
+        // Continue to JSON backup
+      }
+    } else {
+      console.log(`ℹ️  MongoDB not available for saving ${model?.modelName || 'unknown'}`);
     }
   } catch (err) {
-    console.error(`❌ MongoDB save error for ${model?.modelName || 'unknown'}`, err);
+    console.error(`❌ Unexpected error in saveDataWithBackup for ${model?.modelName || 'unknown'}`, err);
   }
 
   // Backup to JSON
-  console.log(`🔄 Using JSON backup for ${model?.modelName || 'unknown'}`);
-  return writeJSON(jsonPath, data);
+  try {
+    const jsonSuccess = writeJSON(jsonPath, data);
+    const jsonDuration = Date.now() - startTime;
+    if (jsonSuccess) {
+      console.log(`🔄 Using JSON backup for ${model?.modelName || 'unknown'} (${jsonDuration}ms)`);
+      
+      // Invalidate cache for this model to ensure fresh data on next read
+      if (model) {
+        const cacheKeysToRemove = [];
+        for (const [key] of dataCache) {
+            if (key.startsWith(`${model.modelName}:`)) {
+              cacheKeysToRemove.push(key);
+            }
+          }
+          cacheKeysToRemove.forEach(key => dataCache.delete(key));
+        }
+      } else {
+      console.error(`❌ JSON backup failed for ${model?.modelName || 'unknown'}`);
+    }
+    return jsonSuccess;
+  } catch (jsonErr) {
+    console.error(`❌ JSON backup failed for ${model?.modelName || 'unknown'}:`, jsonErr.message);
+    return false;
+  }
 };
 
 // Multer configuration
@@ -544,3 +703,15 @@ router.get('/calendar', async (req, res) => {
 });
 
 export default router;
+
+// Export helper functions for testing
+export {
+  getDataWithFallback,
+  saveDataWithBackup,
+  checkMongoDBConnection,
+  readJSON,
+  writeJSON,
+  getCachedData,
+  cacheData,
+  dataCache
+};

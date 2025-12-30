@@ -83,16 +83,23 @@ const saveWithFallback = async (model, filePath, data) => {
     if (model && mongoose.connection.readyState === 1) {
       await model.create(data);
       console.log('✅ Saved to MongoDB');
+      return true; // Successfully saved to MongoDB
     }
   } catch (error) {
     console.error('❌ MongoDB save error:', error.message);
   }
 
-  // Always save to JSON as backup
-  let existingData = readJSON(filePath);
-  existingData.push(data);
-  writeJSON(filePath, existingData);
-  console.log('🔄 JSON backup saved');
+  // Fallback to JSON if MongoDB fails or is unavailable
+  try {
+    let existingData = readJSON(filePath);
+    existingData.push(data);
+    writeJSON(filePath, existingData);
+    console.log('🔄 JSON backup saved');
+    return true; // Successfully saved to JSON
+  } catch (jsonError) {
+    console.error('❌ JSON fallback error:', jsonError.message);
+    return false; // Failed to save to both MongoDB and JSON
+  }
 };
 
 // Helper: Get data from MongoDB with JSON fallback
@@ -109,8 +116,15 @@ const getWithFallback = async (model, filePath) => {
   }
 
   // Fallback to JSON
-  console.log('🔄 Using JSON fallback');
-  return readJSON(filePath);
+  try {
+    console.log('🔄 Using JSON fallback');
+    const jsonData = readJSON(filePath);
+    console.log(`✅ Retrieved ${jsonData.length} records from JSON`);
+    return jsonData;
+  } catch (jsonError) {
+    console.error('❌ JSON fallback error:', jsonError.message);
+    return []; // Return empty array if both MongoDB and JSON fail
+  }
 };
 
 // Multer configuration
