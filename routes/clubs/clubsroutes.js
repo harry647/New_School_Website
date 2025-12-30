@@ -64,8 +64,10 @@ const writeJSON = (filePath, data) => {
 const fetchData = async (model, collectionName, jsonFilePath) => {
   try {
     if (mongoose.connection.readyState === 1) {
+      const startTime = Date.now();
       const data = await model.find({});
-      console.log(`✅ Fetched ${data.length} records from MongoDB collection: ${collectionName}`);
+      const mongoTime = Date.now() - startTime;
+      console.log(`✅ Fetched ${data.length} records from MongoDB collection: ${collectionName} (${mongoTime}ms)`);
       return data;
     } else {
       console.log('⚠️ MongoDB not connected. Falling back to JSON.');
@@ -81,13 +83,15 @@ const fetchData = async (model, collectionName, jsonFilePath) => {
 const saveData = async (model, collectionName, jsonFilePath, data) => {
   try {
     if (mongoose.connection.readyState === 1) {
+      const startTime = Date.now();
       await model.deleteMany({}); // Clear existing data
       if (Array.isArray(data)) {
         await model.insertMany(data);
       } else {
         await model.create(data);
       }
-      console.log(`✅ Saved data to MongoDB collection: ${collectionName}`);
+      const mongoTime = Date.now() - startTime;
+      console.log(`✅ Saved data to MongoDB collection: ${collectionName} (${mongoTime}ms)`);
       return true;
     } else {
       console.log('⚠️ MongoDB not connected. Falling back to JSON.');
@@ -150,6 +154,7 @@ const requireAuth = (req, res, next) => {
  */
 router.get('/list', requireAuth, async (req, res) => {
   try {
+    const startTime = Date.now();
     const clubsFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'clubs.json');
     const clubs = await fetchData(Club, 'clubs', clubsFile);
 
@@ -160,13 +165,14 @@ router.get('/list', requireAuth, async (req, res) => {
       });
     }
 
-    // Log successful fetch
-    console.log(`Clubs list fetched by user: ${req.session.user?.name || 'Unknown'}`);
+    const fetchTime = Date.now() - startTime;
+    console.log(`Clubs list fetched by user: ${req.session.user?.name || 'Unknown'} (${fetchTime}ms)`);
 
     res.json({
       success: true,
       data: clubs,
-      count: clubs.length
+      count: clubs.length,
+      fetchTime
     });
   } catch (err) {
     console.error('Error fetching clubs list:', err);
