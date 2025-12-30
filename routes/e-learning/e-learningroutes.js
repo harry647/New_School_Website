@@ -16,10 +16,17 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Import MongoDB models
-let Resource, Subject;
+let Resource, Subject, Assignment, Quiz, ElearningUser, AssignmentSubmission, Media, QuizSubmission, StudyPlan;
 try {
   Resource = (await import('../models/elearning/Resource.js')).default;
   Subject = (await import('../models/elearning/Subject.js')).default;
+  Assignment = (await import('../models/elearning/Assignment.js')).default;
+  Quiz = (await import('../models/elearning/Quiz.js')).default;
+  ElearningUser = (await import('../models/elearning/ElearningUser.js')).default;
+  AssignmentSubmission = (await import('../models/elearning/AssignmentSubmission.js')).default;
+  Media = (await import('../models/elearning/Media.js')).default;
+  QuizSubmission = (await import('../models/elearning/QuizSubmission.js')).default;
+  StudyPlan = (await import('../models/elearning/StudyPlan.js')).default;
 } catch (err) {
   console.warn('MongoDB models not available, using JSON fallback');
 }
@@ -185,6 +192,114 @@ router.get('/resources', async (req, res) => {
     res.json(resources);
   } catch (err) {
     console.error('Error fetching resources:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+/**
+ * @route   GET /assignments
+ * @desc    Fetches all assignments for the e-learning portal.
+ * @access  Public
+ */
+router.get('/assignments', async (req, res) => {
+  try {
+    const assignments = await getDataWithFallback(
+      Assignment,
+      path.join(__dirname, '..', '..', 'data', 'portal', 'assignments.json')
+    );
+    res.json(assignments);
+  } catch (err) {
+    console.error('Error fetching assignments:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+/**
+ * @route   GET /quizzes
+ * @desc    Fetches all quizzes for the e-learning portal.
+ * @access  Public
+ */
+router.get('/quizzes', async (req, res) => {
+  try {
+    const quizzes = await getDataWithFallback(
+      Quiz,
+      path.join(__dirname, '..', '..', 'data', 'portal', 'quizzes.json')
+    );
+    res.json(quizzes);
+  } catch (err) {
+    console.error('Error fetching quizzes:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+/**
+ * @route   GET /elearning-users
+ * @desc    Fetches all e-learning users for the e-learning portal.
+ * @access  Protected
+ */
+router.get('/elearning-users', async (req, res) => {
+  try {
+    const elearningUsers = await getDataWithFallback(
+      ElearningUser,
+      path.join(__dirname, '..', '..', 'data', 'portal', 'elearning-users.json')
+    );
+    res.json(elearningUsers);
+  } catch (err) {
+    console.error('Error fetching e-learning users:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+/**
+ * @route   GET /assignment-submissions
+ * @desc    Fetches all assignment submissions for the e-learning portal.
+ * @access  Protected
+ */
+router.get('/assignment-submissions', async (req, res) => {
+  try {
+    const assignmentSubmissions = await getDataWithFallback(
+      AssignmentSubmission,
+      path.join(__dirname, '..', '..', 'data', 'portal', 'assignment-submissions.json')
+    );
+    res.json(assignmentSubmissions);
+  } catch (err) {
+    console.error('Error fetching assignment submissions:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+/**
+ * @route   GET /quiz-submissions
+ * @desc    Fetches all quiz submissions for the e-learning portal.
+ * @access  Protected
+ */
+router.get('/quiz-submissions', async (req, res) => {
+  try {
+    const quizSubmissions = await getDataWithFallback(
+      QuizSubmission,
+      path.join(__dirname, '..', '..', 'data', 'portal', 'quiz-submissions.json')
+    );
+    res.json(quizSubmissions);
+  } catch (err) {
+    console.error('Error fetching quiz submissions:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+/**
+ * @route   GET /study-plans
+ * @desc    Fetches all study plans for the e-learning portal.
+ * @access  Protected
+ */
+router.get('/study-plans', async (req, res) => {
+  try {
+    const studyPlans = await getDataWithFallback(
+      StudyPlan,
+      path.join(__dirname, '..', '..', 'data', 'portal', 'study-plans.json')
+    );
+    res.json(studyPlans);
+  } catch (err) {
+    console.error('Error fetching study plans:', err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
