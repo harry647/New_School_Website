@@ -9,8 +9,8 @@ import { validationResult } from 'express-validator';
 import { requireLogin } from '../middleware/authMiddleware.js';
 import { uploadImage } from '../middleware/uploadMiddleware.js';
 import mongoose from 'mongoose';
-import User from '../models/User.js';
-import Notification from '../models/Notification.js';
+import User from '../models/users/User.js';
+import Notification from '../models/users/Notification.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -22,22 +22,87 @@ const isMongoDBConnected = () => {
   return mongoose.connection.readyState === 1; // 1 means connected
 };
 
-// Helper: Read JSON data (auto-create if missing)
+// Cache for JSON data to optimize fallback performance
+const jsonCache = {
+  users: null,
+  notifications: null,
+  lastUpdated: 0,
+  cacheTTL: 5 * 60 * 1000 // 5 minutes cache TTL
+};
+
+// Clear cache if TTL expired
+const clearCacheIfExpired = () => {
+  if (Date.now() - jsonCache.lastUpdated > jsonCache.cacheTTL) {
+    jsonCache.users = null;
+    jsonCache.notifications = null;
+  }
+};
+
+// Enhanced fallback mechanism with error handling, latency optimization, and caching
+const withFallback = async (mongoOperation, jsonOperation, operationName = 'unknown') => {
+  const startTime = Date.now();
+  let fallbackReason = null;
+
+  try {
+    if (isMongoDBConnected()) {
+      const result = await mongoOperation();
+      const latency = Date.now() - startTime;
+      console.log(`[MongoDB] ${operationName} completed in ${latency}ms`);
+      return { source: 'mongodb', data: result, latency };
+    } else {
+      fallbackReason = 'mongodb_not_connected';
+    }
+  } catch (mongoError) {
+    console.error(`[MongoDB] ${operationName} failed:`, mongoError.message);
+    fallbackReason = `mongodb_error: ${mongoError.message}`;
+  }
+
+  try {
+    // Clear cache if expired before JSON operation
+    clearCacheIfExpired();
+    const result = await jsonOperation();
+    const latency = Date.now() - startTime;
+    console.log(`[JSON Fallback] ${operationName} completed in ${latency}ms (Reason: ${fallbackReason})`);
+    return { source: 'json', data: result, latency, fallbackReason };
+  } catch (jsonError) {
+    console.error(`[JSON] ${operationName} failed:`, jsonError.message);
+    throw new Error(`Both MongoDB and JSON operations failed for ${operationName}`);
+  }
+};
+
+// Helper: Read JSON data (auto-create if missing) with caching
 const readJSON = (filePath) => {
   try {
+    // Check cache first
+    if (filePath.includes('users.json') && jsonCache.users) {
+      return jsonCache.users;
+    }
+    if (filePath.includes('notifications.json') && jsonCache.notifications) {
+      return jsonCache.notifications;
+    }
+
     // Ensure folder exists
     const dir = path.dirname(filePath);
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
 
-
     // Ensure file exists
     if (!fs.existsSync(filePath)) {
       fs.writeFileSync(filePath, '[]', 'utf-8'); // start with empty array
     }
 
-    return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+
+    // Update cache
+    if (filePath.includes('users.json')) {
+      jsonCache.users = data;
+    } else if (filePath.includes('notifications.json')) {
+      jsonCache.notifications = data;
+    }
+    jsonCache.lastUpdated = Date.now();
+
+    return data;
   } catch (err) {
     console.error('Error reading JSON:', err);
     return [];
@@ -55,6 +120,15 @@ const writeJSON = (filePath, data) => {
     }
 
     fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
+
+    // Update cache
+    if (filePath.includes('users.json')) {
+      jsonCache.users = data;
+    } else if (filePath.includes('notifications.json')) {
+      jsonCache.notifications = data;
+    }
+    jsonCache.lastUpdated = Date.now();
+
     return true;
   } catch (err) {
     console.error('Error writing JSON:', err);
@@ -75,27 +149,18 @@ router.post('/login', loginValidator, async (req, res) => {
    const { email, password } = req.body;
    console.log('Login attempt:', email, password);
 
-   let user = null;
+   const result = await withFallback(
+     async () => await User.findOne({ email, password }),
+     async () => {
+       const usersPath = path.join(__dirname, '..', 'data', 'users.json');
+       const users = readJSON(usersPath);
+       return users.find(u => u.email === email && u.password === password);
+     },
+     'user_login'
+   );
 
-   // Try MongoDB first
-   if (isMongoDBConnected()) {
-     try {
-       user = await User.findOne({ email, password });
-       console.log('MongoDB user found:', user ? user.email : 'none');
-     } catch (err) {
-       console.error('MongoDB login error:', err);
-     }
-   }
-
-   // Fallback to JSON if MongoDB fails or user not found
-   if (!user) {
-     const usersPath = path.join(__dirname, '..', 'data', 'users.json');
-     console.log('Falling back to JSON users path:', usersPath);
-     const users = readJSON(usersPath);
-     console.log('JSON users loaded:', users.length);
-     user = users.find(u => u.email === email && u.password === password);
-     console.log('JSON user found:', user ? user.email : 'none');
-   }
+   const user = result.data;
+   console.log(`${result.source.toUpperCase()} user found:`, user ? user.email : 'none');
 
   if (!user) {
     return res.status(401).json({
@@ -178,15 +243,24 @@ router.post('/register', registerValidator, async (req, res) => {
   const { fullName, email, password, role, securityQuestion1, securityAnswer1, securityQuestion2, securityAnswer2 } = req.body;
   console.log('Register payload:', { fullName, email, password, role, securityQuestion1, securityAnswer1, securityQuestion2, securityAnswer2 });
 
-  // Try MongoDB first
-  if (isMongoDBConnected()) {
-    try {
-      const existingUser = await User.findOne({ email });
-      if (existingUser) {
-        return res.status(400).json({ success: false, message: 'Email already registered' });
-      }
+  // Check if email already exists using fallback mechanism
+  const existingUserResult = await withFallback(
+    async () => await User.findOne({ email }),
+    async () => {
+      const usersFile = path.join(__dirname, '..', 'data', 'users.json');
+      const users = readJSON(usersFile);
+      return users.find(u => u.email === email);
+    },
+    'check_email_exists'
+  );
 
-      // Create new user in MongoDB
+  if (existingUserResult.data) {
+    return res.status(400).json({ success: false, message: 'Email already registered' });
+  }
+
+  // Create new user using fallback mechanism
+  const result = await withFallback(
+    async () => {
       const newUser = new User({
         name: fullName,
         email,
@@ -197,47 +271,34 @@ router.post('/register', registerValidator, async (req, res) => {
           { question: securityQuestion2, answer: securityAnswer2.toLowerCase() }
         ]
       });
-
       await newUser.save();
-
-      return res.json({
-        success: true,
-        message: 'User registered successfully',
-        user: { id: newUser._id, name: fullName, email, role }
-      });
-    } catch (err) {
-      console.error('MongoDB registration error:', err);
-    }
-  }
-
-  // Fallback to JSON if MongoDB fails
-  const usersFile = path.join(__dirname, '..', 'data', 'users.json');
-  const users = readJSON(usersFile);
-
-  if (users.some(u => u.email === email)) {
-    return res.status(400).json({ success: false, message: 'Email already registered' });
-  }
-
-  // hash password for production
-  const newUser = {
-    id: users.length + 1,
-    name: fullName,
-    email,
-    password,
-    role,
-    securityQuestions: [
-      { question: securityQuestion1, answer: securityAnswer1.toLowerCase() },
-      { question: securityQuestion2, answer: securityAnswer2.toLowerCase() }
-    ]
-  };
-
-  users.push(newUser);
-  writeJSON(usersFile, users);
+      return { id: newUser._id, name: fullName, email, role };
+    },
+    async () => {
+      const usersFile = path.join(__dirname, '..', 'data', 'users.json');
+      const users = readJSON(usersFile);
+      const newUser = {
+        id: users.length + 1,
+        name: fullName,
+        email,
+        password,
+        role,
+        securityQuestions: [
+          { question: securityQuestion1, answer: securityAnswer1.toLowerCase() },
+          { question: securityQuestion2, answer: securityAnswer2.toLowerCase() }
+        ]
+      };
+      users.push(newUser);
+      writeJSON(usersFile, users);
+      return { id: newUser.id, name: fullName, email, role };
+    },
+    'user_registration'
+  );
 
   res.json({
     success: true,
     message: 'User registered successfully',
-    user: { id: newUser.id, name: fullName, email, role }
+    user: result.data
   });
 });
 
@@ -361,23 +422,16 @@ router.post('/api/forgot-password/reset', async (req, res) => {
 
 /* ==================== USER & AUTH ==================== */
 router.get('/profile', requireLogin, async (req, res) => {
-  let user = null;
+  const result = await withFallback(
+    async () => await User.findById(req.session.user.id),
+    async () => {
+      const users = readJSON(path.join(__dirname, '..', 'data', 'users.json'));
+      return users.find(u => u.id === req.session.user.id);
+    },
+    'fetch_profile'
+  );
 
-  // Try MongoDB first
-  if (isMongoDBConnected()) {
-    try {
-      user = await User.findById(req.session.user.id);
-    } catch (err) {
-      console.error('MongoDB profile fetch error:', err);
-    }
-  }
-
-  // Fallback to JSON if MongoDB fails or user not found
-  if (!user) {
-    const users = readJSON(path.join(__dirname, '..', 'data', 'users.json'));
-    user = users.find(u => u.id === req.session.user.id);
-  }
-
+  const user = result.data;
   if (!user) {
     return res.status(404).json({ success: false, message: 'User not found' });
   }
@@ -1151,24 +1205,16 @@ const writeNotifications = (data) => {
 // Get all notifications for the current user
 router.get('/notifications', requireLogin, async (req, res) => {
   try {
-    let notifications = [];
+    const result = await withFallback(
+      async () => await Notification.find({ userId: req.session.user.id }),
+      async () => {
+        const jsonNotifications = readNotifications();
+        return jsonNotifications.filter(n => n.userId === req.session.user.id);
+      },
+      'fetch_notifications'
+    );
 
-    // Try MongoDB first
-    if (isMongoDBConnected()) {
-      try {
-        notifications = await Notification.find({ userId: req.session.user.id });
-      } catch (err) {
-        console.error('MongoDB notifications fetch error:', err);
-      }
-    }
-
-    // Fallback to JSON if MongoDB fails
-    if (!notifications || notifications.length === 0) {
-      const jsonNotifications = readNotifications();
-      notifications = jsonNotifications.filter(n => n.userId === req.session.user.id);
-    }
-
-    res.json({ success: true, notifications: notifications });
+    res.json({ success: true, notifications: result.data });
   } catch (err) {
     console.error('Error fetching notifications:', err);
     res.status(500).json({ success: false, message: 'Failed to fetch notifications' });
