@@ -16,14 +16,24 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Import MongoDB models
-let EnquiryModel, ApplicationModel, ContactModel, NotificationModel, GalleryPhotoModel, GalleryVideoModel;
+let EnquiryModel, ApplicationModel, ContactModel, NotificationModel, GalleryPhotoModel, GalleryVideoModel, PendingBlogModel, CounselingBookingModel, DonationModel, SubscriberModel, AboutContactModel, AboutFeedbackModel, ClubRegistrationModel, AlumniRegistrationModel;
 
 // Dynamic import of MongoDB models with error handling
 try {
-  EnquiryModel = (await import('../../models/static/Enquiry.js')).default;
-  ApplicationModel = (await import('../../models/static/Application.js')).default;
-  ContactModel = (await import('../../models/static/Contact.js')).default;
-  NotificationModel = (await import('../../models/Notification.js')).default;
+EnquiryModel = (await import('../../models/static/Enquiry.js')).default;
+ApplicationModel = (await import('../../models/static/Application.js')).default;
+ContactModel = (await import('../../models/static/Contact.js')).default;
+NotificationModel = (await import('../../models/static/Notification.js')).default;
+GalleryPhotoModel = (await import('../../models/static/GalleryPhoto.js')).default;
+GalleryVideoModel = (await import('../../models/static/GalleryVideo.js')).default;
+PendingBlogModel = (await import('../../models/static/PendingBlog.js')).default;
+CounselingBookingModel = (await import('../../models/static/CounselingBooking.js')).default;
+DonationModel = (await import('../../models/static/Donation.js')).default;
+SubscriberModel = (await import('../../models/static/Subscriber.js')).default;
+AboutContactModel = (await import('../../models/static/AboutContact.js')).default;
+AboutFeedbackModel = (await import('../../models/static/AboutFeedback.js')).default;
+ClubRegistrationModel = (await import('../../models/static/ClubRegistration.js')).default;
+AlumniRegistrationModel = (await import('../../models/static/AlumniRegistration.js')).default;
 } catch (error) {
   console.log('MongoDB models not available, using JSON fallback');
 }
@@ -150,7 +160,7 @@ const uploadGalleryVideos = createUploader('gallery/videos', mediaExtensions);
  * @desc    Handles photo uploads for the gallery.
  * @access  Public
  */
-router.post('/upload-photos', uploadGalleryPhotos.array('photos', 10), (req, res) => {
+router.post('/upload-photos', uploadGalleryPhotos.array('photos', 10), async (req, res) => {
   const { name, email, category, event_date, description } = req.body;
 
   if (!name || !email || !category || !description) {
@@ -162,10 +172,9 @@ router.post('/upload-photos', uploadGalleryPhotos.array('photos', 10), (req, res
   }
 
   const file = path.join(__dirname, '..', '..', 'data', 'gallery-photos.json');
-  const photos = readJSON(file);
 
-  req.files.forEach(file => {
-    photos.push({
+  try {
+    const photosData = req.files.map(file => ({
       id: Date.now().toString(),
       name: name.trim(),
       email: email.toLowerCase().trim(),
@@ -175,12 +184,19 @@ router.post('/upload-photos', uploadGalleryPhotos.array('photos', 10), (req, res
       photo_path: `/uploads/gallery/photos/${file.filename}`,
       submitted_at: new Date().toISOString(),
       status: "pending"
-    });
-  });
+    }));
 
-  writeJSON(file, photos);
-  console.log(`Photo Upload → ${name} | ${req.files.length} photos`);
-  res.json({ success: true, message: "Photos uploaded successfully! They will be reviewed before being added to the gallery." });
+    // Save each photo to MongoDB with fallback
+    for (const photoData of photosData) {
+      await saveWithFallback(GalleryPhotoModel, file, photoData);
+    }
+
+    console.log(`Photo Upload → ${name} | ${req.files.length} photos`);
+    res.json({ success: true, message: "Photos uploaded successfully! They will be reviewed before being added to the gallery." });
+  } catch (error) {
+    console.error('Error saving photos:', error);
+    res.status(500).json({ success: false, message: 'Server error saving photos.' });
+  }
 });
 
 /**
@@ -188,7 +204,7 @@ router.post('/upload-photos', uploadGalleryPhotos.array('photos', 10), (req, res
  * @desc    Handles video uploads for the gallery.
  * @access  Public
  */
-router.post('/upload-video', uploadGalleryVideos.single('video'), (req, res) => {
+router.post('/upload-video', uploadGalleryVideos.single('video'), async (req, res) => {
   const { name, email, title, category, description } = req.body;
 
   if (!name || !email || !title || !category || !description) {
@@ -200,9 +216,7 @@ router.post('/upload-video', uploadGalleryVideos.single('video'), (req, res) => 
   }
 
   const file = path.join(__dirname, '..', '..', 'data', 'gallery-videos.json');
-  const videos = readJSON(file);
-
-  videos.push({
+  const videoData = {
     id: Date.now().toString(),
     name: name.trim(),
     email: email.toLowerCase().trim(),
@@ -212,11 +226,16 @@ router.post('/upload-video', uploadGalleryVideos.single('video'), (req, res) => 
     video_path: `/uploads/gallery/videos/${req.file.filename}`,
     submitted_at: new Date().toISOString(),
     status: "pending"
-  });
+  };
 
-  writeJSON(file, videos);
-  console.log(`Video Upload → ${name} | ${title}`);
-  res.json({ success: true, message: "Video uploaded successfully! It will be reviewed before being added to the gallery." });
+  try {
+    await saveWithFallback(GalleryVideoModel, file, videoData);
+    console.log(`Video Upload → ${name} | ${title}`);
+    res.json({ success: true, message: "Video uploaded successfully! It will be reviewed before being added to the gallery." });
+  } catch (error) {
+    console.error('Error saving video:', error);
+    res.status(500).json({ success: false, message: 'Server error saving video.' });
+  }
 });
 
 /**
@@ -392,7 +411,7 @@ router.post('/contactus', uploadContactAttachment.single('attachment'), async (r
  * @desc    Handles student blog submissions with an image upload.
  * @access  Public
  */
-router.post('/submit-blog', uploadBlogImage.single('image'), (req, res) => {
+router.post('/submit-blog', uploadBlogImage.single('image'), async (req, res) => {
   const { author_name, grade, email, title, topic, content, consent } = req.body;
 
   if (!author_name || !grade || !email || !title || !topic || !content || !consent) {
@@ -400,9 +419,7 @@ router.post('/submit-blog', uploadBlogImage.single('image'), (req, res) => {
   }
 
   const file = path.join(__dirname, '..', '..', 'data', 'pending-blogs.json');
-  const pending = readJSON(file);
-
-  pending.push({
+  const blogData = {
     id: Date.now().toString(),
     author_name: author_name.trim(),
     grade,
@@ -413,11 +430,16 @@ router.post('/submit-blog', uploadBlogImage.single('image'), (req, res) => {
     image: req.file ? `/uploads/blogs/${req.file.filename}` : null,
     submitted_at: new Date().toISOString(),
     status: "pending"
-  });
+  };
 
-  writeJSON(file, pending);
-  console.log(`Blog Submission → ${author_name} | ${title}`);
-  res.json({ success: true, message: "Blog submitted for review!" });
+  try {
+    await saveWithFallback(PendingBlogModel, file, blogData);
+    console.log(`Blog Submission → ${author_name} | ${title}`);
+    res.json({ success: true, message: "Blog submitted for review!" });
+  } catch (error) {
+    console.error('Error saving blog:', error);
+    res.status(500).json({ success: false, message: 'Server error saving blog.' });
+  }
 });
 
 /**
@@ -425,7 +447,7 @@ router.post('/submit-blog', uploadBlogImage.single('image'), (req, res) => {
  * @desc    Handles career counseling booking with optional resume upload.
  * @access  Public
  */
-router.post('/book-counseling', uploadResume.single('resume'), (req, res) => {
+router.post('/book-counseling', uploadResume.single('resume'), async (req, res) => {
   const { student_name, grade, parent_name, phone, _replyto: email, date: preferred_date, query } = req.body;
 
   if (!student_name || !grade || !phone || !email || !preferred_date || !query) {
@@ -437,9 +459,7 @@ router.post('/book-counseling', uploadResume.single('resume'), (req, res) => {
   }
 
   const file = path.join(__dirname, '..', '..', 'data', 'counseling-bookings.json');
-  const bookings = readJSON(file);
-
-  bookings.push({
+  const bookingData = {
     id: Date.now().toString(),
     student_name: student_name.trim(),
     grade,
@@ -451,11 +471,16 @@ router.post('/book-counseling', uploadResume.single('resume'), (req, res) => {
     resume_path: req.file ? `/uploads/resumes/${req.file.filename}` : null,
     submitted_at: new Date().toISOString(),
     status: "pending"
-  });
+  };
 
-  writeJSON(file, bookings);
-  console.log(`Counseling Booking → ${student_name} on ${preferred_date}`);
-  res.json({ success: true, message: "Booking received!" });
+  try {
+    await saveWithFallback(CounselingBookingModel, file, bookingData);
+    console.log(`Counseling Booking → ${student_name} on ${preferred_date}`);
+    res.json({ success: true, message: "Booking received!" });
+  } catch (error) {
+    console.error('Error saving counseling booking:', error);
+    res.status(500).json({ success: false, message: 'Server error saving booking.' });
+  }
 });
 
 /**
@@ -463,7 +488,7 @@ router.post('/book-counseling', uploadResume.single('resume'), (req, res) => {
  * @desc    Handles donation form submissions with optional document upload.
  * @access  Public
  */
-router.post('/donate', uploadDonationDoc.single('attachment'), (req, res) => {
+router.post('/donate', uploadDonationDoc.single('attachment'), async (req, res) => {
   const { donor_name, _replyto: email, phone, amount, purpose, organization, message } = req.body;
 
   if (!donor_name || !email || !amount || !purpose) {
@@ -476,9 +501,7 @@ router.post('/donate', uploadDonationDoc.single('attachment'), (req, res) => {
   }
 
   const file = path.join(__dirname, '..', '..', 'data', 'donations.json');
-  const donations = readJSON(file);
-
-  donations.unshift({
+  const donationData = {
     id: Date.now().toString(),
     donor_name: donor_name.trim(),
     email: email.toLowerCase().trim(),
@@ -490,11 +513,16 @@ router.post('/donate', uploadDonationDoc.single('attachment'), (req, res) => {
     attachment: req.file ? `/uploads/donations/${req.file.filename}` : null,
     submitted_at: new Date().toISOString(),
     payment_status: "pending"
-  });
+  };
 
-  writeJSON(file, donations);
-  console.log(`Donation → ${donor_name} | Ksh ${amountNum}`);
-  res.json({ success: true, message: "Donation recorded! Thank you for your generosity." });
+  try {
+    await saveWithFallback(DonationModel, file, donationData);
+    console.log(`Donation → ${donor_name} | Ksh ${amountNum}`);
+    res.json({ success: true, message: "Donation recorded! Thank you for your generosity." });
+  } catch (error) {
+    console.error('Error saving donation:', error);
+    res.status(500).json({ success: false, message: 'Server error saving donation.' });
+  }
 });
 
 /**
@@ -502,7 +530,7 @@ router.post('/donate', uploadDonationDoc.single('attachment'), (req, res) => {
  * @desc    Handles newsletter subscription form.
  * @access  Public
  */
-router.post('/subscribe', (req, res) => {
+router.post('/subscribe', async (req, res) => {
   let { _replyto: email, name, 'preferences[]': prefs } = req.body;
 
   const preferences = Array.isArray(prefs) ? prefs : (prefs ? [prefs] : []);
@@ -517,13 +545,7 @@ router.post('/subscribe', (req, res) => {
   }
 
   const file = path.join(__dirname, '..', '..', 'data', 'subscribers.json');
-  let list = readJSON(file);
-
-  if (list.some(s => s.email === cleanEmail)) {
-    return res.json({ success: true, message: "Already subscribed!" });
-  }
-
-  list.push({
+  const subscriberData = {
     id: Date.now().toString(),
     email: cleanEmail,
     name: name?.trim() || null,
@@ -531,11 +553,30 @@ router.post('/subscribe', (req, res) => {
     subscribed_at: new Date().toISOString(),
     source: "website",
     status: "active"
-  });
+  };
 
-  writeJSON(file, list);
-  console.log(`New Subscriber → ${cleanEmail}`);
-  res.json({ success: true, message: "Subscription successful!" });
+  try {
+    // Check if already subscribed in MongoDB or JSON
+    let isSubscribed = false;
+    if (SubscriberModel && mongoose.connection.readyState === 1) {
+      const existing = await SubscriberModel.findOne({ email: cleanEmail });
+      if (existing) isSubscribed = true;
+    } else {
+      const list = readJSON(file);
+      if (list.some(s => s.email === cleanEmail)) isSubscribed = true;
+    }
+
+    if (isSubscribed) {
+      return res.json({ success: true, message: "Already subscribed!" });
+    }
+
+    await saveWithFallback(SubscriberModel, file, subscriberData);
+    console.log(`New Subscriber → ${cleanEmail}`);
+    res.json({ success: true, message: "Subscription successful!" });
+  } catch (error) {
+    console.error('Error saving subscriber:', error);
+    res.status(500).json({ success: false, message: 'Server error saving subscription.' });
+  }
 });
 
 /**
@@ -543,7 +584,7 @@ router.post('/subscribe', (req, res) => {
  * @desc    Handles the contact form submission from the About page.
  * @access  Public
  */
-router.post('/contact', (req, res) => {
+router.post('/contact', async (req, res) => {
   const { name, _replyto: email, phone, subject, message } = req.body;
 
   if (!name || !email || !subject || !message) {
@@ -551,9 +592,7 @@ router.post('/contact', (req, res) => {
   }
 
   const file = path.join(__dirname, '..', '..', 'data', 'about-contact.json');
-  const contacts = readJSON(file);
-
-  contacts.push({
+  const contactData = {
     id: Date.now().toString(),
     name: name.trim(),
     email: email.toLowerCase().trim(),
@@ -562,11 +601,16 @@ router.post('/contact', (req, res) => {
     message: message.trim(),
     submitted_at: new Date().toISOString(),
     status: "new"
-  });
+  };
 
-  writeJSON(file, contacts);
-  console.log(`About Contact → ${name} | ${subject}`);
-  res.json({ success: true, message: "Message received! We will get back to you soon." });
+  try {
+    await saveWithFallback(AboutContactModel, file, contactData);
+    console.log(`About Contact → ${name} | ${subject}`);
+    res.json({ success: true, message: "Message received! We will get back to you soon." });
+  } catch (error) {
+    console.error('Error saving about contact:', error);
+    res.status(500).json({ success: false, message: 'Server error saving contact.' });
+  }
 });
 
 /**
@@ -574,7 +618,7 @@ router.post('/contact', (req, res) => {
  * @desc    Handles the feedback form submission from the About page.
  * @access  Public
  */
-router.post('/feedback', (req, res) => {
+router.post('/feedback', async (req, res) => {
   const { email, category, rating, feedback, suggestions } = req.body;
 
   if (!email || !category || !rating || !feedback) {
@@ -582,9 +626,7 @@ router.post('/feedback', (req, res) => {
   }
 
   const file = path.join(__dirname, '..', '..', 'data', 'about-feedback.json');
-  const feedbacks = readJSON(file);
-
-  feedbacks.push({
+  const feedbackData = {
     id: Date.now().toString(),
     email: email.toLowerCase().trim(),
     category,
@@ -593,11 +635,16 @@ router.post('/feedback', (req, res) => {
     suggestions: suggestions?.trim() || null,
     submitted_at: new Date().toISOString(),
     status: "new"
-  });
+  };
 
-  writeJSON(file, feedbacks);
-  console.log(`About Feedback → ${email} | Rating: ${rating}`);
-  res.json({ success: true, message: "Thank you for your feedback! We appreciate your input." });
+  try {
+    await saveWithFallback(AboutFeedbackModel, file, feedbackData);
+    console.log(`About Feedback → ${email} | Rating: ${rating}`);
+    res.json({ success: true, message: "Thank you for your feedback! We appreciate your input." });
+  } catch (error) {
+    console.error('Error saving feedback:', error);
+    res.status(500).json({ success: false, message: 'Server error saving feedback.' });
+  }
 });
 
 
@@ -626,7 +673,7 @@ router.get('/notifications', async (req, res) => {
  * @desc    Handles student club registration form submissions.
  * @access  Public
  */
-router.post('/register-club', (req, res) => {
+router.post('/register-club', async (req, res) => {
   const { student_name, grade, house, email, message, interested_clubs } = req.body;
 
   if (!student_name || !grade || !house || !interested_clubs) {
@@ -641,9 +688,7 @@ router.post('/register-club', (req, res) => {
   }
 
   const file = path.join(__dirname, '..', '..', 'data', 'club-registrations.json');
-  const registrations = readJSON(file);
-
-  registrations.push({
+  const registrationData = {
     id: Date.now().toString(),
     student_name: student_name.trim(),
     grade: grade.trim(),
@@ -653,11 +698,16 @@ router.post('/register-club', (req, res) => {
     message: message?.trim() || null,
     submitted_at: new Date().toISOString(),
     status: "new"
-  });
+  };
 
-  writeJSON(file, registrations);
-  console.log(`Club Registration → ${student_name} | ${grade} | Clubs: ${clubs.join(', ')}`);
-  res.json({ success: true, message: "Club registration received! Coordinators will contact you soon." });
+  try {
+    await saveWithFallback(ClubRegistrationModel, file, registrationData);
+    console.log(`Club Registration → ${student_name} | ${grade} | Clubs: ${clubs.join(', ')}`);
+    res.json({ success: true, message: "Club registration received! Coordinators will contact you soon." });
+  } catch (error) {
+    console.error('Error saving club registration:', error);
+    res.status(500).json({ success: false, message: 'Server error saving registration.' });
+  }
 });
 
 /**
@@ -668,7 +718,7 @@ router.post('/register-club', (req, res) => {
 router.post('/register-alumni', uploadAlumniPhotos.fields([
   { name: 'profile_photo', maxCount: 1 },
   { name: 'passport_photo', maxCount: 1 }
-]), (req, res) => {
+]), async (req, res) => {
   const { name, batch, _replyto: email, phone, profession, organization, location, message, skills, connect } = req.body;
 
   if (!name || !batch || !email) {
@@ -676,9 +726,7 @@ router.post('/register-alumni', uploadAlumniPhotos.fields([
   }
 
   const file = path.join(__dirname, '..', '..', 'data', 'alumni-registrations.json');
-  const registrations = readJSON(file);
-
-  registrations.push({
+  const registrationData = {
     id: Date.now().toString(),
     name: name.trim(),
     batch: batch.trim(),
@@ -694,11 +742,16 @@ router.post('/register-alumni', uploadAlumniPhotos.fields([
     passport_photo: req.files?.passport_photo?.[0] ? `/uploads/alumni/${req.files.passport_photo[0].filename}` : null,
     registration_date: new Date().toISOString(),
     status: "new"
-  });
+  };
 
-  writeJSON(file, registrations);
-  console.log(`Alumni Registration → ${name} | Batch ${batch}`);
-  res.json({ success: true, message: "Thank you for joining our alumni network! We'll contact you soon." });
+  try {
+    await saveWithFallback(AlumniRegistrationModel, file, registrationData);
+    console.log(`Alumni Registration → ${name} | Batch ${batch}`);
+    res.json({ success: true, message: "Thank you for joining our alumni network! We'll contact you soon." });
+  } catch (error) {
+    console.error('Error saving alumni registration:', error);
+    res.status(500).json({ success: false, message: 'Server error saving registration.' });
+  }
 });
 
 export default router;
