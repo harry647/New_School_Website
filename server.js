@@ -44,7 +44,7 @@ const connectToMongoDB = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
-    console.log('✅ MongoDB connected successfully');
+    console.log('MongoDB connected successfully');
     
     // Set up MongoDB session store
     const sessionStore = MongoStore.create({
@@ -56,7 +56,7 @@ const connectToMongoDB = async () => {
     app.locals.mongoSessionStore = sessionStore;
     
   } catch (err) {
-    console.error('❌ MongoDB connection error:', err);
+    console.error('MongoDB connection error:', err);
     // Continue with SQLite if MongoDB fails (fallback)
   }
 };
@@ -102,10 +102,10 @@ const sessionConfig = {
 
 // Use MongoDB session store if available, otherwise fallback to SQLite
 if (app.locals.mongoSessionStore) {
-  console.log('🔄 Using MongoDB for session storage');
+  console.log('Using MongoDB for session storage');
   sessionConfig.store = app.locals.mongoSessionStore;
 } else {
-  console.log('🔄 Using SQLite for session storage (fallback)');
+  console.log('Using SQLite for session storage (fallback)');
   sessionConfig.store = new SQLiteStoreInstance({
     db: 'sessions.db',
     dir: dbFolder,
@@ -193,15 +193,15 @@ app.use(errorHandler);
 // 7. Start Server
 // ================================================
 app.listen(PORT, () => {
-  console.log(`🚀 Bar Union School Website LIVE at http://localhost:${PORT}`);
+  console.log(`Bar Union School Website LIVE at http://localhost:${PORT}`);
   
   if (mongoose.connection.readyState === 1) {
-    console.log('🔄 MongoDB session database → Active');
-    console.log('📊 Primary data storage → MongoDB');
+    console.log('MongoDB session database → Active');
+    console.log('Primary data storage → MongoDB');
   } else {
-    console.log('🔄 SQLite session database → /database/sessions.db');
-    console.log('⚠️  MongoDB not connected - using SQLite fallback');
+    console.log('SQLite session database → /database/sessions.db');
+    console.log('MongoDB not connected - using SQLite fallback');
   }
   
-  console.log('📁 JSON files remain intact as backup');
+  console.log('JSON files remain intact as backup');
 });
