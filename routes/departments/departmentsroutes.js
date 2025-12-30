@@ -79,18 +79,18 @@ const fetchData = async (model, jsonFilePath) => {
   try {
     if (mongoose.connection.readyState === 1) {
       const data = await model.find({});
-      console.log(`✅ Fetched ${data.length} records from MongoDB using model: ${model.modelName}`);
+      console.log(`Fetched ${data.length} records from MongoDB using model: ${model.modelName}`);
       return data;
     } else {
-      console.log('⚠️ MongoDB not connected. Falling back to JSON.');
+      console.log('MongoDB not connected. Falling back to JSON.');
       const jsonData = readJSON(jsonFilePath);
-      console.log(`✅ Fetched ${jsonData.length} records from JSON file: ${jsonFilePath}`);
+      console.log(`Fetched ${jsonData.length} records from JSON file: ${jsonFilePath}`);
       return jsonData;
     }
   } catch (err) {
-    console.error(`❌ Error fetching from MongoDB: ${err.message}. Falling back to JSON.`);
+    console.error(`Error fetching from MongoDB: ${err.message}. Falling back to JSON.`);
     const jsonData = readJSON(jsonFilePath);
-    console.log(`✅ Fetched ${jsonData.length} records from JSON file: ${jsonFilePath}`);
+    console.log(`Fetched ${jsonData.length} records from JSON file: ${jsonFilePath}`);
     return jsonData;
   }
 };
@@ -105,21 +105,21 @@ const saveData = async (model, jsonFilePath, data) => {
       } else {
         await model.create(data);
       }
-      console.log(`✅ Saved data to MongoDB using model: ${model.modelName}`);
+      console.log(`Saved data to MongoDB using model: ${model.modelName}`);
       return true;
     } else {
-      console.log('⚠️ MongoDB not connected. Falling back to JSON.');
+      console.log('MongoDB not connected. Falling back to JSON.');
       const result = writeJSON(jsonFilePath, data);
       if (result) {
-        console.log(`✅ Saved data to JSON file: ${jsonFilePath}`);
+        console.log(`Saved data to JSON file: ${jsonFilePath}`);
       }
       return result;
     }
   } catch (err) {
-    console.error(`❌ Error saving to MongoDB: ${err.message}. Falling back to JSON.`);
+    console.error(`Error saving to MongoDB: ${err.message}. Falling back to JSON.`);
     const result = writeJSON(jsonFilePath, data);
     if (result) {
-      console.log(`✅ Saved data to JSON file: ${jsonFilePath}`);
+      console.log(`Saved data to JSON file: ${jsonFilePath}`);
     }
     return result;
   }

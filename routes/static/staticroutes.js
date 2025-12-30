@@ -82,11 +82,11 @@ const saveWithFallback = async (model, filePath, data) => {
     // Try MongoDB first
     if (model && mongoose.connection.readyState === 1) {
       await model.create(data);
-      console.log('✅ Saved to MongoDB');
+      console.log('Saved to MongoDB');
       return true; // Successfully saved to MongoDB
     }
   } catch (error) {
-    console.error('❌ MongoDB save error:', error.message);
+    console.error('MongoDB save error:', error.message);
   }
 
   // Fallback to JSON if MongoDB fails or is unavailable
@@ -94,10 +94,10 @@ const saveWithFallback = async (model, filePath, data) => {
     let existingData = readJSON(filePath);
     existingData.push(data);
     writeJSON(filePath, existingData);
-    console.log('🔄 JSON backup saved');
+    console.log('JSON backup saved');
     return true; // Successfully saved to JSON
   } catch (jsonError) {
-    console.error('❌ JSON fallback error:', jsonError.message);
+    console.error('JSON fallback error:', jsonError.message);
     return false; // Failed to save to both MongoDB and JSON
   }
 };
@@ -108,21 +108,21 @@ const getWithFallback = async (model, filePath) => {
     // Try MongoDB first
     if (model && mongoose.connection.readyState === 1) {
       const data = await model.find({}).lean();
-      console.log(`✅ Retrieved ${data.length} records from MongoDB`);
+      console.log(`Retrieved ${data.length} records from MongoDB`);
       return data;
     }
   } catch (error) {
-    console.error('❌ MongoDB error:', error.message);
+    console.error('MongoDB error:', error.message);
   }
 
   // Fallback to JSON
   try {
-    console.log('🔄 Using JSON fallback');
+    console.log('Using JSON fallback');
     const jsonData = readJSON(filePath);
-    console.log(`✅ Retrieved ${jsonData.length} records from JSON`);
+    console.log(`Retrieved ${jsonData.length} records from JSON`);
     return jsonData;
   } catch (jsonError) {
-    console.error('❌ JSON fallback error:', jsonError.message);
+    console.error('JSON fallback error:', jsonError.message);
     return []; // Return empty array if both MongoDB and JSON fail
   }
 };

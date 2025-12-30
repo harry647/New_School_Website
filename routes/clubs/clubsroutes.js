@@ -67,14 +67,14 @@ const fetchData = async (model, collectionName, jsonFilePath) => {
       const startTime = Date.now();
       const data = await model.find({});
       const mongoTime = Date.now() - startTime;
-      console.log(`✅ Fetched ${data.length} records from MongoDB collection: ${collectionName} (${mongoTime}ms)`);
+      console.log(`Fetched ${data.length} records from MongoDB collection: ${collectionName} (${mongoTime}ms)`);
       return data;
     } else {
-      console.log('⚠️ MongoDB not connected. Falling back to JSON.');
+      console.log('MongoDB not connected. Falling back to JSON.');
       return readJSON(jsonFilePath);
     }
   } catch (err) {
-    console.error(`❌ Error fetching from MongoDB: ${err.message}. Falling back to JSON.`);
+    console.error(`Error fetching from MongoDB: ${err.message}. Falling back to JSON.`);
     return readJSON(jsonFilePath);
   }
 };
@@ -91,14 +91,14 @@ const saveData = async (model, collectionName, jsonFilePath, data) => {
         await model.create(data);
       }
       const mongoTime = Date.now() - startTime;
-      console.log(`✅ Saved data to MongoDB collection: ${collectionName} (${mongoTime}ms)`);
+      console.log(`Saved data to MongoDB collection: ${collectionName} (${mongoTime}ms)`);
       return true;
     } else {
-      console.log('⚠️ MongoDB not connected. Falling back to JSON.');
+      console.log('MongoDB not connected. Falling back to JSON.');
       return writeJSON(jsonFilePath, data);
     }
   } catch (err) {
-    console.error(`❌ Error saving to MongoDB: ${err.message}. Falling back to JSON.`);
+    console.error(`Error saving to MongoDB: ${err.message}. Falling back to JSON.`);
     return writeJSON(jsonFilePath, data);
   }
 };

@@ -83,11 +83,11 @@ const checkMongoDBConnection = async (retries = 3, delay = 100) => {
       
       // If not connected, try to reconnect
       if (mongoose.connection.readyState === 0) {
-        console.log(`🔄 Attempting to reconnect to MongoDB (attempt ${attempt}/${retries})`);
+        console.log(`Attempting to reconnect to MongoDB (attempt ${attempt}/${retries})`);
         await new Promise(resolve => setTimeout(resolve, delay));
       }
     } catch (err) {
-      console.error(`❌ MongoDB connection check error (attempt ${attempt}):`, err.message);
+      console.error(`MongoDB connection check error (attempt ${attempt}):`, err.message);
       await new Promise(resolve => setTimeout(resolve, delay));
     }
   }
@@ -137,7 +137,7 @@ const getDataWithFallback = async (model, jsonPath, query = {}) => {
   // Check cache first for immediate response
   const cachedData = getCachedData(cacheKey);
   if (cachedData) {
-    console.log(`🚀 Using cached data for ${model?.modelName || 'unknown'} (instant)`);
+    console.log(`Using cached data for ${model?.modelName || 'unknown'} (instant)`);
     return cachedData;
   }
   
@@ -157,35 +157,35 @@ const getDataWithFallback = async (model, jsonPath, query = {}) => {
         ]);
         
         const mongoDuration = Date.now() - startTime;
-        console.log(`✅ Using MongoDB for ${model.modelName} (${mongoDuration}ms)`);
+        console.log(`Using MongoDB for ${model.modelName} (${mongoDuration}ms)`);
         
         // Cache the result for future requests
         cacheData(cacheKey, data);
         
         return data;
       } catch (mongoErr) {
-        console.error(`❌ MongoDB error for ${model.modelName}:`, mongoErr.message);
+        console.error(`MongoDB error for ${model.modelName}:`, mongoErr.message);
         // Continue to JSON fallback
       }
     } else {
-      console.log(`ℹ️  MongoDB not available for ${model?.modelName || 'unknown'}`);
+      console.log(`MongoDB not available for ${model?.modelName || 'unknown'}`);
     }
   } catch (err) {
-    console.error(`❌ Unexpected error in getDataWithFallback for ${model?.modelName || 'unknown'}`, err);
+    console.error(`Unexpected error in getDataWithFallback for ${model?.modelName || 'unknown'}`, err);
   }
 
   // Fallback to JSON
   try {
     const jsonData = readJSON(jsonPath);
     const jsonDuration = Date.now() - startTime;
-    console.log(`🔄 Using JSON fallback for ${model?.modelName || 'unknown'} (${jsonDuration}ms)`);
+    console.log(`Using JSON fallback for ${model?.modelName || 'unknown'} (${jsonDuration}ms)`);
     
     // Cache JSON data as well to minimize repeated file reads
     cacheData(cacheKey, jsonData);
     
     return jsonData;
   } catch (jsonErr) {
-    console.error(`❌ JSON fallback failed for ${model?.modelName || 'unknown'}:`, jsonErr.message);
+    console.error(`JSON fallback failed for ${model?.modelName || 'unknown'}:`, jsonErr.message);
     return []; // Return empty array as last resort
   }
 };
@@ -212,7 +212,7 @@ const saveDataWithBackup = async (model, jsonPath, data) => {
         ]);
         
         const mongoDuration = Date.now() - startTime;
-        console.log(`✅ Saved to MongoDB for ${model.modelName} (${mongoDuration}ms)`);
+        console.log(`Saved to MongoDB for ${model.modelName} (${mongoDuration}ms)`);
         
         // Invalidate cache for this model to ensure fresh data on next read
         if (model) {
@@ -227,14 +227,14 @@ const saveDataWithBackup = async (model, jsonPath, data) => {
         
         return true;
       } catch (mongoErr) {
-        console.error(`❌ MongoDB save error for ${model.modelName}:`, mongoErr.message);
+        console.error(`MongoDB save error for ${model.modelName}:`, mongoErr.message);
         // Continue to JSON backup
       }
     } else {
-      console.log(`ℹ️  MongoDB not available for saving ${model?.modelName || 'unknown'}`);
+      console.log(`MongoDB not available for saving ${model?.modelName || 'unknown'}`);
     }
   } catch (err) {
-    console.error(`❌ Unexpected error in saveDataWithBackup for ${model?.modelName || 'unknown'}`, err);
+    console.error(`Unexpected error in saveDataWithBackup for ${model?.modelName || 'unknown'}`, err);
   }
 
   // Backup to JSON
@@ -242,7 +242,7 @@ const saveDataWithBackup = async (model, jsonPath, data) => {
     const jsonSuccess = writeJSON(jsonPath, data);
     const jsonDuration = Date.now() - startTime;
     if (jsonSuccess) {
-      console.log(`🔄 Using JSON backup for ${model?.modelName || 'unknown'} (${jsonDuration}ms)`);
+      console.log(`Using JSON backup for ${model?.modelName || 'unknown'} (${jsonDuration}ms)`);
       
       // Invalidate cache for this model to ensure fresh data on next read
       if (model) {
@@ -255,11 +255,11 @@ const saveDataWithBackup = async (model, jsonPath, data) => {
           cacheKeysToRemove.forEach(key => dataCache.delete(key));
         }
       } else {
-      console.error(`❌ JSON backup failed for ${model?.modelName || 'unknown'}`);
+      console.error(`JSON backup failed for ${model?.modelName || 'unknown'}`);
     }
     return jsonSuccess;
   } catch (jsonErr) {
-    console.error(`❌ JSON backup failed for ${model?.modelName || 'unknown'}:`, jsonErr.message);
+    console.error(`JSON backup failed for ${model?.modelName || 'unknown'}:`, jsonErr.message);
     return false;
   }
 };
