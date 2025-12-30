@@ -6,6 +6,7 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import multer from 'multer';
+import mongoose from 'mongoose';
 
 const router = express.Router();
 
@@ -13,6 +14,19 @@ const router = express.Router();
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Import MongoDB models
+let EnquiryModel, ApplicationModel, ContactModel, NotificationModel, GalleryPhotoModel, GalleryVideoModel;
+
+// Dynamic import of MongoDB models with error handling
+try {
+  EnquiryModel = (await import('../../models/static/Enquiry.js')).default;
+  ApplicationModel = (await import('../../models/static/Application.js')).default;
+  ContactModel = (await import('../../models/static/Contact.js')).default;
+  NotificationModel = (await import('../../models/Notification.js')).default;
+} catch (error) {
+  console.log('MongoDB models not available, using JSON fallback');
+}
 
 // Helper: Read JSON data (auto-create if missing)
 const readJSON = (filePath) => {
@@ -50,6 +64,43 @@ const writeJSON = (filePath, data) => {
     console.error('Error writing JSON:', err);
     return false;
   }
+};
+
+// Helper: Save data to MongoDB with JSON fallback
+const saveWithFallback = async (model, filePath, data) => {
+  try {
+    // Try MongoDB first
+    if (model && mongoose.connection.readyState === 1) {
+      await model.create(data);
+      console.log('✅ Saved to MongoDB');
+    }
+  } catch (error) {
+    console.error('❌ MongoDB save error:', error.message);
+  }
+
+  // Always save to JSON as backup
+  let existingData = readJSON(filePath);
+  existingData.push(data);
+  writeJSON(filePath, existingData);
+  console.log('🔄 JSON backup saved');
+};
+
+// Helper: Get data from MongoDB with JSON fallback
+const getWithFallback = async (model, filePath) => {
+  try {
+    // Try MongoDB first
+    if (model && mongoose.connection.readyState === 1) {
+      const data = await model.find({}).lean();
+      console.log(`✅ Retrieved ${data.length} records from MongoDB`);
+      return data;
+    }
+  } catch (error) {
+    console.error('❌ MongoDB error:', error.message);
+  }
+
+  // Fallback to JSON
+  console.log('🔄 Using JSON fallback');
+  return readJSON(filePath);
 };
 
 // Multer configuration
@@ -173,7 +224,7 @@ router.post('/upload-video', uploadGalleryVideos.single('video'), (req, res) => 
  * @desc    Handles homepage quick enquiry form submissions.
  * @access  Public
  */
-router.post('/submit-enquiry', (req, res) => {
+router.post('/submit-enquiry', async (req, res) => {
   const { studentName, parentPhone, email } = req.body;
 
   if (!studentName || !parentPhone) {
@@ -185,23 +236,21 @@ router.post('/submit-enquiry', (req, res) => {
   }
 
   const file = path.join(__dirname, '..', '..', 'data', 'enquiries.json');
-  const enquiries = readJSON(file);
-
-  enquiries.push({
+  const enquiryData = {
     id: Date.now().toString(),
     studentName: studentName.trim(),
     parentPhone: parentPhone.trim(),
     email: email?.trim() || null,
     submittedAt: new Date().toISOString(),
     status: 'new'
-  });
+  };
 
-  console.log('Attempting to write to file:', file);
-  if (writeJSON(file, enquiries)) {
+  try {
+    await saveWithFallback(EnquiryModel, file, enquiryData);
     console.log(`Enquiry → ${studentName} | ${parentPhone}`);
     res.json({ success: true, message: 'Enquiry received!' });
-  } else {
-    console.error('writeJSON returned false for file:', file);
+  } catch (error) {
+    console.error('Error saving enquiry:', error);
     res.status(500).json({ success: false, message: 'Server error saving enquiry.' });
   }
 });
@@ -218,7 +267,7 @@ router.post('/submit-application', uploadAdmissionDocs.fields([
   { name: 'school_report', maxCount: 1 },
   { name: 'medical_report', maxCount: 1 },
   { name: 'passport_photo', maxCount: 1 }
-]), (req, res) => {
+]), async (req, res) => {
   const { student_name, dob, gender, grade, parent_name, _replyto: email, phone, previous_school, message } = req.body;
 
   if (!student_name || !dob || !gender || !grade || !parent_name || !email || !phone) {
@@ -235,9 +284,7 @@ router.post('/submit-application', uploadAdmissionDocs.fields([
   }
 
   const file = path.join(__dirname, '..', '..', 'data', 'applications.json');
-  const apps = readJSON(file);
-
-  apps.push({
+  const applicationData = {
     id: Date.now().toString(),
     student_name: student_name.trim(),
     date_of_birth: dob,
@@ -255,11 +302,16 @@ router.post('/submit-application', uploadAdmissionDocs.fields([
     passport_photo: req.files.passport_photo ? `/uploads/admissions/${req.files.passport_photo[0].filename}` : null,
     submitted_at: new Date().toISOString(),
     status: "pending"
-  });
+  };
 
-  writeJSON(file, apps);
-  console.log(`Application → ${student_name} | ${grade}`);
-  res.json({ success: true, message: "Application received!" });
+  try {
+    await saveWithFallback(ApplicationModel, file, applicationData);
+    console.log(`Application → ${student_name} | ${grade}`);
+    res.json({ success: true, message: "Application received!" });
+  } catch (error) {
+    console.error('Error saving application:', error);
+    res.status(500).json({ success: false, message: 'Server error saving application.' });
+  }
 });
 
 /**
@@ -267,7 +319,7 @@ router.post('/submit-application', uploadAdmissionDocs.fields([
  * @desc    Handles the main contact form.
  * @access  Public
  */
-router.post('/contact', (req, res) => {
+router.post('/contact', async (req, res) => {
   const { name, _replyto: email, phone, subject, department, message, followup } = req.body;
 
   if (!name || !email || !phone || !subject || !message) {
@@ -275,9 +327,7 @@ router.post('/contact', (req, res) => {
   }
 
   const file = path.join(__dirname, '..', '..', 'data', 'contacts.json');
-  const contacts = readJSON(file);
-
-  contacts.push({
+  const contactData = {
     id: Date.now().toString(),
     name: name.trim(),
     email: email.toLowerCase().trim(),
@@ -288,11 +338,16 @@ router.post('/contact', (req, res) => {
     preferred_contact: followup || "Any",
     submitted_at: new Date().toISOString(),
     status: "new"
-  });
+  };
 
-  writeJSON(file, contacts);
-  console.log(`Contact → ${name} | ${subject}`);
-  res.json({ success: true, message: "Message received!" });
+  try {
+    await saveWithFallback(ContactModel, file, contactData);
+    console.log(`Contact → ${name} | ${subject}`);
+    res.json({ success: true, message: "Message received!" });
+  } catch (error) {
+    console.error('Error saving contact:', error);
+    res.status(500).json({ success: false, message: 'Server error saving contact.' });
+  }
 });
 
 /**
@@ -301,7 +356,7 @@ router.post('/contact', (req, res) => {
  * @access  Public
  */
 const uploadContactAttachment = createUploader('contact/', [...documentExtensions, ...imageExtensions]);
-router.post('/contactus', uploadContactAttachment.single('attachment'), (req, res) => {
+router.post('/contactus', uploadContactAttachment.single('attachment'), async (req, res) => {
   const { name, _replyto: email, phone, subject, department, message, followup } = req.body;
 
   if (!name || !email || !phone || !subject || !message) {
@@ -309,9 +364,7 @@ router.post('/contactus', uploadContactAttachment.single('attachment'), (req, re
   }
 
   const file = path.join(__dirname, '..', '..', 'data', 'contactus.json');
-  const contacts = readJSON(file);
-
-  contacts.push({
+  const contactData = {
     id: Date.now().toString(),
     name: name.trim(),
     email: email.toLowerCase().trim(),
@@ -322,11 +375,16 @@ router.post('/contactus', uploadContactAttachment.single('attachment'), (req, re
     preferred_contact: followup || "Any",
     submitted_at: new Date().toISOString(),
     status: "new"
-  });
+  };
 
-  writeJSON(file, contacts);
-  console.log(`Contact Us → ${name} | ${subject}`);
-  res.json({ success: true, message: "Message received!" });
+  try {
+    await saveWithFallback(ContactModel, file, contactData);
+    console.log(`Contact Us → ${name} | ${subject}`);
+    res.json({ success: true, message: "Message received!" });
+  } catch (error) {
+    console.error('Error saving contact:', error);
+    res.status(500).json({ success: false, message: 'Server error saving contact.' });
+  }
 });
 
 /**
@@ -552,9 +610,15 @@ router.post('/feedback', (req, res) => {
  * @desc    Fetches a list of general notifications.
  * @access  Public
  */
-router.get('/notifications', (req, res) => {
-  const notifications = readJSON(path.join(__dirname, '..', '..', 'data', 'notifications.json'));
-  res.json(notifications || []);
+router.get('/notifications', async (req, res) => {
+  try {
+    const file = path.join(__dirname, '..', '..', 'data', 'notifications.json');
+    const notifications = await getWithFallback(NotificationModel, file);
+    res.json(notifications || []);
+  } catch (error) {
+    console.error('Error fetching notifications:', error);
+    res.json([]);
+  }
 });
 
 /**

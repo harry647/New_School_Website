@@ -7,6 +7,7 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import multer from 'multer';
+import mongoose from 'mongoose';
 
 const router = express.Router();
 
@@ -53,6 +54,47 @@ const writeJSON = (filePath, data) => {
   }
 };
 
+// Helper: Fetch data from MongoDB with fallback to JSON
+const fetchData = async (collectionName, jsonFilePath) => {
+  try {
+    if (mongoose.connection.readyState === 1) {
+      const collection = mongoose.connection.db.collection(collectionName);
+      const data = await collection.find({}).toArray();
+      console.log(`✅ Fetched ${data.length} records from MongoDB collection: ${collectionName}`);
+      return data;
+    } else {
+      console.log('⚠️ MongoDB not connected. Falling back to JSON.');
+      return readJSON(jsonFilePath);
+    }
+  } catch (err) {
+    console.error(`❌ Error fetching from MongoDB: ${err.message}. Falling back to JSON.`);
+    return readJSON(jsonFilePath);
+  }
+};
+
+// Helper: Save data to MongoDB with fallback to JSON
+const saveData = async (collectionName, jsonFilePath, data) => {
+  try {
+    if (mongoose.connection.readyState === 1) {
+      const collection = mongoose.connection.db.collection(collectionName);
+      await collection.deleteMany({}); // Clear existing data
+      if (Array.isArray(data)) {
+        await collection.insertMany(data);
+      } else {
+        await collection.insertOne(data);
+      }
+      console.log(`✅ Saved data to MongoDB collection: ${collectionName}`);
+      return true;
+    } else {
+      console.log('⚠️ MongoDB not connected. Falling back to JSON.');
+      return writeJSON(jsonFilePath, data);
+    }
+  } catch (err) {
+    console.error(`❌ Error saving to MongoDB: ${err.message}. Falling back to JSON.`);
+    return writeJSON(jsonFilePath, data);
+  }
+};
+
 // Multer configuration
 const createUploader = (folder, allowedExtensions = [], maxSize = 15 * 1024 * 1024) => {
   const storage = multer.diskStorage({
@@ -92,9 +134,15 @@ const uploadDepartmentFile = createUploader('departments/', [...documentExtensio
 const uploadGuidanceResource = createUploader('guidance/', documentExtensions);
 const uploadWelfareAttachment = createUploader('welfare/', [...documentExtensions, ...imageExtensions]);
 
-router.get('/cocurriculum/data', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'cocurriculum', 'data.json'));
-  res.json(data);
+router.get('/cocurriculum/data', async (req, res) => {
+  try {
+    const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'cocurriculum', 'data.json');
+    const data = await fetchData('cocurriculum_data', jsonFilePath);
+    res.json(data);
+  } catch (err) {
+    console.error('Error fetching cocurriculum data:', err);
+    res.status(500).json({ success: false, message: 'Failed to load cocurriculum data' });
+  }
 });
 
 /**
@@ -102,13 +150,18 @@ router.get('/cocurriculum/data', (req, res) => {
  * @desc    Handles a student's application to join a co-curricular activity.
  * @access  Protected
  */
-router.post('/cocurriculum/join', (req, res) => {
-  const data = req.body;
-  const file = path.join(__dirname, '..', '..', 'data', 'cocurriculum-joins.json');
-  let joins = readJSON(file);
-  joins.push({ ...data, submitted_at: new Date().toISOString() });
-  writeJSON(file, joins);
-  res.json({ success: true });
+router.post('/cocurriculum/join', async (req, res) => {
+  try {
+    const data = req.body;
+    const file = path.join(__dirname, '..', '..', 'data', 'cocurriculum-joins.json');
+    let joins = await fetchData('cocurriculum_joins', file);
+    joins.push({ ...data, submitted_at: new Date().toISOString() });
+    await saveData('cocurriculum_joins', file, joins);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Error processing cocurriculum join:', err);
+    res.status(500).json({ success: false, message: 'Failed to process join request' });
+  }
 });
 
 /**
@@ -130,9 +183,15 @@ router.post('/cocurriculum/upload', uploadCoCurriculumPhoto.array('photos', 30),
 // =================================================================
 
 // --- Applied Sciences ---
-router.get('/applied-sciences', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'applied-sciences-data.json'));
-  res.json(data);
+router.get('/applied-sciences', async (req, res) => {
+  try {
+    const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'applied-sciences-data.json');
+    const data = await fetchData('applied_sciences_data', jsonFilePath);
+    res.json(data);
+  } catch (err) {
+    console.error('Error fetching applied sciences data:', err);
+    res.status(500).json({ success: false, message: 'Failed to load applied sciences data' });
+  }
 });
 router.post('/applied-sciences/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
   if (!req.files?.length) return res.status(400).json({ success: false, message: "No files" });
@@ -141,31 +200,53 @@ router.post('/applied-sciences/upload', uploadDepartmentFile.array('files', 20),
 });
 
 // --- Humanities ---
-router.get('/humanities', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'humanities-data.json'));
-  res.json(data);
+router.get('/humanities', async (req, res) => {
+  try {
+    const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'humanities-data.json');
+    const data = await fetchData('humanities_data', jsonFilePath);
+    res.json(data);
+  } catch (err) {
+    console.error('Error fetching humanities data:', err);
+    res.status(500).json({ success: false, message: 'Failed to load humanities data' });
+  }
 });
-router.get('/humanities/forum', (req, res) => {
-  const posts = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'humanities-forum.json'));
-  res.json(posts.slice(0, 50)); // Return latest 50
+router.get('/humanities/forum', async (req, res) => {
+  try {
+    const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'humanities-forum.json');
+    const posts = await fetchData('humanities_forum', jsonFilePath);
+    res.json(posts.slice(0, 50)); // Return latest 50
+  } catch (err) {
+    console.error('Error fetching humanities forum:', err);
+    res.status(500).json({ success: false, message: 'Failed to load humanities forum' });
+  }
 });
-router.post('/humanities/forum', (req, res) => {
-  const { text } = req.body;
-  if (!text?.trim()) return res.status(400).json({ success: false, message: "Post text cannot be empty." });
-  const file = path.join(__dirname, '..', '..', 'data', 'departments', 'humanities-forum.json');
-  let posts = readJSON(file);
-  posts.unshift({ id: Date.now(), text: text.trim(), timestamp: new Date().toISOString() });
-  writeJSON(file, posts);
-  res.json({ success: true });
+router.post('/humanities/forum', async (req, res) => {
+  try {
+    const { text } = req.body;
+    if (!text?.trim()) return res.status(400).json({ success: false, message: "Post text cannot be empty." });
+    const file = path.join(__dirname, '..', '..', 'data', 'departments', 'humanities-forum.json');
+    let posts = await fetchData('humanities_forum', file);
+    posts.unshift({ id: Date.now(), text: text.trim(), timestamp: new Date().toISOString() });
+    await saveData('humanities_forum', file, posts);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Error posting to humanities forum:', err);
+    res.status(500).json({ success: false, message: 'Failed to post to forum' });
+  }
 });
-router.post('/humanities/poll', (req, res) => {
-  const { subject } = req.body;
-  if (!subject) return res.status(400).json({ success: false, message: "Subject required." });
-  const file = path.join(__dirname, '..', '..', 'data', 'departments', 'humanities-poll.json');
-  let poll = readJSON(file);
-  poll[subject] = (poll[subject] || 0) + 1;
-  writeJSON(file, poll);
-  res.json({ success: true });
+router.post('/humanities/poll', async (req, res) => {
+  try {
+    const { subject } = req.body;
+    if (!subject) return res.status(400).json({ success: false, message: "Subject required." });
+    const file = path.join(__dirname, '..', '..', 'data', 'departments', 'humanities-poll.json');
+    let poll = await fetchData('humanities_poll', file);
+    poll[subject] = (poll[subject] || 0) + 1;
+    await saveData('humanities_poll', file, poll);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Error processing humanities poll:', err);
+    res.status(500).json({ success: false, message: 'Failed to process poll' });
+  }
 });
 router.post('/humanities/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
   if (!req.files?.length) return res.status(400).json({ success: false, message: "No files" });
@@ -174,31 +255,53 @@ router.post('/humanities/upload', uploadDepartmentFile.array('files', 20), (req,
 });
 
 // --- Languages ---
-router.get('/languages', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'languages-data.json'));
-  res.json(data);
+router.get('/languages', async (req, res) => {
+  try {
+    const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'languages-data.json');
+    const data = await fetchData('languages_data', jsonFilePath);
+    res.json(data);
+  } catch (err) {
+    console.error('Error fetching languages data:', err);
+    res.status(500).json({ success: false, message: 'Failed to load languages data' });
+  }
 });
-router.get('/languages/forum', (req, res) => {
-  const posts = readJSON(path.join(__dirname, '..', 'data', 'departments', 'languages-forum.json'));
-  res.json(posts.slice(0, 50)); // Return latest 50
+router.get('/languages/forum', async (req, res) => {
+  try {
+    const jsonFilePath = path.join(__dirname, '..', 'data', 'departments', 'languages-forum.json');
+    const posts = await fetchData('languages_forum', jsonFilePath);
+    res.json(posts.slice(0, 50)); // Return latest 50
+  } catch (err) {
+    console.error('Error fetching languages forum:', err);
+    res.status(500).json({ success: false, message: 'Failed to load languages forum' });
+  }
 });
-router.post('/languages/forum', (req, res) => {
-  const { text } = req.body;
-  if (!text?.trim()) return res.status(400).json({ success: false, message: "Post text cannot be empty." });
-  const file = path.join(__dirname, '..', '..', 'data', 'departments', 'languages-forum.json');
-  let posts = readJSON(file);
-  posts.unshift({ id: Date.now(), text: text.trim(), timestamp: new Date().toISOString() });
-  writeJSON(file, posts);
-  res.json({ success: true });
+router.post('/languages/forum', async (req, res) => {
+  try {
+    const { text } = req.body;
+    if (!text?.trim()) return res.status(400).json({ success: false, message: "Post text cannot be empty." });
+    const file = path.join(__dirname, '..', '..', 'data', 'departments', 'languages-forum.json');
+    let posts = await fetchData('languages_forum', file);
+    posts.unshift({ id: Date.now(), text: text.trim(), timestamp: new Date().toISOString() });
+    await saveData('languages_forum', file, posts);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Error posting to languages forum:', err);
+    res.status(500).json({ success: false, message: 'Failed to post to forum' });
+  }
 });
-router.post('/languages/poll', (req, res) => {
-  const { subject } = req.body;
-  if (!subject) return res.status(400).json({ success: false, message: "Subject required." });
-  const file = path.join(__dirname, '..', '..', 'data', 'departments', 'languages-poll.json');
-  let poll = readJSON(file);
-  poll[subject] = (poll[subject] || 0) + 1;
-  writeJSON(file, poll);
-  res.json({ success: true });
+router.post('/languages/poll', async (req, res) => {
+  try {
+    const { subject } = req.body;
+    if (!subject) return res.status(400).json({ success: false, message: "Subject required." });
+    const file = path.join(__dirname, '..', '..', 'data', 'departments', 'languages-poll.json');
+    let poll = await fetchData('languages_poll', file);
+    poll[subject] = (poll[subject] || 0) + 1;
+    await saveData('languages_poll', file, poll);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Error processing languages poll:', err);
+    res.status(500).json({ success: false, message: 'Failed to process poll' });
+  }
 });
 router.post('/languages/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
   if (!req.files?.length) return res.status(400).json({ success: false, message: "No files" });
@@ -207,9 +310,15 @@ router.post('/languages/upload', uploadDepartmentFile.array('files', 20), (req, 
 });
 
 // --- Mathematics ---
-router.get('/mathematics', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'math-data.json'));
-  res.json(data);
+router.get('/mathematics', async (req, res) => {
+  try {
+    const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'math-data.json');
+    const data = await fetchData('mathematics_data', jsonFilePath);
+    res.json(data);
+  } catch (err) {
+    console.error('Error fetching mathematics data:', err);
+    res.status(500).json({ success: false, message: 'Failed to load mathematics data' });
+  }
 });
 router.post('/mathematics/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
   if (!req.files?.length) return res.status(400).json({ success: false, message: "No files uploaded" });
@@ -218,31 +327,42 @@ router.post('/mathematics/upload', uploadDepartmentFile.array('files', 20), (req
 });
 
 // --- Mathematics Ask Question ---
-router.post('/mathematics/ask', (req, res) => {
-  const { question, teacher } = req.body;
-  if (!question) {
-    return res.status(400).json({ success: false, message: "Question is required" });
+router.post('/mathematics/ask', async (req, res) => {
+  try {
+    const { question, teacher } = req.body;
+    if (!question) {
+      return res.status(400).json({ success: false, message: "Question is required" });
+    }
+  
+    const file = path.join(__dirname, '..', '..', 'data', 'departments', 'math-questions.json');
+    let questions = await fetchData('mathematics_questions', file);
+  
+    questions.push({
+      id: Date.now(),
+      question,
+      teacher: teacher || "Any Teacher",
+      timestamp: new Date().toISOString()
+    });
+  
+    await saveData('mathematics_questions', file, questions);
+    console.log(`Mathematics Question → ${question.substring(0, 50)}...`);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Error processing mathematics question:', err);
+    res.status(500).json({ success: false, message: 'Failed to process question' });
   }
-  
-  const file = path.join(__dirname, '..', '..', 'data', 'departments', 'math-questions.json');
-  let questions = readJSON(file);
-  
-  questions.push({
-    id: Date.now(),
-    question,
-    teacher: teacher || "Any Teacher",
-    timestamp: new Date().toISOString()
-  });
-  
-  writeJSON(file, questions);
-  console.log(`Mathematics Question → ${question.substring(0, 50)}...`);
-  res.json({ success: true });
 });
 
 // --- Sciences ---
-router.get('/science', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'science-data.json'));
-  res.json(data);
+router.get('/science', async (req, res) => {
+  try {
+    const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'science-data.json');
+    const data = await fetchData('science_data', jsonFilePath);
+    res.json(data);
+  } catch (err) {
+    console.error('Error fetching science data:', err);
+    res.status(500).json({ success: false, message: 'Failed to load science data' });
+  }
 });
 router.post('/science/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
   if (!req.files?.length) return res.status(400).json({ success: false, message: "No files" });
@@ -251,9 +371,15 @@ router.post('/science/upload', uploadDepartmentFile.array('files', 20), (req, re
 });
 
 // --- Resources ---
-router.get('/resources/all', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'resources-data.json'));
-  res.json(data);
+router.get('/resources/all', async (req, res) => {
+  try {
+    const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'resources-data.json');
+    const data = await fetchData('resources_data', jsonFilePath);
+    res.json(data);
+  } catch (err) {
+    console.error('Error fetching resources data:', err);
+    res.status(500).json({ success: false, message: 'Failed to load resources data' });
+  }
 });
 
 router.post('/resources/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
@@ -268,30 +394,52 @@ router.post('/resources/upload', uploadDepartmentFile.array('files', 20), (req, 
 // =================================================================
 
 // --- Guidance & Counseling ---
-router.get('/guidance/data', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'guidance-data.json'));
-  res.json(data);
+router.get('/guidance/data', async (req, res) => {
+  try {
+    const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'guidance-data.json');
+    const data = await fetchData('guidance_data', jsonFilePath);
+    res.json(data);
+  } catch (err) {
+    console.error('Error fetching guidance data:', err);
+    res.status(500).json({ success: false, message: 'Failed to load guidance data' });
+  }
 });
-router.get('/guidance/anonymous', (req, res) => {
-  const posts = readJSON(path.join(__dirname, '..', '..', 'data', 'guidance-anonymous.json'));
-  res.json(posts.slice(0, 20)); // Return latest 20
+router.get('/guidance/anonymous', async (req, res) => {
+  try {
+    const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'guidance-anonymous.json');
+    const posts = await fetchData('guidance_anonymous', jsonFilePath);
+    res.json(posts.slice(0, 20)); // Return latest 20
+  } catch (err) {
+    console.error('Error fetching guidance anonymous posts:', err);
+    res.status(500).json({ success: false, message: 'Failed to load guidance posts' });
+  }
 });
-router.post('/guidance/anonymous', (req, res) => {
-  const { text } = req.body;
-  if (!text?.trim()) return res.status(400).json({ success: false, message: "Post text cannot be empty." });
-  const file = path.join(__dirname, '..', '..', 'data', 'guidance-anonymous.json');
-  let posts = readJSON(file);
-  posts.unshift({ id: Date.now(), text: text.trim(), timestamp: new Date().toISOString() });
-  writeJSON(file, posts);
-  res.json({ success: true });
+router.post('/guidance/anonymous', async (req, res) => {
+  try {
+    const { text } = req.body;
+    if (!text?.trim()) return res.status(400).json({ success: false, message: "Post text cannot be empty." });
+    const file = path.join(__dirname, '..', '..', 'data', 'guidance-anonymous.json');
+    let posts = await fetchData('guidance_anonymous', file);
+    posts.unshift({ id: Date.now(), text: text.trim(), timestamp: new Date().toISOString() });
+    await saveData('guidance_anonymous', file, posts);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Error posting to guidance anonymous:', err);
+    res.status(500).json({ success: false, message: 'Failed to post to guidance' });
+  }
 });
-router.post('/guidance/appointment', (req, res) => {
-  const data = req.body;
-  const file = path.join(__dirname, '..', '..', 'data', 'guidance-appointments.json');
-  let appointments = readJSON(file);
-  appointments.push({ ...data, submitted_at: new Date().toISOString(), status: "pending" });
-  writeJSON(file, appointments);
-  res.json({ success: true });
+router.post('/guidance/appointment', async (req, res) => {
+  try {
+    const data = req.body;
+    const file = path.join(__dirname, '..', '..', 'data', 'guidance-appointments.json');
+    let appointments = await fetchData('guidance_appointments', file);
+    appointments.push({ ...data, submitted_at: new Date().toISOString(), status: "pending" });
+    await saveData('guidance_appointments', file, appointments);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Error processing guidance appointment:', err);
+    res.status(500).json({ success: false, message: 'Failed to process appointment' });
+  }
 });
 router.post('/guidance/upload', uploadGuidanceResource.array('resources', 20), (req, res) => {
   if (!req.files?.length) return res.status(400).json({ success: false, message: "No files" });
@@ -299,35 +447,46 @@ router.post('/guidance/upload', uploadGuidanceResource.array('resources', 20), (
 });
 
 // --- Welfare ---
-router.get('/welfare/data', (req, res) => {
-  const data = readJSON(path.join(__dirname, '..', '..', 'data', 'departments', 'welfare-data.json'));
-  res.json(data);
-});
-router.post('/welfare/request', uploadWelfareAttachment.array('attachments', 10), (req, res) => {
-  const { userType, name, email, supportType, description } = req.body;
-
-  if (!email || !supportType || !description) {
-    return res.status(400).json({ success: false, message: "Required fields missing" });
+router.get('/welfare/data', async (req, res) => {
+  try {
+    const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'welfare-data.json');
+    const data = await fetchData('welfare_data', jsonFilePath);
+    res.json(data);
+  } catch (err) {
+    console.error('Error fetching welfare data:', err);
+    res.status(500).json({ success: false, message: 'Failed to load welfare data' });
   }
+});
+router.post('/welfare/request', uploadWelfareAttachment.array('attachments', 10), async (req, res) => {
+  try {
+    const { userType, name, email, supportType, description } = req.body;
 
-  const file = path.join(__dirname, '..', '..', 'data', 'departments', 'welfare-requests.json');
-  let requests = readJSON(file);
+    if (!email || !supportType || !description) {
+      return res.status(400).json({ success: false, message: "Required fields missing" });
+    }
 
-  requests.push({
-    id: Date.now().toString(),
-    userType: userType || "Not specified",
-    name: name || "Anonymous",
-    email: email.toLowerCase().trim(),
-    supportType,
-    description: description.trim(),
-    attachments: req.files?.map(f => `/uploads/welfare/${f.filename}`) || [],
-    submitted_at: new Date().toISOString(),
-    status: "new"
-  });
+    const file = path.join(__dirname, '..', '..', 'data', 'departments', 'welfare-requests.json');
+    let requests = await fetchData('welfare_requests', file);
 
-  writeJSON(file, requests);
-  console.log(`Welfare Request → ${name || 'Anonymous'} | ${supportType}`);
-  res.json({ success: true });
+    requests.push({
+      id: Date.now().toString(),
+      userType: userType || "Not specified",
+      name: name || "Anonymous",
+      email: email.toLowerCase().trim(),
+      supportType,
+      description: description.trim(),
+      attachments: req.files?.map(f => `/uploads/welfare/${f.filename}`) || [],
+      submitted_at: new Date().toISOString(),
+      status: "new"
+    });
+
+    await saveData('welfare_requests', file, requests);
+    console.log(`Welfare Request → ${name || 'Anonymous'} | ${supportType}`);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Error processing welfare request:', err);
+    res.status(500).json({ success: false, message: 'Failed to process welfare request' });
+  }
 });
 
 export default router;

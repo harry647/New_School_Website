@@ -40,7 +40,7 @@ const PORT = process.env.PORT || 3000;
 // ================================================
 const connectToMongoDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/school_portal', {
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/school_website_db', {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
@@ -48,7 +48,7 @@ const connectToMongoDB = async () => {
     
     // Set up MongoDB session store
     const sessionStore = MongoStore.create({
-      mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/school_portal',
+      mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost:27017/school_website_db',
       ttl: parseInt(process.env.SESSION_TTL) || 7 * 24 * 60 * 60 // 7 days
     });
     

@@ -6,6 +6,7 @@ import express from 'express';
 import path from 'path';
 import fs from 'fs';
 import multer from 'multer';
+import mongoose from 'mongoose';
 
 const router = express.Router();
 
@@ -49,6 +50,47 @@ const writeJSON = (filePath, data) => {
   } catch (err) {
     console.error('Error writing JSON:', err);
     return false;
+  }
+};
+
+// Helper: Fetch data from MongoDB with fallback to JSON
+const fetchData = async (collectionName, jsonFilePath) => {
+  try {
+    if (mongoose.connection.readyState === 1) {
+      const collection = mongoose.connection.db.collection(collectionName);
+      const data = await collection.find({}).toArray();
+      console.log(`✅ Fetched ${data.length} records from MongoDB collection: ${collectionName}`);
+      return data;
+    } else {
+      console.log('⚠️ MongoDB not connected. Falling back to JSON.');
+      return readJSON(jsonFilePath);
+    }
+  } catch (err) {
+    console.error(`❌ Error fetching from MongoDB: ${err.message}. Falling back to JSON.`);
+    return readJSON(jsonFilePath);
+  }
+};
+
+// Helper: Save data to MongoDB with fallback to JSON
+const saveData = async (collectionName, jsonFilePath, data) => {
+  try {
+    if (mongoose.connection.readyState === 1) {
+      const collection = mongoose.connection.db.collection(collectionName);
+      await collection.deleteMany({}); // Clear existing data
+      if (Array.isArray(data)) {
+        await collection.insertMany(data);
+      } else {
+        await collection.insertOne(data);
+      }
+      console.log(`✅ Saved data to MongoDB collection: ${collectionName}`);
+      return true;
+    } else {
+      console.log('⚠️ MongoDB not connected. Falling back to JSON.');
+      return writeJSON(jsonFilePath, data);
+    }
+  } catch (err) {
+    console.error(`❌ Error saving to MongoDB: ${err.message}. Falling back to JSON.`);
+    return writeJSON(jsonFilePath, data);
   }
 };
 
@@ -101,10 +143,10 @@ const requireAuth = (req, res, next) => {
  * @desc    Fetches the list of all clubs.
  * @access  Protected
  */
-router.get('/list', requireAuth, (req, res) => {
+router.get('/list', requireAuth, async (req, res) => {
   try {
     const clubsFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'clubs.json');
-    const clubs = readJSON(clubsFile);
+    const clubs = await fetchData('clubs', clubsFile);
 
     if (!Array.isArray(clubs)) {
       return res.status(500).json({
@@ -135,10 +177,10 @@ router.get('/list', requireAuth, (req, res) => {
  * @desc    Fetches all scheduled club events.
  * @access  Protected
  */
-router.get('/events', requireAuth, (req, res) => {
+router.get('/events', requireAuth, async (req, res) => {
   try {
     const eventsFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'events.json');
-    const events = readJSON(eventsFile);
+    const events = await fetchData('events', eventsFile);
 
     if (!Array.isArray(events)) {
       return res.status(500).json({
@@ -182,10 +224,10 @@ router.get('/events', requireAuth, (req, res) => {
  * @desc    Fetches all scheduled club events (public access).
  * @access  Public
  */
-router.get('/events/public', (req, res) => {
+router.get('/events/public', async (req, res) => {
   try {
     const eventsFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'events.json');
-    const events = readJSON(eventsFile);
+    const events = await fetchData('events', eventsFile);
 
     if (!Array.isArray(events)) {
       return res.status(500).json({
@@ -229,7 +271,7 @@ router.get('/events/public', (req, res) => {
  * @desc    Handles a student's application to join a club.
  * @access  Protected
  */
-router.post('/join', requireAuth, (req, res) => {
+router.post('/join', requireAuth, async (req, res) => {
   try {
     const { name, email, form, phone, clubName, clubId, reason } = req.body;
 
@@ -259,7 +301,7 @@ router.post('/join', requireAuth, (req, res) => {
     }
 
     const file = path.join(__dirname, '..', '..', 'data', 'club-joins.json');
-    let joins = readJSON(file);
+    let joins = await fetchData('club-joins', file);
 
     // Check for duplicate applications
     const existing = joins.find(j =>
@@ -291,7 +333,7 @@ router.post('/join', requireAuth, (req, res) => {
 
     joins.push(application);
 
-    if (!writeJSON(file, joins)) {
+    if (!await saveData('club-joins', file, joins)) {
       throw new Error('Failed to save application');
     }
 
@@ -316,10 +358,10 @@ router.post('/join', requireAuth, (req, res) => {
  * @desc    Fetches club leaders information
  * @access  Public
  */
-router.get('/leaders', (req, res) => {
+router.get('/leaders', async (req, res) => {
   try {
     const leadersFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'leaders.json');
-    const leaders = readJSON(leadersFile);
+    const leaders = await fetchData('leaders', leadersFile);
 
     if (!Array.isArray(leaders)) {
       return res.status(500).json({
@@ -349,10 +391,10 @@ router.get('/leaders', (req, res) => {
  * @desc    Fetches student testimonials about clubs
  * @access  Public
  */
-router.get('/testimonials', (req, res) => {
+router.get('/testimonials', async (req, res) => {
   try {
     const testimonialsFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'testimonials.json');
-    const testimonials = readJSON(testimonialsFile);
+    const testimonials = await fetchData('testimonials', testimonialsFile);
 
     if (!Array.isArray(testimonials)) {
       return res.status(500).json({
