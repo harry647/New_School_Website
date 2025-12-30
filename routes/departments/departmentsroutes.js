@@ -9,6 +9,24 @@ import fs from 'fs';
 import multer from 'multer';
 import mongoose from 'mongoose';
 
+// Import MongoDB models
+import AppliedScience from '../../models/departments/AppliedScience.js';
+import Humanities from '../../models/departments/Humanities.js';
+import HumanitiesForum from '../../models/departments/HumanitiesForum.js';
+import HumanitiesPoll from '../../models/departments/HumanitiesPoll.js';
+import Languages from '../../models/departments/Languages.js';
+import LanguagesForum from '../../models/departments/LanguagesForum.js';
+import LanguagesPoll from '../../models/departments/LanguagesPoll.js';
+import Mathematics from '../../models/departments/Mathematics.js';
+import MathematicsQuestion from '../../models/departments/MathematicsQuestion.js';
+import Science from '../../models/departments/Science.js';
+import Resource from '../../models/departments/Resource.js';
+import Guidance from '../../models/departments/Guidance.js';
+import GuidanceAnonymous from '../../models/departments/GuidanceAnonymous.js';
+import GuidanceAppointment from '../../models/departments/GuidanceAppointment.js';
+import Welfare from '../../models/departments/Welfare.js';
+import WelfareRequest from '../../models/departments/WelfareRequest.js';
+
 const router = express.Router();
 
 // Fix __dirname in ES modules
@@ -55,12 +73,11 @@ const writeJSON = (filePath, data) => {
 };
 
 // Helper: Fetch data from MongoDB with fallback to JSON
-const fetchData = async (collectionName, jsonFilePath) => {
+const fetchData = async (model, jsonFilePath) => {
   try {
     if (mongoose.connection.readyState === 1) {
-      const collection = mongoose.connection.db.collection(collectionName);
-      const data = await collection.find({}).toArray();
-      console.log(`✅ Fetched ${data.length} records from MongoDB collection: ${collectionName}`);
+      const data = await model.find({});
+      console.log(`✅ Fetched ${data.length} records from MongoDB using model: ${model.modelName}`);
       return data;
     } else {
       console.log('⚠️ MongoDB not connected. Falling back to JSON.');
@@ -73,17 +90,16 @@ const fetchData = async (collectionName, jsonFilePath) => {
 };
 
 // Helper: Save data to MongoDB with fallback to JSON
-const saveData = async (collectionName, jsonFilePath, data) => {
+const saveData = async (model, jsonFilePath, data) => {
   try {
     if (mongoose.connection.readyState === 1) {
-      const collection = mongoose.connection.db.collection(collectionName);
-      await collection.deleteMany({}); // Clear existing data
+      await model.deleteMany({}); // Clear existing data
       if (Array.isArray(data)) {
-        await collection.insertMany(data);
+        await model.insertMany(data);
       } else {
-        await collection.insertOne(data);
+        await model.create(data);
       }
-      console.log(`✅ Saved data to MongoDB collection: ${collectionName}`);
+      console.log(`✅ Saved data to MongoDB using model: ${model.modelName}`);
       return true;
     } else {
       console.log('⚠️ MongoDB not connected. Falling back to JSON.');
@@ -137,7 +153,7 @@ const uploadWelfareAttachment = createUploader('welfare/', [...documentExtension
 router.get('/cocurriculum/data', async (req, res) => {
   try {
     const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'cocurriculum', 'data.json');
-    const data = await fetchData('cocurriculum_data', jsonFilePath);
+    const data = await fetchData(AppliedScience, jsonFilePath);
     res.json(data);
   } catch (err) {
     console.error('Error fetching cocurriculum data:', err);
@@ -154,9 +170,9 @@ router.post('/cocurriculum/join', async (req, res) => {
   try {
     const data = req.body;
     const file = path.join(__dirname, '..', '..', 'data', 'cocurriculum-joins.json');
-    let joins = await fetchData('cocurriculum_joins', file);
+    let joins = await fetchData(AppliedScience, file);
     joins.push({ ...data, submitted_at: new Date().toISOString() });
-    await saveData('cocurriculum_joins', file, joins);
+    await saveData(AppliedScience, file, joins);
     res.json({ success: true });
   } catch (err) {
     console.error('Error processing cocurriculum join:', err);
@@ -186,7 +202,7 @@ router.post('/cocurriculum/upload', uploadCoCurriculumPhoto.array('photos', 30),
 router.get('/applied-sciences', async (req, res) => {
   try {
     const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'applied-sciences-data.json');
-    const data = await fetchData('applied_sciences_data', jsonFilePath);
+    const data = await fetchData(AppliedScience, jsonFilePath);
     res.json(data);
   } catch (err) {
     console.error('Error fetching applied sciences data:', err);
@@ -203,7 +219,7 @@ router.post('/applied-sciences/upload', uploadDepartmentFile.array('files', 20),
 router.get('/humanities', async (req, res) => {
   try {
     const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'humanities-data.json');
-    const data = await fetchData('humanities_data', jsonFilePath);
+    const data = await fetchData(Humanities, jsonFilePath);
     res.json(data);
   } catch (err) {
     console.error('Error fetching humanities data:', err);
@@ -213,7 +229,7 @@ router.get('/humanities', async (req, res) => {
 router.get('/humanities/forum', async (req, res) => {
   try {
     const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'humanities-forum.json');
-    const posts = await fetchData('humanities_forum', jsonFilePath);
+    const posts = await fetchData(HumanitiesForum, jsonFilePath);
     res.json(posts.slice(0, 50)); // Return latest 50
   } catch (err) {
     console.error('Error fetching humanities forum:', err);
@@ -225,9 +241,9 @@ router.post('/humanities/forum', async (req, res) => {
     const { text } = req.body;
     if (!text?.trim()) return res.status(400).json({ success: false, message: "Post text cannot be empty." });
     const file = path.join(__dirname, '..', '..', 'data', 'departments', 'humanities-forum.json');
-    let posts = await fetchData('humanities_forum', file);
+    let posts = await fetchData(HumanitiesForum, file);
     posts.unshift({ id: Date.now(), text: text.trim(), timestamp: new Date().toISOString() });
-    await saveData('humanities_forum', file, posts);
+    await saveData(HumanitiesForum, file, posts);
     res.json({ success: true });
   } catch (err) {
     console.error('Error posting to humanities forum:', err);
@@ -239,9 +255,9 @@ router.post('/humanities/poll', async (req, res) => {
     const { subject } = req.body;
     if (!subject) return res.status(400).json({ success: false, message: "Subject required." });
     const file = path.join(__dirname, '..', '..', 'data', 'departments', 'humanities-poll.json');
-    let poll = await fetchData('humanities_poll', file);
+    let poll = await fetchData(HumanitiesPoll, file);
     poll[subject] = (poll[subject] || 0) + 1;
-    await saveData('humanities_poll', file, poll);
+    await saveData(HumanitiesPoll, file, poll);
     res.json({ success: true });
   } catch (err) {
     console.error('Error processing humanities poll:', err);
@@ -258,7 +274,7 @@ router.post('/humanities/upload', uploadDepartmentFile.array('files', 20), (req,
 router.get('/languages', async (req, res) => {
   try {
     const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'languages-data.json');
-    const data = await fetchData('languages_data', jsonFilePath);
+    const data = await fetchData(Languages, jsonFilePath);
     res.json(data);
   } catch (err) {
     console.error('Error fetching languages data:', err);
@@ -268,7 +284,7 @@ router.get('/languages', async (req, res) => {
 router.get('/languages/forum', async (req, res) => {
   try {
     const jsonFilePath = path.join(__dirname, '..', 'data', 'departments', 'languages-forum.json');
-    const posts = await fetchData('languages_forum', jsonFilePath);
+    const posts = await fetchData(LanguagesForum, jsonFilePath);
     res.json(posts.slice(0, 50)); // Return latest 50
   } catch (err) {
     console.error('Error fetching languages forum:', err);
@@ -280,9 +296,9 @@ router.post('/languages/forum', async (req, res) => {
     const { text } = req.body;
     if (!text?.trim()) return res.status(400).json({ success: false, message: "Post text cannot be empty." });
     const file = path.join(__dirname, '..', '..', 'data', 'departments', 'languages-forum.json');
-    let posts = await fetchData('languages_forum', file);
+    let posts = await fetchData(LanguagesForum, file);
     posts.unshift({ id: Date.now(), text: text.trim(), timestamp: new Date().toISOString() });
-    await saveData('languages_forum', file, posts);
+    await saveData(LanguagesForum, file, posts);
     res.json({ success: true });
   } catch (err) {
     console.error('Error posting to languages forum:', err);
@@ -294,9 +310,9 @@ router.post('/languages/poll', async (req, res) => {
     const { subject } = req.body;
     if (!subject) return res.status(400).json({ success: false, message: "Subject required." });
     const file = path.join(__dirname, '..', '..', 'data', 'departments', 'languages-poll.json');
-    let poll = await fetchData('languages_poll', file);
+    let poll = await fetchData(LanguagesPoll, file);
     poll[subject] = (poll[subject] || 0) + 1;
-    await saveData('languages_poll', file, poll);
+    await saveData(LanguagesPoll, file, poll);
     res.json({ success: true });
   } catch (err) {
     console.error('Error processing languages poll:', err);
@@ -313,7 +329,7 @@ router.post('/languages/upload', uploadDepartmentFile.array('files', 20), (req, 
 router.get('/mathematics', async (req, res) => {
   try {
     const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'math-data.json');
-    const data = await fetchData('mathematics_data', jsonFilePath);
+    const data = await fetchData(Mathematics, jsonFilePath);
     res.json(data);
   } catch (err) {
     console.error('Error fetching mathematics data:', err);
@@ -335,7 +351,7 @@ router.post('/mathematics/ask', async (req, res) => {
     }
   
     const file = path.join(__dirname, '..', '..', 'data', 'departments', 'math-questions.json');
-    let questions = await fetchData('mathematics_questions', file);
+    let questions = await fetchData(MathematicsQuestion, file);
   
     questions.push({
       id: Date.now(),
@@ -344,7 +360,7 @@ router.post('/mathematics/ask', async (req, res) => {
       timestamp: new Date().toISOString()
     });
   
-    await saveData('mathematics_questions', file, questions);
+    await saveData(MathematicsQuestion, file, questions);
     console.log(`Mathematics Question → ${question.substring(0, 50)}...`);
     res.json({ success: true });
   } catch (err) {
@@ -357,7 +373,7 @@ router.post('/mathematics/ask', async (req, res) => {
 router.get('/science', async (req, res) => {
   try {
     const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'science-data.json');
-    const data = await fetchData('science_data', jsonFilePath);
+    const data = await fetchData(Science, jsonFilePath);
     res.json(data);
   } catch (err) {
     console.error('Error fetching science data:', err);
@@ -374,7 +390,7 @@ router.post('/science/upload', uploadDepartmentFile.array('files', 20), (req, re
 router.get('/resources/all', async (req, res) => {
   try {
     const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'resources-data.json');
-    const data = await fetchData('resources_data', jsonFilePath);
+    const data = await fetchData(Resource, jsonFilePath);
     res.json(data);
   } catch (err) {
     console.error('Error fetching resources data:', err);
@@ -397,7 +413,7 @@ router.post('/resources/upload', uploadDepartmentFile.array('files', 20), (req, 
 router.get('/guidance/data', async (req, res) => {
   try {
     const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'guidance-data.json');
-    const data = await fetchData('guidance_data', jsonFilePath);
+    const data = await fetchData(Guidance, jsonFilePath);
     res.json(data);
   } catch (err) {
     console.error('Error fetching guidance data:', err);
@@ -407,7 +423,7 @@ router.get('/guidance/data', async (req, res) => {
 router.get('/guidance/anonymous', async (req, res) => {
   try {
     const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'guidance-anonymous.json');
-    const posts = await fetchData('guidance_anonymous', jsonFilePath);
+    const posts = await fetchData(GuidanceAnonymous, jsonFilePath);
     res.json(posts.slice(0, 20)); // Return latest 20
   } catch (err) {
     console.error('Error fetching guidance anonymous posts:', err);
@@ -419,9 +435,9 @@ router.post('/guidance/anonymous', async (req, res) => {
     const { text } = req.body;
     if (!text?.trim()) return res.status(400).json({ success: false, message: "Post text cannot be empty." });
     const file = path.join(__dirname, '..', '..', 'data', 'guidance-anonymous.json');
-    let posts = await fetchData('guidance_anonymous', file);
+    let posts = await fetchData(GuidanceAnonymous, file);
     posts.unshift({ id: Date.now(), text: text.trim(), timestamp: new Date().toISOString() });
-    await saveData('guidance_anonymous', file, posts);
+    await saveData(GuidanceAnonymous, file, posts);
     res.json({ success: true });
   } catch (err) {
     console.error('Error posting to guidance anonymous:', err);
@@ -432,9 +448,9 @@ router.post('/guidance/appointment', async (req, res) => {
   try {
     const data = req.body;
     const file = path.join(__dirname, '..', '..', 'data', 'guidance-appointments.json');
-    let appointments = await fetchData('guidance_appointments', file);
+    let appointments = await fetchData(GuidanceAppointment, file);
     appointments.push({ ...data, submitted_at: new Date().toISOString(), status: "pending" });
-    await saveData('guidance_appointments', file, appointments);
+    await saveData(GuidanceAppointment, file, appointments);
     res.json({ success: true });
   } catch (err) {
     console.error('Error processing guidance appointment:', err);
@@ -450,7 +466,7 @@ router.post('/guidance/upload', uploadGuidanceResource.array('resources', 20), (
 router.get('/welfare/data', async (req, res) => {
   try {
     const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'welfare-data.json');
-    const data = await fetchData('welfare_data', jsonFilePath);
+    const data = await fetchData(Welfare, jsonFilePath);
     res.json(data);
   } catch (err) {
     console.error('Error fetching welfare data:', err);
@@ -466,7 +482,7 @@ router.post('/welfare/request', uploadWelfareAttachment.array('attachments', 10)
     }
 
     const file = path.join(__dirname, '..', '..', 'data', 'departments', 'welfare-requests.json');
-    let requests = await fetchData('welfare_requests', file);
+    let requests = await fetchData(WelfareRequest, file);
 
     requests.push({
       id: Date.now().toString(),
@@ -480,7 +496,7 @@ router.post('/welfare/request', uploadWelfareAttachment.array('attachments', 10)
       status: "new"
     });
 
-    await saveData('welfare_requests', file, requests);
+    await saveData(WelfareRequest, file, requests);
     console.log(`Welfare Request → ${name || 'Anonymous'} | ${supportType}`);
     res.json({ success: true });
   } catch (err) {
