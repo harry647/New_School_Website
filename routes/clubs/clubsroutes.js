@@ -185,7 +185,18 @@ router.get('/list', requireAuth, async (req, res) => {
 router.get('/events', requireAuth, async (req, res) => {
   try {
     const eventsFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'events.json');
-    const events = await fetchData(Event, 'events', eventsFile);
+    let events = await fetchData(Event, 'events', eventsFile);
+
+    // Handle nested structure in JSON fallback
+    if (Array.isArray(events) && events.length > 0 && events[0].clubId && events[0].events) {
+      // Flatten nested structure for compatibility with MongoDB model
+      events = events.flatMap(clubEvents =>
+        clubEvents.events.map(event => ({
+          ...event,
+          clubId: clubEvents.clubId
+        }))
+      );
+    }
 
     if (!Array.isArray(events)) {
       return res.status(500).json({
@@ -224,7 +235,19 @@ router.get('/events', requireAuth, async (req, res) => {
 router.get('/events/public', async (req, res) => {
   try {
     const eventsFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'events.json');
-    const events = await fetchData(Event, 'events', eventsFile);
+    let events = await fetchData(Event, 'events', eventsFile);
+
+    // Handle nested structure in JSON fallback
+    if (Array.isArray(events) && events.length > 0 && events[0].clubId && events[0].events) {
+      // Flatten nested structure for compatibility with MongoDB model
+      events = events.flatMap(clubEvents =>
+        clubEvents.events.map(event => ({
+          ...event,
+          clubId: clubEvents.clubId,
+          isPublic: event.isPublic || true // Default to public if not specified
+        }))
+      );
+    }
 
     if (!Array.isArray(events)) {
       return res.status(500).json({
