@@ -20,6 +20,8 @@ import LanguagesPoll from '../../models/departments/LanguagesPoll.js';
 import Mathematics from '../../models/departments/Mathematics.js';
 import MathematicsQuestion from '../../models/departments/MathematicsQuestion.js';
 import Science from '../../models/departments/Science.js';
+import ScienceForum from '../../models/departments/ScienceForum.js';
+import SciencePoll from '../../models/departments/SciencePoll.js';
 import Resource from '../../models/departments/Resource.js';
 import Guidance from '../../models/departments/Guidance.js';
 import GuidanceAnonymous from '../../models/departments/GuidanceAnonymous.js';
@@ -81,11 +83,15 @@ const fetchData = async (model, jsonFilePath) => {
       return data;
     } else {
       console.log('⚠️ MongoDB not connected. Falling back to JSON.');
-      return readJSON(jsonFilePath);
+      const jsonData = readJSON(jsonFilePath);
+      console.log(`✅ Fetched ${jsonData.length} records from JSON file: ${jsonFilePath}`);
+      return jsonData;
     }
   } catch (err) {
     console.error(`❌ Error fetching from MongoDB: ${err.message}. Falling back to JSON.`);
-    return readJSON(jsonFilePath);
+    const jsonData = readJSON(jsonFilePath);
+    console.log(`✅ Fetched ${jsonData.length} records from JSON file: ${jsonFilePath}`);
+    return jsonData;
   }
 };
 
@@ -103,11 +109,19 @@ const saveData = async (model, jsonFilePath, data) => {
       return true;
     } else {
       console.log('⚠️ MongoDB not connected. Falling back to JSON.');
-      return writeJSON(jsonFilePath, data);
+      const result = writeJSON(jsonFilePath, data);
+      if (result) {
+        console.log(`✅ Saved data to JSON file: ${jsonFilePath}`);
+      }
+      return result;
     }
   } catch (err) {
     console.error(`❌ Error saving to MongoDB: ${err.message}. Falling back to JSON.`);
-    return writeJSON(jsonFilePath, data);
+    const result = writeJSON(jsonFilePath, data);
+    if (result) {
+      console.log(`✅ Saved data to JSON file: ${jsonFilePath}`);
+    }
+    return result;
   }
 };
 
@@ -378,6 +392,44 @@ router.get('/science', async (req, res) => {
   } catch (err) {
     console.error('Error fetching science data:', err);
     res.status(500).json({ success: false, message: 'Failed to load science data' });
+  }
+});
+router.get('/science/forum', async (req, res) => {
+  try {
+    const jsonFilePath = path.join(__dirname, '..', '..', 'data', 'departments', 'science-forum.json');
+    const posts = await fetchData(ScienceForum, jsonFilePath);
+    res.json(posts.slice(0, 50)); // Return latest 50
+  } catch (err) {
+    console.error('Error fetching science forum:', err);
+    res.status(500).json({ success: false, message: 'Failed to load science forum' });
+  }
+});
+router.post('/science/forum', async (req, res) => {
+  try {
+    const { text } = req.body;
+    if (!text?.trim()) return res.status(400).json({ success: false, message: "Post text cannot be empty." });
+    const file = path.join(__dirname, '..', '..', 'data', 'departments', 'science-forum.json');
+    let posts = await fetchData(ScienceForum, file);
+    posts.unshift({ id: Date.now(), text: text.trim(), timestamp: new Date().toISOString() });
+    await saveData(ScienceForum, file, posts);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Error posting to science forum:', err);
+    res.status(500).json({ success: false, message: 'Failed to post to forum' });
+  }
+});
+router.post('/science/poll', async (req, res) => {
+  try {
+    const { subject } = req.body;
+    if (!subject) return res.status(400).json({ success: false, message: "Subject required." });
+    const file = path.join(__dirname, '..', '..', 'data', 'departments', 'science-poll.json');
+    let poll = await fetchData(SciencePoll, file);
+    poll[subject] = (poll[subject] || 0) + 1;
+    await saveData(SciencePoll, file, poll);
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Error processing science poll:', err);
+    res.status(500).json({ success: false, message: 'Failed to process poll' });
   }
 });
 router.post('/science/upload', uploadDepartmentFile.array('files', 20), (req, res) => {
