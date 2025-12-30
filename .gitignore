@@ -19,4 +19,6 @@ yarn-debug.log*
 yarn-error.log*
 
 # --- IGNORE ---
-.sessions
+.sessions.db
+database/sessions.db
+logs/app.log
