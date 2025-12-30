@@ -8,6 +8,13 @@ import fs from 'fs';
 import multer from 'multer';
 import mongoose from 'mongoose';
 
+// Import club models
+import Club from '../../models/clubs/Club.js';
+import Event from '../../models/clubs/Event.js';
+import Leader from '../../models/clubs/Leader.js';
+import Testimonial from '../../models/clubs/Testimonial.js';
+import ClubJoin from '../../models/clubs/ClubJoin.js';
+
 const router = express.Router();
 
 // Fix __dirname in ES modules
@@ -54,11 +61,10 @@ const writeJSON = (filePath, data) => {
 };
 
 // Helper: Fetch data from MongoDB with fallback to JSON
-const fetchData = async (collectionName, jsonFilePath) => {
+const fetchData = async (model, collectionName, jsonFilePath) => {
   try {
     if (mongoose.connection.readyState === 1) {
-      const collection = mongoose.connection.db.collection(collectionName);
-      const data = await collection.find({}).toArray();
+      const data = await model.find({});
       console.log(`✅ Fetched ${data.length} records from MongoDB collection: ${collectionName}`);
       return data;
     } else {
@@ -72,15 +78,14 @@ const fetchData = async (collectionName, jsonFilePath) => {
 };
 
 // Helper: Save data to MongoDB with fallback to JSON
-const saveData = async (collectionName, jsonFilePath, data) => {
+const saveData = async (model, collectionName, jsonFilePath, data) => {
   try {
     if (mongoose.connection.readyState === 1) {
-      const collection = mongoose.connection.db.collection(collectionName);
-      await collection.deleteMany({}); // Clear existing data
+      await model.deleteMany({}); // Clear existing data
       if (Array.isArray(data)) {
-        await collection.insertMany(data);
+        await model.insertMany(data);
       } else {
-        await collection.insertOne(data);
+        await model.create(data);
       }
       console.log(`✅ Saved data to MongoDB collection: ${collectionName}`);
       return true;
@@ -146,7 +151,7 @@ const requireAuth = (req, res, next) => {
 router.get('/list', requireAuth, async (req, res) => {
   try {
     const clubsFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'clubs.json');
-    const clubs = await fetchData('clubs', clubsFile);
+    const clubs = await fetchData(Club, 'clubs', clubsFile);
 
     if (!Array.isArray(clubs)) {
       return res.status(500).json({
@@ -180,7 +185,7 @@ router.get('/list', requireAuth, async (req, res) => {
 router.get('/events', requireAuth, async (req, res) => {
   try {
     const eventsFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'events.json');
-    const events = await fetchData('events', eventsFile);
+    const events = await fetchData(Event, 'events', eventsFile);
 
     if (!Array.isArray(events)) {
       return res.status(500).json({
@@ -192,23 +197,15 @@ router.get('/events', requireAuth, async (req, res) => {
     // Filter out past events and sort by date
     const now = new Date();
     const upcomingEvents = events
-      .map(group => ({
-        ...group,
-        events: group.events.filter(event => new Date(event.date) >= now)
-      }))
-      .filter(group => group.events.length > 0)
-      .sort((a, b) => {
-        const aDate = new Date(a.events[0].date);
-        const bDate = new Date(b.events[0].date);
-        return aDate - bDate;
-      });
+      .filter(event => new Date(event.date) >= now)
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
 
     console.log(`Events fetched by user: ${req.session.user?.name || 'Unknown'}`);
 
     res.json({
       success: true,
       data: upcomingEvents,
-      totalEvents: upcomingEvents.reduce((sum, group) => sum + group.events.length, 0)
+      totalEvents: upcomingEvents.length
     });
   } catch (err) {
     console.error('Error fetching events:', err);
@@ -227,7 +224,7 @@ router.get('/events', requireAuth, async (req, res) => {
 router.get('/events/public', async (req, res) => {
   try {
     const eventsFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'events.json');
-    const events = await fetchData('events', eventsFile);
+    const events = await fetchData(Event, 'events', eventsFile);
 
     if (!Array.isArray(events)) {
       return res.status(500).json({
@@ -239,23 +236,15 @@ router.get('/events/public', async (req, res) => {
     // Filter out past events and sort by date
     const now = new Date();
     const upcomingEvents = events
-      .map(group => ({
-        ...group,
-        events: group.events.filter(event => new Date(event.date) >= now)
-      }))
-      .filter(group => group.events.length > 0)
-      .sort((a, b) => {
-        const aDate = new Date(a.events[0].date);
-        const bDate = new Date(b.events[0].date);
-        return aDate - bDate;
-      });
+      .filter(event => new Date(event.date) >= now && event.isPublic)
+      .sort((a, b) => new Date(a.date) - new Date(b.date));
 
     console.log('Public events fetched');
 
     res.json({
       success: true,
       data: upcomingEvents,
-      totalEvents: upcomingEvents.reduce((sum, group) => sum + group.events.length, 0)
+      totalEvents: upcomingEvents.length
     });
   } catch (err) {
     console.error('Error fetching public events:', err);
@@ -301,12 +290,12 @@ router.post('/join', requireAuth, async (req, res) => {
     }
 
     const file = path.join(__dirname, '..', '..', 'data', 'club-joins.json');
-    let joins = await fetchData('club-joins', file);
+    let joins = await fetchData(ClubJoin, 'club-joins', file);
 
     // Check for duplicate applications
     const existing = joins.find(j =>
       j.email.toLowerCase() === email.toLowerCase() &&
-      j.clubId === clubId &&
+      j.clubId.toString() === clubId &&
       j.status === 'pending'
     );
 
@@ -318,13 +307,12 @@ router.post('/join', requireAuth, async (req, res) => {
     }
 
     const application = {
-      id: Date.now().toString(),
+      clubId: clubId.trim(),
       name: name.trim(),
       email: email.toLowerCase().trim(),
       form: form || null,
       phone: phone?.trim() || null,
       clubName: clubName.trim(),
-      clubId: clubId.trim(),
       reason: reason?.trim() || null,
       submitted_at: new Date().toISOString(),
       status: 'pending',
@@ -333,7 +321,7 @@ router.post('/join', requireAuth, async (req, res) => {
 
     joins.push(application);
 
-    if (!await saveData('club-joins', file, joins)) {
+    if (!await saveData(ClubJoin, 'club-joins', file, joins)) {
       throw new Error('Failed to save application');
     }
 
@@ -361,7 +349,7 @@ router.post('/join', requireAuth, async (req, res) => {
 router.get('/leaders', async (req, res) => {
   try {
     const leadersFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'leaders.json');
-    const leaders = await fetchData('leaders', leadersFile);
+    const leaders = await fetchData(Leader, 'leaders', leadersFile);
 
     if (!Array.isArray(leaders)) {
       return res.status(500).json({
@@ -394,7 +382,7 @@ router.get('/leaders', async (req, res) => {
 router.get('/testimonials', async (req, res) => {
   try {
     const testimonialsFile = path.join(__dirname, '..', '..', 'data', 'clubs', 'testimonials.json');
-    const testimonials = await fetchData('testimonials', testimonialsFile);
+    const testimonials = await fetchData(Testimonial, 'testimonials', testimonialsFile);
 
     if (!Array.isArray(testimonials)) {
       return res.status(500).json({
