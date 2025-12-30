@@ -24,5 +24,56 @@
     "clubUpdates": false,
     "hideEmail": true,
     "updated_at": "2025-12-25T13:54:45.513Z"
+  },
+  {
+    "id": 2,
+    "name": "harry oginga",
+    "email": "harryoginga@example.com",
+    "password": "Harry2007!",
+    "role": "teacher",
+    "securityQuestions": [
+      {
+        "question": "birth_place",
+        "answer": "nairobi"
+      },
+      {
+        "question": "favorite_subject",
+        "answer": "maths"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Test User",
+    "email": "test@example.com",
+    "password": "Test@1234",
+    "role": "student",
+    "securityQuestions": [
+      {
+        "question": "What is your favorite color?",
+        "answer": "blue"
+      },
+      {
+        "question": "What is your pet name?",
+        "answer": "fluffy"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Alice Johnson",
+    "email": "alice.johnson.1767103416360@example.com",
+    "password": "Alice@2025!",
+    "role": "student",
+    "securityQuestions": [
+      {
+        "question": "mother_maiden_name",
+        "answer": "smith"
+      },
+      {
+        "question": "first_school",
+        "answer": "sunshine"
+      }
+    ]
   }
 ]

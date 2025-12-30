@@ -258,10 +258,21 @@ router.post('/register', registerValidator, async (req, res) => {
     return res.status(400).json({ success: false, message: 'Email already registered' });
   }
 
-  // Create new user using fallback mechanism
-  const result = await withFallback(
-    async () => {
+  // Create new user with proper MongoDB + JSON synchronization
+  let result;
+  
+  if (isMongoDBConnected()) {
+    try {
+      // Get count from both MongoDB and JSON to ensure synchronization
+      const mongoUserCount = await User.countDocuments();
+      const usersFile = path.join(__dirname, '..', 'data', 'users.json');
+      const jsonUsers = readJSON(usersFile);
+      
+      // Use the maximum count to avoid ID conflicts
+      const nextId = Math.max(mongoUserCount, jsonUsers.length) + 1;
+      
       const newUser = new User({
+        id: nextId,
         name: fullName,
         email,
         password,
@@ -272,9 +283,28 @@ router.post('/register', registerValidator, async (req, res) => {
         ]
       });
       await newUser.save();
-      return { id: newUser._id, name: fullName, email, role };
-    },
-    async () => {
+      
+      // Also write to JSON file for backup synchronization
+      const jsonUser = {
+        id: newUser.id,
+        name: fullName,
+        email,
+        password,
+        role,
+        securityQuestions: [
+          { question: securityQuestion1, answer: securityAnswer1.toLowerCase() },
+          { question: securityQuestion2, answer: securityAnswer2.toLowerCase() }
+        ]
+      };
+      jsonUsers.push(jsonUser);
+      writeJSON(usersFile, jsonUsers);
+      
+      result = { source: 'mongodb', data: { id: newUser.id, name: fullName, email, role } };
+      console.log('[MongoDB] user_registration completed');
+    } catch (mongoError) {
+      console.error('[MongoDB] user_registration failed:', mongoError.message);
+      
+      // Fallback to JSON if MongoDB fails
       const usersFile = path.join(__dirname, '..', 'data', 'users.json');
       const users = readJSON(usersFile);
       const newUser = {
@@ -290,10 +320,31 @@ router.post('/register', registerValidator, async (req, res) => {
       };
       users.push(newUser);
       writeJSON(usersFile, users);
-      return { id: newUser.id, name: fullName, email, role };
-    },
-    'user_registration'
-  );
+      
+      result = { source: 'json', data: { id: newUser.id, name: fullName, email, role } };
+      console.log('[JSON Fallback] user_registration completed (Reason: mongodb_error)');
+    }
+  } else {
+    // Use JSON if MongoDB is not connected
+    const usersFile = path.join(__dirname, '..', 'data', 'users.json');
+    const users = readJSON(usersFile);
+    const newUser = {
+      id: users.length + 1,
+      name: fullName,
+      email,
+      password,
+      role,
+      securityQuestions: [
+        { question: securityQuestion1, answer: securityAnswer1.toLowerCase() },
+        { question: securityQuestion2, answer: securityAnswer2.toLowerCase() }
+      ]
+    };
+    users.push(newUser);
+    writeJSON(usersFile, users);
+    
+    result = { source: 'json', data: { id: newUser.id, name: fullName, email, role } };
+    console.log('[JSON Fallback] user_registration completed (Reason: mongodb_not_connected)');
+  }
 
   res.json({
     success: true,

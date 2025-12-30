@@ -63,7 +63,6 @@ const clubSchema = new mongoose.Schema({
 });
 
 // Indexes for better query performance
-clubSchema.index({ name: 1 }, { unique: true });
 clubSchema.index({ category: 1 });
 clubSchema.index({ isActive: 1 });
 clubSchema.index({ 'meetingSchedule.day': 1 });

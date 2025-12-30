@@ -19,8 +19,8 @@ dotenv.config();
 import authRoutes from './routes/auth.js';
 import portalRoutes from './routes/portal.js';
 import apiRoutes from './routes/api.js';
-import { logger } from './middleware/logger.js';
-import { errorHandler } from './middleware/errorHandler.js';
+import { logger, log } from './middleware/logger.js';
+import { errorHandler, notFoundHandler } from './middleware/errorHandler.js';
 
 
 
@@ -40,10 +40,7 @@ const PORT = process.env.PORT || 3000;
 // ================================================
 const connectToMongoDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/school_website_db', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/school_website_db');
     console.log('MongoDB connected successfully');
     
     // Set up MongoDB session store
@@ -61,8 +58,9 @@ const connectToMongoDB = async () => {
   }
 };
 
-// Connect to MongoDB (non-blocking)
-connectToMongoDB();
+// Connect to MongoDB and wait for connection
+await connectToMongoDB();
+
 
 // MongoDB connection event handlers
 mongoose.connection.on('connected', () => {
@@ -120,8 +118,9 @@ app.use(session(sessionConfig));
 // ================================================
 app.use(cors({
   origin: 'http://localhost:3000',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -143,9 +142,15 @@ staticPaths.forEach(folder => {
 // ================================================
 // 4. Routes
 // ================================================
-app.use('/auth', authRoutes);
-app.use('/portal', portalRoutes);
-app.use('/api', apiRoutes);
+// Initialize routes after MongoDB connection is established
+const initializeRoutes = () => {
+  app.use('/auth', authRoutes);
+  app.use('/portal', portalRoutes);
+  app.use('/api', apiRoutes);
+};
+
+// Call initializeRoutes after its definition
+initializeRoutes();
 
 // ================================================
 // 5. HTML Pages (Root Routes)
@@ -172,9 +177,9 @@ pages.forEach(page => {
 
 // SPA fallback (for routes without a dot/extension)
 app.get('*', (req, res) => {
-  // Only serve index.html for routes that don't have a file extension
+  // Only serve index.html for GET routes that don't have a file extension
   // and are not API/auth/portal routes
-  if (!req.path.includes('.') &&
+  if (req.method === 'GET' && !req.path.includes('.') &&
       !req.path.startsWith('/auth') &&
       !req.path.startsWith('/api') &&
       !req.path.startsWith('/portal')) {
@@ -185,7 +190,12 @@ app.get('*', (req, res) => {
 });
 
 // ================================================
-// 6. Error Handler
+// 6. 404 Handler (must come before error handler)
+// ================================================
+app.use(notFoundHandler);
+
+// ================================================
+// 7. Error Handler
 // ================================================
 app.use(errorHandler);
 

@@ -77,13 +77,16 @@ const writeJSON = (filePath, data) => {
 };
 
 // Helper: Save data to MongoDB with JSON fallback
-const saveWithFallback = async (model, filePath, data) => {
+const saveWithFallback = async (modelPath, filePath, data) => {
   try {
     // Try MongoDB first
-    if (model && mongoose.connection.readyState === 1) {
-      await model.create(data);
-      console.log('Saved to MongoDB');
-      return true; // Successfully saved to MongoDB
+    if (mongoose.connection.readyState === 1) {
+      const model = await importModel(modelPath);
+      if (model) {
+        await model.create(data);
+        console.log('Saved to MongoDB');
+        return true; // Successfully saved to MongoDB
+      }
     }
   } catch (error) {
     console.error('MongoDB save error:', error.message);
@@ -103,13 +106,16 @@ const saveWithFallback = async (model, filePath, data) => {
 };
 
 // Helper: Get data from MongoDB with JSON fallback
-const getWithFallback = async (model, filePath) => {
+const getWithFallback = async (modelPath, filePath) => {
   try {
     // Try MongoDB first
-    if (model && mongoose.connection.readyState === 1) {
-      const data = await model.find({}).lean();
-      console.log(`Retrieved ${data.length} records from MongoDB`);
-      return data;
+    if (mongoose.connection.readyState === 1) {
+      const model = await importModel(modelPath);
+      if (model) {
+        const data = await model.find({}).lean();
+        console.log(`Retrieved ${data.length} records from MongoDB`);
+        return data;
+      }
     }
   } catch (error) {
     console.error('MongoDB error:', error.message);
@@ -202,7 +208,7 @@ router.post('/upload-photos', uploadGalleryPhotos.array('photos', 10), async (re
 
     // Save each photo to MongoDB with fallback
     for (const photoData of photosData) {
-      await saveWithFallback(GalleryPhotoModel, file, photoData);
+      await saveWithFallback('../../models/static/GalleryPhoto.js', file, photoData);
     }
 
     console.log(`Photo Upload → ${name} | ${req.files.length} photos`);
@@ -243,7 +249,7 @@ router.post('/upload-video', uploadGalleryVideos.single('video'), async (req, re
   };
 
   try {
-    await saveWithFallback(GalleryVideoModel, file, videoData);
+    await saveWithFallback('../../models/static/GalleryVideo.js', file, videoData);
     console.log(`Video Upload → ${name} | ${title}`);
     res.json({ success: true, message: "Video uploaded successfully! It will be reviewed before being added to the gallery." });
   } catch (error) {
@@ -279,7 +285,7 @@ router.post('/submit-enquiry', async (req, res) => {
   };
 
   try {
-    await saveWithFallback(EnquiryModel, file, enquiryData);
+    await saveWithFallback('../../models/static/Enquiry.js', file, enquiryData);
     console.log(`Enquiry → ${studentName} | ${parentPhone}`);
     res.json({ success: true, message: 'Enquiry received!' });
   } catch (error) {
@@ -338,7 +344,7 @@ router.post('/submit-application', uploadAdmissionDocs.fields([
   };
 
   try {
-    await saveWithFallback(ApplicationModel, file, applicationData);
+    await saveWithFallback('../../models/static/Application.js', file, applicationData);
     console.log(`Application → ${student_name} | ${grade}`);
     res.json({ success: true, message: "Application received!" });
   } catch (error) {
@@ -374,7 +380,7 @@ router.post('/contact', async (req, res) => {
   };
 
   try {
-    await saveWithFallback(ContactModel, file, contactData);
+    await saveWithFallback('../../models/static/Contact.js', file, contactData);
     console.log(`Contact → ${name} | ${subject}`);
     res.json({ success: true, message: "Message received!" });
   } catch (error) {
@@ -411,7 +417,7 @@ router.post('/contactus', uploadContactAttachment.single('attachment'), async (r
   };
 
   try {
-    await saveWithFallback(ContactModel, file, contactData);
+    await saveWithFallback('../../models/static/Contact.js', file, contactData);
     console.log(`Contact Us → ${name} | ${subject}`);
     res.json({ success: true, message: "Message received!" });
   } catch (error) {
@@ -447,7 +453,7 @@ router.post('/submit-blog', uploadBlogImage.single('image'), async (req, res) =>
   };
 
   try {
-    await saveWithFallback(PendingBlogModel, file, blogData);
+    await saveWithFallback('../../models/static/PendingBlog.js', file, blogData);
     console.log(`Blog Submission → ${author_name} | ${title}`);
     res.json({ success: true, message: "Blog submitted for review!" });
   } catch (error) {
@@ -488,7 +494,7 @@ router.post('/book-counseling', uploadResume.single('resume'), async (req, res) 
   };
 
   try {
-    await saveWithFallback(CounselingBookingModel, file, bookingData);
+    await saveWithFallback('../../models/static/CounselingBooking.js', file, bookingData);
     console.log(`Counseling Booking → ${student_name} on ${preferred_date}`);
     res.json({ success: true, message: "Booking received!" });
   } catch (error) {
@@ -530,7 +536,7 @@ router.post('/donate', uploadDonationDoc.single('attachment'), async (req, res) 
   };
 
   try {
-    await saveWithFallback(DonationModel, file, donationData);
+    await saveWithFallback('../../models/static/Donation.js', file, donationData);
     console.log(`Donation → ${donor_name} | Ksh ${amountNum}`);
     res.json({ success: true, message: "Donation recorded! Thank you for your generosity." });
   } catch (error) {
@@ -572,9 +578,12 @@ router.post('/subscribe', async (req, res) => {
   try {
     // Check if already subscribed in MongoDB or JSON
     let isSubscribed = false;
-    if (SubscriberModel && mongoose.connection.readyState === 1) {
-      const existing = await SubscriberModel.findOne({ email: cleanEmail });
-      if (existing) isSubscribed = true;
+    if (mongoose.connection.readyState === 1) {
+      const SubscriberModel = await importModel('../../models/static/Subscriber.js');
+      if (SubscriberModel) {
+        const existing = await SubscriberModel.findOne({ email: cleanEmail });
+        if (existing) isSubscribed = true;
+      }
     } else {
       const list = readJSON(file);
       if (list.some(s => s.email === cleanEmail)) isSubscribed = true;
@@ -584,7 +593,7 @@ router.post('/subscribe', async (req, res) => {
       return res.json({ success: true, message: "Already subscribed!" });
     }
 
-    await saveWithFallback(SubscriberModel, file, subscriberData);
+    await saveWithFallback('../../models/static/Subscriber.js', file, subscriberData);
     console.log(`New Subscriber → ${cleanEmail}`);
     res.json({ success: true, message: "Subscription successful!" });
   } catch (error) {
@@ -618,7 +627,7 @@ router.post('/contact', async (req, res) => {
   };
 
   try {
-    await saveWithFallback(AboutContactModel, file, contactData);
+    await saveWithFallback('../../models/static/AboutContact.js', file, contactData);
     console.log(`About Contact → ${name} | ${subject}`);
     res.json({ success: true, message: "Message received! We will get back to you soon." });
   } catch (error) {
@@ -652,7 +661,7 @@ router.post('/feedback', async (req, res) => {
   };
 
   try {
-    await saveWithFallback(AboutFeedbackModel, file, feedbackData);
+    await saveWithFallback('../../models/static/AboutFeedback.js', file, feedbackData);
     console.log(`About Feedback → ${email} | Rating: ${rating}`);
     res.json({ success: true, message: "Thank you for your feedback! We appreciate your input." });
   } catch (error) {
@@ -674,7 +683,7 @@ router.post('/feedback', async (req, res) => {
 router.get('/notifications', async (req, res) => {
   try {
     const file = path.join(__dirname, '..', '..', 'data', 'notifications.json');
-    const notifications = await getWithFallback(NotificationModel, file);
+    const notifications = await getWithFallback('../../models/static/Notification.js', file);
     res.json(notifications || []);
   } catch (error) {
     console.error('Error fetching notifications:', error);
@@ -715,7 +724,7 @@ router.post('/register-club', async (req, res) => {
   };
 
   try {
-    await saveWithFallback(ClubRegistrationModel, file, registrationData);
+    await saveWithFallback('../../models/static/ClubRegistration.js', file, registrationData);
     console.log(`Club Registration → ${student_name} | ${grade} | Clubs: ${clubs.join(', ')}`);
     res.json({ success: true, message: "Club registration received! Coordinators will contact you soon." });
   } catch (error) {
@@ -759,7 +768,7 @@ router.post('/register-alumni', uploadAlumniPhotos.fields([
   };
 
   try {
-    await saveWithFallback(AlumniRegistrationModel, file, registrationData);
+    await saveWithFallback('../../models/static/AlumniRegistration.js', file, registrationData);
     console.log(`Alumni Registration → ${name} | Batch ${batch}`);
     res.json({ success: true, message: "Thank you for joining our alumni network! We'll contact you soon." });
   } catch (error) {
