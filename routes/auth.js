@@ -8,11 +8,19 @@ import { loginValidator, registerValidator } from '../validators/authValidator.j
 import { validationResult } from 'express-validator';
 import { requireLogin } from '../middleware/authMiddleware.js';
 import { uploadImage } from '../middleware/uploadMiddleware.js';
+import mongoose from 'mongoose';
+import User from '../models/User.js';
+import Notification from '../models/Notification.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const router = express.Router();
+
+// Check if MongoDB is connected
+const isMongoDBConnected = () => {
+  return mongoose.connection.readyState === 1; // 1 means connected
+};
 
 // Helper: Read JSON data (auto-create if missing)
 const readJSON = (filePath) => {
@@ -58,7 +66,7 @@ const writeJSON = (filePath, data) => {
 // --------------------
 // LOGIN
 // --------------------
-router.post('/login', loginValidator, (req, res) => {
+router.post('/login', loginValidator, async (req, res) => {
    const errors = validationResult(req);
    if (!errors.isEmpty()) {
      return res.status(400).json({ success: false, errors: errors.array() });
@@ -66,13 +74,28 @@ router.post('/login', loginValidator, (req, res) => {
 
    const { email, password } = req.body;
    console.log('Login attempt:', email, password);
-   const usersPath = path.join(__dirname, '..', 'data', 'users.json');
-   console.log('Users path:', usersPath);
 
-   const users = readJSON(usersPath);
-   console.log('Users loaded:', users.length);
-   const user = users.find(u => u.email === email && u.password === password);
-   console.log('User found:', user ? user.email : 'none');
+   let user = null;
+
+   // Try MongoDB first
+   if (isMongoDBConnected()) {
+     try {
+       user = await User.findOne({ email, password });
+       console.log('MongoDB user found:', user ? user.email : 'none');
+     } catch (err) {
+       console.error('MongoDB login error:', err);
+     }
+   }
+
+   // Fallback to JSON if MongoDB fails or user not found
+   if (!user) {
+     const usersPath = path.join(__dirname, '..', 'data', 'users.json');
+     console.log('Falling back to JSON users path:', usersPath);
+     const users = readJSON(usersPath);
+     console.log('JSON users loaded:', users.length);
+     user = users.find(u => u.email === email && u.password === password);
+     console.log('JSON user found:', user ? user.email : 'none');
+   }
 
   if (!user) {
     return res.status(401).json({
@@ -82,11 +105,11 @@ router.post('/login', loginValidator, (req, res) => {
   }
 
   // Prepare safe user data
-  const { password: removed, ...safeUser } = user;
+  const { password: removed, ...safeUser } = user._doc || user;
 
   // Store session
   req.session.user = {
-    id: safeUser.id,
+    id: safeUser.id || safeUser._id,
     name: safeUser.name,
     email: safeUser.email,
     role: safeUser.role,
@@ -144,7 +167,7 @@ router.get('/logout', (req, res) => {
 // --------------------
 // REGISTER
 // --------------------
-router.post('/register', registerValidator, (req, res) => {
+router.post('/register', registerValidator, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log('Validation errors:', errors.array()); // <-- log the exact errors
@@ -155,6 +178,39 @@ router.post('/register', registerValidator, (req, res) => {
   const { fullName, email, password, role, securityQuestion1, securityAnswer1, securityQuestion2, securityAnswer2 } = req.body;
   console.log('Register payload:', { fullName, email, password, role, securityQuestion1, securityAnswer1, securityQuestion2, securityAnswer2 });
 
+  // Try MongoDB first
+  if (isMongoDBConnected()) {
+    try {
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return res.status(400).json({ success: false, message: 'Email already registered' });
+      }
+
+      // Create new user in MongoDB
+      const newUser = new User({
+        name: fullName,
+        email,
+        password,
+        role,
+        securityQuestions: [
+          { question: securityQuestion1, answer: securityAnswer1.toLowerCase() },
+          { question: securityQuestion2, answer: securityAnswer2.toLowerCase() }
+        ]
+      });
+
+      await newUser.save();
+
+      return res.json({
+        success: true,
+        message: 'User registered successfully',
+        user: { id: newUser._id, name: fullName, email, role }
+      });
+    } catch (err) {
+      console.error('MongoDB registration error:', err);
+    }
+  }
+
+  // Fallback to JSON if MongoDB fails
   const usersFile = path.join(__dirname, '..', 'data', 'users.json');
   const users = readJSON(usersFile);
 
@@ -188,14 +244,28 @@ router.post('/register', registerValidator, (req, res) => {
 // --------------------
 // FORGOT PASSWORD - Step 1: Submit Email
 // --------------------
-router.post('/api/forgot-password/email', (req, res) => {
+router.post('/api/forgot-password/email', async (req, res) => {
   const { email } = req.body;
   if (!email) {
     return res.status(400).json({ success: false, message: 'Email is required' });
   }
 
-  const users = readJSON(path.join(__dirname, '..', 'data', 'users.json'));
-  const user = users.find(u => u.email === email);
+  let user = null;
+
+  // Try MongoDB first
+  if (isMongoDBConnected()) {
+    try {
+      user = await User.findOne({ email });
+    } catch (err) {
+      console.error('MongoDB forgot password error:', err);
+    }
+  }
+
+  // Fallback to JSON if MongoDB fails or user not found
+  if (!user) {
+    const users = readJSON(path.join(__dirname, '..', 'data', 'users.json'));
+    user = users.find(u => u.email === email);
+  }
 
   if (!user) {
     return res.status(404).json({ success: false, message: 'Email not found' });
@@ -209,14 +279,28 @@ router.post('/api/forgot-password/email', (req, res) => {
 // --------------------
 // FORGOT PASSWORD - Step 2: Verify Answers
 // --------------------
-router.post('/api/forgot-password/verify', (req, res) => {
+router.post('/api/forgot-password/verify', async (req, res) => {
   const { email, answer1, answer2 } = req.body;
   if (!email || !answer1 || !answer2) {
     return res.status(400).json({ success: false, message: 'Email and answers are required' });
   }
 
-  const users = readJSON(path.join(__dirname, '..', 'data', 'users.json'));
-  const user = users.find(u => u.email === email);
+  let user = null;
+
+  // Try MongoDB first
+  if (isMongoDBConnected()) {
+    try {
+      user = await User.findOne({ email });
+    } catch (err) {
+      console.error('MongoDB verify answers error:', err);
+    }
+  }
+
+  // Fallback to JSON if MongoDB fails or user not found
+  if (!user) {
+    const users = readJSON(path.join(__dirname, '..', 'data', 'users.json'));
+    user = users.find(u => u.email === email);
+  }
 
   if (!user) {
     return res.status(404).json({ success: false, message: 'Email not found' });
@@ -236,12 +320,31 @@ router.post('/api/forgot-password/verify', (req, res) => {
 // --------------------
 // FORGOT PASSWORD - Step 3: Reset Password
 // --------------------
-router.post('/api/forgot-password/reset', (req, res) => {
+router.post('/api/forgot-password/reset', async (req, res) => {
   const { email, newPassword } = req.body;
   if (!email || !newPassword) {
     return res.status(400).json({ success: false, message: 'Email and new password are required' });
   }
 
+  // Try MongoDB first
+  if (isMongoDBConnected()) {
+    try {
+      const user = await User.findOne({ email });
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'Email not found' });
+      }
+
+      // Update the user's password
+      user.password = newPassword;
+      await user.save();
+
+      return res.json({ success: true, message: 'Password reset successfully' });
+    } catch (err) {
+      console.error('MongoDB reset password error:', err);
+    }
+  }
+
+  // Fallback to JSON if MongoDB fails
   const users = readJSON(path.join(__dirname, '..', 'data', 'users.json'));
   const userIndex = users.findIndex(u => u.email === email);
 
@@ -257,18 +360,60 @@ router.post('/api/forgot-password/reset', (req, res) => {
 });
 
 /* ==================== USER & AUTH ==================== */
-router.get('/profile', requireLogin, (req, res) => {
-  const { password, ...safeUser } = req.session.user;
+router.get('/profile', requireLogin, async (req, res) => {
+  let user = null;
+
+  // Try MongoDB first
+  if (isMongoDBConnected()) {
+    try {
+      user = await User.findById(req.session.user.id);
+    } catch (err) {
+      console.error('MongoDB profile fetch error:', err);
+    }
+  }
+
+  // Fallback to JSON if MongoDB fails or user not found
+  if (!user) {
+    const users = readJSON(path.join(__dirname, '..', 'data', 'users.json'));
+    user = users.find(u => u.id === req.session.user.id);
+  }
+
+  if (!user) {
+    return res.status(404).json({ success: false, message: 'User not found' });
+  }
+
+  const { password, ...safeUser } = user._doc || user;
   res.json({ success: true, user: safeUser });
 });
 
-router.put('/profile', requireLogin, uploadImage, (req, res) => {
+router.put('/profile', requireLogin, uploadImage, async (req, res) => {
+  const updates = req.body;
+  if (req.file) updates.photo = `/uploads/images/${req.file.filename}`;
+
+  // Try MongoDB first
+  if (isMongoDBConnected()) {
+    try {
+      const user = await User.findById(req.session.user.id);
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'User not found' });
+      }
+
+      // Update user
+      Object.assign(user, updates, { updated_at: new Date().toISOString() });
+      await user.save();
+
+      req.session.user = user;
+      const { password, ...safeUser } = user._doc;
+      return res.json({ success: true, user: safeUser, message: 'Profile updated!' });
+    } catch (err) {
+      console.error('MongoDB profile update error:', err);
+    }
+  }
+
+  // Fallback to JSON if MongoDB fails
   const users = readJSON(path.join(__dirname, '..', 'data', 'users.json'));
   const index = users.findIndex(u => u.id === req.session.user.id);
   if (index === -1) return res.status(404).json({ success: false, message: 'User not found' });
-
-  const updates = req.body;
-  if (req.file) updates.photo = `/uploads/images/${req.file.filename}`;
 
   users[index] = { ...users[index], ...updates, updated_at: new Date().toISOString() };
   if (writeJSON(path.join(__dirname, '..', 'data', 'users.json'), users)) {
@@ -285,17 +430,31 @@ router.put('/profile', requireLogin, uploadImage, (req, res) => {
  * @desc    Fetches a single user's profile by ID.
  * @access  Public (should be protected in a real app)
  */
-router.get('/users/:id', (req, res) => {
+router.get('/users/:id', async (req, res) => {
   const { id } = req.params;
-  const users = readJSON(path.join(__dirname, '..', 'data', 'users.json'));
-  const user = users.find(u => u.id.toString() === id.toString());
+  let user = null;
+
+  // Try MongoDB first
+  if (isMongoDBConnected()) {
+    try {
+      user = await User.findById(id);
+    } catch (err) {
+      console.error('MongoDB user fetch error:', err);
+    }
+  }
+
+  // Fallback to JSON if MongoDB fails or user not found
+  if (!user) {
+    const users = readJSON(path.join(__dirname, '..', 'data', 'users.json'));
+    user = users.find(u => u.id.toString() === id.toString());
+  }
 
   if (!user) {
     return res.status(404).json({ success: false, message: 'User not found' });
   }
 
   // IMPORTANT: Never send the password hash or plain text password in a response.
-  const { password, ...safeUser } = user;
+  const { password, ...safeUser } = user._doc || user;
   res.json({ success: true, user: safeUser });
 });
 
@@ -304,10 +463,39 @@ router.get('/users/:id', (req, res) => {
  * @desc    Updates a user's profile.
  * @access  Protected (should have middleware to check if user is updating their own profile or is an admin)
  */
-router.put('/users/:id', (req, res) => {
+router.put('/users/:id', async (req, res) => {
   const { id } = req.params;
   const { name, email, password, role } = req.body;
 
+  // Try MongoDB first
+  if (isMongoDBConnected()) {
+    try {
+      const user = await User.findById(id);
+      if (!user) {
+        return res.status(404).json({ success: false, message: 'User not found' });
+      }
+
+      // Update only provided fields
+      if (name) user.name = name.trim();
+      if (email) user.email = email.toLowerCase().trim();
+      if (password) user.password = password;
+      if (role) user.role = role;
+
+      await user.save();
+
+      const { password: _, ...updatedUser } = user._doc;
+      console.log(`User Updated → ID: ${id} | Name: ${updatedUser.name}`);
+      return res.json({
+        success: true,
+        message: 'Profile updated successfully',
+        user: updatedUser
+      });
+    } catch (err) {
+      console.error('MongoDB user update error:', err);
+    }
+  }
+
+  // Fallback to JSON if MongoDB fails
   const usersFile = path.join(__dirname, '..', 'data', 'users.json');
   const users = readJSON(usersFile);
 
@@ -347,18 +535,32 @@ router.put('/users/:id', (req, res) => {
  * @desc    Get current user profile with enhanced data (academic, personal, preferences, security)
  * @access  Private
  */
-router.get('/profile/enhanced', requireLogin, (req, res) => {
+router.get('/profile/enhanced', requireLogin, async (req, res) => {
   try {
-    const usersFile = path.join(__dirname, '..', 'data', 'users.json');
-    const users = readJSON(usersFile);
-    const user = users.find(u => u.id === req.session.user.id);
+    let user = null;
+
+    // Try MongoDB first
+    if (isMongoDBConnected()) {
+      try {
+        user = await User.findById(req.session.user.id);
+      } catch (err) {
+        console.error('MongoDB enhanced profile fetch error:', err);
+      }
+    }
+
+    // Fallback to JSON if MongoDB fails or user not found
+    if (!user) {
+      const usersFile = path.join(__dirname, '..', 'data', 'users.json');
+      const users = readJSON(usersFile);
+      user = users.find(u => u.id === req.session.user.id);
+    }
     
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
     
     // Get base user data
-    const { password, ...safeUser } = user;
+    const { password, ...safeUser } = user._doc || user;
     
     // Enhance with academic data (from user data or defaults)
     const academicData = user.academic || {
@@ -417,7 +619,7 @@ router.get('/profile/enhanced', requireLogin, (req, res) => {
  * @desc    Update personal information
  * @access  Private
  */
-router.put('/profile/personal', requireLogin, (req, res) => {
+router.put('/profile/personal', requireLogin, async (req, res) => {
   try {
     const { dob, gender, parentContact, emergencyContact, residence } = req.body;
     
@@ -429,6 +631,40 @@ router.put('/profile/personal', requireLogin, (req, res) => {
       });
     }
     
+    // Try MongoDB first
+    if (isMongoDBConnected()) {
+      try {
+        const user = await User.findById(req.session.user.id);
+        if (!user) {
+          return res.status(404).json({ success: false, message: 'User not found' });
+        }
+        
+        // Update personal data
+        user.personal = {
+          dob,
+          gender,
+          parentContact,
+          emergencyContact,
+          residence: residence || user.personal?.residence
+        };
+        
+        // Save updated user data
+        await user.save();
+        
+        // Update session
+        req.session.user.personal = user.personal;
+        
+        return res.json({
+          success: true,
+          message: 'Personal information updated successfully',
+          personal: user.personal
+        });
+      } catch (err) {
+        console.error('MongoDB personal info update error:', err);
+      }
+    }
+    
+    // Fallback to JSON if MongoDB fails
     const usersFile = path.join(__dirname, '..', 'data', 'users.json');
     const users = readJSON(usersFile);
     const userIndex = users.findIndex(u => u.id === req.session.user.id);
@@ -470,7 +706,7 @@ router.put('/profile/personal', requireLogin, (req, res) => {
  * @desc    Update learning preferences
  * @access  Private
  */
-router.put('/profile/preferences', requireLogin, (req, res) => {
+router.put('/profile/preferences', requireLogin, async (req, res) => {
   try {
     const { learningStyle, favoriteSubjects, careerInterests, skillsToDevelop } = req.body;
     
@@ -482,6 +718,39 @@ router.put('/profile/preferences', requireLogin, (req, res) => {
       });
     }
     
+    // Try MongoDB first
+    if (isMongoDBConnected()) {
+      try {
+        const user = await User.findById(req.session.user.id);
+        if (!user) {
+          return res.status(404).json({ success: false, message: 'User not found' });
+        }
+        
+        // Update preferences
+        user.preferences = {
+          learningStyle,
+          favoriteSubjects,
+          careerInterests,
+          skillsToDevelop: skillsToDevelop || user.preferences?.skillsToDevelop
+        };
+        
+        // Save updated user data
+        await user.save();
+        
+        // Update session
+        req.session.user.preferences = user.preferences;
+        
+        return res.json({
+          success: true,
+          message: 'Learning preferences updated successfully',
+          preferences: user.preferences
+        });
+      } catch (err) {
+        console.error('MongoDB preferences update error:', err);
+      }
+    }
+    
+    // Fallback to JSON if MongoDB fails
     const usersFile = path.join(__dirname, '..', 'data', 'users.json');
     const users = readJSON(usersFile);
     const userIndex = users.findIndex(u => u.id === req.session.user.id);
@@ -522,10 +791,52 @@ router.put('/profile/preferences', requireLogin, (req, res) => {
  * @desc    Update security settings
  * @access  Private
  */
-router.put('/profile/security', requireLogin, (req, res) => {
+router.put('/profile/security', requireLogin, async (req, res) => {
   try {
     const { currentPassword, newPassword, enableTwoFactor } = req.body;
     
+    // Try MongoDB first
+    if (isMongoDBConnected()) {
+      try {
+        const user = await User.findById(req.session.user.id);
+        if (!user) {
+          return res.status(404).json({ success: false, message: 'User not found' });
+        }
+        
+        // Validate current password if changing password
+        if (newPassword && user.password !== currentPassword) {
+          return res.status(401).json({ success: false, message: 'Current password is incorrect' });
+        }
+        
+        // Update password if provided
+        if (newPassword) {
+          user.password = newPassword;
+          req.session.user.passwordChanged = true;
+        }
+        
+        // Update two-factor authentication setting
+        if (enableTwoFactor !== undefined) {
+          user.security = {
+            ...user.security,
+            twoFactorEnabled: !!enableTwoFactor
+          };
+          req.session.user.security = user.security;
+        }
+        
+        // Save updated user data
+        await user.save();
+        
+        return res.json({
+          success: true,
+          message: 'Security settings updated successfully',
+          security: user.security
+        });
+      } catch (err) {
+        console.error('MongoDB security update error:', err);
+      }
+    }
+    
+    // Fallback to JSON if MongoDB fails
     const usersFile = path.join(__dirname, '..', 'data', 'users.json');
     const users = readJSON(usersFile);
     const userIndex = users.findIndex(u => u.id === req.session.user.id);
@@ -704,23 +1015,37 @@ router.post('/logout-all', requireLogin, (req, res) => {
 // --------------------
 // DOWNLOAD USER DATA
 // --------------------
-router.get('/download-data', requireLogin, (req, res) => {
+router.get('/download-data', requireLogin, async (req, res) => {
   try {
-    const usersFile = path.join(__dirname, '..', 'data', 'users.json');
-    const users = readJSON(usersFile);
-    const user = users.find(u => u.id === req.session.user.id);
+    let user = null;
 
+    // Try MongoDB first
+    if (isMongoDBConnected()) {
+      try {
+        user = await User.findById(req.session.user.id);
+      } catch (err) {
+        console.error('MongoDB download data error:', err);
+      }
+    }
+
+    // Fallback to JSON if MongoDB fails or user not found
+    if (!user) {
+      const usersFile = path.join(__dirname, '..', 'data', 'users.json');
+      const users = readJSON(usersFile);
+      user = users.find(u => u.id === req.session.user.id);
+    }
+  
     if (!user) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
-
+  
     // Remove sensitive data
-    const { password, ...safeUser } = user;
-
+    const { password, ...safeUser } = user._doc || user;
+  
     // Set headers for file download
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Content-Disposition', 'attachment; filename=user-data.json');
-
+  
     res.json(safeUser);
   } catch (err) {
     console.error('Download data error:', err);
@@ -745,24 +1070,53 @@ router.post('/clear-cache', requireLogin, (req, res) => {
 // --------------------
 // REQUEST ACCOUNT DELETION
 // --------------------
-router.post('/request-deletion', requireLogin, (req, res) => {
+router.post('/request-deletion', requireLogin, async (req, res) => {
   try {
+    // Try MongoDB first
+    if (isMongoDBConnected()) {
+      try {
+        const user = await User.findById(req.session.user.id);
+        if (!user) {
+          return res.status(404).json({ success: false, message: 'User not found' });
+        }
+        
+        // Mark user as requested for deletion
+        user.accountStatus = 'deletion_requested';
+        user.deletionRequestedAt = new Date().toISOString();
+        
+        await user.save();
+        
+        // Destroy session
+        req.session.destroy(err => {
+          if (err) {
+            console.error('Error destroying session:', err);
+          }
+          res.clearCookie('connect.sid');
+        });
+        
+        return res.json({ success: true, message: 'Account deletion requested successfully' });
+      } catch (err) {
+        console.error('MongoDB request deletion error:', err);
+      }
+    }
+
+    // Fallback to JSON if MongoDB fails
     const usersFile = path.join(__dirname, '..', 'data', 'users.json');
     const users = readJSON(usersFile);
     const userIndex = users.findIndex(u => u.id === req.session.user.id);
-  
+   
     if (userIndex === -1) {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
-  
+   
     // Mark user as requested for deletion
     users[userIndex].accountStatus = 'deletion_requested';
     users[userIndex].deletionRequestedAt = new Date().toISOString();
-  
+   
     if (!writeJSON(usersFile, users)) {
       return res.status(500).json({ success: false, message: 'Failed to request account deletion' });
     }
-  
+   
     // Destroy session
     req.session.destroy(err => {
       if (err) {
@@ -770,7 +1124,7 @@ router.post('/request-deletion', requireLogin, (req, res) => {
       }
       res.clearCookie('connect.sid');
     });
-  
+   
     res.json({ success: true, message: 'Account deletion requested successfully' });
   } catch (err) {
     console.error('Request deletion error:', err);
@@ -795,11 +1149,26 @@ const writeNotifications = (data) => {
 };
 
 // Get all notifications for the current user
-router.get('/notifications', requireLogin, (req, res) => {
+router.get('/notifications', requireLogin, async (req, res) => {
   try {
-    const notifications = readNotifications();
-    const userNotifications = notifications.filter(n => n.userId === req.session.user.id);
-    res.json({ success: true, notifications: userNotifications });
+    let notifications = [];
+
+    // Try MongoDB first
+    if (isMongoDBConnected()) {
+      try {
+        notifications = await Notification.find({ userId: req.session.user.id });
+      } catch (err) {
+        console.error('MongoDB notifications fetch error:', err);
+      }
+    }
+
+    // Fallback to JSON if MongoDB fails
+    if (!notifications || notifications.length === 0) {
+      const jsonNotifications = readNotifications();
+      notifications = jsonNotifications.filter(n => n.userId === req.session.user.id);
+    }
+
+    res.json({ success: true, notifications: notifications });
   } catch (err) {
     console.error('Error fetching notifications:', err);
     res.status(500).json({ success: false, message: 'Failed to fetch notifications' });
@@ -807,13 +1176,37 @@ router.get('/notifications', requireLogin, (req, res) => {
 });
 
 // Create a new notification
-router.post('/notifications', requireLogin, (req, res) => {
+router.post('/notifications', requireLogin, async (req, res) => {
   try {
     const { title, message, priority, source, action } = req.body;
     if (!title || !message || !priority || !source) {
       return res.status(400).json({ success: false, message: 'Missing required fields' });
     }
-
+  
+    // Try MongoDB first
+    if (isMongoDBConnected()) {
+      try {
+        const newNotification = new Notification({
+          userId: req.session.user.id,
+          title,
+          message,
+          priority,
+          source,
+          action,
+          isRead: false,
+          isPinned: false,
+          createdAt: new Date().toISOString(),
+          reference: `NOTIF-${new Date().getFullYear()}-${Date.now()}`
+        });
+        
+        await newNotification.save();
+        return res.json({ success: true, notification: newNotification });
+      } catch (err) {
+        console.error('MongoDB notification creation error:', err);
+      }
+    }
+  
+    // Fallback to JSON if MongoDB fails
     const notifications = readNotifications();
     const newNotification = {
       id: notifications.length + 1,
@@ -828,7 +1221,7 @@ router.post('/notifications', requireLogin, (req, res) => {
       createdAt: new Date().toISOString(),
       reference: `NOTIF-${new Date().getFullYear()}-${notifications.length + 1}`
     };
-
+  
     notifications.push(newNotification);
     if (writeNotifications(notifications)) {
       res.json({ success: true, notification: newNotification });
@@ -842,16 +1235,34 @@ router.post('/notifications', requireLogin, (req, res) => {
 });
 
 // Mark a notification as read
-router.put('/notifications/:id/read', requireLogin, (req, res) => {
+router.put('/notifications/:id/read', requireLogin, async (req, res) => {
   try {
     const { id } = req.params;
+
+    // Try MongoDB first
+    if (isMongoDBConnected()) {
+      try {
+        const notification = await Notification.findById(id);
+        if (!notification || notification.userId !== req.session.user.id) {
+          return res.status(404).json({ success: false, message: 'Notification not found' });
+        }
+        
+        notification.isRead = true;
+        await notification.save();
+        return res.json({ success: true, notification: notification });
+      } catch (err) {
+        console.error('MongoDB notification read error:', err);
+      }
+    }
+
+    // Fallback to JSON if MongoDB fails
     const notifications = readNotifications();
     const notificationIndex = notifications.findIndex(n => n.id.toString() === id.toString() && n.userId === req.session.user.id);
-
+  
     if (notificationIndex === -1) {
       return res.status(404).json({ success: false, message: 'Notification not found' });
     }
-
+  
     notifications[notificationIndex].isRead = true;
     if (writeNotifications(notifications)) {
       res.json({ success: true, notification: notifications[notificationIndex] });
@@ -865,16 +1276,34 @@ router.put('/notifications/:id/read', requireLogin, (req, res) => {
 });
 
 // Pin a notification
-router.put('/notifications/:id/pin', requireLogin, (req, res) => {
+router.put('/notifications/:id/pin', requireLogin, async (req, res) => {
   try {
     const { id } = req.params;
+
+    // Try MongoDB first
+    if (isMongoDBConnected()) {
+      try {
+        const notification = await Notification.findById(id);
+        if (!notification || notification.userId !== req.session.user.id) {
+          return res.status(404).json({ success: false, message: 'Notification not found' });
+        }
+        
+        notification.isPinned = !notification.isPinned;
+        await notification.save();
+        return res.json({ success: true, notification: notification });
+      } catch (err) {
+        console.error('MongoDB notification pin error:', err);
+      }
+    }
+
+    // Fallback to JSON if MongoDB fails
     const notifications = readNotifications();
     const notificationIndex = notifications.findIndex(n => n.id.toString() === id.toString() && n.userId === req.session.user.id);
-
+  
     if (notificationIndex === -1) {
       return res.status(404).json({ success: false, message: 'Notification not found' });
     }
-
+  
     notifications[notificationIndex].isPinned = !notifications[notificationIndex].isPinned;
     if (writeNotifications(notifications)) {
       res.json({ success: true, notification: notifications[notificationIndex] });
@@ -888,16 +1317,33 @@ router.put('/notifications/:id/pin', requireLogin, (req, res) => {
 });
 
 // Delete a notification
-router.delete('/notifications/:id', requireLogin, (req, res) => {
+router.delete('/notifications/:id', requireLogin, async (req, res) => {
   try {
     const { id } = req.params;
+
+    // Try MongoDB first
+    if (isMongoDBConnected()) {
+      try {
+        const notification = await Notification.findById(id);
+        if (!notification || notification.userId !== req.session.user.id) {
+          return res.status(404).json({ success: false, message: 'Notification not found' });
+        }
+        
+        await Notification.findByIdAndDelete(id);
+        return res.json({ success: true, message: 'Notification deleted successfully' });
+      } catch (err) {
+        console.error('MongoDB notification delete error:', err);
+      }
+    }
+
+    // Fallback to JSON if MongoDB fails
     const notifications = readNotifications();
     const notificationIndex = notifications.findIndex(n => n.id.toString() === id.toString() && n.userId === req.session.user.id);
-
+  
     if (notificationIndex === -1) {
       return res.status(404).json({ success: false, message: 'Notification not found' });
     }
-
+  
     notifications.splice(notificationIndex, 1);
     if (writeNotifications(notifications)) {
       res.json({ success: true, message: 'Notification deleted successfully' });
@@ -911,11 +1357,26 @@ router.delete('/notifications/:id', requireLogin, (req, res) => {
 });
 
 // Get pinned notifications
-router.get('/notifications/pinned', requireLogin, (req, res) => {
+router.get('/notifications/pinned', requireLogin, async (req, res) => {
   try {
-    const notifications = readNotifications();
-    const pinnedNotifications = notifications.filter(n => n.userId === req.session.user.id && n.isPinned);
-    res.json({ success: true, notifications: pinnedNotifications });
+    let notifications = [];
+
+    // Try MongoDB first
+    if (isMongoDBConnected()) {
+      try {
+        notifications = await Notification.find({ userId: req.session.user.id, isPinned: true });
+      } catch (err) {
+        console.error('MongoDB pinned notifications fetch error:', err);
+      }
+    }
+
+    // Fallback to JSON if MongoDB fails
+    if (!notifications || notifications.length === 0) {
+      const jsonNotifications = readNotifications();
+      notifications = jsonNotifications.filter(n => n.userId === req.session.user.id && n.isPinned);
+    }
+
+    res.json({ success: true, notifications: notifications });
   } catch (err) {
     console.error('Error fetching pinned notifications:', err);
     res.status(500).json({ success: false, message: 'Failed to fetch pinned notifications' });
@@ -923,11 +1384,26 @@ router.get('/notifications/pinned', requireLogin, (req, res) => {
 });
 
 // Get unread notifications
-router.get('/notifications/unread', requireLogin, (req, res) => {
+router.get('/notifications/unread', requireLogin, async (req, res) => {
   try {
-    const notifications = readNotifications();
-    const unreadNotifications = notifications.filter(n => n.userId === req.session.user.id && !n.isRead);
-    res.json({ success: true, notifications: unreadNotifications });
+    let notifications = [];
+
+    // Try MongoDB first
+    if (isMongoDBConnected()) {
+      try {
+        notifications = await Notification.find({ userId: req.session.user.id, isRead: false });
+      } catch (err) {
+        console.error('MongoDB unread notifications fetch error:', err);
+      }
+    }
+
+    // Fallback to JSON if MongoDB fails
+    if (!notifications || notifications.length === 0) {
+      const jsonNotifications = readNotifications();
+      notifications = jsonNotifications.filter(n => n.userId === req.session.user.id && !n.isRead);
+    }
+
+    res.json({ success: true, notifications: notifications });
   } catch (err) {
     console.error('Error fetching unread notifications:', err);
     res.status(500).json({ success: false, message: 'Failed to fetch unread notifications' });
@@ -935,16 +1411,35 @@ router.get('/notifications/unread', requireLogin, (req, res) => {
 });
 
 // Acknowledge a notification
-router.put('/notifications/:id/acknowledge', requireLogin, (req, res) => {
+router.put('/notifications/:id/acknowledge', requireLogin, async (req, res) => {
   try {
     const { id } = req.params;
+
+    // Try MongoDB first
+    if (isMongoDBConnected()) {
+      try {
+        const notification = await Notification.findById(id);
+        if (!notification || notification.userId !== req.session.user.id) {
+          return res.status(404).json({ success: false, message: 'Notification not found' });
+        }
+        
+        notification.isAcknowledged = true;
+        notification.acknowledgedAt = new Date().toISOString();
+        await notification.save();
+        return res.json({ success: true, notification: notification });
+      } catch (err) {
+        console.error('MongoDB notification acknowledge error:', err);
+      }
+    }
+
+    // Fallback to JSON if MongoDB fails
     const notifications = readNotifications();
     const notificationIndex = notifications.findIndex(n => n.id.toString() === id.toString() && n.userId === req.session.user.id);
-
+  
     if (notificationIndex === -1) {
       return res.status(404).json({ success: false, message: 'Notification not found' });
     }
-
+  
     notifications[notificationIndex].isAcknowledged = true;
     notifications[notificationIndex].acknowledgedAt = new Date().toISOString();
     if (writeNotifications(notifications)) {

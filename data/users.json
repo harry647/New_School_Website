@@ -1,20 +1,6 @@
 [
   {
     "id": 1,
-    "name": "harry oginga",
-    "email": "harryoginga@gmail.com",
-    "password": "harry2007",
-    "role": "clubs"
-  },
-  {
-    "id": 2,
-    "name": "harry oginga",
-    "email": "harryoginga@example.com",
-    "password": "harry2007",
-    "role": "e-learning"
-  },
-  {
-    "id": 3,
     "name": "lucy okeyo",
     "email": "JohnDoe@example.com",
     "password": "",
